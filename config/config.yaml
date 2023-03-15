@@ -1,0 +1,8 @@
+# Todo: populate config - not use right now
+http:
+  host: 'localhost'
+  port: 8080
+
+db:
+  elastic:
+    node: 'localhost'
