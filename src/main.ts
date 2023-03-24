@@ -8,12 +8,15 @@ const configService = new ConfigService();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  Sentry.init({
-    dsn: configService.get('SENTRY_DNS'),
-    // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
-    // We recommend adjusting this value in production
-    tracesSampleRate: 1.0,
-  });
+  const sentryDns = configService.get('SENTRY_DNS');
+  if (sentryDns) {
+    Sentry.init({
+      dsn: sentryDns,
+      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+      // We recommend adjusting this value in production
+      tracesSampleRate: 1.0,
+    });
+  }
 
   const config = new DocumentBuilder()
     .setTitle('API Eclaire')
