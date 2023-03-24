@@ -1,0 +1,29 @@
+accounts: [
+  {
+    id: 1,
+    firstname: 'Antoine',
+    lastname: 'Buzaud',
+    email: 'antoine.buzaud@octo.com',
+    password:
+      '$argon2id$v=19$m=65536,t=3,p=4$0dIK8qRTj8BfMFfTjJardA$WvhnKQQVNNMm4vaHADgXksCbhlOUz6GS8ua91zbegKc',
+    roles: ['admin'],
+  },
+  {
+    id: 2,
+    firstname: 'Fabien',
+    lastname: 'Mercier',
+    email: 'fabien.mercier@octo.com',
+    password:
+      '$argon2id$v=19$m=65536,t=3,p=4$tTRclOzD0DGmLTaSNvAGHQ$4kIBYl+fawGTmV1IOVkv+kiJLJJFcUIOno9a96nN9FQ',
+    roles: ['admin'],
+  },
+  {
+    id: 3,
+    firstname: 'Audrey',
+    lastname: 'Moisan',
+    email: 'audrey.moisan@octo.com',
+    password:
+      '$argon2id$v=19$m=65536,t=3,p=4$qsnk7gXe+9n6RRiTM7utwA$G2DqsjBoQFNDW2w8HAsEt6LjPNzJSXMsuRftyrIK9OQ',
+    roles: ['admin'],
+  }
+]
