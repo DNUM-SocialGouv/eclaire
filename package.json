@@ -33,6 +33,7 @@
     "@sentry/minimal": "^6.19.7",
     "@sentry/node": "^7.38.0",
     "@sentry/tracing": "^7.38.0",
+    "argon2": "^0.30.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "js-yaml": "^4.1.0",
