@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "buildCommand": "npm run transpile",
+  "checkers": ["typescript"],
+  "disableTypeChecks": true,
+  "ignorePatterns": [".github", ".vscode", ".yarn", "coverage", "dist"],
+  "ignoreStatic": false,
+  "jest": {
+    "config": {
+      "moduleFileExtensions": [
+        "ts",
+        "js"
+      ],
+      "testMatch": [
+        "<rootDir>/src/**/*(*.)@(test).js"
+      ]
+    }
+  },
+  "mutate": [
+    "src/**/*.ts",
+    "!src/**/*.test.ts"
+  ],
+  "packageManager": "npm",
+  "testRunner": "jest"
+}

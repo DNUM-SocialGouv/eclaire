@@ -1,0 +1,104 @@
+{
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
+  ],
+  "parserOptions": {
+    "project": ["./tsconfig.json"]
+  },
+  "env": {
+    "es2022": true,
+    "node": true,
+    "jest": true
+  },
+  "ignorePatterns": [
+    "dist",
+    "jest.config.ts"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["unused-imports"],
+  "rules": {
+    "array-bracket-newline": ["error", { "multiline": true }],
+    "array-bracket-spacing": ["error", "never"],
+    "array-element-newline": ["error", "consistent"],
+    "arrow-parens": ["error", "always"],
+    "arrow-spacing": "error",
+    "brace-style": "error",
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always-multiline",
+        "imports": "always-multiline",
+        "objects": "always-multiline"
+      }
+    ],
+    "comma-spacing": ["error", {"before": false, "after": true}],
+    "default-case": "error",
+    "eol-last": ["error", "always"],
+    "eqeqeq": "error",
+    "function-paren-newline": ["error", "consistent"],
+    "id-match": "error",
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "jsx-quotes": ["error", "prefer-double"],
+    "keyword-spacing": "error",
+    "max-len": [
+      "error",
+      {
+        "code": 160,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true
+      }
+    ],
+    "no-console": "error",
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0, "maxBOF": 0 }],
+    "no-multi-spaces": "error",
+    "no-param-reassign": "error",
+    "no-tabs": "error",
+    "no-trailing-spaces": "error",
+    "no-whitespace-before-property": "error",
+    "object-curly-spacing": ["error", "always"],
+    "object-curly-newline": ["error", { "multiline": true }],
+    "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }],
+    "prefer-const": "error",
+    "quote-props": ["error", "as-needed"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "semi": ["error", "never"],
+    "sort-keys": ["error"],
+    "space-before-blocks": "error",
+    "yoda": "error",
+    "import/newline-after-import": "error",
+    "import/no-extraneous-dependencies": "error",
+    "import/no-mutable-exports": "error",
+    "import/order": [
+      "warn",
+      {
+        "groups": [["builtin", "external"], ["internal", "parent", "sibling", "index", "object", "type"]],
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
+      }
+    ],
+    "@typescript-eslint/ban-ts-comment": "off",
+    "unused-imports/no-unused-imports": "error"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts?(x)"],
+      "extends": [
+        "plugin:jest/all",
+        "plugin:jest-formatting/strict"
+      ],
+      "rules": {
+        "jest-formatting/padding-around-all": "off",
+        "jest/max-expects": "off",
+        "jest/no-conditional-expect": "off",
+        "jest/no-hooks": "off",
+        "jest/require-hook": "off",
+        "jest/prefer-expect-assertions": "off"
+      }
+    }
+  ]
+}
