@@ -6,33 +6,40 @@ import {
   Request,
   UseGuards,
   UseInterceptors,
-} from '@nestjs/common';
-import { SentryInterceptor } from './monitoring/sentry/sentry.interceptor';
-import { Public } from './auth/public.decorator';
-import { LocalAuthGuard } from './auth/local-auth-guard';
-import { AuthService } from './auth/auth.service';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
+} from '@nestjs/common'
+
+import { AuthService } from './auth/auth.service'
+import { JwtAuthGuard } from './auth/jwt-auth.guard'
+import { LocalAuthGuard } from './auth/local-auth-guard'
+import { Public } from './auth/public.decorator'
+import { SentryInterceptor } from './monitoring/sentry/sentry.interceptor'
+import { User } from './users/user'
 
 @UseInterceptors(SentryInterceptor)
 @Controller()
 export class AppController {
   constructor(private authService: AuthService) {}
 
-  @Get()
   @Redirect('api')
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  getHome(): void {}
+  @Get()
+  getHome(): void {
+    return
+  }
 
   @Public()
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
-  async login(@Request() req): Promise<object> {
-    return this.authService.login(req.user);
+  login(@Request() request: ParameterDecorator) {
+    // @ts-ignore
+    // eslint-disable-next-line
+    return this.authService.login(new User(request.user))
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
-    return { email: req.user.email };
+  getProfile(@Request() request: ParameterDecorator) {
+    // @ts-ignore
+    // eslint-disable-next-line
+    return { email: request.user.email }
   }
 }

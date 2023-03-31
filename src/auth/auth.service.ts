@@ -1,40 +1,41 @@
-import { Injectable } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
-import { User } from '../users/user';
-import { JwtService } from '@nestjs/jwt';
-import * as argon2 from 'argon2';
+import { Injectable } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import * as argon2 from 'argon2'
+
+import { User } from '../users/user'
+import { UsersService } from '../users/users.service'
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService,
+    private jwtService: JwtService
   ) {}
 
   async encryptPassword(password: string): Promise<object> {
-    const hash = await argon2.hash(password);
-    return { hash: hash };
+    const hash = await argon2.hash(password)
+    return { hash: hash }
   }
 
-  async comparePassword(password: string, user: User): Promise<boolean> {
-    return await argon2.verify(user.password, password);
+  async comparePassword(password: string, user: Partial<User>): Promise<boolean> {
+    return await argon2.verify(user.password, password)
   }
 
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user: User = await this.usersService.findOne(email);
+  async validateUser(email: string, pass: string): Promise<Partial<User> | undefined> {
+    const user: Partial<User> | undefined = this.usersService.findOne(email)
     const isSamePassword = user
       ? await this.comparePassword(pass, user)
-      : false;
+      : false
 
     if (isSamePassword) {
-      const { password, ...result } = user;
-      return result;
+      const { ...result } = user
+      return result
     }
+
+    return undefined
   }
 
-  async login(user: User) {
-    return {
-      access_token: this.jwtService.sign({ email: user.email, sub: user.id }),
-    };
+  login(user: User) {
+    return { access_token: this.jwtService.sign({ email: user.email, sub: user.id }) }
   }
 }

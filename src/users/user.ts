@@ -1,31 +1,32 @@
-import { UserInterface } from '../interfaces/user.interface';
-import { IsArray, IsNotEmpty, IsStrongPassword } from 'class-validator';
-import { Exclude } from 'class-transformer';
+import { Exclude } from 'class-transformer'
+import { IsArray, IsNotEmpty, IsStrongPassword } from 'class-validator'
+
+import { UserInterface } from '../interfaces/user.interface'
 
 export class User implements UserInterface {
   constructor(partial: Partial<User>) {
-    Object.assign(this, partial);
+    Object.assign(this, partial)
   }
 
-  id: number;
+  id!: number
 
-  firstname?: string;
+  firstname?: string
 
-  lastname?: string;
+  lastname?: string
 
   @IsNotEmpty()
-  email: string;
+    email!: string
 
-  entity: string;
+  entity!: string
 
   @IsArray()
-  roles: string[];
+    roles!: string[]
 
   @IsStrongPassword()
   @Exclude()
-  password: string;
+    password!: string
 
-  createdAt: Date;
+  createdAt!: Date
 
-  updatedAt: Date;
+  updatedAt!: Date
 }

@@ -1,0 +1,13 @@
+{
+  "env": {
+    "NODE_ENV": {
+      "value": "review-app"
+    }
+  },
+  "formation": {
+    "web": {
+      "amount": 2,
+      "size": "S"
+    }
+  }
+}

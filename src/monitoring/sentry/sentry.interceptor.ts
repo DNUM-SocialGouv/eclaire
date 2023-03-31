@@ -3,18 +3,17 @@ import {
   ExecutionContext,
   Injectable,
   NestInterceptor,
-} from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import * as Sentry from '@sentry/minimal';
+} from '@nestjs/common'
+import * as Sentry from '@sentry/minimal'
+import { tap } from 'rxjs/operators'
 
 @Injectable()
 export class SentryInterceptor implements NestInterceptor {
-  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+  intercept(_: ExecutionContext, next: CallHandler) {
     return next.handle().pipe(
       tap(null, (exception) => {
-        Sentry.captureException(exception);
-      }),
-    );
+        Sentry.captureException(exception)
+      })
+    )
   }
 }

@@ -1,6 +1,0 @@
-{
-  "singleQuote": true,
-  "trailingComma": "all",
-  "prettier.tabWidth": 2,
-  "prettier.useTabs": false
-}
