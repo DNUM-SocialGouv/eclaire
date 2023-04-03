@@ -1,23 +1,13 @@
-import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
+import { NestExpressApplication } from '@nestjs/platform-express'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import * as Sentry from '@sentry/node'
 
 import { AppModule } from './app.module'
 
-const configService = new ConfigService()
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create<NestExpressApplication>(AppModule)
 
-  const sentryDns: string = configService.get('SENTRY_DNS')
-  if (sentryDns) {
-    Sentry.init({
-      dsn: sentryDns,
-      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
-      // We recommend adjusting this value in production
-      tracesSampleRate: 1.0,
-    })
-  }
+  app.disable('x-powered-by')
 
   const config = new DocumentBuilder()
     .setTitle('API Eclaire')
