@@ -9,7 +9,7 @@ export class SentryController {
   constructor(private sentryService: SentryService) {}
 
   @Get('sentry')
-  sentry() {
+  getSentry() {
     this.sentryService.setError()
   }
 }
