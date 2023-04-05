@@ -1,0 +1,24 @@
+[
+  {
+    "uuid": "123",
+    "public_title": {
+      "value": "Circuler l'ADN pour améliorer le résultat de l'oncologie Patient. Une étude randomisée",
+      "acronym": "AGADIR"
+    },
+    "scientific_title": {
+      "value": "le meme titre mais en scientifique",
+      "acronym": "AGADIR"
+    }
+  },
+  {
+    "uuid": "456",
+    "public_title": {
+      "value": "",
+      "acronym": ""
+    },
+    "scientific_title": {
+      "value": "Un second titre scientific",
+      "acronym": "USTC"
+    }
+  }
+]
