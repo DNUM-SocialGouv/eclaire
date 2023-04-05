@@ -8,7 +8,7 @@ export class ClinicalTrialService {
 
   constructor(data: ClinicalTrial[]) {
     data.forEach((trial) => {
-      this.clinicalTrials.push(new ClinicalTrial(trial.uuid, trial.public_title, trial.scientific_title))
+      this.clinicalTrials.push(new ClinicalTrial(trial))
     })
   }
 

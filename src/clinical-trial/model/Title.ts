@@ -1,6 +1,13 @@
+import { ApiProperty } from '@nestjs/swagger'
+
 export class Title {
-  constructor(
-    readonly value: string,
-    readonly acronym: string
-  ) {}
+  constructor(partial: Partial<Title>) {
+    Object.assign(this, partial)
+  }
+
+  @ApiProperty({ example: 'Voici un titre public de l\'essai clinique' })
+  readonly value: string
+
+  @ApiProperty({ example: 'VTPEC' })
+  readonly acronym: string
 }

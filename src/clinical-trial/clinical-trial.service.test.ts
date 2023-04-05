@@ -42,15 +42,17 @@ describe('clinicalTrialService', () => {
   })
 
   it('should find one clinical trial', () => {
-    const publicTitle: Title = {
-      acronym: 'RSC',
-      value: 'Resist, scotty, core!',
-    }
-    const scientificTitle: Title = {
-      acronym: 'RSC',
-      value: 'Try draining rhubarb fritters flavored with bourbon.',
-    }
-    const expected: ClinicalTrial = new ClinicalTrial('123', publicTitle, scientificTitle)
+    const expected: ClinicalTrial = new ClinicalTrial({
+      public_title: {
+        acronym: 'RSC',
+        value: 'Resist, scotty, core!',
+      } as Title,
+      scientific_title: {
+        acronym: 'RSC',
+        value: 'Try draining rhubarb fritters flavored with bourbon.',
+      } as Title,
+      uuid: '123',
+    })
 
     expect(service.findOne('123')).toStrictEqual(expected)
   })
