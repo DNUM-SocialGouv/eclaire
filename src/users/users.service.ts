@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Request } from 'express'
 import { readFileSync } from 'fs'
 import * as yaml from 'js-yaml'
 import { join } from 'path'
@@ -36,5 +38,9 @@ export class UsersService {
 
   findOne(email: string): User | undefined {
     return this.users.find((user: User) => user.email === email)
+  }
+
+  getFromRequest(request: Request): User | undefined {
+    return new User(request.user)
   }
 }
