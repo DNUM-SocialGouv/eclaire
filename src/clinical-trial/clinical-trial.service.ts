@@ -1,13 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 
-import data from './clinical-trials.json'
 import { ClinicalTrial } from './model/ClinicalTrial'
 
 @Injectable()
 export class ClinicalTrialService {
   private readonly clinicalTrials: ClinicalTrial[] = []
 
-  constructor() {
+  constructor(data: ClinicalTrial[]) {
     data.forEach((trial) => {
       this.clinicalTrials.push(new ClinicalTrial(trial.uuid, trial.public_title, trial.scientific_title))
     })
