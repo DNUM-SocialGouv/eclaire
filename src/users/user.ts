@@ -1,9 +1,7 @@
 import { Exclude } from 'class-transformer'
 import { IsArray, IsNotEmpty, IsStrongPassword } from 'class-validator'
 
-import { UserInterface } from '../interfaces/user.interface'
-
-export class User implements UserInterface {
+export class User {
   constructor(partial: Partial<User>) {
     Object.assign(this, partial)
   }
@@ -17,16 +15,10 @@ export class User implements UserInterface {
   @IsNotEmpty()
     email!: string
 
-  entity!: string
-
   @IsArray()
     roles!: string[]
 
   @IsStrongPassword()
   @Exclude()
     password!: string
-
-  createdAt!: Date
-
-  updatedAt!: Date
 }

@@ -17,12 +17,12 @@ export class AuthService {
     return { hash: hash }
   }
 
-  async comparePassword(password: string, user: Partial<User>): Promise<boolean> {
+  async comparePassword(password: string, user: User): Promise<boolean> {
     return await argon2.verify(user.password, password)
   }
 
-  async validateUser(email: string, pass: string): Promise<Partial<User> | undefined> {
-    const user: Partial<User> | undefined = this.usersService.findOne(email)
+  async validateUser(email: string, pass: string): Promise<User | undefined> {
+    const user: User | undefined = this.usersService.findOne(email)
     const isSamePassword = user
       ? await this.comparePassword(pass, user)
       : false
