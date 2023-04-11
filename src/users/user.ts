@@ -1,23 +1,33 @@
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger'
 import { Exclude } from 'class-transformer'
-import { IsArray, IsNotEmpty, IsStrongPassword } from 'class-validator'
+import { IsArray, IsNotEmpty, IsNumber, IsString, IsStrongPassword } from 'class-validator'
 
 export class User {
   constructor(partial: Partial<User>) {
     Object.assign(this, partial)
   }
 
-  id!: number
+  @ApiHideProperty()
+  @IsNumber()
+    id!: number
 
-  firstname?: string
+  @IsString()
+    firstname?: string
 
-  lastname?: string
+  @IsString()
+    lastname?: string
 
+  @IsString()
+    organization?: string
+
+  @ApiProperty({ example: 'monemail@example.com' })
   @IsNotEmpty()
     email!: string
 
   @IsArray()
     roles!: string[]
 
+  @ApiProperty({ example: '!monSuperMotDePasseSécursé1234' })
   @IsStrongPassword()
   @Exclude()
     password!: string
