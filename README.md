@@ -109,11 +109,9 @@ yarn bash:production
 - Facile d'utilisation
 - CI gratuite
 
-### Écrire le code en Français (30/03/23)
+### Écrire le code en Anglais (30/03/23)
 
-- Métier en Français
-- N'a pas vocation à s'exporter à l'étranger
-- Diminutation de la charge cognitive
+- Audit OMS : lecture du code
 
 ### Outils d'observabilité : Sentry (30/03/23)
 

@@ -1,68 +1,75 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 
-import { ClinicalTrialService } from './clinical-trial.service'
-import { ClinicalTrial } from './model/ClinicalTrial'
-import { Title } from './model/Title'
+import { DbClinicalTrialRepository } from './clinical-trial.repository'
+import { ClinicalTrial } from './entities/ClinicalTrial'
+import { Title } from './entities/Title'
+import { ClinicalTrialModel } from './model/ClinicalTrialModel'
+import { TitleModel } from './model/TitleModel'
 
-describe('clinicalTrialService', () => {
-  let service: ClinicalTrialService
+describe('clinical trial service', () => {
+  it('should retrieve one clinical trial', async () => {
+    // GIVEN
+    const service = await createService()
+    const clinicalTrial = new ClinicalTrial(
+      new Title(
+        'Resist, scotty, core!',
+        'RSC'
+      ),
+      new Title(
+        'Try draining rhubarb fritters flavored with bourbon.',
+        'RSC'
+      )
+    )
 
-  beforeEach(async () => {
-    const data = [
-      {
-        public_title: {
-          acronym: 'RSC',
-          value: 'Resist, scotty, core!',
-        },
-        scientific_title: {
-          acronym: 'RSC',
-          value: 'Try draining rhubarb fritters flavored with bourbon.',
-        },
-        uuid: '123',
-      },
-    ]
+    // WHEN
+    const expectedClinicalTrial = service.findOne('123')
 
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        {
-          provide: ClinicalTrialService,
-          useFactory: () => {
-            return new ClinicalTrialService(data)
-          },
-        },
-      ],
-    }).compile()
-
-    service = module.get<ClinicalTrialService>(ClinicalTrialService)
+    // THEN
+    expect(expectedClinicalTrial).toStrictEqual(clinicalTrial)
   })
 
-  it('should be defined', () => {
-    expect(service).toBeDefined()
-  })
+  it('should return a 404 error if no clinical trial exist', async () => {
+    // GIVEN
+    const service = await createService()
+    const unknownUuid = '9'
 
-  it('should find one clinical trial', () => {
-    const expected: ClinicalTrial = new ClinicalTrial({
-      public_title: {
-        acronym: 'RSC',
-        value: 'Resist, scotty, core!',
-      } as Title,
-      scientific_title: {
-        acronym: 'RSC',
-        value: 'Try draining rhubarb fritters flavored with bourbon.',
-      } as Title,
-      uuid: '123',
-    })
-
-    expect(service.findOne('123')).toStrictEqual(expected)
-  })
-
-  it('should find return a 404 error if no trial exist', () => {
     try {
-      service.findOne('9')
+      // WHEN
+      service.findOne(unknownUuid)
       throw new Error('Should not be triggered')
     } catch (error) {
+      // THEN
       expect(error).toBeInstanceOf(NotFoundException)
     }
   })
 })
+
+async function createService() {
+  const clinicalTrialsModel = [
+    new ClinicalTrialModel({
+      public_title: new TitleModel({
+        acronym: 'RSC',
+        value: 'Resist, scotty, core!',
+      }),
+      scientific_title: new TitleModel({
+        acronym: 'RSC',
+        value: 'Try draining rhubarb fritters flavored with bourbon.',
+      }),
+      uuid: '123',
+    }),
+  ]
+
+  const module: TestingModule = await Test.createTestingModule({
+    providers: [
+      {
+        provide: DbClinicalTrialRepository,
+        useFactory: () => {
+          return new DbClinicalTrialRepository(clinicalTrialsModel)
+        },
+      },
+    ],
+  }).compile()
+
+  return module.get<DbClinicalTrialRepository>(DbClinicalTrialRepository)
+}

@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-export class Title {
-  constructor(partial: Partial<Title>) {
-    Object.assign(this, partial)
+export class TitleModel {
+  constructor(titleModel: TitleModel) {
+    Object.assign(this, titleModel)
   }
 
   @ApiProperty({ example: 'Voici un titre public de l\'essai clinique' })
