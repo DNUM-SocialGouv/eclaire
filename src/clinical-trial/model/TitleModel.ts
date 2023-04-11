@@ -5,9 +5,15 @@ export class TitleModel {
     Object.assign(this, titleModel)
   }
 
-  @ApiProperty({ example: 'Voici un titre public de l\'essai clinique' })
+  @ApiProperty({
+    description: 'Titre simplifié de l’essai clinique à destination du grand public',
+    example: 'Circuler l’ADN pour améliorer le résultat de l’oncologie patient',
+  })
   readonly value: string
 
-  @ApiProperty({ example: 'VTPEC' })
+  @ApiProperty({
+    description : 'Initiales qui permettent d’identifier une recherche clinique (tous les essais clinique n’en ont pas forcément)',
+    example: 'AGADIR',
+  })
   readonly acronym: string
 }

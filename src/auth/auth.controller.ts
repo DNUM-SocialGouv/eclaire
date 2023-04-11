@@ -17,10 +17,10 @@ import { User } from '../users/user'
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @ApiOperation({ summary: 'Permet de se connecter avec ses identifiants (email et mot de passe).' })
+  @ApiOperation({ summary: 'Permet de se connecter avec ses identifiants (e-mail et mot de passe).' })
   @ApiBody({ type: User })
   @ApiCreatedResponse({
-    description: 'La connection est réussi et un token Bearer JWT vous est retourné. Félicitation ! Il devra être utilisé pour vous authentifier sur toutes les autres requêtes de l\'api. Pour cela, il faut ajouter le header suivant sur les requêtes : "Authorization: Bearer mon_token_bearer"',
+    description: 'La connexion est réussi et un token Bearer JWT vous est retourné. Félicitation ! Il devra être utilisé pour vous authentifier sur toutes les autres requêtes de l’API. Pour cela, il faut ajouter le header suivant sur les requêtes : "Authorization: Bearer mon_token_bearer"',
     schema: {
       properties: {
         access_token: {
@@ -30,8 +30,8 @@ export class AuthController {
       },
     },
   })
-  @ApiNotFoundResponse({ description: 'Aucun utilisateur n\'a été trouvé. Veuillez vérifier vos identifiants.' })
-  @ApiUnauthorizedResponse({ description: 'Vous n\'êtes pas authentifier. Veuillez vérifier vos identifiants.' })
+  @ApiNotFoundResponse({ description: 'Aucun utilisateur n’a été trouvé. Veuillez vérifier vos identifiants.' })
+  @ApiUnauthorizedResponse({ description: 'Vous n’êtes pas authentifié. Veuillez vérifier vos identifiants.' })
   @ApiTags('Authentication')
   @Public()
   @UseGuards(LocalAuthGuard)

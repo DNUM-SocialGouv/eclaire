@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 
 import { ClinicalTrial } from './entities/ClinicalTrial'
 import { ClinicalTrialRepository } from './entities/ClinicalTrialRepository'
+import { RecruitmentStatus } from './entities/RecruitmentStatus'
 import { Title } from './entities/Title'
 import { ClinicalTrialModel } from './model/ClinicalTrialModel'
 
@@ -28,7 +29,8 @@ export class DbClinicalTrialRepository implements ClinicalTrialRepository {
   private buildClinicalTrial(clinicalTrialModel: ClinicalTrialModel): ClinicalTrial {
     return new ClinicalTrial(
       new Title(clinicalTrialModel.public_title.value, clinicalTrialModel.public_title.acronym),
-      new Title(clinicalTrialModel.scientific_title.value, clinicalTrialModel.scientific_title.acronym)
+      new Title(clinicalTrialModel.scientific_title.value, clinicalTrialModel.scientific_title.acronym),
+      clinicalTrialModel.recruitment_status as RecruitmentStatus
     )
   }
 }

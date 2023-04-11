@@ -17,7 +17,7 @@ export class UsersService {
     this.loadUsers()
   }
 
-  private loadUsers(): void {
+  private loadUsers() {
     const accountsConfig = yaml.load(
       readFileSync(USERS_CONFIG_PATH, 'utf8')
     ) as Record<string, string>
@@ -30,10 +30,6 @@ export class UsersService {
         this.users.push(new User(user))
       })
     }
-  }
-
-  findAll(): object {
-    return this.users
   }
 
   findOne(email: string): User | undefined {
