@@ -14,6 +14,18 @@ export class ClinicalTrialModel {
   @ApiProperty()
   readonly public_title: TitleModel
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Titre officiel de l’essai clinique',
+    example: {
+      acronym: 'AGADIR',
+      value: 'Circuler l’ADN pour améliorer le résultat de l’oncologie patient. Une étude randomisée',
+    },
+  })
   readonly scientific_title: TitleModel
+
+  @ApiProperty({
+    description: 'Il s’agit du statut de recrutement de l’essai clinique (cela précise si le recrutement est toujours actif)',
+    example: 'RECRUITING',
+  })
+  readonly recruitment_status: string
 }

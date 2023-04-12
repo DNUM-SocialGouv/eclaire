@@ -3,7 +3,7 @@
   "buildCommand": "npm run transpile",
   "checkers": ["typescript"],
   "disableTypeChecks": true,
-  "ignorePatterns": [".github", ".vscode", ".yarn", "coverage", "dist"],
+  "ignorePatterns": [".github", ".vscode", ".yarn", "coverage", "dist", "reports", "test"],
   "ignoreStatic": false,
   "jest": {
     "config": {
@@ -18,8 +18,13 @@
   },
   "mutate": [
     "src/**/*.ts",
-    "!src/**/*.test.ts"
+    "!src/**/*.test.ts",
+    "!src/main.ts",
+    "!src/app.*.ts",
+    "!src/sentry/*.ts",
+    "!src/swagger/*.ts"
   ],
   "packageManager": "npm",
+  "reporters": ["html"],
   "testRunner": "jest"
 }

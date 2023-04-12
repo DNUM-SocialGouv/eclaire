@@ -1,0 +1,6 @@
+export enum RecruitmentStatus {
+  RECRUITING = 'RECRUITING',
+  SCHEDULED = 'SCHEDULED',
+  COMPLETED = 'COMPLETED',
+  UNAVAILABLE = 'UNAVAILABLE'
+}

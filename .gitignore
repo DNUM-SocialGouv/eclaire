@@ -47,3 +47,4 @@ lerna-debug.log*
 .env
 .vscode
 .stryker-tmp
+reports

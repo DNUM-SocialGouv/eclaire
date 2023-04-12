@@ -21,7 +21,7 @@ export class ClinicalTrialController {
   @ApiOperation({ summary: 'Récupère un essai clinique depuis son identifiant unique.' })
   @Get(':uuid')
   @ApiOkResponse({ description: 'Un essai clinique a été trouvé', type: [ClinicalTrialModel] })
-  @ApiNotFoundResponse({ description: 'Aucun essai clinique n\'a été trouvé' })
+  @ApiNotFoundResponse({ description: 'Aucun essai clinique n’a été trouvé' })
   getOne(@Param('uuid') uuid: string, @Res() res: Response): void {
     const clinicalTrial = this.clinicalTrialService.findOne(uuid)
 
