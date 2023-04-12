@@ -3,8 +3,10 @@ import { Test, TestingModule } from '@nestjs/testing'
 
 import { DbClinicalTrialRepository } from './clinical-trial.repository'
 import { ClinicalTrial } from './entities/ClinicalTrial'
-import { RecruitmentStatus } from './entities/RecruitmentStatus'
+import { StudyType } from './entities/StudyType'
 import { Title } from './entities/Title'
+import { Phase } from './enum/Phase.enum'
+import { RecruitmentStatus } from './enum/RecruitmentStatus.enum'
 import { ClinicalTrialModel } from './model/ClinicalTrialModel'
 import { ClinicalTrialModelTestingFactory } from './model/ClinicalTrialModelTestingFactory'
 import { TitleModel } from './model/TitleModel'
@@ -37,7 +39,8 @@ describe('clinical trial repository', () => {
         'Try draining rhubarb fritters flavored with bourbon.',
         'RSC'
       ),
-      RecruitmentStatus.RECRUITING
+      RecruitmentStatus.RECRUITING,
+      new StudyType()
     )
     expect(expectedClinicalTrial).toStrictEqual(clinicalTrial)
   })
@@ -69,8 +72,66 @@ describe('clinical trial repository', () => {
         'Try draining rhubarb fritters flavored with bourbon.',
         'RSC'
       ),
-      recruitmentStatus
+      recruitmentStatus,
+      new StudyType()
     )
+    expect(expectedClinicalTrial).toStrictEqual(clinicalTrial)
+  })
+
+  it('should retrieve a Phase I', async () => {
+    // GIVEN
+    const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({ study_type: new StudyType({ phase: Phase.PHASE_1_a }) })
+    const repository = await createRepository([clinicalTrialModel])
+
+    // WHEN
+    const expectedClinicalTrial = repository.findOne('123')
+
+    // THEN
+    const clinicalTrial = new ClinicalTrial(
+      new Title('Resist, scotty, core!', 'RSC'),
+      new Title('Try draining rhubarb fritters flavored with bourbon.', 'RSC'),
+      RecruitmentStatus.RECRUITING,
+      new StudyType({ phase: 'Human Pharmacology (Phase I)- First administration to humans' })
+    )
+
+    expect(expectedClinicalTrial).toStrictEqual(clinicalTrial)
+  })
+
+  it('should retrieve a Phase II/PhaseIII', async () => {
+    // GIVEN
+    const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({ study_type: new StudyType({ phase: Phase.PHASE_2_3 }) })
+    const repository = await createRepository([clinicalTrialModel])
+
+    // WHEN
+    const expectedClinicalTrial = repository.findOne('123')
+
+    // THEN
+    const clinicalTrial = new ClinicalTrial(
+      new Title('Resist, scotty, core!', 'RSC'),
+      new Title('Try draining rhubarb fritters flavored with bourbon.', 'RSC'),
+      RecruitmentStatus.RECRUITING,
+      new StudyType({ phase: 'Phase II and Phase III (Integrated)' })
+    )
+
+    expect(expectedClinicalTrial).toStrictEqual(clinicalTrial)
+  })
+
+  it('should retrieve a empty phase', async () => {
+    // GIVEN
+    const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({ study_type: new StudyType() })
+    const repository = await createRepository([clinicalTrialModel])
+
+    // WHEN
+    const expectedClinicalTrial = repository.findOne('123')
+
+    // THEN
+    const clinicalTrial = new ClinicalTrial(
+      new Title('Resist, scotty, core!', 'RSC'),
+      new Title('Try draining rhubarb fritters flavored with bourbon.', 'RSC'),
+      RecruitmentStatus.RECRUITING,
+      new StudyType()
+    )
+
     expect(expectedClinicalTrial).toStrictEqual(clinicalTrial)
   })
 

@@ -1,7 +1,9 @@
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger'
 
 import { TitleModel } from './TitleModel'
-import { RecruitmentStatus } from '../entities/RecruitmentStatus'
+import { StudyType } from '../entities/StudyType'
+import { Phase } from '../enum/Phase.enum'
+import { RecruitmentStatus } from '../enum/RecruitmentStatus.enum'
 
 export class ClinicalTrialModel {
   constructor(clinicalTrialModel: ClinicalTrialModel) {
@@ -30,4 +32,11 @@ export class ClinicalTrialModel {
     example: 'RECRUITING',
   })
   readonly recruitment_status: string
+
+  @ApiProperty({
+    description: 'Correspond à la phase de la recherche de l’essai clinique. Les essais cliniques testant de nouveaux traitements comportent plusieurs étapes, appelées phases.',
+    enum: Phase,
+    example: Phase.PHASE_2,
+  })
+  readonly study_type: StudyType
 }
