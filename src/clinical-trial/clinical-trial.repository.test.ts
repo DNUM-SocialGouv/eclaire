@@ -48,6 +48,8 @@ describe('clinical trial repository', () => {
       ['SCHEDULED', RecruitmentStatus.SCHEDULED],
       ['COMPLETED', RecruitmentStatus.COMPLETED],
       ['UNAVAILABLE', RecruitmentStatus.UNAVAILABLE],
+      ['PENDING', RecruitmentStatus.PENDING],
+      ['SUSPENDED', RecruitmentStatus.SUSPENDED],
     ]
   )('should retrieve one clinical trial with a %s status', async (recruitmentStatusModel, recruitmentStatus) => {
     // GIVEN

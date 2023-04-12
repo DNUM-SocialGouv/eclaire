@@ -1,6 +1,7 @@
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger'
 
 import { TitleModel } from './TitleModel'
+import { RecruitmentStatus } from '../entities/RecruitmentStatus'
 
 export class ClinicalTrialModel {
   constructor(clinicalTrialModel: ClinicalTrialModel) {
@@ -25,6 +26,7 @@ export class ClinicalTrialModel {
 
   @ApiProperty({
     description: 'Il s’agit du statut de recrutement de l’essai clinique (cela précise si le recrutement est toujours actif)',
+    enum: RecruitmentStatus,
     example: 'RECRUITING',
   })
   readonly recruitment_status: string
