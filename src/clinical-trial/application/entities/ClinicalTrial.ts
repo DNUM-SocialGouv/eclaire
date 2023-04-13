@@ -1,21 +1,24 @@
-import { ApiHideProperty, ApiProperty } from '@nestjs/swagger'
+import { ApiProperty } from '@nestjs/swagger'
 
-import { TitleModel } from './TitleModel'
-import { StudyType } from '../entities/StudyType'
-import { Phase } from '../enum/Phase.enum'
-import { RecruitmentStatus } from '../enum/RecruitmentStatus.enum'
+import { StudyType } from './StudyType'
+import { Title } from './Title'
+import { Phase } from '../Phase'
+import { RecruitmentStatus } from '../RecruitmentStatus'
 
-export class ClinicalTrialModel {
-  constructor(clinicalTrialModel: ClinicalTrialModel) {
-    Object.assign(this, clinicalTrialModel)
+export class ClinicalTrial {
+  constructor(clinicalTrial?: Partial<ClinicalTrial>) {
+    this.public_title = new Title()
+    this.scientific_title = new Title()
+    this.recruitment_status = RecruitmentStatus.UNAVAILABLE
+    this.study_type = new StudyType()
+
+    if (clinicalTrial) {
+      Object.assign(this, clinicalTrial)
+    }
   }
 
-  // TODO: transférer @ApiProperty() dans l'entity ?
-  @ApiHideProperty()
-  readonly uuid: string
-
   @ApiProperty()
-  readonly public_title: TitleModel
+  readonly public_title: Title
 
   @ApiProperty({
     description: 'Titre officiel de l’essai clinique',
@@ -24,14 +27,14 @@ export class ClinicalTrialModel {
       value: 'Circuler l’ADN pour améliorer le résultat de l’oncologie patient. Une étude randomisée',
     },
   })
-  readonly scientific_title: TitleModel
+  readonly scientific_title: Title
 
   @ApiProperty({
     description: 'Il s’agit du statut de recrutement de l’essai clinique (cela précise si le recrutement est toujours actif)',
     enum: RecruitmentStatus,
     example: 'RECRUITING',
   })
-  readonly recruitment_status: string
+  readonly recruitment_status: RecruitmentStatus
 
   @ApiProperty({
     description: 'Correspond à la phase de la recherche de l’essai clinique. Les essais cliniques testant de nouveaux traitements comportent plusieurs étapes, appelées phases.',

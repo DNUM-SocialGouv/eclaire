@@ -1,5 +1,5 @@
 export enum Phase {
-  PHASE_EARLY = 'Précoce',
+  PHASE_EARLY = 'Early Phase',
   PHASE_1_a = 'Human Pharmacology (Phase I)- First administration to humans',
   PHASE_1_b = 'Human Pharmacology (Phase I)- Bioequivalence Study',
   PHASE_1_c = 'Human Pharmacology (Phase I)-  Other',

@@ -11,7 +11,9 @@
     },
     "recruitment_status": "RECRUITING",
     "study_type": {
-      "phase": "Therapeutic use (Phase IV)"
+      "phase": "Therapeutic use (Phase IV)",
+      "study_type": "",
+      "study_design": ""
     }
   },
   {
@@ -26,7 +28,9 @@
     },
     "recruitment_status": "SCHEDULED",
     "study_type": {
-      "phase": "Human Pharmacology (Phase I)- First administration to humans"
+      "phase": "Human Pharmacology (Phase I)- First administration to humans",
+      "study_type": "",
+      "study_design": ""
     }
   },
   {
@@ -41,7 +45,9 @@
     },
     "recruitment_status": "COMPLETED",
     "study_type": {
-      "phase": "'Phase II and Phase III (Integrated)"
+      "phase": "'Phase II and Phase III (Integrated)",
+      "study_type": "",
+      "study_design": ""
     }
   },
   {
@@ -56,7 +62,9 @@
     },
     "recruitment_status": "UNAVAILABLE",
     "study_type": {
-      "phase": ""
+      "phase": "",
+      "study_type": "",
+      "study_design": ""
     }
   }
 ]

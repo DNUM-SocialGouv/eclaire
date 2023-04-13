@@ -1,6 +1,6 @@
-import { ClinicalTrialModel } from './ClinicalTrialModel'
-import { TitleModel } from './TitleModel'
-import { StudyType } from '../entities/StudyType'
+import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
+import { StudyTypeModel } from '../model/StudyTypeModel'
+import { TitleModel } from '../model/TitleModel'
 
 export class ClinicalTrialModelTestingFactory {
   private static clincialTrialModel = new ClinicalTrialModel({
@@ -13,7 +13,7 @@ export class ClinicalTrialModelTestingFactory {
       acronym: 'RSC',
       value: 'Try draining rhubarb fritters flavored with bourbon.',
     }),
-    study_type: new StudyType(),
+    study_type: new StudyTypeModel(),
     uuid: '123',
   })
 

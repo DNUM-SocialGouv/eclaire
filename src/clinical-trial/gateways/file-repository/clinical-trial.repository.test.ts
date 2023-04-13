@@ -1,15 +1,16 @@
 import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 
+import { ClinicalTrialModelTestingFactory } from './clinical-trial-model-testing-factory'
 import { DbClinicalTrialRepository } from './clinical-trial.repository'
-import { ClinicalTrial } from './entities/ClinicalTrial'
-import { StudyType } from './entities/StudyType'
-import { Title } from './entities/Title'
-import { Phase } from './enum/Phase.enum'
-import { RecruitmentStatus } from './enum/RecruitmentStatus.enum'
-import { ClinicalTrialModel } from './model/ClinicalTrialModel'
-import { ClinicalTrialModelTestingFactory } from './model/ClinicalTrialModelTestingFactory'
-import { TitleModel } from './model/TitleModel'
+import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
+import { StudyType } from '../../application/entities/StudyType'
+import { Title } from '../../application/entities/Title'
+import { Phase } from '../../application/Phase'
+import { RecruitmentStatus } from '../../application/RecruitmentStatus'
+import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
+import { StudyTypeModel } from '../model/StudyTypeModel'
+import { TitleModel } from '../model/TitleModel'
 
 describe('clinical trial repository', () => {
   it('should retrieve one clinical trial with a public title and a scientific title', async () => {
@@ -30,18 +31,18 @@ describe('clinical trial repository', () => {
     const expectedClinicalTrial = repository.findOne('123')
 
     // THEN
-    const clinicalTrial = new ClinicalTrial(
-      new Title(
-        'Resist, scotty, core!',
-        'RSC'
-      ),
-      new Title(
-        'Try draining rhubarb fritters flavored with bourbon.',
-        'RSC'
-      ),
-      RecruitmentStatus.RECRUITING,
-      new StudyType()
-    )
+    const clinicalTrial = new ClinicalTrial({
+      public_title: new Title({
+        acronym: 'RSC',
+        value: 'Resist, scotty, core!',
+      }),
+      recruitment_status: RecruitmentStatus.RECRUITING,
+      scientific_title: new Title({
+        acronym: 'RSC',
+        value: 'Try draining rhubarb fritters flavored with bourbon.',
+      }),
+      study_type: new StudyType(),
+    })
     expect(expectedClinicalTrial).toStrictEqual(clinicalTrial)
   })
 
@@ -63,41 +64,41 @@ describe('clinical trial repository', () => {
     const expectedClinicalTrial = repository.findOne('123')
 
     // THEN
-    const clinicalTrial = new ClinicalTrial(
-      new Title(
-        'Resist, scotty, core!',
-        'RSC'
-      ),
-      new Title(
-        'Try draining rhubarb fritters flavored with bourbon.',
-        'RSC'
-      ),
-      recruitmentStatus,
-      new StudyType()
-    )
+    const clinicalTrial = new ClinicalTrial({
+      public_title: new Title({
+        acronym: 'RSC',
+        value: 'Resist, scotty, core!',
+      }),
+      recruitment_status: recruitmentStatus,
+      scientific_title: new Title({
+        acronym: 'RSC',
+        value: 'Try draining rhubarb fritters flavored with bourbon.',
+      }),
+      study_type: new StudyType(),
+    })
     expect(expectedClinicalTrial).toStrictEqual(clinicalTrial)
   })
 
   it('should retrieve a Phase I', async () => {
     // GIVEN
-    const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({ study_type: new StudyType({ phase: Phase.PHASE_1_a }) })
+    const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({ study_type: new StudyTypeModel({ phase: Phase.PHASE_1_a }) })
     const repository = await createRepository([clinicalTrialModel])
 
     // WHEN
     const expectedClinicalTrial = repository.findOne('123')
 
     // THEN
-    const clinicalTrial = new ClinicalTrial(
-      new Title('Resist, scotty, core!', 'RSC'),
-      new Title('Try draining rhubarb fritters flavored with bourbon.', 'RSC'),
-      RecruitmentStatus.RECRUITING,
-      new StudyType({ phase: 'Human Pharmacology (Phase I)- First administration to humans' })
-    )
+    const clinicalTrial = new ClinicalTrial({
+      public_title: new Title({ acronym: 'RSC', value: 'Resist, scotty, core!' }),
+      recruitment_status: RecruitmentStatus.RECRUITING,
+      scientific_title: new Title({ acronym: 'RSC', value: 'Try draining rhubarb fritters flavored with bourbon.' }),
+      study_type: new StudyType({ phase: 'Human Pharmacology (Phase I)- First administration to humans' }),
+    })
 
     expect(expectedClinicalTrial).toStrictEqual(clinicalTrial)
   })
 
-  it('should retrieve a Phase II/PhaseIII', async () => {
+  it('should retrieve an Phase II/PhaseIII', async () => {
     // GIVEN
     const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({ study_type: new StudyType({ phase: Phase.PHASE_2_3 }) })
     const repository = await createRepository([clinicalTrialModel])
@@ -106,12 +107,12 @@ describe('clinical trial repository', () => {
     const expectedClinicalTrial = repository.findOne('123')
 
     // THEN
-    const clinicalTrial = new ClinicalTrial(
-      new Title('Resist, scotty, core!', 'RSC'),
-      new Title('Try draining rhubarb fritters flavored with bourbon.', 'RSC'),
-      RecruitmentStatus.RECRUITING,
-      new StudyType({ phase: 'Phase II and Phase III (Integrated)' })
-    )
+    const clinicalTrial = new ClinicalTrial({
+      public_title: new Title({ acronym: 'RSC', value: 'Resist, scotty, core!' }),
+      recruitment_status: RecruitmentStatus.RECRUITING,
+      scientific_title: new Title({ acronym: 'RSC', value: 'Try draining rhubarb fritters flavored with bourbon.' }),
+      study_type: new StudyType({ phase: 'Phase II and Phase III (Integrated)' }),
+    })
 
     expect(expectedClinicalTrial).toStrictEqual(clinicalTrial)
   })
@@ -125,12 +126,12 @@ describe('clinical trial repository', () => {
     const expectedClinicalTrial = repository.findOne('123')
 
     // THEN
-    const clinicalTrial = new ClinicalTrial(
-      new Title('Resist, scotty, core!', 'RSC'),
-      new Title('Try draining rhubarb fritters flavored with bourbon.', 'RSC'),
-      RecruitmentStatus.RECRUITING,
-      new StudyType()
-    )
+    const clinicalTrial = new ClinicalTrial({
+      public_title: new Title({ acronym: 'RSC', value: 'Resist, scotty, core!' }),
+      recruitment_status: RecruitmentStatus.RECRUITING,
+      scientific_title: new Title({ acronym: 'RSC', value: 'Try draining rhubarb fritters flavored with bourbon.' }),
+      study_type: new StudyType({}),
+    })
 
     expect(expectedClinicalTrial).toStrictEqual(clinicalTrial)
   })
