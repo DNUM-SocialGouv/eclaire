@@ -25,5 +25,14 @@ accounts: [
     password:
       '$argon2id$v=19$m=65536,t=3,p=4$qsnk7gXe+9n6RRiTM7utwA$G2DqsjBoQFNDW2w8HAsEt6LjPNzJSXMsuRftyrIK9OQ',
     roles: ['admin'],
+  },
+  {
+    id: 4,
+    firstname: 'Démo',
+    lastname: 'Eclaire',
+    email: 'demo@demo.com',
+    password:
+      '$argon2id$v=19$m=65536,t=3,p=4$3jsjfRmoIh4qeOGxmnSnzQ$YC8+MN8Zz2AAkyZjbtJdAgTt9AJa1DOKcfM8m3mPlrw',
+    roles: ['user'],
   }
 ]
