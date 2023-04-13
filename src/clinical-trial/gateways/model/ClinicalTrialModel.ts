@@ -14,4 +14,5 @@ export class ClinicalTrialModel {
   readonly scientific_title: TitleModel = new TitleModel()
   readonly recruitment_status: string = RecruitmentStatus.UNAVAILABLE
   readonly study_type: StudyTypeModel = new StudyTypeModel()
+  readonly last_revision_date: string = new Date().toString()
 }

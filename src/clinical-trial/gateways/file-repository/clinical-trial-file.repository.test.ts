@@ -31,6 +31,7 @@ describe('clinical trial file repository', () => {
 
     // THEN
     const clinicalTrial = new ClinicalTrial({
+      last_revision_date: new Date().toString(),
       public_title: new Title({
         acronym: 'RSC',
         value: 'Resist, scotty, core!',
@@ -64,6 +65,7 @@ describe('clinical trial file repository', () => {
 
     // THEN
     const clinicalTrial = new ClinicalTrial({
+      last_revision_date: new Date().toString(),
       public_title: new Title({
         acronym: 'RSC',
         value: 'Resist, scotty, core!',
@@ -88,6 +90,7 @@ describe('clinical trial file repository', () => {
 
     // THEN
     const clinicalTrial = new ClinicalTrial({
+      last_revision_date: new Date().toString(),
       public_title: new Title({ acronym: 'RSC', value: 'Resist, scotty, core!' }),
       recruitment_status: RecruitmentStatus.RECRUITING,
       scientific_title: new Title({ acronym: 'RSC', value: 'Try draining rhubarb fritters flavored with bourbon.' }),
@@ -106,6 +109,30 @@ describe('clinical trial file repository', () => {
 
     // THEN
     const clinicalTrial = new ClinicalTrial({
+      last_revision_date: new Date().toString(),
+      public_title: new Title({ acronym: 'RSC', value: 'Resist, scotty, core!' }),
+      recruitment_status: RecruitmentStatus.RECRUITING,
+      scientific_title: new Title({ acronym: 'RSC', value: 'Try draining rhubarb fritters flavored with bourbon.' }),
+      study_type: new StudyType({}),
+    })
+
+    expect(expectedClinicalTrial).toStrictEqual(clinicalTrial)
+  })
+
+  it.each([
+    [new Date().toString(), new Date().toString()],
+    ['', ''],
+  ])('should retrieve a revision date', async (lastRevisionDateModel: string, lastRevisionDate: string) => {
+    // GIVEN
+    const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({ last_revision_date: lastRevisionDateModel })
+    const repository = await createRepository([clinicalTrialModel])
+
+    // WHEN
+    const expectedClinicalTrial = repository.findOne('123')
+
+    // THEN
+    const clinicalTrial = new ClinicalTrial({
+      last_revision_date: lastRevisionDate,
       public_title: new Title({ acronym: 'RSC', value: 'Resist, scotty, core!' }),
       recruitment_status: RecruitmentStatus.RECRUITING,
       scientific_title: new Title({ acronym: 'RSC', value: 'Try draining rhubarb fritters flavored with bourbon.' }),
@@ -133,6 +160,7 @@ describe('clinical trial file repository', () => {
 })
 
 async function createRepository(clinicalTrialsModel: ClinicalTrialModel[]) {
+  jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
   const module: TestingModule = await Test.createTestingModule({
     providers: [
       {
