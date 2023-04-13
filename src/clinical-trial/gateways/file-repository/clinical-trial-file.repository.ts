@@ -8,7 +8,7 @@ import { RecruitmentStatus } from '../../application/RecruitmentStatus'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
 
 @Injectable()
-export class DbClinicalTrialRepository implements ClinicalTrialRepository {
+export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
   private readonly clinicalTrialsRepository: ClinicalTrialModel[] = []
 
   constructor(clinicalTrialsModel: ClinicalTrialModel[]) {

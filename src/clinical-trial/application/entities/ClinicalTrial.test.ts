@@ -3,7 +3,7 @@ import { StudyType } from './StudyType'
 import { Title } from './Title'
 import { RecruitmentStatus } from '../RecruitmentStatus'
 
-describe('clinical trial entity testing', () => {
+describe('clinical trial', () => {
   it('should instantiate default values', () => {
     // WHEN
     const clinicalTrial = new ClinicalTrial()

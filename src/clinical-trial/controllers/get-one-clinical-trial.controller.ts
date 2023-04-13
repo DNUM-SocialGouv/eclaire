@@ -4,20 +4,20 @@ import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTag
 import { Response } from 'express'
 
 import { ClinicalTrial } from '../application/entities/ClinicalTrial'
-import { DbClinicalTrialRepository } from '../gateways/file-repository/clinical-trial.repository'
+import { ClinicalTrialFileRepository } from '../gateways/file-repository/clinical-trial-file.repository'
 
 @ApiTags('Clinical Trial')
 @ApiBearerAuth()
 @Controller('clinical-trial')
 export class GetOneClinicalTrialController {
-  constructor(private readonly clinicalTrialService: DbClinicalTrialRepository) {
+  constructor(private readonly clinicalTrialService: ClinicalTrialFileRepository) {
   }
 
   @ApiOperation({ summary: 'Récupère un essai clinique depuis son identifiant unique.' })
   @Get(':uuid')
   @ApiOkResponse({ description: 'Un essai clinique a été trouvé', type: [ClinicalTrial] })
   @ApiNotFoundResponse({ description: 'Aucun essai clinique n’a été trouvé' })
-  getOneByUuid(@Param('uuid') uuid: string, @Res() res: Response): void {
+  execute(@Param('uuid') uuid: string, @Res() res: Response): void {
     const clinicalTrial = this.clinicalTrialService.findOne(uuid)
 
     if (clinicalTrial) {

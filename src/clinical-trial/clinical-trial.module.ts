@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common'
 
 import { GetOneClinicalTrialController } from './controllers/get-one-clinical-trial.controller'
-import { DbClinicalTrialRepository } from './gateways/file-repository/clinical-trial.repository'
+import { ClinicalTrialFileRepository } from './gateways/file-repository/clinical-trial-file.repository'
 import data from './gateways/file-repository/clinical-trials.json'
 
 @Module({
   controllers: [GetOneClinicalTrialController],
   providers: [
     {
-      provide: DbClinicalTrialRepository,
+      provide: ClinicalTrialFileRepository,
       useFactory: () => {
-        return new DbClinicalTrialRepository(data)
+        return new ClinicalTrialFileRepository(data)
       },
     },
   ],
