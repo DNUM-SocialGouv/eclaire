@@ -14,7 +14,8 @@
       "phase": "Therapeutic use (Phase IV)",
       "study_type": "",
       "study_design": ""
-    }
+    },
+    "last_revision_date": "2022-02-06T18:25:43.511Z"
   },
   {
     "uuid": "2",
@@ -31,7 +32,8 @@
       "phase": "Human Pharmacology (Phase I)- First administration to humans",
       "study_type": "",
       "study_design": ""
-    }
+    },
+    "last_revision_date": "2022-02-06T18:25:43.511Z"
   },
   {
     "uuid": "3",
@@ -48,7 +50,8 @@
       "phase": "'Phase II and Phase III (Integrated)",
       "study_type": "",
       "study_design": ""
-    }
+    },
+    "last_revision_date": "2022-02-06T18:25:43.511Z"
   },
   {
     "uuid": "4",
@@ -65,6 +68,7 @@
       "phase": "",
       "study_type": "",
       "study_design": ""
-    }
+    },
+    "last_revision_date": "2022-02-06T18:25:43.511Z"
   }
 ]

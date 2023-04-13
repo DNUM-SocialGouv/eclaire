@@ -29,6 +29,7 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
 
   private buildClinicalTrialEntity(clinicalTrialModel: ClinicalTrialModel): ClinicalTrial {
     return new ClinicalTrial({
+      last_revision_date: clinicalTrialModel.last_revision_date,
       public_title: new Title(clinicalTrialModel.public_title as Partial<Title>),
       recruitment_status: clinicalTrialModel.recruitment_status as RecruitmentStatus,
       scientific_title: new Title(clinicalTrialModel.scientific_title as Partial<Title>),

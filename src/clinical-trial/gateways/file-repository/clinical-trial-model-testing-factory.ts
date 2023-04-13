@@ -4,6 +4,7 @@ import { TitleModel } from '../model/TitleModel'
 
 export class ClinicalTrialModelTestingFactory {
   private static clincialTrialModel = new ClinicalTrialModel({
+    last_revision_date: new Date().toString(),
     public_title: new TitleModel({
       acronym: 'RSC',
       value: 'Resist, scotty, core!',
