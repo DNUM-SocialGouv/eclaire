@@ -22,7 +22,7 @@ export class Recruitment {
   @ApiProperty({
     description: 'Correspond au genre (sexe) du candidat. Il est inclus comme critère d’inclusion pour participer à l’essai clinique. ',
     enum: Gender,
-    example: 'FEMALE, MALE',
+    example: ['FEMALE', 'MALE'],
   })
   readonly genders: Gender[]
 }

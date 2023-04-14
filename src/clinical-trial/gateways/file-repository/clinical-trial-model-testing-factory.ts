@@ -13,7 +13,9 @@ export class ClinicalTrialModelTestingFactory {
       ['MALE']
     ),
     new StudyTypeModel('', '', ''),
-    ''
+    '',
+    '',
+    {}
   )
 
   static create(overridedFields?: Partial<ClinicalTrialModel>): ClinicalTrialModel {

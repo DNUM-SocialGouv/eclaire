@@ -1,6 +1,11 @@
 [
   {
     "uuid": "1",
+    "universal_trial_number": "NCT00000419",
+    "secondaries_trial_numbers": {
+      "AFR_number":  "AFRXXXXXXXX",
+      "national_number": "2011-006209-83"
+    },
     "public_title": {
       "value": "Circuler l'ADN pour améliorer le résultat de l'oncologie Patient. Une étude randomisée",
       "acronym": "AGADIR"
@@ -22,6 +27,10 @@
   },
   {
     "uuid": "2",
+    "universal_trial_number": "",
+    "secondaries_trial_numbers": {
+      "national_number": "2008-001801-28"
+    },
     "public_title": {
       "value": "",
       "acronym": ""
@@ -43,6 +52,10 @@
   },
   {
     "uuid": "3",
+    "universal_trial_number": "",
+    "secondaries_trial_numbers": {
+      "NCT_number": "NCT00000419"
+    },
     "public_title": {
       "value": "",
       "acronym": ""
@@ -54,7 +67,8 @@
     "recruitment": {
       "genders": ["FEMALE", "MALE"],
       "status": "COMPLETED"
-    },    "study_type": {
+    },
+    "study_type": {
       "phase": "'Phase II and Phase III (Integrated)",
       "study_type": "",
       "study_design": ""
@@ -63,6 +77,8 @@
   },
   {
     "uuid": "4",
+    "universal_trial_number": "",
+    "secondaries_trial_numbers": {},
     "public_title": {
       "value": "Un essai clinique qui n'a pas de statut",
       "acronym": ""

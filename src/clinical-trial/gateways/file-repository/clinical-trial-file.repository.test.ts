@@ -31,13 +31,20 @@ describe('clinical trial file repository', () => {
     )
     const studyTypeModel = new StudyTypeModel('Human Pharmacology (Phase I)- First administration to humans', '', '')
     const lastRevisionDateModel = new Date().toString()
+    const universalTrialNumberModel = 'NCT51265816'
+    const secondariesTrialNumbersModel = {
+      AFR_number:  'AFRXXXXXXXX',
+      national_number: '2011-006209-83',
+    }
 
     const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({
       last_revision_date: lastRevisionDateModel,
       public_title: publicTitleModel,
       recruitment: recruitmentModel,
       scientific_title: scientificTitleModel,
+      secondaries_trial_numbers: secondariesTrialNumbersModel,
       study_type: studyTypeModel,
+      universal_trial_number: universalTrialNumberModel,
     })
     const repository = await createRepository([clinicalTrialModel])
 
@@ -59,7 +66,12 @@ describe('clinical trial file repository', () => {
         [Gender.MALE]
       ),
       new StudyType('Human Pharmacology (Phase I)- First administration to humans', '', ''),
-      new Date().toString()
+      new Date().toString(),
+      'NCT51265816',
+      {
+        AFR_number:  'AFRXXXXXXXX',
+        national_number: '2011-006209-83',
+      }
     ))
   })
 

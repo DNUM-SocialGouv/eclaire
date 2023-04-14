@@ -20,6 +20,11 @@ describe('clinical trial', () => {
     const recruitment = new Recruitment(RecruitmentStatus.RECRUITING, [Gender.MALE])
     const studyType = new StudyType('Human Pharmacology (Phase I)- First administration to humans', '', '')
     const lastRevisionDate = new Date().toString()
+    const universalTrialNumber = 'NTC5492179625'
+    const secondariesTrialNumbers = {
+      AFR_number:  'AFRXXXXXXXX',
+      national_number: '2011-006209-83',
+    }
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
@@ -27,7 +32,9 @@ describe('clinical trial', () => {
       scientificTitle,
       recruitment,
       studyType,
-      lastRevisionDate
+      lastRevisionDate,
+      universalTrialNumber,
+      secondariesTrialNumbers
     )
 
     // THEN
@@ -59,6 +66,8 @@ describe('clinical trial', () => {
     const studyType = new StudyType('', '', '')
     const lastRevisionDate = new Date().toString()
     const recruitment = new Recruitment(recruitmentStatus, [])
+    const universalTrialNumber = ''
+    const secondariesTrialNumbers = {}
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
@@ -66,7 +75,9 @@ describe('clinical trial', () => {
       scientificTitle,
       recruitment,
       studyType,
-      lastRevisionDate
+      lastRevisionDate,
+      universalTrialNumber,
+      secondariesTrialNumbers
     )
 
     // THEN
@@ -88,6 +99,8 @@ describe('clinical trial', () => {
     const studyType = new StudyType('', '', '')
     const lastRevisionDate = new Date().toString()
     const recruitment = new Recruitment('', genders)
+    const universalTrialNumber = ''
+    const secondariesTrialNumbers = {}
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
@@ -95,7 +108,9 @@ describe('clinical trial', () => {
       scientificTitle,
       recruitment,
       studyType,
-      lastRevisionDate
+      lastRevisionDate,
+      universalTrialNumber,
+      secondariesTrialNumbers
     )
 
     // THEN
