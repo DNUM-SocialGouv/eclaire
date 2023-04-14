@@ -1,4 +1,5 @@
 import { ClinicalTrial } from './ClinicalTrial'
+import { Recruitment } from './Recruitment'
 import { StudyType } from './StudyType'
 import { Title } from './Title'
 import { RecruitmentStatus } from '../RecruitmentStatus'
@@ -15,7 +16,7 @@ describe('clinical trial', () => {
       'AGADIR',
       'le meme titre mais en scientifique'
     )
-    const recruitmentStatus = RecruitmentStatus.RECRUITING
+    const recruitment = new Recruitment({ status: RecruitmentStatus.RECRUITING })
     const studyType = new StudyType('Human Pharmacology (Phase I)- First administration to humans', '', '')
     const lastRevisionDate = new Date().toString()
 
@@ -23,7 +24,7 @@ describe('clinical trial', () => {
     const clinicalTrial = new ClinicalTrial(
       publicTitle,
       scientificTitle,
-      recruitmentStatus,
+      recruitment,
       studyType,
       lastRevisionDate
     )
@@ -33,7 +34,7 @@ describe('clinical trial', () => {
     expect(clinicalTrial.public_title.value).toBe('Circuler l’ADN pour améliorer le résultat de l’oncologie Patient. Une étude randomisée')
     expect(clinicalTrial.scientific_title.acronym).toBe('AGADIR')
     expect(clinicalTrial.scientific_title.value).toBe('le meme titre mais en scientifique')
-    expect(clinicalTrial.recruitment_status).toBe(recruitmentStatus)
+    expect(clinicalTrial.recruitment).toBe(recruitment)
     expect(clinicalTrial.study_type.phase).toBe('Human Pharmacology (Phase I)- First administration to humans')
     expect(clinicalTrial.study_type.study_design).toBe('')
     expect(clinicalTrial.study_type.study_type).toBe('')
@@ -55,17 +56,18 @@ describe('clinical trial', () => {
     const scientificTitle = new Title('', '')
     const studyType = new StudyType('', '', '')
     const lastRevisionDate = new Date().toString()
+    const recruitment = new Recruitment({ status: recruitmentStatus })
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
       publicTitle,
       scientificTitle,
-      recruitmentStatus,
+      recruitment,
       studyType,
       lastRevisionDate
     )
 
     // THEN
-    expect(clinicalTrial.recruitment_status).toBe(recruitmentStatus)
+    expect(clinicalTrial.recruitment.status).toBe(recruitment.status)
   })
 })

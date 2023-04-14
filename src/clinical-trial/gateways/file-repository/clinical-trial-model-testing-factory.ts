@@ -1,4 +1,5 @@
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
+import { RecruitmentModel } from '../model/RecruitmentModel'
 import { StudyTypeModel } from '../model/StudyTypeModel'
 import { TitleModel } from '../model/TitleModel'
 
@@ -13,7 +14,7 @@ export class ClinicalTrialModelTestingFactory {
       'RSC',
       'Try draining rhubarb fritters flavored with bourbon.'
     ),
-    'RECRUITING',
+    new RecruitmentModel(),
     new StudyTypeModel(
       'Phase II/Phase III',
       '',

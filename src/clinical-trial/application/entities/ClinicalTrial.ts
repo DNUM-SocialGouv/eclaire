@@ -1,20 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger'
 
+import { Recruitment } from './Recruitment'
 import { StudyType } from './StudyType'
 import { Title } from './Title'
-import { RecruitmentStatus } from '../RecruitmentStatus'
 
 export class ClinicalTrial {
   constructor(
     public_title: Title,
     scientific_title: Title,
-    recruitment_status: RecruitmentStatus,
+    recruitment: Recruitment,
     study_type: StudyType,
     last_revision_date: string
   ) {
     this.public_title = public_title
     this.scientific_title = scientific_title
-    this.recruitment_status = recruitment_status
+    this.recruitment = recruitment
     this.study_type = study_type
     this.last_revision_date = last_revision_date
   }
@@ -31,12 +31,8 @@ export class ClinicalTrial {
   })
   readonly scientific_title: Title
 
-  @ApiProperty({
-    description: 'Il s’agit du statut de recrutement de l’essai clinique (cela précise si le recrutement est toujours actif)',
-    enum: RecruitmentStatus,
-    example: 'RECRUITING',
-  })
-  readonly recruitment_status: RecruitmentStatus
+  @ApiProperty({ description: 'Ensemble de données relatives au recrutement des candidats de l\'essai clinique.' })
+  readonly recruitment: Recruitment
 
   @ApiProperty({ description: 'Phase de la recherche de l’essai clinique. Les essais cliniques testant de nouveaux traitements comportent plusieurs étapes, appelées phases.' })
   readonly study_type: StudyType
