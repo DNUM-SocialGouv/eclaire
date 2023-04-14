@@ -10,13 +10,17 @@ export class ClinicalTrial {
     scientific_title: Title,
     recruitment: Recruitment,
     study_type: StudyType,
-    last_revision_date: string
+    last_revision_date: string,
+    universal_trial_number: string,
+    secondaries_trial_numbers: Record<string, string>
   ) {
     this.public_title = public_title
     this.scientific_title = scientific_title
     this.recruitment = recruitment
     this.study_type = study_type
     this.last_revision_date = last_revision_date
+    this.universal_trial_number = universal_trial_number
+    this.secondaries_trial_numbers = secondaries_trial_numbers
   }
 
   @ApiProperty()
@@ -42,4 +46,21 @@ export class ClinicalTrial {
     example: '2022-02-06T18:25:43.511Z',
   })
   readonly last_revision_date: string
+
+  @ApiProperty({
+    description: 'Correspond au numéro d’identification universel de l’essai clinique : il permet de garder une traçabilité de l’essai entre différents registres.',
+    example: 'NCT00000419',
+  })
+  readonly universal_trial_number: string
+
+  @ApiProperty({
+    description: 'Regroupe l’ensemble des numéros d’identification secondaires qui sont liés à l’essai clinique.',
+    example: {
+      AFR_number: 'AFRXXXXXXXX',
+      example_number: 'MonNuméro123',
+      national_number: '2011-006209-83',
+    },
+    type: 'Record<string,string>',
+  })
+  readonly secondaries_trial_numbers: Record<string, string>
 }

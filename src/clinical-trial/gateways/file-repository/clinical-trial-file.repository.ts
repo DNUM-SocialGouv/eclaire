@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 
-import { Gender } from '../../../clinical-trial/application/Gender'
 import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
 import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
 import { Title } from '../../application/entities/Title'
+import { Gender } from '../../application/Gender'
 import { ClinicalTrialRepository } from '../../application/interfaces/ClinicalTrialRepository'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
 
@@ -20,7 +20,9 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
         clinicalTrialModel.scientific_title,
         clinicalTrialModel.recruitment,
         clinicalTrialModel.study_type,
-        clinicalTrialModel.last_revision_date
+        clinicalTrialModel.last_revision_date,
+        clinicalTrialModel.universal_trial_number,
+        clinicalTrialModel.secondaries_trial_numbers
       ))
     })
   }
@@ -54,7 +56,9 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
         clinicalTrialModel.study_type.study_type,
         clinicalTrialModel.study_type.study_design
       ),
-      clinicalTrialModel.last_revision_date
+      clinicalTrialModel.last_revision_date,
+      clinicalTrialModel.universal_trial_number,
+      clinicalTrialModel.secondaries_trial_numbers
     )
   }
 }
