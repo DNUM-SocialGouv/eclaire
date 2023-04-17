@@ -13,7 +13,14 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
 
   constructor(clinicalTrialsModel: ClinicalTrialModel[]) {
     clinicalTrialsModel.forEach((clinicalTrialModel) => {
-      this.clinicalTrialsRepository.push(new ClinicalTrialModel(clinicalTrialModel))
+      this.clinicalTrialsRepository.push(new ClinicalTrialModel(
+        clinicalTrialModel.uuid,
+        clinicalTrialModel.public_title,
+        clinicalTrialModel.scientific_title,
+        clinicalTrialModel.recruitment_status,
+        clinicalTrialModel.study_type,
+        clinicalTrialModel.last_revision_date
+      ))
     })
   }
 
@@ -28,12 +35,22 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
   }
 
   private buildClinicalTrialEntity(clinicalTrialModel: ClinicalTrialModel): ClinicalTrial {
-    return new ClinicalTrial({
-      last_revision_date: clinicalTrialModel.last_revision_date,
-      public_title: new Title(clinicalTrialModel.public_title as Partial<Title>),
-      recruitment_status: clinicalTrialModel.recruitment_status as RecruitmentStatus,
-      scientific_title: new Title(clinicalTrialModel.scientific_title as Partial<Title>),
-      study_type: new StudyType(clinicalTrialModel.study_type as Partial<StudyType>),
-    })
+    return new ClinicalTrial(
+      new Title(
+        clinicalTrialModel.public_title.acronym,
+        clinicalTrialModel.public_title.value
+      ),
+      new Title(
+        clinicalTrialModel.scientific_title.acronym,
+        clinicalTrialModel.scientific_title.value
+      ),
+      clinicalTrialModel.recruitment_status as RecruitmentStatus,
+      new StudyType(
+        clinicalTrialModel.study_type.phase,
+        clinicalTrialModel.study_type.study_type,
+        clinicalTrialModel.study_type.study_design
+      ),
+      clinicalTrialModel.last_revision_date
+    )
   }
 }

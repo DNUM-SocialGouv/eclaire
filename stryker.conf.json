@@ -22,7 +22,8 @@
     "!src/main.ts",
     "!src/app.*.ts",
     "!src/sentry/*.ts",
-    "!src/swagger/*.ts"
+    "!src/swagger/*.ts",
+    "!src/**/*-factory.ts"
   ],
   "packageManager": "npm",
   "reporters": ["html"],
