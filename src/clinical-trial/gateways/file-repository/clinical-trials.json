@@ -10,7 +10,7 @@
       "acronym": "AGADIR"
     },
     "recruitment": {
-      "genders": "FEMALE",
+      "genders": ["FEMALE"],
       "status": "RECRUITING"
     },
     "study_type": {
@@ -31,7 +31,7 @@
       "acronym": "USTC"
     },
     "recruitment": {
-      "genders": "MALE",
+      "genders": ["MALE"],
       "status": "SCHEDULED"
     },
     "study_type": {
@@ -52,7 +52,7 @@
       "acronym": "USTC"
     },
     "recruitment": {
-      "genders": "FEMALE,MALE",
+      "genders": ["FEMALE", "MALE"],
       "status": "COMPLETED"
     },    "study_type": {
       "phase": "'Phase II and Phase III (Integrated)",
@@ -72,9 +72,10 @@
       "acronym": ""
     },
     "recruitment": {
-      "genders": "",
+      "genders": [],
       "status": "UNAVAILABLE"
-    },    "study_type": {
+    },
+    "study_type": {
       "phase": "",
       "study_type": "",
       "study_design": ""

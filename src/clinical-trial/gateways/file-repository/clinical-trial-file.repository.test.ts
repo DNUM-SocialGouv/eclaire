@@ -1,14 +1,18 @@
 import { NotFoundException } from '@nestjs/common'
+import { Test, TestingModule } from '@nestjs/testing'
 
+import { ClinicalTrialFileRepository } from './clinical-trial-file.repository'
 import { ClinicalTrialModelTestingFactory } from './clinical-trial-model-testing-factory'
-import { ClinicalTrial } from '../../../application/entities/ClinicalTrial'
-import { Recruitment } from '../../../application/entities/Recruitment'
-import { StudyType } from '../../../application/entities/StudyType'
-import { Title } from '../../../application/entities/Title'
-import { RecruitmentStatus } from '../../../application/RecruitmentStatus'
-import { RecruitmentModel } from '../../model/RecruitmentModel'
-import { StudyTypeModel } from '../../model/StudyTypeModel'
-import { TitleModel } from '../../model/TitleModel'
+import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
+import { Recruitment } from '../../application/entities/Recruitment'
+import { StudyType } from '../../application/entities/StudyType'
+import { Title } from '../../application/entities/Title'
+import { Gender } from '../../application/Gender'
+import { RecruitmentStatus } from '../../application/RecruitmentStatus'
+import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
+import { RecruitmentModel } from '../model/RecruitmentModel'
+import { StudyTypeModel } from '../model/StudyTypeModel'
+import { TitleModel } from '../model/TitleModel'
 
 describe('clinical trial file repository', () => {
   it('should retrieve one clinical trial', async () => {
@@ -21,7 +25,10 @@ describe('clinical trial file repository', () => {
       'AGADIR',
       'le meme titre mais en scientifique'
     )
-    const recruitmentModel = new RecruitmentModel({ status: RecruitmentStatus.RECRUITING })
+    const recruitmentModel = new RecruitmentModel(
+      'RECRUITING',
+      ['MALE']
+    )
     const studyTypeModel = new StudyTypeModel('Human Pharmacology (Phase I)- First administration to humans', '', '')
     const lastRevisionDateModel = new Date().toString()
 
@@ -32,7 +39,7 @@ describe('clinical trial file repository', () => {
       scientific_title: scientificTitleModel,
       study_type: studyTypeModel,
     })
-    const repository = await ClinicalTrialModelTestingFactory.createRepository([clinicalTrialModel])
+    const repository = await createRepository([clinicalTrialModel])
 
     // WHEN
     const clinicalTrial = repository.findOne('123')
@@ -47,7 +54,10 @@ describe('clinical trial file repository', () => {
         'AGADIR',
         'le meme titre mais en scientifique'
       ),
-      new Recruitment({ status: RecruitmentStatus.RECRUITING }),
+      new Recruitment(
+        RecruitmentStatus.RECRUITING,
+        [Gender.MALE]
+      ),
       new StudyType('Human Pharmacology (Phase I)- First administration to humans', '', ''),
       new Date().toString()
     ))
@@ -57,7 +67,7 @@ describe('clinical trial file repository', () => {
     // GIVEN
     const unknownUuid = '0fc962d4-705f-4c7f-9fe1-6ecbfc58187d'
     const clinicalTrialModel = ClinicalTrialModelTestingFactory.create()
-    const repository = await ClinicalTrialModelTestingFactory.createRepository([clinicalTrialModel])
+    const repository = await createRepository([clinicalTrialModel])
 
     try {
       // WHEN
@@ -69,3 +79,20 @@ describe('clinical trial file repository', () => {
     }
   })
 })
+
+async function createRepository(clinicalTrialsModel: ClinicalTrialModel[]) {
+  jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
+
+  const module: TestingModule = await Test.createTestingModule({
+    providers: [
+      {
+        provide: ClinicalTrialFileRepository,
+        useFactory: () => {
+          return new ClinicalTrialFileRepository(clinicalTrialsModel)
+        },
+      },
+    ],
+  }).compile()
+
+  return module.get<ClinicalTrialFileRepository>(ClinicalTrialFileRepository)
+}

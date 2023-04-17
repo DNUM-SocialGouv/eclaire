@@ -31,7 +31,7 @@ export class ClinicalTrial {
   })
   readonly scientific_title: Title
 
-  @ApiProperty({ description: 'Ensemble de données relatives au recrutement des candidats de l\'essai clinique.' })
+  @ApiProperty({ description: 'Ensemble de données relatives au recrutement des candidats de l’essai clinique.' })
   readonly recruitment: Recruitment
 
   @ApiProperty({ description: 'Phase de la recherche de l’essai clinique. Les essais cliniques testant de nouveaux traitements comportent plusieurs étapes, appelées phases.' })

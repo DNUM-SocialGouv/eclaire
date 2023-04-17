@@ -4,28 +4,21 @@ import { StudyTypeModel } from '../model/StudyTypeModel'
 import { TitleModel } from '../model/TitleModel'
 
 export class ClinicalTrialModelTestingFactory {
-  private static clincialTrialModel = new ClinicalTrialModel(
+  private static clinicalTrialModel = new ClinicalTrialModel(
     '123',
-    new TitleModel(
-      'RSC',
-      'Resist, scotty, core!'
+    new TitleModel('', ''),
+    new TitleModel('', ''),
+    new RecruitmentModel(
+      'UNAVAILABLE',
+      ['MALE']
     ),
-    new TitleModel(
-      'RSC',
-      'Try draining rhubarb fritters flavored with bourbon.'
-    ),
-    new RecruitmentModel(),
-    new StudyTypeModel(
-      'Phase II/Phase III',
-      '',
-      ''
-    ),
-    new Date().toString()
+    new StudyTypeModel('', '', ''),
+    ''
   )
 
   static create(overridedFields?: Partial<ClinicalTrialModel>): ClinicalTrialModel {
     return {
-      ...this.clincialTrialModel,
+      ...this.clinicalTrialModel,
       ...overridedFields,
     }
   }
