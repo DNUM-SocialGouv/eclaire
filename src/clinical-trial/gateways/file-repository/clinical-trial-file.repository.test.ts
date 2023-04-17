@@ -4,32 +4,40 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { ClinicalTrialFileRepository } from './clinical-trial-file.repository'
 import { ClinicalTrialModelTestingFactory } from './clinical-trial-model-testing-factory'
 import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
+import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
 import { Title } from '../../application/entities/Title'
+import { Gender } from '../../application/Gender'
 import { RecruitmentStatus } from '../../application/RecruitmentStatus'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
+import { RecruitmentModel } from '../model/RecruitmentModel'
+import { StudyTypeModel } from '../model/StudyTypeModel'
+import { TitleModel } from '../model/TitleModel'
 
 describe('clinical trial file repository', () => {
   it('should retrieve one clinical trial', async () => {
     // GIVEN
-    const publicTitle = new Title(
+    const publicTitleModel = new TitleModel(
       'AGADIR',
       'Circuler l’ADN pour améliorer le résultat de l’oncologie Patient. Une étude randomisée'
     )
-    const scientificTitle = new Title(
+    const scientificTitleModel = new TitleModel(
       'AGADIR',
       'le meme titre mais en scientifique'
     )
-    const recruitmentStatus = RecruitmentStatus.RECRUITING
-    const studyType = new StudyType('Human Pharmacology (Phase I)- First administration to humans', '', '')
-    const lastRevisionDate = new Date().toString()
+    const recruitmentModel = new RecruitmentModel(
+      'RECRUITING',
+      ['MALE']
+    )
+    const studyTypeModel = new StudyTypeModel('Human Pharmacology (Phase I)- First administration to humans', '', '')
+    const lastRevisionDateModel = new Date().toString()
 
     const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({
-      last_revision_date: lastRevisionDate,
-      public_title: publicTitle,
-      recruitment_status: recruitmentStatus,
-      scientific_title: scientificTitle,
-      study_type: studyType,
+      last_revision_date: lastRevisionDateModel,
+      public_title: publicTitleModel,
+      recruitment: recruitmentModel,
+      scientific_title: scientificTitleModel,
+      study_type: studyTypeModel,
     })
     const repository = await createRepository([clinicalTrialModel])
 
@@ -38,11 +46,20 @@ describe('clinical trial file repository', () => {
 
     // THEN
     expect(clinicalTrial).toStrictEqual(new ClinicalTrial(
-      publicTitle,
-      scientificTitle,
-      recruitmentStatus,
-      studyType,
-      lastRevisionDate
+      new Title(
+        'AGADIR',
+        'Circuler l’ADN pour améliorer le résultat de l’oncologie Patient. Une étude randomisée'
+      ),
+      new Title(
+        'AGADIR',
+        'le meme titre mais en scientifique'
+      ),
+      new Recruitment(
+        RecruitmentStatus.RECRUITING,
+        [Gender.MALE]
+      ),
+      new StudyType('Human Pharmacology (Phase I)- First administration to humans', '', ''),
+      new Date().toString()
     ))
   })
 

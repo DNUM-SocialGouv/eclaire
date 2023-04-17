@@ -9,7 +9,10 @@
       "value": "le meme titre mais en scientifique",
       "acronym": "AGADIR"
     },
-    "recruitment_status": "RECRUITING",
+    "recruitment": {
+      "genders": ["FEMALE"],
+      "status": "RECRUITING"
+    },
     "study_type": {
       "phase": "Therapeutic use (Phase IV)",
       "study_type": "",
@@ -27,7 +30,10 @@
       "value": "Un essai clinique en cours",
       "acronym": "USTC"
     },
-    "recruitment_status": "SCHEDULED",
+    "recruitment": {
+      "genders": ["MALE"],
+      "status": "SCHEDULED"
+    },
     "study_type": {
       "phase": "Human Pharmacology (Phase I)- First administration to humans",
       "study_type": "",
@@ -45,8 +51,10 @@
       "value": "Un essai clinique complété",
       "acronym": "USTC"
     },
-    "recruitment_status": "COMPLETED",
-    "study_type": {
+    "recruitment": {
+      "genders": ["FEMALE", "MALE"],
+      "status": "COMPLETED"
+    },    "study_type": {
       "phase": "'Phase II and Phase III (Integrated)",
       "study_type": "",
       "study_design": ""
@@ -63,7 +71,10 @@
       "value": "",
       "acronym": ""
     },
-    "recruitment_status": "UNAVAILABLE",
+    "recruitment": {
+      "genders": [],
+      "status": "UNAVAILABLE"
+    },
     "study_type": {
       "phase": "",
       "study_type": "",

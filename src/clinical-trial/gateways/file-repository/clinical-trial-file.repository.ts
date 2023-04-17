@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 
+import { Gender } from '../../../clinical-trial/application/Gender'
 import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
+import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
 import { Title } from '../../application/entities/Title'
 import { ClinicalTrialRepository } from '../../application/interfaces/ClinicalTrialRepository'
-import { RecruitmentStatus } from '../../application/RecruitmentStatus'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
 
 @Injectable()
@@ -17,7 +18,7 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
         clinicalTrialModel.uuid,
         clinicalTrialModel.public_title,
         clinicalTrialModel.scientific_title,
-        clinicalTrialModel.recruitment_status,
+        clinicalTrialModel.recruitment,
         clinicalTrialModel.study_type,
         clinicalTrialModel.last_revision_date
       ))
@@ -44,7 +45,10 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
         clinicalTrialModel.scientific_title.acronym,
         clinicalTrialModel.scientific_title.value
       ),
-      clinicalTrialModel.recruitment_status as RecruitmentStatus,
+      new Recruitment(
+        clinicalTrialModel.recruitment.status,
+        clinicalTrialModel.recruitment.genders.map((gender: string): Gender => Gender[gender as keyof typeof Gender])
+      ),
       new StudyType(
         clinicalTrialModel.study_type.phase,
         clinicalTrialModel.study_type.study_type,

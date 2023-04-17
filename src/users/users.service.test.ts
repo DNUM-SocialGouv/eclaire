@@ -37,7 +37,7 @@ describe('users service', () => {
     expect(user).toBeUndefined()
   })
 
-  it('should retrieve a user fron a request', () => {
+  it('should retrieve a user from a request', () => {
     // GIVEN
     const request = {
       user: {
