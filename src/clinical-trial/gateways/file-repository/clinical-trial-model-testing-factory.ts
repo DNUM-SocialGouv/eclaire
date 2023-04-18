@@ -12,7 +12,7 @@ export class ClinicalTrialModelTestingFactory {
       'UNAVAILABLE',
       ['MALE']
     ),
-    new StudyTypeModel('', '', ''),
+    new StudyTypeModel('', '', '', [], []),
     '',
     '',
     {}
