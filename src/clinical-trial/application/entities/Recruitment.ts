@@ -1,15 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger'
 
 import { Gender } from '../Gender'
+import { PrimaryAge } from '../PrimaryAge'
 import { RecruitmentStatus } from '../RecruitmentStatus'
+import { SecondaryAge } from '../SecondaryAge'
 
 export class Recruitment {
   constructor(
     status: string,
-    genders: Gender[]
+    genders: Gender[],
+    ages_range: PrimaryAge[],
+    ages_range_secondary_identifiers: SecondaryAge[]
   ) {
     this.status = status
     this.genders = genders
+    this.ages_range = ages_range
+    this.ages_range_secondary_identifiers = ages_range_secondary_identifiers
   }
 
   @ApiProperty({
@@ -25,4 +31,18 @@ export class Recruitment {
     example: ['FEMALE', 'MALE'],
   })
   readonly genders: Gender[]
+
+  @ApiProperty({
+    description: 'L’âge minimum et maximum d’inclusion des patients pour le recrutement de l’essai clinique.',
+    enum: PrimaryAge,
+    example: [PrimaryAge.IN_UTERO, PrimaryAge.ZERO_SEVENTEEN_YEARS],
+  })
+  readonly ages_range: PrimaryAge[]
+
+  @ApiProperty({
+    description: 'L’âge minimum et maximum d’inclusion des patients pour le recrutement de l’essai clinique mais avec plus de précision sur la catégorie d’âge ciblé.',
+    enum: SecondaryAge,
+    example: [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.SIX_ELEVEN_YEARS],
+  })
+  readonly ages_range_secondary_identifiers: SecondaryAge[]
 }

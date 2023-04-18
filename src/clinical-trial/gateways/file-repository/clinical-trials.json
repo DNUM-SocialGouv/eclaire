@@ -16,14 +16,14 @@
     },
     "recruitment": {
       "genders": ["FEMALE"],
-      "status": "RECRUITING"
+      "status": "RECRUITING",
+      "ages_range": ["IN_UTERO", "SIXTY_FIVE_PLUS_YEARS"],
+      "ages_range_secondary_identifiers": ["PRETERM_NEWBORN", "EIGHTY_FIVE_PLUS_YEARS"]
     },
     "study_type": {
       "phase": "Therapeutic use (Phase IV)",
       "study_type": "",
-      "study_design": "",
-      "ages_range": ["IN_UTERO", "SIXTY_FIVE_PLUS_YEARS"],
-      "age_range_secondary_identifiers": ["PRETERM_NEWBORN", "EIGHTY_FIVE_PLUS_YEARS"]
+      "study_design": ""
     },
     "last_revision_date": "2022-02-06T18:25:43.511Z"
   },
@@ -43,14 +43,14 @@
     },
     "recruitment": {
       "genders": ["MALE"],
-      "status": "SCHEDULED"
+      "status": "SCHEDULED",
+      "ages_range": ["IN_UTERO", "SIXTY_FIVE_PLUS_YEARS"],
+      "ages_range_secondary_identifiers": []
     },
     "study_type": {
       "phase": "Human Pharmacology (Phase I)- First administration to humans",
       "study_type": "",
-      "study_design": "",
-      "ages_range": ["IN_UTERO", "SIXTY_FIVE_PLUS_YEARS"],
-      "age_range_secondary_identifiers": []
+      "study_design": ""
     },
     "last_revision_date": "2022-02-06T18:25:43.511Z"
   },
@@ -70,14 +70,14 @@
     },
     "recruitment": {
       "genders": ["FEMALE", "MALE"],
-      "status": "COMPLETED"
+      "status": "COMPLETED",
+      "ages_range": [],
+      "ages_range_secondary_identifiers": []
     },
     "study_type": {
       "phase": "Phase II and Phase III (Integrated)",
       "study_type": "",
-      "study_design": "",
-      "ages_range": [],
-      "age_range_secondary_identifiers": []
+      "study_design": ""
     },
     "last_revision_date": "2022-02-06T18:25:43.511Z"
   },
@@ -97,14 +97,14 @@
     },
     "recruitment": {
       "genders": [],
-      "status": "UNAVAILABLE"
+      "status": "UNAVAILABLE",
+      "ages_range": [],
+      "ages_range_secondary_identifiers": []
     },
     "study_type": {
       "phase": "",
       "study_type": "",
-      "study_design": "",
-      "ages_range": [],
-      "age_range_secondary_identifiers": []
+      "study_design": ""
     },
     "last_revision_date": "2022-02-06T18:25:43.511Z"
   }

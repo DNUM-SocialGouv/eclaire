@@ -10,9 +10,11 @@ export class ClinicalTrialModelTestingFactory {
     new TitleModel('', ''),
     new RecruitmentModel(
       'UNAVAILABLE',
-      ['MALE']
+      ['MALE'],
+      [],
+      []
     ),
-    new StudyTypeModel('', '', '', [], []),
+    new StudyTypeModel('', '', ''),
     '',
     '',
     {}
