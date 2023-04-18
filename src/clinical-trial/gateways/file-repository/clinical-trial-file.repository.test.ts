@@ -8,7 +8,9 @@ import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
 import { Title } from '../../application/entities/Title'
 import { Gender } from '../../application/Gender'
+import { PrimaryAge } from '../../application/PrimaryAge'
 import { RecruitmentStatus } from '../../application/RecruitmentStatus'
+import { SecondaryAge } from '../../application/SecondaryAge'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
 import { RecruitmentModel } from '../model/RecruitmentModel'
 import { StudyTypeModel } from '../model/StudyTypeModel'
@@ -29,7 +31,13 @@ describe('clinical trial file repository', () => {
       'RECRUITING',
       ['MALE']
     )
-    const studyTypeModel = new StudyTypeModel('Human Pharmacology (Phase I)- First administration to humans', '', '')
+    const studyTypeModel = new StudyTypeModel(
+      'Human Pharmacology (Phase I)- First administration to humans',
+      '',
+      '',
+      ['IN_UTERO', 'SIXTY_FIVE_PLUS_YEARS'],
+      ['PRETERM_NEWBORN', 'EIGHTY_FIVE_PLUS_YEARS']
+    )
     const lastRevisionDateModel = new Date().toString()
     const universalTrialNumberModel = 'NCT51265816'
     const secondariesTrialNumbersModel = {
@@ -65,7 +73,13 @@ describe('clinical trial file repository', () => {
         RecruitmentStatus.RECRUITING,
         [Gender.MALE]
       ),
-      new StudyType('Human Pharmacology (Phase I)- First administration to humans', '', ''),
+      new StudyType(
+        'Human Pharmacology (Phase I)- First administration to humans',
+        '',
+        '',
+        [PrimaryAge.IN_UTERO, PrimaryAge.SIXTY_FIVE_PLUS_YEARS],
+        [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.EIGHTY_FIVE_PLUS_YEARS]
+      ),
       new Date().toString(),
       'NCT51265816',
       {

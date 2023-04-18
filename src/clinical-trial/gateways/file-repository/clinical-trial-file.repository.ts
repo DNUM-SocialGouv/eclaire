@@ -6,6 +6,8 @@ import { StudyType } from '../../application/entities/StudyType'
 import { Title } from '../../application/entities/Title'
 import { Gender } from '../../application/Gender'
 import { ClinicalTrialRepository } from '../../application/interfaces/ClinicalTrialRepository'
+import { PrimaryAge } from '../../application/PrimaryAge'
+import { SecondaryAge } from '../../application/SecondaryAge'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
 
 @Injectable()
@@ -54,7 +56,9 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
       new StudyType(
         clinicalTrialModel.study_type.phase,
         clinicalTrialModel.study_type.study_type,
-        clinicalTrialModel.study_type.study_design
+        clinicalTrialModel.study_type.study_design,
+        clinicalTrialModel.study_type.ages_range.map((age: string): PrimaryAge => PrimaryAge[age as keyof typeof PrimaryAge]),
+        clinicalTrialModel.study_type.age_range_secondary_identifiers.map((age: string): SecondaryAge => SecondaryAge[age as keyof typeof SecondaryAge])
       ),
       clinicalTrialModel.last_revision_date,
       clinicalTrialModel.universal_trial_number,

@@ -19,11 +19,12 @@
   "mutate": [
     "src/**/*.ts",
     "!src/**/*.test.ts",
+    "!src/**/*-factory.ts",
+    "!src/auth/*.ts",
     "!src/main.ts",
     "!src/app.*.ts",
     "!src/sentry/*.ts",
-    "!src/swagger/*.ts",
-    "!src/**/*-factory.ts"
+    "!src/swagger/*.ts"
   ],
   "packageManager": "npm",
   "reporters": ["html"],

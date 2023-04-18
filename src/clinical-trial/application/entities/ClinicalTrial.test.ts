@@ -3,7 +3,9 @@ import { Recruitment } from './Recruitment'
 import { StudyType } from './StudyType'
 import { Title } from './Title'
 import { Gender } from '../Gender'
+import { PrimaryAge } from '../PrimaryAge'
 import { RecruitmentStatus } from '../RecruitmentStatus'
+import { SecondaryAge } from '../SecondaryAge'
 
 describe('clinical trial', () => {
   it('should build a clinical trial', () => {
@@ -18,7 +20,13 @@ describe('clinical trial', () => {
       'le meme titre mais en scientifique'
     )
     const recruitment = new Recruitment(RecruitmentStatus.RECRUITING, [Gender.MALE])
-    const studyType = new StudyType('Human Pharmacology (Phase I)- First administration to humans', '', '')
+    const studyType = new StudyType(
+      'Human Pharmacology (Phase I)- First administration to humans',
+      '',
+      '',
+      [PrimaryAge.IN_UTERO, PrimaryAge.SIXTY_FIVE_PLUS_YEARS],
+      [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.EIGHTY_FIVE_PLUS_YEARS]
+    )
     const lastRevisionDate = new Date().toString()
     const universalTrialNumber = 'NTC5492179625'
     const secondariesTrialNumbers = {
@@ -47,6 +55,8 @@ describe('clinical trial', () => {
     expect(clinicalTrial.study_type.phase).toBe('Human Pharmacology (Phase I)- First administration to humans')
     expect(clinicalTrial.study_type.study_design).toBe('')
     expect(clinicalTrial.study_type.study_type).toBe('')
+    expect(clinicalTrial.study_type.ages_range).toStrictEqual(['IN_UTERO', '65_PLUS_YEARS'])
+    expect(clinicalTrial.study_type.age_range_secondary_identifiers).toStrictEqual(['PRETERM_NEWBORN', '85_PLUS_YEARS'])
     expect(clinicalTrial.last_revision_date).toBe(lastRevisionDate)
   })
 
@@ -63,7 +73,7 @@ describe('clinical trial', () => {
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
     const publicTitle = new Title('', '')
     const scientificTitle = new Title('', '')
-    const studyType = new StudyType('', '', '')
+    const studyType = new StudyType('', '', '', [], [])
     const lastRevisionDate = new Date().toString()
     const recruitment = new Recruitment(recruitmentStatus, [])
     const universalTrialNumber = ''
@@ -96,7 +106,7 @@ describe('clinical trial', () => {
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
     const publicTitle = new Title('', '')
     const scientificTitle = new Title('', '')
-    const studyType = new StudyType('', '', '')
+    const studyType = new StudyType('', '', '', [], [])
     const lastRevisionDate = new Date().toString()
     const recruitment = new Recruitment('', genders)
     const universalTrialNumber = ''

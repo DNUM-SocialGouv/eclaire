@@ -20,20 +20,15 @@ export class UsersService {
   private loadUsers() {
     const accountsConfig = yaml.load(
       readFileSync(USERS_CONFIG_PATH, 'utf8')
-    ) as Record<string, string>
+    ) as { accounts: [Record<string, string>] }
 
-    if (
-      Array.isArray(accountsConfig.accounts) &&
-      accountsConfig.accounts.length
-    ) {
-      accountsConfig.accounts.forEach((user: User) => {
-        this.users.push(new User(user))
-      })
-    }
+    accountsConfig.accounts.forEach((user) => {
+      this.users.push(new User(user))
+    })
   }
 
   findOne(email: string): User | undefined {
-    return this.users.find((user: User) => user.email === email)
+    return this.users.find((user) => user.email === email)
   }
 
   getFromRequest(request: Request): User | undefined {
