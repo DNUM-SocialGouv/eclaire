@@ -3,8 +3,8 @@
     "uuid": "1",
     "universal_trial_number": "NCT00000419",
     "secondaries_trial_numbers": {
-      "AFR_number":  "AFRXXXXXXXX",
-      "national_number": "2011-006209-83"
+      "national_number": "2011-006209-83",
+      "pactr_number":  "PACTR202302877569441"
     },
     "public_title": {
       "value": "Circuler l'ADN pour améliorer le résultat de l'oncologie Patient. Une étude randomisée",
@@ -29,7 +29,7 @@
     "uuid": "2",
     "universal_trial_number": "",
     "secondaries_trial_numbers": {
-      "national_number": "2008-001801-28"
+      "national_number": "2011-006209-83"
     },
     "public_title": {
       "value": "",
@@ -52,9 +52,9 @@
   },
   {
     "uuid": "3",
-    "universal_trial_number": "",
+    "universal_trial_number": "UXXXX-XXXX-XXX",
     "secondaries_trial_numbers": {
-      "NCT_number": "NCT00000419"
+      "NCT_number": "NCTXXXXXXXX"
     },
     "public_title": {
       "value": "",
@@ -78,7 +78,9 @@
   {
     "uuid": "4",
     "universal_trial_number": "",
-    "secondaries_trial_numbers": {},
+    "secondaries_trial_numbers": {
+      "NCT_number": "NCTXXXXXXXX"
+    },
     "public_title": {
       "value": "Un essai clinique qui n'a pas de statut",
       "acronym": ""
