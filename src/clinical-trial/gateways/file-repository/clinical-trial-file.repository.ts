@@ -51,14 +51,14 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
       ),
       new Recruitment(
         clinicalTrialModel.recruitment.status,
-        clinicalTrialModel.recruitment.genders.map((gender: string): Gender => Gender[gender as keyof typeof Gender])
+        clinicalTrialModel.recruitment.genders.map((gender: string): Gender => Gender[gender as keyof typeof Gender]),
+        clinicalTrialModel.recruitment.ages_range.map((age: string): PrimaryAge => PrimaryAge[age as keyof typeof PrimaryAge]),
+        clinicalTrialModel.recruitment.ages_range_secondary_identifiers.map((age: string): SecondaryAge => SecondaryAge[age as keyof typeof SecondaryAge])
       ),
       new StudyType(
         clinicalTrialModel.study_type.phase,
         clinicalTrialModel.study_type.study_type,
-        clinicalTrialModel.study_type.study_design,
-        clinicalTrialModel.study_type.ages_range.map((age: string): PrimaryAge => PrimaryAge[age as keyof typeof PrimaryAge]),
-        clinicalTrialModel.study_type.age_range_secondary_identifiers.map((age: string): SecondaryAge => SecondaryAge[age as keyof typeof SecondaryAge])
+        clinicalTrialModel.study_type.study_design
       ),
       clinicalTrialModel.last_revision_date,
       clinicalTrialModel.universal_trial_number,

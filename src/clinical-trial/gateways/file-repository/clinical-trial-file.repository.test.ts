@@ -29,14 +29,14 @@ describe('clinical trial file repository', () => {
     )
     const recruitmentModel = new RecruitmentModel(
       'RECRUITING',
-      ['MALE']
+      ['MALE'],
+      ['IN_UTERO', 'SIXTY_FIVE_PLUS_YEARS'],
+      ['PRETERM_NEWBORN', 'EIGHTY_FIVE_PLUS_YEARS']
     )
     const studyTypeModel = new StudyTypeModel(
       'Human Pharmacology (Phase I)- First administration to humans',
       '',
-      '',
-      ['IN_UTERO', 'SIXTY_FIVE_PLUS_YEARS'],
-      ['PRETERM_NEWBORN', 'EIGHTY_FIVE_PLUS_YEARS']
+      ''
     )
     const lastRevisionDateModel = new Date().toString()
     const universalTrialNumberModel = 'NCT51265816'
@@ -71,14 +71,14 @@ describe('clinical trial file repository', () => {
       ),
       new Recruitment(
         RecruitmentStatus.RECRUITING,
-        [Gender.MALE]
+        [Gender.MALE],
+        [PrimaryAge.IN_UTERO, PrimaryAge.SIXTY_FIVE_PLUS_YEARS],
+        [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.EIGHTY_FIVE_PLUS_YEARS]
       ),
       new StudyType(
         'Human Pharmacology (Phase I)- First administration to humans',
         '',
-        '',
-        [PrimaryAge.IN_UTERO, PrimaryAge.SIXTY_FIVE_PLUS_YEARS],
-        [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.EIGHTY_FIVE_PLUS_YEARS]
+        ''
       ),
       new Date().toString(),
       'NCT51265816',
