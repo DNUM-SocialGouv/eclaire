@@ -26,7 +26,35 @@
       "study_type": "",
       "study_design": ""
     },
-    "last_revision_date": "2022-02-06T18:25:43.511Z"
+    "last_revision_date": "2022-02-06T18:25:43.511Z",
+    "contact": {
+      "public_queries": {
+        "name": "Institut Bergognié",
+        "firstname": "Antoine",
+        "lastname": "Italiano",
+        "address": "5 avenue de l’opera",
+        "city": "bordeaux",
+        "country": "France",
+        "zip": "33076",
+        "telephone": "01 23 45 67 89 ",
+        "email": "aitaliona@aitaliona@example.fr",
+        "organization": "Ministère de la santé",
+        "siret": "552 178 639 00132"
+      },
+      "scientific_queries": {
+        "name": "",
+        "firstname": "",
+        "lastname": "",
+        "address": "",
+        "city": "",
+        "country": "",
+        "zip": "",
+        "telephone": "",
+        "email": "",
+        "organization": "",
+        "siret": ""
+      }
+    }
   },
   {
     "uuid": "2",
@@ -54,7 +82,35 @@
       "study_type": "",
       "study_design": ""
     },
-    "last_revision_date": "2022-02-06T18:25:43.511Z"
+    "last_revision_date": "2022-02-06T18:25:43.511Z",
+    "contact" : {
+      "public_queries": {
+        "name": "Institut  Bergognié",
+        "firstname": "Antoine",
+        "lastname": "Italiano",
+        "address": "5 avenue de l’opera",
+        "city": "bordeaux",
+        "country": "France",
+        "zip": "33076",
+        "telephone": "",
+        "email": "aitaliona@example",
+        "organization": "Ministère de la santé",
+        "siret": "552 178 639 00132"
+      },
+      "scientific_queries": {
+        "name": "",
+        "firstname": "",
+        "lastname": "",
+        "address": "",
+        "city": "",
+        "country": "",
+        "zip": "",
+        "telephone": "",
+        "email": "",
+        "organization": "",
+        "siret": ""
+      }
+    }
   },
   {
     "uuid": "3",
@@ -71,7 +127,10 @@
       "acronym": "USTC"
     },
     "recruitment": {
-      "genders": ["FEMALE", "MALE"],
+      "genders": [
+        "FEMALE",
+        "MALE"
+      ],
       "status": "COMPLETED",
       "ages_range": [],
       "ages_range_secondary_identifiers": [],
@@ -82,7 +141,35 @@
       "study_type": "",
       "study_design": ""
     },
-    "last_revision_date": "2022-02-06T18:25:43.511Z"
+    "last_revision_date": "2022-02-06T18:25:43.511Z",
+    "contact": {
+      "public_queries": {
+        "name": "Institut  Bergognié",
+        "firstname": "Antoine",
+        "lastname": "Italiano",
+        "address": "5 avenue de l’opera",
+        "city": "bordeaux",
+        "country": "France",
+        "zip": "33076",
+        "telephone": "",
+        "email": "aitaliona@example",
+        "organization": "Ministère de la santé",
+        "siret": ""
+      },
+      "scientific_queries": {
+        "name": "",
+        "firstname": "",
+        "lastname": "",
+        "address": "",
+        "city": "",
+        "country": "",
+        "zip": "",
+        "telephone": "",
+        "email": "",
+        "organization": "",
+        "siret": ""
+      }
+    }
   },
   {
     "uuid": "4",
@@ -110,6 +197,33 @@
       "study_type": "",
       "study_design": ""
     },
-    "last_revision_date": "2022-02-06T18:25:43.511Z"
+    "last_revision_date": "2022-02-06T18:25:43.511Z",
+    "contact": {
+      "public_queries": {
+        "name": "",
+        "firstname": "",
+        "lastname": "",
+        "address": "",
+        "city": "",
+        "country": "",
+        "zip": "",
+        "telephone": "",
+        "email": "",
+        "organization": "",
+        "siret": ""
+      },      "scientific_queries": {
+        "name": "",
+        "firstname": "",
+        "lastname": "",
+        "address": "",
+        "city": "",
+        "country": "",
+        "zip": "",
+        "telephone": "",
+        "email": "",
+        "organization": "",
+        "siret": ""
+      }
+    }
   }
 ]

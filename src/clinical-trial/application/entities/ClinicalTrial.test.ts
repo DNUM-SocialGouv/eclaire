@@ -1,4 +1,6 @@
 import { ClinicalTrial } from './ClinicalTrial'
+import { Contact } from './Contact'
+import { ContactDetails } from './ContactDetails'
 import { Recruitment } from './Recruitment'
 import { StudyType } from './StudyType'
 import { Title } from './Title'
@@ -38,18 +40,26 @@ describe('clinical trial', () => {
       national_number: '2011-006209-83',
     }
 
+    const contact = new Contact(
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', ''),
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
+    )
+
     // WHEN
     const clinicalTrial = new ClinicalTrial(
+      universalTrialNumber,
+      secondariesTrialNumbers,
       publicTitle,
       scientificTitle,
       recruitment,
       studyType,
       lastRevisionDate,
-      universalTrialNumber,
-      secondariesTrialNumbers
+      contact
     )
 
     // THEN
+    expect(clinicalTrial.universal_trial_number).toBe(universalTrialNumber)
+    expect(clinicalTrial.secondaries_trial_numbers).toBe(secondariesTrialNumbers)
     expect(clinicalTrial.public_title.acronym).toBe('AGADIR')
     expect(clinicalTrial.public_title.value).toBe('Circuler l’ADN pour améliorer le résultat de l’oncologie Patient. Une étude randomisée')
     expect(clinicalTrial.scientific_title.acronym).toBe('AGADIR')
@@ -62,7 +72,8 @@ describe('clinical trial', () => {
     expect(clinicalTrial.study_type.phase).toBe('Human Pharmacology (Phase I)- First administration to humans')
     expect(clinicalTrial.study_type.study_design).toBe('')
     expect(clinicalTrial.study_type.study_type).toBe('')
-    expect(clinicalTrial.last_revision_date).toBe(lastRevisionDate)
+    expect(clinicalTrial.last_revision_date).toBe(new Date().toString())
+    expect(clinicalTrial.contact).toBeInstanceOf(Contact)
   })
 
   it.each(
@@ -83,16 +94,21 @@ describe('clinical trial', () => {
     const recruitment = new Recruitment(recruitmentStatus, [], [], [], 0)
     const universalTrialNumber = ''
     const secondariesTrialNumbers = {}
+    const contact = new Contact(
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', ''),
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
+    )
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
+      universalTrialNumber,
+      secondariesTrialNumbers,
       publicTitle,
       scientificTitle,
       recruitment,
       studyType,
       lastRevisionDate,
-      universalTrialNumber,
-      secondariesTrialNumbers
+      contact
     )
 
     // THEN
@@ -109,23 +125,28 @@ describe('clinical trial', () => {
   )('should build a clinical trial with a %s gender', (genders: Array<Gender>) => {
     // GIVEN
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
+    const universalTrialNumber = ''
+    const secondariesTrialNumbers = {}
     const publicTitle = new Title('', '')
     const scientificTitle = new Title('', '')
     const studyType = new StudyType('', '', '')
     const lastRevisionDate = new Date().toString()
     const recruitment = new Recruitment('', genders, [], [], 0)
-    const universalTrialNumber = ''
-    const secondariesTrialNumbers = {}
+    const contact = new Contact(
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', ''),
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
+    )
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
+      universalTrialNumber,
+      secondariesTrialNumbers,
       publicTitle,
       scientificTitle,
       recruitment,
       studyType,
       lastRevisionDate,
-      universalTrialNumber,
-      secondariesTrialNumbers
+      contact
     )
 
     // THEN

@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 
 import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
+import { Contact } from '../../application/entities/Contact'
+import { ContactDetails } from '../../application/entities/ContactDetails'
 import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
 import { Title } from '../../application/entities/Title'
@@ -18,13 +20,14 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
     clinicalTrialsModel.forEach((clinicalTrialModel) => {
       this.clinicalTrialsRepository.push(new ClinicalTrialModel(
         clinicalTrialModel.uuid,
+        clinicalTrialModel.universal_trial_number,
+        clinicalTrialModel.secondaries_trial_numbers,
         clinicalTrialModel.public_title,
         clinicalTrialModel.scientific_title,
         clinicalTrialModel.recruitment,
         clinicalTrialModel.study_type,
         clinicalTrialModel.last_revision_date,
-        clinicalTrialModel.universal_trial_number,
-        clinicalTrialModel.secondaries_trial_numbers
+        clinicalTrialModel.contact
       ))
     })
   }
@@ -41,6 +44,8 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
 
   private buildClinicalTrialEntity(clinicalTrialModel: ClinicalTrialModel): ClinicalTrial {
     return new ClinicalTrial(
+      clinicalTrialModel.universal_trial_number,
+      clinicalTrialModel.secondaries_trial_numbers,
       new Title(
         clinicalTrialModel.public_title.acronym,
         clinicalTrialModel.public_title.value
@@ -62,8 +67,34 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
         clinicalTrialModel.study_type.study_design
       ),
       clinicalTrialModel.last_revision_date,
-      clinicalTrialModel.universal_trial_number,
-      clinicalTrialModel.secondaries_trial_numbers
+      new Contact(
+        new ContactDetails(
+          clinicalTrialModel.contact.public_queries.name,
+          clinicalTrialModel.contact.public_queries.firstname,
+          clinicalTrialModel.contact.public_queries.lastname,
+          clinicalTrialModel.contact.public_queries.address,
+          clinicalTrialModel.contact.public_queries.city,
+          clinicalTrialModel.contact.public_queries.country,
+          clinicalTrialModel.contact.public_queries.zip,
+          clinicalTrialModel.contact.public_queries.telephone,
+          clinicalTrialModel.contact.public_queries.email,
+          clinicalTrialModel.contact.public_queries.organization,
+          clinicalTrialModel.contact.public_queries.siret
+        ),
+        new ContactDetails(
+          clinicalTrialModel.contact.scientific_queries.name,
+          clinicalTrialModel.contact.scientific_queries.firstname,
+          clinicalTrialModel.contact.scientific_queries.lastname,
+          clinicalTrialModel.contact.scientific_queries.address,
+          clinicalTrialModel.contact.scientific_queries.city,
+          clinicalTrialModel.contact.scientific_queries.country,
+          clinicalTrialModel.contact.scientific_queries.zip,
+          clinicalTrialModel.contact.scientific_queries.telephone,
+          clinicalTrialModel.contact.scientific_queries.email,
+          clinicalTrialModel.contact.scientific_queries.organization,
+          clinicalTrialModel.contact.scientific_queries.siret
+        )
+      )
     )
   }
 }
