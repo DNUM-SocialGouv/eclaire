@@ -1,26 +1,29 @@
 import { ApiProperty } from '@nestjs/swagger'
 
+import { Contact } from './Contact'
 import { Recruitment } from './Recruitment'
 import { StudyType } from './StudyType'
 import { Title } from './Title'
 
 export class ClinicalTrial {
   constructor(
+    universal_trial_number: string,
+    secondaries_trial_numbers: Record<string, string>,
     public_title: Title,
     scientific_title: Title,
     recruitment: Recruitment,
     study_type: StudyType,
     last_revision_date: string,
-    universal_trial_number: string,
-    secondaries_trial_numbers: Record<string, string>
+    contact: Contact
   ) {
+    this.universal_trial_number = universal_trial_number
+    this.secondaries_trial_numbers = secondaries_trial_numbers
     this.public_title = public_title
     this.scientific_title = scientific_title
     this.recruitment = recruitment
     this.study_type = study_type
     this.last_revision_date = last_revision_date
-    this.universal_trial_number = universal_trial_number
-    this.secondaries_trial_numbers = secondaries_trial_numbers
+    this.contact = contact
   }
 
   @ApiProperty({
@@ -63,4 +66,7 @@ export class ClinicalTrial {
     example: '2022-02-06T18:25:43.511Z',
   })
   readonly last_revision_date: string
+
+  @ApiProperty({ description: 'Le nom et les informations de contact qui permettent à un volontaire d’avoir des informations concernant l’essai clinique (critères d’inclusions, informations sur l’essai,...) ' })
+  readonly contact: Contact
 }

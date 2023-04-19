@@ -4,6 +4,8 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { ClinicalTrialFileRepository } from './clinical-trial-file.repository'
 import { ClinicalTrialModelTestingFactory } from './clinical-trial-model-testing-factory'
 import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
+import { Contact } from '../../application/entities/Contact'
+import { ContactDetails } from '../../application/entities/ContactDetails'
 import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
 import { Title } from '../../application/entities/Title'
@@ -12,6 +14,8 @@ import { PrimaryAge } from '../../application/PrimaryAge'
 import { RecruitmentStatus } from '../../application/RecruitmentStatus'
 import { SecondaryAge } from '../../application/SecondaryAge'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
+import { ContactDetailsModel } from '../model/ContactDetailsModel'
+import { ContactModel } from '../model/ContactModel'
 import { RecruitmentModel } from '../model/RecruitmentModel'
 import { StudyTypeModel } from '../model/StudyTypeModel'
 import { TitleModel } from '../model/TitleModel'
@@ -46,7 +50,37 @@ describe('clinical trial file repository', () => {
       national_number: '2011-006209-83',
     }
 
+    const contactModel = new ContactModel(
+      new ContactDetailsModel(
+        'Institut Bergognié',
+        'Antoine',
+        'Italiano',
+        '5 avenue de l’opera',
+        'bordeaux',
+        'France',
+        '33076',
+        '01 23 45 67 89 ',
+        'aitaliona@example',
+        'Ministère de la santé',
+        '552 178 639 00132'
+      ),
+      new ContactDetailsModel(
+        'John Doe',
+        'John',
+        'Doe',
+        '123 rue de la cabosse',
+        'Saint-François-sur-Seine',
+        'France',
+        '01234',
+        '(+33)1 23 45 67 89',
+        'johndoe@ministere.com',
+        'Ministère de la Santé',
+        ''
+      )
+    )
+
     const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({
+      contact: contactModel,
       last_revision_date: lastRevisionDateModel,
       public_title: publicTitleModel,
       recruitment: recruitmentModel,
@@ -62,6 +96,11 @@ describe('clinical trial file repository', () => {
 
     // THEN
     expect(clinicalTrial).toStrictEqual(new ClinicalTrial(
+      'NCT51265816',
+      {
+        AFR_number:  'AFRXXXXXXXX',
+        national_number: '2011-006209-83',
+      },
       new Title(
         'AGADIR',
         'Circuler l’ADN pour améliorer le résultat de l’oncologie Patient. Une étude randomisée'
@@ -83,11 +122,34 @@ describe('clinical trial file repository', () => {
         ''
       ),
       new Date().toString(),
-      'NCT51265816',
-      {
-        AFR_number:  'AFRXXXXXXXX',
-        national_number: '2011-006209-83',
-      }
+      new Contact(
+        new ContactDetails(
+          'Institut Bergognié',
+          'Antoine',
+          'Italiano',
+          '5 avenue de l’opera',
+          'bordeaux',
+          'France',
+          '33076',
+          '01 23 45 67 89 ',
+          'aitaliona@example',
+          'Ministère de la santé',
+          '552 178 639 00132'
+        ),
+        new ContactDetails(
+          'John Doe',
+          'John',
+          'Doe',
+          '123 rue de la cabosse',
+          'Saint-François-sur-Seine',
+          'France',
+          '01234',
+          '(+33)1 23 45 67 89',
+          'johndoe@ministere.com',
+          'Ministère de la Santé',
+          ''
+        )
+      )
     ))
   })
 
