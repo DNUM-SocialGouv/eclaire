@@ -3,6 +3,7 @@ import { Contact } from './Contact'
 import { ContactDetails } from './ContactDetails'
 import { Recruitment } from './Recruitment'
 import { StudyType } from './StudyType'
+import { TherapeuticArea } from './TherapeuticArea'
 import { Title } from './Title'
 import { Gender } from '../Gender'
 import { PrimaryAge } from '../PrimaryAge'
@@ -10,7 +11,7 @@ import { RecruitmentStatus } from '../RecruitmentStatus'
 import { SecondaryAge } from '../SecondaryAge'
 
 describe('clinical trial', () => {
-  it('should build a clinical trial', () => {
+  it('should have a clinical trial', () => {
     // GIVEN
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
     const publicTitle = new Title(
@@ -45,6 +46,10 @@ describe('clinical trial', () => {
       new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
     )
 
+    const medicalCondition = 'Cancer des poumons'
+    const medicalConditionMeddra = ['10060929', '10072818']
+    const therapeuticArea = [new TherapeuticArea('', '')]
+
     // WHEN
     const clinicalTrial = new ClinicalTrial(
       universalTrialNumber,
@@ -54,7 +59,10 @@ describe('clinical trial', () => {
       recruitment,
       studyType,
       lastRevisionDate,
-      contact
+      contact,
+      medicalCondition,
+      medicalConditionMeddra,
+      therapeuticArea
     )
 
     // THEN
@@ -74,6 +82,8 @@ describe('clinical trial', () => {
     expect(clinicalTrial.study_type.study_type).toBe('')
     expect(clinicalTrial.last_revision_date).toBe(new Date().toString())
     expect(clinicalTrial.contact).toBeInstanceOf(Contact)
+    expect(clinicalTrial.medical_condition).toBe('Cancer des poumons')
+    expect(clinicalTrial.medical_condition_meddra).toStrictEqual(['10060929', '10072818'])
   })
 
   it.each(
@@ -84,7 +94,7 @@ describe('clinical trial', () => {
       [RecruitmentStatus.PENDING],
       [RecruitmentStatus.SUSPENDED],
     ]
-  )('should build a clinical trial with a %s status', (recruitmentStatus: RecruitmentStatus) => {
+  )('should have a clinical trial with a %s status', (recruitmentStatus: RecruitmentStatus) => {
     // GIVEN
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
     const publicTitle = new Title('', '')
@@ -98,6 +108,9 @@ describe('clinical trial', () => {
       new ContactDetails('', '', '', '', '', '', '', '', '', '', ''),
       new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
     )
+    const medicalCondition = ''
+    const medicalConditionMeddra: Array<string> = []
+    const therapeuticArea: Array<TherapeuticArea> = []
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
@@ -108,7 +121,10 @@ describe('clinical trial', () => {
       recruitment,
       studyType,
       lastRevisionDate,
-      contact
+      contact,
+      medicalCondition,
+      medicalConditionMeddra,
+      therapeuticArea
     )
 
     // THEN
@@ -122,7 +138,7 @@ describe('clinical trial', () => {
       [[Gender.MALE, Gender.FEMALE]],
       [[]],
     ]
-  )('should build a clinical trial with a %s gender', (genders: Array<Gender>) => {
+  )('should have a clinical trial with a %s gender', (genders: Array<Gender>) => {
     // GIVEN
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
     const universalTrialNumber = ''
@@ -136,6 +152,9 @@ describe('clinical trial', () => {
       new ContactDetails('', '', '', '', '', '', '', '', '', '', ''),
       new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
     )
+    const medicalCondition = ''
+    const medicalConditionMeddra: Array<string> = []
+    const therapeuticArea: Array<TherapeuticArea> = []
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
@@ -146,7 +165,10 @@ describe('clinical trial', () => {
       recruitment,
       studyType,
       lastRevisionDate,
-      contact
+      contact,
+      medicalCondition,
+      medicalConditionMeddra,
+      therapeuticArea
     )
 
     // THEN

@@ -5,6 +5,7 @@ import { Contact } from '../../application/entities/Contact'
 import { ContactDetails } from '../../application/entities/ContactDetails'
 import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
+import { TherapeuticArea } from '../../application/entities/TherapeuticArea'
 import { Title } from '../../application/entities/Title'
 import { Gender } from '../../application/Gender'
 import { ClinicalTrialRepository } from '../../application/interfaces/ClinicalTrialRepository'
@@ -27,7 +28,10 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
         clinicalTrialModel.recruitment,
         clinicalTrialModel.study_type,
         clinicalTrialModel.last_revision_date,
-        clinicalTrialModel.contact
+        clinicalTrialModel.contact,
+        clinicalTrialModel.medical_condition,
+        clinicalTrialModel.medical_condition_meddra,
+        clinicalTrialModel.therapeutic_areas
       ))
     })
   }
@@ -94,7 +98,10 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
           clinicalTrialModel.contact.scientific_queries.organization,
           clinicalTrialModel.contact.scientific_queries.siret
         )
-      )
+      ),
+      clinicalTrialModel.medical_condition,
+      clinicalTrialModel.medical_condition_meddra,
+      clinicalTrialModel.therapeutic_areas.map((item) => new TherapeuticArea(item.value, item.code))
     )
   }
 }
