@@ -18,7 +18,8 @@
       "genders": ["FEMALE"],
       "status": "RECRUITING",
       "ages_range": ["IN_UTERO", "SIXTY_FIVE_PLUS_YEARS"],
-      "ages_range_secondary_identifiers": ["PRETERM_NEWBORN", "EIGHTY_FIVE_PLUS_YEARS"]
+      "ages_range_secondary_identifiers": ["PRETERM_NEWBORN", "EIGHTY_FIVE_PLUS_YEARS"],
+      "target_number": 100
     },
     "study_type": {
       "phase": "Therapeutic use (Phase IV)",
@@ -45,7 +46,8 @@
       "genders": ["MALE"],
       "status": "SCHEDULED",
       "ages_range": ["IN_UTERO", "SIXTY_FIVE_PLUS_YEARS"],
-      "ages_range_secondary_identifiers": []
+      "ages_range_secondary_identifiers": [],
+      "target_number": 200
     },
     "study_type": {
       "phase": "Human Pharmacology (Phase I)- First administration to humans",
@@ -72,7 +74,8 @@
       "genders": ["FEMALE", "MALE"],
       "status": "COMPLETED",
       "ages_range": [],
-      "ages_range_secondary_identifiers": []
+      "ages_range_secondary_identifiers": [],
+      "target_number": 300
     },
     "study_type": {
       "phase": "Phase II and Phase III (Integrated)",
@@ -99,7 +102,8 @@
       "genders": [],
       "status": "UNAVAILABLE",
       "ages_range": [],
-      "ages_range_secondary_identifiers": []
+      "ages_range_secondary_identifiers": [],
+      "target_number": 0
     },
     "study_type": {
       "phase": "",

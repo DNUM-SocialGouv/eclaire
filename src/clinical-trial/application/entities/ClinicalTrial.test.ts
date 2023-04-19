@@ -23,7 +23,8 @@ describe('clinical trial', () => {
       RecruitmentStatus.RECRUITING,
       [Gender.MALE],
       [PrimaryAge.IN_UTERO, PrimaryAge.SIXTY_FIVE_PLUS_YEARS],
-      [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.EIGHTY_FIVE_PLUS_YEARS]
+      [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.EIGHTY_FIVE_PLUS_YEARS],
+      400
     )
     const studyType = new StudyType(
       'Human Pharmacology (Phase I)- First administration to humans',
@@ -57,6 +58,7 @@ describe('clinical trial', () => {
     expect(clinicalTrial.recruitment.status).toBe(RecruitmentStatus.RECRUITING)
     expect(clinicalTrial.recruitment.ages_range).toStrictEqual(['IN_UTERO', '65_PLUS_YEARS'])
     expect(clinicalTrial.recruitment.ages_range_secondary_identifiers).toStrictEqual(['PRETERM_NEWBORN', '85_PLUS_YEARS'])
+    expect(clinicalTrial.recruitment.target_number).toBe(400)
     expect(clinicalTrial.study_type.phase).toBe('Human Pharmacology (Phase I)- First administration to humans')
     expect(clinicalTrial.study_type.study_design).toBe('')
     expect(clinicalTrial.study_type.study_type).toBe('')
@@ -78,7 +80,7 @@ describe('clinical trial', () => {
     const scientificTitle = new Title('', '')
     const studyType = new StudyType('', '', '')
     const lastRevisionDate = new Date().toString()
-    const recruitment = new Recruitment(recruitmentStatus, [], [], [])
+    const recruitment = new Recruitment(recruitmentStatus, [], [], [], 0)
     const universalTrialNumber = ''
     const secondariesTrialNumbers = {}
 
@@ -111,7 +113,7 @@ describe('clinical trial', () => {
     const scientificTitle = new Title('', '')
     const studyType = new StudyType('', '', '')
     const lastRevisionDate = new Date().toString()
-    const recruitment = new Recruitment('', genders, [], [])
+    const recruitment = new Recruitment('', genders, [], [], 0)
     const universalTrialNumber = ''
     const secondariesTrialNumbers = {}
 

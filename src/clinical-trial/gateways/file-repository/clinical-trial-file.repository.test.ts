@@ -31,7 +31,8 @@ describe('clinical trial file repository', () => {
       'RECRUITING',
       ['MALE'],
       ['IN_UTERO', 'SIXTY_FIVE_PLUS_YEARS'],
-      ['PRETERM_NEWBORN', 'EIGHTY_FIVE_PLUS_YEARS']
+      ['PRETERM_NEWBORN', 'EIGHTY_FIVE_PLUS_YEARS'],
+      400
     )
     const studyTypeModel = new StudyTypeModel(
       'Human Pharmacology (Phase I)- First administration to humans',
@@ -73,7 +74,8 @@ describe('clinical trial file repository', () => {
         RecruitmentStatus.RECRUITING,
         [Gender.MALE],
         [PrimaryAge.IN_UTERO, PrimaryAge.SIXTY_FIVE_PLUS_YEARS],
-        [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.EIGHTY_FIVE_PLUS_YEARS]
+        [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.EIGHTY_FIVE_PLUS_YEARS],
+        400
       ),
       new StudyType(
         'Human Pharmacology (Phase I)- First administration to humans',
