@@ -10,12 +10,14 @@ export class Recruitment {
     status: string,
     genders: Gender[],
     ages_range: PrimaryAge[],
-    ages_range_secondary_identifiers: SecondaryAge[]
+    ages_range_secondary_identifiers: SecondaryAge[],
+    target_number: number
   ) {
     this.status = status
     this.genders = genders
     this.ages_range = ages_range
     this.ages_range_secondary_identifiers = ages_range_secondary_identifiers
+    this.target_number = target_number
   }
 
   @ApiProperty({
@@ -45,4 +47,10 @@ export class Recruitment {
     example: [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.SIX_ELEVEN_YEARS],
   })
   readonly ages_range_secondary_identifiers: SecondaryAge[]
+
+  @ApiProperty({
+    description: 'Le nombre de personnes ciblées pour le recrutement de l’essai clinique',
+    example: 400,
+  })
+  readonly target_number: number
 }
