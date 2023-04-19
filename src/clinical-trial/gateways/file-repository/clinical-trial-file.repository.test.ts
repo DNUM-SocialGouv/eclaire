@@ -8,6 +8,7 @@ import { Contact } from '../../application/entities/Contact'
 import { ContactDetails } from '../../application/entities/ContactDetails'
 import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
+import { TherapeuticArea } from '../../application/entities/TherapeuticArea'
 import { Title } from '../../application/entities/Title'
 import { Gender } from '../../application/Gender'
 import { PrimaryAge } from '../../application/PrimaryAge'
@@ -18,6 +19,7 @@ import { ContactDetailsModel } from '../model/ContactDetailsModel'
 import { ContactModel } from '../model/ContactModel'
 import { RecruitmentModel } from '../model/RecruitmentModel'
 import { StudyTypeModel } from '../model/StudyTypeModel'
+import { TherapeuticAreaModel } from '../model/TherapeuticAreaModel'
 import { TitleModel } from '../model/TitleModel'
 
 describe('clinical trial file repository', () => {
@@ -49,6 +51,9 @@ describe('clinical trial file repository', () => {
       AFR_number:  'AFRXXXXXXXX',
       national_number: '2011-006209-83',
     }
+    const medicalCondition = 'Cancer des poumons'
+    const medicalConditionMedDRA = ['10060929', '10072818']
+    const therapeuticAreas = [new TherapeuticAreaModel('Circulatory and Respiratory Physiological Phenomena', 'G')]
 
     const contactModel = new ContactModel(
       new ContactDetailsModel(
@@ -82,11 +87,14 @@ describe('clinical trial file repository', () => {
     const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({
       contact: contactModel,
       last_revision_date: lastRevisionDateModel,
+      medical_condition: medicalCondition,
+      medical_condition_meddra: medicalConditionMedDRA,
       public_title: publicTitleModel,
       recruitment: recruitmentModel,
       scientific_title: scientificTitleModel,
       secondaries_trial_numbers: secondariesTrialNumbersModel,
       study_type: studyTypeModel,
+      therapeutic_areas: therapeuticAreas,
       universal_trial_number: universalTrialNumberModel,
     })
     const repository = await createRepository([clinicalTrialModel])
@@ -149,7 +157,10 @@ describe('clinical trial file repository', () => {
           'Ministère de la Santé',
           ''
         )
-      )
+      ),
+      'Cancer des poumons',
+      ['10060929', '10072818'],
+      [new TherapeuticArea('Circulatory and Respiratory Physiological Phenomena', 'G')]
     ))
   })
 

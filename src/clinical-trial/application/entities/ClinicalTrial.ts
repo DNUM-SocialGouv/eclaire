@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger'
 import { Contact } from './Contact'
 import { Recruitment } from './Recruitment'
 import { StudyType } from './StudyType'
+import { TherapeuticArea } from './TherapeuticArea'
 import { Title } from './Title'
 
 export class ClinicalTrial {
@@ -14,7 +15,10 @@ export class ClinicalTrial {
     recruitment: Recruitment,
     study_type: StudyType,
     last_revision_date: string,
-    contact: Contact
+    contact: Contact,
+    medical_condition: string,
+    medical_condition_meddra: Array<string>,
+    therapeutic_area: Array<TherapeuticArea>
   ) {
     this.universal_trial_number = universal_trial_number
     this.secondaries_trial_numbers = secondaries_trial_numbers
@@ -24,6 +28,9 @@ export class ClinicalTrial {
     this.study_type = study_type
     this.last_revision_date = last_revision_date
     this.contact = contact
+    this.medical_condition = medical_condition
+    this.medical_condition_meddra = medical_condition_meddra
+    this.therapeutic_area = therapeutic_area
   }
 
   @ApiProperty({
@@ -69,4 +76,23 @@ export class ClinicalTrial {
 
   @ApiProperty({ description: 'Le nom et les informations de contact qui permettent à un volontaire d’avoir des informations concernant l’essai clinique (critères d’inclusions, informations sur l’essai,...) ' })
   readonly contact: Contact
+
+  @ApiProperty({
+    description: 'Nom de la pathologie liées à l’essai clinique.',
+    example: 'Cancer des poumons',
+  })
+  readonly medical_condition: string
+
+  @ApiProperty({
+    description: 'Code(s) relatif(s) à une pathologie MedDRA.',
+    example: ['10060929', '10072818'],
+  })
+  readonly medical_condition_meddra: Array<string>
+
+  @ApiProperty({
+    description: 'Le domaine thérapeutique d’un essai clinique correspond au champ de la recherche et développement d’un traitement spécifique à certaines pathologies et conditions de santé.',
+    example: [{ code: 'G05', value: 'Circulatory and Respiratory Physiological Phenomena' }],
+    type: TherapeuticArea,
+  })
+  readonly therapeutic_area: Array<TherapeuticArea>
 }
