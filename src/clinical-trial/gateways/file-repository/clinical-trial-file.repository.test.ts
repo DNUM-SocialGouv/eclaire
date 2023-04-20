@@ -8,185 +8,106 @@ import { Contact } from '../../application/entities/Contact'
 import { ContactDetails } from '../../application/entities/ContactDetails'
 import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
-import { TherapeuticArea } from '../../application/entities/TherapeuticArea'
 import { Title } from '../../application/entities/Title'
-import { Gender } from '../../application/Gender'
-import { PrimaryAge } from '../../application/PrimaryAge'
 import { RecruitmentStatus } from '../../application/RecruitmentStatus'
-import { SecondaryAge } from '../../application/SecondaryAge'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
-import { ContactDetailsModel } from '../model/ContactDetailsModel'
-import { ContactModel } from '../model/ContactModel'
-import { RecruitmentModel } from '../model/RecruitmentModel'
-import { StudyTypeModel } from '../model/StudyTypeModel'
-import { TherapeuticAreaModel } from '../model/TherapeuticAreaModel'
-import { TitleModel } from '../model/TitleModel'
 
 describe('clinical trial file repository', () => {
   it('should retrieve one clinical trial', async () => {
     // GIVEN
-    const publicTitleModel = new TitleModel(
-      'AGADIR',
-      'Circuler l’ADN pour améliorer le résultat de l’oncologie Patient. Une étude randomisée'
-    )
-    const scientificTitleModel = new TitleModel(
-      'AGADIR',
-      'le meme titre mais en scientifique'
-    )
-    const recruitmentModel = new RecruitmentModel(
-      'RECRUITING',
-      ['MALE'],
-      ['IN_UTERO', 'SIXTY_FIVE_PLUS_YEARS'],
-      ['PRETERM_NEWBORN', 'EIGHTY_FIVE_PLUS_YEARS'],
-      400
-    )
-    const studyTypeModel = new StudyTypeModel(
-      'Human Pharmacology (Phase I)- First administration to humans',
-      '',
-      ''
-    )
-    const lastRevisionDateModel = new Date().toString()
-    const universalTrialNumberModel = 'NCT51265816'
-    const secondariesTrialNumbersModel = {
-      AFR_number:  'AFRXXXXXXXX',
-      national_number: '2011-006209-83',
+    const clinicalTrialFileModel = {
+      contact: {
+        public_queries: {
+          address: '',
+          city: '',
+          country: '',
+          email: '',
+          firstname: '',
+          lastname: '',
+          name: '',
+          organization: '',
+          siret: '',
+          telephone: '',
+          zip: '',
+        },
+        scientific_queries: {
+          address: '',
+          city: '',
+          country: '',
+          email: '',
+          firstname: '',
+          lastname: '',
+          name: '',
+          organization: '',
+          siret: '',
+          telephone: '',
+          zip: '',
+        },
+      },
+      last_revision_date: '',
+      medical_condition: '',
+      medical_condition_meddra: [],
+      primary_sponsor: {
+        address: '',
+        city: '',
+        country: '',
+        email: '',
+        firstname: '',
+        lastname: '',
+        name: '',
+        organization: '',
+        siret: '',
+        telephone: '',
+        zip: '',
+      },
+      public_title: { acronym: '', value: '' },
+      recruitment: {
+        ages_range: [],
+        ages_range_secondary_identifiers: [],
+        genders: [],
+        status: 'UNAVAILABLE',
+        target_number: 0,
+      },
+      scientific_title: { acronym: '', value: '' },
+      secondaries_trial_numbers: {},
+      study_type: { phase: '', study_design: '', study_type: '' },
+      therapeutic_areas: [],
+      universal_trial_number: '',
+      uuid: '1',
     }
-    const medicalCondition = 'Cancer des poumons'
-    const medicalConditionMedDRA = ['10060929', '10072818']
-    const therapeuticAreas = [new TherapeuticAreaModel('Circulatory and Respiratory Physiological Phenomena', 'G')]
-    const contactModel = new ContactModel(
-      new ContactDetailsModel(
-        'Institut Bergognié',
-        'Antoine',
-        'Italiano',
-        '5 avenue de l’opera',
-        'bordeaux',
-        'France',
-        '33076',
-        '01 23 45 67 89 ',
-        'aitaliona@example',
-        'Ministère de la santé',
-        '552 178 639 00132'
-      ),
-      new ContactDetailsModel(
-        'John Doe',
-        'John',
-        'Doe',
-        '123 rue de la cabosse',
-        'Saint-François-sur-Seine',
-        'France',
-        '01234',
-        '(+33)1 23 45 67 89',
-        'johndoe@ministere.com',
-        'Ministère de la Santé',
-        ''
-      )
-    )
-    const primarySponsorModel = new ContactDetailsModel(
-      'Institut Bergognié',
-      'Antoine',
-      'Italiano',
-      '5 avenue de l’opera',
-      'bordeaux',
-      'France',
-      '33076',
-      '01 23 45 67 89 ',
-      'aitaliona@example',
-      'Ministère de la santé',
-      '552 178 639 00132'
-    )
 
-    const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({
-      contact: contactModel,
-      last_revision_date: lastRevisionDateModel,
-      medical_condition: medicalCondition,
-      medical_condition_meddra: medicalConditionMedDRA,
-      primary_sponsor: primarySponsorModel,
-      public_title: publicTitleModel,
-      recruitment: recruitmentModel,
-      scientific_title: scientificTitleModel,
-      secondaries_trial_numbers: secondariesTrialNumbersModel,
-      study_type: studyTypeModel,
-      therapeutic_areas: therapeuticAreas,
-      universal_trial_number: universalTrialNumberModel,
-    })
-    const repository = await createRepository([clinicalTrialModel])
+    const repository = await createRepository([clinicalTrialFileModel as ClinicalTrialModel])
 
     // WHEN
-    const clinicalTrial = repository.findOne('123')
+    const clinicalTrial = repository.findOne('1')
 
     // THEN
     expect(clinicalTrial).toStrictEqual(new ClinicalTrial(
-      'NCT51265816',
-      {
-        AFR_number:  'AFRXXXXXXXX',
-        national_number: '2011-006209-83',
-      },
-      new Title(
-        'AGADIR',
-        'Circuler l’ADN pour améliorer le résultat de l’oncologie Patient. Une étude randomisée'
-      ),
-      new Title(
-        'AGADIR',
-        'le meme titre mais en scientifique'
-      ),
+      '',
+      {},
+      new Title('', ''),
+      new Title('', ''),
       new Recruitment(
-        RecruitmentStatus.RECRUITING,
-        [Gender.MALE],
-        [PrimaryAge.IN_UTERO, PrimaryAge.SIXTY_FIVE_PLUS_YEARS],
-        [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.EIGHTY_FIVE_PLUS_YEARS],
-        400
+        RecruitmentStatus.UNAVAILABLE,
+        [],
+        [],
+        [],
+        0
       ),
       new StudyType(
-        'Human Pharmacology (Phase I)- First administration to humans',
+        '',
         '',
         ''
       ),
-      new Date().toString(),
+      '',
       new Contact(
-        new ContactDetails(
-          'Institut Bergognié',
-          'Antoine',
-          'Italiano',
-          '5 avenue de l’opera',
-          'bordeaux',
-          'France',
-          '33076',
-          '01 23 45 67 89 ',
-          'aitaliona@example',
-          'Ministère de la santé',
-          '552 178 639 00132'
-        ),
-        new ContactDetails(
-          'John Doe',
-          'John',
-          'Doe',
-          '123 rue de la cabosse',
-          'Saint-François-sur-Seine',
-          'France',
-          '01234',
-          '(+33)1 23 45 67 89',
-          'johndoe@ministere.com',
-          'Ministère de la Santé',
-          ''
-        )
+        new ContactDetails('', '', '', '', '', '', '', '', '', '', ''),
+        new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
       ),
-      'Cancer des poumons',
-      ['10060929', '10072818'],
-      [new TherapeuticArea('Circulatory and Respiratory Physiological Phenomena', 'G')],
-      new ContactDetails(
-        'Institut Bergognié',
-        'Antoine',
-        'Italiano',
-        '5 avenue de l’opera',
-        'bordeaux',
-        'France',
-        '33076',
-        '01 23 45 67 89 ',
-        'aitaliona@example',
-        'Ministère de la santé',
-        '552 178 639 00132'
-      )
+      '',
+      [],
+      [],
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
     ))
   })
 
