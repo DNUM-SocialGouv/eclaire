@@ -27,7 +27,8 @@ export class ClinicalTrialModelTestingFactory {
     ),
     '',
     [],
-    []
+    [],
+    new ContactDetailsModel('', '', '', '', '', '', '', '', '', '', '')
   )
 
   static create(overridedFields?: Partial<ClinicalTrialModel>): ClinicalTrialModel {

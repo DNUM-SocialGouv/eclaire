@@ -1,3 +1,4 @@
+import { ContactDetailsModel } from './ContactDetailsModel'
 import { ContactModel } from './ContactModel'
 import { RecruitmentModel } from './RecruitmentModel'
 import { StudyTypeModel } from './StudyTypeModel'
@@ -17,6 +18,7 @@ export class ClinicalTrialModel {
     readonly contact: ContactModel,
     readonly medical_condition: string,
     readonly medical_condition_meddra: Array<string>,
-    readonly therapeutic_areas: Array<TherapeuticAreaModel>
+    readonly therapeutic_areas: Array<TherapeuticAreaModel>,
+    readonly primary_sponsor: ContactDetailsModel
   ) {}
 }

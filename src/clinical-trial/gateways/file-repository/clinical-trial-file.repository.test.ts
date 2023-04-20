@@ -54,7 +54,6 @@ describe('clinical trial file repository', () => {
     const medicalCondition = 'Cancer des poumons'
     const medicalConditionMedDRA = ['10060929', '10072818']
     const therapeuticAreas = [new TherapeuticAreaModel('Circulatory and Respiratory Physiological Phenomena', 'G')]
-
     const contactModel = new ContactModel(
       new ContactDetailsModel(
         'Institut Bergognié',
@@ -83,12 +82,26 @@ describe('clinical trial file repository', () => {
         ''
       )
     )
+    const primarySponsorModel = new ContactDetailsModel(
+      'Institut Bergognié',
+      'Antoine',
+      'Italiano',
+      '5 avenue de l’opera',
+      'bordeaux',
+      'France',
+      '33076',
+      '01 23 45 67 89 ',
+      'aitaliona@example',
+      'Ministère de la santé',
+      '552 178 639 00132'
+    )
 
     const clinicalTrialModel = ClinicalTrialModelTestingFactory.create({
       contact: contactModel,
       last_revision_date: lastRevisionDateModel,
       medical_condition: medicalCondition,
       medical_condition_meddra: medicalConditionMedDRA,
+      primary_sponsor: primarySponsorModel,
       public_title: publicTitleModel,
       recruitment: recruitmentModel,
       scientific_title: scientificTitleModel,
@@ -160,7 +173,20 @@ describe('clinical trial file repository', () => {
       ),
       'Cancer des poumons',
       ['10060929', '10072818'],
-      [new TherapeuticArea('Circulatory and Respiratory Physiological Phenomena', 'G')]
+      [new TherapeuticArea('Circulatory and Respiratory Physiological Phenomena', 'G')],
+      new ContactDetails(
+        'Institut Bergognié',
+        'Antoine',
+        'Italiano',
+        '5 avenue de l’opera',
+        'bordeaux',
+        'France',
+        '33076',
+        '01 23 45 67 89 ',
+        'aitaliona@example',
+        'Ministère de la santé',
+        '552 178 639 00132'
+      )
     ))
   })
 
