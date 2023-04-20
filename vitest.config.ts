@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     clearMocks: true,
     coverage: {
-      exclude: ['.stryker-tmp/**/*.ts'],
+      exclude: ['.stryker-tmp/**'],
       provider: 'istanbul',
     },
     environment: 'node',

@@ -35,6 +35,6 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
       throw new NotFoundException()
     }
 
-    return ClinicalTrialFactory.buildClinicalTrial(clinicalTrialModel)
+    return ClinicalTrialFactory.create(clinicalTrialModel)
   }
 }

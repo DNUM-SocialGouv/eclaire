@@ -19,7 +19,7 @@ import { TherapeuticAreaModel } from '../model/TherapeuticAreaModel'
 import { TitleModel } from '../model/TitleModel'
 
 describe('clinical trial factory', () => {
-  it('should build a clinical trial', () => {
+  it('should have a clinical trial', () => {
     // GIVEN
     const clinicalTrialModel = new ClinicalTrialModel(
       '123',
@@ -96,7 +96,7 @@ describe('clinical trial factory', () => {
     )
 
     // WHEN
-    const clinicalTrial = ClinicalTrialFactory.buildClinicalTrial(clinicalTrialModel)
+    const clinicalTrial = ClinicalTrialFactory.create(clinicalTrialModel)
 
     // THEN
     expect(clinicalTrial).toStrictEqual(new ClinicalTrial(
