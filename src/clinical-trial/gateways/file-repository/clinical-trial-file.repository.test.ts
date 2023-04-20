@@ -15,7 +15,7 @@ import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
 describe('clinical trial file repository', () => {
   it('should retrieve one clinical trial', async () => {
     // GIVEN
-    const clinicalTrialFileModel = {
+    const clinicalTrialFile = {
       contact: {
         public_queries: {
           address: '',
@@ -76,7 +76,7 @@ describe('clinical trial file repository', () => {
       uuid: '1',
     }
 
-    const repository = await createRepository([clinicalTrialFileModel as ClinicalTrialModel])
+    const repository = await createRepository([clinicalTrialFile as ClinicalTrialModel])
 
     // WHEN
     const clinicalTrial = repository.findOne('1')
