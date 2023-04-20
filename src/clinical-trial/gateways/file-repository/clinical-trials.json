@@ -37,7 +37,7 @@
         "country": "France",
         "zip": "33076",
         "telephone": "01 23 45 67 89 ",
-        "email": "aitaliona@aitaliona@example.fr",
+        "email": "aitaliona@example.fr",
         "organization": "Ministère de la santé",
         "siret": "552 178 639 00132"
       },
@@ -60,7 +60,20 @@
     "therapeutic_areas": [
       { "code": "G", "value": "Circulatory and Respiratory Physiological Phenomena" },
       { "code": "G01", "value": "Physical Phenomena" }
-    ]
+    ],
+    "primary_sponsor": {
+      "name": "Institut Bergognié",
+      "firstname": "Antoine",
+      "lastname": "Italiano",
+      "address": "5 avenue de l’opera",
+      "city": "bordeaux",
+      "country": "France",
+      "zip": "33076",
+      "telephone": "01 23 45 67 89 ",
+      "email": "aitaliona@example.fr",
+      "organization": "Ministère de la santé",
+      "siret": "552 178 639 00132"
+    }
   },
   {
     "uuid": "2",
@@ -91,7 +104,7 @@
     "last_revision_date": "2022-02-06T18:25:43.511Z",
     "contact" : {
       "public_queries": {
-        "name": "Institut  Bergognié",
+        "name": "Institut Bergognié",
         "firstname": "Antoine",
         "lastname": "Italiano",
         "address": "5 avenue de l’opera",
@@ -119,7 +132,20 @@
     },
     "medical_condition": "",
     "medical_condition_meddra": [],
-    "therapeutic_areas": [{ "code": "G", "value": "Circulatory and Respiratory Physiological Phenomena" }]
+    "therapeutic_areas": [{ "code": "G", "value": "Circulatory and Respiratory Physiological Phenomena" }],
+    "primary_sponsor": {
+      "name": "",
+      "firstname": "",
+      "lastname": "",
+      "address": "",
+      "city": "",
+      "country": "",
+      "zip": "",
+      "telephone": "",
+      "email": "",
+      "organization": "",
+      "siret": ""
+    }
   },
   {
     "uuid": "3",
@@ -181,7 +207,20 @@
     },
     "medical_condition": "Lung cancer",
     "medical_condition_meddra": [],
-    "therapeutic_areas": []
+    "therapeutic_areas": [],
+    "primary_sponsor": {
+      "name": "",
+      "firstname": "",
+      "lastname": "",
+      "address": "",
+      "city": "",
+      "country": "",
+      "zip": "",
+      "telephone": "",
+      "email": "",
+      "organization": "",
+      "siret": ""
+    }
   },
   {
     "uuid": "4",
@@ -223,7 +262,8 @@
         "email": "",
         "organization": "",
         "siret": ""
-      },      "scientific_queries": {
+      },
+      "scientific_queries": {
         "name": "",
         "firstname": "",
         "lastname": "",
@@ -239,6 +279,19 @@
     },
     "medical_condition": "",
     "medical_condition_meddra": [],
-    "therapeutic_areas": []
+    "therapeutic_areas": [],
+    "primary_sponsor": {
+      "name": "",
+      "firstname": "",
+      "lastname": "",
+      "address": "",
+      "city": "",
+      "country": "",
+      "zip": "",
+      "telephone": "",
+      "email": "",
+      "organization": "",
+      "siret": ""
+    }
   }
 ]

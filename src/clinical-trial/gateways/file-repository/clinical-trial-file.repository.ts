@@ -31,7 +31,8 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
         clinicalTrialModel.contact,
         clinicalTrialModel.medical_condition,
         clinicalTrialModel.medical_condition_meddra,
-        clinicalTrialModel.therapeutic_areas
+        clinicalTrialModel.therapeutic_areas,
+        clinicalTrialModel.primary_sponsor
       ))
     })
   }
@@ -101,7 +102,20 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
       ),
       clinicalTrialModel.medical_condition,
       clinicalTrialModel.medical_condition_meddra,
-      clinicalTrialModel.therapeutic_areas.map((item) => new TherapeuticArea(item.value, item.code))
+      clinicalTrialModel.therapeutic_areas.map((item) => new TherapeuticArea(item.value, item.code)),
+      new ContactDetails(
+        clinicalTrialModel.primary_sponsor.name,
+        clinicalTrialModel.primary_sponsor.firstname,
+        clinicalTrialModel.primary_sponsor.lastname,
+        clinicalTrialModel.primary_sponsor.address,
+        clinicalTrialModel.primary_sponsor.city,
+        clinicalTrialModel.primary_sponsor.country,
+        clinicalTrialModel.primary_sponsor.zip,
+        clinicalTrialModel.primary_sponsor.telephone,
+        clinicalTrialModel.primary_sponsor.email,
+        clinicalTrialModel.primary_sponsor.organization,
+        clinicalTrialModel.primary_sponsor.siret
+      )
     )
   }
 }

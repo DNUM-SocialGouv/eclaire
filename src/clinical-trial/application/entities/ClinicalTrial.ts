@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 
 import { Contact } from './Contact'
+import { ContactDetails } from './ContactDetails'
 import { Recruitment } from './Recruitment'
 import { StudyType } from './StudyType'
 import { TherapeuticArea } from './TherapeuticArea'
@@ -18,7 +19,8 @@ export class ClinicalTrial {
     contact: Contact,
     medical_condition: string,
     medical_condition_meddra: Array<string>,
-    therapeutic_area: Array<TherapeuticArea>
+    therapeutic_area: Array<TherapeuticArea>,
+    primary_sponsor: ContactDetails
   ) {
     this.universal_trial_number = universal_trial_number
     this.secondaries_trial_numbers = secondaries_trial_numbers
@@ -31,6 +33,7 @@ export class ClinicalTrial {
     this.medical_condition = medical_condition
     this.medical_condition_meddra = medical_condition_meddra
     this.therapeutic_area = therapeutic_area
+    this.primary_sponsor = primary_sponsor
   }
 
   @ApiProperty({
@@ -74,7 +77,7 @@ export class ClinicalTrial {
   })
   readonly last_revision_date: string
 
-  @ApiProperty({ description: 'Le nom et les informations de contact qui permettent à un volontaire d’avoir des informations concernant l’essai clinique (critères d’inclusions, informations sur l’essai,...) ' })
+  @ApiProperty({ description: 'Le nom et les informations de contact qui permettent à un volontaire d’avoir des informations concernant l’essai clinique (critères d’inclusions, informations sur l’essai,...)' })
   readonly contact: Contact
 
   @ApiProperty({
@@ -95,4 +98,7 @@ export class ClinicalTrial {
     type: TherapeuticArea,
   })
   readonly therapeutic_area: Array<TherapeuticArea>
+
+  @ApiProperty({ description: 'Le promoteur est la personne physique, la société ou l’institution qui prend l’initiative d’un essai clinique et en assume les responsabilités et le financement.' })
+  readonly primary_sponsor: ContactDetails
 }

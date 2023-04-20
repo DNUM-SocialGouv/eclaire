@@ -40,15 +40,15 @@ describe('clinical trial', () => {
       AFR_number: 'AFRXXXXXXXX',
       national_number: '2011-006209-83',
     }
-
     const contact = new Contact(
       new ContactDetails('', '', '', '', '', '', '', '', '', '', ''),
       new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
     )
+    const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
 
     const medicalCondition = 'Cancer des poumons'
     const medicalConditionMeddra = ['10060929', '10072818']
-    const therapeuticArea = [new TherapeuticArea('', '')]
+    const therapeuticAreas = [new TherapeuticArea('', '')]
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
@@ -62,7 +62,8 @@ describe('clinical trial', () => {
       contact,
       medicalCondition,
       medicalConditionMeddra,
-      therapeuticArea
+      therapeuticAreas,
+      primarySponsor
     )
 
     // THEN
@@ -84,6 +85,7 @@ describe('clinical trial', () => {
     expect(clinicalTrial.contact).toBeInstanceOf(Contact)
     expect(clinicalTrial.medical_condition).toBe('Cancer des poumons')
     expect(clinicalTrial.medical_condition_meddra).toStrictEqual(['10060929', '10072818'])
+    expect(clinicalTrial.primary_sponsor).toBeInstanceOf(ContactDetails)
   })
 
   it.each(
@@ -110,7 +112,8 @@ describe('clinical trial', () => {
     )
     const medicalCondition = ''
     const medicalConditionMeddra: Array<string> = []
-    const therapeuticArea: Array<TherapeuticArea> = []
+    const therapeuticAreas: Array<TherapeuticArea> = []
+    const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
@@ -124,7 +127,8 @@ describe('clinical trial', () => {
       contact,
       medicalCondition,
       medicalConditionMeddra,
-      therapeuticArea
+      therapeuticAreas,
+      primarySponsor
     )
 
     // THEN
@@ -154,7 +158,8 @@ describe('clinical trial', () => {
     )
     const medicalCondition = ''
     const medicalConditionMeddra: Array<string> = []
-    const therapeuticArea: Array<TherapeuticArea> = []
+    const therapeuticAreas: Array<TherapeuticArea> = []
+    const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
@@ -168,7 +173,8 @@ describe('clinical trial', () => {
       contact,
       medicalCondition,
       medicalConditionMeddra,
-      therapeuticArea
+      therapeuticAreas,
+      primarySponsor
     )
 
     // THEN
