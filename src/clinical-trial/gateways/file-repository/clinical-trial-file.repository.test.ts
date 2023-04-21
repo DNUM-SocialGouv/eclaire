@@ -72,6 +72,21 @@ describe('clinical trial file repository', () => {
       secondaries_trial_numbers: {},
       study_type: { phase: '', study_design: '', study_type: '' },
       therapeutic_areas: [],
+      trial_sites: [
+        {
+          address: '',
+          city: '',
+          country: '',
+          email: '',
+          firstname: '',
+          lastname: '',
+          name: '',
+          organization: '',
+          siret: '',
+          telephone: '',
+          zip: '',
+        },
+      ],
       universal_trial_number: '',
       uuid: '1',
     }
@@ -107,7 +122,8 @@ describe('clinical trial file repository', () => {
       '',
       [],
       [],
-      new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', ''),
+      [new ContactDetails('', '', '', '', '', '', '', '', '', '', '')]
     ))
   })
 
