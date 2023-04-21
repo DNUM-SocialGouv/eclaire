@@ -130,9 +130,12 @@
         "siret": ""
       }
     },
-    "medical_condition": "",
+    "medical_condition": "Lung cancer",
     "medical_condition_meddra": [],
-    "therapeutic_areas": [{ "code": "G", "value": "Circulatory and Respiratory Physiological Phenomena" }],
+    "therapeutic_areas": [
+      { "code": "G", "value": "Circulatory and Respiratory Physiological Phenomena" },
+      { "code": "G01", "value": "Physical Phenomena" }
+    ],
     "primary_sponsor": {
       "name": "",
       "firstname": "",
@@ -205,9 +208,11 @@
         "siret": ""
       }
     },
-    "medical_condition": "Lung cancer",
+    "medical_condition": "",
     "medical_condition_meddra": [],
-    "therapeutic_areas": [],
+    "therapeutic_areas": [
+      { "code": "G", "value": "Circulatory and Respiratory Physiological Phenomena" }
+    ],
     "primary_sponsor": {
       "name": "",
       "firstname": "",
@@ -279,7 +284,12 @@
     },
     "medical_condition": "",
     "medical_condition_meddra": [],
-    "therapeutic_areas": [],
+    "therapeutic_areas": [
+      {
+        "code": "",
+        "value": "Circulatory and Respiratory Physiological Phenomena"
+      }
+    ],
     "primary_sponsor": {
       "name": "",
       "firstname": "",
