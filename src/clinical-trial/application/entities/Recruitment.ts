@@ -42,7 +42,7 @@ export class Recruitment {
   readonly ages_range: PrimaryAge[]
 
   @ApiProperty({
-    description: 'L’âge minimum et maximum d’inclusion des patients pour le recrutement de l’essai clinique mais avec plus de précision sur la catégorie d’âge ciblé.',
+    description: 'L’âge minimum et maximum d’inclusion des patients pour le recrutement de l’essai clinique mais avec plus de précision sur la catégorie d’âge ciblée.',
     enum: SecondaryAge,
     example: [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.SIX_ELEVEN_YEARS],
   })

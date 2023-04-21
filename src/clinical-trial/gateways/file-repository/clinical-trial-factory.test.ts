@@ -92,7 +92,22 @@ describe('clinical trial factory', () => {
         'johndoe@example.com',
         'Ministère de la Santé',
         '751 610 908 00012'
-      )
+      ),
+      [
+        new ContactDetailsModel(
+          'Urbss ridetis!',
+          'Flavum uria recte experientias byssus est.',
+          'Pol.',
+          '123 You have to lure, and absorb silence by your flying.',
+          'Ubi est talis contencio?',
+          'Domesticus, primus lamias hic desiderium de dexter, germanus mensa.',
+          '01234',
+          '(+33)5 89 65 47 12',
+          'johndoe@example.com',
+          'Ministère de la Santé',
+          '751 610 908 00012'
+        ),
+      ]
     )
 
     // WHEN
@@ -169,7 +184,22 @@ describe('clinical trial factory', () => {
         'johndoe@example.com',
         'Ministère de la Santé',
         '751 610 908 00012'
-      )
+      ),
+      [
+        new ContactDetails(
+          'Urbss ridetis!',
+          'Flavum uria recte experientias byssus est.',
+          'Pol.',
+          '123 You have to lure, and absorb silence by your flying.',
+          'Ubi est talis contencio?',
+          'Domesticus, primus lamias hic desiderium de dexter, germanus mensa.',
+          '01234',
+          '(+33)5 89 65 47 12',
+          'johndoe@example.com',
+          'Ministère de la Santé',
+          '751 610 908 00012'
+        ),
+      ]
     ))
   })
 })

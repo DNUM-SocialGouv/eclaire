@@ -73,7 +73,22 @@
       "email": "aitaliona@example.fr",
       "organization": "Ministère de la santé",
       "siret": "552 178 639 00132"
-    }
+    },
+    "trial_sites": [
+      {
+        "name": "Institut Bergognié",
+        "firstname": "Antoine",
+        "lastname": "Italiano",
+        "address": "5 avenue de l’opera",
+        "city": "bordeaux",
+        "country": "France",
+        "zip": "33076",
+        "telephone": "01 23 45 67 89 ",
+        "email": "aitaliona@example.fr",
+        "organization": "Ministère de la santé",
+        "siret": "552 178 639 00132"
+      }
+    ]
   },
   {
     "uuid": "2",
@@ -145,7 +160,22 @@
       "email": "",
       "organization": "",
       "siret": ""
-    }
+    },
+    "trial_sites": [
+      {
+        "name": "",
+        "firstname": "",
+        "lastname": "",
+        "address": "",
+        "city": "",
+        "country": "",
+        "zip": "",
+        "telephone": "",
+        "email": "",
+        "organization": "",
+        "siret": ""
+      }
+    ]
   },
   {
     "uuid": "3",
@@ -220,7 +250,22 @@
       "email": "",
       "organization": "",
       "siret": ""
-    }
+    },
+    "trial_sites": [
+      {
+        "name": "",
+        "firstname": "",
+        "lastname": "",
+        "address": "",
+        "city": "",
+        "country": "",
+        "zip": "",
+        "telephone": "",
+        "email": "",
+        "organization": "",
+        "siret": ""
+      }
+    ]
   },
   {
     "uuid": "4",
@@ -292,6 +337,21 @@
       "email": "",
       "organization": "",
       "siret": ""
-    }
+    },
+    "trial_sites": [
+      {
+        "name": "",
+        "firstname": "",
+        "lastname": "",
+        "address": "",
+        "city": "",
+        "country": "",
+        "zip": "",
+        "telephone": "",
+        "email": "",
+        "organization": "",
+        "siret": ""
+      }
+    ]
   }
 ]

@@ -79,7 +79,20 @@ export class ClinicalTrialFactory {
         clinicalTrialModel.primary_sponsor.email,
         clinicalTrialModel.primary_sponsor.organization,
         clinicalTrialModel.primary_sponsor.siret
-      )
+      ),
+      clinicalTrialModel.trial_sites.map((trial_site) => new ContactDetails(
+        trial_site.name,
+        trial_site.firstname,
+        trial_site.lastname,
+        trial_site.address,
+        trial_site.city,
+        trial_site.country,
+        trial_site.zip,
+        trial_site.telephone,
+        trial_site.email,
+        trial_site.organization,
+        trial_site.siret
+      ))
     )
   }
 }

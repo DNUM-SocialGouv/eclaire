@@ -20,7 +20,8 @@ export class ClinicalTrial {
     medical_condition: string,
     medical_condition_meddra: Array<string>,
     therapeutic_area: Array<TherapeuticArea>,
-    primary_sponsor: ContactDetails
+    primary_sponsor: ContactDetails,
+    trial_sites: ContactDetails[]
   ) {
     this.universal_trial_number = universal_trial_number
     this.secondaries_trial_numbers = secondaries_trial_numbers
@@ -34,6 +35,7 @@ export class ClinicalTrial {
     this.medical_condition_meddra = medical_condition_meddra
     this.therapeutic_area = therapeutic_area
     this.primary_sponsor = primary_sponsor
+    this.trial_sites = trial_sites
   }
 
   @ApiProperty({
@@ -101,4 +103,7 @@ export class ClinicalTrial {
 
   @ApiProperty({ description: 'Le promoteur est la personne physique, la société ou l’institution qui prend l’initiative d’un essai clinique et en assume les responsabilités et le financement.' })
   readonly primary_sponsor: ContactDetails
+
+  @ApiProperty({ description: 'Sites d’investigation : correspond à la liste des sites où l’essai clinique prend place, avec pour chaque site la localisation et les informations de contact.' })
+  readonly trial_sites: Array<ContactDetails>
 }
