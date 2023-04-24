@@ -92,7 +92,8 @@ export class ClinicalTrialFactory {
         trial_site.email,
         trial_site.organization,
         trial_site.siret
-      ))
+      )),
+      clinicalTrialModel.summary_clinicial_trial
     )
   }
 }

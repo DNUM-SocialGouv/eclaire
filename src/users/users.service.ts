@@ -5,7 +5,7 @@ import { readFileSync } from 'fs'
 import * as yaml from 'js-yaml'
 import { join } from 'path'
 
-import { User } from './user'
+import { User } from './User'
 
 const USERS_CONFIG_PATH = join(__dirname, '../../config/users.yaml')
 

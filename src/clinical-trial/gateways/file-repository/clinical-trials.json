@@ -88,7 +88,8 @@
         "organization": "Ministère de la santé",
         "siret": "552 178 639 00132"
       }
-    ]
+    ],
+    "summary_clinicial_trial": "Le contexte des cette étude est le suivant, les gens addicts aux dragibus."
   },
   {
     "uuid": "2",
@@ -178,7 +179,8 @@
         "organization": "",
         "siret": ""
       }
-    ]
+    ],
+    "summary_clinicial_trial": ""
   },
   {
     "uuid": "3",
@@ -270,7 +272,8 @@
         "organization": "",
         "siret": ""
       }
-    ]
+    ],
+    "summary_clinicial_trial": ""
   },
   {
     "uuid": "4",
@@ -362,6 +365,7 @@
         "organization": "",
         "siret": ""
       }
-    ]
+    ],
+    "summary_clinicial_trial": ""
   }
 ]

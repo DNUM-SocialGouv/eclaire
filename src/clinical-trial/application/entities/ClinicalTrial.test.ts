@@ -49,6 +49,7 @@ describe('clinical trial', () => {
     const medicalConditionMeddra = ['10060929', '10072818']
     const therapeuticAreas = [new TherapeuticArea('', '')]
     const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '')]
+    const summaryClinicialTrial = 'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.'
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
@@ -64,7 +65,8 @@ describe('clinical trial', () => {
       medicalConditionMeddra,
       therapeuticAreas,
       primarySponsor,
-      trialSites
+      trialSites,
+      summaryClinicialTrial
     )
 
     // THEN
@@ -88,6 +90,7 @@ describe('clinical trial', () => {
     expect(clinicalTrial.medical_condition_meddra).toStrictEqual(['10060929', '10072818'])
     expect(clinicalTrial.primary_sponsor).toBeInstanceOf(ContactDetails)
     expect(clinicalTrial.trial_sites[0]).toBeInstanceOf(ContactDetails)
+    expect(clinicalTrial.summary_clinicial_trial).toBe('Le contexte des cette étude est le suivant, les gens addicts aux dragibus.')
   })
 
   it.each(
@@ -117,6 +120,7 @@ describe('clinical trial', () => {
     const therapeuticAreas: Array<TherapeuticArea> = []
     const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
     const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '')]
+    const summaryClinicialTrial = ''
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
@@ -132,7 +136,8 @@ describe('clinical trial', () => {
       medicalConditionMeddra,
       therapeuticAreas,
       primarySponsor,
-      trialSites
+      trialSites,
+      summaryClinicialTrial
     )
 
     // THEN
@@ -165,6 +170,7 @@ describe('clinical trial', () => {
     const therapeuticAreas: Array<TherapeuticArea> = []
     const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
     const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '')]
+    const summaryClinicialTrial = ''
 
     // WHEN
     const clinicalTrial = new ClinicalTrial(
@@ -180,7 +186,8 @@ describe('clinical trial', () => {
       medicalConditionMeddra,
       therapeuticAreas,
       primarySponsor,
-      trialSites
+      trialSites,
+      summaryClinicialTrial
     )
 
     // THEN

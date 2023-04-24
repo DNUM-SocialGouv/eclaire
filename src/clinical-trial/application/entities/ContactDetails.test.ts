@@ -1,7 +1,7 @@
 import { ContactDetails } from './ContactDetails'
 
-describe('contactDetails entity test', () => {
-  it('should return a valid ContactDetails', () => {
+describe('contact details', () => {
+  it('should have a contact details', () => {
     // WHEN
     const contactDetails = new ContactDetails(
       'John Doe',

@@ -15,6 +15,6 @@ export class SwaggerService {
       })
       .build()
     const document = SwaggerModule.createDocument(app, builder)
-    SwaggerModule.setup('api', app, document)
+    SwaggerModule.setup('api', app, document, { swaggerOptions: { tagsSorter: 'alpha' } })
   }
 }
