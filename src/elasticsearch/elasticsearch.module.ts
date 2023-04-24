@@ -3,9 +3,12 @@ import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
 import { eSClientConfigLocal, eSClientConfigProduction } from './elasticsearch.config'
+import { ElasticsearchController } from './elasticsearch.controller'
 import { ElasticsearchService } from './elasticsearch.service'
 
 @Module({
+  controllers: [ElasticsearchController],
+  exports: [ElasticsearchService],
   providers: [
     ElasticsearchService,
     {

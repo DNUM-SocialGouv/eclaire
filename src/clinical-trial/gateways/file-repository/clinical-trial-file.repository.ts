@@ -2,12 +2,11 @@ import { Injectable } from '@nestjs/common'
 
 import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
 import { NotFoundClinicalTrialException } from '../../application/Exceptions/NotFoundClinicalTrialException'
-import { ClinicalTrialRepository } from '../../application/interfaces/ClinicalTrialRepository'
 import { ClinicalTrialFactory } from '../clinical-trial-factory'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
 
 @Injectable()
-export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
+export class ClinicalTrialFileRepository {
   private readonly clinicalTrialsRepository: ClinicalTrialModel[] = []
 
   constructor(clinicalTrialsModel: ClinicalTrialModel[]) {
