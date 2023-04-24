@@ -41,14 +41,14 @@ describe('clinical trial', () => {
       national_number: '2011-006209-83',
     }
     const contact = new Contact(
-      new ContactDetails('', '', '', '', '', '', '', '', '', '', ''),
-      new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')
     )
-    const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
+    const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')
     const medicalCondition = 'Cancer des poumons'
     const medicalConditionMeddra = ['10060929', '10072818']
     const therapeuticAreas = [new TherapeuticArea('', '')]
-    const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '')]
+    const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')]
     const summary = 'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.'
 
     // WHEN
@@ -112,14 +112,14 @@ describe('clinical trial', () => {
     const universalTrialNumber = ''
     const secondariesTrialNumbers = {}
     const contact = new Contact(
-      new ContactDetails('', '', '', '', '', '', '', '', '', '', ''),
-      new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')
     )
     const medicalCondition = ''
     const medicalConditionMeddra: Array<string> = []
     const therapeuticAreas: Array<TherapeuticArea> = []
-    const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
-    const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '')]
+    const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')
+    const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')]
     const summary = ''
 
     // WHEN
@@ -162,14 +162,14 @@ describe('clinical trial', () => {
     const lastRevisionDate = new Date().toString()
     const recruitment = new Recruitment('', genders, [], [], 0)
     const contact = new Contact(
-      new ContactDetails('', '', '', '', '', '', '', '', '', '', ''),
-      new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')
     )
     const medicalCondition = ''
     const medicalConditionMeddra: Array<string> = []
     const therapeuticAreas: Array<TherapeuticArea> = []
-    const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '')
-    const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '')]
+    const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')
+    const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')]
     const summary = ''
 
     // WHEN

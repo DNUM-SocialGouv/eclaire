@@ -10,6 +10,9 @@ export class ContactDetailsModel {
     readonly telephone: string,
     readonly email: string,
     readonly organization: string,
+    readonly organization_id: string,
+    readonly title: string,
+    readonly department: string,
     readonly siret: string
   ) {}
 }

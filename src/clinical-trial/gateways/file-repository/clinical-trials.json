@@ -39,6 +39,9 @@
         "telephone": "01 23 45 67 89 ",
         "email": "aitaliona@example.fr",
         "organization": "Ministère de la santé",
+        "organization_id": "",
+        "title": "Agent de Santé",
+        "department": "Laboratoire",
         "siret": "552 178 639 00132"
       },
       "scientific_queries": {
@@ -52,6 +55,9 @@
         "telephone": "",
         "email": "",
         "organization": "",
+        "organization_id": "",
+        "title": "",
+        "department": "",
         "siret": ""
       }
     },
@@ -72,21 +78,27 @@
       "telephone": "01 23 45 67 89 ",
       "email": "aitaliona@example.fr",
       "organization": "Ministère de la santé",
+      "organization_id": "",
+      "title": "Agent de Santé",
+      "department": "Laboratoire",
       "siret": "552 178 639 00132"
     },
     "trial_sites": [
       {
-        "name": "Institut Bergognié",
-        "firstname": "Antoine",
-        "lastname": "Italiano",
-        "address": "5 avenue de l’opera",
-        "city": "bordeaux",
-        "country": "France",
-        "zip": "33076",
-        "telephone": "01 23 45 67 89 ",
-        "email": "aitaliona@example.fr",
-        "organization": "Ministère de la santé",
-        "siret": "552 178 639 00132"
+        "name": "Max Testman",
+        "firstname": "Max",
+        "lastname": "Testman",
+        "address": "Inrain 52",
+        "city": "Insbruck",
+        "country": "austria",
+        "zip": "6020",
+        "telephone": "+43010677",
+        "email": "max.testman@hotmail.fr",
+        "organization": "Insbruck medical university",
+        "organization_id": "2039",
+        "title": "",
+        "department": "laboratorium",
+        "siret": ""
       }
     ],
     "summary": "Le contexte des cette étude est le suivant, les gens addicts aux dragibus."
@@ -130,6 +142,9 @@
         "telephone": "",
         "email": "aitaliona@example",
         "organization": "Ministère de la santé",
+        "organization_id": "",
+        "title": "Agent de Santé",
+        "department": "Laboratoire",
         "siret": "552 178 639 00132"
       },
       "scientific_queries": {
@@ -143,6 +158,9 @@
         "telephone": "",
         "email": "",
         "organization": "",
+        "organization_id": "",
+        "title": "",
+        "department": "",
         "siret": ""
       }
     },
@@ -163,6 +181,9 @@
       "telephone": "",
       "email": "",
       "organization": "",
+      "organization_id": "",
+      "title": "",
+      "department": "",
       "siret": ""
     },
     "trial_sites": [
@@ -177,6 +198,9 @@
         "telephone": "",
         "email": "",
         "organization": "",
+        "organization_id": "",
+        "title": "",
+        "department": "",
         "siret": ""
       }
     ],
@@ -224,6 +248,9 @@
         "telephone": "",
         "email": "aitaliona@example",
         "organization": "Ministère de la santé",
+        "organization_id": "",
+        "title": "Agent de Santé",
+        "department": "Laboratoire",
         "siret": ""
       },
       "scientific_queries": {
@@ -237,6 +264,9 @@
         "telephone": "",
         "email": "",
         "organization": "",
+        "organization_id": "",
+        "title": "",
+        "department": "",
         "siret": ""
       }
     },
@@ -256,6 +286,9 @@
       "telephone": "",
       "email": "",
       "organization": "",
+      "organization_id": "",
+      "title": "",
+      "department": "",
       "siret": ""
     },
     "trial_sites": [
@@ -270,6 +303,9 @@
         "telephone": "",
         "email": "",
         "organization": "",
+        "organization_id": "",
+        "title": "",
+        "department": "",
         "siret": ""
       }
     ],
@@ -314,6 +350,9 @@
         "telephone": "",
         "email": "",
         "organization": "",
+        "organization_id": "",
+        "title": "",
+        "department": "",
         "siret": ""
       },
       "scientific_queries": {
@@ -327,6 +366,9 @@
         "telephone": "",
         "email": "",
         "organization": "",
+        "organization_id": "",
+        "title": "",
+        "department": "",
         "siret": ""
       }
     },
@@ -349,6 +391,9 @@
       "telephone": "",
       "email": "",
       "organization": "",
+      "organization_id": "",
+      "title": "",
+      "department": "",
       "siret": ""
     },
     "trial_sites": [
@@ -363,6 +408,9 @@
         "telephone": "",
         "email": "",
         "organization": "",
+        "organization_id": "",
+        "title": "",
+        "department": "",
         "siret": ""
       }
     ],
