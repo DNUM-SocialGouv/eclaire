@@ -158,7 +158,7 @@ describe('clinical trial file repository', () => {
   })
 })
 
-async function createRepository(clinicalTrialsModel: ClinicalTrialModel[]) {
+async function createRepository(clinicalTrialsModel: ClinicalTrialModel[]): Promise<ClinicalTrialFileRepository> {
   const module: TestingModule = await Test.createTestingModule({
     providers: [
       {
