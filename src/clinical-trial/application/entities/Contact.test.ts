@@ -1,7 +1,7 @@
 import { Contact } from './Contact'
 import { ContactDetails } from './ContactDetails'
 
-describe('contact entity test', () => {
+describe('contact', () => {
   it('should have a specific list of attribute set for public and scientific queries', () => {
     // WHEN
     const contact = new Contact(

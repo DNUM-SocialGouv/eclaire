@@ -25,14 +25,16 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
         clinicalTrialFile.medical_condition_meddra,
         clinicalTrialFile.therapeutic_areas,
         clinicalTrialFile.primary_sponsor,
-        clinicalTrialFile.trial_sites
+        clinicalTrialFile.trial_sites,
+        clinicalTrialFile.summary_clinicial_trial
       ))
     })
   }
 
   findOne(uuid: string): ClinicalTrial {
-    const clinicalTrialModel = this.clinicalTrialsRepository.find((clinicalTrial) => clinicalTrial.uuid === uuid)
-    if (!clinicalTrialModel) {
+    const clinicalTrialModel = this.clinicalTrialsRepository.find((clinicalTrial): boolean => clinicalTrial.uuid === uuid)
+
+    if (clinicalTrialModel === undefined) {
       throw new NotFoundException()
     }
 

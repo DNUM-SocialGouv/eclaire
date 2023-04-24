@@ -20,7 +20,7 @@ export class User {
   @IsString()
     organization?: string
 
-  @ApiProperty({ example: 'monemail@example.com' })
+  @ApiProperty({ example: 'mon-email@example.com' })
   @IsNotEmpty()
     email!: string
 

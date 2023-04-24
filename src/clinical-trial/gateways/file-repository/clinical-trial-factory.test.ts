@@ -21,6 +21,7 @@ import { TitleModel } from '../model/TitleModel'
 describe('clinical trial factory', () => {
   it('should have a clinical trial', () => {
     // GIVEN
+    jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
     const clinicalTrialModel = new ClinicalTrialModel(
       '123',
       'NCT51265816',
@@ -107,7 +108,8 @@ describe('clinical trial factory', () => {
           'Ministère de la Santé',
           '751 610 908 00012'
         ),
-      ]
+      ],
+      'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.'
     )
 
     // WHEN
@@ -199,7 +201,8 @@ describe('clinical trial factory', () => {
           'Ministère de la Santé',
           '751 610 908 00012'
         ),
-      ]
+      ],
+      'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.'
     ))
   })
 })

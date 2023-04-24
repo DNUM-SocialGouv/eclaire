@@ -21,7 +21,8 @@ export class ClinicalTrial {
     medical_condition_meddra: Array<string>,
     therapeutic_area: Array<TherapeuticArea>,
     primary_sponsor: ContactDetails,
-    trial_sites: ContactDetails[]
+    trial_sites: ContactDetails[],
+    summary_clinicial_trial: string
   ) {
     this.universal_trial_number = universal_trial_number
     this.secondaries_trial_numbers = secondaries_trial_numbers
@@ -36,6 +37,7 @@ export class ClinicalTrial {
     this.therapeutic_area = therapeutic_area
     this.primary_sponsor = primary_sponsor
     this.trial_sites = trial_sites
+    this.summary_clinicial_trial = summary_clinicial_trial
   }
 
   @ApiProperty({
@@ -51,20 +53,14 @@ export class ClinicalTrial {
       example_number: 'MonNuméro123',
       national_number: '2011-006209-83',
     },
-    type: 'Record<string,string>',
+    type: 'Record<string, string>',
   })
   readonly secondaries_trial_numbers: Record<string, string>
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Titre public de l’essai clinique' })
   readonly public_title: Title
 
-  @ApiProperty({
-    description: 'Titre officiel de l’essai clinique',
-    example: {
-      acronym: 'AGADIR',
-      value: 'Circuler l’ADN pour améliorer le résultat de l’oncologie patient. Une étude randomisée',
-    },
-  })
+  @ApiProperty({ description: 'Titre officiel de l’essai clinique' })
   readonly scientific_title: Title
 
   @ApiProperty({ description: 'Ensemble de données relatives au recrutement des candidats de l’essai clinique.' })
@@ -96,7 +92,6 @@ export class ClinicalTrial {
 
   @ApiProperty({
     description: 'Le domaine thérapeutique d’un essai clinique correspond au champ de la recherche et développement d’un traitement spécifique à certaines pathologies et conditions de santé.',
-    example: [{ code: 'G05', value: 'Circulatory and Respiratory Physiological Phenomena' }],
     type: TherapeuticArea,
   })
   readonly therapeutic_area: Array<TherapeuticArea>
@@ -104,6 +99,12 @@ export class ClinicalTrial {
   @ApiProperty({ description: 'Le promoteur est la personne physique, la société ou l’institution qui prend l’initiative d’un essai clinique et en assume les responsabilités et le financement.' })
   readonly primary_sponsor: ContactDetails
 
-  @ApiProperty({ description: 'Sites d’investigation : correspond à la liste des sites où l’essai clinique prend place, avec pour chaque site la localisation et les informations de contact.' })
+  @ApiProperty({ description: 'Sites d’investigation : correspond à la liste des sites où l’essai clinique prend place, avec pour chaque site la localisation et les informations de contact.', type: ContactDetails })
   readonly trial_sites: Array<ContactDetails>
+
+  @ApiProperty({
+    description: 'Le résumé de l’essai clinique est à destination du grand public. Il comprend les informations suivantes : contexte de l’essai clinique, la / les pathologies concernées par l’essai clinique, les objectifs de l’essai clinique, les cohortes et bras.',
+    example: 'le contexte des cette étude est le suivant, les gens addicts aux dragibus. L’objectif de l’étude est de voir l’effet des bonbons sur les dents des enfants. La pathologie visée les grosses caries. Essai de cohorte les enfants avec caries et sans caries sont comparés.',
+  })
+  readonly summary_clinicial_trial: string
 }

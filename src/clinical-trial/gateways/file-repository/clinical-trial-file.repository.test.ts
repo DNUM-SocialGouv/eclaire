@@ -71,6 +71,7 @@ describe('clinical trial file repository', () => {
       scientific_title: { acronym: '', value: '' },
       secondaries_trial_numbers: {},
       study_type: { phase: '', study_design: '', study_type: '' },
+      summary_clinicial_trial: '',
       therapeutic_areas: [],
       trial_sites: [
         {
@@ -123,7 +124,8 @@ describe('clinical trial file repository', () => {
       [],
       [],
       new ContactDetails('', '', '', '', '', '', '', '', '', '', ''),
-      [new ContactDetails('', '', '', '', '', '', '', '', '', '', '')]
+      [new ContactDetails('', '', '', '', '', '', '', '', '', '', '')],
+      ''
     ))
   })
 
@@ -145,8 +147,6 @@ describe('clinical trial file repository', () => {
 })
 
 async function createRepository(clinicalTrialsModel: ClinicalTrialModel[]) {
-  jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
-
   const module: TestingModule = await Test.createTestingModule({
     providers: [
       {
