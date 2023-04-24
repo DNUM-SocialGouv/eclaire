@@ -22,7 +22,7 @@ export class ClinicalTrial {
     therapeutic_area: Array<TherapeuticArea>,
     primary_sponsor: ContactDetails,
     trial_sites: ContactDetails[],
-    summary_clinicial_trial: string
+    summary: string
   ) {
     this.universal_trial_number = universal_trial_number
     this.secondaries_trial_numbers = secondaries_trial_numbers
@@ -37,7 +37,7 @@ export class ClinicalTrial {
     this.therapeutic_area = therapeutic_area
     this.primary_sponsor = primary_sponsor
     this.trial_sites = trial_sites
-    this.summary_clinicial_trial = summary_clinicial_trial
+    this.summary = summary
   }
 
   @ApiProperty({
@@ -106,5 +106,5 @@ export class ClinicalTrial {
     description: 'Le résumé de l’essai clinique est à destination du grand public. Il comprend les informations suivantes : contexte de l’essai clinique, la / les pathologies concernées par l’essai clinique, les objectifs de l’essai clinique, les cohortes et bras.',
     example: 'le contexte des cette étude est le suivant, les gens addicts aux dragibus. L’objectif de l’étude est de voir l’effet des bonbons sur les dents des enfants. La pathologie visée les grosses caries. Essai de cohorte les enfants avec caries et sans caries sont comparés.',
   })
-  readonly summary_clinicial_trial: string
+  readonly summary: string
 }

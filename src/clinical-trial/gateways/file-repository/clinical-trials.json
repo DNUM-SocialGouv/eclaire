@@ -89,7 +89,7 @@
         "siret": "552 178 639 00132"
       }
     ],
-    "summary_clinicial_trial": "Le contexte des cette étude est le suivant, les gens addicts aux dragibus."
+    "summary": "Le contexte des cette étude est le suivant, les gens addicts aux dragibus."
   },
   {
     "uuid": "2",
@@ -180,7 +180,7 @@
         "siret": ""
       }
     ],
-    "summary_clinicial_trial": ""
+    "summary": ""
   },
   {
     "uuid": "3",
@@ -273,7 +273,7 @@
         "siret": ""
       }
     ],
-    "summary_clinicial_trial": ""
+    "summary": ""
   },
   {
     "uuid": "4",
@@ -366,6 +366,6 @@
         "siret": ""
       }
     ],
-    "summary_clinicial_trial": ""
+    "summary": ""
   }
 ]
