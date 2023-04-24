@@ -11,7 +11,7 @@ import { SecondaryAge } from '../../application/SecondaryAge'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
 
 export class ClinicalTrialFactory {
-  static create(clinicalTrialModel: ClinicalTrialModel): ClinicalTrial {
+  static createFromModel(clinicalTrialModel: ClinicalTrialModel): ClinicalTrial {
     return new ClinicalTrial(
       clinicalTrialModel.universal_trial_number,
       clinicalTrialModel.secondaries_trial_numbers,
