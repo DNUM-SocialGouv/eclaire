@@ -71,7 +71,7 @@ describe('clinical trial file repository', () => {
       scientific_title: { acronym: '', value: '' },
       secondaries_trial_numbers: {},
       study_type: { phase: '', study_design: '', study_type: '' },
-      summary_clinicial_trial: '',
+      summary: '',
       therapeutic_areas: [],
       trial_sites: [
         {
