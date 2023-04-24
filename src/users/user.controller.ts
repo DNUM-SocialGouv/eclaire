@@ -17,7 +17,7 @@ export class UserController {
     schema: { properties: { email: { example: 'mon-email@example.com', type: 'string' } } },
   })
   @Get('user')
-  execute(@Req() request: Request, @Res() res: Response) {
+  execute(@Req() request: Request, @Res() res: Response): void {
     const user = this.userService.getFromRequest(request)
 
     if (user) {
