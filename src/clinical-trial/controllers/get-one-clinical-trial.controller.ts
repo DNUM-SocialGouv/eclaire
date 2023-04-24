@@ -10,14 +10,14 @@ import { ClinicalTrialFileRepository } from '../gateways/file-repository/clinica
 @ApiBearerAuth()
 @Controller('clinical-trial')
 export class GetOneClinicalTrialController {
-  constructor(private readonly clinicalTrialService: ClinicalTrialFileRepository) {}
+  constructor(private readonly clinicalTrialRepository: ClinicalTrialFileRepository) {}
 
   @ApiOperation({ summary: 'Récupère un essai clinique depuis son identifiant unique.' })
   @ApiOkResponse({ description: 'Un essai clinique a été trouvé', type: [ClinicalTrial] })
   @ApiNotFoundResponse({ description: 'Aucun essai clinique n’a été trouvé' })
   @Get(':uuid')
   execute(@Param('uuid') uuid: string, @Res() res: Response): void {
-    const clinicalTrial = this.clinicalTrialService.findOne(uuid)
+    const clinicalTrial = this.clinicalTrialRepository.findOne(uuid)
 
     if (clinicalTrial) {
       res.json(clinicalTrial)

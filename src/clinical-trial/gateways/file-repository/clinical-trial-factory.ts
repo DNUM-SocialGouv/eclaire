@@ -1,6 +1,7 @@
 import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
 import { Contact } from '../../application/entities/Contact'
 import { ContactDetails } from '../../application/entities/ContactDetails'
+import { Criteria } from '../../application/entities/Criteria'
 import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
 import { TherapeuticArea } from '../../application/entities/TherapeuticArea'
@@ -28,7 +29,19 @@ export class ClinicalTrialFactory {
         clinicalTrialModel.recruitment.genders.map((gender: string): Gender => Gender[gender as keyof typeof Gender]),
         clinicalTrialModel.recruitment.ages_range.map((age: string): PrimaryAge => PrimaryAge[age as keyof typeof PrimaryAge]),
         clinicalTrialModel.recruitment.ages_range_secondary_identifiers.map((age: string): SecondaryAge => SecondaryAge[age as keyof typeof SecondaryAge]),
-        clinicalTrialModel.recruitment.target_number
+        clinicalTrialModel.recruitment.target_number,
+        new Criteria(
+          clinicalTrialModel.recruitment.exclusion_criteria.id,
+          clinicalTrialModel.recruitment.exclusion_criteria.value,
+          clinicalTrialModel.recruitment.exclusion_criteria.value_language
+        ),
+        new Criteria(
+          clinicalTrialModel.recruitment.inclusion_criteria.id,
+          clinicalTrialModel.recruitment.inclusion_criteria.value,
+          clinicalTrialModel.recruitment.inclusion_criteria.value_language
+        ),
+        clinicalTrialModel.recruitment.clinical_trial_group,
+        clinicalTrialModel.recruitment.vulnerable_population
       ),
       new StudyType(
         clinicalTrialModel.study_type.phase,

@@ -6,6 +6,7 @@ import { ClinicalTrialModelTestingFactory } from './clinical-trial-model-testing
 import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
 import { Contact } from '../../application/entities/Contact'
 import { ContactDetails } from '../../application/entities/ContactDetails'
+import { Criteria } from '../../application/entities/Criteria'
 import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
 import { Title } from '../../application/entities/Title'
@@ -73,9 +74,13 @@ describe('clinical trial file repository', () => {
       recruitment: {
         ages_range: [],
         ages_range_secondary_identifiers: [],
+        clinical_trial_group: '',
+        exclusion_criteria: { id: '', value: '', value_language: '' },
         genders: [],
+        inclusion_criteria: { id: '', value: '', value_language: '' },
         status: 'UNAVAILABLE',
         target_number: 0,
+        vulnerable_population: '',
       },
       scientific_title: { acronym: '', value: '' },
       secondaries_trial_numbers: {},
@@ -120,7 +125,11 @@ describe('clinical trial file repository', () => {
         [],
         [],
         [],
-        0
+        0,
+        new Criteria('', '', ''),
+        new Criteria('', '', ''),
+        '',
+        ''
       ),
       new StudyType(
         '',

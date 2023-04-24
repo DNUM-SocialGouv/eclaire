@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
+import { Criteria } from './Criteria'
 import { Gender } from '../Gender'
 import { PrimaryAge } from '../PrimaryAge'
 import { RecruitmentStatus } from '../RecruitmentStatus'
@@ -11,13 +12,21 @@ export class Recruitment {
     genders: Gender[],
     ages_range: PrimaryAge[],
     ages_range_secondary_identifiers: SecondaryAge[],
-    target_number: number
+    target_number: number,
+    exclusion_criteria: Criteria,
+    inclusion_criteria: Criteria,
+    clinical_trial_group: string,
+    vulnerable_population: string
   ) {
     this.status = status
     this.genders = genders
     this.ages_range = ages_range
     this.ages_range_secondary_identifiers = ages_range_secondary_identifiers
     this.target_number = target_number
+    this.exclusion_criteria = exclusion_criteria
+    this.inclusion_criteria = inclusion_criteria
+    this.clinical_trial_group = clinical_trial_group
+    this.vulnerable_population = vulnerable_population
   }
 
   @ApiProperty({
@@ -53,4 +62,16 @@ export class Recruitment {
     example: 400,
   })
   readonly target_number: number
+
+  @ApiProperty({ description: 'Les critères d’exclusion ou de non inclusion sont des critères négatifs, c’est à dire qu’ils décrivent les caractéristiques que ne doivent pas présenter les personnes pour être incluses dans l’essai.' })
+  readonly exclusion_criteria: Criteria
+
+  @ApiProperty({ description: 'Les critères d’inclusion sont des critères positifs décrivant les caractéristiques que doivent présenter les personnes pour être incluses.' })
+  readonly inclusion_criteria: Criteria
+
+  @ApiProperty({ description: 'Fait référence à la catégorie de volontaires ciblés dans le cadre de l’essai clinique. Il peut s’agir de patient ou de volontaire sains.' })
+  readonly clinical_trial_group: string
+
+  @ApiProperty({ description: 'Il s’agit des types de population qui peuvent être ciblées dans le cadre du recrutement d’un essai clinique. Cela s’apparente à un critère d’inclusion.' })
+  readonly vulnerable_population: string
 }
