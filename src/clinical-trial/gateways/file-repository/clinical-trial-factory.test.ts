@@ -62,6 +62,9 @@ describe('clinical trial factory', () => {
           '01 23 45 67 89 ',
           'aitaliona@example',
           'Ministère de la santé',
+          '2039',
+          'Agent de Santé',
+          'Administration',
           '552 178 639 00132'
         ),
         new ContactDetailsModel(
@@ -75,6 +78,9 @@ describe('clinical trial factory', () => {
           '(+33)1 23 45 67 89',
           'johndoe@example.com',
           'Ministère de la Santé',
+          '2040',
+          'Agent de Santé',
+          'Laboratoire',
           '751 610 908 00012'
         )
       ),
@@ -92,6 +98,9 @@ describe('clinical trial factory', () => {
         '(+33)5 89 65 47 12',
         'johndoe@example.com',
         'Ministère de la Santé',
+        '2039',
+        'Agent de Santé',
+        'Laboratoire',
         '751 610 908 00012'
       ),
       [
@@ -106,6 +115,9 @@ describe('clinical trial factory', () => {
           '(+33)5 89 65 47 12',
           'johndoe@example.com',
           'Ministère de la Santé',
+          '2040',
+          'Agent de Santé',
+          'Laboratoire',
           '751 610 908 00012'
         ),
       ],
@@ -155,6 +167,9 @@ describe('clinical trial factory', () => {
           '01 23 45 67 89 ',
           'aitaliona@example',
           'Ministère de la santé',
+          '2039',
+          'Agent de Santé',
+          'Administration',
           '552 178 639 00132'
         ),
         new ContactDetails(
@@ -168,6 +183,9 @@ describe('clinical trial factory', () => {
           '(+33)1 23 45 67 89',
           'johndoe@example.com',
           'Ministère de la Santé',
+          '2040',
+          'Agent de Santé',
+          'Laboratoire',
           '751 610 908 00012'
         )
       ),
@@ -185,6 +203,9 @@ describe('clinical trial factory', () => {
         '(+33)5 89 65 47 12',
         'johndoe@example.com',
         'Ministère de la Santé',
+        '2039',
+        'Agent de Santé',
+        'Laboratoire',
         '751 610 908 00012'
       ),
       [
@@ -199,6 +220,9 @@ describe('clinical trial factory', () => {
           '(+33)5 89 65 47 12',
           'johndoe@example.com',
           'Ministère de la Santé',
+          '2040',
+          'Agent de Santé',
+          'Laboratoire',
           '751 610 908 00012'
         ),
       ],

@@ -14,6 +14,9 @@ describe('contact details', () => {
       '(+33)1 23 45 67 89',
       'johndoe@example.com',
       'Ministère de la Santé',
+      '2049',
+      'Agent de Santé',
+      'Laboratoire',
       '748 320 708 00024'
     )
 
@@ -28,6 +31,9 @@ describe('contact details', () => {
     expect(contactDetails.telephone).toBe('(+33)1 23 45 67 89')
     expect(contactDetails.email).toBe('johndoe@example.com')
     expect(contactDetails.organization).toBe('Ministère de la Santé')
+    expect(contactDetails.organization_id).toBe('2049')
+    expect(contactDetails.title).toBe('Agent de Santé')
+    expect(contactDetails.department).toBe('Laboratoire')
     expect(contactDetails.siret).toBe('748 320 708 00024')
   })
 })

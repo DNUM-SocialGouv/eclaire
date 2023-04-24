@@ -12,6 +12,9 @@ export class ContactDetails {
     telephone: string,
     email: string,
     organization: string,
+    organization_id: string,
+    title: string,
+    department: string,
     siret: string
   ) {
     this.name = name
@@ -24,6 +27,9 @@ export class ContactDetails {
     this.telephone = telephone
     this.email = email
     this.organization = organization
+    this.organization_id = organization_id
+    this.title = title
+    this.department = department
     this.siret = siret
   }
 
@@ -56,6 +62,24 @@ export class ContactDetails {
 
   @ApiProperty({ description: 'L’organisme que le contact représente.', example: 'Ministère de la santé' })
   readonly organization: string
+
+  @ApiProperty({
+    description: 'Numéro d’identification de l’organisation.',
+    example: '2040',
+  })
+  readonly organization_id: string
+
+  @ApiProperty({
+    description: 'Titre du contact dans l’organisaton. ',
+    example: '552 178 639 00132',
+  })
+  readonly title: string
+
+  @ApiProperty({
+    description: 'Service du contact dans l’organisaton.',
+    example: 'laboratorium',
+  })
+  readonly department: string
 
   @ApiProperty({
     description: 'Le siret du contact, où de l’organisme qu’il représente.',

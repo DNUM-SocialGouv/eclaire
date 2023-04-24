@@ -22,14 +22,14 @@ export class ClinicalTrialModelTestingFactory {
     new StudyTypeModel('', '', ''),
     '',
     new ContactModel(
-      new ContactDetailsModel('', '', '', '', '', '', '', '', '', '', ''),
-      new ContactDetailsModel('', '', '', '', '', '', '', '', '', '', '')
+      new ContactDetailsModel('', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+      new ContactDetailsModel('', '', '', '', '', '', '', '', '', '', '', '', '', '')
     ),
     '',
     [],
     [],
-    new ContactDetailsModel('', '', '', '', '', '', '', '', '', '', ''),
-    [new ContactDetailsModel('', '', '', '', '', '', '', '', '', '', '')],
+    new ContactDetailsModel('', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+    [new ContactDetailsModel('', '', '', '', '', '', '', '', '', '', '', '', '', '')],
     ''
   )
 
