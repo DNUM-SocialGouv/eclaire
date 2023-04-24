@@ -22,7 +22,7 @@ describe('clinical trial factory', () => {
   it('should have a clinical trial', () => {
     // GIVEN
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
-    const clinicalTrialModel: ClinicalTrialModel = new ClinicalTrialModel(
+    const clinicalTrialModel = new ClinicalTrialModel(
       '123',
       'NCT51265816',
       {
@@ -125,7 +125,7 @@ describe('clinical trial factory', () => {
     )
 
     // WHEN
-    const clinicalTrial = ClinicalTrialFactory.createFromModel(clinicalTrialModel)
+    const clinicalTrial = ClinicalTrialFactory.create(clinicalTrialModel)
 
     // THEN
     expect(clinicalTrial).toStrictEqual(new ClinicalTrial(
