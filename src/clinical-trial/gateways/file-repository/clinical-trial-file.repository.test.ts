@@ -29,7 +29,6 @@ describe('clinical trial file repository', () => {
           name: '',
           organization: '',
           organization_id: '',
-          siret: '',
           telephone: '',
           title: '',
           zip: '',
@@ -45,7 +44,6 @@ describe('clinical trial file repository', () => {
           name: '',
           organization: '',
           organization_id: '',
-          siret: '',
           telephone: '',
           title: '',
           zip: '',
@@ -65,7 +63,6 @@ describe('clinical trial file repository', () => {
         name: '',
         organization: '',
         organization_id: '',
-        siret: '',
         telephone: '',
         title: '',
         zip: '',
@@ -99,7 +96,6 @@ describe('clinical trial file repository', () => {
           name: '',
           organization: '',
           organization_id: '',
-          siret: '',
           telephone: '',
           title: '',
           zip: '',
@@ -138,14 +134,14 @@ describe('clinical trial file repository', () => {
       ),
       '',
       new Contact(
-        new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-        new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')
+        new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', ''),
+        new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')
       ),
       '',
       [],
       [],
-      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-      [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')],
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', ''),
+      [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')],
       ''
     ))
   })

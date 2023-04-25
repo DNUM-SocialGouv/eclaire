@@ -12,7 +12,6 @@ export class ContactDetailsModel {
     readonly organization: string,
     readonly organization_id: string,
     readonly title: string,
-    readonly department: string,
-    readonly siret: string
+    readonly department: string
   ) {}
 }

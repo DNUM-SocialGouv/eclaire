@@ -34,14 +34,14 @@ describe('clinical trial', () => {
       national_number: '2011-006209-83',
     }
     const contact = new Contact(
-      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', ''),
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')
     )
-    const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')
+    const primarySponsor = new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')
     const medicalCondition = 'Cancer des poumons'
     const medicalConditionMeddra = ['10060929', '10072818']
     const therapeuticAreas = [new TherapeuticArea('', '')]
-    const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')]
+    const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')]
     const summary = 'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.'
 
     // WHEN
@@ -131,14 +131,14 @@ function createClinicalTrial(partial: Partial<ClinicalTrial>): ClinicalTrial {
   const lastRevisionDate = partial.last_revision_date ?? new Date().toString()
   const recruitment = partial.recruitment ?? new Recruitment('', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '')
   const contact = partial.contact ?? new Contact(
-    new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-    new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')
+    new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', ''),
+    new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')
   )
   const medicalCondition = partial.medical_condition ?? ''
   const medicalConditionMeddra: Array<string> = partial.medical_condition_meddra ?? []
   const therapeuticAreas: Array<TherapeuticArea> = partial.therapeutic_area ?? []
-  const primarySponsor = partial.primary_sponsor ?? new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')
-  const trialSites = partial.trial_sites ?? [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')]
+  const primarySponsor = partial.primary_sponsor ?? new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')
+  const trialSites = partial.trial_sites ?? [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')]
   const summary = partial.summary ?? ''
 
   return new ClinicalTrial(

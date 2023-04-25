@@ -5,8 +5,8 @@ describe('contact', () => {
   it('should have a specific list of attribute set for public and scientific queries', () => {
     // WHEN
     const contact = new Contact(
-      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', ''),
+      new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')
     )
 
     // THEN
