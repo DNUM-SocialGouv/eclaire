@@ -13,20 +13,10 @@ describe('clinical trial', () => {
   it('should have a clinical trial', () => {
     // GIVEN
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
-    const publicTitle = new Title(
-      'AGADIR',
-      'Circuler l’ADN pour améliorer le résultat de l’oncologie Patient. Une étude randomisée'
-    )
-    const scientificTitle = new Title(
-      'AGADIR',
-      'le meme titre mais en scientifique'
-    )
+    const publicTitle = new Title('', '')
+    const scientificTitle = new Title('', '')
     const recruitment = new Recruitment('', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '')
-    const studyType = new StudyType(
-      'Human Pharmacology (Phase I)- First administration to humans',
-      '',
-      ''
-    )
+    const studyType = new StudyType('', '', '')
     const lastRevisionDate = new Date().toString()
     const universalTrialNumber = 'NTC5492179625'
     const secondariesTrialNumbers = {
@@ -43,9 +33,13 @@ describe('clinical trial', () => {
     const therapeuticAreas = [new TherapeuticArea('', '')]
     const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')]
     const summary = 'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.'
+    const clinicalTrialType = 'Recherche impliquant la personne humaine'
+    const clinical_trial_category = 'Catégorie 1'
 
     // WHEN
     const clinicalTrial = createClinicalTrial({
+      clinical_trial_category,
+      clinical_trial_type: clinicalTrialType,
       contact: contact,
       last_revision_date: lastRevisionDate,
       medical_condition: medicalCondition,
@@ -65,14 +59,10 @@ describe('clinical trial', () => {
     // THEN
     expect(clinicalTrial.universal_trial_number).toBe(universalTrialNumber)
     expect(clinicalTrial.secondaries_trial_numbers).toBe(secondariesTrialNumbers)
-    expect(clinicalTrial.public_title.acronym).toBe('AGADIR')
-    expect(clinicalTrial.public_title.value).toBe('Circuler l’ADN pour améliorer le résultat de l’oncologie Patient. Une étude randomisée')
-    expect(clinicalTrial.scientific_title.acronym).toBe('AGADIR')
-    expect(clinicalTrial.scientific_title.value).toBe('le meme titre mais en scientifique')
+    expect(clinicalTrial.public_title).toBeInstanceOf(Title)
+    expect(clinicalTrial.scientific_title).toBeInstanceOf(Title)
     expect(clinicalTrial.recruitment).toBeInstanceOf(Recruitment)
-    expect(clinicalTrial.study_type.phase).toBe('Human Pharmacology (Phase I)- First administration to humans')
-    expect(clinicalTrial.study_type.study_design).toBe('')
-    expect(clinicalTrial.study_type.study_type).toBe('')
+    expect(clinicalTrial.study_type).toBeInstanceOf(StudyType)
     expect(clinicalTrial.last_revision_date).toBe(new Date().toString())
     expect(clinicalTrial.contact).toBeInstanceOf(Contact)
     expect(clinicalTrial.medical_condition).toBe('Cancer des poumons')
@@ -80,6 +70,8 @@ describe('clinical trial', () => {
     expect(clinicalTrial.primary_sponsor).toBeInstanceOf(ContactDetails)
     expect(clinicalTrial.trial_sites[0]).toBeInstanceOf(ContactDetails)
     expect(clinicalTrial.summary).toBe('Le contexte des cette étude est le suivant, les gens addicts aux dragibus.')
+    expect(clinicalTrial.clinical_trial_type).toBe('Recherche impliquant la personne humaine')
+    expect(clinicalTrial.clinical_trial_category).toBe('Catégorie 1')
   })
 
   it.each(
@@ -140,6 +132,8 @@ function createClinicalTrial(partial: Partial<ClinicalTrial>): ClinicalTrial {
   const primarySponsor = partial.primary_sponsor ?? new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')
   const trialSites = partial.trial_sites ?? [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')]
   const summary = partial.summary ?? ''
+  const clinical_trial_type = partial.clinical_trial_type ?? ''
+  const clinical_trial_category = partial.clinical_trial_category ?? ''
 
   return new ClinicalTrial(
     universalTrialNumber,
@@ -155,6 +149,8 @@ function createClinicalTrial(partial: Partial<ClinicalTrial>): ClinicalTrial {
     therapeuticAreas,
     primarySponsor,
     trialSites,
-    summary
+    summary,
+    clinical_trial_type,
+    clinical_trial_category
   )
 }

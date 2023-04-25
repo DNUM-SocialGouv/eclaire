@@ -26,7 +26,9 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
         clinicalTrialFile.therapeutic_areas,
         clinicalTrialFile.primary_sponsor,
         clinicalTrialFile.trial_sites,
-        clinicalTrialFile.summary
+        clinicalTrialFile.summary,
+        clinicalTrialFile.clinical_trial_type,
+        clinicalTrialFile.clinical_trial_category
       ))
     })
   }

@@ -22,7 +22,9 @@ export class ClinicalTrial {
     therapeutic_area: Array<TherapeuticArea>,
     primary_sponsor: ContactDetails,
     trial_sites: ContactDetails[],
-    summary: string
+    summary: string,
+    clinical_trial_type: string,
+    clinical_trial_category: string
   ) {
     this.universal_trial_number = universal_trial_number
     this.secondaries_trial_numbers = secondaries_trial_numbers
@@ -38,6 +40,8 @@ export class ClinicalTrial {
     this.primary_sponsor = primary_sponsor
     this.trial_sites = trial_sites
     this.summary = summary
+    this.clinical_trial_type = clinical_trial_type
+    this.clinical_trial_category = clinical_trial_category
   }
 
   @ApiProperty({
@@ -107,4 +111,16 @@ export class ClinicalTrial {
     example: 'le contexte des cette étude est le suivant, les gens addicts aux dragibus. L’objectif de l’étude est de voir l’effet des bonbons sur les dents des enfants. La pathologie visée les grosses caries. Essai de cohorte les enfants avec caries et sans caries sont comparés.',
   })
   readonly summary: string
+
+  @ApiProperty({
+    description: 'La typologie de l’essai correspond à la nature de l’essai et à la réglementation à laquelle il se rattache.',
+    example: 'Recherche impliquant la personne humaine',
+  })
+  readonly clinical_trial_type: string
+
+  @ApiProperty({
+    description: 'La catégorie de l’essai précise le degré d’intervention lié à l’essai clinique au sein d’une typologie.',
+    example: 'Catégorie 1',
+  })
+  readonly clinical_trial_category: string
 }

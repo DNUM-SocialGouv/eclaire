@@ -114,7 +114,9 @@ export class ClinicalTrialFactory {
         trial_site.title,
         trial_site.department
       )),
-      clinicalTrialModel.summary
+      clinicalTrialModel.summary,
+      clinicalTrialModel.clinical_trial_type,
+      clinicalTrialModel.clinical_trial_category
     )
   }
 }

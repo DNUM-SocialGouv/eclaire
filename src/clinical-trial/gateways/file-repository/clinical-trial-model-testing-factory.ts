@@ -35,6 +35,8 @@ export class ClinicalTrialModelTestingFactory {
     [],
     new ContactDetailsModel('', '', '', '', '', '', '', '', '', '', '', '', ''),
     [new ContactDetailsModel('', '', '', '', '', '', '', '', '', '', '', '', '')],
+    '',
+    '',
     ''
   )
 
