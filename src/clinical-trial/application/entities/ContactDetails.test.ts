@@ -16,8 +16,7 @@ describe('contact details', () => {
       'Ministère de la Santé',
       '2049',
       'Agent de Santé',
-      'Laboratoire',
-      '748 320 708 00024'
+      'Laboratoire'
     )
 
     // THEN
@@ -34,6 +33,5 @@ describe('contact details', () => {
     expect(contactDetails.organization_id).toBe('2049')
     expect(contactDetails.title).toBe('Agent de Santé')
     expect(contactDetails.department).toBe('Laboratoire')
-    expect(contactDetails.siret).toBe('748 320 708 00024')
   })
 })

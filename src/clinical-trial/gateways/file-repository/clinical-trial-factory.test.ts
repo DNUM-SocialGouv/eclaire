@@ -70,8 +70,7 @@ describe('clinical trial factory', () => {
           'Ministère de la santé',
           '2039',
           'Agent de Santé',
-          'Administration',
-          '552 178 639 00132'
+          'Administration'
         ),
         new ContactDetailsModel(
           'John Doe',
@@ -86,8 +85,7 @@ describe('clinical trial factory', () => {
           'Ministère de la Santé',
           '2040',
           'Agent de Santé',
-          'Laboratoire',
-          '751 610 908 00012'
+          'Laboratoire'
         )
       ),
       'Cancer des poumons',
@@ -106,8 +104,7 @@ describe('clinical trial factory', () => {
         'Ministère de la Santé',
         '2039',
         'Agent de Santé',
-        'Laboratoire',
-        '751 610 908 00012'
+        'Laboratoire'
       ),
       [
         new ContactDetailsModel(
@@ -123,8 +120,7 @@ describe('clinical trial factory', () => {
           'Ministère de la Santé',
           '2040',
           'Agent de Santé',
-          'Laboratoire',
-          '751 610 908 00012'
+          'Laboratoire'
         ),
       ],
       'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.'
@@ -179,8 +175,7 @@ describe('clinical trial factory', () => {
           'Ministère de la santé',
           '2039',
           'Agent de Santé',
-          'Administration',
-          '552 178 639 00132'
+          'Administration'
         ),
         new ContactDetails(
           'John Doe',
@@ -195,8 +190,7 @@ describe('clinical trial factory', () => {
           'Ministère de la Santé',
           '2040',
           'Agent de Santé',
-          'Laboratoire',
-          '751 610 908 00012'
+          'Laboratoire'
         )
       ),
       'Cancer des poumons',
@@ -215,8 +209,7 @@ describe('clinical trial factory', () => {
         'Ministère de la Santé',
         '2039',
         'Agent de Santé',
-        'Laboratoire',
-        '751 610 908 00012'
+        'Laboratoire'
       ),
       [
         new ContactDetails(
@@ -232,8 +225,7 @@ describe('clinical trial factory', () => {
           'Ministère de la Santé',
           '2040',
           'Agent de Santé',
-          'Laboratoire',
-          '751 610 908 00012'
+          'Laboratoire'
         ),
       ],
       'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.'

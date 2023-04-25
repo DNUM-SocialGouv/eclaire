@@ -45,8 +45,7 @@
         "organization": "Ministère de la santé",
         "organization_id": "",
         "title": "Agent de Santé",
-        "department": "Laboratoire",
-        "siret": "552 178 639 00132"
+        "department": "Laboratoire"
       },
       "scientific_queries": {
         "name": "",
@@ -61,8 +60,7 @@
         "organization": "",
         "organization_id": "",
         "title": "",
-        "department": "",
-        "siret": ""
+        "department": ""
       }
     },
     "medical_condition": "Lung cancer",
@@ -84,8 +82,7 @@
       "organization": "Ministère de la santé",
       "organization_id": "",
       "title": "Agent de Santé",
-      "department": "Laboratoire",
-      "siret": "552 178 639 00132"
+      "department": "Laboratoire"
     },
     "trial_sites": [
       {
@@ -101,8 +98,7 @@
         "organization": "Insbruck medical university",
         "organization_id": "2039",
         "title": "",
-        "department": "laboratorium",
-        "siret": ""
+        "department": "laboratorium"
       }
     ],
     "summary": "Le contexte des cette étude est le suivant, les gens addicts aux dragibus."
@@ -152,8 +148,7 @@
         "organization": "Ministère de la santé",
         "organization_id": "",
         "title": "Agent de Santé",
-        "department": "Laboratoire",
-        "siret": "552 178 639 00132"
+        "department": "Laboratoire"
       },
       "scientific_queries": {
         "name": "",
@@ -168,8 +163,7 @@
         "organization": "",
         "organization_id": "",
         "title": "",
-        "department": "",
-        "siret": ""
+        "department": ""
       }
     },
     "medical_condition": "Lung cancer",
@@ -191,8 +185,7 @@
       "organization": "",
       "organization_id": "",
       "title": "",
-      "department": "",
-      "siret": ""
+      "department": ""
     },
     "trial_sites": [
       {
@@ -208,8 +201,7 @@
         "organization": "",
         "organization_id": "",
         "title": "",
-        "department": "",
-        "siret": ""
+        "department": ""
       }
     ],
     "summary": ""
@@ -262,8 +254,7 @@
         "organization": "Ministère de la santé",
         "organization_id": "",
         "title": "Agent de Santé",
-        "department": "Laboratoire",
-        "siret": ""
+        "department": "Laboratoire"
       },
       "scientific_queries": {
         "name": "",
@@ -278,8 +269,7 @@
         "organization": "",
         "organization_id": "",
         "title": "",
-        "department": "",
-        "siret": ""
+        "department": ""
       }
     },
     "medical_condition": "",
@@ -300,8 +290,7 @@
       "organization": "",
       "organization_id": "",
       "title": "",
-      "department": "",
-      "siret": ""
+      "department": ""
     },
     "trial_sites": [
       {
@@ -317,8 +306,7 @@
         "organization": "",
         "organization_id": "",
         "title": "",
-        "department": "",
-        "siret": ""
+        "department": ""
       }
     ],
     "summary": ""
@@ -368,8 +356,7 @@
         "organization": "",
         "organization_id": "",
         "title": "",
-        "department": "",
-        "siret": ""
+        "department": ""
       },
       "scientific_queries": {
         "name": "",
@@ -384,8 +371,7 @@
         "organization": "",
         "organization_id": "",
         "title": "",
-        "department": "",
-        "siret": ""
+        "department": ""
       }
     },
     "medical_condition": "",
@@ -409,8 +395,7 @@
       "organization": "",
       "organization_id": "",
       "title": "",
-      "department": "",
-      "siret": ""
+      "department": ""
     },
     "trial_sites": [
       {
@@ -426,8 +411,7 @@
         "organization": "",
         "organization_id": "",
         "title": "",
-        "department": "",
-        "siret": ""
+        "department": ""
       }
     ],
     "summary": ""

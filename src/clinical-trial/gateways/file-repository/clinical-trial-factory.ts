@@ -63,8 +63,7 @@ export class ClinicalTrialFactory {
           clinicalTrialModel.contact.public_queries.organization,
           clinicalTrialModel.contact.public_queries.organization_id,
           clinicalTrialModel.contact.public_queries.title,
-          clinicalTrialModel.contact.public_queries.department,
-          clinicalTrialModel.contact.public_queries.siret
+          clinicalTrialModel.contact.public_queries.department
         ),
         new ContactDetails(
           clinicalTrialModel.contact.scientific_queries.name,
@@ -79,8 +78,7 @@ export class ClinicalTrialFactory {
           clinicalTrialModel.contact.scientific_queries.organization,
           clinicalTrialModel.contact.scientific_queries.organization_id,
           clinicalTrialModel.contact.scientific_queries.title,
-          clinicalTrialModel.contact.scientific_queries.department,
-          clinicalTrialModel.contact.scientific_queries.siret
+          clinicalTrialModel.contact.scientific_queries.department
         )
       ),
       clinicalTrialModel.medical_condition,
@@ -99,8 +97,7 @@ export class ClinicalTrialFactory {
         clinicalTrialModel.primary_sponsor.organization,
         clinicalTrialModel.primary_sponsor.organization_id,
         clinicalTrialModel.primary_sponsor.title,
-        clinicalTrialModel.primary_sponsor.department,
-        clinicalTrialModel.primary_sponsor.siret
+        clinicalTrialModel.primary_sponsor.department
       ),
       clinicalTrialModel.trial_sites.map((trial_site) => new ContactDetails(
         trial_site.name,
@@ -115,8 +112,7 @@ export class ClinicalTrialFactory {
         trial_site.organization,
         trial_site.organization_id,
         trial_site.title,
-        trial_site.department,
-        trial_site.siret
+        trial_site.department
       )),
       clinicalTrialModel.summary
     )

@@ -14,8 +14,7 @@ export class ContactDetails {
     organization: string,
     organization_id: string,
     title: string,
-    department: string,
-    siret: string
+    department: string
   ) {
     this.name = name
     this.firstname = firstname
@@ -30,7 +29,6 @@ export class ContactDetails {
     this.organization_id = organization_id
     this.title = title
     this.department = department
-    this.siret = siret
   }
 
   @ApiProperty({ description: 'Le nom du contact.', example: 'John Fitzgerald Doe' })
@@ -80,10 +78,4 @@ export class ContactDetails {
     example: 'laboratorium',
   })
   readonly department: string
-
-  @ApiProperty({
-    description: 'Le siret du contact, où de l’organisme qu’il représente.',
-    example: '552 178 639 00132',
-  })
-  readonly siret: string
 }
