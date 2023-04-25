@@ -2,6 +2,7 @@ import { ClinicalTrialFactory } from './clinical-trial-factory'
 import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
 import { Contact } from '../../application/entities/Contact'
 import { ContactDetails } from '../../application/entities/ContactDetails'
+import { Criteria } from '../../application/entities/Criteria'
 import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
 import { TherapeuticArea } from '../../application/entities/TherapeuticArea'
@@ -13,6 +14,7 @@ import { SecondaryAge } from '../../application/SecondaryAge'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
 import { ContactDetailsModel } from '../model/ContactDetailsModel'
 import { ContactModel } from '../model/ContactModel'
+import { CriteriaModel } from '../model/CriteriaModel'
 import { RecruitmentModel } from '../model/RecruitmentModel'
 import { StudyTypeModel } from '../model/StudyTypeModel'
 import { TherapeuticAreaModel } from '../model/TherapeuticAreaModel'
@@ -42,7 +44,11 @@ describe('clinical trial factory', () => {
         ['MALE'],
         ['IN_UTERO', 'SIXTY_FIVE_PLUS_YEARS'],
         ['PRETERM_NEWBORN', 'EIGHTY_FIVE_PLUS_YEARS'],
-        400
+        400,
+        new CriteriaModel('1', 'femme porteuse d’un cancer du sein stade terminal', 'women with breast cancer terminal phase'),
+        new CriteriaModel('1', 'femme porteuse d’un cancer du sein stade benin', 'women with only a benine breast cancer'),
+        'patient',
+        'pregnant women'
       ),
       new StudyTypeModel(
         'Human Pharmacology (Phase I)- First administration to humans',
@@ -147,7 +153,11 @@ describe('clinical trial factory', () => {
         [Gender.MALE],
         [PrimaryAge.IN_UTERO, PrimaryAge.SIXTY_FIVE_PLUS_YEARS],
         [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.EIGHTY_FIVE_PLUS_YEARS],
-        400
+        400,
+        new Criteria('1', 'femme porteuse d’un cancer du sein stade terminal', 'women with breast cancer terminal phase'),
+        new Criteria('1', 'femme porteuse d’un cancer du sein stade benin', 'women with only a benine breast cancer'),
+        'patient',
+        'pregnant women'
       ),
       new StudyType(
         'Human Pharmacology (Phase I)- First administration to humans',

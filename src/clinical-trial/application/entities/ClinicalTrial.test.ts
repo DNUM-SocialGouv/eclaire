@@ -1,14 +1,13 @@
 import { ClinicalTrial } from './ClinicalTrial'
 import { Contact } from './Contact'
 import { ContactDetails } from './ContactDetails'
+import { Criteria } from './Criteria'
 import { Recruitment } from './Recruitment'
 import { StudyType } from './StudyType'
 import { TherapeuticArea } from './TherapeuticArea'
 import { Title } from './Title'
 import { Gender } from '../Gender'
-import { PrimaryAge } from '../PrimaryAge'
 import { RecruitmentStatus } from '../RecruitmentStatus'
-import { SecondaryAge } from '../SecondaryAge'
 
 describe('clinical trial', () => {
   it('should have a clinical trial', () => {
@@ -22,13 +21,7 @@ describe('clinical trial', () => {
       'AGADIR',
       'le meme titre mais en scientifique'
     )
-    const recruitment = new Recruitment(
-      RecruitmentStatus.RECRUITING,
-      [Gender.MALE],
-      [PrimaryAge.IN_UTERO, PrimaryAge.SIXTY_FIVE_PLUS_YEARS],
-      [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.EIGHTY_FIVE_PLUS_YEARS],
-      400
-    )
+    const recruitment = new Recruitment('', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '')
     const studyType = new StudyType(
       'Human Pharmacology (Phase I)- First administration to humans',
       '',
@@ -76,11 +69,7 @@ describe('clinical trial', () => {
     expect(clinicalTrial.public_title.value).toBe('Circuler l’ADN pour améliorer le résultat de l’oncologie Patient. Une étude randomisée')
     expect(clinicalTrial.scientific_title.acronym).toBe('AGADIR')
     expect(clinicalTrial.scientific_title.value).toBe('le meme titre mais en scientifique')
-    expect(clinicalTrial.recruitment.genders).toStrictEqual([Gender.MALE])
-    expect(clinicalTrial.recruitment.status).toBe(RecruitmentStatus.RECRUITING)
-    expect(clinicalTrial.recruitment.ages_range).toStrictEqual(['IN_UTERO', '65_PLUS_YEARS'])
-    expect(clinicalTrial.recruitment.ages_range_secondary_identifiers).toStrictEqual(['PRETERM_NEWBORN', '85_PLUS_YEARS'])
-    expect(clinicalTrial.recruitment.target_number).toBe(400)
+    expect(clinicalTrial.recruitment).toBeInstanceOf(Recruitment)
     expect(clinicalTrial.study_type.phase).toBe('Human Pharmacology (Phase I)- First administration to humans')
     expect(clinicalTrial.study_type.study_design).toBe('')
     expect(clinicalTrial.study_type.study_type).toBe('')
@@ -104,7 +93,7 @@ describe('clinical trial', () => {
   )('should have a clinical trial with a %s status', (recruitmentStatus: RecruitmentStatus) => {
     // GIVEN
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
-    const recruitment = new Recruitment(recruitmentStatus, [], [], [], 0)
+    const recruitment = new Recruitment(recruitmentStatus, [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '')
 
     // WHEN
     const clinicalTrial = createClinicalTrial({ recruitment: recruitment })
@@ -123,7 +112,7 @@ describe('clinical trial', () => {
   )('should have a clinical trial with a %s gender', (genders: Array<Gender>) => {
     // GIVEN
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
-    const recruitment = new Recruitment('', genders, [], [], 0)
+    const recruitment = new Recruitment('', genders, [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '')
 
     // WHEN
     const clinicalTrial = createClinicalTrial({ recruitment: recruitment })
@@ -140,7 +129,7 @@ function createClinicalTrial(partial: Partial<ClinicalTrial>): ClinicalTrial {
   const scientificTitle = partial.scientific_title ?? new Title('', '')
   const studyType = partial.study_type ?? new StudyType('', '', '')
   const lastRevisionDate = partial.last_revision_date ?? new Date().toString()
-  const recruitment = partial.recruitment ?? new Recruitment('', [], [], [], 0)
+  const recruitment = partial.recruitment ?? new Recruitment('', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '')
   const contact = partial.contact ?? new Contact(
     new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', ''),
     new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '', '')

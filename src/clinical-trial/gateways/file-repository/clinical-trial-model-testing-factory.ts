@@ -1,6 +1,7 @@
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
 import { ContactDetailsModel } from '../model/ContactDetailsModel'
 import { ContactModel } from '../model/ContactModel'
+import { CriteriaModel } from '../model/CriteriaModel'
 import { RecruitmentModel } from '../model/RecruitmentModel'
 import { StudyTypeModel } from '../model/StudyTypeModel'
 import { TitleModel } from '../model/TitleModel'
@@ -17,7 +18,11 @@ export class ClinicalTrialModelTestingFactory {
       ['MALE'],
       [],
       [],
-      400
+      400,
+      new CriteriaModel('', '', ''),
+      new CriteriaModel('', '', ''),
+      '',
+      ''
     ),
     new StudyTypeModel('', '', ''),
     '',
