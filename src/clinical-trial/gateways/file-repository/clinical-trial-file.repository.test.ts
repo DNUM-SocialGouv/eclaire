@@ -17,6 +17,8 @@ describe('clinical trial file repository', () => {
   it('should retrieve one clinical trial', async () => {
     // GIVEN
     const clinicalTrialFile = {
+      clinical_trial_category: '',
+      clinical_trial_type: '',
       contact: {
         public_queries: {
           address: '',
@@ -142,6 +144,8 @@ describe('clinical trial file repository', () => {
       [],
       new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', ''),
       [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')],
+      '',
+      '',
       ''
     ))
   })

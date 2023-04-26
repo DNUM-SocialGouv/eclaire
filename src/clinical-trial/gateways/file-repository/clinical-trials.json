@@ -101,7 +101,9 @@
         "department": "laboratorium"
       }
     ],
-    "summary": "Le contexte des cette étude est le suivant, les gens addicts aux dragibus."
+    "summary": "Le contexte des cette étude est le suivant, les gens addicts aux dragibus.",
+    "clinical_trial_type": "Recherche impliquant la personne humaine",
+    "clinical_trial_category": "Catégorie 1"
   },
   {
     "uuid": "2",
@@ -204,7 +206,9 @@
         "department": ""
       }
     ],
-    "summary": ""
+    "summary": "",
+    "clinical_trial_type":"essai clinique",
+    "clinical_trial_category":"essai clinique à faible intervention"
   },
   {
     "uuid": "3",
@@ -309,7 +313,9 @@
         "department": ""
       }
     ],
-    "summary": ""
+    "summary": "",
+    "clinical_trial_type":"investigation clinique",
+    "clinical_trial_category":"Cas 1"
   },
   {
     "uuid": "4",
@@ -414,6 +420,8 @@
         "department": ""
       }
     ],
-    "summary": ""
+    "summary": "",
+    "clinical_trial_type":"étude de performance",
+    "clinical_trial_category":"cas 3"
   }
 ]

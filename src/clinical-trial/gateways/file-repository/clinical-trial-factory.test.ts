@@ -123,7 +123,9 @@ describe('clinical trial factory', () => {
           'Laboratoire'
         ),
       ],
-      'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.'
+      'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.',
+      'Recherche impliquant la personne humaine',
+      'Catégorie 1'
     )
 
     // WHEN
@@ -228,7 +230,9 @@ describe('clinical trial factory', () => {
           'Laboratoire'
         ),
       ],
-      'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.'
+      'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.',
+      'Recherche impliquant la personne humaine',
+      'Catégorie 1'
     ))
   })
 })
