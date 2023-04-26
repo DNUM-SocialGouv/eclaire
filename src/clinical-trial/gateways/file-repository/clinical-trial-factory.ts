@@ -41,7 +41,8 @@ export class ClinicalTrialFactory {
           clinicalTrialModel.recruitment.inclusion_criteria.value_language
         ),
         clinicalTrialModel.recruitment.clinical_trial_group,
-        clinicalTrialModel.recruitment.vulnerable_population
+        clinicalTrialModel.recruitment.vulnerable_population,
+        clinicalTrialModel.recruitment.date_recruiting_status
       ),
       new StudyType(
         clinicalTrialModel.study_type.phase,

@@ -74,6 +74,7 @@ describe('clinical trial file repository', () => {
         ages_range: [],
         ages_range_secondary_identifiers: [],
         clinical_trial_group: '',
+        date_recruiting_status: '',
         exclusion_criteria: { id: '', value: '', value_language: '' },
         genders: [],
         inclusion_criteria: { id: '', value: '', value_language: '' },
@@ -126,6 +127,7 @@ describe('clinical trial file repository', () => {
         0,
         new Criteria('', '', ''),
         new Criteria('', '', ''),
+        '',
         '',
         ''
       ),

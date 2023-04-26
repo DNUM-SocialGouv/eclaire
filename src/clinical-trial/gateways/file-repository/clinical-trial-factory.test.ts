@@ -48,7 +48,8 @@ describe('clinical trial factory', () => {
         new CriteriaModel('1', 'femme porteuse d’un cancer du sein stade terminal', 'women with breast cancer terminal phase'),
         new CriteriaModel('1', 'femme porteuse d’un cancer du sein stade benin', 'women with only a benine breast cancer'),
         'patient',
-        'pregnant women'
+        'pregnant women',
+        '2022-02-06T18:25:43.511Z'
       ),
       new StudyTypeModel(
         'Human Pharmacology (Phase I)- First administration to humans',
@@ -155,7 +156,8 @@ describe('clinical trial factory', () => {
         new Criteria('1', 'femme porteuse d’un cancer du sein stade terminal', 'women with breast cancer terminal phase'),
         new Criteria('1', 'femme porteuse d’un cancer du sein stade benin', 'women with only a benine breast cancer'),
         'patient',
-        'pregnant women'
+        'pregnant women',
+        '2022-02-06T18:25:43.511Z'
       ),
       new StudyType(
         'Human Pharmacology (Phase I)- First administration to humans',

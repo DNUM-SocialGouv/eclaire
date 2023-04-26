@@ -22,6 +22,7 @@ export class ClinicalTrialModelTestingFactory {
       new CriteriaModel('', '', ''),
       new CriteriaModel('', '', ''),
       '',
+      '',
       ''
     ),
     new StudyTypeModel('', '', ''),

@@ -15,7 +15,7 @@ describe('clinical trial', () => {
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
     const publicTitle = new Title('', '')
     const scientificTitle = new Title('', '')
-    const recruitment = new Recruitment('', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '')
+    const recruitment = new Recruitment('', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '', '')
     const studyType = new StudyType('', '', '')
     const lastRevisionDate = new Date().toString()
     const universalTrialNumber = 'NTC5492179625'
@@ -85,7 +85,7 @@ describe('clinical trial', () => {
   )('should have a clinical trial with a %s status', (recruitmentStatus: RecruitmentStatus) => {
     // GIVEN
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
-    const recruitment = new Recruitment(recruitmentStatus, [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '')
+    const recruitment = new Recruitment(recruitmentStatus, [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '', '')
 
     // WHEN
     const clinicalTrial = createClinicalTrial({ recruitment: recruitment })
@@ -104,7 +104,7 @@ describe('clinical trial', () => {
   )('should have a clinical trial with a %s gender', (genders: Array<Gender>) => {
     // GIVEN
     jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
-    const recruitment = new Recruitment('', genders, [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '')
+    const recruitment = new Recruitment('', genders, [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '', '')
 
     // WHEN
     const clinicalTrial = createClinicalTrial({ recruitment: recruitment })
@@ -121,7 +121,7 @@ function createClinicalTrial(partial: Partial<ClinicalTrial>): ClinicalTrial {
   const scientificTitle = partial.scientific_title ?? new Title('', '')
   const studyType = partial.study_type ?? new StudyType('', '', '')
   const lastRevisionDate = partial.last_revision_date ?? new Date().toString()
-  const recruitment = partial.recruitment ?? new Recruitment('', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '')
+  const recruitment = partial.recruitment ?? new Recruitment('', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '', '')
   const contact = partial.contact ?? new Contact(
     new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', ''),
     new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')
