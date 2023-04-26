@@ -26,6 +26,7 @@ export class ClinicalTrialFactory {
       ),
       new Recruitment(
         clinicalTrialModel.recruitment.status,
+        clinicalTrialModel.recruitment.date_recruiting_status,
         clinicalTrialModel.recruitment.genders.map((gender: string): Gender => Gender[gender as keyof typeof Gender]),
         clinicalTrialModel.recruitment.ages_range.map((age: string): PrimaryAge => PrimaryAge[age as keyof typeof PrimaryAge]),
         clinicalTrialModel.recruitment.ages_range_secondary_identifiers.map((age: string): SecondaryAge => SecondaryAge[age as keyof typeof SecondaryAge]),
@@ -41,8 +42,7 @@ export class ClinicalTrialFactory {
           clinicalTrialModel.recruitment.inclusion_criteria.value_language
         ),
         clinicalTrialModel.recruitment.clinical_trial_group,
-        clinicalTrialModel.recruitment.vulnerable_population,
-        clinicalTrialModel.recruitment.date_recruiting_status
+        clinicalTrialModel.recruitment.vulnerable_population
       ),
       new StudyType(
         clinicalTrialModel.study_type.phase,

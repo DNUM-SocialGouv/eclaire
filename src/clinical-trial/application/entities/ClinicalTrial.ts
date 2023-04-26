@@ -18,8 +18,8 @@ export class ClinicalTrial {
     last_revision_date: string,
     contact: Contact,
     medical_condition: string,
-    medical_condition_meddra: Array<string>,
-    therapeutic_area: Array<TherapeuticArea>,
+    medical_condition_meddra: string[],
+    therapeutic_area: TherapeuticArea[],
     primary_sponsor: ContactDetails,
     trial_sites: ContactDetails[],
     summary: string,
@@ -92,19 +92,22 @@ export class ClinicalTrial {
     description: 'Code(s) relatif(s) à une pathologie MedDRA.',
     example: ['10060929', '10072818'],
   })
-  readonly medical_condition_meddra: Array<string>
+  readonly medical_condition_meddra: string[]
 
   @ApiProperty({
     description: 'Le domaine thérapeutique d’un essai clinique correspond au champ de la recherche et développement d’un traitement spécifique à certaines pathologies et conditions de santé.',
-    type: TherapeuticArea,
+    type: [TherapeuticArea],
   })
-  readonly therapeutic_area: Array<TherapeuticArea>
+  readonly therapeutic_area: TherapeuticArea[]
 
   @ApiProperty({ description: 'Le promoteur est la personne physique, la société ou l’institution qui prend l’initiative d’un essai clinique et en assume les responsabilités et le financement.' })
   readonly primary_sponsor: ContactDetails
 
-  @ApiProperty({ description: 'Sites d’investigation : correspond à la liste des sites où l’essai clinique prend place, avec pour chaque site la localisation et les informations de contact.', type: ContactDetails })
-  readonly trial_sites: Array<ContactDetails>
+  @ApiProperty({
+    description: 'Sites d’investigation : correspond à la liste des sites où l’essai clinique prend place, avec pour chaque site la localisation et les informations de contact.',
+    type: [ContactDetails],
+  })
+  readonly trial_sites: ContactDetails[]
 
   @ApiProperty({
     description: 'Le résumé de l’essai clinique est à destination du grand public. Il comprend les informations suivantes : contexte de l’essai clinique, la / les pathologies concernées par l’essai clinique, les objectifs de l’essai clinique, les cohortes et bras.',
@@ -119,7 +122,11 @@ export class ClinicalTrial {
   readonly clinical_trial_type: string
 
   @ApiProperty({
-    description: 'La catégorie de l’essai précise le degré d’intervention lié à l’essai clinique au sein d’une typologie.',
+    description: `La catégorie de l’essai précise le degré d’intervention lié à l’essai clinique au sein d’une typologie.<br>
+    <a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32017R0745#d1e1342-1-1">Définition dispositif médical</a><br>
+    <a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32014R0536#d1e772-1-1">Définition essai clinique</a><br>
+    <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000046125746">Définition recherche impliquant la personne humaine et catégories associées</a><br>
+    <a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32017R0746#d1e1165-176-1">Définition étude de performance</a>`,
     example: 'Catégorie 1',
   })
   readonly clinical_trial_category: string
