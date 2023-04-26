@@ -9,6 +9,7 @@ import { SecondaryAge } from '../SecondaryAge'
 export class Recruitment {
   constructor(
     status: string,
+    date_recruiting_status: string,
     genders: Gender[],
     ages_range: PrimaryAge[],
     ages_range_secondary_identifiers: SecondaryAge[],
@@ -16,10 +17,10 @@ export class Recruitment {
     exclusion_criteria: Criteria,
     inclusion_criteria: Criteria,
     clinical_trial_group: string,
-    vulnerable_population: string,
-    date_recruiting_status: string
+    vulnerable_population: string
   ) {
     this.status = status
+    this.date_recruiting_status = date_recruiting_status
     this.genders = genders
     this.ages_range = ages_range
     this.ages_range_secondary_identifiers = ages_range_secondary_identifiers
@@ -28,7 +29,6 @@ export class Recruitment {
     this.inclusion_criteria = inclusion_criteria
     this.clinical_trial_group = clinical_trial_group
     this.vulnerable_population = vulnerable_population
-    this.date_recruiting_status = date_recruiting_status
   }
 
   @ApiProperty({
@@ -37,6 +37,12 @@ export class Recruitment {
     example: 'RECRUITING',
   })
   readonly status: string
+
+  @ApiProperty({
+    description: 'Date liée statut de l’essai clinique. Quand l’essai clinique est en cours ou à venir, la date renseigne donc la date de début de recrutement.',
+    example: '2022-02-06T18:25:43.511Z',
+  })
+  readonly date_recruiting_status: string
 
   @ApiProperty({
     description: 'Correspond au genre (sexe) du candidat. Il est inclus comme critère d’inclusion pour participer à l’essai clinique. ',
@@ -82,10 +88,4 @@ export class Recruitment {
     example: 'Pregnant women',
   })
   readonly vulnerable_population: string
-
-  @ApiProperty({
-    description: 'Date liée statut de l’essai clinique. Quand l’essai clinique est en cours ou à venir, la date renseigne donc la date de début de recrutement.',
-    example: '2022-02-06T18:25:43.511Z',
-  })
-  readonly date_recruiting_status: string
 }

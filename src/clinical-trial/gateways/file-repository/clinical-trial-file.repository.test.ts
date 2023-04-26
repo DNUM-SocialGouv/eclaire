@@ -121,13 +121,13 @@ describe('clinical trial file repository', () => {
       new Title('', ''),
       new Recruitment(
         RecruitmentStatus.UNAVAILABLE,
+        '',
         [],
         [],
         [],
         0,
         new Criteria('', '', ''),
         new Criteria('', '', ''),
-        '',
         '',
         ''
       ),

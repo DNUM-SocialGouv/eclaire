@@ -41,6 +41,7 @@ describe('clinical trial factory', () => {
       ),
       new RecruitmentModel(
         'RECRUITING',
+        '2022-02-06T18:25:43.511Z',
         ['MALE'],
         ['IN_UTERO', 'SIXTY_FIVE_PLUS_YEARS'],
         ['PRETERM_NEWBORN', 'EIGHTY_FIVE_PLUS_YEARS'],
@@ -48,8 +49,7 @@ describe('clinical trial factory', () => {
         new CriteriaModel('1', 'femme porteuse d’un cancer du sein stade terminal', 'women with breast cancer terminal phase'),
         new CriteriaModel('1', 'femme porteuse d’un cancer du sein stade benin', 'women with only a benine breast cancer'),
         'patient',
-        'pregnant women',
-        '2022-02-06T18:25:43.511Z'
+        'pregnant women'
       ),
       new StudyTypeModel(
         'Human Pharmacology (Phase I)- First administration to humans',
@@ -149,6 +149,7 @@ describe('clinical trial factory', () => {
       ),
       new Recruitment(
         RecruitmentStatus.RECRUITING,
+        '2022-02-06T18:25:43.511Z',
         [Gender.MALE],
         [PrimaryAge.IN_UTERO, PrimaryAge.SIXTY_FIVE_PLUS_YEARS],
         [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.EIGHTY_FIVE_PLUS_YEARS],
@@ -156,8 +157,7 @@ describe('clinical trial factory', () => {
         new Criteria('1', 'femme porteuse d’un cancer du sein stade terminal', 'women with breast cancer terminal phase'),
         new Criteria('1', 'femme porteuse d’un cancer du sein stade benin', 'women with only a benine breast cancer'),
         'patient',
-        'pregnant women',
-        '2022-02-06T18:25:43.511Z'
+        'pregnant women'
       ),
       new StudyType(
         'Human Pharmacology (Phase I)- First administration to humans',
