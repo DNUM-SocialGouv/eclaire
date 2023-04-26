@@ -15,13 +15,13 @@ export class ClinicalTrialModelTestingFactory {
     new TitleModel('', ''),
     new RecruitmentModel(
       'UNAVAILABLE',
+      '',
       ['MALE'],
       [],
       [],
       400,
       new CriteriaModel('', '', ''),
       new CriteriaModel('', '', ''),
-      '',
       '',
       ''
     ),
