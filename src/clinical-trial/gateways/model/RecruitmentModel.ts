@@ -10,6 +10,7 @@ export class RecruitmentModel {
     readonly exclusion_criteria: CriteriaModel,
     readonly inclusion_criteria: CriteriaModel,
     readonly clinical_trial_group: string,
-    readonly vulnerable_population: string
+    readonly vulnerable_population: string,
+    readonly date_recruiting_status: string
   ) {}
 }

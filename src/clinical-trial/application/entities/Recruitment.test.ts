@@ -17,7 +17,8 @@ describe('recruitment', () => {
       new Criteria('', '', ''),
       new Criteria('', '', ''),
       'patient',
-      'pregnant women'
+      'pregnant women',
+      '2022-02-06T18:25:43.511Z'
     )
 
     // THEN
@@ -30,5 +31,6 @@ describe('recruitment', () => {
     expect(recruitment.inclusion_criteria).toBeInstanceOf(Criteria)
     expect(recruitment.clinical_trial_group).toBe('patient')
     expect(recruitment.vulnerable_population).toBe('pregnant women')
+    expect(recruitment.date_recruiting_status).toBe('2022-02-06T18:25:43.511Z')
   })
 })
