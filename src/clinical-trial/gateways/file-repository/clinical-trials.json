@@ -23,7 +23,8 @@
       "exclusion_criteria": { "id": "2", "value": "femme porteuse d'un cancer du sein stade terminal", "value_language": "women with breast cancer terminal phase" },
       "inclusion_criteria": { "id": "1", "value": "femme porteuse d'un cancer du sein stade benin", "value_language": "women with only a benine breast cancer" },
       "clinical_trial_group": "patient",
-      "vulnerable_population": "pregnant women"
+      "vulnerable_population": "pregnant women",
+      "date_recruiting_status": "2022-02-06T18:25:43.511Z"
     },
     "study_type": {
       "phase": "Therapeutic use (Phase IV)",
@@ -128,7 +129,8 @@
       "exclusion_criteria": { "id": "", "value": "", "value_language": "" },
       "inclusion_criteria": { "id": "", "value": "", "value_language": "" },
       "clinical_trial_group": "",
-      "vulnerable_population": ""
+      "vulnerable_population": "",
+      "date_recruiting_status": "2022-02-06T18:25:43.511Z"
     },
     "study_type": {
       "phase": "Human Pharmacology (Phase I)- First administration to humans",
@@ -236,7 +238,8 @@
       "exclusion_criteria": { "id": "", "value": "", "value_language": "" },
       "inclusion_criteria": { "id": "", "value": "", "value_language": "" },
       "clinical_trial_group": "",
-      "vulnerable_population": ""
+      "vulnerable_population": "",
+      "date_recruiting_status": "2022-02-06T18:25:43.511Z"
     },
     "study_type": {
       "phase": "Phase II and Phase III (Integrated)",
@@ -340,7 +343,8 @@
       "exclusion_criteria": { "id": "", "value": "", "value_language": "" },
       "inclusion_criteria": { "id": "", "value": "", "value_language": "" },
       "clinical_trial_group": "",
-      "vulnerable_population": ""
+      "vulnerable_population": "",
+      "date_recruiting_status": ""
     },
     "study_type": {
       "phase": "",

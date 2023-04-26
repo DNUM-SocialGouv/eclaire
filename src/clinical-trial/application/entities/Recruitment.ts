@@ -16,7 +16,8 @@ export class Recruitment {
     exclusion_criteria: Criteria,
     inclusion_criteria: Criteria,
     clinical_trial_group: string,
-    vulnerable_population: string
+    vulnerable_population: string,
+    date_recruiting_status: string
   ) {
     this.status = status
     this.genders = genders
@@ -27,6 +28,7 @@ export class Recruitment {
     this.inclusion_criteria = inclusion_criteria
     this.clinical_trial_group = clinical_trial_group
     this.vulnerable_population = vulnerable_population
+    this.date_recruiting_status = date_recruiting_status
   }
 
   @ApiProperty({
@@ -69,9 +71,21 @@ export class Recruitment {
   @ApiProperty({ description: 'Les critères d’inclusion sont des critères positifs décrivant les caractéristiques que doivent présenter les personnes pour être incluses.' })
   readonly inclusion_criteria: Criteria
 
-  @ApiProperty({ description: 'Fait référence à la catégorie de volontaires ciblés dans le cadre de l’essai clinique. Il peut s’agir de patient ou de volontaire sains.' })
+  @ApiProperty({
+    description: 'Fait référence à la catégorie de volontaires ciblés dans le cadre de l’essai clinique. Il peut s’agir de patient ou de volontaire sains.',
+    example: 'Patient',
+  })
   readonly clinical_trial_group: string
 
-  @ApiProperty({ description: 'Il s’agit des types de population qui peuvent être ciblées dans le cadre du recrutement d’un essai clinique. Cela s’apparente à un critère d’inclusion.' })
+  @ApiProperty({
+    description: 'Il s’agit des types de population qui peuvent être ciblées dans le cadre du recrutement d’un essai clinique. Cela s’apparente à un critère d’inclusion.',
+    example: 'Pregnant women',
+  })
   readonly vulnerable_population: string
+
+  @ApiProperty({
+    description: 'Date liée statut de l’essai clinique. Quand l’essai clinique est en cours ou à venir, la date renseigne donc la date de début de recrutement.',
+    example: '2022-02-06T18:25:43.511Z',
+  })
+  readonly date_recruiting_status: string
 }
