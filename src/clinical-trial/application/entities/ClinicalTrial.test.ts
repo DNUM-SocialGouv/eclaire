@@ -7,7 +7,6 @@ import { StudyType } from './StudyType'
 import { TherapeuticArea } from './TherapeuticArea'
 import { Title } from './Title'
 import { Gender } from '../Gender'
-import { RecruitmentStatus } from '../RecruitmentStatus'
 
 describe('clinical trial', () => {
   it('should have a clinical trial', () => {
@@ -72,26 +71,6 @@ describe('clinical trial', () => {
     expect(clinicalTrial.summary).toBe('Le contexte des cette étude est le suivant, les gens addicts aux dragibus.')
     expect(clinicalTrial.clinical_trial_type).toBe('Recherche impliquant la personne humaine')
     expect(clinicalTrial.clinical_trial_category).toBe('Catégorie 1')
-  })
-
-  it.each(
-    [
-      [RecruitmentStatus.SCHEDULED],
-      [RecruitmentStatus.COMPLETED],
-      [RecruitmentStatus.UNAVAILABLE],
-      [RecruitmentStatus.PENDING],
-      [RecruitmentStatus.SUSPENDED],
-    ]
-  )('should have a clinical trial with a %s status', (recruitmentStatus: RecruitmentStatus) => {
-    // GIVEN
-    jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
-    const recruitment = new Recruitment(recruitmentStatus, '', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', '')
-
-    // WHEN
-    const clinicalTrial = createClinicalTrial({ recruitment: recruitment })
-
-    // THEN
-    expect(clinicalTrial.recruitment.status).toBe(recruitment.status)
   })
 
   it.each(

@@ -6,10 +6,18 @@ import { RecruitmentStatus } from '../RecruitmentStatus'
 import { SecondaryAge } from '../SecondaryAge'
 
 describe('recruitment', () => {
-  it('should have a recruitment', () => {
+  it.each(
+    [
+      [RecruitmentStatus.SCHEDULED],
+      [RecruitmentStatus.COMPLETED],
+      [RecruitmentStatus.UNAVAILABLE],
+      [RecruitmentStatus.PENDING],
+      [RecruitmentStatus.SUSPENDED],
+    ]
+  )('should have a recruitment with a %s status', (recruitmentStatus: RecruitmentStatus) => {
     // WHEN
     const recruitment = new Recruitment(
-      RecruitmentStatus.RECRUITING,
+      recruitmentStatus,
       '2022-02-06T18:25:43.511Z',
       [Gender.MALE],
       [PrimaryAge.IN_UTERO, PrimaryAge.SIXTY_FIVE_PLUS_YEARS],
@@ -22,7 +30,7 @@ describe('recruitment', () => {
     )
 
     // THEN
-    expect(recruitment.status).toBe(RecruitmentStatus.RECRUITING)
+    expect(recruitment.status).toBe(recruitmentStatus)
     expect(recruitment.date_recruiting_status).toBe('2022-02-06T18:25:43.511Z')
     expect(recruitment.genders).toStrictEqual([Gender.MALE])
     expect(recruitment.ages_range).toStrictEqual(['IN_UTERO', '65_PLUS_YEARS'])

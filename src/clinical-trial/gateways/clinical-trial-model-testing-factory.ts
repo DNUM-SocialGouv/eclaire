@@ -1,10 +1,10 @@
-import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
-import { ContactDetailsModel } from '../model/ContactDetailsModel'
-import { ContactModel } from '../model/ContactModel'
-import { CriteriaModel } from '../model/CriteriaModel'
-import { RecruitmentModel } from '../model/RecruitmentModel'
-import { StudyTypeModel } from '../model/StudyTypeModel'
-import { TitleModel } from '../model/TitleModel'
+import { ClinicalTrialModel } from './model/ClinicalTrialModel'
+import { ContactDetailsModel } from './model/ContactDetailsModel'
+import { ContactModel } from './model/ContactModel'
+import { CriteriaModel } from './model/CriteriaModel'
+import { RecruitmentModel } from './model/RecruitmentModel'
+import { StudyTypeModel } from './model/StudyTypeModel'
+import { TitleModel } from './model/TitleModel'
 
 export class ClinicalTrialModelTestingFactory {
   private static clinicalTrialModel = new ClinicalTrialModel(

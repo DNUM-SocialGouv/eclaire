@@ -4,16 +4,16 @@ import { ContactDetails } from './ContactDetails'
 
 export class Contact {
   constructor(
-    public_queries: ContactDetails,
-    scientific_queries: ContactDetails
+    public_query: ContactDetails,
+    scientific_query: ContactDetails
   ) {
-    this.public_queries = public_queries
-    this.scientific_queries = scientific_queries
+    this.public_query = public_query
+    this.scientific_query = scientific_query
   }
 
   @ApiProperty({ description: 'Regroupe les informations de contact pour les demandes publiques à thématique non scientifique.' })
-  readonly public_queries?: ContactDetails
+  readonly public_query?: ContactDetails
 
   @ApiProperty({ description: 'Regroupe les informations de contact pour les demandes scientifiques.' })
-  readonly scientific_queries?: ContactDetails
+  readonly scientific_query?: ContactDetails
 }

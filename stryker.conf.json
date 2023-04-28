@@ -20,6 +20,7 @@
     "src/**/*.ts",
     "!src/**/*.test.ts",
     "!src/**/*-factory.ts",
+    "!src/**/*.controller.ts",
     "!src/auth/*.ts",
     "!src/main.ts",
     "!src/app.*.ts",

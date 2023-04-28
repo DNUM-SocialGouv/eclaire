@@ -10,7 +10,7 @@
   },
   "packageManager": "yarn@3.5.0",
   "scripts": {
-    "amibroken": "yarn dedupe --check && yarn typecheck && yarn lint && yarn test",
+    "amibroken": "yarn dedupe --check && yarn typecheck && yarn lint && yarn test && yarn test:e2e",
     "bash:production": "scalingo -a eclaire-api run bash",
     "build": "nest build",
     "deadcode": "ts-prune --ignore 'dist'",

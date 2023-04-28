@@ -1,15 +1,15 @@
-import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
-import { Contact } from '../../application/entities/Contact'
-import { ContactDetails } from '../../application/entities/ContactDetails'
-import { Criteria } from '../../application/entities/Criteria'
-import { Recruitment } from '../../application/entities/Recruitment'
-import { StudyType } from '../../application/entities/StudyType'
-import { TherapeuticArea } from '../../application/entities/TherapeuticArea'
-import { Title } from '../../application/entities/Title'
-import { Gender } from '../../application/Gender'
-import { PrimaryAge } from '../../application/PrimaryAge'
-import { SecondaryAge } from '../../application/SecondaryAge'
-import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
+import { ClinicalTrialModel } from './model/ClinicalTrialModel'
+import { ClinicalTrial } from '../application/entities/ClinicalTrial'
+import { Contact } from '../application/entities/Contact'
+import { ContactDetails } from '../application/entities/ContactDetails'
+import { Criteria } from '../application/entities/Criteria'
+import { Recruitment } from '../application/entities/Recruitment'
+import { StudyType } from '../application/entities/StudyType'
+import { TherapeuticArea } from '../application/entities/TherapeuticArea'
+import { Title } from '../application/entities/Title'
+import { Gender } from '../application/Gender'
+import { PrimaryAge } from '../application/PrimaryAge'
+import { SecondaryAge } from '../application/SecondaryAge'
 
 export class ClinicalTrialFactory {
   static create(clinicalTrialModel: ClinicalTrialModel): ClinicalTrial {
@@ -52,34 +52,34 @@ export class ClinicalTrialFactory {
       clinicalTrialModel.last_revision_date,
       new Contact(
         new ContactDetails(
-          clinicalTrialModel.contact.public_queries.name,
-          clinicalTrialModel.contact.public_queries.firstname,
-          clinicalTrialModel.contact.public_queries.lastname,
-          clinicalTrialModel.contact.public_queries.address,
-          clinicalTrialModel.contact.public_queries.city,
-          clinicalTrialModel.contact.public_queries.country,
-          clinicalTrialModel.contact.public_queries.zip,
-          clinicalTrialModel.contact.public_queries.telephone,
-          clinicalTrialModel.contact.public_queries.email,
-          clinicalTrialModel.contact.public_queries.organization,
-          clinicalTrialModel.contact.public_queries.organization_id,
-          clinicalTrialModel.contact.public_queries.title,
-          clinicalTrialModel.contact.public_queries.department
+          clinicalTrialModel.contact.public_query.name,
+          clinicalTrialModel.contact.public_query.firstname,
+          clinicalTrialModel.contact.public_query.lastname,
+          clinicalTrialModel.contact.public_query.address,
+          clinicalTrialModel.contact.public_query.city,
+          clinicalTrialModel.contact.public_query.country,
+          clinicalTrialModel.contact.public_query.zip,
+          clinicalTrialModel.contact.public_query.telephone,
+          clinicalTrialModel.contact.public_query.email,
+          clinicalTrialModel.contact.public_query.organization,
+          clinicalTrialModel.contact.public_query.organization_id,
+          clinicalTrialModel.contact.public_query.title,
+          clinicalTrialModel.contact.public_query.department
         ),
         new ContactDetails(
-          clinicalTrialModel.contact.scientific_queries.name,
-          clinicalTrialModel.contact.scientific_queries.firstname,
-          clinicalTrialModel.contact.scientific_queries.lastname,
-          clinicalTrialModel.contact.scientific_queries.address,
-          clinicalTrialModel.contact.scientific_queries.city,
-          clinicalTrialModel.contact.scientific_queries.country,
-          clinicalTrialModel.contact.scientific_queries.zip,
-          clinicalTrialModel.contact.scientific_queries.telephone,
-          clinicalTrialModel.contact.scientific_queries.email,
-          clinicalTrialModel.contact.scientific_queries.organization,
-          clinicalTrialModel.contact.scientific_queries.organization_id,
-          clinicalTrialModel.contact.scientific_queries.title,
-          clinicalTrialModel.contact.scientific_queries.department
+          clinicalTrialModel.contact.scientific_query.name,
+          clinicalTrialModel.contact.scientific_query.firstname,
+          clinicalTrialModel.contact.scientific_query.lastname,
+          clinicalTrialModel.contact.scientific_query.address,
+          clinicalTrialModel.contact.scientific_query.city,
+          clinicalTrialModel.contact.scientific_query.country,
+          clinicalTrialModel.contact.scientific_query.zip,
+          clinicalTrialModel.contact.scientific_query.telephone,
+          clinicalTrialModel.contact.scientific_query.email,
+          clinicalTrialModel.contact.scientific_query.organization,
+          clinicalTrialModel.contact.scientific_query.organization_id,
+          clinicalTrialModel.contact.scientific_query.title,
+          clinicalTrialModel.contact.scientific_query.department
         )
       ),
       clinicalTrialModel.medical_condition,

@@ -3,12 +3,12 @@ import { ApiProperty } from '@nestjs/swagger'
 export class StudyType {
   constructor(
     phase: string,
-    study_type: string,
-    study_design: string
+    type: string,
+    design: string
   ) {
     this.phase = phase
-    this.study_type = study_type
-    this.study_design = study_design
+    this.type = type
+    this.design = design
   }
 
   @ApiProperty({
@@ -18,8 +18,8 @@ export class StudyType {
   readonly phase: string
 
   @ApiProperty()
-  readonly study_type: string
+  readonly type: string
 
   @ApiProperty()
-  readonly study_design: string
+  readonly design: string
 }
