@@ -19,6 +19,8 @@
     "lint": "eslint \"{src,config}/**/*.ts\" --max-warnings=0",
     "start": "node dist/src/main",
     "start:debug": "nest start --debug --watch",
+    "start:db": "yarn stop:db && docker-compose up -d",
+    "stop:db": "docker-compose down",
     "test": "NODE_ENV=test vitest --run",
     "test:coverage": "yarn test --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
