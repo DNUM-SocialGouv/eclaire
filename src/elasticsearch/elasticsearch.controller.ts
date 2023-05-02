@@ -25,7 +25,7 @@ export class ElasticsearchController {
   @Public()
   @Get('get/:uuid')
   async getOne(@Param('uuid') uuid: string, @Res() res: Response): Promise<void> {
-    const response: Partial<ClinicalTrialModel> = await this.service.findOneClinicalTrial(uuid)
+    const response = await this.service.findOneClinicalTrial(uuid)
     const clinicalTrialModel: ClinicalTrialModel = ClinicalTrialModelFactory.create(response)
 
     res.json(ClinicalTrialFactory.create(clinicalTrialModel))
