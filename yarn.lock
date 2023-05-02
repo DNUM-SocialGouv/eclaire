@@ -673,27 +673,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@elastic/elasticsearch@npm:^8.6.0":
-  version: 8.6.0
-  resolution: "@elastic/elasticsearch@npm:8.6.0"
+"@elastic/elasticsearch@npm:7.10.0":
+  version: 7.10.0
+  resolution: "@elastic/elasticsearch@npm:7.10.0"
   dependencies:
-    "@elastic/transport": ^8.3.1
-    tslib: ^2.4.0
-  checksum: d9cb7724b433bdc84dc322ee5e84bd9a99c1ff239b3d8ba8263cc9083a68923ab77ea1ccb5f9849da6d73f32a2b58efc2bcf3528c826420fc9730976f2856cd1
-  languageName: node
-  linkType: hard
-
-"@elastic/transport@npm:^8.3.1":
-  version: 8.3.1
-  resolution: "@elastic/transport@npm:8.3.1"
-  dependencies:
-    debug: ^4.3.4
-    hpagent: ^1.0.0
-    ms: ^2.1.3
-    secure-json-parse: ^2.4.0
-    tslib: ^2.4.0
-    undici: ^5.5.1
-  checksum: 7b0c9199dfe5c71db052c877b9eb445c5047e50c69a1f30759a872907693106629dddd978a4bf03401673576a5e09347a99db6818e13f4b7b143b4c967dcc3c4
+    debug: ^4.1.1
+    hpagent: ^0.1.1
+    ms: ^2.1.1
+    pump: ^3.0.0
+    secure-json-parse: ^2.1.0
+  checksum: 8dda6787c8416e33e95bbef225853072a039944474b82a9b36326e8bafca04e65669d474690d96301622956b766890d3baa4c5da10bf98179cf93bb66c89e0a5
   languageName: node
   linkType: hard
 
@@ -1374,17 +1363,6 @@ __metadata:
     "@nestjs/websockets":
       optional: true
   checksum: a0d5ca077a25cdd21a720aead6121ff27070cc608dd323a4459c10c21d36dc59ab471d1198f8b3e20f1eeeec35d0fde4e589601ccc82236d8a99c8fcb3ea9b15
-  languageName: node
-  linkType: hard
-
-"@nestjs/elasticsearch@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "@nestjs/elasticsearch@npm:9.0.0"
-  peerDependencies:
-    "@elastic/elasticsearch": ^7.4.0 || ^8.0.0
-    "@nestjs/common": ^8.0.0 || ^9.0.0
-    rxjs: ^7.2.0
-  checksum: 64393b295397e803f465970f4c559f640b2bd698941eee664fdd4b3ca976139a260c08825e0671087b2ceda5b2a6e3d5fb96dca911adf11443dae1b73c2deac8
   languageName: node
   linkType: hard
 
@@ -2889,12 +2867,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "api-eclaire@workspace:."
   dependencies:
-    "@elastic/elasticsearch": ^8.6.0
+    "@elastic/elasticsearch": 7.10.0
     "@nestjs/cli": ^9.0.0
     "@nestjs/common": ^9.3.9
     "@nestjs/config": ^2.3.1
     "@nestjs/core": ^9.3.9
-    "@nestjs/elasticsearch": ^9.0.0
     "@nestjs/jwt": ^10.0.2
     "@nestjs/passport": ^9.0.3
     "@nestjs/platform-express": ^9.0.0
@@ -3378,7 +3355,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"busboy@npm:^1.0.0, busboy@npm:^1.6.0":
+"busboy@npm:^1.0.0":
   version: 1.6.0
   resolution: "busboy@npm:1.6.0"
   dependencies:
@@ -5518,10 +5495,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hpagent@npm:^1.0.0":
-  version: 1.2.0
-  resolution: "hpagent@npm:1.2.0"
-  checksum: b029da695edae438cee4da2a437386f9db4ac27b3ceb7306d02e1b586c9c194741ed2e943c8a222e0cfefaf27ee3f863aca7ba1721b0950a2a19bf25bc0d85e2
+"hpagent@npm:^0.1.1":
+  version: 0.1.2
+  resolution: "hpagent@npm:0.1.2"
+  checksum: 1918518ab937d9fa615a47b94489e23662547bc1edf27069ee9bf40bfefb94da65eb142b6f42336b4b0752fce87f66c284d92b97340fd2a90b24aa3616b5450d
   languageName: node
   linkType: hard
 
@@ -7298,7 +7275,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ms@npm:2.1.3, ms@npm:^2.0.0, ms@npm:^2.1.1, ms@npm:^2.1.3":
+"ms@npm:2.1.3, ms@npm:^2.0.0, ms@npm:^2.1.1":
   version: 2.1.3
   resolution: "ms@npm:2.1.3"
   checksum: aa92de608021b242401676e35cfa5aa42dd70cbdc082b916da7fb925c542173e36bce97ea3e804923fe92c0ad991434e4a38327e15a1b5b5f945d66df615ae6d
@@ -8527,7 +8504,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"secure-json-parse@npm:^2.4.0":
+"secure-json-parse@npm:^2.1.0":
   version: 2.7.0
   resolution: "secure-json-parse@npm:2.7.0"
   checksum: d9d7d5a01fc6db6115744ba23cf9e67ecfe8c524d771537c062ee05ad5c11b64c730bc58c7f33f60bd6877f96b86f0ceb9ea29644e4040cb757f6912d4dd6737
@@ -9428,7 +9405,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.5.0, tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.5.0, tslib@npm:~2.5.0":
+"tslib@npm:2.5.0, tslib@npm:^2.1.0, tslib@npm:^2.5.0, tslib@npm:~2.5.0":
   version: 2.5.0
   resolution: "tslib@npm:2.5.0"
   checksum: ae3ed5f9ce29932d049908ebfdf21b3a003a85653a9a140d614da6b767a93ef94f460e52c3d787f0e4f383546981713f165037dc2274df212ea9f8a4541004e1
@@ -9674,15 +9651,6 @@ __metadata:
   version: 1.13.6
   resolution: "underscore@npm:1.13.6"
   checksum: d5cedd14a9d0d91dd38c1ce6169e4455bb931f0aaf354108e47bd46d3f2da7464d49b2171a5cf786d61963204a42d01ea1332a903b7342ad428deaafaf70ec36
-  languageName: node
-  linkType: hard
-
-"undici@npm:^5.5.1":
-  version: 5.21.2
-  resolution: "undici@npm:5.21.2"
-  dependencies:
-    busboy: ^1.6.0
-  checksum: baceaa9e610966631e86ad2869b657556dd465438eed55e8079cec2a306ecbeecfde2d6e37e43baf96a4c59588ebef50476131e96e018dcc0a7f5db7e6a06c85
   languageName: node
   linkType: hard
 
