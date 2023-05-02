@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 
-import { ClinicalTrialFactory } from './clinical-trial-factory'
 import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
+import { NotFoundClinicalTrialException } from '../../application/Exceptions/NotFoundClinicalTrialException'
 import { ClinicalTrialRepository } from '../../application/interfaces/ClinicalTrialRepository'
+import { ClinicalTrialFactory } from '../clinical-trial-factory'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
 
 @Injectable()
@@ -37,7 +38,7 @@ export class ClinicalTrialFileRepository implements ClinicalTrialRepository {
     const clinicalTrialModel = this.clinicalTrialsRepository.find((clinicalTrial): boolean => clinicalTrial.uuid === uuid)
 
     if (clinicalTrialModel === undefined) {
-      throw new NotFoundException()
+      throw new NotFoundClinicalTrialException()
     }
 
     return ClinicalTrialFactory.create(clinicalTrialModel)

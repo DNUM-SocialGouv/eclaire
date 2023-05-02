@@ -1,24 +1,24 @@
 import { ClinicalTrialFactory } from './clinical-trial-factory'
-import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
-import { Contact } from '../../application/entities/Contact'
-import { ContactDetails } from '../../application/entities/ContactDetails'
-import { Criteria } from '../../application/entities/Criteria'
-import { Recruitment } from '../../application/entities/Recruitment'
-import { StudyType } from '../../application/entities/StudyType'
-import { TherapeuticArea } from '../../application/entities/TherapeuticArea'
-import { Title } from '../../application/entities/Title'
-import { Gender } from '../../application/Gender'
-import { PrimaryAge } from '../../application/PrimaryAge'
-import { RecruitmentStatus } from '../../application/RecruitmentStatus'
-import { SecondaryAge } from '../../application/SecondaryAge'
-import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
-import { ContactDetailsModel } from '../model/ContactDetailsModel'
-import { ContactModel } from '../model/ContactModel'
-import { CriteriaModel } from '../model/CriteriaModel'
-import { RecruitmentModel } from '../model/RecruitmentModel'
-import { StudyTypeModel } from '../model/StudyTypeModel'
-import { TherapeuticAreaModel } from '../model/TherapeuticAreaModel'
-import { TitleModel } from '../model/TitleModel'
+import { ClinicalTrialModel } from './model/ClinicalTrialModel'
+import { ContactDetailsModel } from './model/ContactDetailsModel'
+import { ContactModel } from './model/ContactModel'
+import { CriteriaModel } from './model/CriteriaModel'
+import { RecruitmentModel } from './model/RecruitmentModel'
+import { StudyTypeModel } from './model/StudyTypeModel'
+import { TherapeuticAreaModel } from './model/TherapeuticAreaModel'
+import { TitleModel } from './model/TitleModel'
+import { ClinicalTrial } from '../application/entities/ClinicalTrial'
+import { Contact } from '../application/entities/Contact'
+import { ContactDetails } from '../application/entities/ContactDetails'
+import { Criteria } from '../application/entities/Criteria'
+import { Recruitment } from '../application/entities/Recruitment'
+import { StudyType } from '../application/entities/StudyType'
+import { TherapeuticArea } from '../application/entities/TherapeuticArea'
+import { Title } from '../application/entities/Title'
+import { Gender } from '../application/Gender'
+import { PrimaryAge } from '../application/PrimaryAge'
+import { RecruitmentStatus } from '../application/RecruitmentStatus'
+import { SecondaryAge } from '../application/SecondaryAge'
 
 describe('clinical trial factory', () => {
   it('should have a clinical trial', () => {
@@ -66,7 +66,7 @@ describe('clinical trial factory', () => {
           'bordeaux',
           'France',
           '33076',
-          '01 23 45 67 89 ',
+          '01 23 45 67 89',
           'aitaliona@example',
           'Ministère de la santé',
           '2039',
@@ -174,7 +174,7 @@ describe('clinical trial factory', () => {
           'bordeaux',
           'France',
           '33076',
-          '01 23 45 67 89 ',
+          '01 23 45 67 89',
           'aitaliona@example',
           'Ministère de la santé',
           '2039',

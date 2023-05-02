@@ -7,7 +7,7 @@ describe('study type', () => {
 
     // THEN
     expect(studyType.phase).toBe('Human Pharmacology (Phase I) - First administration to humans')
-    expect(studyType.study_design).toBe('')
-    expect(studyType.study_type).toBe('')
+    expect(studyType.design).toBe('')
+    expect(studyType.type).toBe('')
   })
 })

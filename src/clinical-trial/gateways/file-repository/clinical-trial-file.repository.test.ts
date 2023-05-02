@@ -1,8 +1,6 @@
-import { NotFoundException } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 
 import { ClinicalTrialFileRepository } from './clinical-trial-file.repository'
-import { ClinicalTrialModelTestingFactory } from './clinical-trial-model-testing-factory'
 import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
 import { Contact } from '../../application/entities/Contact'
 import { ContactDetails } from '../../application/entities/ContactDetails'
@@ -10,7 +8,9 @@ import { Criteria } from '../../application/entities/Criteria'
 import { Recruitment } from '../../application/entities/Recruitment'
 import { StudyType } from '../../application/entities/StudyType'
 import { Title } from '../../application/entities/Title'
+import { NotFoundClinicalTrialException } from '../../application/Exceptions/NotFoundClinicalTrialException'
 import { RecruitmentStatus } from '../../application/RecruitmentStatus'
+import { ClinicalTrialModelTestingFactory } from '../clinical-trial-model-testing-factory'
 import { ClinicalTrialModel } from '../model/ClinicalTrialModel'
 
 describe('clinical trial file repository', () => {
@@ -20,7 +20,7 @@ describe('clinical trial file repository', () => {
       clinical_trial_category: '',
       clinical_trial_type: '',
       contact: {
-        public_queries: {
+        public_query: {
           address: '',
           city: '',
           country: '',
@@ -35,7 +35,7 @@ describe('clinical trial file repository', () => {
           title: '',
           zip: '',
         },
-        scientific_queries: {
+        scientific_query: {
           address: '',
           city: '',
           country: '',
@@ -164,7 +164,7 @@ describe('clinical trial file repository', () => {
       throw new Error('Should not be triggered')
     } catch (error) {
       // THEN
-      expect(error).toBeInstanceOf(NotFoundException)
+      expect(error).toBeInstanceOf(NotFoundClinicalTrialException)
     }
   })
 })

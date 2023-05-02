@@ -33,7 +33,7 @@
     },
     "last_revision_date": "2022-02-06T18:25:43.511Z",
     "contact": {
-      "public_queries": {
+      "public_query": {
         "name": "Institut Bergognié",
         "firstname": "Antoine",
         "lastname": "Italiano",
@@ -41,14 +41,14 @@
         "city": "bordeaux",
         "country": "France",
         "zip": "33076",
-        "telephone": "01 23 45 67 89 ",
+        "telephone": "01 23 45 67 89",
         "email": "aitaliona@example.fr",
         "organization": "Ministère de la santé",
         "organization_id": "",
         "title": "Agent de Santé",
         "department": "Laboratoire"
       },
-      "scientific_queries": {
+      "scientific_query": {
         "name": "",
         "firstname": "",
         "lastname": "",
@@ -78,7 +78,7 @@
       "city": "bordeaux",
       "country": "France",
       "zip": "33076",
-      "telephone": "01 23 45 67 89 ",
+      "telephone": "01 23 45 67 89",
       "email": "aitaliona@example.fr",
       "organization": "Ministère de la santé",
       "organization_id": "",
@@ -139,7 +139,7 @@
     },
     "last_revision_date": "2022-02-06T18:25:43.511Z",
     "contact" : {
-      "public_queries": {
+      "public_query": {
         "name": "Institut Bergognié",
         "firstname": "Antoine",
         "lastname": "Italiano",
@@ -154,7 +154,7 @@
         "title": "Agent de Santé",
         "department": "Laboratoire"
       },
-      "scientific_queries": {
+      "scientific_query": {
         "name": "",
         "firstname": "",
         "lastname": "",
@@ -248,7 +248,7 @@
     },
     "last_revision_date": "2022-02-06T18:25:43.511Z",
     "contact": {
-      "public_queries": {
+      "public_query": {
         "name": "Institut  Bergognié",
         "firstname": "Antoine",
         "lastname": "Italiano",
@@ -263,7 +263,7 @@
         "title": "Agent de Santé",
         "department": "Laboratoire"
       },
-      "scientific_queries": {
+      "scientific_query": {
         "name": "",
         "firstname": "",
         "lastname": "",
@@ -353,7 +353,7 @@
     },
     "last_revision_date": "2022-02-06T18:25:43.511Z",
     "contact": {
-      "public_queries": {
+      "public_query": {
         "name": "",
         "firstname": "",
         "lastname": "",
@@ -368,7 +368,7 @@
         "title": "",
         "department": ""
       },
-      "scientific_queries": {
+      "scientific_query": {
         "name": "",
         "firstname": "",
         "lastname": "",
