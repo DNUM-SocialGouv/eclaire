@@ -12,7 +12,7 @@ services:
       - 9200:9200
   kibana:
     container_name: kb-container
-    image: docker.elastic.co/kibana/kibana:7.11.0
+    image: docker.elastic.co/kibana/kibana:7.10.2
     environment:
       - ELASTICSEARCH_HOSTS=http://es-container:9200
     networks:
