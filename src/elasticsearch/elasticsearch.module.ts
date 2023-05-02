@@ -15,8 +15,12 @@ import { ElasticsearchService } from './elasticsearch.service'
       inject: [ConfigService],
       provide: Client,
       useFactory: (configService: ConfigService) => {
+        const elasticsearchUrl = configService.get<string>('SCALINGO_ELASTICSEARCH_URL')
+
         return new Client(
-          configService.get('NODE_ENV') === 'production' ? eSClientConfigProduction : eSClientConfigLocal
+          configService.get('NODE_ENV') === 'production'
+            ? eSClientConfigProduction(elasticsearchUrl)
+            : eSClientConfigLocal(elasticsearchUrl)
         )
       },
     },

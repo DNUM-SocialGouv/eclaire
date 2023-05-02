@@ -30,12 +30,10 @@ export class ElasticsearchService {
       },
       { context: { meta: this.defaultMeta }, opaqueId: 'findOneClinicalTrial' })
 
-      this.handleResponseErrors(result)
+      this.handleStatusCodeErrors(result)
       return result.body._source
     } catch (error) {
-      if (
-        error instanceof Error
-        && error.hasOwnProperty('meta')
+      if (error.hasOwnProperty('meta')
         && error['meta'].hasOwnProperty('statusCode')
         && error['meta']['statusCode'] === 404
       ) {
@@ -58,11 +56,11 @@ export class ElasticsearchService {
     },
     { context: { meta: this.defaultMeta }, opaqueId: 'createOneClinicalTrial' })
 
-    this.handleResponseErrors(request)
+    this.handleStatusCodeErrors(request)
     return { id: request.body._id as string, result: request.body.result as string }
   }
 
-  async updateOneClinicalTrial(id: string, payload: object): Promise<{ result: string, id: string }> {
+  async updateOneClinicalTrial(id: string, payload: object): Promise<{ id: string, result: string }> {
     try {
       const request = await this.client.update({
         body: { doc: payload },
@@ -72,19 +70,13 @@ export class ElasticsearchService {
       },
       { context: { meta: this.defaultMeta }, opaqueId: 'updateOneClinicalTrial' })
 
-      this.handleResponseErrors(request)
+      this.handleStatusCodeErrors(request)
       return { id: request.body._id as string, result: request.body.result as string }
     } catch (error) {
-      if (
-        error instanceof Error
-        && error.name === 'ResponseError'
-        && error.message === 'document_missing_exception'
-      ) {
-        throw new NotFoundException()
-      }
-
-      throw error
+      this.handleCatchErrors(error)
     }
+
+    throw new ElasticsearchServiceErrorsException('An unhandled error occurred - elasticsearch.service [updateOneClinicalTrial][critical]', 500)
   }
 
   async deleteOneClinicalTrial(id: string): Promise<{ result: string, id: string }> {
@@ -95,11 +87,11 @@ export class ElasticsearchService {
     },
     { context: { meta: this.defaultMeta }, opaqueId: 'deleteOneClinicalTrial' })
 
-    this.handleResponseErrors(request)
+    this.handleStatusCodeErrors(request)
     return { id: request.body._id as string, result: request.body.result as string }
   }
 
-  handleResponseErrors(response: ApiResponse): void {
+  private handleStatusCodeErrors(response: ApiResponse): void {
     switch (response.statusCode) {
       case HttpStatus.OK:
       case HttpStatus.CREATED:
@@ -119,5 +111,17 @@ export class ElasticsearchService {
       default:
         throw new ElasticsearchServiceErrorsException(`An unhandled error occurred - elasticsearch.service [${response.statusCode.toString()}]`, 500)
     }
+  }
+
+  private handleCatchErrors(error): void {
+    if (error instanceof Error && error.name === 'ResponseError') {
+      switch (error.message) {
+        case 'document_missing_exception':
+          throw new NotFoundException()
+        default:
+          throw new ElasticsearchServiceErrorsException(`An unhandled error occurred - elasticsearch.service [handleCatchErrors][${error.message}]`, 500)
+      }
+    }
+    throw new ElasticsearchServiceErrorsException('An unhandled error occurred - elasticsearch.service [handleCatchErrors]', 500)
   }
 }

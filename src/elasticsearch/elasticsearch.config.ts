@@ -1,16 +1,23 @@
-import { ClientOptions } from '@elastic/elasticsearch'
 import { hostname } from 'os'
 
-const defaultConfig: Partial<ClientOptions> = {
-  compression: 'gzip',
-  // generateRequestId: () => crypto.randomUUID(),
-  maxRetries: 5,
-  // auth: { apiKey: 'base64EncodedKey' }, // define security spec. Disable for poc testing (apiKey // ssl cacert.pem),
-  opaqueIdPrefix: `${hostname()}-`,
-  requestTimeout: 60000,
-  node: process.env.SCALINGO_ELASTICSEARCH_URL,
+const defaultConfig = (elasticsearchUrl: string) => {
+  return {
+    compression: 'gzip',
+    // generateRequestId: () => crypto.randomUUID(),
+    maxRetries: 5,
+    // auth: { apiKey: 'base64EncodedKey' }, // define security spec. Disable for poc testing (apiKey // ssl cacert.pem),
+    node: elasticsearchUrl,
+    opaqueIdPrefix: `${hostname()}-`,
+    requestTimeout: 60000,
+  }
 }
 
-export const eSClientConfigLocal: Partial<ClientOptions> = { ...defaultConfig }
+export const eSClientConfigLocal = (elasticsearchUrl: string): object => {
+  const config = defaultConfig(elasticsearchUrl)
+  return { ...config }
+}
 
-export const eSClientConfigProduction: Partial<ClientOptions> = { ...defaultConfig }
+export const eSClientConfigProduction = (elasticsearchUrl: string) => {
+  const config = defaultConfig(elasticsearchUrl)
+  return { ...config }
+}
