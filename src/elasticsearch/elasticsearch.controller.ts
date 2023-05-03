@@ -46,4 +46,13 @@ export class ElasticsearchController {
     const response: Record<string, string> = await this.service.deleteOneClinicalTrial(uuid)
     res.json({ result: response.result })
   }
+
+  @Public()
+  @Get('load/riph')
+  async loadExport(@Res() res: Response): Promise<void> {
+    const response = await this.service.importRiphClinicalTrials()
+    console.log('--- RESPONSE ---')
+    console.log(response)
+    res.json(response)
+  }
 }

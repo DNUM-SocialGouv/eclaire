@@ -1,0 +1,84 @@
+{
+  "data": [
+    {
+      "etude_id": 27599,
+      "reglementation_code": "REG123",
+      "etat": "EN_COURS",
+      "organisme_nom": "F. Pastrami-La Roche AG",
+      "organisme_adresse": "Grenerstrasse 524",
+      "organisme_code_postal": "4058",
+      "organisme_pays": "Switzerland",
+      "organisme_ville": "Basel Town",
+      "contact_nom": "Trial Information Support Line-TISL, Switzerland",
+      "contact_prenom": "Head of EU",
+      "contact_telephone": "0098716188732",
+      "contact_courriel": "global.*****@****.com",
+      "sites": [
+        {
+          "organisme": null,
+          "adresse": null,
+          "ville": null,
+          "titre": null,
+          "nom": null,
+          "prenom": null,
+          "service": null
+        }
+      ],
+      "numero_ctis": "2022-500014-26-00",
+      "titre": "A PHASE III, RANDOMIZED, OPEN-LABEL STUDY EVALUATING THE EFFICACY AND SAFETY OF ********* IN COMBINATION WITH ****** VERSUS ***** AFTER INDUCTION THERAPY WITH ****+***** IN PATIENTS WITH PREVIOUSLY UNTREATED HER2-POSITIVE, ESTROGEN RECEPTOR-POSITIVE LOCALLY-ADVANCED OR METASTATIC BREAST CANCER",
+      "phase_recherche": "Therapeutic confirmatory  (Phase III)",
+      "domaine_therapeutique": "Diseases [C] - Neoplasms [C04]",
+      "pathologies_maladies_rares": "Locally-Advanced or Metastatic breast cancer (MBC)",
+      "informations_meddra": "10070575, 10065430",
+      "portee_recherche": "Safety, Efficacy",
+      "tranches_age": "65+ years, 18-64 years",
+      "sexe": "Male,Female",
+      "groupes_sujet": "Données non disponible",
+      "population_recrutement": "Women of child bearing potential not using contraception, Women of child bearing potential using contraception",
+      "description_urgence": "",
+      "date_debut_recrutement": "2022-06-30",
+      "date_fin_etude": "2032-06-30",
+      "pays_concernes": "BE, DE, ES, FR, HU, IT, PL, PT"
+    },
+    {
+      "etude_id": 11291,
+      "reglementation_code": "REG287",
+      "etat": "A_DEMARRER",
+      "organisme_nom": null,
+      "organisme_adresse": null,
+      "organisme_code_postal": null,
+      "organisme_pays": null,
+      "organisme_ville": null,
+      "contact_nom": "Bonduel",
+      "contact_prenom": "George",
+      "contact_telephone": "+1235895447752400",
+      "contact_courriel": "*****.*****@******.ac.at",
+      "sites": [
+        {
+          "organisme": null,
+          "adresse": null,
+          "ville": null,
+          "titre": null,
+          "nom": null,
+          "prenom": null,
+          "service": null
+        }
+      ],
+      "numero_ctis": "2020-500012-20-00",
+      "titre": null,
+      "phase_recherche": null,
+      "domaine_therapeutique": null,
+      "pathologies_maladies_rares": null,
+      "informations_meddra": null,
+      "portee_recherche": null,
+      "tranches_age": null,
+      "sexe": null,
+      "groupes_sujet": null,
+      "population_recrutement": null,
+      "description_urgence": null,
+      "date_debut_recrutement": null,
+      "date_fin_etude": null,
+      "pays_concernes": "AT, CZ, DE, ES, FR, NL"
+    }
+  ]
+}
