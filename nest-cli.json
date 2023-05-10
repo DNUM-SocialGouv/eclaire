@@ -1,10 +1,33 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "monorepo": true,
+  "root": "apps/eclaire-api",
+  "entryFile": "main",
   "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/eclaire-api/tsconfig.json",
     "deleteOutDir": true,
-    "plugins": ["@nestjs/swagger"],
-    "assets": [{ "include": "../config/*.yaml", "outDir": "./dist/config" }]
+    "watchAssets": true
+  },
+  "projects": {
+    "eclaire-api": {
+      "type": "application",
+      "sourceRoot": "apps/eclaire-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/eclaire-api/tsconfig.json",
+        "assets": [{ "include": "../config/*.yaml", "outDir": "./dist/config", "watchAssets": true }]
+      }
+    },
+    "eclaire-etl": {
+      "type": "application",
+      "root": "apps/eclaire-etl",
+      "sourceRoot": "apps/eclaire-etl/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/eclaire-etl/tsconfig.json",
+        "plugins": ["@nestjs/swagger"],
+        "assets": [{ "include": "apps/eclaire-etl/config", "outDir": "apps/eclaire-etl/dist/config" }]
+      }
+    }
   }
 }

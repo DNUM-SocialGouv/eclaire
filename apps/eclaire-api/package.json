@@ -1,0 +1,50 @@
+{
+  "name": "eclaire-api",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "license": "UNLICENSED",
+  "packageManager": "yarn@3.5.0",
+  "scripts": {
+    "build": "nest build",
+    "dev": "nest start --watch",
+    "start": "node dist/src/main",
+    "start:debug": "nest start --debug --watch"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "7.10.0",
+    "@nestjs/common": "^9.3.9",
+    "@nestjs/config": "^2.3.1",
+    "@nestjs/core": "^9.3.9",
+    "@nestjs/elasticsearch": "^9.0.0",
+    "@nestjs/jwt": "^10.0.2",
+    "@nestjs/passport": "^9.0.3",
+    "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^6.2.1",
+    "@nestjs/typeorm": "^9.0.1",
+    "@sentry/minimal": "^6.19.7",
+    "@sentry/node": "^7.38.0",
+    "@sentry/tracing": "^7.38.0",
+    "argon2": "^0.30.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "js-yaml": "^4.1.0",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.0",
+    "typeorm": "^0.3.10"
+  },
+  "devDependencies": {
+    "@nestjs/schematics": "^9.0.0",
+    "@nestjs/testing": "^9.0.0",
+    "@types/express": "^4.17.17",
+    "@types/jest": "29.2.4",
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "18.11.18",
+    "@types/passport-jwt": "^3.0.8",
+    "@types/passport-local": "^1.0.35",
+    "@types/supertest": "^2.0.11"
+  }
+}

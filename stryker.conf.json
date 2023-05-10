@@ -12,7 +12,7 @@
         "js"
       ],
       "testMatch": [
-        "<rootDir>/src/**/*(*.)@(test).js"
+        "<rootDir>/apps/**/*(*.)@(test).js"
       ]
     }
   },

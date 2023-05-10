@@ -1,0 +1,16 @@
+{
+  "name": "eclaire-etl",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "packageManager": "yarn@3.5.0",
+  "scripts": {
+    "build": "nest build",
+    "dev": "nest start --watch"
+  },
+  "dependencies": {
+    "nest-commander": "^3.7.1"
+  }
+}
