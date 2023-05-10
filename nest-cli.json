@@ -26,7 +26,7 @@
       "compilerOptions": {
         "tsConfigPath": "apps/eclaire-etl/tsconfig.json",
         "plugins": ["@nestjs/swagger"],
-        "assets": [{ "include": "apps/eclaire-etl/config", "outDir": "apps/eclaire-etl/dist/config" }]
+        "assets": [{ "include": "apps/eclaire-etl/config/*.yaml", "outDir": "apps/eclaire-etl/dist/config" }]
       }
     }
   }

@@ -3,7 +3,7 @@ import type { Config } from '@jest/types'
 module.exports = {
   clearMocks: true,
   collectCoverageFrom: [
-    'src/**/*.ts',
+    'apps/**/*.ts',
   ],
   fakeTimers: { now: 1664703388050 }, // 2022-01-01T23:00:00.135Z
   maxWorkers: 4,
@@ -15,7 +15,7 @@ module.exports = {
   restoreMocks: true,
   testEnvironment: 'node',
   testMatch: [
-    '<rootDir>/src/**/*(*.)@(test).ts',
+    '<rootDir>/apps/**/*(*.)@(test).ts',
   ],
   transform: {
     "^.+\\.(t|j)s$": "ts-jest"

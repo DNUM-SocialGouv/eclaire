@@ -48,3 +48,4 @@ lerna-debug.log*
 .vscode
 .stryker-tmp
 reports
+.cache

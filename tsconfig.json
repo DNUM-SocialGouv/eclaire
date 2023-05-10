@@ -1,5 +1,4 @@
 {
-  "exclude": ["node_modules", "dist", "test", "**/*test.ts"],
   "compilerOptions": {
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
@@ -24,6 +23,7 @@
     "noPropertyAccessFromIndexSignature": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "outDir": "./dist",
     "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,

@@ -1,31 +1,31 @@
 {
   "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "tsconfigFile": "tsconfig.mutation.json",
   "buildCommand": "npm run transpile",
   "checkers": ["typescript"],
+  "cleanTempDir": true,
+  "logLevel": "trace",
   "disableTypeChecks": true,
-  "ignorePatterns": [".github", ".vscode", ".yarn", "coverage", "dist", "reports", "test"],
+  "ignorePatterns": [".github", ".vscode", ".yarn",".idea", "coverage", "dist", "reports", "test"],
   "ignoreStatic": false,
   "jest": {
     "config": {
-      "moduleFileExtensions": [
-        "ts",
-        "js"
-      ],
+      "moduleFileExtensions": ["ts", "js"],
       "testMatch": [
         "<rootDir>/apps/**/*(*.)@(test).js"
       ]
     }
   },
   "mutate": [
-    "src/**/*.ts",
-    "!src/**/*.test.ts",
-    "!src/**/*-factory.ts",
-    "!src/**/*.controller.ts",
-    "!src/auth/*.ts",
-    "!src/main.ts",
-    "!src/app.*.ts",
-    "!src/sentry/*.ts",
-    "!src/swagger/*.ts"
+    "apps/**/src/**/*.ts",
+    "!apps/**/src/**/*.test.ts",
+    "!apps/**/src/**/*-factory.ts",
+    "!apps/**/src/**/*.controller.ts",
+    "!apps/**/src/auth/*.ts",
+    "!apps/**/src/main.ts",
+    "!apps/**/src/app.*.ts",
+    "!apps/**/src/sentry/*.ts",
+    "!apps/**/src/swagger/*.ts"
   ],
   "packageManager": "npm",
   "reporters": ["html"],

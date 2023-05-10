@@ -28,8 +28,8 @@
     "test:coverage": "yarn test --coverage",
     "test:e2e": "jest --config ./apps/eclaire-api/test/jest-e2e.json",
     "test:mutation": "npx stryker run",
-    "typecheck": "tsc",
-    "transpile": "tsc -p tsconfig.mutation.json"
+    "typecheck": "tsc --noEmit --tsBuildInfoFile './.cache/.tsbuildinfo'",
+    "transpile": "tsc -p tsconfig.mutation.json --noEmit --tsBuildInfoFile './.cache/.tsbuildinfo'"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
