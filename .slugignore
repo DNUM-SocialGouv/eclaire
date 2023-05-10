@@ -1,0 +1,14 @@
+/.yarn/cache
+/.github
+/coverage
+/apps/eclaire-etl
+/docker-compose.yml
+/vitest.*.ts
+/tsconfig.json
+/tsconfig.*.json
+/stryker.json
+/stryker.conf.json
+/.nvmrc
+/.gitignore
+/.eslintrc
+test
