@@ -8,6 +8,7 @@ describe('elasticsearch service', () => {
     // GIVEN
     const service = new ElasticsearchService(fakeClient)
     jest.spyOn(fakeClient.indices, 'create')
+    jest.spyOn(fakeClient.indices, 'exists')
 
     // WHEN
     await service.createAnIndice<FakeDocument>(fakeMapping)
@@ -51,7 +52,7 @@ describe('elasticsearch service', () => {
     expect(fakeClient.get).toHaveBeenCalledWith({
       id: fakeId,
       index: 'eclaire',
-      type: 'clinicaltrial',
+      type: '_doc',
     })
     expect(result).toStrictEqual(fakeDocument)
   })
@@ -105,7 +106,6 @@ describe('elasticsearch service', () => {
       body: fakeDocuments,
       index: 'eclaire',
       refresh: true,
-      type: 'clinicaltrial',
     })
   })
 
@@ -113,7 +113,8 @@ describe('elasticsearch service', () => {
     // GIVEN
     const service = new ElasticsearchService(fakeClient)
     // @ts-ignore
-    jest.spyOn(fakeClient, 'bulk').mockRejectedValueOnce('bulk is down')
+    jest.spyOn(fakeClient, 'bulk').mockRejectedValueOnce(new ElasticsearchServiceError('ES bulk operation has failed'))
+    jest.spyOn(fakeClient.indices, 'exists')
 
     try {
       // WHEN
@@ -122,7 +123,7 @@ describe('elasticsearch service', () => {
     } catch (error) {
       // THEN
       // @ts-ignore
-      expect(error.message).toBe('bulk is down')
+      expect(error.message).toBe('ES bulk operation has failed')
       expect(error).toBeInstanceOf(ElasticsearchServiceError)
     }
   })

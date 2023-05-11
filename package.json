@@ -27,7 +27,9 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:mutation": "npx stryker run",
     "transpile": "tsc -p tsconfig.mutation.json",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "etl:import": "ts-node ./src/etl/riph/console.ts import-riph",
+    "etl:healthcheck": "ts-node ./src/etl/riph/console.ts healthcheck"
   },
   "dependencies": {
     "@elastic/elasticsearch": "7.10.0",

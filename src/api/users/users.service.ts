@@ -7,7 +7,7 @@ import { join } from 'path'
 
 import { User } from './User'
 
-const USERS_CONFIG_PATH = join(__dirname, '../../config/users.yaml')
+const USERS_CONFIG_PATH = join(__dirname, '../../../config/users.yaml')
 
 @Injectable()
 export class UsersService {

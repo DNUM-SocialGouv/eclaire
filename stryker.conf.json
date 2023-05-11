@@ -21,11 +21,11 @@
     "!src/**/*.test.ts",
     "!src/**/*-factory.ts",
     "!src/**/*.controller.ts",
-    "!src/auth/*.ts",
+    "!src/api/auth/*.ts",
     "!src/main.ts",
     "!src/app.*.ts",
-    "!src/sentry/*.ts",
-    "!src/swagger/*.ts"
+    "!src/api/sentry/*.ts",
+    "!src/api/swagger/*.ts"
   ],
   "packageManager": "npm",
   "reporters": ["html"],

@@ -30,6 +30,9 @@ export const fakeClient = {
     create: () => {
       return {}
     },
+    exists: () => {
+      return { statusCode: 404 }
+    },
   },
 } as unknown as Client
 
