@@ -1,23 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger'
 
 import { Criteria } from './Criteria'
-import { Gender } from '../Gender'
-import { PrimaryAge } from '../PrimaryAge'
-import { RecruitmentStatus } from '../RecruitmentStatus'
-import { SecondaryAge } from '../SecondaryAge'
+import { Gender } from '../../../../etl/traductions/Gender'
+import { PrimaryAge } from '../../../../etl/traductions/PrimaryAge'
+import { RecruitmentStatus } from '../../../../etl/traductions/RecruitmentStatus'
+import { SecondaryAge } from '../../../../etl/traductions/SecondaryAge'
 
 export class Recruitment {
   constructor(
     status: string,
     date_recruiting_status: string,
-    genders: Gender[],
-    ages_range: PrimaryAge[],
-    ages_range_secondary_identifiers: SecondaryAge[],
+    genders: string[],
+    ages_range: string[],
+    ages_range_secondary_identifiers: string[],
     target_number: number,
     exclusion_criteria: Criteria,
     inclusion_criteria: Criteria,
     clinical_trial_group: string,
-    vulnerable_population: string
+    vulnerable_population: string[]
   ) {
     this.status = status
     this.date_recruiting_status = date_recruiting_status
@@ -34,7 +34,7 @@ export class Recruitment {
   @ApiProperty({
     description: 'Il s’agit du statut de recrutement de l’essai clinique (cela précise si le recrutement est toujours actif)',
     enum: RecruitmentStatus,
-    example: 'RECRUITING',
+    example: RecruitmentStatus.EN_COURS,
   })
   readonly status: string
 
@@ -47,23 +47,23 @@ export class Recruitment {
   @ApiProperty({
     description: 'Correspond au genre (sexe) du candidat. Il est inclus comme critère d’inclusion pour participer à l’essai clinique. ',
     enum: Gender,
-    example: ['FEMALE', 'MALE'],
+    example: ['femme', 'homme'],
   })
-  readonly genders: Gender[]
+  readonly genders: string[]
 
   @ApiProperty({
     description: 'L’âge minimum et maximum d’inclusion des patients pour le recrutement de l’essai clinique.',
     enum: PrimaryAge,
-    example: [PrimaryAge.IN_UTERO, PrimaryAge.ZERO_SEVENTEEN_YEARS],
+    example: [PrimaryAge['0-17 years'], PrimaryAge['65+ years']],
   })
-  readonly ages_range: PrimaryAge[]
+  readonly ages_range: string[]
 
   @ApiProperty({
     description: 'L’âge minimum et maximum d’inclusion des patients pour le recrutement de l’essai clinique mais avec plus de précision sur la catégorie d’âge ciblée.',
     enum: SecondaryAge,
     example: [SecondaryAge.PRETERM_NEWBORN, SecondaryAge.SIX_ELEVEN_YEARS],
   })
-  readonly ages_range_secondary_identifiers: SecondaryAge[]
+  readonly ages_range_secondary_identifiers: string[]
 
   @ApiProperty({
     description: 'Le nombre de personnes ciblées pour le recrutement de l’essai clinique',
@@ -85,7 +85,7 @@ export class Recruitment {
 
   @ApiProperty({
     description: 'Il s’agit des types de population qui peuvent être ciblées dans le cadre du recrutement d’un essai clinique. Cela s’apparente à un critère d’inclusion.',
-    example: 'Pregnant women',
+    example: ['Pregnant women'],
   })
-  readonly vulnerable_population: string
+  readonly vulnerable_population: string[]
 }

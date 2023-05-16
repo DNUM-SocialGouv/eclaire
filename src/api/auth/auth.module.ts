@@ -21,7 +21,7 @@ import { UsersModule } from '../users/users.module'
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET'),
-        signOptions: { expiresIn: '86400s' }, // 24h TTL Todo: To be defined
+        signOptions: { expiresIn: '86400s' }, // 24h TTL
       }),
     }),
   ],

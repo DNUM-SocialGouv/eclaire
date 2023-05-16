@@ -31,7 +31,7 @@ describe('contact details', () => {
     expect(contactDetails.email).toBe('johndoe@example.com')
     expect(contactDetails.organization).toBe('Ministère de la Santé')
     expect(contactDetails.organization_id).toBe('2049')
-    expect(contactDetails.title).toBe('Agent de Santé')
+    expect(contactDetails.type).toBe('Agent de Santé')
     expect(contactDetails.department).toBe('Laboratoire')
   })
 })

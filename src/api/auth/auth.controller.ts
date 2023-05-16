@@ -15,7 +15,7 @@ import { User } from '../users/User'
 
 @Controller()
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
   @ApiOperation({ summary: 'Permet de se connecter avec ses identifiants (e-mail et mot de passe).' })
   @ApiBody({ type: User })
@@ -39,7 +39,6 @@ export class AuthController {
   login(@Request() request: ParameterDecorator) {
     // @ts-ignore
     // eslint-disable-next-line
-    //Todo: Use DTO instead of as User
     return this.authService.login(request.user as User)
   }
 }

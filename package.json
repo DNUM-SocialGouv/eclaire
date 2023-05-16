@@ -13,10 +13,12 @@
     "amibroken": "yarn dedupe --check && yarn typecheck && yarn lint && yarn test && yarn test:e2e",
     "bash:production": "scalingo -a eclaire-api run bash",
     "build": "nest build",
-    "deadcode": "ts-prune --ignore 'dist'",
+    "deadcode": "ts-prune --ignore 'vitest.config.ts'",
     "depcheck": "depcheck",
     "dev": "nest start --watch",
-    "lint": "eslint \"{src,config}/**/*.ts\" --max-warnings=0",
+    "etl:create-index": "ts-node src/etl/console.ts create-index",
+    "etl:import": "ts-node src/etl/console.ts import-riph",
+    "lint": "eslint '{src,config}/**/*.ts' --max-warnings=0",
     "start": "node dist/src/main",
     "start:debug": "nest start --debug --watch",
     "start:db": "yarn stop:db && docker-compose up -d",
@@ -27,9 +29,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:mutation": "npx stryker run",
     "transpile": "tsc -p tsconfig.mutation.json",
-    "typecheck": "tsc",
-    "etl:import": "ts-node ./src/etl/riph/console.ts import-riph",
-    "etl:healthcheck": "ts-node ./src/etl/riph/console.ts healthcheck"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@elastic/elasticsearch": "7.10.0",
@@ -40,7 +40,6 @@
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.2.1",
-    "@nestjs/typeorm": "^9.0.1",
     "@sentry/minimal": "^6.19.7",
     "@sentry/node": "^7.38.0",
     "@sentry/tracing": "^7.38.0",
@@ -52,8 +51,7 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.0",
-    "typeorm": "^0.3.10"
+    "rxjs": "^7.8.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

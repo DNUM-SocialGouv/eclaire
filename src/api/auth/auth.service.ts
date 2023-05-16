@@ -8,8 +8,8 @@ import { UsersService } from '../users/users.service'
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService
   ) {}
 
   async encryptPassword(password: string): Promise<object> {

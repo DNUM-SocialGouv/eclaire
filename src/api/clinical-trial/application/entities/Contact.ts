@@ -12,8 +12,8 @@ export class Contact {
   }
 
   @ApiProperty({ description: 'Regroupe les informations de contact pour les demandes publiques à thématique non scientifique.' })
-  readonly public_query?: ContactDetails
+  readonly public_query: ContactDetails
 
   @ApiProperty({ description: 'Regroupe les informations de contact pour les demandes scientifiques.' })
-  readonly scientific_query?: ContactDetails
+  readonly scientific_query: ContactDetails
 }

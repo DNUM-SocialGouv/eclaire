@@ -13,7 +13,7 @@ export class ContactDetails {
     email: string,
     organization: string,
     organization_id: string,
-    title: string,
+    type: string,
     department: string
   ) {
     this.name = name
@@ -27,7 +27,7 @@ export class ContactDetails {
     this.email = email
     this.organization = organization
     this.organization_id = organization_id
-    this.title = title
+    this.type = type
     this.department = department
   }
 
@@ -58,7 +58,10 @@ export class ContactDetails {
   @ApiProperty({ description: 'L’email du contact.', example: 'john@doe.com' })
   readonly email: string
 
-  @ApiProperty({ description: 'L’organisme que le contact représente.', example: 'Ministère de la santé' })
+  @ApiProperty({
+    description: 'L’organisme que le contact représente.',
+    example: 'Ministère de la santé',
+  })
   readonly organization: string
 
   @ApiProperty({
@@ -68,10 +71,10 @@ export class ContactDetails {
   readonly organization_id: string
 
   @ApiProperty({
-    description: 'Titre du contact dans l’organisaton. ',
-    example: '552 178 639 00132',
+    description: 'Type de l’organisaton.',
+    example: 'Promoteur institutionnel',
   })
-  readonly title: string
+  readonly type: string
 
   @ApiProperty({
     description: 'Service du contact dans l’organisaton.',

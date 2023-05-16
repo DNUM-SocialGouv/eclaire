@@ -6,6 +6,7 @@ import { Recruitment } from './Recruitment'
 import { StudyType } from './StudyType'
 import { TherapeuticArea } from './TherapeuticArea'
 import { Title } from './Title'
+import { Type } from '../../../../etl/traductions/Type'
 
 export class ClinicalTrial {
   constructor(
@@ -114,7 +115,8 @@ export class ClinicalTrial {
 
   @ApiProperty({
     description: 'La typologie de l’essai correspond à la nature de l’essai et à la réglementation à laquelle il se rattache.',
-    example: 'Recherche impliquant la personne humaine',
+    enum: Type,
+    example: 'REG536',
   })
   readonly clinical_trial_type: string
 

@@ -7,7 +7,7 @@ import { Public } from '../auth/public.decorator'
 @ApiExcludeController()
 @Controller()
 export class SentryController {
-  constructor(private sentryService: SentryService) {}
+  constructor(private readonly sentryService: SentryService) {}
 
   @Public()
   @Get('sentry')

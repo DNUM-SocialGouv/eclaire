@@ -3,7 +3,7 @@ import { Exclude } from 'class-transformer'
 import { IsArray, IsNotEmpty, IsNumber, IsString, IsStrongPassword } from 'class-validator'
 
 export class User {
-  constructor(partial: Partial<User>) {
+  constructor(readonly partial: Partial<User>) {
     Object.assign(this, partial)
   }
 

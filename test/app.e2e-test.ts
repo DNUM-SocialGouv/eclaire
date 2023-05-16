@@ -2,7 +2,9 @@ import { ConfigModule } from '@nestjs/config'
 import { Test, TestingModule } from '@nestjs/testing'
 import supertest from 'supertest'
 
-import { AppModule } from '../src/app.module'
+import { ClinicalTrialModelTestingFactory } from '../src/api/clinical-trial/gateways/ClinicalTrialModelTestingFactory'
+import { AppModule } from '../src/AppModule'
+import { ElasticsearchService } from '../src/shared/elasticsearch/ElasticsearchService'
 
 describe('app', () => {
   it('get one clinical trial with an authentification', async () => {
@@ -11,16 +13,16 @@ describe('app', () => {
 
     // WHEN
     const response = await supertest(await getHttpServer())
-      .get('/clinical-trial/1')
+      .get('/clinical-trial/fakeId1')
       .set('Authorization', `Bearer ${token.access_token}`)
 
     // THEN
     expect(response.statusCode).toBe(200)
     expect(response.get('content-type')).toBe('application/json; charset=utf-8')
-    expect(response.text).toBe('{"universal_trial_number":"NCT00000419","secondaries_trial_numbers":{"national_number":"2011-006209-83","pactr_number":"PACTR202302877569441"},"public_title":{"value":"Circuler l\'ADN pour améliorer le résultat de l\'oncologie Patient. Une étude randomisée","acronym":"AGADIR"},"scientific_title":{"value":"le meme titre mais en scientifique","acronym":"AGADIR"},"recruitment":{"status":"RECRUITING","date_recruiting_status":"2022-02-06T18:25:43.511Z","genders":["FEMALE"],"ages_range":["IN_UTERO","65_PLUS_YEARS"],"ages_range_secondary_identifiers":["PRETERM_NEWBORN","85_PLUS_YEARS"],"target_number":100,"exclusion_criteria":{"id":"2","value":"femme porteuse d\'un cancer du sein stade terminal","value_language":"women with breast cancer terminal phase"},"inclusion_criteria":{"id":"1","value":"femme porteuse d\'un cancer du sein stade benin","value_language":"women with only a benine breast cancer"},"clinical_trial_group":"patient","vulnerable_population":"pregnant women"},"study_type":{"phase":"Therapeutic use (Phase IV)","type":"","design":""},"last_revision_date":"2022-02-06T18:25:43.511Z","contact":{"public_query":{"name":"Institut Bergognié","firstname":"Antoine","lastname":"Italiano","address":"5 avenue de l’opera","city":"bordeaux","country":"France","zip":"33076","telephone":"01 23 45 67 89","email":"aitaliona@example.fr","organization":"Ministère de la santé","organization_id":"","title":"Agent de Santé","department":"Laboratoire"},"scientific_query":{"name":"","firstname":"","lastname":"","address":"","city":"","country":"","zip":"","telephone":"","email":"","organization":"","organization_id":"","title":"","department":""}},"medical_condition":"Lung cancer","medical_condition_meddra":["10060929","10072818"],"therapeutic_area":[{"value":"Circulatory and Respiratory Physiological Phenomena","code":"G"},{"value":"Physical Phenomena","code":"G01"}],"primary_sponsor":{"name":"Institut Bergognié","firstname":"Antoine","lastname":"Italiano","address":"5 avenue de l’opera","city":"bordeaux","country":"France","zip":"33076","telephone":"01 23 45 67 89","email":"aitaliona@example.fr","organization":"Ministère de la santé","organization_id":"","title":"Agent de Santé","department":"Laboratoire"},"trial_sites":[{"name":"Max Testman","firstname":"Max","lastname":"Testman","address":"Inrain 52","city":"Insbruck","country":"austria","zip":"6020","telephone":"+43010677","email":"max.testman@hotmail.fr","organization":"Insbruck medical university","organization_id":"2039","title":"","department":"laboratorium"}],"summary":"Le contexte des cette étude est le suivant, les gens addicts aux dragibus.","clinical_trial_type":"Recherche impliquant la personne humaine","clinical_trial_category":"Catégorie 1"}')
+    expect(response.text).toBe('{"universal_trial_number":"NCT51265816","secondaries_trial_numbers":{"AFR_number":"AFRXXXXXXXX","national_number":"2011-006209-83"},"public_title":{"value":"Circuler l’ADN pour améliorer le résultat de l’oncologie Patient. Une étude randomisée","acronym":"AGADIR"},"scientific_title":{"value":"le meme titre mais en scientifique","acronym":"AGADIR"},"recruitment":{"status":"en cours","date_recruiting_status":"2022-02-06T18:25:43.511Z","genders":["homme"],"ages_range":["0-17 ans","65 ans et +"],"ages_range_secondary_identifiers":["85 ans et +"],"target_number":400,"exclusion_criteria":{"id":"1","value":"femme porteuse d’un cancer du sein stade terminal","value_language":"women with breast cancer terminal phase"},"inclusion_criteria":{"id":"1","value":"femme porteuse d’un cancer du sein stade benin","value_language":"women with only a benine breast cancer"},"clinical_trial_group":"patient","vulnerable_population":["pregnant women"]},"study_type":{"phase":"Human Pharmacology (Phase I)- First administration to humans","type":"Cum bromium mori, omnes nixuses captis noster, teres mortemes.","design":"Cur compater cadunt?"},"last_revision_date":"2020-02-06T18:25:43.511Z","contact":{"public_query":{"name":"Institut Bergognié","firstname":"Antoine","lastname":"Italiano","address":"5 avenue de l’opera","city":"bordeaux","country":"France","zip":"33076","telephone":"01 23 45 67 89","email":"aitaliona@example","organization":"Ministère de la santé","organization_id":"2039","type":"Agent de Santé","department":"Administration"},"scientific_query":{"name":"John Doe","firstname":"John","lastname":"Doe","address":"123 rue de la cabosse","city":"Saint-François-sur-Seine","country":"France","zip":"01234","telephone":"(+33)1 23 45 67 89","email":"johndoe@example.com","organization":"Ministère de la Santé","organization_id":"2040","type":"Agent de Santé","department":"Laboratoire"}},"medical_condition":"Cancer des poumons","medical_condition_meddra":["10060929","10072818"],"therapeutic_area":[{"value":"Circulatory and Respiratory Physiological Phenomena","code":"G"}],"primary_sponsor":{"name":"Urbss ridetis!","firstname":"Flavum uria recte experientias byssus est.","lastname":"Pol.","address":"123 You have to lure, and absorb silence by your flying.","city":"Ubi est talis contencio?","country":"Domesticus, primus lamias hic desiderium de dexter, germanus mensa.","zip":"01234","telephone":"(+33)5 89 65 47 12","email":"johndoe@example.com","organization":"Ministère de la Santé","organization_id":"2039","type":"Agent de Santé","department":"Laboratoire"},"trial_sites":[{"name":"Urbss ridetis!","firstname":"Flavum uria recte experientias byssus est.","lastname":"Pol.","address":"123 You have to lure, and absorb silence by your flying.","city":"Ubi est talis contencio?","country":"Domesticus, primus lamias hic desiderium de dexter, germanus mensa.","zip":"01234","telephone":"(+33)5 89 65 47 12","email":"johndoe@example.com","organization":"Ministère de la Santé","organization_id":"2040","type":"Agent de Santé","department":"Laboratoire"}],"summary":"Le contexte des cette étude est le suivant, les gens addicts aux dragibus.","clinical_trial_type":"JARDE","clinical_trial_category":"Catégorie 1"}')
   })
 
-  it('does not get one clinical trial with an unknow uuid', async () => {
+  it('does not get one clinical trial with an unknown id', async () => {
     // GIVEN
     const token = await getToken()
 
@@ -69,13 +71,21 @@ async function getToken() {
 async function getHttpServer() {
   const moduleFixture: TestingModule = await Test.createTestingModule({
     imports: [
-      ConfigModule.forRoot({ envFilePath: ['.env'] }),
+      ConfigModule.forRoot({ envFilePath: ['.env.test'] }),
       AppModule,
     ],
   }).compile()
 
   const app = moduleFixture.createNestApplication()
   await app.init()
+
+  const elasticsearchService = app.get<ElasticsearchService>(ElasticsearchService)
+  await elasticsearchService.bulkDocuments([
+    { index: { _id: 'fakeId1' } },
+    ClinicalTrialModelTestingFactory.create(),
+    { index: { _id: 'fakeId2' } },
+    ClinicalTrialModelTestingFactory.create(),
+  ])
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return app.getHttpServer()

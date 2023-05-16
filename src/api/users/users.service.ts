@@ -11,7 +11,7 @@ const USERS_CONFIG_PATH = join(__dirname, '../../../config/users.yaml')
 
 @Injectable()
 export class UsersService {
-  private users: User[] = []
+  private readonly users: User[] = []
 
   constructor() {
     this.loadUsers()
@@ -28,7 +28,7 @@ export class UsersService {
   }
 
   findOne(email: string): User | undefined {
-    return this.users.find((user) => user.email === email)
+    return this.users.find((user): boolean => user.email === email)
   }
 
   getFromRequest(request: Request): User | undefined {

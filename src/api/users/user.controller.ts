@@ -9,7 +9,7 @@ import { UsersService } from './users.service'
 @ApiBearerAuth()
 @Controller()
 export class UserController {
-  constructor(private userService: UsersService) {}
+  constructor(private readonly userService: UsersService) {}
 
   @ApiOperation({ summary: 'Permet de vérifier si l’utilisateur est authentifié depuis son Bearer token. Retourne un résumé du profil de l’utilisateur si c’est le cas.' })
   @ApiOkResponse({

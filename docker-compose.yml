@@ -26,8 +26,23 @@ services:
       - elasticsearch
     ports:
       - 5601:5601
+  elasticsearch_test:
+    container_name: eclaire-es_test
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2 # Même numéro de version que Scalingo
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    networks:
+      - eclaire
+    volumes:
+      - type: volume
+        source: elastic_data_test
+        target: /usr/share/elasticsearch/data
+    ports:
+      - 9201:9200
 networks:
   eclaire:
     driver: bridge
 volumes:
   elastic_data:
+  elastic_data_test:

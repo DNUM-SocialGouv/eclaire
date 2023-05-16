@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/node'
 
 @Injectable()
 export class SentryService {
-  constructor(private configService: ConfigService) {
+  constructor(private readonly configService: ConfigService) {
     Sentry.init({
       dsn: this.configService.get<string>('SENTRY_DSN'),
       environment: this.configService.get<string>('NODE_ENV'),
