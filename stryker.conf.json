@@ -1,9 +1,10 @@
 {
   "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
-  "buildCommand": "npm run transpile",
+  "buildCommand": "tsc -p tsconfig.mutation.json",
   "checkers": ["typescript"],
+  "logLevel": "info",
   "disableTypeChecks": true,
-  "ignorePatterns": [".github", ".vscode", ".yarn", "coverage", "dist", "reports", "test"],
+  "ignorePatterns": [".*", "coverage", "dist", "reports", "test"],
   "ignoreStatic": false,
   "jest": {
     "config": {
@@ -18,14 +19,18 @@
   },
   "mutate": [
     "src/**/*.ts",
+    "!src/api/auth/*.ts",
+    "!src/api/sentry/*.ts",
+    "!src/api/swagger/*.ts",
+    "!src/api/users/*.ts",
+    "!src/etl/clinicalTrialIndexMapping.ts",
+    "!src/etl/console.ts",
+    "!src/shared/logger/*.ts",
     "!src/**/*.test.ts",
-    "!src/**/*-factory.ts",
-    "!src/**/*.controller.ts",
-    "!src/auth/*.ts",
+    "!src/**/*Controller.ts",
+    "!src/**/*TestingFactory.ts",
     "!src/main.ts",
-    "!src/app.*.ts",
-    "!src/sentry/*.ts",
-    "!src/swagger/*.ts"
+    "!src/AppModule.ts"
   ],
   "packageManager": "npm",
   "reporters": ["html"],
