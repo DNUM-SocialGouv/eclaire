@@ -71,9 +71,9 @@ export const clinicalTrialIndexMapping = {
     secondaries_trial_numbers: { type: 'object' },
     study_type: {
       properties: {
+        design: { type: 'text' },
         phase: { type: 'text' },
-        study_design: { type: 'text' },
-        study_type: { type: 'text' },
+        type: { type: 'text' },
       },
     },
     summary: { type: 'text' },

@@ -1,7 +1,5 @@
-import { Client, errors, RequestParams } from '@elastic/elasticsearch'
+import { Client, RequestParams } from '@elastic/elasticsearch'
 import { Injectable } from '@nestjs/common'
-
-import { ElasticsearchServiceError } from './ElasticsearchServiceError'
 
 @Injectable()
 export class ElasticsearchService {
@@ -11,19 +9,10 @@ export class ElasticsearchService {
   constructor(private readonly client: Client) {}
 
   async createAnIndex<T>(mappings: T): Promise<void> {
-    try {
-      await this.client.indices.create({
-        body: { mappings },
-        index: this.index,
-      } satisfies RequestParams.IndicesCreate)
-    } catch (error) {
-      if (error instanceof errors.ResponseError) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        throw new ElasticsearchServiceError(error.meta.body.error.reason as string)
-      }
-
-      throw error
-    }
+    await this.client.indices.create({
+      body: { mappings },
+      index: this.index,
+    } satisfies RequestParams.IndicesCreate)
   }
 
   async updateAnIndex<T>(mappings: T): Promise<void> {
@@ -44,19 +33,10 @@ export class ElasticsearchService {
   }
 
   async bulkDocuments<T>(documents: T[]): Promise<void> {
-    try {
-      await this.client.bulk({
-        body: documents,
-        index: this.index,
-        refresh: true,
-      } satisfies RequestParams.Bulk)
-    } catch (error) {
-      if (error instanceof errors.ResponseError) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        throw new ElasticsearchServiceError(error.meta.body.error.reason as string)
-      }
-
-      throw error
-    }
+    await this.client.bulk({
+      body: documents,
+      index: this.index,
+      refresh: true,
+    } satisfies RequestParams.Bulk)
   }
 }

@@ -19,7 +19,7 @@ export class EsClinicalTrialRepository implements ClinicalTrialRepository {
       return ClinicalTrialFactory.create(clinicalTrialModel)
     } catch (error) {
       if (error instanceof errors.ResponseError && error.meta.statusCode === 404) {
-        throw new NotFoundClinicalTrialError()
+        throw new NotFoundClinicalTrialError(id)
       } else {
         throw error
       }

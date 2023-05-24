@@ -1,9 +1,8 @@
-import { Client, errors } from '@elastic/elasticsearch'
-import { ConfigService } from '@nestjs/config'
+import { errors } from '@elastic/elasticsearch'
 
 import { EsClinicalTrialRepository } from './EsClinicalTrialRepository'
-import { ElasticsearchConfig } from '../../../../shared/elasticsearch/ElasticsearchConfig'
-import { ElasticsearchService } from '../../../../shared/elasticsearch/ElasticsearchService'
+import { clinicalTrialIndexMapping } from '../../../../etl/clinicalTrialIndexMapping'
+import { setupClientAndElasticsearchService } from '../../../../shared/test/helpers/elasticsearchHelper'
 import { ClinicalTrial } from '../../application/entities/ClinicalTrial'
 import { NotFoundClinicalTrialError } from '../../application/errors/NotFoundClinicalTrialError'
 import { ClinicalTrialModelTestingFactory } from '../ClinicalTrialModelTestingFactory'
@@ -11,13 +10,7 @@ import { ClinicalTrialModelTestingFactory } from '../ClinicalTrialModelTestingFa
 describe('clinical trial file repository', () => {
   it('should retrieve one clinical trial', async () => {
     // GIVEN
-    const { elasticsearchService, esClinicalTrialRepository } = await setup()
-    await elasticsearchService.bulkDocuments([
-      { index: { _id: 'fakeId1' } },
-      ClinicalTrialModelTestingFactory.create(),
-      { index: { _id: 'fakeId2' } },
-      ClinicalTrialModelTestingFactory.create(),
-    ])
+    const { esClinicalTrialRepository } = await setup()
 
     // WHEN
     const clinicalTrial = await esClinicalTrialRepository.findOne('fakeId2')
@@ -29,13 +22,7 @@ describe('clinical trial file repository', () => {
   it('should not retrieve one clinical trial if it does not exist', async () => {
     // GIVEN
     const unknownId = '0fc962d4-705f-4c7f-9fe1-6ecbfc58187d'
-    const { elasticsearchService, esClinicalTrialRepository } = await setup()
-    await elasticsearchService.bulkDocuments([
-      { index: { _id: 'fakeId1' } },
-      ClinicalTrialModelTestingFactory.create(),
-      { index: { _id: 'fakeId2' } },
-      ClinicalTrialModelTestingFactory.create(),
-    ])
+    const { esClinicalTrialRepository } = await setup()
 
     try {
       // WHEN
@@ -85,14 +72,15 @@ describe('clinical trial file repository', () => {
 })
 
 async function setup() {
-  process.env.SCALINGO_ELASTICSEARCH_URL = 'http://localhost:9201'
-  const configService = new ConfigService()
-  const elasticsearchConfig = new ElasticsearchConfig(configService)
+  const { elasticsearchService } = await setupClientAndElasticsearchService()
 
-  const client = new Client(elasticsearchConfig.getClientOptions())
-  await client.indices.delete({ ignore_unavailable: true, index: 'eclaire' })
-
-  const elasticsearchService = new ElasticsearchService(client)
+  await elasticsearchService.createAnIndex(clinicalTrialIndexMapping)
+  await elasticsearchService.bulkDocuments([
+    { index: { _id: 'fakeId1' } },
+    ClinicalTrialModelTestingFactory.create(),
+    { index: { _id: 'fakeId2' } },
+    ClinicalTrialModelTestingFactory.create(),
+  ])
 
   const esClinicalTrialRepository = new EsClinicalTrialRepository(elasticsearchService)
 
