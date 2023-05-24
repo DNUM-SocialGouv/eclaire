@@ -15,5 +15,6 @@ export default defineConfig({
     restoreMocks: true,
     sequence: { shuffle: true },
     setupFiles: ['vitest.setup.ts'],
+    singleThread: true,
   },
 })

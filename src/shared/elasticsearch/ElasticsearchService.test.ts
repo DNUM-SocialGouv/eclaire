@@ -1,42 +1,21 @@
-import { Client, errors } from '@elastic/elasticsearch'
+import { Client } from '@elastic/elasticsearch'
 
 import { ElasticsearchService } from './ElasticsearchService'
-import { ElasticsearchServiceError } from './ElasticsearchServiceError'
 
 describe('elasticsearch service', () => {
-  describe('create', () => {
-    it('should create an index', async () => {
-      // GIVEN
-      const service = new ElasticsearchService(fakeClient)
-      jest.spyOn(fakeClient.indices, 'create')
+  it('should create an index', async () => {
+    // GIVEN
+    const service = new ElasticsearchService(fakeClient)
+    jest.spyOn(fakeClient.indices, 'create')
 
-      // WHEN
-      await service.createAnIndex<FakeDocument>(fakeMapping)
+    // WHEN
+    await service.createAnIndex<FakeDocument>(fakeMapping)
 
-      // THEN
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      expect(fakeClient.indices.create).toHaveBeenCalledWith({
-        body: { mappings: fakeMapping },
-        index: 'eclaire',
-      })
-    })
-
-    it('should not create an index when create has failed', async () => {
-      // GIVEN
-      const service = new ElasticsearchService(fakeClient)
-      // @ts-ignore
-      jest.spyOn(fakeClient.indices, 'create').mockRejectedValueOnce(new errors.ResponseError({ body: { error: { reason: 'ES create operation has failed' } } }))
-
-      try {
-        // WHEN
-        await service.createAnIndex(fakeMapping)
-        throw new Error('Should not be triggered')
-      } catch (error) {
-        // THEN
-        // @ts-ignore
-        expect(error.message).toBe('ES create operation has failed')
-        expect(error).toBeInstanceOf(ElasticsearchServiceError)
-      }
+    // THEN
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(fakeClient.indices.create).toHaveBeenCalledWith({
+      body: { mappings: fakeMapping },
+      index: 'eclaire',
     })
   })
 
@@ -74,40 +53,20 @@ describe('elasticsearch service', () => {
     expect(result).toStrictEqual(fakeDocument)
   })
 
-  describe('bulk', () => {
-    it('should create some documents', async () => {
-      // GIVEN
-      const service = new ElasticsearchService(fakeClient)
-      jest.spyOn(fakeClient, 'bulk')
+  it('should create some documents', async () => {
+    // GIVEN
+    const service = new ElasticsearchService(fakeClient)
+    jest.spyOn(fakeClient, 'bulk')
 
-      // WHEN
-      await service.bulkDocuments(fakeDocuments)
+    // WHEN
+    await service.bulkDocuments(fakeDocuments)
 
-      // THEN
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      expect(fakeClient.bulk).toHaveBeenCalledWith({
-        body: fakeDocuments,
-        index: 'eclaire',
-        refresh: true,
-      })
-    })
-
-    it('should not create some documents when bulk has failed', async () => {
-      // GIVEN
-      const service = new ElasticsearchService(fakeClient)
-      // @ts-ignore
-      jest.spyOn(fakeClient, 'bulk').mockRejectedValueOnce(new errors.ResponseError({ body: { error: { reason: 'ES bulk operation has failed' } } }))
-
-      try {
-        // WHEN
-        await service.bulkDocuments(fakeDocuments)
-        throw new Error('Should not be triggered')
-      } catch (error) {
-        // THEN
-        // @ts-ignore
-        expect(error.message).toBe('ES bulk operation has failed')
-        expect(error).toBeInstanceOf(ElasticsearchServiceError)
-      }
+    // THEN
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(fakeClient.bulk).toHaveBeenCalledWith({
+      body: fakeDocuments,
+      index: 'eclaire',
+      refresh: true,
     })
   })
 })

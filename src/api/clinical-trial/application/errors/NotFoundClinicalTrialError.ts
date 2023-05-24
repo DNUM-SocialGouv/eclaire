@@ -1,5 +1,5 @@
 export class NotFoundClinicalTrialError extends Error {
-  constructor() {
-    super('Aucun essai clinique n’a été trouvé')
+  constructor(id: string) {
+    super(`L’essai clinique ${id} n’a pas été trouvé`)
   }
 }

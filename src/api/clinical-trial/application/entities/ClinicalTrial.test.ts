@@ -49,7 +49,7 @@ describe('clinical trial', () => {
       secondaries_trial_numbers: secondariesTrialNumbers,
       study_type: studyType,
       summary: summary,
-      therapeutic_area: therapeuticAreas,
+      therapeutic_areas: therapeuticAreas,
       trial_sites: trialSites,
       universal_trial_number: universalTrialNumber,
     })
@@ -87,7 +87,7 @@ function createClinicalTrial(partial: Partial<ClinicalTrial>): ClinicalTrial {
   )
   const medicalCondition = partial.medical_condition ?? ''
   const medicalConditionMeddra: Array<string> = partial.medical_condition_meddra ?? []
-  const therapeuticAreas: Array<TherapeuticArea> = partial.therapeutic_area ?? []
+  const therapeuticAreas: Array<TherapeuticArea> = partial.therapeutic_areas ?? []
   const primarySponsor = partial.primary_sponsor ?? new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')
   const trialSites = partial.trial_sites ?? [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')]
   const summary = partial.summary ?? ''

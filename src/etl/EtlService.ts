@@ -1,3 +1,4 @@
+import { errors } from '@elastic/elasticsearch'
 import { Injectable } from '@nestjs/common'
 
 import { clinicalTrialIndexMapping } from './clinicalTrialIndexMapping'
@@ -25,8 +26,17 @@ export class EtlService {
 
   async createIndex(): Promise<void> {
     this.logger.info('-- Début de la création de l’index ECLAIRE dans Elasticsearch.')
-    await this.elasticsearchService.createAnIndex(clinicalTrialIndexMapping)
-    this.logger.info('-- Fin de la création de l’index ECLAIRE dans Elasticsearch.')
+    try {
+      await this.elasticsearchService.createAnIndex(clinicalTrialIndexMapping)
+      this.logger.info('-- Fin de la création de l’index ECLAIRE dans Elasticsearch.')
+    } catch (error) {
+      if (error instanceof errors.ResponseError) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        throw new Error(error.meta.body.error.reason as string)
+      }
+
+      throw error
+    }
   }
 
   async import(): Promise<void> {
@@ -73,7 +83,16 @@ export class EtlService {
   }
 
   private async load(clinicalTrialsModel: (IndexElasticsearch | ClinicalTrialModel)[]): Promise<void> {
-    await this.elasticsearchService.bulkDocuments<IndexElasticsearch | ClinicalTrialModel>(clinicalTrialsModel)
+    try {
+      await this.elasticsearchService.bulkDocuments<IndexElasticsearch | ClinicalTrialModel>(clinicalTrialsModel)
+    } catch (error) {
+      if (error instanceof errors.ResponseError) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        throw new Error(error.meta.body.error.reason as string)
+      }
+
+      throw error
+    }
   }
 }
 

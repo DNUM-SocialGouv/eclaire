@@ -20,7 +20,7 @@ export class ClinicalTrial {
     contact: Contact,
     medical_condition: string,
     medical_condition_meddra: string[],
-    therapeutic_area: TherapeuticArea[],
+    therapeutic_areas: TherapeuticArea[],
     primary_sponsor: ContactDetails,
     trial_sites: ContactDetails[],
     summary: string,
@@ -37,7 +37,7 @@ export class ClinicalTrial {
     this.contact = contact
     this.medical_condition = medical_condition
     this.medical_condition_meddra = medical_condition_meddra
-    this.therapeutic_area = therapeutic_area
+    this.therapeutic_areas = therapeutic_areas
     this.primary_sponsor = primary_sponsor
     this.trial_sites = trial_sites
     this.summary = summary
@@ -99,7 +99,7 @@ export class ClinicalTrial {
     description: 'Le domaine thérapeutique d’un essai clinique correspond au champ de la recherche et développement d’un traitement spécifique à certaines pathologies et conditions de santé.',
     type: [TherapeuticArea],
   })
-  readonly therapeutic_area: TherapeuticArea[]
+  readonly therapeutic_areas: TherapeuticArea[]
 
   @ApiProperty({ description: 'Le promoteur est la personne physique, la société ou l’institution qui prend l’initiative d’un essai clinique et en assume les responsabilités et le financement.' })
   readonly primary_sponsor: ContactDetails

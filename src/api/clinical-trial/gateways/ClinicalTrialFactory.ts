@@ -43,8 +43,8 @@ export class ClinicalTrialFactory {
       ),
       new StudyType(
         clinicalTrialModel.study_type.phase,
-        clinicalTrialModel.study_type.study_type,
-        clinicalTrialModel.study_type.study_design
+        clinicalTrialModel.study_type.type,
+        clinicalTrialModel.study_type.design
       ),
       clinicalTrialModel.last_revision_date,
       new Contact(
