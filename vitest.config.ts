@@ -1,13 +1,11 @@
-import { defineConfig } from 'vitest/config'
+import { configDefaults, defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     clearMocks: true,
-    coverage: {
-      exclude: ['.stryker-tmp/**'],
-      provider: 'istanbul',
-    },
+    coverage: { provider: 'istanbul' },
     environment: 'node',
+    exclude: [...configDefaults.exclude, '.stryker-tmp/**'],
     globals: true,
     mockReset: true,
     outputDiffLines: 150,
