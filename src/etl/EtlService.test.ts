@@ -82,7 +82,7 @@ describe('extract transform load service', () => {
             '18-64 ans',
           ],
           ages_range_secondary_identifiers: ['INDISPONIBLE'],
-          target_number: -1,
+          target_number: 21,
           exclusion_criteria: {
             id: 'INDISPONIBLE',
             value: 'INDISPONIBLE',
@@ -201,7 +201,7 @@ describe('extract transform load service', () => {
           genders: ['INDISPONIBLE'],
           ages_range: ['INDISPONIBLE'],
           ages_range_secondary_identifiers: ['INDISPONIBLE'],
-          target_number: -1,
+          target_number: 96,
           exclusion_criteria: {
             id: 'INDISPONIBLE',
             value: 'INDISPONIBLE',
@@ -298,7 +298,7 @@ describe('extract transform load service', () => {
           genders: ['INDISPONIBLE'],
           ages_range: ['INDISPONIBLE'],
           ages_range_secondary_identifiers: ['INDISPONIBLE'],
-          target_number: -1,
+          target_number: 23,
           exclusion_criteria: {
             id: 'INDISPONIBLE',
             value: 'INDISPONIBLE',
@@ -395,7 +395,7 @@ describe('extract transform load service', () => {
           genders: ['INDISPONIBLE'],
           ages_range: ['INDISPONIBLE'],
           ages_range_secondary_identifiers: ['INDISPONIBLE'],
-          target_number: -1,
+          target_number: 5500,
           exclusion_criteria: {
             id: 'INDISPONIBLE',
             value: 'INDISPONIBLE',

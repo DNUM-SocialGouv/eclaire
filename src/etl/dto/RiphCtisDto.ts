@@ -20,6 +20,7 @@ export class RiphCtisDto {
     readonly pathologies_maladies_rares: string,
     readonly informations_meddra: string,
     readonly portee_recherche: string,
+    readonly taille_etude: number,
     readonly tranches_age: string,
     readonly sexe: string,
     readonly groupes_sujet: string,

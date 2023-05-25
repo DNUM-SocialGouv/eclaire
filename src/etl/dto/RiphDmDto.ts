@@ -18,6 +18,7 @@ export class RiphDmDto {
     readonly investigateur: string,
     readonly titre_recherche: string,
     readonly domaine_therapeutique: string,
+    readonly taille_etude: number,
     readonly qualification: string,
     readonly caracteristiques_recherche: string,
     readonly recherche_ancillaire_ou_extension: boolean,
