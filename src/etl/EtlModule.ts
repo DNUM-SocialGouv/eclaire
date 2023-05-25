@@ -18,10 +18,10 @@ import { LoggerService } from '../shared/logger/LoggerService'
       inject: [LoggerService, ElasticsearchService],
       provide: EtlService,
       useFactory: (logger: LoggerService, elasticsearchService: ElasticsearchService): EtlService => {
-        const riphCtisDto = JSON.parse(readFileSync(join(__dirname, '.data/export_eclair_ctis.json'), 'utf8')) as RiphCtisDto[]
-        const riphDmDto = JSON.parse(readFileSync(join(__dirname, '.data/export_eclair_dm-dmdiv.json'), 'utf8')) as RiphDmDto[]
-        const riphJardeDto1 = JSON.parse(readFileSync(join(__dirname, '.data/export_eclair_riph1.json'), 'utf8')) as RiphJardeDto[]
-        const riphJardeDto2 = JSON.parse(readFileSync(join(__dirname, '.data/export_eclair_riph2.json'), 'utf8')) as RiphJardeDto[]
+        const riphCtisDto = JSON.parse(readFileSync(join(__dirname, '.data/export_eclair_ctis-22-05-2023.json'), 'utf8')) as RiphCtisDto[]
+        const riphDmDto = JSON.parse(readFileSync(join(__dirname, '.data/export_eclair_dm-dmdiv-22-05-2023.json'), 'utf8')) as RiphDmDto[]
+        const riphJardeDto1 = JSON.parse(readFileSync(join(__dirname, '.data/export_eclair_riph1-22-05-2023.json'), 'utf8')) as RiphJardeDto[]
+        const riphJardeDto2 = JSON.parse(readFileSync(join(__dirname, '.data/export_eclair_riph2-22-05-2023.json'), 'utf8')) as RiphJardeDto[]
 
         return new EtlService(logger, elasticsearchService, riphCtisDto, riphDmDto, riphJardeDto1, riphJardeDto2)
       },
