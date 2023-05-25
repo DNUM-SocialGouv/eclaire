@@ -20,8 +20,6 @@ export class ClinicalTrialModel {
     readonly therapeutic_areas: Array<TherapeuticAreaModel>,
     readonly primary_sponsor: ContactDetailsModel,
     readonly trial_sites: ContactDetailsModel[],
-    readonly summary: string,
-    readonly clinical_trial_type: string,
-    readonly clinical_trial_category: string
+    readonly summary: string
   ) {}
 }

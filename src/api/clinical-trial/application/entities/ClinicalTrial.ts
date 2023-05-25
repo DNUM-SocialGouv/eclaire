@@ -6,7 +6,6 @@ import { Recruitment } from './Recruitment'
 import { StudyType } from './StudyType'
 import { TherapeuticArea } from './TherapeuticArea'
 import { Title } from './Title'
-import { Type } from '../../../../etl/traductions/Type'
 
 export class ClinicalTrial {
   constructor(
@@ -23,9 +22,7 @@ export class ClinicalTrial {
     therapeutic_areas: TherapeuticArea[],
     primary_sponsor: ContactDetails,
     trial_sites: ContactDetails[],
-    summary: string,
-    clinical_trial_type: string,
-    clinical_trial_category: string
+    summary: string
   ) {
     this.universal_trial_number = universal_trial_number
     this.secondaries_trial_numbers = secondaries_trial_numbers
@@ -41,8 +38,6 @@ export class ClinicalTrial {
     this.primary_sponsor = primary_sponsor
     this.trial_sites = trial_sites
     this.summary = summary
-    this.clinical_trial_type = clinical_trial_type
-    this.clinical_trial_category = clinical_trial_category
   }
 
   @ApiProperty({
@@ -112,21 +107,4 @@ export class ClinicalTrial {
     example: 'le contexte des cette étude est le suivant, les gens addicts aux dragibus. L’objectif de l’étude est de voir l’effet des bonbons sur les dents des enfants. La pathologie visée les grosses caries. Essai de cohorte les enfants avec caries et sans caries sont comparés.',
   })
   readonly summary: string
-
-  @ApiProperty({
-    description: 'La typologie de l’essai correspond à la nature de l’essai et à la réglementation à laquelle il se rattache.',
-    enum: Type,
-    example: 'REG536',
-  })
-  readonly clinical_trial_type: string
-
-  @ApiProperty({
-    description: `La catégorie de l’essai précise le degré d’intervention lié à l’essai clinique au sein d’une typologie.<br>
-    <a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32017R0745#d1e1342-1-1">Définition dispositif médical</a><br>
-    <a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32014R0536#d1e772-1-1">Définition essai clinique</a><br>
-    <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000046125746">Définition recherche impliquant la personne humaine et catégories associées</a><br>
-    <a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32017R0746#d1e1165-176-1">Définition étude de performance</a>`,
-    example: 'Catégorie 1',
-  })
-  readonly clinical_trial_category: string
 }

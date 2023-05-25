@@ -44,7 +44,8 @@ export class ClinicalTrialFactory {
       new StudyType(
         clinicalTrialModel.study_type.phase,
         clinicalTrialModel.study_type.type,
-        clinicalTrialModel.study_type.design
+        clinicalTrialModel.study_type.design,
+        clinicalTrialModel.study_type.category
       ),
       clinicalTrialModel.last_revision_date,
       new Contact(
@@ -112,9 +113,7 @@ export class ClinicalTrialFactory {
         trial_site.type,
         trial_site.department
       )),
-      clinicalTrialModel.summary,
-      clinicalTrialModel.clinical_trial_type,
-      clinicalTrialModel.clinical_trial_category
+      clinicalTrialModel.summary
     )
   }
 }

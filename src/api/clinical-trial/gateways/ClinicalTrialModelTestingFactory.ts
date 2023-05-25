@@ -30,8 +30,9 @@ export class ClinicalTrialModelTestingFactory {
     ),
     new StudyTypeModel(
       'Human Pharmacology (Phase I)- First administration to humans',
-      'Cum bromium mori, omnes nixuses captis noster, teres mortemes.',
-      'Cur compater cadunt?'
+      'JARDE',
+      'Cur compater cadunt?',
+      'Catégorie 1'
     ),
     '2020-02-06T18:25:43.511Z',
     new ContactModel(
@@ -101,9 +102,7 @@ export class ClinicalTrialModelTestingFactory {
         'Laboratoire'
       ),
     ],
-    'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.',
-    'JARDE',
-    'Catégorie 1'
+    'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.'
   )
 
   static create(overridedFields?: Partial<ClinicalTrialModel>): ClinicalTrialModel {

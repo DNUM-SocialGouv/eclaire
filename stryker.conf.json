@@ -4,7 +4,7 @@
   "checkers": ["typescript"],
   "logLevel": "info",
   "disableTypeChecks": true,
-  "ignorePatterns": [".*", "coverage", "dist", "reports", "test"],
+  "ignorePatterns": [".*", "coverage", "dist", "reports", "<rootDir>/test"],
   "ignoreStatic": false,
   "jest": {
     "config": {

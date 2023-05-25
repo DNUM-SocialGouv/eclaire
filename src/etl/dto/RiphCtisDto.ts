@@ -1,6 +1,5 @@
 export class RiphCtisDto {
   constructor(
-    readonly etude_id: number,
     readonly reglementation_code: string,
     readonly etat: string,
     readonly organisme_nom: string,
@@ -15,20 +14,19 @@ export class RiphCtisDto {
     readonly sites: Site[],
     readonly numero_ctis: string,
     readonly titre: string,
+    readonly intervention_faible: string,
     readonly phase_recherche: string,
     readonly domaine_therapeutique: string,
     readonly pathologies_maladies_rares: string,
     readonly informations_meddra: string,
-    readonly portee_recherche: string,
     readonly taille_etude: number,
     readonly tranches_age: string,
     readonly sexe: string,
     readonly groupes_sujet: string,
     readonly population_recrutement: string,
-    readonly description_urgence: string,
     readonly date_debut_recrutement: string,
-    readonly date_fin_etude: string,
-    readonly pays_concernes: string
+    readonly historique: string,
+    readonly dates_avis_favorable_ms_mns: string
   ) {}
 }
 

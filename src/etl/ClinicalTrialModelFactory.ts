@@ -1,6 +1,7 @@
 import { RiphCtisDto } from './dto/RiphCtisDto'
 import { RiphDmDto } from './dto/RiphDmDto'
 import { RiphJardeDto } from './dto/RiphJardeDto'
+import { Category } from './traductions/Category'
 import { Gender } from './traductions/Gender'
 import { PrimaryAge } from './traductions/PrimaryAge'
 import { RecruitmentStatus } from './traductions/RecruitmentStatus'
@@ -34,7 +35,12 @@ export class ClinicalTrialModelFactory {
         this.emptyIfNull(riphCtisDto.groupes_sujet),
         this.emptyIfNull(riphCtisDto.population_recrutement).split(', ')
       ),
-      new StudyTypeModel(this.emptyIfNull(riphCtisDto.phase_recherche), this.unavailable, this.unavailable),
+      new StudyTypeModel(
+        this.emptyIfNull(riphCtisDto.phase_recherche),
+        riphCtisDto.reglementation_code,
+        this.unavailable,
+        this.category(riphCtisDto.intervention_faible)
+      ),
       this.unavailable,
       new ContactModel(
         new ContactDetailsModel(
@@ -103,8 +109,6 @@ export class ClinicalTrialModelFactory {
           this.emptyIfNull(site.service)
         )
       }),
-      this.unavailable,
-      riphCtisDto.reglementation_code,
       this.unavailable
     )
   }
@@ -127,7 +131,12 @@ export class ClinicalTrialModelFactory {
         this.unavailable,
         [this.unavailable]
       ),
-      new StudyTypeModel(this.unavailable, this.unavailable, this.unavailable),
+      new StudyTypeModel(
+        this.unavailable,
+        riphDmDto.reglementation_code,
+        this.unavailable,
+        this.emptyIfNull(riphDmDto.qualification)
+      ),
       this.unavailable,
       new ContactModel(
         new ContactDetailsModel(
@@ -180,9 +189,7 @@ export class ClinicalTrialModelFactory {
         this.unavailable
       ),
       [],
-      this.unavailable,
-      riphDmDto.reglementation_code,
-      this.emptyIfNull(riphDmDto.qualification)
+      this.unavailable
     )
   }
 
@@ -204,7 +211,12 @@ export class ClinicalTrialModelFactory {
         this.unavailable,
         [this.unavailable]
       ),
-      new StudyTypeModel(this.unavailable, this.unavailable, this.unavailable),
+      new StudyTypeModel(
+        this.unavailable,
+        riphJardeDto.reglementation_code,
+        this.unavailable,
+        this.emptyIfNull(riphJardeDto.qualification_recherche)
+      ),
       this.unavailable,
       new ContactModel(
         new ContactDetailsModel(
@@ -257,13 +269,21 @@ export class ClinicalTrialModelFactory {
         this.unavailable
       ),
       [],
-      this.unavailable,
-      this.emptyIfNull(riphJardeDto.reglementation_code),
-      this.emptyIfNull(riphJardeDto.qualification_recherche)
+      this.unavailable
     )
   }
 
+  private static category(lowIntervention: string): string {
+    if (lowIntervention === 'Yes') {
+      return Category.Yes
+    } else if (lowIntervention === 'No') {
+      return Category.No
+    }
+
+    return ''
+  }
+
   private static emptyIfNull(fieldname: string): string {
-    return fieldname ?? ''
+    return fieldname === null ? '' : fieldname
   }
 }
