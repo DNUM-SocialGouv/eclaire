@@ -14,7 +14,7 @@ describe('clinical trial', () => {
     const publicTitle = new Title('', '')
     const scientificTitle = new Title('', '')
     const recruitment = new Recruitment('en cours', '', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', [])
-    const studyType = new StudyType('', '', '')
+    const studyType = new StudyType('', '', '', '')
     const lastRevisionDate = new Date().toString()
     const universalTrialNumber = 'NTC5492179625'
     const secondariesTrialNumbers = {
@@ -31,13 +31,9 @@ describe('clinical trial', () => {
     const therapeuticAreas = [new TherapeuticArea('', '')]
     const trialSites = [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')]
     const summary = 'Le contexte des cette étude est le suivant, les gens addicts aux dragibus.'
-    const clinicalTrialType = 'JARDE'
-    const clinicalTrialCategory = 'Catégorie 1'
 
     // WHEN
     const clinicalTrial = createClinicalTrial({
-      clinical_trial_category: clinicalTrialCategory,
-      clinical_trial_type: clinicalTrialType,
       contact: contact,
       last_revision_date: lastRevisionDate,
       medical_condition: medicalCondition,
@@ -68,8 +64,7 @@ describe('clinical trial', () => {
     expect(clinicalTrial.primary_sponsor).toBeInstanceOf(ContactDetails)
     expect(clinicalTrial.trial_sites[0]).toBeInstanceOf(ContactDetails)
     expect(clinicalTrial.summary).toBe('Le contexte des cette étude est le suivant, les gens addicts aux dragibus.')
-    expect(clinicalTrial.clinical_trial_type).toBe('JARDE')
-    expect(clinicalTrial.clinical_trial_category).toBe('Catégorie 1')
+
   })
 })
 
@@ -78,7 +73,7 @@ function createClinicalTrial(partial: Partial<ClinicalTrial>): ClinicalTrial {
   const secondariesTrialNumbers = partial.secondaries_trial_numbers ?? {}
   const publicTitle = partial.public_title ?? new Title('', '')
   const scientificTitle = partial.scientific_title ?? new Title('', '')
-  const studyType = partial.study_type ?? new StudyType('', '', '')
+  const studyType = partial.study_type ?? new StudyType('', '', '', '')
   const lastRevisionDate = partial.last_revision_date ?? new Date().toString()
   const recruitment = partial.recruitment ?? new Recruitment('en cours', '', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', [])
   const contact = partial.contact ?? new Contact(
@@ -91,8 +86,6 @@ function createClinicalTrial(partial: Partial<ClinicalTrial>): ClinicalTrial {
   const primarySponsor = partial.primary_sponsor ?? new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')
   const trialSites = partial.trial_sites ?? [new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', '')]
   const summary = partial.summary ?? ''
-  const clinical_trial_type = partial.clinical_trial_type ?? 'JARDE'
-  const clinical_trial_category = partial.clinical_trial_category ?? ''
 
   return new ClinicalTrial(
     universalTrialNumber,
@@ -108,8 +101,6 @@ function createClinicalTrial(partial: Partial<ClinicalTrial>): ClinicalTrial {
     therapeuticAreas,
     primarySponsor,
     trialSites,
-    summary,
-    clinical_trial_type,
-    clinical_trial_category
+    summary
   )
 }

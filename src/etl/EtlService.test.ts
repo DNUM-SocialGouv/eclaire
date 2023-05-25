@@ -3,6 +3,7 @@ import { errors } from '@elastic/elasticsearch'
 
 import { EtlService } from './EtlService'
 import { LoggerService } from '../shared/logger/LoggerService'
+import { ClinicalTrialModel } from '../shared/models/ClinicalTrialModel'
 import { riphCtisDto, riphDmDto, riphJardeDto1, riphJardeDto2, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
 
 describe('extract transform load service', () => {
@@ -45,7 +46,7 @@ describe('extract transform load service', () => {
   })
 
   describe('when import is performed', function () {
-    it('should find data for each clinical trials type (CTIS, DM, JARDE1, JARDE2)', async () => {
+    it('should find data for each clinical trials type (CTIS, DM, JARDE)', async () => {
       // GIVEN
       const { elasticsearchService, etlService } = await setup()
       await etlService.createIndex()
@@ -54,10 +55,12 @@ describe('extract transform load service', () => {
       await etlService.import()
 
       // THEN
-      const ctisClinicalTrial = await elasticsearchService.findOneDocument(riphCtisDto[0].numero_ctis)
-      const dmClinicalTrial = await elasticsearchService.findOneDocument(riphDmDto[0].numero_national)
-      const jarde1ClinicalTrial = await elasticsearchService.findOneDocument(riphJardeDto1[0].numero_national)
-      const jarde2ClinicalTrial = await elasticsearchService.findOneDocument(riphJardeDto2[0].numero_national)
+      const ctisClinicalTrial = await elasticsearchService.findOneDocument<ClinicalTrialModel>(riphCtisDto[0].numero_ctis)
+      const ctisClinicalTrialWithLowIntervention = await elasticsearchService.findOneDocument<ClinicalTrialModel>(riphCtisDto[1].numero_ctis)
+      const ctisClinicalTrialWithEmptyLowIntervention = await elasticsearchService.findOneDocument<ClinicalTrialModel>(riphCtisDto[2].numero_ctis)
+      const dmClinicalTrial = await elasticsearchService.findOneDocument<ClinicalTrialModel>(riphDmDto[0].numero_national)
+      const jarde1ClinicalTrial = await elasticsearchService.findOneDocument<ClinicalTrialModel>(riphJardeDto1[0].numero_national)
+      const jarde2ClinicalTrial = await elasticsearchService.findOneDocument<ClinicalTrialModel>(riphJardeDto2[0].numero_national)
 
       expect(ctisClinicalTrial).toStrictEqual({
         universal_trial_number: 'INDISPONIBLE',
@@ -100,9 +103,10 @@ describe('extract transform load service', () => {
           ],
         },
         study_type: {
+          category: 'un essai clinique',
           phase: 'Therapeutic confirmatory  (Phase III)',
-          type: 'INDISPONIBLE',
           design: 'INDISPONIBLE',
+          type: 'REG536',
         },
         last_revision_date: 'INDISPONIBLE',
         contact: {
@@ -181,9 +185,9 @@ describe('extract transform load service', () => {
           },
         ],
         summary: 'INDISPONIBLE',
-        clinical_trial_type: 'REG536',
-        clinical_trial_category: 'INDISPONIBLE',
       })
+      expect(ctisClinicalTrialWithLowIntervention.study_type.category).toBe('un essai clinique à faible intervention')
+      expect(ctisClinicalTrialWithEmptyLowIntervention.study_type.category).toBe('')
       expect(dmClinicalTrial).toStrictEqual({
         universal_trial_number: 'INDISPONIBLE',
         secondaries_trial_numbers: { national_number: '2021-A01563-38' },
@@ -216,8 +220,9 @@ describe('extract transform load service', () => {
           vulnerable_population: ['INDISPONIBLE'],
         },
         study_type: {
+          category: 'IC-Cas 4.2',
           phase: 'INDISPONIBLE',
-          type: 'INDISPONIBLE',
+          type: 'REG745',
           design: 'INDISPONIBLE',
         },
         last_revision_date: 'INDISPONIBLE',
@@ -278,8 +283,6 @@ describe('extract transform load service', () => {
         },
         trial_sites: [],
         summary: 'INDISPONIBLE',
-        clinical_trial_type: 'REG745',
-        clinical_trial_category: 'IC-Cas 4.2',
       })
       expect(jarde1ClinicalTrial).toStrictEqual({
         universal_trial_number: 'INDISPONIBLE',
@@ -313,8 +316,9 @@ describe('extract transform load service', () => {
           vulnerable_population: ['INDISPONIBLE'],
         },
         study_type: {
+          category: 'Catégorie 3',
           phase: 'INDISPONIBLE',
-          type: 'INDISPONIBLE',
+          type: 'JARDE',
           design: 'INDISPONIBLE',
         },
         last_revision_date: 'INDISPONIBLE',
@@ -375,8 +379,6 @@ describe('extract transform load service', () => {
         },
         trial_sites: [],
         summary: 'INDISPONIBLE',
-        clinical_trial_type: 'JARDE',
-        clinical_trial_category: 'Catégorie 3',
       })
       expect(jarde2ClinicalTrial).toStrictEqual({
         universal_trial_number: 'INDISPONIBLE',
@@ -410,8 +412,9 @@ describe('extract transform load service', () => {
           vulnerable_population: ['INDISPONIBLE'],
         },
         study_type: {
+          category: 'Catégorie 2',
           phase: 'INDISPONIBLE',
-          type: 'INDISPONIBLE',
+          type: 'JARDE',
           design: 'INDISPONIBLE',
         },
         last_revision_date: 'INDISPONIBLE',
@@ -472,8 +475,6 @@ describe('extract transform load service', () => {
         },
         trial_sites: [],
         summary: 'INDISPONIBLE',
-        clinical_trial_type: 'JARDE',
-        clinical_trial_category: 'Catégorie 2',
       })
     })
 
@@ -516,6 +517,7 @@ describe('extract transform load service', () => {
     })
   })
 })
+
 async function setup() {
   const {
     client,

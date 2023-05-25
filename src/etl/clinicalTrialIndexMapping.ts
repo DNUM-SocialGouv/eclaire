@@ -18,8 +18,6 @@ export const clinicalTrialIndexMapping = {
   date_detection: false,
   dynamic: false,
   properties: {
-    clinical_trial_category: { type: 'text' },
-    clinical_trial_type: { type: 'text' },
     contact: {
       properties: {
         public_query: { properties: contactDetails },
@@ -71,6 +69,7 @@ export const clinicalTrialIndexMapping = {
     secondaries_trial_numbers: { type: 'object' },
     study_type: {
       properties: {
+        category: { type: 'text' },
         design: { type: 'text' },
         phase: { type: 'text' },
         type: { type: 'text' },

@@ -15,6 +15,7 @@ export class RiphCtisDto {
     readonly sites: Site[],
     readonly numero_ctis: string,
     readonly titre: string,
+    readonly intervention_faible: string,
     readonly phase_recherche: string,
     readonly domaine_therapeutique: string,
     readonly pathologies_maladies_rares: string,
