@@ -32,7 +32,29 @@ export class Recruitment {
   }
 
   @ApiProperty({
-    description: 'Il s’agit du statut de recrutement de l’essai clinique (cela précise si le recrutement est toujours actif)',
+    description: `Il s’agit du statut de recrutement de l’essai clinique (cela précise si le recrutement est toujours actif).<br>
+    <dl>
+      <dt>À démarer</dt>
+      <dd>Essais clinique ayant reçu un avis favorable du CPP et n’ayant pas encore débuté avec l’inclusion du premier patient, le cas échéant</dd>
+      <dt>En cours</dt>
+      <dd>Essai clinique dont le déroulement est actuellement en cours</dd>
+      <dt>Suspendu</dt>
+      <dd>Essais clinique en cours mais que le déposant déclare suspendre temporairement</dd>
+      <dt>Prorogé</dt>
+      <dd>Essai clinique qui n’a pas démarré dans le délai de deux ans après émission de l’avis favorable du CPP mais qui bénéficie d’une prolongation avec l’accord du CPP</dd>
+      <dt>Expiré</dt>
+      <dd>Essai clinique qui n’a pas démarré dans le délai de deux ans après l’émission de l’avis favorable du CPP</dd>
+      <dt>Terminé</dt>
+      <dd>Essai clinique achevé avec l’inclusion du dernier patient mais dont le rapport final n’a pas encore été transmis</dd>
+      <dt>Terminé (fin anticipée)</dt>
+      <dd>Essai clinique pour lequel le déposant déclare une fin anticipée de son essai clinique et dont le rapport final n’a pas été transmis</dd>
+      <dt>Archivé</dt>
+      <dd>Essais clinique pour lequel le déposant a transmis son rapport final</dd>
+      <dt>Rapatrié vers le CTIS</dt>
+      <dd>Essai clinique portant sur un médicament en application de la loi Jardé et ayant fait l’objet d’une soumission dans le CTIS, en application des dispositions du règlement 2014/536</dd>
+      <dt>Abandonné</dt>
+      <dd>Essai clinique a été abandoné</dd>
+    </dl>`,
     enum: RecruitmentStatus,
     example: RecruitmentStatus.EN_COURS,
   })
@@ -66,7 +88,7 @@ export class Recruitment {
   readonly ages_range_secondary_identifiers: string[]
 
   @ApiProperty({
-    description: 'Le nombre de personnes ciblées pour le recrutement de l’essai clinique',
+    description: 'Le nombre de personnes ciblées pour le recrutement de l’essai clinique.',
     example: 400,
   })
   readonly target_number: number

@@ -62,10 +62,10 @@ export class ClinicalTrial {
   })
   readonly secondaries_trial_numbers: Record<string, string>
 
-  @ApiProperty({ description: 'Titre public de l’essai clinique' })
+  @ApiProperty({ description: 'Titre public de l’essai clinique.' })
   readonly public_title: Title
 
-  @ApiProperty({ description: 'Titre officiel de l’essai clinique' })
+  @ApiProperty({ description: 'Titre officiel de l’essai clinique.' })
   readonly scientific_title: Title
 
   @ApiProperty({ description: 'Ensemble de données relatives au recrutement des candidats de l’essai clinique.' })
@@ -75,12 +75,12 @@ export class ClinicalTrial {
   readonly study_type: StudyType
 
   @ApiProperty({
-    description: 'Date de dernière modification du dossier de l’essai clinique',
+    description: 'Date de dernière modification du dossier de l’essai clinique.',
     example: '2022-02-06T18:25:43.511Z',
   })
   readonly last_revision_date: string
 
-  @ApiProperty({ description: 'Le nom et les informations de contact qui permettent à un volontaire d’avoir des informations concernant l’essai clinique (critères d’inclusions, informations sur l’essai,...)' })
+  @ApiProperty({ description: 'Le nom et les informations de contact qui permettent à un volontaire d’avoir des informations concernant l’essai clinique (critères d’inclusions, informations sur l’essai,...).' })
   readonly contact: Contact
 
   @ApiProperty({
