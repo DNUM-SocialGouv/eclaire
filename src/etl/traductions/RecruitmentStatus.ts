@@ -1,12 +1,12 @@
 export enum RecruitmentStatus {
   A_DEMARRER = 'à démarrer',
   EN_COURS = 'en cours',
-  PROROGEE = 'propogé',
-  RAPATRIEE_CTIS = 'rapatrié CTIS',
+  SUSPENDUE = 'suspendu',
+  PROROGEE = 'prorogé',
+  EXPIREE = 'expiré',
   TERMINEE = 'terminé',
   TERMINEE_ANTICIPEE = 'terminé anticipé',
   ARCHIVEE = 'archivé',
-  SUSPENDUE = 'suspendue',
+  RAPATRIEE_CTIS = 'rapatrié CTIS',
   ABANDONNEE = 'abandonné',
-  EXPIREE = 'expiré',
 }

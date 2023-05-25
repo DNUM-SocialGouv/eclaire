@@ -9,9 +9,9 @@ export class TherapeuticArea {
     this.code = code
   }
 
-  @ApiProperty({ description: 'Nom du domaine thérapeutique', example: 'Circulatory and Respiratory Physiological Phenomena' })
+  @ApiProperty({ description: 'Nom du domaine thérapeutique.', example: 'Circulatory and Respiratory Physiological Phenomena' })
   readonly value: string
 
-  @ApiProperty({ description: 'Code du domaine thérapeutique', example: 'G' })
+  @ApiProperty({ description: 'Code du domaine thérapeutique.', example: 'G' })
   readonly code: string
 }
