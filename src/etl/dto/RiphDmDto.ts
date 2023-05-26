@@ -17,6 +17,8 @@ export class RiphDmDto {
     readonly taille_etude: number,
     readonly qualification: string,
     readonly recherche_ancillaire_ou_extension: boolean,
-    readonly date_creation_etude: string
+    readonly date_creation_etude: string,
+    readonly historique: string,
+    readonly dates_avis_favorable_ms_mns: string
   ) {}
 }
