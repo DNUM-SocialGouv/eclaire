@@ -108,7 +108,7 @@ describe('extract transform load service', () => {
           design: 'INDISPONIBLE',
           type: 'REG536',
         },
-        last_revision_date: 'INDISPONIBLE',
+        last_revision_date: '12/04/2023 16:15:38',
         contact: {
           public_query: {
             name: 'F. Hoffmann-La Roche AG',
@@ -225,7 +225,7 @@ describe('extract transform load service', () => {
           type: 'REG745',
           design: 'INDISPONIBLE',
         },
-        last_revision_date: 'INDISPONIBLE',
+        last_revision_date: '06/04/2023 16:28:09',
         contact: {
           public_query: {
             name: 'Soladis Clinical Studies',
@@ -321,7 +321,7 @@ describe('extract transform load service', () => {
           type: 'JARDE',
           design: 'INDISPONIBLE',
         },
-        last_revision_date: 'INDISPONIBLE',
+        last_revision_date: '04/04/2023 15:53:27',
         contact: {
           public_query: {
             name: 'Université Polytechnique Hauts-de-France',
@@ -417,7 +417,7 @@ describe('extract transform load service', () => {
           type: 'JARDE',
           design: 'INDISPONIBLE',
         },
-        last_revision_date: 'INDISPONIBLE',
+        last_revision_date: '14/01/2022 22:28:59',
         contact: {
           public_query: {
             name: 'Agence Sanitaire et Sociale Nouvelle Calédonie ',

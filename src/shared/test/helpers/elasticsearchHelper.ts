@@ -165,6 +165,8 @@ export const riphDmDto = [
     qualification: 'IC-Cas 4.2',
     recherche_ancillaire_ou_extension: false,
     date_creation_etude: null,
+    historique: '06/04/2023 16:28:09:Terminée',
+    dates_avis_favorable_ms_mns: '21.01155.000011-MS01:09/11/2021 16:25:45, 21.01155.000011-MS02:09/03/2022 17:29:49, 21.01155.000011-MS03:04/10/2022 15:04:23, 21.01155.000011-MS04.1:29/11/2022 14:32:30',
   },
 ]
 
@@ -189,6 +191,8 @@ export const riphJardeDto1 = [
     recherche_ancillaire_ou_extension: false,
     qualification_recherche: 'Catégorie 3',
     date_creation_etude: null,
+    historique: '04/04/2023 15:53:27:En cours',
+    dates_avis_favorable_ms_mns: null,
   },
 ]
 
@@ -213,5 +217,7 @@ export const riphJardeDto2 = [
     recherche_ancillaire_ou_extension: false,
     qualification_recherche: 'Catégorie 2',
     date_creation_etude: null,
+    historique: null,
+    dates_avis_favorable_ms_mns: '21.04081.502102-MS01.1:14/01/2022 22:28:59',
   },
 ]

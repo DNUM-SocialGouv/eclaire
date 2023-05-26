@@ -39,9 +39,9 @@ export class ClinicalTrialModelFactory {
         this.emptyIfNull(riphCtisDto.phase_recherche),
         riphCtisDto.reglementation_code,
         this.unavailable,
-        this.category(riphCtisDto.intervention_faible)
+        this.getCategory(riphCtisDto.intervention_faible)
       ),
-      this.unavailable,
+      this.getLastRevisionDate(riphCtisDto.historique, riphCtisDto.dates_avis_favorable_ms_mns),
       new ContactModel(
         new ContactDetailsModel(
           this.emptyIfNull(riphCtisDto.organisme_nom),
@@ -137,7 +137,7 @@ export class ClinicalTrialModelFactory {
         this.unavailable,
         this.emptyIfNull(riphDmDto.qualification)
       ),
-      this.unavailable,
+      this.getLastRevisionDate(riphDmDto.historique, riphDmDto.dates_avis_favorable_ms_mns),
       new ContactModel(
         new ContactDetailsModel(
           this.emptyIfNull(riphDmDto.organisme),
@@ -217,7 +217,7 @@ export class ClinicalTrialModelFactory {
         this.unavailable,
         this.emptyIfNull(riphJardeDto.qualification_recherche)
       ),
-      this.unavailable,
+      this.getLastRevisionDate(riphJardeDto.historique, riphJardeDto.dates_avis_favorable_ms_mns),
       new ContactModel(
         new ContactDetailsModel(
           this.emptyIfNull(riphJardeDto.organisme),
@@ -273,7 +273,45 @@ export class ClinicalTrialModelFactory {
     )
   }
 
-  private static category(lowIntervention: string): string {
+  private static getLastRevisionDate(datesOfHistory: string, datesOfApproval: string): string {
+    type i18nDate = {
+      englishDate: string
+      frenchDate: string
+    }
+    const sortBy = (a: i18nDate, b: i18nDate) => {
+      const valueA = a.englishDate
+      const valueB = b.englishDate
+
+      return valueB < valueA ? -1 : valueB > valueA ? 1 : 0
+    }
+    const frenchDate = new RegExp(/(\d{2})\/(\d{2})\/(\d{4}) \d{2}:\d{2}:\d{2}/)
+    const dates: i18nDate[] = []
+    if (datesOfHistory !== null) {
+      datesOfHistory.split(',').forEach((dateOfHistory) => {
+        const date = frenchDate.exec(dateOfHistory)
+
+        dates.push({
+          englishDate: date[3] + date[2] + date[1],
+          frenchDate: date[0],
+        })
+      })
+    }
+
+    if (datesOfApproval !== null) {
+      datesOfApproval.split(', ').forEach((dateOfApproval) => {
+        const date = frenchDate.exec(dateOfApproval)
+
+        dates.push({
+          englishDate: date[3] + date[2] + date[1],
+          frenchDate: date[0],
+        })
+      })
+    }
+
+    return dates.sort(sortBy)[0]?.frenchDate
+  }
+
+  private static getCategory(lowIntervention: string): string {
     if (lowIntervention === 'Yes') {
       return Category.Yes
     } else if (lowIntervention === 'No') {
