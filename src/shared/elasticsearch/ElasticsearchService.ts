@@ -1,4 +1,5 @@
 import { Client, RequestParams } from '@elastic/elasticsearch'
+import { RequestBody } from '@elastic/elasticsearch/lib/Transport'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -39,4 +40,24 @@ export class ElasticsearchService {
       refresh: true,
     } satisfies RequestParams.Bulk)
   }
+
+  async search(requestBody: RequestBody): Promise<SearchResponse> {
+    const response = await this.client.search({
+      body: requestBody,
+      index: this.index,
+    } satisfies RequestParams.Search)
+
+    return {
+      // eslint-disable-next-line max-len
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return
+      hits: response.body.hits.hits.map((hit) => hit._source),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      total: response.body.hits.total.value as number,
+    }
+  }
 }
+
+type SearchResponse = Readonly<{
+  hits: []
+  total: number
+}>

@@ -1,5 +1,6 @@
 {
   "extends": [
+    "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:import/recommended",
@@ -18,7 +19,7 @@
     "jest.config.ts"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["unused-imports"],
+  "plugins": ["@typescript-eslint","unused-imports"],
   "rules": {
     "array-bracket-newline": ["error", { "multiline": true }],
     "array-bracket-spacing": ["error", "never"],
