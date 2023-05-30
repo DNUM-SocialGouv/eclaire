@@ -22,18 +22,18 @@ export class ClinicalTrialModelFactory {
       this.unavailable,
       { ctis: riphCtisDto.numero_ctis },
       new TitleModel(this.unavailable, this.unavailable),
-      new TitleModel(this.unavailable, riphCtisDto.titre),
+      new TitleModel(this.unavailable, this.emptyIfNull(riphCtisDto.titre)),
       new RecruitmentModel(
         RecruitmentStatus[riphCtisDto.etat as keyof typeof RecruitmentStatus],
         this.emptyIfNull(riphCtisDto.date_debut_recrutement),
-        this.emptyIfNull(riphCtisDto.sexe).split(',').map((sexe): Gender => Gender[sexe as keyof typeof Gender]),
-        this.emptyIfNull(riphCtisDto.tranches_age).split(', ').map((age): PrimaryAge => PrimaryAge[age as keyof typeof PrimaryAge]),
+        this.getGenders(this.emptyIfNull(riphCtisDto.sexe)),
+        this.getAgesRange(this.emptyIfNull(riphCtisDto.tranches_age)),
         [this.unavailable],
-        riphCtisDto.taille_etude,
+        this.emptyNumberIfNull(riphCtisDto.taille_etude),
         new CriteriaModel(this.unavailable, this.unavailable, this.unavailable),
         new CriteriaModel(this.unavailable, this.unavailable, this.unavailable),
         this.emptyIfNull(riphCtisDto.groupes_sujet),
-        this.emptyIfNull(riphCtisDto.population_recrutement).split(', ')
+        this.getVulnerablePopulation(riphCtisDto.population_recrutement)
       ),
       new StudyTypeModel(
         this.emptyIfNull(riphCtisDto.phase_recherche),
@@ -41,7 +41,7 @@ export class ClinicalTrialModelFactory {
         this.unavailable,
         this.getCategory(riphCtisDto.intervention_faible)
       ),
-      this.getLastRevisionDate(riphCtisDto.historique, riphCtisDto.dates_avis_favorable_ms_mns),
+      this.getLastRevisionDate(this.emptyIfNull(riphCtisDto.historique), this.emptyIfNull(riphCtisDto.dates_avis_favorable_ms_mns)),
       new ContactModel(
         new ContactDetailsModel(
           this.emptyIfNull(riphCtisDto.organisme_nom),
@@ -75,7 +75,7 @@ export class ClinicalTrialModelFactory {
         )
       ),
       this.emptyIfNull(riphCtisDto.pathologies_maladies_rares),
-      this.emptyIfNull(riphCtisDto.informations_meddra).split(', '),
+      this.getMeddraCode(riphCtisDto.informations_meddra),
       [new TherapeuticAreaModel(this.emptyIfNull(riphCtisDto.domaine_therapeutique), this.unavailable)],
       new ContactDetailsModel(
         this.emptyIfNull(riphCtisDto.organisme_nom),
@@ -118,14 +118,14 @@ export class ClinicalTrialModelFactory {
       this.unavailable,
       { national_number: riphDmDto.numero_national },
       new TitleModel(this.unavailable, this.unavailable),
-      new TitleModel(this.unavailable, riphDmDto.titre_recherche),
+      new TitleModel(this.unavailable, this.emptyIfNull(riphDmDto.titre_recherche)),
       new RecruitmentModel(
-        this.emptyIfNull(riphDmDto.etat),
+        RecruitmentStatus[riphDmDto.etat as keyof typeof RecruitmentStatus],
         this.emptyIfNull(riphDmDto.date_creation_etude),
         [this.unavailable],
         [this.unavailable],
         [this.unavailable],
-        riphDmDto.taille_etude,
+        this.emptyNumberIfNull(riphDmDto.taille_etude),
         new CriteriaModel(this.unavailable, this.unavailable, this.unavailable),
         new CriteriaModel(this.unavailable, this.unavailable, this.unavailable),
         this.unavailable,
@@ -137,21 +137,21 @@ export class ClinicalTrialModelFactory {
         this.unavailable,
         this.emptyIfNull(riphDmDto.qualification)
       ),
-      this.getLastRevisionDate(riphDmDto.historique, riphDmDto.dates_avis_favorable_ms_mns),
+      this.getLastRevisionDate(this.emptyIfNull(riphDmDto.historique), this.emptyIfNull(riphDmDto.dates_avis_favorable_ms_mns)),
       new ContactModel(
         new ContactDetailsModel(
-          this.emptyIfNull(riphDmDto.organisme),
-          this.emptyIfNull(riphDmDto.prenom),
-          this.emptyIfNull(riphDmDto.nom),
-          this.emptyIfNull(riphDmDto.adresse),
-          this.emptyIfNull(riphDmDto.ville),
-          this.emptyIfNull(riphDmDto.pays),
-          this.emptyIfNull(riphDmDto.code_postal),
+          this.emptyIfNull(riphDmDto.deposant_organisme),
+          this.emptyIfNull(riphDmDto.deposant_prenom),
+          this.emptyIfNull(riphDmDto.deposant_nom),
+          this.emptyIfNull(riphDmDto.deposant_adresse),
+          this.emptyIfNull(riphDmDto.deposant_ville),
+          this.emptyIfNull(riphDmDto.deposant_pays),
+          this.emptyIfNull(riphDmDto.deposant_code_postal),
           this.unavailable,
-          this.emptyIfNull(riphDmDto.courriel),
-          this.emptyIfNull(riphDmDto.organisme),
+          this.emptyIfNull(riphDmDto.deposant_courriel),
+          this.emptyIfNull(riphDmDto.deposant_organisme),
           this.unavailable,
-          this.emptyIfNull(riphDmDto.promoteur),
+          this.emptyIfNull(riphDmDto.deposant_promoteur),
           this.unavailable
         ),
         new ContactDetailsModel(
@@ -174,18 +174,18 @@ export class ClinicalTrialModelFactory {
       [this.unavailable],
       [new TherapeuticAreaModel(this.emptyIfNull(riphDmDto.domaine_therapeutique), this.unavailable)],
       new ContactDetailsModel(
-        this.emptyIfNull(riphDmDto.organisme),
-        this.emptyIfNull(riphDmDto.prenom),
-        this.emptyIfNull(riphDmDto.nom),
-        this.emptyIfNull(riphDmDto.adresse),
-        this.emptyIfNull(riphDmDto.ville),
-        this.emptyIfNull(riphDmDto.pays),
-        this.emptyIfNull(riphDmDto.code_postal),
+        this.emptyIfNull(riphDmDto.deposant_organisme),
+        this.emptyIfNull(riphDmDto.deposant_prenom),
+        this.emptyIfNull(riphDmDto.deposant_nom),
+        this.emptyIfNull(riphDmDto.deposant_adresse),
+        this.emptyIfNull(riphDmDto.deposant_ville),
+        this.emptyIfNull(riphDmDto.deposant_pays),
+        this.emptyIfNull(riphDmDto.deposant_code_postal),
         this.unavailable,
-        this.emptyIfNull(riphDmDto.courriel),
-        this.emptyIfNull(riphDmDto.organisme),
+        this.emptyIfNull(riphDmDto.deposant_courriel),
+        this.emptyIfNull(riphDmDto.deposant_organisme),
         this.unavailable,
-        this.emptyIfNull(riphDmDto.promoteur),
+        this.emptyIfNull(riphDmDto.deposant_promoteur),
         this.unavailable
       ),
       [],
@@ -200,12 +200,12 @@ export class ClinicalTrialModelFactory {
       new TitleModel(this.unavailable, this.unavailable),
       new TitleModel(this.unavailable, this.emptyIfNull(riphJardeDto.titre_recherche)),
       new RecruitmentModel(
-        this.emptyIfNull(riphJardeDto.etat),
+        RecruitmentStatus[riphJardeDto.etat as keyof typeof RecruitmentStatus],
         this.emptyIfNull(riphJardeDto.date_creation_etude),
         [this.unavailable],
         [this.unavailable],
         [this.unavailable],
-        riphJardeDto.taille_etude,
+        this.emptyNumberIfNull(riphJardeDto.taille_etude),
         new CriteriaModel(this.unavailable, this.unavailable, this.unavailable),
         new CriteriaModel(this.unavailable, this.unavailable, this.unavailable),
         this.unavailable,
@@ -217,21 +217,21 @@ export class ClinicalTrialModelFactory {
         this.unavailable,
         this.emptyIfNull(riphJardeDto.qualification_recherche)
       ),
-      this.getLastRevisionDate(riphJardeDto.historique, riphJardeDto.dates_avis_favorable_ms_mns),
+      this.getLastRevisionDate(this.emptyIfNull(riphJardeDto.historique), this.emptyIfNull(riphJardeDto.dates_avis_favorable_ms_mns)),
       new ContactModel(
         new ContactDetailsModel(
-          this.emptyIfNull(riphJardeDto.organisme),
-          this.emptyIfNull(riphJardeDto.prenom),
-          this.emptyIfNull(riphJardeDto.nom),
-          this.emptyIfNull(riphJardeDto.adresse),
-          this.emptyIfNull(riphJardeDto.ville),
-          this.emptyIfNull(riphJardeDto.pays),
-          this.emptyIfNull(riphJardeDto.code_postal),
+          this.emptyIfNull(riphJardeDto.deposant_organisme),
+          this.emptyIfNull(riphJardeDto.deposant_prenom),
+          this.emptyIfNull(riphJardeDto.deposant_nom),
+          this.emptyIfNull(riphJardeDto.deposant_adresse),
+          this.emptyIfNull(riphJardeDto.deposant_ville),
+          this.emptyIfNull(riphJardeDto.deposant_pays),
+          this.emptyIfNull(riphJardeDto.deposant_code_postal),
           this.unavailable,
-          this.emptyIfNull(riphJardeDto.courriel),
-          this.emptyIfNull(riphJardeDto.organisme),
+          this.emptyIfNull(riphJardeDto.deposant_courriel),
+          this.emptyIfNull(riphJardeDto.deposant_organisme),
           this.unavailable,
-          this.emptyIfNull(riphJardeDto.promoteur),
+          this.emptyIfNull(riphJardeDto.deposant_promoteur),
           this.unavailable
         ),
         new ContactDetailsModel(
@@ -254,18 +254,18 @@ export class ClinicalTrialModelFactory {
       [this.unavailable],
       [new TherapeuticAreaModel(this.emptyIfNull(riphJardeDto.domaine_therapeutique), this.unavailable)],
       new ContactDetailsModel(
-        this.emptyIfNull(riphJardeDto.organisme),
-        this.emptyIfNull(riphJardeDto.prenom),
-        this.emptyIfNull(riphJardeDto.nom),
-        this.emptyIfNull(riphJardeDto.adresse),
-        this.emptyIfNull(riphJardeDto.ville),
-        this.emptyIfNull(riphJardeDto.pays),
-        this.emptyIfNull(riphJardeDto.code_postal),
+        this.emptyIfNull(riphJardeDto.deposant_organisme),
+        this.emptyIfNull(riphJardeDto.deposant_prenom),
+        this.emptyIfNull(riphJardeDto.deposant_nom),
+        this.emptyIfNull(riphJardeDto.deposant_adresse),
+        this.emptyIfNull(riphJardeDto.deposant_ville),
+        this.emptyIfNull(riphJardeDto.deposant_pays),
+        this.emptyIfNull(riphJardeDto.deposant_code_postal),
         this.unavailable,
-        this.emptyIfNull(riphJardeDto.courriel),
-        this.emptyIfNull(riphJardeDto.organisme),
+        this.emptyIfNull(riphJardeDto.deposant_courriel),
+        this.emptyIfNull(riphJardeDto.deposant_organisme),
         this.unavailable,
-        this.emptyIfNull(riphJardeDto.promoteur),
+        this.emptyIfNull(riphJardeDto.deposant_promoteur),
         this.unavailable
       ),
       [],
@@ -273,7 +273,33 @@ export class ClinicalTrialModelFactory {
     )
   }
 
+  private static getVulnerablePopulation(populationRecrutement: string): string[] {
+    return this.emptyIfNull(populationRecrutement) === '' ? [] : populationRecrutement.split(', ')
+  }
+
+  private static getMeddraCode(informationsMeddra: string): string[] {
+    return this.emptyIfNull(informationsMeddra) === '' ? [] : informationsMeddra.split(', ')
+  }
+
+  private static getGenders(gender: string): Gender[] {
+    if (gender !== '') {
+      return gender.split(',').map((sexe): Gender => Gender[sexe as keyof typeof Gender])
+    }
+
+    return []
+  }
+
+  private static getAgesRange(agesRange: string): PrimaryAge[] {
+    if (agesRange !== '') {
+      return agesRange.split(', ').map((age): PrimaryAge => PrimaryAge[age as keyof typeof PrimaryAge])
+    }
+
+    return []
+  }
+
   private static getLastRevisionDate(datesOfHistory: string, datesOfApproval: string): string {
+    if (datesOfHistory === '' && datesOfApproval === '') return ''
+
     type i18nDate = {
       englishDate: string
       frenchDate: string
@@ -286,7 +312,7 @@ export class ClinicalTrialModelFactory {
     }
     const frenchDate = new RegExp(/(\d{2})\/(\d{2})\/(\d{4}) \d{2}:\d{2}:\d{2}/)
     const dates: i18nDate[] = []
-    if (datesOfHistory !== null) {
+    if (datesOfHistory !== '') {
       datesOfHistory.split(',').forEach((dateOfHistory) => {
         const date = frenchDate.exec(dateOfHistory)
 
@@ -297,7 +323,7 @@ export class ClinicalTrialModelFactory {
       })
     }
 
-    if (datesOfApproval !== null) {
+    if (datesOfApproval !== '') {
       datesOfApproval.split(', ').forEach((dateOfApproval) => {
         const date = frenchDate.exec(dateOfApproval)
 
@@ -321,7 +347,11 @@ export class ClinicalTrialModelFactory {
     return ''
   }
 
-  private static emptyIfNull(fieldname: string): string {
-    return fieldname === null ? '' : fieldname
+  private static emptyIfNull(value: string): string {
+    return value === null ? '' : value
+  }
+
+  private static emptyNumberIfNull(value: number): number {
+    return value === null ? -1 : value
   }
 }
