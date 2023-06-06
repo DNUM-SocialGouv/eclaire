@@ -1,6 +1,5 @@
-import { Client } from '@elastic/elasticsearch'
-
 import { ElasticsearchService } from './ElasticsearchService'
+import { fakeClient, FakeDocument, fakeDocument, fakeDocuments, fakeId, fakeMapping } from '../test/helpers/fakeHelper'
 
 describe('elasticsearch service', () => {
   it('should create an index', async () => {
@@ -69,45 +68,26 @@ describe('elasticsearch service', () => {
       refresh: true,
     })
   })
+
+  describe('#Search', () => {
+    it('should filter results and return corresponding document', async () => {
+      // GIVEN
+      const elasticsearchService = new ElasticsearchService(fakeClient)
+      jest.spyOn(fakeClient, 'search')
+
+      // WHEN
+      const result = await elasticsearchService.search({ query: { term: { 'scientific_title.value': 'ADN' } } })
+
+      // THEN
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(fakeClient.search).toHaveBeenCalledWith({
+        body: { query: { term: { 'scientific_title.value': 'ADN' } } },
+        index: 'eclaire',
+      })
+      expect(result).toStrictEqual({
+        hits: [fakeDocument],
+        total: 1,
+      })
+    })
+  })
 })
-
-type FakeDocument = Readonly<{
-  fake_field: string
-  uuid: string
-}>
-
-const fakeId = '999'
-
-const fakeDocument: FakeDocument = {
-  fake_field: 'fake_field',
-  uuid: fakeId,
-}
-
-const fakeDocuments = [
-  { index: { _id: fakeDocument.uuid } },
-  fakeDocument,
-]
-
-const fakeClient = {
-  bulk: () => {
-    return {}
-  },
-
-  get: () => {
-    return { body: { _source: fakeDocument } }
-  },
-
-  indices: {
-    create: () => {
-      return {}
-    },
-    putMapping: () => {
-      return {}
-    },
-  },
-} as unknown as Client
-
-const fakeMapping = {
-  fake_field: 'string',
-  uuid: 'string',
-}

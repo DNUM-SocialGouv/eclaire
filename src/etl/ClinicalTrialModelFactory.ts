@@ -300,10 +300,10 @@ export class ClinicalTrialModelFactory {
   private static getLastRevisionDate(datesOfHistory: string, datesOfApproval: string): string {
     if (datesOfHistory === '' && datesOfApproval === '') return ''
 
-    type i18nDate = {
+    type i18nDate = Readonly<{
       englishDate: string
       frenchDate: string
-    }
+    }>
     const sortBy = (a: i18nDate, b: i18nDate) => {
       const valueA = a.englishDate
       const valueB = b.englishDate

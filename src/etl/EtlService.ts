@@ -96,10 +96,10 @@ export class EtlService {
   }
 }
 
-type IndexElasticsearch = {
+type IndexElasticsearch = Readonly<{
   create: {
     _id: string
   }
-}
+}>
 
 type RiphDto = RiphCtisDto | RiphDmDto | RiphJardeDto
