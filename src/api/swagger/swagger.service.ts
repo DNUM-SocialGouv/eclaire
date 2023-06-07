@@ -8,6 +8,7 @@ export class SwaggerService {
     const builder = new DocumentBuilder()
       .setTitle('API Eclaire')
       .setDescription('Base nationale des essais cliniques')
+      .setExternalDoc('Wiki Github', 'https://github.com/DNUM-SocialGouv/eclaire/wiki')
       .setVersion('0.1')
       .addSecurity('bearer', {
         scheme: 'bearer',
