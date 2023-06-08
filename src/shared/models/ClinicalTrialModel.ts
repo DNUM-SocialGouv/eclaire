@@ -14,6 +14,7 @@ export class ClinicalTrialModel {
     readonly recruitment: RecruitmentModel,
     readonly study_type: StudyTypeModel,
     readonly last_revision_date: string,
+    readonly updated_at: string,
     readonly contact: ContactModel,
     readonly medical_condition: string,
     readonly medical_condition_meddra: Array<string>,

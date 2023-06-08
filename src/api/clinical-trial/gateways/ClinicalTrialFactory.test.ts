@@ -51,6 +51,7 @@ describe('clinical trial factory', () => {
         'Catégorie 1'
       ),
       '2020-02-06T18:25:43.511Z',
+      '2020-02-06T18:25:43.511Z',
       new Contact(
         new ContactDetails(
           'Institut Bergognié',

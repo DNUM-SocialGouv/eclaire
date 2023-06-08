@@ -16,6 +16,7 @@ export class ClinicalTrial {
     recruitment: Recruitment,
     study_type: StudyType,
     last_revision_date: string,
+    updated_at: string,
     contact: Contact,
     medical_condition: string,
     medical_condition_meddra: string[],
@@ -31,6 +32,7 @@ export class ClinicalTrial {
     this.recruitment = recruitment
     this.study_type = study_type
     this.last_revision_date = last_revision_date
+    this.updated_at = updated_at
     this.contact = contact
     this.medical_condition = medical_condition
     this.medical_condition_meddra = medical_condition_meddra
@@ -70,10 +72,16 @@ export class ClinicalTrial {
   readonly study_type: StudyType
 
   @ApiProperty({
-    description: 'Date de dernière modification du dossier de l’essai clinique.',
+    description: 'Date de dernière modification substantielle du dossier de l’essai clinique.',
     example: '2022-02-06T18:25:43.511Z',
   })
   readonly last_revision_date: string
+
+  @ApiProperty({
+    description: 'Date de dernière modification substantielle ou non substantielle du dossier de l’essai clinique.',
+    example: '2022-02-06T18:25:43.511Z',
+  })
+  readonly updated_at: string
 
   @ApiProperty({ description: 'Le nom et les informations de contact qui permettent à un volontaire d’avoir des informations concernant l’essai clinique (critères d’inclusions, informations sur l’essai,...).' })
   readonly contact: Contact

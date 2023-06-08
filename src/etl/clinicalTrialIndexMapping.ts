@@ -84,5 +84,10 @@ export const clinicalTrialIndexMapping = {
     },
     trial_sites: { properties: contactDetails },
     universal_trial_number: { type: 'text' },
+    updated_at: {
+      format: 'dd/MM/yyyy HH:mm:ss',
+      ignore_malformed: true,
+      type: 'date',
+    },
   },
 }
