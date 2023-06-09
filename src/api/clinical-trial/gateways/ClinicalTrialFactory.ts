@@ -48,6 +48,7 @@ export class ClinicalTrialFactory {
         clinicalTrialModel.study_type.category
       ),
       clinicalTrialModel.last_revision_date,
+      clinicalTrialModel.updated_at,
       new Contact(
         new ContactDetails(
           clinicalTrialModel.contact.public_query.name,

@@ -16,6 +16,7 @@ describe('clinical trial', () => {
     const recruitment = new Recruitment('en cours', '', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', [])
     const studyType = new StudyType('', '', '', '')
     const lastRevisionDate = new Date().toString()
+    const updatedAt = new Date().toString()
     const universalTrialNumber = 'NTC5492179625'
     const secondariesTrialNumbers = {
       AFR_number: 'AFRXXXXXXXX',
@@ -48,6 +49,7 @@ describe('clinical trial', () => {
       therapeutic_areas: therapeuticAreas,
       trial_sites: trialSites,
       universal_trial_number: universalTrialNumber,
+      updated_at: updatedAt,
     })
 
     // THEN
@@ -58,6 +60,7 @@ describe('clinical trial', () => {
     expect(clinicalTrial.recruitment).toBeInstanceOf(Recruitment)
     expect(clinicalTrial.study_type).toBeInstanceOf(StudyType)
     expect(clinicalTrial.last_revision_date).toBe(new Date().toString())
+    expect(clinicalTrial.updated_at).toBe(new Date().toString())
     expect(clinicalTrial.contact).toBeInstanceOf(Contact)
     expect(clinicalTrial.medical_condition).toBe('Cancer des poumons')
     expect(clinicalTrial.medical_condition_meddra).toStrictEqual(['10060929', '10072818'])
@@ -75,6 +78,7 @@ function createClinicalTrial(partial: Partial<ClinicalTrial>): ClinicalTrial {
   const scientificTitle = partial.scientific_title ?? new Title('', '')
   const studyType = partial.study_type ?? new StudyType('', '', '', '')
   const lastRevisionDate = partial.last_revision_date ?? new Date().toString()
+  const updatedAt = partial.updated_at ?? new Date().toString()
   const recruitment = partial.recruitment ?? new Recruitment('en cours', '', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', [])
   const contact = partial.contact ?? new Contact(
     new ContactDetails('', '', '', '', '', '', '', '', '', '', '', '', ''),
@@ -95,6 +99,7 @@ function createClinicalTrial(partial: Partial<ClinicalTrial>): ClinicalTrial {
     recruitment,
     studyType,
     lastRevisionDate,
+    updatedAt,
     contact,
     medicalCondition,
     medicalConditionMeddra,

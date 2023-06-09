@@ -49,6 +49,7 @@ describe('clinical trial model factory', () => {
       expect(clinicalTrialModel.study_type.design).toBe(unavailable)
       expect(clinicalTrialModel.study_type.category).toBe('un essai clinique')
       expect(clinicalTrialModel.last_revision_date).toBe('12/04/2023 16:15:38')
+      expect(clinicalTrialModel.updated_at).toBe('12/04/2023 16:15:38')
       expect(clinicalTrialModel.contact.public_query.name).toBe('F. Hoffmann-La Roche AG')
       expect(clinicalTrialModel.contact.public_query.firstname).toBe('Head of EU')
       expect(clinicalTrialModel.contact.public_query.lastname).toBe('Trial Information Support Line-TISL, Switzerland')
@@ -140,6 +141,7 @@ describe('clinical trial model factory', () => {
       expect(clinicalTrialModel.study_type.design).toBe(unavailable)
       expect(clinicalTrialModel.study_type.category).toBe('')
       expect(clinicalTrialModel.last_revision_date).toBe('')
+      expect(clinicalTrialModel.updated_at).toBe('')
       expect(clinicalTrialModel.contact.public_query.name).toBe('')
       expect(clinicalTrialModel.contact.public_query.firstname).toBe('')
       expect(clinicalTrialModel.contact.public_query.lastname).toBe('')
@@ -208,6 +210,7 @@ describe('clinical trial model factory', () => {
 
       // THEN
       expect(clinicalTrialModel.last_revision_date).toBe('12/04/2023 16:15:38')
+      expect(clinicalTrialModel.updated_at).toBe('12/04/2023 16:15:38')
     })
 
     it('should build a CTIS clinical trial with the historic date, when the historic date is higher than last date of approval', () => {
@@ -219,6 +222,7 @@ describe('clinical trial model factory', () => {
 
       // THEN
       expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023 16:28:09')
+      expect(clinicalTrialModel.updated_at).toBe('06/04/2023 16:28:09')
     })
   })
 
@@ -257,6 +261,7 @@ describe('clinical trial model factory', () => {
       expect(clinicalTrialModel.study_type.design).toBe(unavailable)
       expect(clinicalTrialModel.study_type.category).toBe('IC-Cas 4.2')
       expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023 16:28:09')
+      expect(clinicalTrialModel.updated_at).toBe('06/04/2023 16:28:09')
       expect(clinicalTrialModel.contact.public_query.name).toBe('Soladis Clinical Studies')
       expect(clinicalTrialModel.contact.public_query.firstname).toBe('Olivier')
       expect(clinicalTrialModel.contact.public_query.lastname).toBe("D'HONDT")
@@ -333,6 +338,7 @@ describe('clinical trial model factory', () => {
       expect(clinicalTrialModel.study_type.design).toBe(unavailable)
       expect(clinicalTrialModel.study_type.category).toBe('')
       expect(clinicalTrialModel.last_revision_date).toBe('')
+      expect(clinicalTrialModel.updated_at).toBe('')
       expect(clinicalTrialModel.contact.public_query.name).toBe('')
       expect(clinicalTrialModel.contact.public_query.firstname).toBe('')
       expect(clinicalTrialModel.contact.public_query.lastname).toBe('')
@@ -389,6 +395,7 @@ describe('clinical trial model factory', () => {
 
       // THEN
       expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023 16:28:09')
+      expect(clinicalTrialModel.updated_at).toBe('06/04/2023 16:28:09')
     })
 
     it('when the historic date is higher than last date of approval, should build a DM clinical trial with the historic date', () => {
@@ -400,6 +407,7 @@ describe('clinical trial model factory', () => {
 
       // THEN
       expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023 16:28:09')
+      expect(clinicalTrialModel.updated_at).toBe('06/04/2023 16:28:09')
     })
   })
 
@@ -438,6 +446,7 @@ describe('clinical trial model factory', () => {
       expect(clinicalTrialModel.study_type.design).toBe(unavailable)
       expect(clinicalTrialModel.study_type.category).toBe('Catégorie 3')
       expect(clinicalTrialModel.last_revision_date).toBe('04/04/2023 15:53:27')
+      expect(clinicalTrialModel.updated_at).toBe('04/04/2023 15:53:27')
       expect(clinicalTrialModel.contact.public_query.name).toBe('Université Polytechnique Hauts-de-France')
       expect(clinicalTrialModel.contact.public_query.firstname).toBe('Christophe')
       expect(clinicalTrialModel.contact.public_query.lastname).toBe('GILLET')
@@ -514,6 +523,7 @@ describe('clinical trial model factory', () => {
       expect(clinicalTrialModel.study_type.design).toBe(unavailable)
       expect(clinicalTrialModel.study_type.category).toBe('')
       expect(clinicalTrialModel.last_revision_date).toBe('')
+      expect(clinicalTrialModel.updated_at).toBe('')
       expect(clinicalTrialModel.contact.public_query.name).toBe('')
       expect(clinicalTrialModel.contact.public_query.firstname).toBe('')
       expect(clinicalTrialModel.contact.public_query.lastname).toBe('')
@@ -570,6 +580,7 @@ describe('clinical trial model factory', () => {
 
       // THEN
       expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023 16:28:09')
+      expect(clinicalTrialModel.updated_at).toBe('06/04/2023 16:28:09')
     })
 
     it('when the historic date is higher than last date of approval, should build a Jardé clinical trial with the historic date', () => {
@@ -581,6 +592,7 @@ describe('clinical trial model factory', () => {
 
       // THEN
       expect(clinicalTrialModel.last_revision_date).toBe('04/04/2023 15:53:27')
+      expect(clinicalTrialModel.updated_at).toBe('04/04/2023 15:53:27')
     })
   })
 })
