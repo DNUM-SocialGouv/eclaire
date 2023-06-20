@@ -24,7 +24,11 @@ export const clinicalTrialIndexMapping = {
         scientific_query: { properties: contactDetails },
       },
     },
-    last_revision_date: { type: 'text' },
+    last_revision_date: {
+      format: 'dd/MM/yyyy',
+      ignore_malformed: true,
+      type: 'date',
+    },
     medical_condition: { type: 'text' },
     medical_condition_meddra: { type: 'text' },
     primary_sponsor: { properties: contactDetails },
@@ -39,7 +43,11 @@ export const clinicalTrialIndexMapping = {
         ages_range: { type: 'text' },
         ages_range_secondary_identifiers: { type: 'text' },
         clinical_trial_group: { type: 'text' },
-        date_recruiting_status: { type: 'text' },
+        date_recruiting_status: {
+          format: 'dd/MM/yyyy',
+          ignore_malformed: true,
+          type: 'date',
+        },
         exclusion_criteria: {
           properties: {
             id: { type: 'text' },
@@ -85,7 +93,7 @@ export const clinicalTrialIndexMapping = {
     trial_sites: { properties: contactDetails },
     universal_trial_number: { type: 'text' },
     updated_at: {
-      format: 'dd/MM/yyyy HH:mm:ss',
+      format: 'dd/MM/yyyy',
       ignore_malformed: true,
       type: 'date',
     },

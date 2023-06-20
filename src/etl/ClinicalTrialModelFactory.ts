@@ -25,7 +25,7 @@ export class ClinicalTrialModelFactory {
       new TitleModel(this.unavailable, this.emptyIfNull(riphCtisDto.titre)),
       new RecruitmentModel(
         RecruitmentStatus[riphCtisDto.etat as keyof typeof RecruitmentStatus],
-        this.emptyIfNull(riphCtisDto.date_debut_recrutement),
+        this.emptyIfNull(riphCtisDto.date_debut_recrutement) ? this.getFrenchDate(riphCtisDto.date_debut_recrutement) : '',
         this.getGenders(this.emptyIfNull(riphCtisDto.sexe)),
         this.getAgesRange(this.emptyIfNull(riphCtisDto.tranches_age)),
         [this.unavailable],
@@ -41,8 +41,8 @@ export class ClinicalTrialModelFactory {
         this.unavailable,
         this.getCategory(riphCtisDto.intervention_faible)
       ),
-      this.getLastRevisionDate(this.emptyIfNull(riphCtisDto.historique), this.emptyIfNull(riphCtisDto.dates_avis_favorable_ms_mns)),
-      this.getUpdatedAtDate(this.emptyIfNull(riphCtisDto.historique), this.emptyIfNull(riphCtisDto.dates_avis_favorable_ms_mns)),
+      this.getMostRecentDate(this.emptyIfNull(riphCtisDto.historique), this.emptyIfNull(riphCtisDto.dates_avis_favorable_ms_mns)),
+      this.getMostRecentDate(this.emptyIfNull(riphCtisDto.historique), this.emptyIfNull(riphCtisDto.dates_avis_favorable_ms_mns)),
       new ContactModel(
         new ContactDetailsModel(
           this.emptyIfNull(riphCtisDto.organisme_nom),
@@ -122,7 +122,7 @@ export class ClinicalTrialModelFactory {
       new TitleModel(this.unavailable, this.emptyIfNull(riphDmDto.titre_recherche)),
       new RecruitmentModel(
         RecruitmentStatus[riphDmDto.etat as keyof typeof RecruitmentStatus],
-        this.emptyIfNull(riphDmDto.date_creation_etude),
+        this.emptyIfNull(riphDmDto.date_creation_etude) ? this.getFrenchDate(riphDmDto.date_creation_etude) : '',
         [this.unavailable],
         [this.unavailable],
         [this.unavailable],
@@ -138,8 +138,8 @@ export class ClinicalTrialModelFactory {
         this.unavailable,
         this.emptyIfNull(riphDmDto.qualification)
       ),
-      this.getLastRevisionDate(this.emptyIfNull(riphDmDto.historique), this.emptyIfNull(riphDmDto.dates_avis_favorable_ms_mns)),
-      this.getUpdatedAtDate(this.emptyIfNull(riphDmDto.historique), this.emptyIfNull(riphDmDto.dates_avis_favorable_ms_mns)),
+      this.getMostRecentDate(this.emptyIfNull(riphDmDto.historique), this.emptyIfNull(riphDmDto.dates_avis_favorable_ms_mns)),
+      this.getMostRecentDate(this.emptyIfNull(riphDmDto.historique), this.emptyIfNull(riphDmDto.dates_avis_favorable_ms_mns)),
       new ContactModel(
         new ContactDetailsModel(
           this.emptyIfNull(riphDmDto.deposant_organisme),
@@ -203,7 +203,7 @@ export class ClinicalTrialModelFactory {
       new TitleModel(this.unavailable, this.emptyIfNull(riphJardeDto.titre_recherche)),
       new RecruitmentModel(
         RecruitmentStatus[riphJardeDto.etat as keyof typeof RecruitmentStatus],
-        this.emptyIfNull(riphJardeDto.date_creation_etude),
+        this.emptyIfNull(riphJardeDto.date_creation_etude) ? this.getFrenchDate(riphJardeDto.date_creation_etude) : '',
         [this.unavailable],
         [this.unavailable],
         [this.unavailable],
@@ -219,8 +219,8 @@ export class ClinicalTrialModelFactory {
         this.unavailable,
         this.emptyIfNull(riphJardeDto.qualification_recherche)
       ),
-      this.getLastRevisionDate(this.emptyIfNull(riphJardeDto.historique), this.emptyIfNull(riphJardeDto.dates_avis_favorable_ms_mns)),
-      this.getUpdatedAtDate(this.emptyIfNull(riphJardeDto.historique), this.emptyIfNull(riphJardeDto.dates_avis_favorable_ms_mns)),
+      this.getMostRecentDate(this.emptyIfNull(riphJardeDto.historique), this.emptyIfNull(riphJardeDto.dates_avis_favorable_ms_mns)),
+      this.getMostRecentDate(this.emptyIfNull(riphJardeDto.historique), this.emptyIfNull(riphJardeDto.dates_avis_favorable_ms_mns)),
       new ContactModel(
         new ContactDetailsModel(
           this.emptyIfNull(riphJardeDto.deposant_organisme),
@@ -300,84 +300,37 @@ export class ClinicalTrialModelFactory {
     return []
   }
 
-  private static getLastRevisionDate(datesOfHistory: string, datesOfApproval: string): string {
-    if (datesOfHistory === '' && datesOfApproval === '') return ''
-
-    type i18nDate = Readonly<{
-      englishDate: string
-      frenchDate: string
-    }>
-    const sortBy = (a: i18nDate, b: i18nDate) => {
-      const valueA = a.englishDate
-      const valueB = b.englishDate
-
-      return valueB < valueA ? -1 : valueB > valueA ? 1 : 0
-    }
-    const frenchDate = new RegExp(/(\d{2})\/(\d{2})\/(\d{4}) \d{2}:\d{2}:\d{2}/)
-    const dates: i18nDate[] = []
-    if (datesOfHistory !== '') {
-      datesOfHistory.split(',').forEach((dateOfHistory) => {
-        const date = frenchDate.exec(dateOfHistory)
-
-        dates.push({
-          englishDate: date[3] + date[2] + date[1],
-          frenchDate: date[0],
-        })
-      })
-    }
-
-    if (datesOfApproval !== '') {
-      datesOfApproval.split(', ').forEach((dateOfApproval) => {
-        const date = frenchDate.exec(dateOfApproval)
-
-        dates.push({
-          englishDate: date[3] + date[2] + date[1],
-          frenchDate: date[0],
-        })
-      })
-    }
-
-    return dates.sort(sortBy)[0]?.frenchDate
+  private static getFrenchDate(date: string): string {
+    return new Date(date).toLocaleDateString('fr-FR')
   }
 
-  private static getUpdatedAtDate(datesOfHistory: string, datesOfApproval: string): string {
+  private static getMostRecentDate(datesOfHistory: string, datesOfApproval: string): string {
     if (datesOfHistory === '' && datesOfApproval === '') return ''
 
-    type i18nDate = Readonly<{
-      englishDate: string
-      frenchDate: string
-    }>
-    const sortBy = (a: i18nDate, b: i18nDate) => {
-      const valueA = a.englishDate
-      const valueB = b.englishDate
+    const sortBy = (a: string, b: string) => {
+      const valueA = a
+      const valueB = b
 
       return valueB < valueA ? -1 : valueB > valueA ? 1 : 0
     }
-    const frenchDate = new RegExp(/(\d{2})\/(\d{2})\/(\d{4}) \d{2}:\d{2}:\d{2}/)
-    const dates: i18nDate[] = []
+    const dates: string[] = []
     if (datesOfHistory !== '') {
-      datesOfHistory.split(',').forEach((dateOfHistory) => {
-        const date = frenchDate.exec(dateOfHistory)
+      datesOfHistory.split(', ').forEach((dateOfHistory) => {
+        const date = dateOfHistory.split(':')
 
-        dates.push({
-          englishDate: date[3] + date[2] + date[1],
-          frenchDate: date[0],
-        })
+        dates.push(date[0])
       })
     }
 
     if (datesOfApproval !== '') {
       datesOfApproval.split(', ').forEach((dateOfApproval) => {
-        const date = frenchDate.exec(dateOfApproval)
+        const date = dateOfApproval.split(':')
 
-        dates.push({
-          englishDate: date[3] + date[2] + date[1],
-          frenchDate: date[0],
-        })
+        dates.push(date[1])
       })
     }
 
-    return dates.sort(sortBy)[0]?.frenchDate
+    return this.getFrenchDate(dates.sort(sortBy)[0])
   }
 
   private static getCategory(lowIntervention: string): string {

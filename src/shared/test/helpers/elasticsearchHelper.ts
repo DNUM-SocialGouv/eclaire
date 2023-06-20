@@ -60,8 +60,8 @@ export const riphCtisDto = [
     groupes_sujet: 'Données non disponible',
     population_recrutement: 'Women of child bearing potential not using contraception, Women of child bearing potential using contraception',
     date_debut_recrutement: '2022-06-30',
-    historique: '16/03/2023 04:29:11:En cours',
-    dates_avis_favorable_ms_mns: '22.00800.000094-SM-1:07/11/2022 18:31:33, 22.00800.000094-SM-2:12/04/2023 16:15:38',
+    historique: '2023-03-16:En cours',
+    dates_avis_favorable_ms_mns: '22.00800.000094-SM-1:2022-11-07, 22.00800.000094-SM-2:2023-04-12',
   },
   {
     etude_id: 14365,
@@ -139,8 +139,8 @@ export const riphCtisDto = [
     groupes_sujet: null,
     population_recrutement: null,
     date_debut_recrutement: null,
-    historique: '29/11/2022 14:32:30:Terminée',
-    dates_avis_favorable_ms_mns: '21.01155.000011-MS03:04/10/2022 15:04:23, 21.01155.000011-MS04.1:06/04/2023 16:28:09',
+    historique: '2022-04-28:Suspendue, 2023-11-29:Terminée',
+    dates_avis_favorable_ms_mns: '21.01155.000011-MS03:2022-10-04, 21.01155.000011-MS04.1:2023-04-06',
   },
 ]
 
@@ -162,9 +162,9 @@ export const riphDmDto = [
     domaine_therapeutique: 'Hépato-gastro-entérologie',
     taille_etude: 96,
     qualification: 'IC-Cas 4.2',
-    date_creation_etude: '2023-04-11T14:08:12.230323',
-    historique: '06/04/2023 16:28:09:Terminée',
-    dates_avis_favorable_ms_mns: '21.01155.000011-MS01:09/11/2021 16:25:45, 21.01155.000011-MS02:09/03/2022 17:29:49, 21.01155.000011-MS03:04/10/2022 15:04:23, 21.01155.000011-MS04.1:29/11/2022 14:32:30',
+    date_creation_etude: '2023-04-11',
+    historique: '2023-04-06:Terminée',
+    dates_avis_favorable_ms_mns: '21.01155.000011-MS01:2021-11-09, 21.01155.000011-MS02:2022-03-09, 21.01155.000011-MS03:2022-10-04, 21.01155.000011-MS04.1:2022-11-29',
   },
   {
     reglementation_code: 'REG745',
@@ -205,8 +205,8 @@ export const riphDmDto = [
     taille_etude: null,
     qualification: null,
     date_creation_etude: null,
-    historique: '29/11/2022 14:32:30:Terminée',
-    dates_avis_favorable_ms_mns: '21.01155.000011-MS03:04/10/2022 15:04:23, 21.01155.000011-MS04.1:06/04/2023 16:28:09',
+    historique: '2022-11-29:Terminée',
+    dates_avis_favorable_ms_mns: '21.01155.000011-MS03:2022-10-04, 21.01155.000011-MS04.1:2023-04-06',
   },
 ]
 
@@ -229,9 +229,9 @@ export const riphJardeDto1 = [
     taille_etude: 23,
     competences: 'Pédiatrie',
     qualification_recherche: 'Catégorie 3',
-    date_creation_etude: '2023-04-11T14:08:12.230323',
-    historique: '04/04/2023 15:53:27:En cours',
-    dates_avis_favorable_ms_mns: '20.00002.210204-MS02:29/07/2021 13:57:15, 20.00002.210204-MS03:26/10/2021 13:50:42, 20.00002.210204-MS04:26/01/2023 14:25:57',
+    date_creation_etude: '2023-04-11',
+    historique: '2023-04-04:En cours',
+    dates_avis_favorable_ms_mns: '20.00002.210204-MS02:2021-07-29, 20.00002.210204-MS03:2021-10-26, 20.00002.210204-MS04:2023-01-26',
   },
   {
     reglementation_code: 'JARDE',
@@ -274,8 +274,8 @@ export const riphJardeDto1 = [
     competences: null,
     qualification_recherche: null,
     date_creation_etude: null,
-    historique: '29/11/2022 14:32:30:Terminée',
-    dates_avis_favorable_ms_mns: '21.01155.000011-MS03:04/10/2022 15:04:23, 21.01155.000011-MS04.1:06/04/2023 16:28:09',
+    historique: '2022-11-29:Terminée',
+    dates_avis_favorable_ms_mns: '21.01155.000011-MS03:2022-10-04, 21.01155.000011-MS04.1:2023-04-06',
   },
 ]
 
@@ -298,8 +298,8 @@ export const riphJardeDto2 = [
     taille_etude: 5500,
     competences: null,
     qualification_recherche: 'Catégorie 2',
-    date_creation_etude: '2023-04-11T14:08:12.230323',
+    date_creation_etude: '2023-04-11',
     historique: null,
-    dates_avis_favorable_ms_mns: '21.04081.502102-MS01.1:14/01/2022 22:28:59',
+    dates_avis_favorable_ms_mns: '21.04081.502102-MS01.1:2022-01-14',
   },
 ]

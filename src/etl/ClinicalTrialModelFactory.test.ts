@@ -22,7 +22,7 @@ describe('clinical trial model factory', () => {
       expect(clinicalTrialModel.scientific_title.acronym).toBe(unavailable)
       expect(clinicalTrialModel.scientific_title.value).toBe('A PHASE III, RANDOMIZED, OPEN-LABEL STUDY EVALUATING THE EFFICACY AND SAFETY OF GIREDESTRANT IN COMBINATION WITH PHESGO VERSUS PHESGO AFTER INDUCTION THERAPY WITH PHESGO+TAXANE IN PATIENTS WITH PREVIOUSLY UNTREATED HER2-POSITIVE, ESTROGEN RECEPTOR-POSITIVE LOCALLY-ADVANCED OR METASTATIC BREAST CANCER')
       expect(clinicalTrialModel.recruitment.status).toBe('en cours')
-      expect(clinicalTrialModel.recruitment.date_recruiting_status).toBe('2022-06-30')
+      expect(clinicalTrialModel.recruitment.date_recruiting_status).toBe('30/06/2022')
       expect(clinicalTrialModel.recruitment.genders).toStrictEqual([
         'homme',
         'femme',
@@ -48,8 +48,8 @@ describe('clinical trial model factory', () => {
       expect(clinicalTrialModel.study_type.type).toBe('REG536')
       expect(clinicalTrialModel.study_type.design).toBe(unavailable)
       expect(clinicalTrialModel.study_type.category).toBe('un essai clinique')
-      expect(clinicalTrialModel.last_revision_date).toBe('12/04/2023 16:15:38')
-      expect(clinicalTrialModel.updated_at).toBe('12/04/2023 16:15:38')
+      expect(clinicalTrialModel.last_revision_date).toBe('12/04/2023')
+      expect(clinicalTrialModel.updated_at).toBe('12/04/2023')
       expect(clinicalTrialModel.contact.public_query.name).toBe('F. Hoffmann-La Roche AG')
       expect(clinicalTrialModel.contact.public_query.firstname).toBe('Head of EU')
       expect(clinicalTrialModel.contact.public_query.lastname).toBe('Trial Information Support Line-TISL, Switzerland')
@@ -209,8 +209,8 @@ describe('clinical trial model factory', () => {
       const clinicalTrialModel = ClinicalTrialModelFactory.fromRiphCtis(ctisWithDateOfApprovalHigherThanHistoricDate)
 
       // THEN
-      expect(clinicalTrialModel.last_revision_date).toBe('12/04/2023 16:15:38')
-      expect(clinicalTrialModel.updated_at).toBe('12/04/2023 16:15:38')
+      expect(clinicalTrialModel.last_revision_date).toBe('12/04/2023')
+      expect(clinicalTrialModel.updated_at).toBe('12/04/2023')
     })
 
     it('should build a CTIS clinical trial with the historic date, when the historic date is higher than last date of approval', () => {
@@ -221,8 +221,8 @@ describe('clinical trial model factory', () => {
       const clinicalTrialModel = ClinicalTrialModelFactory.fromRiphCtis(ctisWithHistoricDateHigherThanDateOfApproval)
 
       // THEN
-      expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023 16:28:09')
-      expect(clinicalTrialModel.updated_at).toBe('06/04/2023 16:28:09')
+      expect(clinicalTrialModel.last_revision_date).toBe('29/11/2023')
+      expect(clinicalTrialModel.updated_at).toBe('29/11/2023')
     })
   })
 
@@ -243,7 +243,7 @@ describe('clinical trial model factory', () => {
       expect(clinicalTrialModel.scientific_title.acronym).toBe(unavailable)
       expect(clinicalTrialModel.scientific_title.value).toBe("ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ")
       expect(clinicalTrialModel.recruitment.status).toBe('terminé anticipé')
-      expect(clinicalTrialModel.recruitment.date_recruiting_status).toBe('2023-04-11T14:08:12.230323')
+      expect(clinicalTrialModel.recruitment.date_recruiting_status).toBe('11/04/2023')
       expect(clinicalTrialModel.recruitment.genders).toStrictEqual([unavailable])
       expect(clinicalTrialModel.recruitment.ages_range).toStrictEqual([unavailable])
       expect(clinicalTrialModel.recruitment.ages_range_secondary_identifiers).toStrictEqual([unavailable])
@@ -260,8 +260,8 @@ describe('clinical trial model factory', () => {
       expect(clinicalTrialModel.study_type.type).toBe('REG745')
       expect(clinicalTrialModel.study_type.design).toBe(unavailable)
       expect(clinicalTrialModel.study_type.category).toBe('IC-Cas 4.2')
-      expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023 16:28:09')
-      expect(clinicalTrialModel.updated_at).toBe('06/04/2023 16:28:09')
+      expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023')
+      expect(clinicalTrialModel.updated_at).toBe('06/04/2023')
       expect(clinicalTrialModel.contact.public_query.name).toBe('Soladis Clinical Studies')
       expect(clinicalTrialModel.contact.public_query.firstname).toBe('Olivier')
       expect(clinicalTrialModel.contact.public_query.lastname).toBe("D'HONDT")
@@ -394,8 +394,8 @@ describe('clinical trial model factory', () => {
       const clinicalTrialModel = ClinicalTrialModelFactory.fromRiphDm(dmWithDateOfApprovalHigherThanHistoricDate)
 
       // THEN
-      expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023 16:28:09')
-      expect(clinicalTrialModel.updated_at).toBe('06/04/2023 16:28:09')
+      expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023')
+      expect(clinicalTrialModel.updated_at).toBe('06/04/2023')
     })
 
     it('when the historic date is higher than last date of approval, should build a DM clinical trial with the historic date', () => {
@@ -406,8 +406,8 @@ describe('clinical trial model factory', () => {
       const clinicalTrialModel = ClinicalTrialModelFactory.fromRiphDm(dmWithHistoricDateHigherThanDateOfApproval)
 
       // THEN
-      expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023 16:28:09')
-      expect(clinicalTrialModel.updated_at).toBe('06/04/2023 16:28:09')
+      expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023')
+      expect(clinicalTrialModel.updated_at).toBe('06/04/2023')
     })
   })
 
@@ -428,7 +428,7 @@ describe('clinical trial model factory', () => {
       expect(clinicalTrialModel.scientific_title.acronym).toBe(unavailable)
       expect(clinicalTrialModel.scientific_title.value).toBe('Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.')
       expect(clinicalTrialModel.recruitment.status).toBe('en cours')
-      expect(clinicalTrialModel.recruitment.date_recruiting_status).toBe('2023-04-11T14:08:12.230323')
+      expect(clinicalTrialModel.recruitment.date_recruiting_status).toBe('11/04/2023')
       expect(clinicalTrialModel.recruitment.genders).toStrictEqual([unavailable])
       expect(clinicalTrialModel.recruitment.ages_range).toStrictEqual([unavailable])
       expect(clinicalTrialModel.recruitment.ages_range_secondary_identifiers).toStrictEqual([unavailable])
@@ -445,8 +445,8 @@ describe('clinical trial model factory', () => {
       expect(clinicalTrialModel.study_type.type).toBe('JARDE')
       expect(clinicalTrialModel.study_type.design).toBe(unavailable)
       expect(clinicalTrialModel.study_type.category).toBe('Catégorie 3')
-      expect(clinicalTrialModel.last_revision_date).toBe('04/04/2023 15:53:27')
-      expect(clinicalTrialModel.updated_at).toBe('04/04/2023 15:53:27')
+      expect(clinicalTrialModel.last_revision_date).toBe('04/04/2023')
+      expect(clinicalTrialModel.updated_at).toBe('04/04/2023')
       expect(clinicalTrialModel.contact.public_query.name).toBe('Université Polytechnique Hauts-de-France')
       expect(clinicalTrialModel.contact.public_query.firstname).toBe('Christophe')
       expect(clinicalTrialModel.contact.public_query.lastname).toBe('GILLET')
@@ -579,8 +579,8 @@ describe('clinical trial model factory', () => {
       const clinicalTrialModel = ClinicalTrialModelFactory.fromRiphJarde(jardeWithDateOfApprovalHigherThanHistoricDate)
 
       // THEN
-      expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023 16:28:09')
-      expect(clinicalTrialModel.updated_at).toBe('06/04/2023 16:28:09')
+      expect(clinicalTrialModel.last_revision_date).toBe('06/04/2023')
+      expect(clinicalTrialModel.updated_at).toBe('06/04/2023')
     })
 
     it('when the historic date is higher than last date of approval, should build a Jardé clinical trial with the historic date', () => {
@@ -591,8 +591,8 @@ describe('clinical trial model factory', () => {
       const clinicalTrialModel = ClinicalTrialModelFactory.fromRiphJarde(jardeWithHistoricDateHigherThanDateOfApproval)
 
       // THEN
-      expect(clinicalTrialModel.last_revision_date).toBe('04/04/2023 15:53:27')
-      expect(clinicalTrialModel.updated_at).toBe('04/04/2023 15:53:27')
+      expect(clinicalTrialModel.last_revision_date).toBe('04/04/2023')
+      expect(clinicalTrialModel.updated_at).toBe('04/04/2023')
     })
   })
 })

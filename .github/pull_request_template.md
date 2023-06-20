@@ -1,7 +1,7 @@
 # Vérifier avant de merger
 
 - [ ] As tu mis à jour Swagger ?
-- [ ] As tu mis à jour Postman ?
+- [ ] As tu mis à jour le wiki ?
 - [ ] As-tu correctement relu ton code ?
 - [ ] As-tu lancer la CI en local `yarn amibroken`  ?
 - [ ] As-tu lancer les tests de mutation ?
