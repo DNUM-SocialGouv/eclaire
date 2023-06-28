@@ -8,4 +8,14 @@ export class ReferenceModel implements Reference {
     readonly reference: string | undefined,
     readonly type: string | undefined
   ) {}
+
+  static createCtisReferenceModel(numero_ctis: string): ReferenceModel {
+    return new ReferenceModel(
+      'euclinicaltrials.eu',
+      undefined,
+      undefined,
+      `https://euclinicaltrials.eu/app/#/view/${numero_ctis}`,
+      undefined
+    )
+  }
 }

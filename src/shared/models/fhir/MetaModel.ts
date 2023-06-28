@@ -10,4 +10,48 @@ export class MetaModel implements Meta {
     readonly tag: Coding[] | undefined,
     readonly versionId: string | undefined
   ) {}
+
+  static createWithMostRecentDate(
+    historique: string,
+    dates_avis_favorable_ms_mns: string
+  ) {
+    return new MetaModel(
+      undefined,
+      this.getMostRecentDate(historique, dates_avis_favorable_ms_mns),
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  private static getMostRecentDate(datesOfHistory: string, datesOfApproval: string): string {
+    if (datesOfHistory === '' && datesOfApproval === '') return ''
+
+    const sortBy = (a: string, b: string) => {
+      const valueA = a
+      const valueB = b
+
+      return valueB < valueA ? -1 : valueB > valueA ? 1 : 0
+    }
+    const dates: string[] = []
+    if (datesOfHistory !== '') {
+      datesOfHistory.split(', ').forEach((dateOfHistory) => {
+        const date = dateOfHistory.split(':')
+
+        dates.push(date[0])
+      })
+    }
+
+    if (datesOfApproval !== '') {
+      datesOfApproval.split(', ').forEach((dateOfApproval) => {
+        const date = dateOfApproval.split(':')
+
+        dates.push(date[1])
+      })
+    }
+
+    return new Date(dates.sort(sortBy)[0]).toLocaleDateString('fr-FR')
+  }
 }
