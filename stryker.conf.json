@@ -7,6 +7,7 @@
   "mutate": [
     "src/**/*.ts",
     "!src/api/auth/*.ts",
+    "!src/api/clinical-trial/*.ts",
     "!src/api/sentry/*.ts",
     "!src/api/swagger/*.ts",
     "!src/api/users/*.ts",
