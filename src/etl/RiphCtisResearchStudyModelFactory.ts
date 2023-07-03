@@ -10,7 +10,7 @@ import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 export class RiphCtisResearchStudyModelFactory {
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
     const arm = undefined
-    const category = undefined
+    const category = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
     const condition = undefined
     const contact = undefined
     const contained = undefined

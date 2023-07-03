@@ -15,7 +15,15 @@ describe('ctis research study model factory', () => {
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "arm": undefined,
-        "category": undefined,
+        "category": [
+          CodeableConceptModel {
+            "coding": [
+              undefined,
+            ],
+            "id": undefined,
+            "text": "REG536",
+          },
+        ],
         "condition": undefined,
         "contact": undefined,
         "contained": undefined,
@@ -94,7 +102,15 @@ describe('ctis research study model factory', () => {
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "arm": undefined,
-        "category": undefined,
+        "category": [
+          CodeableConceptModel {
+            "coding": [
+              undefined,
+            ],
+            "id": undefined,
+            "text": "REG536",
+          },
+        ],
         "condition": undefined,
         "contact": undefined,
         "contained": undefined,
@@ -173,7 +189,15 @@ describe('ctis research study model factory', () => {
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "arm": undefined,
-        "category": undefined,
+        "category": [
+          CodeableConceptModel {
+            "coding": [
+              undefined,
+            ],
+            "id": undefined,
+            "text": "REG536",
+          },
+        ],
         "condition": undefined,
         "contact": undefined,
         "contained": undefined,
@@ -252,7 +276,15 @@ describe('ctis research study model factory', () => {
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "arm": undefined,
-        "category": undefined,
+        "category": [
+          CodeableConceptModel {
+            "coding": [
+              undefined,
+            ],
+            "id": undefined,
+            "text": "REG536",
+          },
+        ],
         "condition": undefined,
         "contact": undefined,
         "contained": undefined,

@@ -16,4 +16,13 @@ export class CodeableConceptModel implements CodeableConcept {
       phase_recherche
     )
   }
+
+  static createCategory(reglementationCode: string): CodeableConceptModel {
+
+    return new CodeableConceptModel(
+      [undefined],
+      undefined,
+      reglementationCode
+    )
+  }
 }
