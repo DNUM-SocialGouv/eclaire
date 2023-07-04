@@ -5,7 +5,7 @@ describe('elasticsearch service', () => {
   it('should create an index', async () => {
     // GIVEN
     const service = new ElasticsearchService(fakeClient)
-    jest.spyOn(fakeClient.indices, 'create')
+    vi.spyOn(fakeClient.indices, 'create')
 
     // WHEN
     await service.createAnIndex<FakeDocument>(fakeMapping)
@@ -21,7 +21,7 @@ describe('elasticsearch service', () => {
   it('should update an index', async () => {
     // GIVEN
     const service = new ElasticsearchService(fakeClient)
-    jest.spyOn(fakeClient.indices, 'putMapping')
+    vi.spyOn(fakeClient.indices, 'putMapping')
 
     // WHEN
     await service.updateAnIndex(fakeMapping)
@@ -37,7 +37,7 @@ describe('elasticsearch service', () => {
   it('should find one document', async () => {
     // GIVEN
     const service = new ElasticsearchService(fakeClient)
-    jest.spyOn(fakeClient, 'get')
+    vi.spyOn(fakeClient, 'get')
 
     // WHEN
     const result = await service.findOneDocument<FakeDocument>(fakeId)
@@ -55,7 +55,7 @@ describe('elasticsearch service', () => {
   it('should create some documents', async () => {
     // GIVEN
     const service = new ElasticsearchService(fakeClient)
-    jest.spyOn(fakeClient, 'bulk')
+    vi.spyOn(fakeClient, 'bulk')
 
     // WHEN
     await service.bulkDocuments(fakeDocuments)
@@ -73,7 +73,7 @@ describe('elasticsearch service', () => {
     it('should filter results and return corresponding document', async () => {
       // GIVEN
       const elasticsearchService = new ElasticsearchService(fakeClient)
-      jest.spyOn(fakeClient, 'search')
+      vi.spyOn(fakeClient, 'search')
 
       // WHEN
       const result = await elasticsearchService.search({ query: { term: { 'scientific_title.value': 'ADN' } } })

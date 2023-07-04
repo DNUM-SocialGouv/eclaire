@@ -39,7 +39,7 @@ describe('clinical trial file repository', () => {
     // GIVEN
     const { elasticsearchService, esClinicalTrialRepository } = await setup()
     // @ts-ignore
-    jest.spyOn(elasticsearchService, 'findOneDocument').mockRejectedValueOnce(new errors.ResponseError('Elasticsearch operation has failed'))
+    vi.spyOn(elasticsearchService, 'findOneDocument').mockRejectedValueOnce(new errors.ResponseError('Elasticsearch operation has failed'))
 
     try {
       // WHEN
@@ -56,7 +56,7 @@ describe('clinical trial file repository', () => {
   it('should not retrieve one clinical trial if there is a problem with elasticsearch client', async () => {
     // GIVEN
     const { elasticsearchService, esClinicalTrialRepository } = await setup()
-    jest.spyOn(elasticsearchService, 'findOneDocument').mockRejectedValueOnce(new errors.ElasticsearchClientError('Elasticsearch operation has failed'))
+    vi.spyOn(elasticsearchService, 'findOneDocument').mockRejectedValueOnce(new errors.ElasticsearchClientError('Elasticsearch operation has failed'))
 
     try {
       // WHEN
@@ -92,7 +92,7 @@ describe('clinical trial file repository', () => {
     // GIVEN
     const { elasticsearchService, esClinicalTrialRepository } = await setup()
     const requestBody = { query: { match: { 'blah-blah.value': 'Circuler l’ADN' } } }
-    jest.spyOn(elasticsearchService, 'search').mockRejectedValueOnce(new errors.ElasticsearchClientError('Elasticsearch operation has failed'))
+    vi.spyOn(elasticsearchService, 'search').mockRejectedValueOnce(new errors.ElasticsearchClientError('Elasticsearch operation has failed'))
 
     try {
       // WHEN

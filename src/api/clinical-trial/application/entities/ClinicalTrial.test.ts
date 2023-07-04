@@ -10,7 +10,7 @@ import { Title } from './Title'
 describe('clinical trial', () => {
   it('should have a clinical trial', () => {
     // GIVEN
-    jest.spyOn(Date, 'now').mockReturnValue(1643566484898)
+    vi.spyOn(Date, 'now').mockReturnValue(1643566484898)
     const publicTitle = new Title('', '')
     const scientificTitle = new Title('', '')
     const recruitment = new Recruitment('en cours', '', [], [], [], 0, new Criteria('', '', ''), new Criteria('', '', ''), '', [])

@@ -11,15 +11,13 @@
   },
   "env": {
     "es2022": true,
-    "node": true,
-    "jest": true
+    "node": true
   },
   "ignorePatterns": [
-    "dist",
-    "jest.config.ts"
+    "dist"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint","unused-imports"],
+  "plugins": ["@typescript-eslint", "unused-imports"],
   "rules": {
     "array-bracket-newline": ["error", { "multiline": true }],
     "array-bracket-spacing": ["error", "never"],
@@ -70,6 +68,7 @@
     "semi": ["error", "never"],
     "sort-keys": ["error"],
     "space-before-blocks": "error",
+    "space-infix-ops": "error",
     "yoda": "error",
     "import/newline-after-import": "error",
     "import/no-extraneous-dependencies": "error",
@@ -87,18 +86,16 @@
   },
   "overrides": [
     {
-      "files": ["**/*.test.ts?(x)"],
+      "files": ["**/*.test.ts"],
       "extends": [
-        "plugin:jest/all",
-        "plugin:jest-formatting/strict"
+        "plugin:vitest/all"
       ],
       "rules": {
-        "jest-formatting/padding-around-all": "off",
-        "jest/max-expects": "off",
-        "jest/no-conditional-expect": "off",
-        "jest/no-hooks": "off",
-        "jest/require-hook": "off",
-        "jest/prefer-expect-assertions": "off"
+        "vitest/max-expects": "off",
+        "vitest/no-conditional-expect": "off",
+        "vitest/no-hooks": "off",
+        "vitest/require-hook": "off",
+        "vitest/prefer-expect-assertions": "off"
       }
     }
   ]
