@@ -3,11 +3,13 @@ import { Identifier, Meta } from 'fhir/r4'
 
 import { RiphCtisDto } from './dto/RiphCtisDto'
 import { CodeableConceptModel } from '../shared/models/fhir/CodeableConceptModel'
+import { ContactDetailModel } from '../shared/models/fhir/ContactDetailModel'
 import { IdentifierModel } from '../shared/models/fhir/IdentifierModel'
 import { MetaModel } from '../shared/models/fhir/MetaModel'
 import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 
 export class RiphCtisResearchStudyModelFactory {
+  private static readonly unavailable = 'INDISPONIBLE'
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
@@ -15,9 +17,16 @@ export class RiphCtisResearchStudyModelFactory {
       CodeableConceptModel.createDiseaseCondition(this.emptyIfNull(riphCtisDto.pathologies_maladies_rares)),
       CodeableConceptModel.createMedDraCondition(this.emptyIfNull(riphCtisDto.informations_meddra)),
     ]
-    const contact = undefined
+    const contact = [
+      ContactDetailModel.create(
+        this.emptyIfNull(riphCtisDto.contact_prenom),
+        this.emptyIfNull(riphCtisDto.contact_nom),
+        this.emptyIfNull(riphCtisDto.contact_telephone),
+        this.emptyIfNull(riphCtisDto.contact_courriel)
+      ),
+    ]
     const contained = undefined
-    const description = undefined
+    const description = this.unavailable
     const focus = undefined
     const id = undefined
     const identifier: Identifier[] = [IdentifierModel.createCtisIdentifier(riphCtisDto.numero_ctis)]

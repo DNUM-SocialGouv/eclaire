@@ -60,9 +60,32 @@ describe('ctis research study model factory', () => {
             "text": "MedDRA Condition",
           },
         ],
-        "contact": undefined,
+        "contact": [
+          ContactDetailModel {
+            "id": undefined,
+            "name": "Head of EU, Trial Information Support Line-TISL, Switzerland",
+            "telecom": [
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "0041616881111",
+              },
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "global.rochegenentechtrials@roche.com",
+              },
+            ],
+          },
+        ],
         "contained": undefined,
-        "description": undefined,
+        "description": "INDISPONIBLE",
         "focus": undefined,
         "id": undefined,
         "identifier": [
@@ -165,9 +188,32 @@ describe('ctis research study model factory', () => {
             "text": "MedDRA Condition",
           },
         ],
-        "contact": undefined,
+        "contact": [
+          ContactDetailModel {
+            "id": undefined,
+            "name": ", ",
+            "telecom": [
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "",
+              },
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "",
+              },
+            ],
+          },
+        ],
         "contained": undefined,
-        "description": undefined,
+        "description": "INDISPONIBLE",
         "focus": undefined,
         "id": undefined,
         "identifier": [
@@ -287,9 +333,32 @@ describe('ctis research study model factory', () => {
             "text": "MedDRA Condition",
           },
         ],
-        "contact": undefined,
+        "contact": [
+          ContactDetailModel {
+            "id": undefined,
+            "name": "Head of EU, Trial Information Support Line-TISL, Switzerland",
+            "telecom": [
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "0041616881111",
+              },
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "global.rochegenentechtrials@roche.com",
+              },
+            ],
+          },
+        ],
         "contained": undefined,
-        "description": undefined,
+        "description": "INDISPONIBLE",
         "focus": undefined,
         "id": undefined,
         "identifier": [
@@ -392,9 +461,32 @@ describe('ctis research study model factory', () => {
             "text": "MedDRA Condition",
           },
         ],
-        "contact": undefined,
+        "contact": [
+          ContactDetailModel {
+            "id": undefined,
+            "name": ", ",
+            "telecom": [
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "",
+              },
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "",
+              },
+            ],
+          },
+        ],
         "contained": undefined,
-        "description": undefined,
+        "description": "INDISPONIBLE",
         "focus": undefined,
         "id": undefined,
         "identifier": [
