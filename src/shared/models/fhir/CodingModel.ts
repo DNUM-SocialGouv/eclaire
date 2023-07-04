@@ -1,5 +1,6 @@
 import { Coding } from 'fhir/r4'
 
+import { medDraCodeSystem } from './CodeSystem/medDraCodeSystem'
 import { researchStudyPhaseCodeSystem } from './CodeSystem/researchStudyPhaseCodeSystem'
 
 export class CodingModel implements Coding {
@@ -56,6 +57,28 @@ export class CodingModel implements Coding {
         break
     }
     return correspondingPhaseCode
+  }
+
+  static createDiseaseCoding(disease: string) {
+    return new CodingModel(
+      disease,
+      'Disease Condition',
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createMedDraCode(medDraCode: string) {
+    return new CodingModel(
+      medDraCode,
+      medDraCodeSystem.title,
+      undefined,
+      medDraCodeSystem.url,
+      undefined,
+      medDraCodeSystem.version
+    )
   }
 }
 

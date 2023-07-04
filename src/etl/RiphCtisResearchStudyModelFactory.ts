@@ -11,7 +11,10 @@ export class RiphCtisResearchStudyModelFactory {
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
-    const condition = undefined
+    const condition = [
+      CodeableConceptModel.createDiseaseCondition(this.emptyIfNull(riphCtisDto.pathologies_maladies_rares)),
+      CodeableConceptModel.createMedDraCondition(this.emptyIfNull(riphCtisDto.informations_meddra)),
+    ]
     const contact = undefined
     const contained = undefined
     const description = undefined

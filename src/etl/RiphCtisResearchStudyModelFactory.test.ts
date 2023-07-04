@@ -17,14 +17,49 @@ describe('ctis research study model factory', () => {
         "arm": undefined,
         "category": [
           CodeableConceptModel {
-            "coding": [
-              undefined,
-            ],
+            "coding": undefined,
             "id": undefined,
             "text": "REG536",
           },
         ],
-        "condition": undefined,
+        "condition": [
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "Locally-Advanced or Metastatic breast cancer (MBC)",
+                "display": "Disease Condition",
+                "id": undefined,
+                "system": undefined,
+                "userSelected": undefined,
+                "version": undefined,
+              },
+            ],
+            "id": undefined,
+            "text": "Disease Condition",
+          },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "10070575",
+                "display": "MedDRA",
+                "id": undefined,
+                "system": "http://terminology.hl7.org/CodeSystem/mdr",
+                "userSelected": undefined,
+                "version": "2.0.1",
+              },
+              CodingModel {
+                "code": "10065430",
+                "display": "MedDRA",
+                "id": undefined,
+                "system": "http://terminology.hl7.org/CodeSystem/mdr",
+                "userSelected": undefined,
+                "version": "2.0.1",
+              },
+            ],
+            "id": undefined,
+            "text": "MedDRA Condition",
+          },
+        ],
         "contact": undefined,
         "contained": undefined,
         "description": undefined,
@@ -104,14 +139,32 @@ describe('ctis research study model factory', () => {
         "arm": undefined,
         "category": [
           CodeableConceptModel {
-            "coding": [
-              undefined,
-            ],
+            "coding": undefined,
             "id": undefined,
             "text": "REG536",
           },
         ],
-        "condition": undefined,
+        "condition": [
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "",
+                "display": "Disease Condition",
+                "id": undefined,
+                "system": undefined,
+                "userSelected": undefined,
+                "version": undefined,
+              },
+            ],
+            "id": undefined,
+            "text": "Disease Condition",
+          },
+          CodeableConceptModel {
+            "coding": [],
+            "id": undefined,
+            "text": "MedDRA Condition",
+          },
+        ],
         "contact": undefined,
         "contained": undefined,
         "description": undefined,
@@ -191,14 +244,49 @@ describe('ctis research study model factory', () => {
         "arm": undefined,
         "category": [
           CodeableConceptModel {
-            "coding": [
-              undefined,
-            ],
+            "coding": undefined,
             "id": undefined,
             "text": "REG536",
           },
         ],
-        "condition": undefined,
+        "condition": [
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "Locally-Advanced or Metastatic breast cancer (MBC)",
+                "display": "Disease Condition",
+                "id": undefined,
+                "system": undefined,
+                "userSelected": undefined,
+                "version": undefined,
+              },
+            ],
+            "id": undefined,
+            "text": "Disease Condition",
+          },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "10070575",
+                "display": "MedDRA",
+                "id": undefined,
+                "system": "http://terminology.hl7.org/CodeSystem/mdr",
+                "userSelected": undefined,
+                "version": "2.0.1",
+              },
+              CodingModel {
+                "code": "10065430",
+                "display": "MedDRA",
+                "id": undefined,
+                "system": "http://terminology.hl7.org/CodeSystem/mdr",
+                "userSelected": undefined,
+                "version": "2.0.1",
+              },
+            ],
+            "id": undefined,
+            "text": "MedDRA Condition",
+          },
+        ],
         "contact": undefined,
         "contained": undefined,
         "description": undefined,
@@ -278,14 +366,32 @@ describe('ctis research study model factory', () => {
         "arm": undefined,
         "category": [
           CodeableConceptModel {
-            "coding": [
-              undefined,
-            ],
+            "coding": undefined,
             "id": undefined,
             "text": "REG536",
           },
         ],
-        "condition": undefined,
+        "condition": [
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "",
+                "display": "Disease Condition",
+                "id": undefined,
+                "system": undefined,
+                "userSelected": undefined,
+                "version": undefined,
+              },
+            ],
+            "id": undefined,
+            "text": "Disease Condition",
+          },
+          CodeableConceptModel {
+            "coding": [],
+            "id": undefined,
+            "text": "MedDRA Condition",
+          },
+        ],
         "contact": undefined,
         "contained": undefined,
         "description": undefined,

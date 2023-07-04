@@ -18,11 +18,39 @@ export class CodeableConceptModel implements CodeableConcept {
   }
 
   static createCategory(reglementationCode: string): CodeableConceptModel {
-
     return new CodeableConceptModel(
-      [undefined],
+      undefined,
       undefined,
       reglementationCode
+    )
+  }
+
+  static createDiseaseCondition(disease: string): CodeableConceptModel {
+    return new CodeableConceptModel(
+      [CodingModel.createDiseaseCoding(disease)],
+      undefined,
+      'Disease Condition'
+    )
+  }
+
+  static createMedDraCondition(medDraInformation: string): CodeableConceptModel {
+    let parsedMedDraInformation: string[]
+
+    if (medDraInformation === '') {
+      parsedMedDraInformation = []
+    } else {
+      parsedMedDraInformation = medDraInformation.split(', ')
+    }
+
+    const coding: CodingModel[] = []
+    parsedMedDraInformation.forEach((medDRACode) => {
+      coding.push(CodingModel.createMedDraCode(medDRACode))
+    })
+
+    return new CodeableConceptModel(
+      coding,
+      undefined,
+      'MedDRA Condition'
     )
   }
 }
