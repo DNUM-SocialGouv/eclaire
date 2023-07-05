@@ -2,9 +2,9 @@ import { ConfigModule } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
 import supertest from 'supertest'
 
-import { ClinicalTrialModelTestingFactory } from '../src/api/clinical-trial/gateways/ClinicalTrialModelTestingFactory'
-import { AppModule } from '../src/AppModule'
-import { ElasticsearchService } from '../src/shared/elasticsearch/ElasticsearchService'
+import { ClinicalTrialModelTestingFactory } from './clinical-trial/gateways/ClinicalTrialModelTestingFactory'
+import { AppModule } from '../AppModule'
+import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 
 describe('app', () => {
   it('get one clinical trial with an authentification', async () => {

@@ -2,7 +2,7 @@
   "checkers": ["typescript"],
   "logLevel": "info",
   "disableTypeChecks": true,
-  "ignorePatterns": [".*", "coverage", "dist", "reports", "<rootDir>/test"],
+  "ignorePatterns": [".*", "coverage", "dist", "reports", "src/api/e2e.test.ts"],
   "ignoreStatic": true,
   "mutate": [
     "src/**/*.ts",

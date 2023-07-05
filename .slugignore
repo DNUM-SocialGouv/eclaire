@@ -1,6 +1,5 @@
 /config
 /src
-/test
 /.github
 /.yarn
 .env.sample

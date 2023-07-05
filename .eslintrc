@@ -14,7 +14,8 @@
     "node": true
   },
   "ignorePatterns": [
-    "dist"
+    "dist",
+    "vitest.config.ts"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "unused-imports"],
