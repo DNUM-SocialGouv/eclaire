@@ -1,6 +1,6 @@
 import { ContactDetail, ContactPoint } from 'fhir/r4'
 
-import { ContactPointModel } from '../ContactPointModel'
+import { ContactPointModel } from '../../ContactPointModel'
 
 export class ContactDetailModel implements ContactDetail {
   constructor(

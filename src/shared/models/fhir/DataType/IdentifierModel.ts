@@ -5,7 +5,7 @@ import {
   Reference,
 } from 'fhir/r4'
 
-import { ReferenceModel } from './ReferenceModel'
+import { ReferenceModel } from '../SpecialPurposeDataType/ReferenceModel'
 
 export class IdentifierModel implements Identifier {
   constructor(

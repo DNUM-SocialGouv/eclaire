@@ -1,8 +1,8 @@
 import { Coding } from 'fhir/r4'
 
-import { administrativeGenderCodeSystem } from './CodeSystem/administrativeGenderCodeSystem'
-import { medDraCodeSystem } from './CodeSystem/medDraCodeSystem'
-import { researchStudyPhaseCodeSystem } from './CodeSystem/researchStudyPhaseCodeSystem'
+import { administrativeGenderCodeSystem } from '../CodeSystem/administrativeGenderCodeSystem'
+import { medDraCodeSystem } from '../CodeSystem/medDraCodeSystem'
+import { researchStudyPhaseCodeSystem } from '../CodeSystem/researchStudyPhaseCodeSystem'
 
 export class CodingModel implements Coding {
   constructor(

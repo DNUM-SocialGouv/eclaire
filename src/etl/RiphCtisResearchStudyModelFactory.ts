@@ -2,20 +2,19 @@
 import { Identifier, Meta } from 'fhir/r4'
 
 import { RiphCtisDto } from './dto/RiphCtisDto'
-import { CodeableConceptModel } from '../shared/models/fhir/CodeableConceptModel'
-import { ContactDetailModel } from '../shared/models/fhir/ContactDetailModel'
+import { CodeableConceptModel } from '../shared/models/fhir/DataType/CodeableConceptModel'
+import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
-import { IdentifierModel } from '../shared/models/fhir/IdentifierModel'
-import { MetaModel } from '../shared/models/fhir/MetaModel'
-import { ReferenceModel } from '../shared/models/fhir/ReferenceModel'
+import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
 import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
+import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
+import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
 export class RiphCtisResearchStudyModelFactory {
   private static readonly unavailable = 'INDISPONIBLE'
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
     const enrollmentGroupId = undefined
 
-    const blah = undefined
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
     const condition = [

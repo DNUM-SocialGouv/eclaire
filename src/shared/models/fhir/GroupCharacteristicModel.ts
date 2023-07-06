@@ -1,6 +1,6 @@
 import { CodeableConcept, GroupCharacteristic, Period, Quantity, Range, Reference } from 'fhir/r4'
 
-import { CodeableConceptModel } from './CodeableConceptModel'
+import { CodeableConceptModel } from './DataType/CodeableConceptModel'
 
 export class GroupCharacteristicModel implements GroupCharacteristic {
   constructor(
