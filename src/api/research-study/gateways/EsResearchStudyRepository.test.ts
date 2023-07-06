@@ -1,8 +1,8 @@
 import { EsResearchStudyRepository } from './EsResearchStudyRepository'
-import { ResearchStudyModelTestingFactory } from './ResearchStudyModelTestingFactory'
-import { clinicalTrialIndexMapping } from '../../../etl/clinicalTrialIndexMapping'
-import { setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
+import { riphCtisDto, setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
 import { SearchBodyType } from '../application/entities/SearchBody'
+import { researchStudyIndexMapping } from 'src/etl/researchStudyIndexMapping'
+import { RiphCtisResearchStudyModelFactory } from 'src/etl/RiphCtisResearchStudyModelFactory'
 
 describe('elasticsearch research study repository', () => {
   describe('retrieve one research study', () => {
@@ -27,7 +27,7 @@ describe('elasticsearch research study repository', () => {
       const { esResearchStudyRepository } = await setup()
       const bodySearch: SearchBodyType = {
         from: 0,
-        query: { bool: { must: [{ range: { updated_at: { gte: '01/01/2020' } } }] } },
+        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01' } } }] } },
         size: numberOfRessourceByPage,
       }
 
@@ -56,7 +56,7 @@ describe('elasticsearch research study repository', () => {
       const { esResearchStudyRepository } = await setup()
       const bodySearch: SearchBodyType = {
         from: 0,
-        query: { bool: { must: [{ range: { updated_at: { gte: '01/01/3020' } } }] } },
+        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '3020-01-01' } } }] } },
         size: numberOfRessourceByPage,
       }
 
@@ -78,7 +78,7 @@ describe('elasticsearch research study repository', () => {
       const { esResearchStudyRepository } = await setup()
       const bodySearch: SearchBodyType = {
         from: 4,
-        query: { bool: { must: [{ range: { updated_at: { gte: '01/01/2020' } } }] } },
+        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01' } } }] } },
         size: numberOfRessourceByPage,
       }
 
@@ -99,21 +99,33 @@ describe('elasticsearch research study repository', () => {
 
 async function setup() {
   const { configService, elasticsearchService } = await setupClientAndElasticsearchService()
+  const researchStudy1 = riphCtisDto[0]
+  researchStudy1.titre = 'un autre titre pour la pagination 1'
+  const researchStudy2 = riphCtisDto[0]
+  researchStudy2.titre = 'un autre titre pour la pagination 2'
+  const researchStudy3 = riphCtisDto[0]
+  researchStudy3.titre = 'un autre titre pour la pagination 3'
+  const researchStudy4 = riphCtisDto[0]
+  researchStudy4.titre = 'un autre titre pour la pagination 4'
+  const researchStudy5 = riphCtisDto[0]
+  researchStudy5.titre = 'un autre titre pour la pagination 5'
+  const researchStudy6 = riphCtisDto[0]
+  researchStudy6.titre = 'un autre titre pour la pagination 6'
 
-  await elasticsearchService.createAnIndex(clinicalTrialIndexMapping)
+  await elasticsearchService.createAnIndex(researchStudyIndexMapping)
   await elasticsearchService.bulkDocuments([
     { index: { _id: 'fakeId1' } },
-    ResearchStudyModelTestingFactory.create({ public_title: { acronym: '', value: 'un autre titre pour la pagination 1' } }),
+    RiphCtisResearchStudyModelFactory.create(researchStudy1),
     { index: { _id: 'fakeId2' } },
-    ResearchStudyModelTestingFactory.create({ public_title: { acronym: '', value: 'un autre titre pour la pagination 2' } }),
+    RiphCtisResearchStudyModelFactory.create(researchStudy2),
     { index: { _id: 'fakeId3' } },
-    ResearchStudyModelTestingFactory.create({ public_title: { acronym: '', value: 'un autre titre pour la pagination 3' } }),
+    RiphCtisResearchStudyModelFactory.create(researchStudy3),
     { index: { _id: 'fakeId4' } },
-    ResearchStudyModelTestingFactory.create({ public_title: { acronym: '', value: 'un autre titre pour la pagination 4' } }),
+    RiphCtisResearchStudyModelFactory.create(researchStudy4),
     { index: { _id: 'fakeId5' } },
-    ResearchStudyModelTestingFactory.create({ public_title: { acronym: '', value: 'un autre titre pour la pagination 5' } }),
+    RiphCtisResearchStudyModelFactory.create(researchStudy5),
     { index: { _id: 'fakeId6' } },
-    ResearchStudyModelTestingFactory.create({ public_title: { acronym: '', value: 'un autre titre pour la pagination 6' } }),
+    RiphCtisResearchStudyModelFactory.create(researchStudy6),
   ])
 
   const esResearchStudyRepository = new EsResearchStudyRepository(elasticsearchService, configService)

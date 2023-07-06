@@ -1,15 +1,18 @@
 export type SearchBodyType = {
   from: number
   query: {
-    bool: {
+    bool?: {
       must: Array<{
         match?: {
           [key: string]: string
         }
         range?: {
-          [key: string]: string | { gte: string }
+          [key: string]: { gte?: string, gt?: string, lte?: string, lt?: string }
         }
       }>
+    }
+    query_string?: {
+      query: string,
     }
   }
   size: number
@@ -17,7 +20,7 @@ export type SearchBodyType = {
     [key: string]: {
       order: 'asc' | 'desc'
     }
-  }
+  }[]
 }
 
 export class SearchBodyBuilder {
@@ -42,7 +45,16 @@ export class SearchBodyBuilder {
   }
 
   withSort(fieldname: string, order: 'asc' | 'desc'): this {
-    this.searchBody.sort = { [fieldname]: { order } }
+    if (this.searchBody.sort === undefined) {
+      this.searchBody.sort = [{ [fieldname]: { order } }]
+    } else {
+      this.searchBody.sort.push({ [fieldname]: { order } })
+    }
+    return this
+  }
+
+  withText(value: string): this {
+    this.searchBody.query = { query_string: { query: value } }
     return this
   }
 
@@ -51,8 +63,12 @@ export class SearchBodyBuilder {
     return this
   }
 
-  withRange(fieldname: string, value: string, operator: 'gte'): this {
-    this.searchBody.query.bool.must.push({ range: { [fieldname]: { [operator]: value } } })
+  withRange(fieldname: string, value: string, operators: Operator[]): this {
+    const operatorsAndValues = {}
+    for (const iterator of operators) {
+      operatorsAndValues[iterator] = value
+    }
+    this.searchBody.query.bool.must.push({ range: { [fieldname]: operatorsAndValues } })
     return this
   }
 
@@ -60,3 +76,5 @@ export class SearchBodyBuilder {
     return this.searchBody
   }
 }
+
+type Operator = 'gte' | 'gt' | 'lte' | 'lt'

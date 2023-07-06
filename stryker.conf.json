@@ -12,6 +12,7 @@
     "!src/api/swagger/*.ts",
     "!src/api/users/*.ts",
     "!src/etl/clinicalTrialIndexMapping.ts",
+    "!src/etl/researchStudyIndexMapping.ts",
     "!src/etl/console.ts",
     "!src/shared/logger/*.ts",
     "!src/shared/test/**/*.ts",
