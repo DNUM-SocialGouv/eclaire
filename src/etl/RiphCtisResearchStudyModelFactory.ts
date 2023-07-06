@@ -4,13 +4,18 @@ import { Identifier, Meta } from 'fhir/r4'
 import { RiphCtisDto } from './dto/RiphCtisDto'
 import { CodeableConceptModel } from '../shared/models/fhir/CodeableConceptModel'
 import { ContactDetailModel } from '../shared/models/fhir/ContactDetailModel'
+import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { IdentifierModel } from '../shared/models/fhir/IdentifierModel'
 import { MetaModel } from '../shared/models/fhir/MetaModel'
+import { ReferenceModel } from '../shared/models/fhir/ReferenceModel'
 import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 
 export class RiphCtisResearchStudyModelFactory {
   private static readonly unavailable = 'INDISPONIBLE'
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
+    const enrollmentGroupId = undefined
+
+    const blah = undefined
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
     const condition = [
@@ -25,8 +30,18 @@ export class RiphCtisResearchStudyModelFactory {
         this.emptyIfNull(riphCtisDto.contact_courriel)
       ),
     ]
-    const contained = undefined
+    const contained = [
+      GroupModel.createEnrollment(
+        enrollmentGroupId,
+        this.emptyIfNull(riphCtisDto.sexe),
+        this.emptyIfNull(riphCtisDto.tranches_age),
+        this.emptyNumberIfNull(riphCtisDto.taille_etude),
+        this.emptyIfNull(riphCtisDto.groupes_sujet),
+        this.emptyIfNull(riphCtisDto.population_recrutement)
+      ),
+    ]
     const description = this.unavailable
+    const enrollment = [ReferenceModel.createGroup(enrollmentGroupId)]
     const focus = undefined
     const id = undefined
     const identifier: Identifier[] = [IdentifierModel.createCtisIdentifier(riphCtisDto.numero_ctis)]
@@ -60,6 +75,7 @@ export class RiphCtisResearchStudyModelFactory {
       contact,
       contained,
       description,
+      enrollment,
       focus,
       id,
       identifier,
@@ -87,5 +103,9 @@ export class RiphCtisResearchStudyModelFactory {
 
   private static emptyIfNull(value: string): string {
     return value === null ? '' : value
+  }
+
+  private static emptyNumberIfNull(value: number): number {
+    return value === null ? -1 : value
   }
 }

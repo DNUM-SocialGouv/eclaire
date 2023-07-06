@@ -22,6 +22,7 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly contact: ContactDetail[] | undefined,
     readonly contained: FhirResource[] | undefined,
     readonly description: string | undefined,
+    readonly enrollment: Reference[] | undefined,
     readonly focus: CodeableConcept[] | undefined,
     readonly id: string | undefined,
     readonly identifier: Identifier[] | undefined,

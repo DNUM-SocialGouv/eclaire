@@ -53,4 +53,20 @@ export class CodeableConceptModel implements CodeableConcept {
       'MedDRA Condition'
     )
   }
+
+  static createGenderGroup(genders: string) {
+    let parsedGenders: string[]
+
+    if (genders === '') {
+      parsedGenders = ['unknown']
+    } else {
+      parsedGenders = genders.split(',')
+    }
+
+    return new CodeableConceptModel(
+      parsedGenders.map((parsedGender) => CodingModel.createGender(parsedGender)),
+      undefined,
+      genders
+    )
+  }
 }

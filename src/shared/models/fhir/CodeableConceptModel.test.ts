@@ -1,3 +1,5 @@
+import { expect } from 'vitest'
+
 import { CodeableConceptModel } from './CodeableConceptModel'
 
 describe('shared | models | fhir | CodeableConceptModel', () => {
@@ -10,7 +12,7 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
               "code": "phase-1",
               "display": "Phase 1",
               "id": undefined,
-              "system": "https://terminology.hl7.org/CodeSystem/research-study-phase",
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
               "userSelected": undefined,
               "version": "4.0.1",
             },
@@ -28,7 +30,7 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
               "code": "n-a",
               "display": "N/A",
               "id": undefined,
-              "system": "https://terminology.hl7.org/CodeSystem/research-study-phase",
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
               "userSelected": undefined,
               "version": "4.0.1",
             },
@@ -159,6 +161,71 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
           "coding": [],
           "id": undefined,
           "text": "MedDRA Condition",
+        }
+      `)
+    })
+  })
+
+  describe('#createGenders', () => {
+    it('should create a properly formatted model with related coding when one gender is given', () => {
+      expect(CodeableConceptModel.createGenderGroup('Female')).toMatchInlineSnapshot(`
+        CodeableConceptModel {
+          "coding": [
+            CodingModel {
+              "code": "female",
+              "display": "Female",
+              "id": undefined,
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "userSelected": undefined,
+              "version": "5.0.0",
+            },
+          ],
+          "id": undefined,
+          "text": "Female",
+        }
+      `)
+    })
+    it('should create a properly formatted model with related coding when multiple gender is given', () => {
+      expect(CodeableConceptModel.createGenderGroup('Male,Female')).toMatchInlineSnapshot(`
+        CodeableConceptModel {
+          "coding": [
+            CodingModel {
+              "code": "male",
+              "display": "Male",
+              "id": undefined,
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "userSelected": undefined,
+              "version": "5.0.0",
+            },
+            CodingModel {
+              "code": "female",
+              "display": "Female",
+              "id": undefined,
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "userSelected": undefined,
+              "version": "5.0.0",
+            },
+          ],
+          "id": undefined,
+          "text": "Male,Female",
+        }
+      `)
+    })
+    it('should create a properly formatted model with related coding when no gender is given', () => {
+      expect(CodeableConceptModel.createGenderGroup('')).toMatchInlineSnapshot(`
+        CodeableConceptModel {
+          "coding": [
+            CodingModel {
+              "code": "unknown",
+              "display": "Unknown",
+              "id": undefined,
+              "system": "http://hl7.org/fhir/administrative-gender",
+              "userSelected": undefined,
+              "version": "5.0.0",
+            },
+          ],
+          "id": undefined,
+          "text": "",
         }
       `)
     })

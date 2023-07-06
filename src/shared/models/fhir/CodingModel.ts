@@ -1,5 +1,6 @@
 import { Coding } from 'fhir/r4'
 
+import { administrativeGenderCodeSystem } from './CodeSystem/administrativeGenderCodeSystem'
 import { medDraCodeSystem } from './CodeSystem/medDraCodeSystem'
 import { researchStudyPhaseCodeSystem } from './CodeSystem/researchStudyPhaseCodeSystem'
 
@@ -14,23 +15,19 @@ export class CodingModel implements Coding {
   ) {}
 
   static createResearchStudyPhase(rawPhase: string): CodingModel {
-    const researchStudyPhases = researchStudyPhaseCodeSystem.concept
-
     const isolatedPhase = rawPhase?.split(new RegExp('(Phase( *)\\w{1,3})'))[1]
 
     const correspondingPhaseCode: PhaseCode = this.getPhaseCodeFromText(isolatedPhase)
 
-    const matchingPhase = researchStudyPhases.find((phase) => {
-      return phase.code === correspondingPhaseCode
-    })
-
-    const system = 'https://terminology.hl7.org/CodeSystem/research-study-phase'
+    const matchingPhase = researchStudyPhaseCodeSystem.concept.find(
+      (phase) => phase.code === correspondingPhaseCode
+    )
 
     return new CodingModel(
       matchingPhase?.code,
       matchingPhase?.display,
       undefined,
-      system,
+      researchStudyPhaseCodeSystem.url,
       undefined,
       researchStudyPhaseCodeSystem.version
     )
@@ -78,6 +75,21 @@ export class CodingModel implements Coding {
       medDraCodeSystem.url,
       undefined,
       medDraCodeSystem.version
+    )
+  }
+
+  static createGender(gender: string): CodingModel {
+    const matchingGender = administrativeGenderCodeSystem.concept.find(
+      (genderReference) => genderReference.code === gender.toLowerCase()
+    )
+
+    return new CodingModel(
+      matchingGender?.code,
+      matchingGender?.display,
+      undefined,
+      administrativeGenderCodeSystem.url,
+      undefined,
+      administrativeGenderCodeSystem.version
     )
   }
 }
