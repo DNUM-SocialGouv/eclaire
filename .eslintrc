@@ -18,7 +18,7 @@
     "vitest.config.ts"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "unused-imports"],
+  "plugins": ["@typescript-eslint", "unused-imports", "import"],
   "rules": {
     "array-bracket-newline": ["error", { "multiline": true }],
     "array-bracket-spacing": ["error", "never"],
@@ -74,6 +74,7 @@
     "import/newline-after-import": "error",
     "import/no-extraneous-dependencies": "error",
     "import/no-mutable-exports": "error",
+    "import/no-unresolved": "error",
     "import/order": [
       "warn",
       {
@@ -84,6 +85,16 @@
     ],
     "@typescript-eslint/ban-ts-comment": "off",
     "unused-imports/no-unused-imports": "error"
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
   },
   "overrides": [
     {
