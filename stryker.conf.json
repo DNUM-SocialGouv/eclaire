@@ -1,22 +1,9 @@
 {
-  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
-  "buildCommand": "tsc -p tsconfig.mutation.json",
   "checkers": ["typescript"],
   "logLevel": "info",
   "disableTypeChecks": true,
-  "ignorePatterns": [".*", "coverage", "dist", "reports", "<rootDir>/test"],
-  "ignoreStatic": false,
-  "jest": {
-    "config": {
-      "moduleFileExtensions": [
-        "ts",
-        "js"
-      ],
-      "testMatch": [
-        "<rootDir>/src/**/*(*.)@(test).js"
-      ]
-    }
-  },
+  "ignorePatterns": [".*", "coverage", "dist", "reports", "src/api/e2e.test.ts"],
+  "ignoreStatic": true,
   "mutate": [
     "src/**/*.ts",
     "!src/api/auth/*.ts",
@@ -26,13 +13,14 @@
     "!src/etl/clinicalTrialIndexMapping.ts",
     "!src/etl/console.ts",
     "!src/shared/logger/*.ts",
+    "!src/shared/test/**/*.ts",
     "!src/**/*.test.ts",
     "!src/**/*Controller.ts",
     "!src/**/*TestingFactory.ts",
     "!src/main.ts",
     "!src/AppModule.ts"
   ],
-  "packageManager": "npm",
+  "packageManager": "yarn",
   "reporters": ["html"],
-  "testRunner": "jest"
+  "testRunner": "vitest"
 }

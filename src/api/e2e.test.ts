@@ -1,10 +1,10 @@
 import { ConfigModule } from '@nestjs/config'
-import { Test, TestingModule } from '@nestjs/testing'
+import { Test } from '@nestjs/testing'
 import supertest from 'supertest'
 
-import { ClinicalTrialModelTestingFactory } from '../src/api/clinical-trial/gateways/ClinicalTrialModelTestingFactory'
-import { AppModule } from '../src/AppModule'
-import { ElasticsearchService } from '../src/shared/elasticsearch/ElasticsearchService'
+import { ClinicalTrialModelTestingFactory } from './clinical-trial/gateways/ClinicalTrialModelTestingFactory'
+import { AppModule } from '../AppModule'
+import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 
 describe('app', () => {
   it('get one clinical trial with an authentification', async () => {
@@ -33,7 +33,7 @@ describe('app', () => {
 
     // THEN
     expect(response.statusCode).toBe(404)
-    expect(response.text).toBe('{"statusCode":404,"message":"L’essai clinique 999999 n’a pas été trouvé","error":"Not Found"}')
+    expect(response.text).toBe('{"message":"L’essai clinique 999999 n’a pas été trouvé","error":"Not Found","statusCode":404}')
   })
 
   it('get one user with an authentification', async () => {
@@ -69,7 +69,7 @@ async function getToken() {
 }
 
 async function getHttpServer() {
-  const moduleFixture: TestingModule = await Test.createTestingModule({
+  const moduleFixture = await Test.createTestingModule({
     imports: [
       ConfigModule.forRoot({ envFilePath: ['.env.test'] }),
       AppModule,

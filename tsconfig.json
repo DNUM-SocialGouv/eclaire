@@ -30,6 +30,7 @@
     "strictBindCallApply": false,
     "strictNullChecks": false,
     "strict": true,
-    "target": "es2022"
+    "target": "es2022",
+    "types": ["vitest/globals"]
   }
 }

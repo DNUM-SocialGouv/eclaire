@@ -1,6 +1,0 @@
-{
-  "testRegex": ".e2e-test.ts$",
-  "transform": {
-    "^.+\\.(t|j)s$": "ts-jest"
-  }
-}

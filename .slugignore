@@ -1,6 +1,5 @@
 /config
 /src
-/test
 /.github
 /.yarn
 .env.sample
@@ -9,11 +8,10 @@
 .nvmrc
 .yarnrc.yml
 docker-compose.yml
-jest.config.ts
 nest-cli.json
 scalingo.json
 stryker.conf.json
 tsconfig.json
-tsconfig.*.json
+tsconfig.build.json
 vitest.*.ts
 yarn.lock

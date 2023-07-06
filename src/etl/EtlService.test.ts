@@ -11,7 +11,7 @@ describe('extract transform load service', () => {
       // GIVEN
       const { client, etlService } = await setup()
       // @ts-ignore
-      jest.spyOn(client.indices, 'create').mockRejectedValueOnce(new errors.ResponseError({ body: { error: { reason: 'ES create operation has failed' } } }))
+      vi.spyOn(client.indices, 'create').mockRejectedValueOnce(new errors.ResponseError({ body: { error: { reason: 'ES create operation has failed' } } }))
 
       try {
         // WHEN
@@ -29,7 +29,7 @@ describe('extract transform load service', () => {
       // GIVEN
       const { client, etlService } = await setup()
       // @ts-ignore
-      jest.spyOn(client.indices, 'create').mockRejectedValueOnce(new errors.ElasticsearchClientError('ES create operation has failed'))
+      vi.spyOn(client.indices, 'create').mockRejectedValueOnce(new errors.ElasticsearchClientError('ES create operation has failed'))
 
       try {
         // WHEN
@@ -70,7 +70,7 @@ describe('extract transform load service', () => {
       const { client, etlService } = await setup()
       await etlService.createIndex()
       // @ts-ignore
-      jest.spyOn(client, 'bulk').mockRejectedValueOnce(new errors.ResponseError({ body: { error: { reason: 'ES bulk operation has failed' } } }))
+      vi.spyOn(client, 'bulk').mockRejectedValueOnce(new errors.ResponseError({ body: { error: { reason: 'ES bulk operation has failed' } } }))
 
       try {
         // WHEN
@@ -89,7 +89,7 @@ describe('extract transform load service', () => {
       const { client, etlService } = await setup()
       await etlService.createIndex()
       // @ts-ignore
-      jest.spyOn(client, 'bulk').mockRejectedValueOnce(new errors.ElasticsearchClientError('ES bulk operation has failed'))
+      vi.spyOn(client, 'bulk').mockRejectedValueOnce(new errors.ElasticsearchClientError('ES bulk operation has failed'))
 
       try {
         // WHEN
@@ -111,7 +111,9 @@ async function setup() {
     elasticsearchService,
   } = await setupClientAndElasticsearchService()
   const logger = new LoggerService()
-  jest.spyOn(logger, 'info').mockImplementation(jest.fn())
+  vi.spyOn(logger, 'info').mockImplementation(() => {
+    return
+  })
 
   const etlService = new EtlService(logger, elasticsearchService, riphCtisDto, riphDmDto, riphJardeDto1, riphJardeDto2)
 
