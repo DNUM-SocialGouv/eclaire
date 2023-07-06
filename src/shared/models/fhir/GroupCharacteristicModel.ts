@@ -18,11 +18,25 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
   static createGender(genders: string) {
     return new GroupCharacteristicModel(
       undefined,
+      false,
       undefined,
       undefined,
       undefined,
+      CodeableConceptModel.createGenders(genders),
       undefined,
-      CodeableConceptModel.createGenderGroup(genders),
+      undefined,
+      undefined
+    )
+  }
+
+  static createAgeRange(ageRange: string) {
+    return new GroupCharacteristicModel(
+      undefined,
+      false,
+      undefined,
+      undefined,
+      undefined,
+      CodeableConceptModel.createAgeRange(ageRange),
       undefined,
       undefined,
       undefined

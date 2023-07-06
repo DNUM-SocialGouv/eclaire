@@ -25,14 +25,17 @@ export class GroupModel implements Group {
     enrollmentGroupId: string | undefined,
     sex: string,
     ageRange: string,
-    range: number,
+    studySize: number,
     groupes_sujet: string,
     population_recrutement: string
   ) {
     return new GroupModel(
       undefined,
       true,
-      [GroupCharacteristicModel.createGender(sex)],
+      [
+        GroupCharacteristicModel.createGender(sex),
+        GroupCharacteristicModel.createAgeRange(ageRange),
+      ],
       undefined,
       enrollmentGroupId,
       undefined,

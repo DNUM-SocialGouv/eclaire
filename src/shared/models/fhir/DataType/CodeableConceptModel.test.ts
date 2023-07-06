@@ -168,7 +168,7 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
 
   describe('#createGenders', () => {
     it('should create a properly formatted model with related coding when one gender is given', () => {
-      expect(CodeableConceptModel.createGenderGroup('Female')).toMatchInlineSnapshot(`
+      expect(CodeableConceptModel.createGenders('Female')).toMatchInlineSnapshot(`
         CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -181,12 +181,13 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             },
           ],
           "id": undefined,
-          "text": "Female",
+          "text": "Genders",
         }
       `)
     })
+
     it('should create a properly formatted model with related coding when multiple gender is given', () => {
-      expect(CodeableConceptModel.createGenderGroup('Male,Female')).toMatchInlineSnapshot(`
+      expect(CodeableConceptModel.createGenders('Male,Female')).toMatchInlineSnapshot(`
         CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -207,12 +208,13 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             },
           ],
           "id": undefined,
-          "text": "Male,Female",
+          "text": "Genders",
         }
       `)
     })
+
     it('should create a properly formatted model with related coding when no gender is given', () => {
-      expect(CodeableConceptModel.createGenderGroup('')).toMatchInlineSnapshot(`
+      expect(CodeableConceptModel.createGenders('')).toMatchInlineSnapshot(`
         CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -225,7 +227,65 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             },
           ],
           "id": undefined,
-          "text": "",
+          "text": "Genders",
+        }
+      `)
+    })
+  })
+
+  describe('#createAgeRange', () => {
+    it('should create a properly formatted model with related coding when one age range is given', () => {
+      expect(CodeableConceptModel.createAgeRange('65+ years')).toMatchInlineSnapshot(`
+        CodeableConceptModel {
+          "coding": [
+            CodingModel {
+              "code": undefined,
+              "display": "65+ years",
+              "id": undefined,
+              "system": undefined,
+              "userSelected": undefined,
+              "version": undefined,
+            },
+          ],
+          "id": undefined,
+          "text": "Age range",
+        }
+      `)
+    })
+
+    it('should create a properly formatted model with related coding when multiple age range is given', () => {
+      expect(CodeableConceptModel.createAgeRange('65+ years, 18-64 years')).toMatchInlineSnapshot(`
+        CodeableConceptModel {
+          "coding": [
+            CodingModel {
+              "code": undefined,
+              "display": "65+ years",
+              "id": undefined,
+              "system": undefined,
+              "userSelected": undefined,
+              "version": undefined,
+            },
+            CodingModel {
+              "code": undefined,
+              "display": "18-64 years",
+              "id": undefined,
+              "system": undefined,
+              "userSelected": undefined,
+              "version": undefined,
+            },
+          ],
+          "id": undefined,
+          "text": "Age range",
+        }
+      `)
+    })
+
+    it('should create a properly formatted model with related coding when no age range is given', () => {
+      expect(CodeableConceptModel.createAgeRange('')).toMatchInlineSnapshot(`
+        CodeableConceptModel {
+          "coding": [],
+          "id": undefined,
+          "text": "Age range",
         }
       `)
     })

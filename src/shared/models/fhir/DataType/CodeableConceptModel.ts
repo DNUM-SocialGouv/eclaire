@@ -54,7 +54,7 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createGenderGroup(genders: string) {
+  static createGenders(genders: string): CodeableConceptModel {
     let parsedGenders: string[]
 
     if (genders === '') {
@@ -66,7 +66,23 @@ export class CodeableConceptModel implements CodeableConcept {
     return new CodeableConceptModel(
       parsedGenders.map((parsedGender) => CodingModel.createGender(parsedGender)),
       undefined,
-      genders
+      'Genders'
+    )
+  }
+
+  static createAgeRange(ageRange: string): CodeableConceptModel {
+    let parsedAgeRanges: string[]
+
+    if (ageRange === '') {
+      parsedAgeRanges = []
+    } else {
+      parsedAgeRanges = ageRange.split(', ')
+    }
+
+    return new CodeableConceptModel(
+      parsedAgeRanges.map((parsedAgeRange) => CodingModel.createAgeRange(parsedAgeRange)),
+      undefined,
+      'Age range'
     )
   }
 }

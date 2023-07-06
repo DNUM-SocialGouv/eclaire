@@ -92,6 +92,17 @@ export class CodingModel implements Coding {
       administrativeGenderCodeSystem.version
     )
   }
+
+  static createAgeRange(parsedAgeRange: string): CodingModel {
+    return new CodingModel(
+      undefined,
+      parsedAgeRange,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
 }
 
 enum PhaseCode {
