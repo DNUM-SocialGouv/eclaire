@@ -85,4 +85,16 @@ export class CodeableConceptModel implements CodeableConcept {
       'Age range'
     )
   }
+
+  static createCriteria(studySize: number, groupes_sujet: string, population_recrutement: string) {
+    return new CodeableConceptModel(
+      [
+        CodingModel.createStudySize(studySize),
+        CodingModel.createStudyCategory(groupes_sujet),
+        CodingModel.createStudyPopulation(population_recrutement),
+      ],
+      undefined,
+      'Criteria'
+    )
+  }
 }

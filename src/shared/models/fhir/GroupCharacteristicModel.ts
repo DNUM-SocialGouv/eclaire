@@ -42,4 +42,18 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
       undefined
     )
   }
+
+  static createCriteria(studySize: number, groupes_sujet: string, population_recrutement: string) {
+    return new GroupCharacteristicModel(
+      undefined,
+      false,
+      undefined,
+      undefined,
+      undefined,
+      CodeableConceptModel.createCriteria(studySize, groupes_sujet, population_recrutement),
+      undefined,
+      undefined,
+      undefined
+    )
+  }
 }

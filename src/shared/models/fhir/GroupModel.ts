@@ -18,7 +18,13 @@ export class GroupModel implements Group {
     readonly meta: Meta | undefined,
     readonly name: string | undefined,
     readonly quantity: number | undefined,
-    readonly type: 'person' | 'animal' | 'practitioner' | 'device' | 'medication' | 'substance'
+    readonly type:
+      | 'person'
+      | 'animal'
+      | 'practitioner'
+      | 'device'
+      | 'medication'
+      | 'substance'
   ) {}
 
   static createEnrollment(
@@ -35,6 +41,11 @@ export class GroupModel implements Group {
       [
         GroupCharacteristicModel.createGender(sex),
         GroupCharacteristicModel.createAgeRange(ageRange),
+        GroupCharacteristicModel.createCriteria(
+          studySize,
+          groupes_sujet,
+          population_recrutement
+        ),
       ],
       undefined,
       enrollmentGroupId,

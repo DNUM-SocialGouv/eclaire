@@ -103,6 +103,39 @@ export class CodingModel implements Coding {
       undefined
     )
   }
+
+  static createStudySize(studySize: number) {
+    return new CodingModel(
+      undefined,
+      studySize.toString(),
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createStudyCategory(groupes_sujet: string) {
+    return new CodingModel(
+      undefined,
+      groupes_sujet,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createStudyPopulation(population_recrutement: string) {
+    return new CodingModel(
+      undefined,
+      population_recrutement,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
 }
 
 enum PhaseCode {
