@@ -41,11 +41,9 @@ export class GroupModel implements Group {
       [
         GroupCharacteristicModel.createGender(sex),
         GroupCharacteristicModel.createAgeRange(ageRange),
-        GroupCharacteristicModel.createCriteria(
-          studySize,
-          groupes_sujet,
-          population_recrutement
-        ),
+        GroupCharacteristicModel.createStudySize(studySize),
+        GroupCharacteristicModel.createStudyCategory(groupes_sujet),
+        GroupCharacteristicModel.createStudyPopulation(population_recrutement),
       ],
       undefined,
       enrollmentGroupId,

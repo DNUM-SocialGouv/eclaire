@@ -86,15 +86,27 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createCriteria(studySize: number, groupes_sujet: string, population_recrutement: string) {
+  static createStudySize(studySize: number) {
     return new CodeableConceptModel(
-      [
-        CodingModel.createStudySize(studySize),
-        CodingModel.createStudyCategory(groupes_sujet),
-        CodingModel.createStudyPopulation(population_recrutement),
-      ],
+      [CodingModel.createStudySize(studySize)],
       undefined,
-      'Criteria'
+      'Study Size'
+    )
+  }
+
+  static createStudyCategory(groupes_sujet: string) {
+    return new CodeableConceptModel(
+      [CodingModel.createStudyCategory(groupes_sujet)],
+      undefined,
+      'Study Category'
+    )
+  }
+
+  static createStudyPopulation(population_recrutement: string) {
+    return new CodeableConceptModel(
+      [CodingModel.createStudyPopulation(population_recrutement)],
+      undefined,
+      'Study Population'
     )
   }
 }

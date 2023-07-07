@@ -43,14 +43,42 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createCriteria(studySize: number, groupes_sujet: string, population_recrutement: string) {
+  static createStudySize(studySize: number) {
     return new GroupCharacteristicModel(
       undefined,
       false,
       undefined,
       undefined,
       undefined,
-      CodeableConceptModel.createCriteria(studySize, groupes_sujet, population_recrutement),
+      CodeableConceptModel.createStudySize(studySize),
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createStudyCategory(groupes_sujet: string) {
+    return new GroupCharacteristicModel(
+      undefined,
+      false,
+      undefined,
+      undefined,
+      undefined,
+      CodeableConceptModel.createStudyCategory(groupes_sujet),
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createStudyPopulation(population_recrutement: string) {
+    return new GroupCharacteristicModel(
+      undefined,
+      false,
+      undefined,
+      undefined,
+      undefined,
+      CodeableConceptModel.createStudyPopulation(population_recrutement),
       undefined,
       undefined,
       undefined
