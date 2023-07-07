@@ -56,5 +56,7 @@ export class ResearchStudyModel implements ResearchStudy {
       | 'withdrawn',
     readonly text: Narrative | undefined,
     readonly title: string | undefined
-  ) {}
+  ) {
+    this.resourceType = 'ResearchStudy'
+  }
 }

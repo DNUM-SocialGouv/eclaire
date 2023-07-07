@@ -48,7 +48,7 @@ export class RiphCtisResearchStudyModelFactory {
     const keyword = undefined
     const language = undefined
     const location = undefined
-    const meta: Meta = MetaModel.createWithMostRecentDate(
+    const meta: Meta = MetaModel.createWithMostRecentDateWithoutTime(
       this.emptyIfNull(riphCtisDto.historique),
       this.emptyIfNull(riphCtisDto.dates_avis_favorable_ms_mns)
     )

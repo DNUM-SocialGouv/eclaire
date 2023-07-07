@@ -11,13 +11,13 @@ export class MetaModel implements Meta {
     readonly versionId: string | undefined
   ) {}
 
-  static createWithMostRecentDate(
+  static createWithMostRecentDateWithoutTime(
     historique: string,
     dates_avis_favorable_ms_mns: string
   ) {
     return new MetaModel(
       undefined,
-      this.getMostRecentDate(historique, dates_avis_favorable_ms_mns),
+      this.getMostRecentDateWithoutTime(historique, dates_avis_favorable_ms_mns),
       undefined,
       undefined,
       undefined,
@@ -26,7 +26,7 @@ export class MetaModel implements Meta {
     )
   }
 
-  private static getMostRecentDate(datesOfHistory: string, datesOfApproval: string): string {
+  private static getMostRecentDateWithoutTime(datesOfHistory: string, datesOfApproval: string): string {
     if (datesOfHistory === '' && datesOfApproval === '') return ''
 
     const sortBy = (a: string, b: string) => {
@@ -52,6 +52,7 @@ export class MetaModel implements Meta {
       })
     }
 
-    return new Date(dates.sort(sortBy)[0]).toLocaleDateString('fr-FR')
+    const mostRecentDate = new Date(dates.sort(sortBy)[0])
+    return mostRecentDate.toISOString().split('T')[0]
   }
 }

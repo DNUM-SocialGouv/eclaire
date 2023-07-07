@@ -25,7 +25,9 @@ export class GroupModel implements Group {
       | 'device'
       | 'medication'
       | 'substance'
-  ) {}
+  ) {
+    this.resourceType = 'Group'
+  }
 
   static createEnrollment(
     enrollmentGroupId: string | undefined,

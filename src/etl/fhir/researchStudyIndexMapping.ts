@@ -59,7 +59,7 @@ export const researchStudyIndexMapping = {
     meta: {
       properties: {
         lastUpdated: {
-          format: 'dd/MM/yyyy',
+          format: 'yyyy-MM-dd',
           ignore_malformed: true,
           type: 'date',
         },

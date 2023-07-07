@@ -20,6 +20,7 @@ export class IdentifierModel implements Identifier {
       | 'secondary'
       | 'old'
       | undefined,
+    readonly system: string | undefined,
     readonly value: string | undefined
   ) {}
 
@@ -30,6 +31,7 @@ export class IdentifierModel implements Identifier {
       undefined,
       undefined,
       'usual',
+      undefined,
       numero_ctis
     )
   }
