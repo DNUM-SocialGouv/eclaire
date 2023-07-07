@@ -17,7 +17,7 @@
     "depcheck": "depcheck",
     "dev": "nest start --watch",
     "etl:create-index": "ts-node src/etl/console.ts create-index",
-    "etl:import": "ts-node src/etl/console.ts import-riph",
+    "etl:import": "ts-node src/etl/console.ts import",
     "lint": "eslint '{src,config}/**/*.ts' --max-warnings=0",
     "start": "node dist/src/main",
     "start:debug": "nest start --debug --watch",

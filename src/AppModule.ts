@@ -10,6 +10,7 @@ import { SentryModule } from './api/sentry/sentry.module'
 import { SwaggerModule } from './api/swagger/swagger.module'
 import { UsersModule } from './api/users/users.module'
 // import { EtlModule } from './etl/EtlModule'
+import { EtlModule } from './etl/fhir/EtlModule'
 import { ElasticsearchModule } from './shared/elasticsearch/ElasticsearchModule'
 import { LoggerModule } from './shared/logger/LoggerModule'
 
@@ -27,7 +28,7 @@ import { LoggerModule } from './shared/logger/LoggerModule'
     SwaggerModule,
     ClinicalTrialModule,
     ElasticsearchModule,
-    // EtlModule,
+    EtlModule,
     LoggerModule,
   ],
   providers: [

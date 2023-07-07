@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Identifier, Meta } from 'fhir/r4'
 
-import { RiphCtisDto } from './dto/RiphCtisDto'
-import { CodeableConceptModel } from '../shared/models/fhir/DataType/CodeableConceptModel'
-import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
-import { GroupModel } from '../shared/models/fhir/GroupModel'
-import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
-import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
-import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
-import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
+import { CodeableConceptModel } from '../../shared/models/fhir/DataType/CodeableConceptModel'
+import { IdentifierModel } from '../../shared/models/fhir/DataType/IdentifierModel'
+import { GroupModel } from '../../shared/models/fhir/GroupModel'
+import { ContactDetailModel } from '../../shared/models/fhir/MetadataType/ContactDetailModel'
+import { ResearchStudyModel } from '../../shared/models/fhir/ResearchStudyModel'
+import { MetaModel } from '../../shared/models/fhir/SpecialPurposeDataType/MetaModel'
+import { ReferenceModel } from '../../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
+import { RiphCtisDto } from '../dto/RiphCtisDto'
 
 export class RiphCtisResearchStudyModelFactory {
   private static readonly unavailable = 'INDISPONIBLE'

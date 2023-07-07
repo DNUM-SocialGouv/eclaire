@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core'
 
-import { EtlService } from './EtlService'
+import { EtlService } from './fhir/EtlService'
 import { AppModule } from '../AppModule'
 
 async function console(): Promise<void> {
@@ -12,7 +12,7 @@ async function console(): Promise<void> {
     case 'create-index':
       await etlService.createIndex()
       break
-    case 'import-riph':
+    case 'import':
       await etlService.import()
       break
     default:
