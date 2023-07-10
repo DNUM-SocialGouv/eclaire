@@ -1,9 +1,9 @@
 import { errors } from '@elastic/elasticsearch'
 
-import { EtlService } from './EtlService'
-import { LoggerService } from '../../shared/logger/LoggerService'
-import { ResearchStudyModel } from '../../shared/models/fhir/ResearchStudyModel'
-import { riphCtisDto, setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
+import { FhirEtlService } from './FhirEtlService'
+import { LoggerService } from '../shared/logger/LoggerService'
+import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
+import { riphCtisDto, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
 
 describe('extract transform load service', () => {
   describe('when index is created', () => {
@@ -56,13 +56,6 @@ describe('extract transform load service', () => {
       // THEN
       const ctisResearchStudy = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphCtisDto[0].numero_ctis)
       expect(ctisResearchStudy).not.toBeNull()
-
-      // const dmResearchStudy = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphDmDto[0].numero_national)
-      // const jarde1ResearchStudy = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphJardeDto1[0].numero_national)
-      // const jarde2ResearchStudy = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphJardeDto2[0].numero_national)
-      // expect(dmResearchStudy).not.toBeNull()
-      // expect(jarde1ResearchStudy).not.toBeNull()
-      // expect(jarde2ResearchStudy).not.toBeNull()
     })
 
     it('should not create some clinical trials when bulk has failed with ResponseError', async () => {
@@ -115,8 +108,7 @@ async function setup() {
     return
   })
 
-  //const etlService = new EtlService(logger, elasticsearchService, riphCtisDto, riphDmDto, riphJardeDto1, riphJardeDto2)
-  const etlService = new EtlService(logger, elasticsearchService, riphCtisDto)
+  const etlService = new FhirEtlService(logger, elasticsearchService, riphCtisDto)
 
   return { client, elasticsearchService, etlService }
 }

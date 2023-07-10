@@ -1,7 +1,7 @@
 /* eslint-disable vitest/no-large-snapshots */
 import { RiphCtisResearchStudyModelFactory } from './RiphCtisResearchStudyModelFactory'
-import { ResearchStudyModel } from '../../shared/models/fhir/ResearchStudyModel'
-import { riphCtisDto } from '../../shared/test/helpers/elasticsearchHelper'
+import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
+import { riphCtisDto } from '../shared/test/helpers/elasticsearchHelper'
 
 describe('ctis research study model factory', () => {
   it('should build a CTIS research study model, when RIPH CTIS with all fields filled is given', () => {

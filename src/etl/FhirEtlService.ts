@@ -1,17 +1,17 @@
 import { errors } from '@elastic/elasticsearch'
 import { Injectable } from '@nestjs/common'
 
+import { RiphCtisDto } from './dto/RiphCtisDto'
+import { RiphDmDto } from './dto/RiphDmDto'
+import { RiphJardeDto } from './dto/RiphJardeDto'
+import { researchStudyIndexMapping } from './researchStudyIndexMapping'
 import { RiphCtisResearchStudyModelFactory } from './RiphCtisResearchStudyModelFactory'
-import { ElasticsearchService } from '../../shared/elasticsearch/ElasticsearchService'
-import { LoggerService } from '../../shared/logger/LoggerService'
-import { ResearchStudyModel } from '../../shared/models/fhir/ResearchStudyModel'
-//import { researchStudyIndexMapping } from './researchStudyIndexMapping'
-import { RiphCtisDto } from '../dto/RiphCtisDto'
-import { RiphDmDto } from '../dto/RiphDmDto'
-import { RiphJardeDto } from '../dto/RiphJardeDto'
+import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
+import { LoggerService } from '../shared/logger/LoggerService'
+import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 
 @Injectable()
-export class EtlService {
+export class FhirEtlService {
   private readonly ctisCode = 'REG536'
 
   constructor(
@@ -23,8 +23,7 @@ export class EtlService {
   async createIndex(): Promise<void> {
     this.logger.info('-- Début de la création de l’index ECLAIRE dans Elasticsearch.')
     try {
-      //await this.elasticsearchService.createAnIndex(researchStudyIndexMapping)
-      await this.elasticsearchService.createAnIndex({})
+      await this.elasticsearchService.createAnIndex(researchStudyIndexMapping)
       this.logger.info('-- Fin de la création de l’index ECLAIRE dans Elasticsearch.')
     } catch (error) {
       if (error instanceof errors.ResponseError) {
