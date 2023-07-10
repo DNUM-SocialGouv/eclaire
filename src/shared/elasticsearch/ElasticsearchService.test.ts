@@ -11,7 +11,6 @@ describe('elasticsearch service', () => {
     await service.createAnIndex<FakeDocument>(fakeMapping)
 
     // THEN
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(fakeClient.indices.create).toHaveBeenCalledWith({
       body: { mappings: fakeMapping },
       index: 'eclaire',
@@ -27,7 +26,6 @@ describe('elasticsearch service', () => {
     await service.updateAnIndex(fakeMapping)
 
     // THEN
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(fakeClient.indices.putMapping).toHaveBeenCalledWith({
       body: fakeMapping,
       index: 'eclaire',
@@ -43,7 +41,6 @@ describe('elasticsearch service', () => {
     const result = await service.findOneDocument<FakeDocument>(fakeId)
 
     // THEN
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(fakeClient.get).toHaveBeenCalledWith({
       id: fakeId,
       index: 'eclaire',
@@ -61,7 +58,6 @@ describe('elasticsearch service', () => {
     await service.bulkDocuments(fakeDocuments)
 
     // THEN
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(fakeClient.bulk).toHaveBeenCalledWith({
       body: fakeDocuments,
       index: 'eclaire',
@@ -79,7 +75,6 @@ describe('elasticsearch service', () => {
       const result = await elasticsearchService.search({ query: { term: { 'scientific_title.value': 'ADN' } } })
 
       // THEN
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(fakeClient.search).toHaveBeenCalledWith({
         body: { query: { term: { 'scientific_title.value': 'ADN' } } },
         index: 'eclaire',

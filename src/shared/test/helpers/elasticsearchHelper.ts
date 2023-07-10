@@ -5,8 +5,10 @@ import { ConfigService } from '@nestjs/config'
 import { ElasticsearchConfig } from '../../elasticsearch/ElasticsearchConfig'
 import { ElasticsearchService } from '../../elasticsearch/ElasticsearchService'
 
-export async function setupClientAndElasticsearchService() {
+export async function deleteElasticsearchIndice() {
   process.env.SCALINGO_ELASTICSEARCH_URL = 'http://localhost:9201'
+  process.env.ECLAIRE_URL = 'http://localhost:3000/'
+  process.env.NUMBER_OF_RESSOURCE_BY_PAGE = '2'
   const configService = new ConfigService()
   const elasticsearchConfig = new ElasticsearchConfig(configService)
 
@@ -16,9 +18,20 @@ export async function setupClientAndElasticsearchService() {
     index: 'eclaire',
   })
 
-  const elasticsearchService = new ElasticsearchService(client)
   return {
     client,
+    configService,
+  }
+}
+
+export async function setupClientAndElasticsearchService() {
+  const { client, configService } = await deleteElasticsearchIndice()
+
+  const elasticsearchService = new ElasticsearchService(client)
+
+  return {
+    client,
+    configService,
     elasticsearchService,
   }
 }
