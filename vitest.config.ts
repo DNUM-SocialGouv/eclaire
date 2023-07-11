@@ -21,5 +21,8 @@ export default defineConfig({
     restoreMocks: true,
     sequence: { shuffle: true },
     singleThread: true,
+    snapshotFormat: {
+      escapeString: false,
+    }
   },
 })
