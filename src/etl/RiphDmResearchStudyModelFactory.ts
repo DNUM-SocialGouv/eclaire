@@ -6,12 +6,12 @@ import { CodeableConceptModel } from '../shared/models/fhir/DataType/CodeableCon
 import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
+import { ModelUtils } from '../shared/models/fhir/ModelUtils'
 import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
 export class RiphDmResearchStudyModelFactory {
-  private static readonly unavailable = 'INDISPONIBLE'
 
   static create(riphDmDto: RiphDmDto): ResearchStudyModel {
     const enrollmentGroupId = undefined
@@ -19,28 +19,28 @@ export class RiphDmResearchStudyModelFactory {
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphDmDto.reglementation_code)]
     const condition = [
-      CodeableConceptModel.createDiseaseCondition(this.emptyIfNull(this.unavailable)),
-      CodeableConceptModel.createMedDraCondition(this.emptyIfNull(this.unavailable)),
+      CodeableConceptModel.createDiseaseCondition(ModelUtils.UNAVAILABLE),
+      CodeableConceptModel.createMedDraCondition(ModelUtils.UNAVAILABLE),
     ]
     const contact = [
       ContactDetailModel.create(
-        this.emptyIfNull(riphDmDto.deposant_prenom),
-        this.emptyIfNull(riphDmDto.deposant_nom),
-        this.emptyIfNull(this.unavailable),
-        this.emptyIfNull(riphDmDto.deposant_courriel)
+        riphDmDto.deposant_prenom,
+        riphDmDto.deposant_nom,
+        ModelUtils.UNAVAILABLE,
+        riphDmDto.deposant_courriel
       ),
     ]
     const contained = [
       GroupModel.createStudyCharacteristics(
         enrollmentGroupId,
-        this.emptyIfNull(this.unavailable),
-        this.emptyIfNull(this.unavailable),
-        this.emptyNumberIfNull(riphDmDto.taille_etude),
-        this.emptyIfNull(this.unavailable),
-        this.emptyIfNull(this.unavailable)
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        riphDmDto.taille_etude,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE
       ),
     ]
-    const description = this.unavailable
+    const description = ModelUtils.UNAVAILABLE
     const enrollment = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const focus = undefined
     const id = undefined
@@ -50,13 +50,13 @@ export class RiphDmResearchStudyModelFactory {
     const language = undefined
     const location = undefined
     const meta = MetaModel.createWithMostRecentIsoDate(
-      this.emptyIfNull(riphDmDto.historique),
-      this.emptyIfNull(riphDmDto.dates_avis_favorable_ms_mns)
+      riphDmDto.historique,
+      riphDmDto.dates_avis_favorable_ms_mns
     )
     const objective = undefined
     const partOf = undefined
     const period = undefined
-    const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(this.unavailable)
+    const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(ModelUtils.UNAVAILABLE)
     const primaryPurposeType = undefined
     const principalInvestigator = undefined
     const protocol = undefined
@@ -66,7 +66,7 @@ export class RiphDmResearchStudyModelFactory {
     const sponsor = undefined
     const status = 'active'
     const text = undefined
-    const title = this.emptyIfNull(riphDmDto.titre_recherche)
+    const title = ModelUtils.emptyIfNull(riphDmDto.titre_recherche)
 
     return new ResearchStudyModel(
       arm,
@@ -99,13 +99,5 @@ export class RiphDmResearchStudyModelFactory {
       text,
       title
     )
-  }
-
-  private static emptyIfNull(value: string): string {
-    return value === null ? '' : value
-  }
-
-  private static emptyNumberIfNull(value: number): number {
-    return value === null ? -1 : value
   }
 }
