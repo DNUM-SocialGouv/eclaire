@@ -58,8 +58,8 @@ export class CodingModel implements Coding {
 
   static createDiseaseCoding(disease: string) {
     return new CodingModel(
+      undefined,
       disease,
-      'Disease Condition',
       undefined,
       undefined,
       undefined,
@@ -130,6 +130,28 @@ export class CodingModel implements Coding {
     return new CodingModel(
       undefined,
       population_recrutement,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createGroupCharacteristicCode(code: string) {
+    return new CodingModel(
+      undefined,
+      code,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createRegulationCode(regulationCode: string) {
+    return new CodingModel(
+      undefined,
+      regulationCode,
       undefined,
       undefined,
       undefined,

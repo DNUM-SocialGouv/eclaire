@@ -13,7 +13,7 @@ import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/Ref
 export class RiphCtisResearchStudyModelFactory {
   private static readonly unavailable = 'INDISPONIBLE'
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
-    const enrollmentGroupId = undefined
+    const enrollmentGroupId = riphCtisDto.numero_ctis + '-enrollment-group-id'
 
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
@@ -30,7 +30,7 @@ export class RiphCtisResearchStudyModelFactory {
       ),
     ]
     const contained = [
-      GroupModel.createEnrollment(
+      GroupModel.createStudyCharacteristics(
         enrollmentGroupId,
         this.emptyIfNull(riphCtisDto.sexe),
         this.emptyIfNull(riphCtisDto.tranches_age),
@@ -40,15 +40,15 @@ export class RiphCtisResearchStudyModelFactory {
       ),
     ]
     const description = this.unavailable
-    const enrollment = [ReferenceModel.createGroup(enrollmentGroupId)]
+    const enrollment = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const focus = undefined
-    const id = undefined
+    const id = riphCtisDto.numero_ctis
     const identifier: Identifier[] = [IdentifierModel.createCtisIdentifier(riphCtisDto.numero_ctis)]
     const implicitRules = undefined
     const keyword = undefined
     const language = undefined
     const location = undefined
-    const meta: Meta = MetaModel.createWithMostRecentDateWithoutTime(
+    const meta: Meta = MetaModel.createWithMostRecentIsoDate(
       this.emptyIfNull(riphCtisDto.historique),
       this.emptyIfNull(riphCtisDto.dates_avis_favorable_ms_mns)
     )

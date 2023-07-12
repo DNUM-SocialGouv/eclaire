@@ -29,7 +29,7 @@ export class GroupModel implements Group {
     this.resourceType = 'Group'
   }
 
-  static createEnrollment(
+  static createStudyCharacteristics(
     enrollmentGroupId: string | undefined,
     sex: string,
     ageRange: string,

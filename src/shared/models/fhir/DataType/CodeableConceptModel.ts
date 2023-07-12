@@ -17,11 +17,11 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createCategory(reglementationCode: string): CodeableConceptModel {
+  static createCategory(regulationCode: string): CodeableConceptModel {
     return new CodeableConceptModel(
+      [CodingModel.createRegulationCode(regulationCode)],
       undefined,
-      undefined,
-      reglementationCode
+      'Regulation Code'
     )
   }
 
@@ -107,6 +107,14 @@ export class CodeableConceptModel implements CodeableConcept {
       [CodingModel.createStudyPopulation(population_recrutement)],
       undefined,
       'Study Population'
+    )
+  }
+
+  static createGroupCharacteristicCode(code: string) {
+    return new CodeableConceptModel(
+      [CodingModel.createGroupCharacteristicCode(code)],
+      undefined,
+      'Group characteristic code'
     )
   }
 }

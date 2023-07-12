@@ -27,7 +27,7 @@ describe('elasticsearch research study repository', () => {
       const { esResearchStudyRepository } = await setup()
       const bodySearch: SearchBodyType = {
         from: 0,
-        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01' } } }] } },
+        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01T00:00:00Z' } } }] } },
         size: numberOfRessourceByPage,
       }
 
@@ -56,7 +56,7 @@ describe('elasticsearch research study repository', () => {
       const { esResearchStudyRepository } = await setup()
       const bodySearch: SearchBodyType = {
         from: 0,
-        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '3020-01-01' } } }] } },
+        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '3020-01-01T00:00:00Z' } } }] } },
         size: numberOfRessourceByPage,
       }
 
@@ -78,7 +78,7 @@ describe('elasticsearch research study repository', () => {
       const { esResearchStudyRepository } = await setup()
       const bodySearch: SearchBodyType = {
         from: 4,
-        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01' } } }] } },
+        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01T00:00:00Z' } } }] } },
         size: numberOfRessourceByPage,
       }
 

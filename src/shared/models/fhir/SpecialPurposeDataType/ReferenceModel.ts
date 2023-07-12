@@ -19,12 +19,12 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createGroup(enrollmentGroupId: string | undefined) {
+  static createGroupDetailingStudyCharacteristics(enrollmentGroupId: string | undefined) {
     return new ReferenceModel(
+      'Reference to group detailing study characteristics',
       undefined,
-      enrollmentGroupId,
       undefined,
-      undefined,
+      '#' + enrollmentGroupId,
       'Group'
     )
   }

@@ -3,6 +3,8 @@ import { CodeableConcept, GroupCharacteristic, Period, Quantity, Range, Referenc
 import { CodeableConceptModel } from './DataType/CodeableConceptModel'
 
 export class GroupCharacteristicModel implements GroupCharacteristic {
+  private static readonly unavailable = 'INDISPONIBLE'
+
   constructor(
     readonly code: CodeableConcept,
     readonly exclude: boolean,
@@ -17,7 +19,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createGender(genders: string) {
     return new GroupCharacteristicModel(
-      undefined,
+      CodeableConceptModel.createGroupCharacteristicCode(this.unavailable),
       false,
       undefined,
       undefined,
@@ -31,7 +33,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createAgeRange(ageRange: string) {
     return new GroupCharacteristicModel(
-      undefined,
+      CodeableConceptModel.createGroupCharacteristicCode(this.unavailable),
       false,
       undefined,
       undefined,
@@ -45,7 +47,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createStudySize(studySize: number) {
     return new GroupCharacteristicModel(
-      undefined,
+      CodeableConceptModel.createGroupCharacteristicCode(this.unavailable),
       false,
       undefined,
       undefined,
@@ -59,7 +61,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createStudyCategory(groupes_sujet: string) {
     return new GroupCharacteristicModel(
-      undefined,
+      CodeableConceptModel.createGroupCharacteristicCode(this.unavailable),
       false,
       undefined,
       undefined,
@@ -73,7 +75,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createStudyPopulation(population_recrutement: string) {
     return new GroupCharacteristicModel(
-      undefined,
+      CodeableConceptModel.createGroupCharacteristicCode(this.unavailable),
       false,
       undefined,
       undefined,

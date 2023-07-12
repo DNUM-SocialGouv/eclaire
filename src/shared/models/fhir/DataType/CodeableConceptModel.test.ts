@@ -45,17 +45,26 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
   describe('#createCategory', () => {
     it('should create a properly formatted model with category when information is given', () => {
       // given
-      const reglementationCode = 'REG536'
+      const regulationCode = 'REG536'
 
       // when
-      const result = CodeableConceptModel.createCategory(reglementationCode)
+      const result = CodeableConceptModel.createCategory(regulationCode)
 
       // then
       expect(result).toMatchInlineSnapshot(`
         CodeableConceptModel {
-          "coding": undefined,
+          "coding": [
+            CodingModel {
+              "code": undefined,
+              "display": "REG536",
+              "id": undefined,
+              "system": undefined,
+              "userSelected": undefined,
+              "version": undefined,
+            },
+          ],
           "id": undefined,
-          "text": "REG536",
+          "text": "Regulation Code",
         }
       `)
     })
@@ -67,8 +76,8 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
         CodeableConceptModel {
           "coding": [
             CodingModel {
-              "code": "Locally-Advanced or Metastatic breast cancer (MBC)",
-              "display": "Disease Condition",
+              "code": undefined,
+              "display": "Locally-Advanced or Metastatic breast cancer (MBC)",
               "id": undefined,
               "system": undefined,
               "userSelected": undefined,
@@ -86,8 +95,8 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
         CodeableConceptModel {
           "coding": [
             CodingModel {
-              "code": "",
-              "display": "Disease Condition",
+              "code": undefined,
+              "display": "",
               "id": undefined,
               "system": undefined,
               "userSelected": undefined,
