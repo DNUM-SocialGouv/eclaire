@@ -1,6 +1,7 @@
 import { CodeableConcept, Coding } from 'fhir/r4'
 
 import { CodingModel } from './CodingModel'
+import { ModelUtils } from '../ModelUtils'
 
 export class CodeableConceptModel implements CodeableConcept {
   constructor(
@@ -9,11 +10,13 @@ export class CodeableConceptModel implements CodeableConcept {
     readonly text: string | undefined
   ) {}
 
-  static createResearchStudyPhase(phase_recherche: string) {
+  static createResearchStudyPhase(researchStudyPhase: string): CodeableConceptModel {
+    const emptyResearchStudyPhaseIfNull = ModelUtils.emptyIfNull(researchStudyPhase)
+
     return new CodeableConceptModel(
-      [CodingModel.createResearchStudyPhase(phase_recherche)],
+      [CodingModel.createResearchStudyPhase(emptyResearchStudyPhaseIfNull)],
       undefined,
-      phase_recherche
+      emptyResearchStudyPhaseIfNull
     )
   }
 
@@ -26,8 +29,9 @@ export class CodeableConceptModel implements CodeableConcept {
   }
 
   static createDiseaseCondition(disease: string): CodeableConceptModel {
+    const emptyDiseaseIfNull = ModelUtils.emptyIfNull(disease)
     return new CodeableConceptModel(
-      [CodingModel.createDiseaseCoding(disease)],
+      [CodingModel.createDiseaseCoding(emptyDiseaseIfNull)],
       undefined,
       'Disease Condition'
     )
@@ -36,10 +40,12 @@ export class CodeableConceptModel implements CodeableConcept {
   static createMedDraCondition(medDraInformation: string): CodeableConceptModel {
     let parsedMedDraInformation: string[]
 
-    if (medDraInformation === '') {
+    const emptyMedDraInformationIfNull = ModelUtils.emptyIfNull(medDraInformation)
+
+    if (emptyMedDraInformationIfNull === '') {
       parsedMedDraInformation = []
     } else {
-      parsedMedDraInformation = medDraInformation.split(', ')
+      parsedMedDraInformation = emptyMedDraInformationIfNull.split(', ')
     }
 
     const coding: CodingModel[] = []

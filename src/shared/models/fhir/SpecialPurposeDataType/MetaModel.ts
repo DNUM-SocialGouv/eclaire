@@ -1,5 +1,7 @@
 import { Coding, Meta } from 'fhir/r4'
 
+import { ModelUtils } from '../ModelUtils'
+
 export class MetaModel implements Meta {
   constructor(
     readonly id: string | undefined,
@@ -15,9 +17,12 @@ export class MetaModel implements Meta {
     historique: string,
     dates_avis_favorable_ms_mns: string
   ) {
+    const emptyHistoryDateIfNull = ModelUtils.emptyIfNull(historique)
+    const emptyApprovalDateIfNull = ModelUtils.emptyIfNull(dates_avis_favorable_ms_mns)
+
     return new MetaModel(
       undefined,
-      this.getMostRecentIsoDate(historique, dates_avis_favorable_ms_mns),
+      this.getMostRecentIsoDate(emptyHistoryDateIfNull, emptyApprovalDateIfNull),
       undefined,
       undefined,
       undefined,

@@ -6,41 +6,40 @@ import { CodeableConceptModel } from '../shared/models/fhir/DataType/CodeableCon
 import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
+import { ModelUtils } from '../shared/models/fhir/ModelUtils'
 import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
 export class RiphCtisResearchStudyModelFactory {
-  private static readonly unavailable = 'INDISPONIBLE'
-
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
     const enrollmentGroupId = riphCtisDto.numero_ctis + '-enrollment-group-id'
 
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
     const condition = [
-      CodeableConceptModel.createDiseaseCondition(this.emptyIfNull(riphCtisDto.pathologies_maladies_rares)),
-      CodeableConceptModel.createMedDraCondition(this.emptyIfNull(riphCtisDto.informations_meddra)),
+      CodeableConceptModel.createDiseaseCondition(riphCtisDto.pathologies_maladies_rares),
+      CodeableConceptModel.createMedDraCondition(riphCtisDto.informations_meddra),
     ]
     const contact = [
       ContactDetailModel.create(
-        this.emptyIfNull(riphCtisDto.contact_prenom),
-        this.emptyIfNull(riphCtisDto.contact_nom),
-        this.emptyIfNull(riphCtisDto.contact_telephone),
-        this.emptyIfNull(riphCtisDto.contact_courriel)
+        riphCtisDto.contact_prenom,
+        riphCtisDto.contact_nom,
+        riphCtisDto.contact_telephone,
+        riphCtisDto.contact_courriel
       ),
     ]
     const contained = [
       GroupModel.createStudyCharacteristics(
         enrollmentGroupId,
-        this.emptyIfNull(riphCtisDto.sexe),
-        this.emptyIfNull(riphCtisDto.tranches_age),
-        this.emptyNumberIfNull(riphCtisDto.taille_etude),
-        this.emptyIfNull(riphCtisDto.groupes_sujet),
-        this.emptyIfNull(riphCtisDto.population_recrutement)
+        riphCtisDto.sexe,
+        riphCtisDto.tranches_age,
+        riphCtisDto.taille_etude,
+        riphCtisDto.groupes_sujet,
+        riphCtisDto.population_recrutement
       ),
     ]
-    const description = this.unavailable
+    const description = ModelUtils.UNAVAILABLE
     const enrollment = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const focus = undefined
     const id = riphCtisDto.numero_ctis
@@ -50,13 +49,13 @@ export class RiphCtisResearchStudyModelFactory {
     const language = undefined
     const location = undefined
     const meta: Meta = MetaModel.createWithMostRecentIsoDate(
-      this.emptyIfNull(riphCtisDto.historique),
-      this.emptyIfNull(riphCtisDto.dates_avis_favorable_ms_mns)
+      riphCtisDto.historique,
+      riphCtisDto.dates_avis_favorable_ms_mns
     )
     const objective = undefined
     const partOf = undefined
     const period = undefined
-    const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(this.emptyIfNull(riphCtisDto.phase_recherche))
+    const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(riphCtisDto.phase_recherche)
     const primaryPurposeType = undefined
     const principalInvestigator = undefined
     const protocol = undefined
@@ -66,7 +65,7 @@ export class RiphCtisResearchStudyModelFactory {
     const sponsor = undefined
     const status = 'active'
     const text = undefined
-    const title = this.emptyIfNull(riphCtisDto.titre)
+    const title = ModelUtils.emptyIfNull(riphCtisDto.titre)
 
     return new ResearchStudyModel(
       arm,
@@ -99,13 +98,5 @@ export class RiphCtisResearchStudyModelFactory {
       text,
       title
     )
-  }
-
-  private static emptyIfNull(value: string): string {
-    return value === null ? '' : value
-  }
-
-  private static emptyNumberIfNull(value: number): number {
-    return value === null ? -1 : value
   }
 }

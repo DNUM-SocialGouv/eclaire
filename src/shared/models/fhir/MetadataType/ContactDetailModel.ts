@@ -1,6 +1,7 @@
 import { ContactDetail, ContactPoint } from 'fhir/r4'
 
 import { ContactPointModel } from '../DataType/ContactPointModel'
+import { ModelUtils } from '../ModelUtils'
 
 export class ContactDetailModel implements ContactDetail {
   constructor(
@@ -15,12 +16,17 @@ export class ContactDetailModel implements ContactDetail {
     phone: string,
     email: string
   ) {
+    const emptyFirstNameIfNull = ModelUtils.emptyIfNull(firstname)
+    const emptyLastnameIfNull = ModelUtils.emptyIfNull(lastname)
+    const emptyPhoneIfNull = ModelUtils.emptyIfNull(phone)
+    const emptyEmailIfNull = ModelUtils.emptyIfNull(email)
+
     return new ContactDetailModel(
       undefined,
-      `${firstname}, ${lastname}`,
+      `${emptyFirstNameIfNull}, ${emptyLastnameIfNull}`,
       [
-        ContactPointModel.createPhone(phone),
-        ContactPointModel.createEmail(email),
+        ContactPointModel.createPhone(emptyPhoneIfNull),
+        ContactPointModel.createEmail(emptyEmailIfNull),
       ]
     )
   }

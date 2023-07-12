@@ -1,10 +1,9 @@
 import { CodeableConcept, GroupCharacteristic, Period, Quantity, Range, Reference } from 'fhir/r4'
 
 import { CodeableConceptModel } from './DataType/CodeableConceptModel'
+import { ModelUtils } from './ModelUtils'
 
 export class GroupCharacteristicModel implements GroupCharacteristic {
-  private static readonly unavailable = 'INDISPONIBLE'
-
   constructor(
     readonly code: CodeableConcept,
     readonly exclude: boolean,
@@ -19,7 +18,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createGender(genders: string) {
     return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicCode(this.unavailable),
+      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
       undefined,
       undefined,
@@ -33,7 +32,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createAgeRange(ageRange: string) {
     return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicCode(this.unavailable),
+      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
       undefined,
       undefined,
@@ -47,7 +46,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createStudySize(studySize: number) {
     return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicCode(this.unavailable),
+      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
       undefined,
       undefined,
@@ -61,7 +60,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createStudyCategory(groupes_sujet: string) {
     return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicCode(this.unavailable),
+      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
       undefined,
       undefined,
@@ -75,7 +74,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createStudyPopulation(population_recrutement: string) {
     return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicCode(this.unavailable),
+      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
       undefined,
       undefined,
