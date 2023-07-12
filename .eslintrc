@@ -107,6 +107,7 @@
         "vitest/max-expects": "off",
         "vitest/no-conditional-expect": "off",
         "vitest/no-hooks": "off",
+        "vitest/no-large-snapshots": "off",
         "vitest/require-hook": "off",
         "vitest/prefer-expect-assertions": "off"
       }

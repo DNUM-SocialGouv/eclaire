@@ -1,13 +1,13 @@
-import { RiphCtisResearchStudyModelFactory } from './RiphCtisResearchStudyModelFactory'
-import { riphCtisDto } from '../shared/test/helpers/elasticsearchHelper'
+import { RiphJardeResearchStudyModelFactory } from './RiphJardeResearchStudyModelFactory'
+import { riphJardeDto1 } from '../shared/test/helpers/elasticsearchHelper'
 
-describe('ctis research study model factory', () => {
-  it('should build a CTIS research study model, when RIPH CTIS with all fields filled is given', () => {
+describe('jarde research study model factory', () => {
+  it('should build a Jarde research study model, when RIPH Jarde with all fields filled is given', () => {
     // GIVEN
-    const normalResearchStudyDto = riphCtisDto[0]
+    const normalResearchStudyDto = riphJardeDto1[0]
 
     // WHEN
-    const researchStudyModel = RiphCtisResearchStudyModelFactory.create(normalResearchStudyDto)
+    const researchStudyModel = RiphJardeResearchStudyModelFactory.create(normalResearchStudyDto)
 
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
@@ -18,7 +18,7 @@ describe('ctis research study model factory', () => {
             "coding": [
               CodingModel {
                 "code": undefined,
-                "display": "REG536",
+                "display": "JARDE",
                 "id": undefined,
                 "system": undefined,
                 "userSelected": undefined,
@@ -34,7 +34,7 @@ describe('ctis research study model factory', () => {
             "coding": [
               CodingModel {
                 "code": undefined,
-                "display": "Locally-Advanced or Metastatic breast cancer (MBC)",
+                "display": "INDISPONIBLE",
                 "id": undefined,
                 "system": undefined,
                 "userSelected": undefined,
@@ -47,15 +47,7 @@ describe('ctis research study model factory', () => {
           CodeableConceptModel {
             "coding": [
               CodingModel {
-                "code": "10070575",
-                "display": "MedDRA",
-                "id": undefined,
-                "system": "http://terminology.hl7.org/CodeSystem/mdr",
-                "userSelected": undefined,
-                "version": "2.0.1",
-              },
-              CodingModel {
-                "code": "10065430",
+                "code": "INDISPONIBLE",
                 "display": "MedDRA",
                 "id": undefined,
                 "system": "http://terminology.hl7.org/CodeSystem/mdr",
@@ -70,7 +62,7 @@ describe('ctis research study model factory', () => {
         "contact": [
           ContactDetailModel {
             "id": undefined,
-            "name": "Head of EU, Trial Information Support Line-TISL, Switzerland",
+            "name": "Christophe, GILLET",
             "telecom": [
               ContactPointModel {
                 "id": undefined,
@@ -78,7 +70,7 @@ describe('ctis research study model factory', () => {
                 "rank": undefined,
                 "system": "phone",
                 "use": "work",
-                "value": "0041616881111",
+                "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "id": undefined,
@@ -86,7 +78,7 @@ describe('ctis research study model factory', () => {
                 "rank": undefined,
                 "system": "email",
                 "use": "work",
-                "value": "global.rochegenentechtrials@roche.com",
+                "value": "christophe.gillet@uphf.fr",
               },
             ],
           },
@@ -118,16 +110,8 @@ describe('ctis research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": "male",
-                      "display": "Male",
-                      "id": undefined,
-                      "system": "http://hl7.org/fhir/administrative-gender",
-                      "userSelected": undefined,
-                      "version": "5.0.0",
-                    },
-                    CodingModel {
-                      "code": "female",
-                      "display": "Female",
+                      "code": undefined,
+                      "display": undefined,
                       "id": undefined,
                       "system": "http://hl7.org/fhir/administrative-gender",
                       "userSelected": undefined,
@@ -164,15 +148,7 @@ describe('ctis research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "65+ years",
-                      "id": undefined,
-                      "system": undefined,
-                      "userSelected": undefined,
-                      "version": undefined,
-                    },
-                    CodingModel {
-                      "code": undefined,
-                      "display": "18-64 years",
+                      "display": "INDISPONIBLE",
                       "id": undefined,
                       "system": undefined,
                       "userSelected": undefined,
@@ -209,7 +185,7 @@ describe('ctis research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "21",
+                      "display": "23",
                       "id": undefined,
                       "system": undefined,
                       "userSelected": undefined,
@@ -246,7 +222,7 @@ describe('ctis research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "Données non disponible",
+                      "display": "INDISPONIBLE",
                       "id": undefined,
                       "system": undefined,
                       "userSelected": undefined,
@@ -283,7 +259,7 @@ describe('ctis research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "Women of child bearing potential not using contraception, Women of child bearing potential using contraception",
+                      "display": "INDISPONIBLE",
                       "id": undefined,
                       "system": undefined,
                       "userSelected": undefined,
@@ -299,7 +275,7 @@ describe('ctis research study model factory', () => {
               },
             ],
             "code": undefined,
-            "id": "2022-500014-26-00-enrollment-group-id",
+            "id": undefined,
             "identifier": undefined,
             "implicitRules": undefined,
             "language": undefined,
@@ -318,19 +294,19 @@ describe('ctis research study model factory', () => {
             "display": "Reference to group detailing study characteristics",
             "id": undefined,
             "identifier": undefined,
-            "reference": "#2022-500014-26-00-enrollment-group-id",
+            "reference": "#undefined",
             "type": "Group",
           },
         ],
         "focus": undefined,
-        "id": "2022-500014-26-00",
+        "id": undefined,
         "identifier": [
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "euclinicaltrials.eu",
               "id": undefined,
               "identifier": undefined,
-              "reference": "https://euclinicaltrials.eu/app/#/view/2022-500014-26-00",
+              "reference": "https://euclinicaltrials.eu/app/#/view/2021-A01022-39",
               "type": undefined,
             },
             "id": undefined,
@@ -338,7 +314,7 @@ describe('ctis research study model factory', () => {
             "system": undefined,
             "type": undefined,
             "use": "usual",
-            "value": "2022-500014-26-00",
+            "value": "2021-A01022-39",
           },
         ],
         "implicitRules": undefined,
@@ -347,7 +323,7 @@ describe('ctis research study model factory', () => {
         "location": undefined,
         "meta": MetaModel {
           "id": undefined,
-          "lastUpdated": "2023-04-12T00:00:00.000Z",
+          "lastUpdated": "2023-04-04T00:00:00.000Z",
           "profile": undefined,
           "security": undefined,
           "source": undefined,
@@ -360,8 +336,8 @@ describe('ctis research study model factory', () => {
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
-              "code": "phase-3",
-              "display": "Phase 3",
+              "code": "n-a",
+              "display": "N/A",
               "id": undefined,
               "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
               "userSelected": undefined,
@@ -369,7 +345,7 @@ describe('ctis research study model factory', () => {
             },
           ],
           "id": undefined,
-          "text": "Therapeutic confirmatory  (Phase III)",
+          "text": "INDISPONIBLE",
         },
         "primaryPurposeType": undefined,
         "principalInvestigator": undefined,
@@ -381,17 +357,17 @@ describe('ctis research study model factory', () => {
         "sponsor": undefined,
         "status": "active",
         "text": undefined,
-        "title": "A PHASE III, RANDOMIZED, OPEN-LABEL STUDY EVALUATING THE EFFICACY AND SAFETY OF GIREDESTRANT IN COMBINATION WITH PHESGO VERSUS PHESGO AFTER INDUCTION THERAPY WITH PHESGO+TAXANE IN PATIENTS WITH PREVIOUSLY UNTREATED HER2-POSITIVE, ESTROGEN RECEPTOR-POSITIVE LOCALLY-ADVANCED OR METASTATIC BREAST CANCER",
+        "title": "Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.",
       }
     `)
   })
 
-  it('should build a CTIS research study model, when RIPH CTIS with null fields is given', () => {
+  it('should build a Jarde research study model, when RIPH Jarde with null fields is given', () => {
     // GIVEN
-    const researchStudyDtoWithEmptyFields = riphCtisDto[1]
+    const researchStudyDtoWithEmptyFields = riphJardeDto1[1]
 
     // WHEN
-    const researchStudyModel = RiphCtisResearchStudyModelFactory.create(researchStudyDtoWithEmptyFields)
+    const researchStudyModel = RiphJardeResearchStudyModelFactory.create(researchStudyDtoWithEmptyFields)
 
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
@@ -402,7 +378,7 @@ describe('ctis research study model factory', () => {
             "coding": [
               CodingModel {
                 "code": undefined,
-                "display": "REG536",
+                "display": "JARDE",
                 "id": undefined,
                 "system": undefined,
                 "userSelected": undefined,
@@ -418,7 +394,7 @@ describe('ctis research study model factory', () => {
             "coding": [
               CodingModel {
                 "code": undefined,
-                "display": "",
+                "display": "INDISPONIBLE",
                 "id": undefined,
                 "system": undefined,
                 "userSelected": undefined,
@@ -429,7 +405,16 @@ describe('ctis research study model factory', () => {
             "text": "Disease Condition",
           },
           CodeableConceptModel {
-            "coding": [],
+            "coding": [
+              CodingModel {
+                "code": "INDISPONIBLE",
+                "display": "MedDRA",
+                "id": undefined,
+                "system": "http://terminology.hl7.org/CodeSystem/mdr",
+                "userSelected": undefined,
+                "version": "2.0.1",
+              },
+            ],
             "id": undefined,
             "text": "MedDRA Condition",
           },
@@ -445,7 +430,7 @@ describe('ctis research study model factory', () => {
                 "rank": undefined,
                 "system": "phone",
                 "use": "work",
-                "value": "",
+                "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "id": undefined,
@@ -485,8 +470,8 @@ describe('ctis research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": "unknown",
-                      "display": "Unknown",
+                      "code": undefined,
+                      "display": undefined,
                       "id": undefined,
                       "system": "http://hl7.org/fhir/administrative-gender",
                       "userSelected": undefined,
@@ -520,7 +505,16 @@ describe('ctis research study model factory', () => {
                 "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [],
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "id": undefined,
+                      "system": undefined,
+                      "userSelected": undefined,
+                      "version": undefined,
+                    },
+                  ],
                   "id": undefined,
                   "text": "Age range",
                 },
@@ -588,7 +582,7 @@ describe('ctis research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "",
+                      "display": "INDISPONIBLE",
                       "id": undefined,
                       "system": undefined,
                       "userSelected": undefined,
@@ -625,7 +619,7 @@ describe('ctis research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "",
+                      "display": "INDISPONIBLE",
                       "id": undefined,
                       "system": undefined,
                       "userSelected": undefined,
@@ -641,7 +635,7 @@ describe('ctis research study model factory', () => {
               },
             ],
             "code": undefined,
-            "id": "2022-500299-71-00-enrollment-group-id",
+            "id": undefined,
             "identifier": undefined,
             "implicitRules": undefined,
             "language": undefined,
@@ -660,19 +654,19 @@ describe('ctis research study model factory', () => {
             "display": "Reference to group detailing study characteristics",
             "id": undefined,
             "identifier": undefined,
-            "reference": "#2022-500299-71-00-enrollment-group-id",
+            "reference": "#undefined",
             "type": "Group",
           },
         ],
         "focus": undefined,
-        "id": "2022-500299-71-00",
+        "id": undefined,
         "identifier": [
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "euclinicaltrials.eu",
               "id": undefined,
               "identifier": undefined,
-              "reference": "https://euclinicaltrials.eu/app/#/view/2022-500299-71-00",
+              "reference": "https://euclinicaltrials.eu/app/#/view/2021-A01022-39",
               "type": undefined,
             },
             "id": undefined,
@@ -680,7 +674,7 @@ describe('ctis research study model factory', () => {
             "system": undefined,
             "type": undefined,
             "use": "usual",
-            "value": "2022-500299-71-00",
+            "value": "2021-A01022-39",
           },
         ],
         "implicitRules": undefined,
@@ -711,7 +705,7 @@ describe('ctis research study model factory', () => {
             },
           ],
           "id": undefined,
-          "text": "",
+          "text": "INDISPONIBLE",
         },
         "primaryPurposeType": undefined,
         "principalInvestigator": undefined,

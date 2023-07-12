@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Identifier, Meta } from 'fhir/r4'
+import { Identifier } from 'fhir/r4'
 
-import { RiphCtisDto } from './dto/RiphCtisDto'
+import { RiphDmDto } from './dto/RiphDmDto'
 import { CodeableConceptModel } from '../shared/models/fhir/DataType/CodeableConceptModel'
 import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
@@ -10,53 +10,53 @@ import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
-export class RiphCtisResearchStudyModelFactory {
+export class RiphDmResearchStudyModelFactory {
   private static readonly unavailable = 'INDISPONIBLE'
 
-  static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
-    const enrollmentGroupId = riphCtisDto.numero_ctis + '-enrollment-group-id'
+  static create(riphDmDto: RiphDmDto): ResearchStudyModel {
+    const enrollmentGroupId = undefined
 
     const arm = undefined
-    const category = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
+    const category = [CodeableConceptModel.createCategory(riphDmDto.reglementation_code)]
     const condition = [
-      CodeableConceptModel.createDiseaseCondition(this.emptyIfNull(riphCtisDto.pathologies_maladies_rares)),
-      CodeableConceptModel.createMedDraCondition(this.emptyIfNull(riphCtisDto.informations_meddra)),
+      CodeableConceptModel.createDiseaseCondition(this.emptyIfNull(this.unavailable)),
+      CodeableConceptModel.createMedDraCondition(this.emptyIfNull(this.unavailable)),
     ]
     const contact = [
       ContactDetailModel.create(
-        this.emptyIfNull(riphCtisDto.contact_prenom),
-        this.emptyIfNull(riphCtisDto.contact_nom),
-        this.emptyIfNull(riphCtisDto.contact_telephone),
-        this.emptyIfNull(riphCtisDto.contact_courriel)
+        this.emptyIfNull(riphDmDto.deposant_prenom),
+        this.emptyIfNull(riphDmDto.deposant_nom),
+        this.emptyIfNull(this.unavailable),
+        this.emptyIfNull(riphDmDto.deposant_courriel)
       ),
     ]
     const contained = [
       GroupModel.createStudyCharacteristics(
         enrollmentGroupId,
-        this.emptyIfNull(riphCtisDto.sexe),
-        this.emptyIfNull(riphCtisDto.tranches_age),
-        this.emptyNumberIfNull(riphCtisDto.taille_etude),
-        this.emptyIfNull(riphCtisDto.groupes_sujet),
-        this.emptyIfNull(riphCtisDto.population_recrutement)
+        this.emptyIfNull(this.unavailable),
+        this.emptyIfNull(this.unavailable),
+        this.emptyNumberIfNull(riphDmDto.taille_etude),
+        this.emptyIfNull(this.unavailable),
+        this.emptyIfNull(this.unavailable)
       ),
     ]
     const description = this.unavailable
     const enrollment = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const focus = undefined
-    const id = riphCtisDto.numero_ctis
-    const identifier: Identifier[] = [IdentifierModel.createCtisIdentifier(riphCtisDto.numero_ctis)]
+    const id = undefined
+    const identifier: Identifier[] = [IdentifierModel.createCtisIdentifier(riphDmDto.numero_national)]
     const implicitRules = undefined
     const keyword = undefined
     const language = undefined
     const location = undefined
-    const meta: Meta = MetaModel.createWithMostRecentIsoDate(
-      this.emptyIfNull(riphCtisDto.historique),
-      this.emptyIfNull(riphCtisDto.dates_avis_favorable_ms_mns)
+    const meta = MetaModel.createWithMostRecentIsoDate(
+      this.emptyIfNull(riphDmDto.historique),
+      this.emptyIfNull(riphDmDto.dates_avis_favorable_ms_mns)
     )
     const objective = undefined
     const partOf = undefined
     const period = undefined
-    const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(this.emptyIfNull(riphCtisDto.phase_recherche))
+    const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(this.unavailable)
     const primaryPurposeType = undefined
     const principalInvestigator = undefined
     const protocol = undefined
@@ -66,7 +66,7 @@ export class RiphCtisResearchStudyModelFactory {
     const sponsor = undefined
     const status = 'active'
     const text = undefined
-    const title = this.emptyIfNull(riphCtisDto.titre)
+    const title = this.emptyIfNull(riphDmDto.titre_recherche)
 
     return new ResearchStudyModel(
       arm,

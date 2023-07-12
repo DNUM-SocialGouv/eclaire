@@ -6,6 +6,8 @@ import { RiphDmDto } from './dto/RiphDmDto'
 import { RiphJardeDto } from './dto/RiphJardeDto'
 import { researchStudyIndexMapping } from './researchStudyIndexMapping'
 import { RiphCtisResearchStudyModelFactory } from './RiphCtisResearchStudyModelFactory'
+import { RiphDmResearchStudyModelFactory } from './RiphDmResearchStudyModelFactory'
+import { RiphJardeResearchStudyModelFactory } from './RiphJardeResearchStudyModelFactory'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
 import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
@@ -13,11 +15,15 @@ import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 @Injectable()
 export class FhirEtlService {
   private readonly ctisCode = 'REG536'
+  private readonly jardeCode = 'JARDE'
 
   constructor(
     private readonly logger: LoggerService,
     private readonly elasticsearchService: ElasticsearchService,
-    private readonly riphCtisDto: RiphCtisDto[]
+    private readonly riphCtisDto: RiphCtisDto[],
+    private readonly riphDmDto: RiphDmDto[],
+    private readonly riphJardeDto1: RiphJardeDto[],
+    private readonly riphJardeDto2: RiphJardeDto[]
   ) {}
 
   async createIndex(): Promise<void> {
@@ -46,9 +52,14 @@ export class FhirEtlService {
   }
 
   private extract(): RiphDto[] {
-    const clinicalTrialsDto = [...this.riphCtisDto]
+    const clinicalTrialsDto = [
+      ...this.riphCtisDto,
+      ...this.riphDmDto,
+      ...this.riphJardeDto1,
+      ...this.riphJardeDto2,
+    ]
 
-    this.logger.info(`${this.riphCtisDto.length} (CTIS) = ${clinicalTrialsDto.length}`)
+    this.logger.info(`${this.riphCtisDto.length} (CTIS) + ${this.riphDmDto.length} (DM) + ${this.riphJardeDto1.length + this.riphJardeDto2.length} (JARDE) = ${clinicalTrialsDto.length}`)
 
     return clinicalTrialsDto
   }
@@ -61,6 +72,12 @@ export class FhirEtlService {
       if (clinicalTrialDto.reglementation_code === this.ctisCode) {
         _id = (clinicalTrialDto as RiphCtisDto).numero_ctis
         researchStudyModel = RiphCtisResearchStudyModelFactory.create(clinicalTrialDto as RiphCtisDto)
+      } else if (clinicalTrialDto.reglementation_code === this.jardeCode) {
+        _id = (clinicalTrialDto as RiphJardeDto).numero_national
+        researchStudyModel = RiphJardeResearchStudyModelFactory.create(clinicalTrialDto as RiphJardeDto)
+      } else {
+        _id = (clinicalTrialDto as RiphDmDto).numero_national
+        researchStudyModel = RiphDmResearchStudyModelFactory.create(clinicalTrialDto as RiphDmDto)
       }
 
       return [{ create: { _id } }, researchStudyModel]
