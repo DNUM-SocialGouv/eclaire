@@ -5,8 +5,10 @@ describe('shared | models | fhir | CodingModel', () => {
     it('should create a properly formatted model with phase when phase is given', () => {
       // given
       const rawPhase = 'Therapeutic confirmatory  (Phase III)'
+
       // when
       const result = CodingModel.createResearchStudyPhase(rawPhase)
+
       // then
       expect(result).toMatchInlineSnapshot(`
         CodingModel {
@@ -23,6 +25,7 @@ describe('shared | models | fhir | CodingModel', () => {
     it('should create a properly formatted model without phase when phase is not given', () => {
       // when
       const result = CodingModel.createResearchStudyPhase('')
+
       // then
       expect(result).toMatchInlineSnapshot(`
         CodingModel {
@@ -50,6 +53,7 @@ describe('shared | models | fhir | CodingModel', () => {
         }
       `)
     })
+
     it('should create a properly formatted model without gender when information is not given', () => {
       expect(CodingModel.createGender('unknown')).toMatchInlineSnapshot(`
         CodingModel {

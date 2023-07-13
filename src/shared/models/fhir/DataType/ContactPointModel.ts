@@ -18,7 +18,7 @@ export class ContactPointModel implements ContactPoint {
     readonly value: string | undefined
   ) {}
 
-  static createPhone(phone: string) {
+  static createPhone(phone: string): ContactPointModel {
     return new ContactPointModel(
       undefined,
       undefined,
@@ -29,7 +29,7 @@ export class ContactPointModel implements ContactPoint {
     )
   }
 
-  static createEmail(email: string) {
+  static createEmail(email: string): ContactPointModel {
     return new ContactPointModel(
       undefined,
       undefined,

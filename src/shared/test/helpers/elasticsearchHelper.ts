@@ -4,6 +4,9 @@ import { ConfigService } from '@nestjs/config'
 
 import { ElasticsearchConfig } from '../../elasticsearch/ElasticsearchConfig'
 import { ElasticsearchService } from '../../elasticsearch/ElasticsearchService'
+import { RiphCtisDto } from 'src/etl/dto/RiphCtisDto'
+import { RiphDmDto } from 'src/etl/dto/RiphDmDto'
+import { RiphJardeDto } from 'src/etl/dto/RiphJardeDto'
 
 export async function deleteElasticsearchIndice() {
   process.env.SCALINGO_ELASTICSEARCH_URL = 'http://localhost:9201'
@@ -36,7 +39,7 @@ export async function setupClientAndElasticsearchService() {
   }
 }
 
-export const riphCtisDto = [
+export const riphCtisDto: RiphCtisDto[] = [
   {
     reglementation_code: 'REG536',
     etat: 'EN_COURS',
@@ -77,7 +80,6 @@ export const riphCtisDto = [
     dates_avis_favorable_ms_mns: '22.00800.000094-SM-1:2022-11-07, 22.00800.000094-SM-2:2023-04-12',
   },
   {
-    etude_id: 14365,
     reglementation_code: 'REG536',
     etat: 'A_DEMARRER',
     organisme_nom: null,
@@ -157,7 +159,7 @@ export const riphCtisDto = [
   },
 ]
 
-export const riphDmDto = [
+export const riphDmDto: RiphDmDto[] = [
   {
     reglementation_code: 'REG745',
     etat: 'TERMINEE_ANTICIPEE',
@@ -223,7 +225,7 @@ export const riphDmDto = [
   },
 ]
 
-export const riphJardeDto1 = [
+export const riphJardeDto1: RiphJardeDto[] = [
   {
     reglementation_code: 'JARDE',
     etat: 'EN_COURS',
@@ -292,7 +294,7 @@ export const riphJardeDto1 = [
   },
 ]
 
-export const riphJardeDto2 = [
+export const riphJardeDto2: RiphJardeDto[] = [
   {
     reglementation_code: 'JARDE',
     etat: 'A_DEMARRER',

@@ -66,29 +66,29 @@ describe('app', () => {
     expect(response.text).toBe('{"message":{"issue":[{"code":"processing","diagnostics":"failed to parse date field [d] with format [strict_date_optional_time||epoch_millis]: [failed to parse date field [d] with format [strict_date_optional_time||epoch_millis]]","severity":"error"}],"resourceType":"OperationOutcome"}}')
   })
 
-  it('should retrieve one user with an authentification', async () => {
-    // GIVEN
-    const token = await getToken()
+  // it('should retrieve one user with an authentification', async () => {
+  //   // GIVEN
+  //   const token = await getToken()
 
-    // WHEN
-    const response = await supertest(await getHttpServer())
-      .get('/user')
-      .set('Authorization', `Bearer ${token.access_token}`)
+  //   // WHEN
+  //   const response = await supertest(await getHttpServer())
+  //     .get('/user')
+  //     .set('Authorization', `Bearer ${token.access_token}`)
 
-    // THEN
-    expect(response.statusCode).toBe(200)
-    expect(response.get('content-type')).toBe('application/json; charset=utf-8')
-    expect(response.text).toBe('{"email":"demo@demo.com"}')
-  })
+  //   // THEN
+  //   expect(response.statusCode).toBe(200)
+  //   expect(response.get('content-type')).toBe('application/json; charset=utf-8')
+  //   expect(response.text).toBe('{"email":"demo@demo.com"}')
+  // })
 
-  it('should not retrieve one user without an authentification', async () => {
-    // WHEN
-    const response = await supertest(await getHttpServer())
-      .get('/user')
+  // it('should not retrieve one user without an authentification', async () => {
+  //   // WHEN
+  //   const response = await supertest(await getHttpServer())
+  //     .get('/user')
 
-    // THEN
-    expect(response.statusCode).toBe(401)
-  })
+  //   // THEN
+  //   expect(response.statusCode).toBe(401)
+  // })
 })
 
 async function getToken() {

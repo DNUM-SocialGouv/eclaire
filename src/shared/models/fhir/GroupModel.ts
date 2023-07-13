@@ -1,6 +1,7 @@
 import { CodeableConcept, Group, GroupCharacteristic, GroupMember, Identifier, Meta, Reference } from 'fhir/r4'
 
 import { GroupCharacteristicModel } from './GroupCharacteristicModel'
+import { ModelUtils } from './ModelUtils'
 
 export class GroupModel implements Group {
   readonly resourceType: 'Group'
@@ -30,22 +31,28 @@ export class GroupModel implements Group {
   }
 
   static createStudyCharacteristics(
-    enrollmentGroupId: string | undefined,
+    enrollmentGroupId: string,
     sex: string,
     ageRange: string,
     studySize: number,
-    groupes_sujet: string,
-    population_recrutement: string
-  ) {
+    studyCategory: string,
+    studyPopulation: string
+  ): GroupModel {
+    const emptySexIfNull = ModelUtils.emptyIfNull(sex)
+    const emptyAgeRangeIfNull = ModelUtils.emptyIfNull(ageRange)
+    const emptyStudySizeIfNull = ModelUtils.emptyNumberIfNull(studySize)
+    const emptyStudyCategoryIfNull = ModelUtils.emptyIfNull(studyCategory)
+    const emptyStudyPopulationIfNull = ModelUtils.emptyIfNull(studyPopulation)
+
     return new GroupModel(
       undefined,
       true,
       [
-        GroupCharacteristicModel.createGender(sex),
-        GroupCharacteristicModel.createAgeRange(ageRange),
-        GroupCharacteristicModel.createStudySize(studySize),
-        GroupCharacteristicModel.createStudyCategory(groupes_sujet),
-        GroupCharacteristicModel.createStudyPopulation(population_recrutement),
+        GroupCharacteristicModel.createGender(emptySexIfNull),
+        GroupCharacteristicModel.createAgeRange(emptyAgeRangeIfNull),
+        GroupCharacteristicModel.createStudySize(emptyStudySizeIfNull),
+        GroupCharacteristicModel.createStudyCategory(emptyStudyCategoryIfNull),
+        GroupCharacteristicModel.createStudyPopulation(emptyStudyPopulationIfNull),
       ],
       undefined,
       enrollmentGroupId,
