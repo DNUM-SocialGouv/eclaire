@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { Bundle, BundleLink } from 'fhir/r4'
 
 import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
 import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
+import { BundleModelFactory } from '../application/entities/BundleModelFactory'
 import { SearchBodyType } from '../application/entities/SearchBody'
-import { SearchLink, SearchResponse } from '../application/entities/SearchResponse'
 
 @Injectable()
 export class EsResearchStudyRepository implements ResearchStudyRepository {
@@ -17,17 +18,17 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return await this.elasticsearchService.findOneDocument(id)
   }
 
-  async search(bodySearch: SearchBodyType): Promise<SearchResponse> {
+  async search(bodySearch: SearchBodyType): Promise<Bundle> {
     const response = await this.elasticsearchService.search(bodySearch)
     const link = this.buildSearchLink(bodySearch.from, response.total)
 
-    return SearchResponse.create(response.hits, link, response.total)
+    return BundleModelFactory.create(response.hits, link, response.total)
   }
 
-  private buildSearchLink(offset: number, total: number): SearchLink[] {
+  private buildSearchLink(offset: number, total: number): BundleLink[] {
     const numberOfRessourceByPage = Number(this.configService.get<string>('NUMBER_OF_RESSOURCE_BY_PAGE'))
     const hasMoreResult = total > offset * numberOfRessourceByPage
-    const link: SearchLink[] = [
+    const link: BundleLink[] = [
       {
         relation: 'self',
         url: `${this.configService.get<string>('ECLAIRE_URL')}R4/ResearchStudy?_getpagesoffset=${offset}`,

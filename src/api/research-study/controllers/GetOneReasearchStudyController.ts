@@ -5,7 +5,7 @@ import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags 
 import { Response } from 'express'
 
 import { Public } from '../../auth/public.decorator'
-import { OperationOutcome } from '../application/entities/OperationOutcome'
+import { OperationOutcomeModelFactory } from '../application/entities/OperationOutcomeModelFactory'
 import { EsResearchStudyRepository } from '../gateways/EsResearchStudyRepository'
 
 @ApiTags('Research study')
@@ -25,7 +25,7 @@ export class GetOneReasearchStudyController {
       response.json(await this.researchStudyRepository.findOne(id))
     } catch (error) {
       if (error instanceof errors.ResponseError && error.meta.statusCode === 404) {
-        response.status(404).json(new OperationOutcome(error.message))
+        response.status(404).json(OperationOutcomeModelFactory.create(error.message))
       } else {
         throw error
       }

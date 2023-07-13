@@ -34,7 +34,7 @@ describe('app', () => {
 
     // THEN
     expect(response.statusCode).toBe(404)
-    expect(response.text).toBe('{"message":{"issue":[{"code":"processing","diagnostics":"Response Error","severity":"error"}],"resourceType":"OperationOutcome"}}')
+    expect(response.text).toBe('{"issue":[{"code":"processing","diagnostics":"Response Error","severity":"error"}],"resourceType":"OperationOutcome"}')
   })
 
   it('should retrieve researches study when good filter is given', async () => {
@@ -63,7 +63,7 @@ describe('app', () => {
 
     // THEN
     expect(response.statusCode).toBe(400)
-    expect(response.text).toBe('{"message":{"issue":[{"code":"processing","diagnostics":"failed to parse date field [d] with format [strict_date_optional_time||epoch_millis]: [failed to parse date field [d] with format [strict_date_optional_time||epoch_millis]]","severity":"error"}],"resourceType":"OperationOutcome"}}')
+    expect(response.text).toBe('{"issue":[{"code":"processing","diagnostics":"failed to parse date field [d] with format [strict_date_optional_time||epoch_millis]: [failed to parse date field [d] with format [strict_date_optional_time||epoch_millis]]","severity":"error"}],"resourceType":"OperationOutcome"}')
   })
 
   // it('should retrieve one user with an authentification', async () => {
