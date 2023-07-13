@@ -92,7 +92,7 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createStudySize(studySize: number) {
+  static createStudySize(studySize: number): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createStudySize(studySize)],
       undefined,
@@ -100,23 +100,23 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createStudyCategory(groupes_sujet: string) {
+  static createStudyCategory(studyCategory: string): CodeableConceptModel {
     return new CodeableConceptModel(
-      [CodingModel.createStudyCategory(groupes_sujet)],
+      [CodingModel.createStudyCategory(studyCategory)],
       undefined,
       'Study Category'
     )
   }
 
-  static createStudyPopulation(population_recrutement: string) {
+  static createStudyPopulation(studyPopulation: string): CodeableConceptModel {
     return new CodeableConceptModel(
-      [CodingModel.createStudyPopulation(population_recrutement)],
+      [CodingModel.createStudyPopulation(studyPopulation)],
       undefined,
       'Study Population'
     )
   }
 
-  static createGroupCharacteristicCode(code: string) {
+  static createGroupCharacteristicCode(code: string): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createGroupCharacteristicCode(code)],
       undefined,

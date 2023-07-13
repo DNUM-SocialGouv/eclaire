@@ -15,7 +15,7 @@ export class ContactDetailModel implements ContactDetail {
     lastname: string,
     phone: string,
     email: string
-  ) {
+  ): ContactDetailModel {
     const emptyFirstNameIfNull = ModelUtils.emptyIfNull(firstname)
     const emptyLastnameIfNull = ModelUtils.emptyIfNull(lastname)
     const emptyPhoneIfNull = ModelUtils.emptyIfNull(phone)

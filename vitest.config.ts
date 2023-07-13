@@ -8,8 +8,11 @@ export default defineConfig({
     coverage: {
       exclude: [
         'src/api/AppController.ts',
+        'src/api/auth',
+        'src/api/clinical-trial',
         'src/api/sentry',
         'src/api/swagger',
+        'src/api/users',
         'src/shared/logger',
       ],
       provider: 'istanbul'

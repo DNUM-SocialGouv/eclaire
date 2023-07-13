@@ -16,7 +16,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     readonly valueReference: Reference | undefined
   ) {}
 
-  static createGender(genders: string) {
+  static createGender(genders: string): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
@@ -30,7 +30,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createAgeRange(ageRange: string) {
+  static createAgeRange(ageRange: string): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
@@ -44,7 +44,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createStudySize(studySize: number) {
+  static createStudySize(studySize: number): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
@@ -58,28 +58,28 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createStudyCategory(groupes_sujet: string) {
+  static createStudyCategory(studyCategory: string): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
       undefined,
       undefined,
       undefined,
-      CodeableConceptModel.createStudyCategory(groupes_sujet),
+      CodeableConceptModel.createStudyCategory(studyCategory),
       undefined,
       undefined,
       undefined
     )
   }
 
-  static createStudyPopulation(population_recrutement: string) {
+  static createStudyPopulation(studyPopulation: string): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
       undefined,
       undefined,
       undefined,
-      CodeableConceptModel.createStudyPopulation(population_recrutement),
+      CodeableConceptModel.createStudyPopulation(studyPopulation),
       undefined,
       undefined,
       undefined

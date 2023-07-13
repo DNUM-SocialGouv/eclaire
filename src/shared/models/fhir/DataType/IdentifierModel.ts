@@ -24,15 +24,15 @@ export class IdentifierModel implements Identifier {
     readonly value: string | undefined
   ) {}
 
-  static createCtisIdentifier(numero_ctis: string): IdentifierModel {
+  static createCtisIdentifier(ctisNumber: string): IdentifierModel {
     return new IdentifierModel(
-      ReferenceModel.createCtisReferenceModel(numero_ctis),
+      ReferenceModel.createCtisReferenceModel(ctisNumber),
       undefined,
       undefined,
       undefined,
       'usual',
       undefined,
-      numero_ctis
+      ctisNumber
     )
   }
 }

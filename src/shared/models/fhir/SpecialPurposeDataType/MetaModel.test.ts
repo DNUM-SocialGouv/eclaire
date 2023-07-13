@@ -7,7 +7,6 @@ describe('shared | models | fhir | MetaModel', () => {
   describe('#createWithMostRecentIsoDate', () => {
     it('should create a properly formatted model', () => {
       // when
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const result = MetaModel.createWithMostRecentIsoDate(riphCtisDto[0].historique, riphCtisDto[0].dates_avis_favorable_ms_mns)
 
       // then
@@ -38,7 +37,6 @@ describe('shared | models | fhir | MetaModel', () => {
 
     it('should create a model with the last date of approval, when the last date of approval is higher than historic date', () => {
       // when
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const result = MetaModel.createWithMostRecentIsoDate(riphCtisDto[0].historique, riphCtisDto[0].dates_avis_favorable_ms_mns)
 
       // then
@@ -47,7 +45,6 @@ describe('shared | models | fhir | MetaModel', () => {
 
     it('should create a properly formatted model with the historic date, when the historic date is higher than last date of approval', () => {
       // when
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const result = MetaModel.createWithMostRecentIsoDate(riphCtisDto[2].historique, riphCtisDto[2].dates_avis_favorable_ms_mns)
 
       // then

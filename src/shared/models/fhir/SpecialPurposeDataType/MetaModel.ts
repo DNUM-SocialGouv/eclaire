@@ -14,11 +14,11 @@ export class MetaModel implements Meta {
   ) {}
 
   static createWithMostRecentIsoDate(
-    historique: string,
-    dates_avis_favorable_ms_mns: string
-  ) {
-    const emptyHistoryDateIfNull = ModelUtils.emptyIfNull(historique)
-    const emptyApprovalDateIfNull = ModelUtils.emptyIfNull(dates_avis_favorable_ms_mns)
+    history: string,
+    approvalDate: string
+  ): MetaModel {
+    const emptyHistoryDateIfNull = ModelUtils.emptyIfNull(history)
+    const emptyApprovalDateIfNull = ModelUtils.emptyIfNull(approvalDate)
 
     return new MetaModel(
       undefined,

@@ -37,7 +37,7 @@ export class GroupModel implements Group {
     studySize: number,
     studyCategory: string,
     studyPopulation: string
-  ) {
+  ): GroupModel {
     const emptySexIfNull = ModelUtils.emptyIfNull(sex)
     const emptyAgeRangeIfNull = ModelUtils.emptyIfNull(ageRange)
     const emptyStudySizeIfNull = ModelUtils.emptyNumberIfNull(studySize)

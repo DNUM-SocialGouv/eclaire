@@ -9,17 +9,17 @@ export class ReferenceModel implements Reference {
     readonly type: string | undefined
   ) {}
 
-  static createCtisReferenceModel(numero_ctis: string): ReferenceModel {
+  static createCtisReferenceModel(ctisNumber: string): ReferenceModel {
     return new ReferenceModel(
       'euclinicaltrials.eu',
       undefined,
       undefined,
-      `https://euclinicaltrials.eu/app/#/view/${numero_ctis}`,
+      `https://euclinicaltrials.eu/app/#/view/${ctisNumber}`,
       undefined
     )
   }
 
-  static createGroupDetailingStudyCharacteristics(enrollmentGroupId: string) {
+  static createGroupDetailingStudyCharacteristics(enrollmentGroupId: string): ReferenceModel {
     return new ReferenceModel(
       'Reference to group detailing study characteristics',
       undefined,

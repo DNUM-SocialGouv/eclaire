@@ -29,6 +29,8 @@ export class SearchResearchStudyController {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
         response.status(400).json(new OperationOutcome(error.meta.body.error.root_cause[0].reason))
+      } else {
+        throw error
       }
     }
   }

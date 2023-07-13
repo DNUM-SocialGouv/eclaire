@@ -22,6 +22,7 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
         }
       `)
     })
+
     it('should create a properly formatted model with research study phase when information is empty', () => {
       expect(CodeableConceptModel.createResearchStudyPhase('')).toMatchInlineSnapshot(`
         CodeableConceptModel {
@@ -129,6 +130,7 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
         }
       `)
     })
+
     it('should create a properly formatted model with research study phase when multiple codes are given', () => {
       expect(CodeableConceptModel.createMedDraCondition('10018938, 10018937, 10018939')).toMatchInlineSnapshot(`
         CodeableConceptModel {

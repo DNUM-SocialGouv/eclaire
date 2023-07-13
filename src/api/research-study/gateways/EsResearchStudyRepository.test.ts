@@ -99,18 +99,30 @@ describe('elasticsearch research study repository', () => {
 
 async function setup() {
   const { configService, elasticsearchService } = await setupClientAndElasticsearchService()
-  const researchStudy1 = riphCtisDto[0]
-  researchStudy1.titre = 'un autre titre pour la pagination 1'
-  const researchStudy2 = riphCtisDto[0]
-  researchStudy2.titre = 'un autre titre pour la pagination 2'
-  const researchStudy3 = riphCtisDto[0]
-  researchStudy3.titre = 'un autre titre pour la pagination 3'
-  const researchStudy4 = riphCtisDto[0]
-  researchStudy4.titre = 'un autre titre pour la pagination 4'
-  const researchStudy5 = riphCtisDto[0]
-  researchStudy5.titre = 'un autre titre pour la pagination 5'
-  const researchStudy6 = riphCtisDto[0]
-  researchStudy6.titre = 'un autre titre pour la pagination 6'
+  const researchStudy1 = {
+    ...riphCtisDto[0],
+    titre: 'un autre titre pour la pagination 1',
+  }
+  const researchStudy2 = {
+    ...riphCtisDto[0],
+    titre: 'un autre titre pour la pagination 2',
+  }
+  const researchStudy3 = {
+    ...riphCtisDto[0],
+    titre: 'un autre titre pour la pagination 3',
+  }
+  const researchStudy4 = {
+    ...riphCtisDto[0],
+    titre: 'un autre titre pour la pagination 4',
+  }
+  const researchStudy5 = {
+    ...riphCtisDto[0],
+    titre: 'un autre titre pour la pagination 5',
+  }
+  const researchStudy6 = {
+    ...riphCtisDto[0],
+    titre: 'un autre titre pour la pagination 6',
+  }
 
   await elasticsearchService.createAnIndex(researchStudyIndexMapping)
   await elasticsearchService.bulkDocuments([

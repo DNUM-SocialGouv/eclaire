@@ -41,7 +41,14 @@ describe('extract transform load service', () => {
 
       // THEN
       const ctisResearchStudy = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphCtisDto[0].numero_ctis)
+      const dmClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphDmDto[0].numero_national)
+      const jarde1ClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphJardeDto1[0].numero_national)
+      const jarde2ClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphJardeDto2[0].numero_national)
+
       expect(ctisResearchStudy).not.toBeNull()
+      expect(dmClinicalTrial).not.toBeNull()
+      expect(jarde1ClinicalTrial).not.toBeNull()
+      expect(jarde2ClinicalTrial).not.toBeNull()
     })
 
     it('should not create some clinical trials when bulk has failed with ResponseError', async () => {

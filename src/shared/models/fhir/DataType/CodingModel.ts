@@ -15,7 +15,7 @@ export class CodingModel implements Coding {
   ) {}
 
   static createResearchStudyPhase(rawPhase: string): CodingModel {
-    const isolatedPhase = rawPhase?.split(new RegExp('(Phase( *)\\w{1,3})'))[1]
+    const isolatedPhase = rawPhase?.split(/(Phase( *)\w{1,3})/)[1]
 
     const correspondingPhaseCode: PhaseCode = this.getPhaseCodeFromText(isolatedPhase)
 
@@ -56,7 +56,7 @@ export class CodingModel implements Coding {
     return correspondingPhaseCode
   }
 
-  static createDiseaseCoding(disease: string) {
+  static createDiseaseCoding(disease: string): CodingModel {
     return new CodingModel(
       undefined,
       disease,
@@ -67,7 +67,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createMedDraCode(medDraCode: string) {
+  static createMedDraCode(medDraCode: string): CodingModel {
     return new CodingModel(
       medDraCode,
       medDraCodeSystem.title,
@@ -104,7 +104,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createStudySize(studySize: number) {
+  static createStudySize(studySize: number): CodingModel {
     return new CodingModel(
       undefined,
       studySize.toString(),
@@ -115,10 +115,10 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createStudyCategory(groupes_sujet: string) {
+  static createStudyCategory(studyCategory: string): CodingModel {
     return new CodingModel(
       undefined,
-      groupes_sujet,
+      studyCategory,
       undefined,
       undefined,
       undefined,
@@ -126,10 +126,10 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createStudyPopulation(population_recrutement: string) {
+  static createStudyPopulation(studyPopulation: string): CodingModel {
     return new CodingModel(
       undefined,
-      population_recrutement,
+      studyPopulation,
       undefined,
       undefined,
       undefined,
@@ -137,7 +137,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createGroupCharacteristicCode(code: string) {
+  static createGroupCharacteristicCode(code: string): CodingModel {
     return new CodingModel(
       undefined,
       code,
@@ -148,7 +148,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createRegulationCode(regulationCode: string) {
+  static createRegulationCode(regulationCode: string): CodingModel {
     return new CodingModel(
       undefined,
       regulationCode,
