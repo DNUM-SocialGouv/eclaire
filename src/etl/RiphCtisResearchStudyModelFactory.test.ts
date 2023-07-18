@@ -327,6 +327,21 @@ describe('ctis research study model factory', () => {
         "identifier": [
           IdentifierModel {
             "assigner": ReferenceModel {
+              "display": "INDISPONIBLE",
+              "id": undefined,
+              "identifier": undefined,
+              "reference": undefined,
+              "type": undefined,
+            },
+            "id": undefined,
+            "period": undefined,
+            "system": undefined,
+            "type": undefined,
+            "use": "official",
+            "value": "INDISPONIBLE",
+          },
+          IdentifierModel {
+            "assigner": ReferenceModel {
               "display": "euclinicaltrials.eu",
               "id": undefined,
               "identifier": undefined,
@@ -337,7 +352,7 @@ describe('ctis research study model factory', () => {
             "period": undefined,
             "system": undefined,
             "type": undefined,
-            "use": "usual",
+            "use": "secondary",
             "value": "2022-500014-26-00",
           },
         ],
@@ -669,6 +684,21 @@ describe('ctis research study model factory', () => {
         "identifier": [
           IdentifierModel {
             "assigner": ReferenceModel {
+              "display": "INDISPONIBLE",
+              "id": undefined,
+              "identifier": undefined,
+              "reference": undefined,
+              "type": undefined,
+            },
+            "id": undefined,
+            "period": undefined,
+            "system": undefined,
+            "type": undefined,
+            "use": "official",
+            "value": "INDISPONIBLE",
+          },
+          IdentifierModel {
+            "assigner": ReferenceModel {
               "display": "euclinicaltrials.eu",
               "id": undefined,
               "identifier": undefined,
@@ -679,7 +709,7 @@ describe('ctis research study model factory', () => {
             "period": undefined,
             "system": undefined,
             "type": undefined,
-            "use": "usual",
+            "use": "secondary",
             "value": "2022-500299-71-00",
           },
         ],

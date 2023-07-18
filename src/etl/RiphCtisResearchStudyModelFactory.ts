@@ -43,7 +43,10 @@ export class RiphCtisResearchStudyModelFactory {
     const enrollment = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const focus = undefined
     const id = riphCtisDto.numero_ctis
-    const identifier: Identifier[] = [IdentifierModel.createCtisIdentifier(riphCtisDto.numero_ctis)]
+    const identifier: Identifier[] = [
+      IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
+      IdentifierModel.createSecondarySlice(riphCtisDto.numero_ctis, riphCtisDto.reglementation_code, undefined),
+    ]
     const implicitRules = undefined
     const keyword = undefined
     const language = undefined

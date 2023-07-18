@@ -1,5 +1,7 @@
 import { Identifier, Reference } from 'fhir/r4'
 
+import { ModelUtils } from '../ModelUtils'
+
 export class ReferenceModel implements Reference {
   constructor(
     readonly display: string | undefined,
@@ -9,7 +11,27 @@ export class ReferenceModel implements Reference {
     readonly type: string | undefined
   ) {}
 
-  static createCtisReferenceModel(ctisNumber: string): ReferenceModel {
+  static createGroupDetailingStudyCharacteristics(enrollmentGroupId: string): ReferenceModel {
+    return new ReferenceModel(
+      'Reference to group detailing study characteristics',
+      undefined,
+      undefined,
+      '#' + enrollmentGroupId,
+      'Group'
+    )
+  }
+
+  static createAssignerForPrimaryIdentifier(): ReferenceModel {
+    return new ReferenceModel(
+      ModelUtils.UNAVAILABLE,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createCtisAssigner(ctisNumber: string): ReferenceModel {
     return new ReferenceModel(
       'euclinicaltrials.eu',
       undefined,
@@ -19,13 +41,23 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createGroupDetailingStudyCharacteristics(enrollmentGroupId: string): ReferenceModel {
+  static createAnsmAssigner(): ReferenceModel {
     return new ReferenceModel(
-      'Reference to group detailing study characteristics',
+      'Agence nationale de sécurité du médicament et des produits de santé (ANSM)',
       undefined,
       undefined,
-      '#' + enrollmentGroupId,
-      'Group'
+      undefined,
+      undefined
+    )
+  }
+
+  static createEudraCtAssigner(): ReferenceModel {
+    return new ReferenceModel(
+      'European Union Drug Regulating Authorities Clinical Trials Database (Eudra CT)',
+      undefined,
+      undefined,
+      undefined,
+      undefined
     )
   }
 }

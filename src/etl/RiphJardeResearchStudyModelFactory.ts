@@ -43,7 +43,14 @@ export class RiphJardeResearchStudyModelFactory {
     const enrollment = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const focus = undefined
     const id = undefined
-    const identifier: Identifier[] = [IdentifierModel.createCtisIdentifier(riphJardeDto.numero_national)]
+    const identifier: Identifier[] = [
+      IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
+      IdentifierModel.createSecondarySlice(
+        riphJardeDto.numero_national,
+        riphJardeDto.reglementation_code,
+        riphJardeDto.qualification_recherche
+      ),
+    ]
     const implicitRules = undefined
     const keyword = undefined
     const language = undefined
