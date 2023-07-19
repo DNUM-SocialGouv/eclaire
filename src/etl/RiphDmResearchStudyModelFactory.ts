@@ -37,6 +37,8 @@ export class RiphDmResearchStudyModelFactory {
         ModelUtils.UNAVAILABLE,
         riphDmDto.taille_etude,
         ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE
       ),
     ]

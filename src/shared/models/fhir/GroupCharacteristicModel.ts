@@ -85,4 +85,32 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
       undefined
     )
   }
+
+  static createInclusion(studyInclusion: string): GroupCharacteristicModel {
+    return new GroupCharacteristicModel(
+      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
+      false,
+      undefined,
+      undefined,
+      undefined,
+      CodeableConceptModel.createInclusion(studyInclusion),
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createExclusion(studyExclusion: string): GroupCharacteristicModel {
+    return new GroupCharacteristicModel(
+      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
+      true,
+      undefined,
+      undefined,
+      undefined,
+      CodeableConceptModel.createExclusion(studyExclusion),
+      undefined,
+      undefined,
+      undefined
+    )
+  }
 }

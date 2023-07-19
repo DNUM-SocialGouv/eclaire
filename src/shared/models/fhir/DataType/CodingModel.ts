@@ -158,6 +158,28 @@ export class CodingModel implements Coding {
       undefined
     )
   }
+
+  static createInclusion(inclusion: string): CodingModel {
+    return new CodingModel(
+      undefined,
+      inclusion,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createExclusion(exclusion: string): CodingModel {
+    return new CodingModel(
+      undefined,
+      exclusion,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
 }
 
 enum PhaseCode {

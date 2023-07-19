@@ -36,6 +36,8 @@ export class RiphJardeResearchStudyModelFactory {
         ModelUtils.UNAVAILABLE,
         riphJardeDto.taille_etude,
         ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE
       ),
     ]
