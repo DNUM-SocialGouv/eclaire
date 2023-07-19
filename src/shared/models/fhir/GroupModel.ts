@@ -36,13 +36,17 @@ export class GroupModel implements Group {
     ageRange: string,
     studySize: number,
     studyCategory: string,
-    studyPopulation: string
+    studyPopulation: string,
+    studyInclusion: string,
+    studyExclusion: string
   ): GroupModel {
     const emptySexIfNull = ModelUtils.emptyIfNull(sex)
     const emptyAgeRangeIfNull = ModelUtils.emptyIfNull(ageRange)
     const emptyStudySizeIfNull = ModelUtils.emptyNumberIfNull(studySize)
     const emptyStudyCategoryIfNull = ModelUtils.emptyIfNull(studyCategory)
     const emptyStudyPopulationIfNull = ModelUtils.emptyIfNull(studyPopulation)
+    const emptyStudyInclusionIfNull = ModelUtils.emptyIfNull(studyInclusion)
+    const emptyStudyExclusionIfNull = ModelUtils.emptyIfNull(studyExclusion)
 
     return new GroupModel(
       undefined,
@@ -53,6 +57,8 @@ export class GroupModel implements Group {
         GroupCharacteristicModel.createStudySize(emptyStudySizeIfNull),
         GroupCharacteristicModel.createStudyCategory(emptyStudyCategoryIfNull),
         GroupCharacteristicModel.createStudyPopulation(emptyStudyPopulationIfNull),
+        GroupCharacteristicModel.createInclusion(emptyStudyInclusionIfNull),
+        GroupCharacteristicModel.createExclusion(emptyStudyExclusionIfNull),
       ],
       undefined,
       enrollmentGroupId,

@@ -116,6 +116,22 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
+  static createInclusion(studyInclusion: string): CodeableConceptModel {
+    return new CodeableConceptModel(
+      [CodingModel.createInclusion(studyInclusion)],
+      undefined,
+      'Study Inclusion'
+    )
+  }
+
+  static createExclusion(studyExclusion: string): CodeableConceptModel {
+    return new CodeableConceptModel(
+      [CodingModel.createExclusion(studyExclusion)],
+      undefined,
+      'Study Exclusion'
+    )
+  }
+
   static createGroupCharacteristicCode(code: string): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createGroupCharacteristicCode(code)],

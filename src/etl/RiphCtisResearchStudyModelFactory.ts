@@ -36,7 +36,9 @@ export class RiphCtisResearchStudyModelFactory {
         riphCtisDto.tranches_age,
         riphCtisDto.taille_etude,
         riphCtisDto.groupes_sujet,
-        riphCtisDto.population_recrutement
+        riphCtisDto.population_recrutement,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE
       ),
     ]
     const description = ModelUtils.UNAVAILABLE
