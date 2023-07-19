@@ -28,7 +28,8 @@
     "test": "NODE_ENV=test vitest run",
     "test:coverage": "yarn test --coverage",
     "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
-    "test:mutation": "npx stryker run",
+    "test:mutation:api": "npx stryker run stryker-api.conf.json",
+    "test:mutation:etl": "npx stryker run stryker-etl.conf.json",
     "typecheck": "tsc"
   },
   "dependencies": {

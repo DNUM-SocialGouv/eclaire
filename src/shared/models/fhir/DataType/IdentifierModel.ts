@@ -55,11 +55,7 @@ export class IdentifierModel implements Identifier {
         assigner = ReferenceModel.createCtisAssigner(number)
         break
       case REGULATION_CODES.DM:
-        assigner = ReferenceModel.createAnsmAssigner()
-        break
       case REGULATION_CODES.DMDIV:
-        assigner = ReferenceModel.createAnsmAssigner()
-        break
       case REGULATION_CODES.JARDE:
         if (qualification === 'Catégorie 1') {
           assigner = ReferenceModel.createEudraCtAssigner()

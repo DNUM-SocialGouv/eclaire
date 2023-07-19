@@ -1,0 +1,21 @@
+{
+  "checkers": ["typescript"],
+  "disableTypeChecks": true,
+  "htmlReporter": { "fileName": "reports/mutation/mutation-api.html" },
+  "ignorePatterns": [".*", "coverage", "dist", "reports", "src/api/e2e.test.ts"],
+  "ignoreStatic": true,
+  "logLevel": "info",
+  "mutate": [
+    "src/api/**/*.ts",
+    "!src/**/*.test.ts",
+    "!src/api/auth/*.ts",
+    "!src/api/clinical-trial/*.ts",
+    "!src/api/sentry/*.ts",
+    "!src/api/swagger/*.ts",
+    "!src/api/users/*.ts",
+    "!src/**/*Controller.ts"
+  ],
+  "packageManager": "yarn",
+  "reporters": ["html"],
+  "testRunner": "vitest"
+}
