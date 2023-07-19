@@ -61,12 +61,14 @@ export class IdentifierModel implements Identifier {
         assigner = ReferenceModel.createAnsmAssigner()
         break
       case REGULATION_CODES.JARDE:
-        if (qualification === 'Catégorie 1') assigner = ReferenceModel.createEudraCtAssigner()
-        else assigner = ReferenceModel.createAnsmAssigner()
+        if (qualification === 'Catégorie 1') {
+          assigner = ReferenceModel.createEudraCtAssigner()
+        } else {
+          assigner = ReferenceModel.createAnsmAssigner()
+        }
         break
       default:
         assigner = undefined
-        break
     }
 
     return new IdentifierModel(
