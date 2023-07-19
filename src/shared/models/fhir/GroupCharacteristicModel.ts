@@ -58,14 +58,14 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createStudyCategory(studyCategory: string): GroupCharacteristicModel {
+  static createResearchStudyGroupCategory(researchStudyGroupCategory: string): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
       undefined,
       undefined,
       undefined,
-      CodeableConceptModel.createStudyCategory(studyCategory),
+      CodeableConceptModel.createResearchStudyGroupCategory(researchStudyGroupCategory),
       undefined,
       undefined,
       undefined

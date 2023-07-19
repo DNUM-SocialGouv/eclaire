@@ -35,7 +35,7 @@ export class GroupModel implements Group {
     sex: string,
     ageRange: string,
     studySize: number,
-    studyCategory: string,
+    researchStudyGroupCategory: string,
     studyPopulation: string,
     studyInclusion: string,
     studyExclusion: string
@@ -43,7 +43,7 @@ export class GroupModel implements Group {
     const emptySexIfNull = ModelUtils.emptyIfNull(sex)
     const emptyAgeRangeIfNull = ModelUtils.emptyIfNull(ageRange)
     const emptyStudySizeIfNull = ModelUtils.emptyNumberIfNull(studySize)
-    const emptyStudyCategoryIfNull = ModelUtils.emptyIfNull(studyCategory)
+    const emptyResearchStudyGroupCategoryIfNull = ModelUtils.emptyIfNull(researchStudyGroupCategory)
     const emptyStudyPopulationIfNull = ModelUtils.emptyIfNull(studyPopulation)
     const emptyStudyInclusionIfNull = ModelUtils.emptyIfNull(studyInclusion)
     const emptyStudyExclusionIfNull = ModelUtils.emptyIfNull(studyExclusion)
@@ -55,7 +55,7 @@ export class GroupModel implements Group {
         GroupCharacteristicModel.createGender(emptySexIfNull),
         GroupCharacteristicModel.createAgeRange(emptyAgeRangeIfNull),
         GroupCharacteristicModel.createStudySize(emptyStudySizeIfNull),
-        GroupCharacteristicModel.createStudyCategory(emptyStudyCategoryIfNull),
+        GroupCharacteristicModel.createResearchStudyGroupCategory(emptyResearchStudyGroupCategoryIfNull),
         GroupCharacteristicModel.createStudyPopulation(emptyStudyPopulationIfNull),
         GroupCharacteristicModel.createInclusion(emptyStudyInclusionIfNull),
         GroupCharacteristicModel.createExclusion(emptyStudyExclusionIfNull),

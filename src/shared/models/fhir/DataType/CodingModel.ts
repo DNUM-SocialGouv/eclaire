@@ -115,10 +115,10 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createStudyCategory(studyCategory: string): CodingModel {
+  static createResearchStudyGroupCategory(researchStudyGroupCategory: string): CodingModel {
     return new CodingModel(
       undefined,
-      studyCategory,
+      researchStudyGroupCategory,
       undefined,
       undefined,
       undefined,
