@@ -7,6 +7,13 @@ import {
 
 import { ReferenceModel } from '../SpecialPurposeDataType/ReferenceModel'
 
+enum REGULATION_CODES {
+  CTIS = 'REG536',
+  DM = 'REG745',
+  DMDIV = 'REG746',
+  JARDE = 'JARDE',
+}
+
 export class IdentifierModel implements Identifier {
   constructor(
     readonly assigner: Reference | undefined,
@@ -24,15 +31,54 @@ export class IdentifierModel implements Identifier {
     readonly value: string | undefined
   ) {}
 
-  static createCtisIdentifier(ctisNumber: string): IdentifierModel {
+  static createPrimarySlice(number: string): IdentifierModel {
     return new IdentifierModel(
-      ReferenceModel.createCtisReferenceModel(ctisNumber),
+      ReferenceModel.createAssignerForPrimaryIdentifier(),
       undefined,
       undefined,
       undefined,
-      'usual',
+      'official',
       undefined,
-      ctisNumber
+      number
+    )
+  }
+
+  static createSecondarySlice(
+    number: string,
+    regulationCode: string,
+    qualification: string | undefined
+  ): IdentifierModel {
+    let assigner: Reference
+
+    switch (regulationCode) {
+      case REGULATION_CODES.CTIS:
+        assigner = ReferenceModel.createCtisAssigner(number)
+        break
+      case REGULATION_CODES.DM:
+        assigner = ReferenceModel.createAnsmAssigner()
+        break
+      case REGULATION_CODES.DMDIV:
+        assigner = ReferenceModel.createAnsmAssigner()
+        break
+      case REGULATION_CODES.JARDE:
+        if (qualification === 'Catégorie 1') {
+          assigner = ReferenceModel.createEudraCtAssigner()
+        } else {
+          assigner = ReferenceModel.createAnsmAssigner()
+        }
+        break
+      default:
+        assigner = undefined
+    }
+
+    return new IdentifierModel(
+      assigner,
+      undefined,
+      undefined,
+      undefined,
+      'secondary',
+      undefined,
+      number
     )
   }
 }
