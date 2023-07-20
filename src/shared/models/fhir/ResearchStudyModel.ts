@@ -42,21 +42,22 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly relatedArtifact: RelatedArtifact[] | undefined,
     readonly site: Reference[] | undefined,
     readonly sponsor: Reference | undefined,
-    readonly status:
-      | 'active'
-      | 'administratively-completed'
-      | 'approved'
-      | 'closed-to-accrual'
-      | 'closed-to-accrual-and-intervention'
-      | 'completed'
-      | 'disapproved'
-      | 'in-review'
-      | 'temporarily-closed-to-accrual'
-      | 'temporarily-closed-to-accrual-and-intervention'
-      | 'withdrawn',
+    readonly status: ResearchStudyStatus,
     readonly text: Narrative | undefined,
     readonly title: string | undefined
   ) {
     this.resourceType = 'ResearchStudy'
   }
 }
+
+export type ResearchStudyStatus = 'active'
+  | 'administratively-completed'
+  | 'approved'
+  | 'closed-to-accrual'
+  | 'closed-to-accrual-and-intervention'
+  | 'completed'
+  | 'disapproved'
+  | 'in-review'
+  | 'temporarily-closed-to-accrual'
+  | 'temporarily-closed-to-accrual-and-intervention'
+  | 'withdrawn'

@@ -903,7 +903,7 @@ describe('ctis research study model factory', () => {
         "resourceType": "ResearchStudy",
         "site": undefined,
         "sponsor": undefined,
-        "status": "active",
+        "status": "approved",
         "text": undefined,
         "title": "",
       }

@@ -7,12 +7,23 @@ import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
 import { ModelUtils } from '../shared/models/fhir/ModelUtils'
-import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
+import { ResearchStudyModel, ResearchStudyStatus } from '../shared/models/fhir/ResearchStudyModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
 export class RiphCtisResearchStudyModelFactory {
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
+    const etat = {
+      ABANDONNEE: 'completed',
+      ARCHIVEE: 'completed',
+      A_DEMARRER: 'approved',
+      EN_COURS: 'active',
+      EXPIREE: 'approved',
+      PROROGEE: 'approved',
+      SUSPENDUE: 'temporarily-closed-to-accrual',
+      TERMINEE: 'completed',
+      TERMINEE_ANTICIPEE: 'administratively-completed',
+    } satisfies { [key: string]: ResearchStudyStatus }
     const enrollmentGroupId = riphCtisDto.numero_ctis + '-enrollment-group-id'
 
     const arm = undefined
@@ -68,7 +79,7 @@ export class RiphCtisResearchStudyModelFactory {
     const relatedArtifact = undefined
     const site = undefined
     const sponsor = undefined
-    const status = 'active'
+    const status = etat[riphCtisDto.etat] as ResearchStudyStatus
     const text = undefined
     const title = ModelUtils.emptyIfNull(riphCtisDto.titre)
 
