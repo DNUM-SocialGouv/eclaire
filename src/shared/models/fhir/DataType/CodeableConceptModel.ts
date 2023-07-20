@@ -100,11 +100,11 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createStudyCategory(studyCategory: string): CodeableConceptModel {
+  static createResearchStudyGroupCategory(researchStudyGroupCategory: string): CodeableConceptModel {
     return new CodeableConceptModel(
-      [CodingModel.createStudyCategory(studyCategory)],
+      [CodingModel.createResearchStudyGroupCategory(researchStudyGroupCategory)],
       undefined,
-      'Study Category'
+      'Research Study Group Category'
     )
   }
 
