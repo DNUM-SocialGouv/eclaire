@@ -62,6 +62,7 @@ export const researchStudyIndexMapping = {
           ignore_malformed: true,
           type: 'date',
         },
+        profile: { type: 'text' },
       },
     },
     phase: { properties: { codeableConcept } },

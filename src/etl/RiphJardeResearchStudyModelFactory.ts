@@ -57,7 +57,7 @@ export class RiphJardeResearchStudyModelFactory {
     const keyword = undefined
     const language = undefined
     const location = undefined
-    const meta = MetaModel.createWithMostRecentIsoDate(
+    const meta = MetaModel.create(
       riphJardeDto.historique,
       riphJardeDto.dates_avis_favorable_ms_mns
     )

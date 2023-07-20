@@ -13,7 +13,7 @@ export class MetaModel implements Meta {
     readonly versionId: string | undefined
   ) {}
 
-  static createWithMostRecentIsoDate(
+  static create(
     history: string,
     approvalDate: string
   ): MetaModel {
@@ -23,7 +23,7 @@ export class MetaModel implements Meta {
     return new MetaModel(
       undefined,
       this.getMostRecentIsoDate(emptyHistoryDateIfNull, emptyApprovalDateIfNull),
-      undefined,
+      ['https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy'],
       undefined,
       undefined,
       undefined,

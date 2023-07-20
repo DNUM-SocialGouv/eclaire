@@ -53,7 +53,7 @@ export class RiphCtisResearchStudyModelFactory {
     const keyword = undefined
     const language = undefined
     const location = undefined
-    const meta: Meta = MetaModel.createWithMostRecentIsoDate(
+    const meta: Meta = MetaModel.create(
       riphCtisDto.historique,
       riphCtisDto.dates_avis_favorable_ms_mns
     )

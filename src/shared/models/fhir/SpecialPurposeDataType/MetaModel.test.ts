@@ -7,14 +7,16 @@ describe('shared | models | fhir | MetaModel', () => {
   describe('#createWithMostRecentIsoDate', () => {
     it('should create a properly formatted model', () => {
       // when
-      const result = MetaModel.createWithMostRecentIsoDate(riphCtisDto[0].historique, riphCtisDto[0].dates_avis_favorable_ms_mns)
+      const result = MetaModel.create(riphCtisDto[0].historique, riphCtisDto[0].dates_avis_favorable_ms_mns)
 
       // then
       expect(result).toMatchInlineSnapshot(`
         MetaModel {
           "id": undefined,
           "lastUpdated": "2023-04-12T00:00:00.000Z",
-          "profile": undefined,
+          "profile": [
+            "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
+          ],
           "security": undefined,
           "source": undefined,
           "tag": undefined,
@@ -29,7 +31,7 @@ describe('shared | models | fhir | MetaModel', () => {
       const datesAvisFavorableMsMns = ''
 
       // when
-      const metaModel = MetaModel.createWithMostRecentIsoDate(historique, datesAvisFavorableMsMns)
+      const metaModel = MetaModel.create(historique, datesAvisFavorableMsMns)
 
       // then
       expect(metaModel.lastUpdated).toBe('')
@@ -37,7 +39,7 @@ describe('shared | models | fhir | MetaModel', () => {
 
     it('should create a model with the last date of approval, when the last date of approval is higher than historic date', () => {
       // when
-      const result = MetaModel.createWithMostRecentIsoDate(riphCtisDto[0].historique, riphCtisDto[0].dates_avis_favorable_ms_mns)
+      const result = MetaModel.create(riphCtisDto[0].historique, riphCtisDto[0].dates_avis_favorable_ms_mns)
 
       // then
       expect(result.lastUpdated).toBe('2023-04-12T00:00:00.000Z')
@@ -45,7 +47,7 @@ describe('shared | models | fhir | MetaModel', () => {
 
     it('should create a properly formatted model with the historic date, when the historic date is higher than last date of approval', () => {
       // when
-      const result = MetaModel.createWithMostRecentIsoDate(riphCtisDto[2].historique, riphCtisDto[2].dates_avis_favorable_ms_mns)
+      const result = MetaModel.create(riphCtisDto[2].historique, riphCtisDto[2].dates_avis_favorable_ms_mns)
 
       // then
       expect(result.lastUpdated).toBe('2023-11-29T00:00:00.000Z')
