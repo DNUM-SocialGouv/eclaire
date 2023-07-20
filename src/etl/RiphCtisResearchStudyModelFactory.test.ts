@@ -437,7 +437,9 @@ describe('ctis research study model factory', () => {
         "meta": MetaModel {
           "id": undefined,
           "lastUpdated": "2023-04-12T00:00:00.000Z",
-          "profile": undefined,
+          "profile": [
+            "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
+          ],
           "security": undefined,
           "source": undefined,
           "tag": undefined,
@@ -868,7 +870,9 @@ describe('ctis research study model factory', () => {
         "meta": MetaModel {
           "id": undefined,
           "lastUpdated": "",
-          "profile": undefined,
+          "profile": [
+            "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
+          ],
           "security": undefined,
           "source": undefined,
           "tag": undefined,
