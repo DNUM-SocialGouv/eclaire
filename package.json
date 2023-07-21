@@ -21,7 +21,7 @@
     "etl:import": "ts-node src/etl/console.ts import",
     "etl:import-riph": "ts-node src/etl/console.ts import-riph",
     "lint": "eslint '{src,config}/**/*.ts' --max-warnings=0",
-    "postinstall": "husky install",
+    "prepare": "husky install",
     "start": "node dist/src/main",
     "start:db": "yarn stop:db && docker-compose up -d",
     "start:debug": "nest start --debug --watch",
