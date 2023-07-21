@@ -16,6 +16,7 @@
     "deadcode": "ts-prune --ignore 'vitest.config.ts'",
     "depcheck": "depcheck",
     "dev": "nest start --watch",
+    "etl:delete-index": "ts-node src/etl/console.ts delete-index",
     "etl:create-index": "ts-node src/etl/console.ts create-index",
     "etl:create-index-riph": "ts-node src/etl/console.ts create-index-riph",
     "etl:import": "ts-node src/etl/console.ts import",
