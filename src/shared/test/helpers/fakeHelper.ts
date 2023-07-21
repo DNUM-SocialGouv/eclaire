@@ -30,6 +30,9 @@ export const fakeClient = {
     create: () => {
       return {}
     },
+    delete: () => {
+      return {}
+    },
     putMapping: () => {
       return {}
     },
