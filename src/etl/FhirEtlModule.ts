@@ -1,4 +1,4 @@
-import { DynamicModule, Module } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
@@ -20,21 +20,19 @@ const EXPORT_DATE = '15-06-2023'
       inject: [LoggerService, ElasticsearchService],
       provide: FhirEtlService,
       useFactory: (logger: LoggerService, elasticsearchService: ElasticsearchService): FhirEtlService => {
-        const riphCtisDto = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_ctis-${EXPORT_DATE}.json`), 'utf8')) as RiphCtisDto[]
-        const riphDmDto = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_dm-dmdiv-${EXPORT_DATE}.json`), 'utf8')) as RiphDmDto[]
-        const riphJardeDto1 = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_jarde1-${EXPORT_DATE}.json`), 'utf8')) as RiphJardeDto[]
-        const riphJardeDto2 = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_jarde2-${EXPORT_DATE}.json`), 'utf8')) as RiphJardeDto[]
+        try {
+          const riphCtisDto = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_ctis-${EXPORT_DATE}.json`), 'utf8')) as RiphCtisDto[]
+          const riphDmDto = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_dm-dmdiv-${EXPORT_DATE}.json`), 'utf8')) as RiphDmDto[]
+          const riphJardeDto1 = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_jarde1-${EXPORT_DATE}.json`), 'utf8')) as RiphJardeDto[]
+          const riphJardeDto2 = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_jarde2-${EXPORT_DATE}.json`), 'utf8')) as RiphJardeDto[]
 
-        return new FhirEtlService(logger, elasticsearchService, riphCtisDto, riphDmDto, riphJardeDto1, riphJardeDto2)
+          return new FhirEtlService(logger, elasticsearchService, riphCtisDto, riphDmDto, riphJardeDto1, riphJardeDto2)
+        } catch (error) {
+          return new FhirEtlService(logger, elasticsearchService, [], [], [], [])
+        }
       },
     },
   ],
 })
 
-export class FhirEtlModule {
-  static forRoot(): DynamicModule {
-    return process.env.NODE_ENV === 'production'
-      ? { module: undefined }
-      : { module: FhirEtlModule }
-  }
-}
+export class FhirEtlModule {}

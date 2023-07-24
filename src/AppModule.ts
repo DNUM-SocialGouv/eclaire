@@ -6,7 +6,6 @@ import { ClinicalTrialModule } from './api/clinical-trial/ClinicalTrialModule'
 import { ResearchStudyModule } from './api/research-study/ResearchStudyModule'
 import { SentryModule } from './api/sentry/sentry.module'
 import { SwaggerModule } from './api/swagger/swagger.module'
-//import { EtlModule } from './etl/EtlModule'
 import { FhirEtlModule } from './etl/FhirEtlModule'
 import { ElasticsearchModule } from './shared/elasticsearch/ElasticsearchModule'
 import { LoggerModule } from './shared/logger/LoggerModule'
@@ -24,8 +23,7 @@ import { LoggerModule } from './shared/logger/LoggerModule'
     ClinicalTrialModule,
     ResearchStudyModule,
     ElasticsearchModule,
-    //EtlModule,
-    FhirEtlModule.forRoot(),
+    FhirEtlModule,
     LoggerModule,
   ],
 })
