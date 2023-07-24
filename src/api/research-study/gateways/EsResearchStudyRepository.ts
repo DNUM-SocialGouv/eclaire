@@ -4,15 +4,21 @@ import { Bundle, BundleLink } from 'fhir/r4'
 
 import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
 import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
-import { BundleModelFactory } from '../application/entities/BundleModelFactory'
+import { BundleModel } from '../application/entities/BundleModel'
 import { SearchBodyType } from '../application/entities/SearchBody'
 
 @Injectable()
 export class EsResearchStudyRepository implements ResearchStudyRepository {
+  readonly domainName: string
+  readonly numberOfResourceByPage: number
+
   constructor(
     private readonly elasticsearchService: ElasticsearchService,
     private readonly configService: ConfigService
-  ) {}
+  ) {
+    this.domainName = this.configService.get<string>('ECLAIRE_URL')
+    this.numberOfResourceByPage = Number(this.configService.get<string>('NUMBER_OF_RESSOURCE_BY_PAGE'))
+  }
 
   async findOne(id: string): Promise<unknown> {
     return await this.elasticsearchService.findOneDocument(id)
@@ -20,25 +26,24 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
 
   async search(bodySearch: SearchBodyType): Promise<Bundle> {
     const response = await this.elasticsearchService.search(bodySearch)
-    const link = this.buildSearchLink(bodySearch.from, response.total)
+    const links = this.buildSearchLinks(bodySearch.from, response.total)
 
-    return BundleModelFactory.create(response.hits, link, response.total)
+    return BundleModel.create(response.hits, links, response.total, `${this.domainName}R4/ResearchStudy`)
   }
 
-  private buildSearchLink(offset: number, total: number): BundleLink[] {
-    const numberOfRessourceByPage = Number(this.configService.get<string>('NUMBER_OF_RESSOURCE_BY_PAGE'))
-    const hasMoreResult = total > offset * numberOfRessourceByPage
+  private buildSearchLinks(offset: number, total: number): BundleLink[] {
+    const hasMoreResult = total > offset * this.numberOfResourceByPage
     const link: BundleLink[] = [
       {
         relation: 'self',
-        url: `${this.configService.get<string>('ECLAIRE_URL')}R4/ResearchStudy?_getpagesoffset=${offset}`,
+        url: `${this.domainName}R4/ResearchStudy?_getpagesoffset=${offset}`,
       },
     ]
 
     if (hasMoreResult) {
       link.push({
         relation: 'next',
-        url: `${this.configService.get<string>('ECLAIRE_URL')}R4/ResearchStudy?_getpagesoffset=${offset + numberOfRessourceByPage}`,
+        url: `${this.domainName}R4/ResearchStudy?_getpagesoffset=${offset + this.numberOfResourceByPage}`,
       })
     }
 

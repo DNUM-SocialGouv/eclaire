@@ -6,8 +6,8 @@ import { Response } from 'express'
 
 import { ResearchStudyQueryModel } from './ResearchStudyQueryModel'
 import { Public } from '../../auth/public.decorator'
-import { BundleModelFactory } from '../application/entities/BundleModelFactory'
-import { OperationOutcomeModelFactory } from '../application/entities/OperationOutcomeModelFactory'
+import { BundleModel } from '../application/entities/BundleModel'
+import { OperationOutcomeModel } from '../application/entities/OperationOutcomeModel'
 import { researchStudyQueryToElasticsearchQuery } from '../controllers/converter/researchStudyQueryToElasticsearchQuery'
 import { EsResearchStudyRepository } from '../gateways/EsResearchStudyRepository'
 
@@ -17,7 +17,7 @@ export class SearchResearchStudyController {
   constructor(private readonly researchStudyRepository: EsResearchStudyRepository) {}
 
   @ApiOperation({ summary: 'Recherche des essais cliniques selon un ou des filtres.' })
-  @ApiOkResponse({ description: 'Des essais cliniques ont été trouvés', type: BundleModelFactory })
+  @ApiOkResponse({ description: 'Des essais cliniques ont été trouvés', type: BundleModel })
   @ApiProduces('application/fhir+json')
   @Header('content-type', 'application/fhir+json')
   @Public()
@@ -28,7 +28,7 @@ export class SearchResearchStudyController {
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-        response.status(400).json(OperationOutcomeModelFactory.create(error.meta.body.error.root_cause[0].reason))
+        response.status(400).json(OperationOutcomeModel.create(error.meta.body.error.root_cause[0].reason))
       } else {
         throw error
       }
