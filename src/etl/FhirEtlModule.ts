@@ -33,9 +33,8 @@ const EXPORT_DATE = '15-06-2023'
 
 export class FhirEtlModule {
   static forRoot(): DynamicModule {
-    if (process.env.NODE_ENV === 'production') {
-      return { module: undefined }
-    }
-    return { module: FhirEtlModule }
+    return process.env.NODE_ENV === 'production'
+      ? { module: undefined }
+      : { module: FhirEtlModule }
   }
 }

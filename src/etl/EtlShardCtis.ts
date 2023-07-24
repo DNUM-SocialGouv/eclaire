@@ -11,23 +11,23 @@ export class EtlShardCtis implements EtlShard {
   constructor(
     readonly logger: LoggerService,
     readonly elasticsearchService: ElasticsearchService,
-    readonly dto: RiphCtisDto[]
+    readonly riphDto: RiphCtisDto[]
   ) {}
 
   async import(): Promise<void> {
-    const clinicalTrialsDto: RiphCtisDto[] = this.extract(this.dto)
-    const researchStudyModel = this.transform(clinicalTrialsDto)
+    const riphCtisDtos: RiphCtisDto[] = this.extract(this.riphDto)
+    const researchStudyModel = this.transform(riphCtisDtos)
     await this.load(researchStudyModel)
   }
 
-  extract(dto: RiphCtisDto[]): RiphCtisDto[] {
-    this.logger.info(`${dto.length} (CTIS)`)
-    return [...dto]
+  extract(riphCtisDtos: RiphCtisDto[]): RiphCtisDto[] {
+    this.logger.info(`${riphCtisDtos.length} (CTIS)`)
+    return [...riphCtisDtos]
   }
 
-  transform(clinicalTrialsDto: RiphCtisDto[]): (IndexElasticsearch | ResearchStudyModel)[] {
-    return clinicalTrialsDto.flatMap((clinicalTrialDto: RiphCtisDto): (IndexElasticsearch | ResearchStudyModel)[] => {
-      return [{ create: { _id: clinicalTrialDto.numero_ctis } }, RiphCtisResearchStudyModelFactory.create(clinicalTrialDto)]
+  transform(riphCtisDtos: RiphCtisDto[]): (IndexElasticsearch | ResearchStudyModel)[] {
+    return riphCtisDtos.flatMap((riphCtisDto: RiphCtisDto): (IndexElasticsearch | ResearchStudyModel)[] => {
+      return [{ create: { _id: riphCtisDto.numero_ctis } }, RiphCtisResearchStudyModelFactory.create(riphCtisDto)]
     })
   }
 
