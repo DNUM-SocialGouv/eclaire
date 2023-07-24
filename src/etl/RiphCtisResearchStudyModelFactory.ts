@@ -7,6 +7,7 @@ import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
 import { ModelUtils } from '../shared/models/fhir/ModelUtils'
+import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
 import { RiphStatus, ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
@@ -14,6 +15,7 @@ import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/Ref
 export class RiphCtisResearchStudyModelFactory {
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
     const enrollmentGroupId = riphCtisDto.numero_ctis + '-enrollment-group-id'
+    const primarySponsorOrganizationId = riphCtisDto.numero_ctis + '-primary-sponsor'
 
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
@@ -67,10 +69,25 @@ export class RiphCtisResearchStudyModelFactory {
     const reasonStopped = undefined
     const relatedArtifact = undefined
     const site = undefined
-    const sponsor = undefined
+    const sponsor = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphCtisDto.etat as RiphStatus
     const text = undefined
     const title = ModelUtils.emptyIfNull(riphCtisDto.titre)
+
+    const organizations = [
+      OrganizationModel.createPrimarySponsor(
+        primarySponsorOrganizationId,
+        riphCtisDto.organisme_nom,
+        riphCtisDto.organisme_adresse,
+        riphCtisDto.organisme_ville,
+        riphCtisDto.organisme_code_postal,
+        riphCtisDto.organisme_pays,
+        riphCtisDto.contact_prenom,
+        riphCtisDto.contact_nom,
+        riphCtisDto.contact_telephone,
+        riphCtisDto.contact_courriel
+      ),
+    ]
 
     return new ResearchStudyModel(
       arm,
@@ -89,6 +106,7 @@ export class RiphCtisResearchStudyModelFactory {
       location,
       meta,
       objective,
+      organizations,
       partOf,
       period,
       phase,

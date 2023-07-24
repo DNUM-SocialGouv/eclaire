@@ -139,4 +139,20 @@ export class CodeableConceptModel implements CodeableConcept {
       'Group characteristic code'
     )
   }
+
+  static createOrganizationContactPurpose(): CodeableConceptModel {
+    return new CodeableConceptModel(
+      [CodingModel.createOrganizationContactPurpose()],
+      undefined,
+      'Organization Contact Purpose'
+    )
+  }
+
+  static createClinicalResearchSponsor(): CodeableConceptModel {
+    return new CodeableConceptModel(
+      [CodingModel.createOrganizationSponsorType()],
+      undefined,
+      'Organization Sponsor Type'
+    )
+  }
 }

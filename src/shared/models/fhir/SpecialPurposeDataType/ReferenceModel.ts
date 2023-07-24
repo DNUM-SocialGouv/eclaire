@@ -16,7 +16,7 @@ export class ReferenceModel implements Reference {
       'Reference to group detailing study characteristics',
       undefined,
       undefined,
-      '#' + enrollmentGroupId,
+      this.generateInternalFragmentReference(enrollmentGroupId),
       'Group'
     )
   }
@@ -59,5 +59,23 @@ export class ReferenceModel implements Reference {
       undefined,
       undefined
     )
+  }
+
+  static createPrimarySponsor(primarySponsorOrganizationId: string): ReferenceModel {
+    return new ReferenceModel(
+      'Reference to primary sponsor',
+      undefined,
+      undefined,
+      this.generateRelativeUrlReference(primarySponsorOrganizationId, 'Organization'),
+      'Organization'
+    )
+  }
+
+  private static generateRelativeUrlReference(id: string, type: string) {
+    return `${type}/${id}`
+  }
+
+  private static generateInternalFragmentReference(id: string) {
+    return `#${id}`
   }
 }

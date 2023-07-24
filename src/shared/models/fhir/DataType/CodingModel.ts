@@ -180,6 +180,28 @@ export class CodingModel implements Coding {
       undefined
     )
   }
+
+  static createOrganizationContactPurpose(): CodingModel {
+    return new CodingModel(
+      'ADMIN',
+      'Administrative',
+      undefined,
+      'http://terminology.hl7.org/CodeSystem/contactentity-type',
+      undefined,
+      '4.0.1'
+    )
+  }
+
+  static createOrganizationSponsorType(): CodingModel {
+    return new CodingModel(
+      'crs',
+      'Clinical Research Sponsor',
+      undefined,
+      'http://terminology.hl7.org/CodeSystem/organization-type',
+      undefined,
+      '4.0.1'
+    )
+  }
 }
 
 enum PhaseCode {
