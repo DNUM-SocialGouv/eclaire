@@ -2,10 +2,10 @@ import { SearchBodyBuilder, SearchBodyType } from '../../application/entities/Se
 import { ResearchStudyQueryModel } from '../ResearchStudyQueryModel'
 
 export function researchStudyQueryToElasticsearchQuery(researchStudyQuery: Partial<ResearchStudyQueryModel>): SearchBodyType {
-  const numberOfRessourceByPage = Number(process.env.NUMBER_OF_RESSOURCE_BY_PAGE)
+  const numberOfResourceByPage = Number(process.env.NUMBER_OF_RESSOURCE_BY_PAGE)
   const searchBody = new SearchBodyBuilder()
     .withFrom(0)
-    .withSize(numberOfRessourceByPage)
+    .withSize(numberOfResourceByPage)
 
   Object.entries(researchStudyQuery).forEach((key: [string, string]) => {
     const field = key[0]

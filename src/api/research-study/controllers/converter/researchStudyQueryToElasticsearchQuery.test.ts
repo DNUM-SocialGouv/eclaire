@@ -2,8 +2,8 @@ import { researchStudyQueryToElasticsearchQuery } from './researchStudyQueryToEl
 import { SearchBodyType } from '../../application/entities/SearchBody'
 
 describe('research study query to elasticsearch query', () => {
-  const numberOfRessourceByPage = 20
-  process.env.NUMBER_OF_RESSOURCE_BY_PAGE = String(numberOfRessourceByPage)
+  const numberOfResourceByPage = 20
+  process.env.NUMBER_OF_RESSOURCE_BY_PAGE = String(numberOfResourceByPage)
 
   describe('should filter', () => {
     it('just by identifier', () => {
@@ -17,7 +17,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { bool: { must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
 
@@ -32,7 +32,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { bool: { must: [{ match: { 'meta.lastUpdated': '12/04/2023' } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
 
@@ -47,7 +47,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { bool: { must: [{ match: { 'meta.lastUpdated': '12/04/2023' } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
 
@@ -62,7 +62,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { bool: { must: [{ range: { 'meta.lastUpdated': { gt: '12/04/2023', lt: '12/04/2023' } } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
 
@@ -77,7 +77,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { bool: { must: [{ range: { 'meta.lastUpdated': { lt: '12/04/2023' } } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
 
@@ -92,7 +92,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { bool: { must: [{ range: { 'meta.lastUpdated': { lte: '12/04/2023' } } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
 
@@ -107,7 +107,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { bool: { must: [{ range: { 'meta.lastUpdated': { gt: '12/04/2023' } } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
 
@@ -122,7 +122,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '12/04/2023' } } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
 
@@ -144,7 +144,7 @@ describe('research study query to elasticsearch query', () => {
             ],
           },
         },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
 
@@ -159,7 +159,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { query_string: { query: 'elastic AND (lucene OR solr)' } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
 
@@ -174,7 +174,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { query_string: { query: 'elastic AND (lucene OR solr)' } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
 
@@ -189,7 +189,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { bool: { must: [{ match: { status: 'active' } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
   })
@@ -206,7 +206,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { bool: { must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
         sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
       })
     })
@@ -222,7 +222,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { bool: { must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
         sort: [{ 'meta.lastUpdated': { order: 'desc' } }],
       })
     })
@@ -238,7 +238,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: 0,
         query: { bool: { must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
         sort: [
           { _id: { order: 'asc' } },
           { 'meta.lastUpdated': { order: 'desc' } },
@@ -250,7 +250,7 @@ describe('research study query to elasticsearch query', () => {
   describe('should paginate', () => {
     it('from page 10', () => {
       // GIVEN
-      const offset = numberOfRessourceByPage * 9
+      const offset = numberOfResourceByPage * 9
       const researchStudyQuery = { _getpagesoffset: String(offset), identifier: 'mDog94gBYFmz7rt1cy93' }
 
       // WHEN
@@ -260,12 +260,12 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<SearchBodyType>({
         from: offset,
         query: { bool: { must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       })
     })
   })
 
-  it('should return all the ressources when filters are empty', () => {
+  it('should return all the resources when filters are empty', () => {
     // GIVEN
     const researchStudyQuery = { _lastUpdated: '', identifier: '' }
 
@@ -276,7 +276,7 @@ describe('research study query to elasticsearch query', () => {
     expect(query).toStrictEqual<SearchBodyType>({
       from: 0,
       query: { bool: { must: [] } },
-      size: numberOfRessourceByPage,
+      size: numberOfResourceByPage,
     })
   })
 })

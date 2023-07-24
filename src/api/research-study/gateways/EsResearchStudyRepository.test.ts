@@ -20,7 +20,7 @@ describe('elasticsearch research study repository', () => {
   })
 
   describe('search research studies', () => {
-    const numberOfRessourceByPage = 2
+    const numberOfResourceByPage = 2
 
     it('should find research studies when filter on a field is given', async () => {
       // GIVEN
@@ -28,7 +28,7 @@ describe('elasticsearch research study repository', () => {
       const bodySearch: SearchBodyType = {
         from: 0,
         query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01T00:00:00Z' } } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       }
 
       // WHEN
@@ -57,7 +57,7 @@ describe('elasticsearch research study repository', () => {
       const bodySearch: SearchBodyType = {
         from: 0,
         query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '3020-01-01T00:00:00Z' } } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       }
 
       // WHEN
@@ -79,7 +79,7 @@ describe('elasticsearch research study repository', () => {
       const bodySearch: SearchBodyType = {
         from: 4,
         query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01T00:00:00Z' } } }] } },
-        size: numberOfRessourceByPage,
+        size: numberOfResourceByPage,
       }
 
       // WHEN
