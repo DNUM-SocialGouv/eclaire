@@ -6,7 +6,6 @@ import { Response } from 'express'
 
 import { ResearchStudyQueryModel } from './ResearchStudyQueryModel'
 import { Public } from '../../auth/public.decorator'
-import { BundleModel } from '../application/entities/BundleModel'
 import { OperationOutcomeModel } from '../application/entities/OperationOutcomeModel'
 import { researchStudyQueryToElasticsearchQuery } from '../controllers/converter/researchStudyQueryToElasticsearchQuery'
 import { EsResearchStudyRepository } from '../gateways/EsResearchStudyRepository'
@@ -17,7 +16,7 @@ export class SearchResearchStudyController {
   constructor(private readonly researchStudyRepository: EsResearchStudyRepository) {}
 
   @ApiOperation({ summary: 'Recherche des essais cliniques selon un ou des filtres.' })
-  @ApiOkResponse({ description: 'Des essais cliniques ont été trouvés', type: BundleModel })
+  @ApiOkResponse({ description: 'Des essais cliniques ont été trouvés' })
   @ApiProduces('application/fhir+json')
   @Header('content-type', 'application/fhir+json')
   @Public()
