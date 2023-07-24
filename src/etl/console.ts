@@ -18,6 +18,7 @@ async function console(): Promise<void> {
       //await etlService.import()
       break
     case 'create-index':
+      await fhirEtlService.deleteIndex()
       await fhirEtlService.createIndex()
       break
     case 'create-index-riph':

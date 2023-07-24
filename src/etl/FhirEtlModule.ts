@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { DynamicModule, Module } from '@nestjs/common'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
@@ -30,4 +30,11 @@ const EXPORT_DATE = '15-06-2023'
     },
   ],
 })
-export class FhirEtlModule {}
+
+export class FhirEtlModule {
+  static forRoot(): DynamicModule {
+    return process.env.NODE_ENV === 'production'
+      ? { module: undefined }
+      : { module: FhirEtlModule }
+  }
+}

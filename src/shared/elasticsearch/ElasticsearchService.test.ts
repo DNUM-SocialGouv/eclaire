@@ -17,6 +17,18 @@ describe('elasticsearch service', () => {
     })
   })
 
+  it('should delete an index', async () => {
+    // GIVEN
+    const service = new ElasticsearchService(fakeClient)
+    vi.spyOn(fakeClient.indices, 'delete')
+
+    // WHEN
+    await service.deleteAnIndex()
+
+    // THEN
+    expect(fakeClient.indices.delete).toHaveBeenCalledWith({ index: 'eclaire' })
+  })
+
   it('should update an index', async () => {
     // GIVEN
     const service = new ElasticsearchService(fakeClient)
