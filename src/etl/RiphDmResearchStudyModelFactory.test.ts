@@ -446,7 +446,7 @@ describe('dm research study model factory', () => {
         "resourceType": "ResearchStudy",
         "site": undefined,
         "sponsor": undefined,
-        "status": "active",
+        "status": "administratively-completed",
         "text": undefined,
         "title": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
       }
@@ -897,7 +897,7 @@ describe('dm research study model factory', () => {
         "resourceType": "ResearchStudy",
         "site": undefined,
         "sponsor": undefined,
-        "status": "active",
+        "status": "approved",
         "text": undefined,
         "title": "",
       }

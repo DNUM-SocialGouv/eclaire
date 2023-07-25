@@ -51,6 +51,19 @@ describe('extract transform load service', () => {
       expect(jarde2ClinicalTrial).not.toBeNull()
     })
 
+    it('should not find "RAPATRIEE_CTIS" because its a duplicate', async () => {
+      // GIVEN
+      const { elasticsearchService, etlService } = await setup()
+      await etlService.createIndex()
+
+      // WHEN
+      await etlService.import()
+
+      // THEN
+      const excludeJarde = riphJardeDto2[1].numero_national
+      await expect(elasticsearchService.findOneDocument<ResearchStudyModel>(excludeJarde)).rejects.toThrow('Response Error')
+    })
+
     it('should not create some clinical trials when bulk has failed with ResponseError', async () => {
       // GIVEN
       const { client, etlService } = await setup()

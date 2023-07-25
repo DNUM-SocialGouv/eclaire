@@ -15,6 +15,8 @@ import {
 
 export class ResearchStudyModel implements ResearchStudy {
   readonly resourceType: 'ResearchStudy'
+  readonly status: ResearchStudyStatus
+
   constructor(
     readonly arm: ResearchStudyArm[] | undefined,
     readonly category: CodeableConcept[] | undefined,
@@ -42,21 +44,41 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly relatedArtifact: RelatedArtifact[] | undefined,
     readonly site: Reference[] | undefined,
     readonly sponsor: Reference | undefined,
-    readonly status:
-      | 'active'
-      | 'administratively-completed'
-      | 'approved'
-      | 'closed-to-accrual'
-      | 'closed-to-accrual-and-intervention'
-      | 'completed'
-      | 'disapproved'
-      | 'in-review'
-      | 'temporarily-closed-to-accrual'
-      | 'temporarily-closed-to-accrual-and-intervention'
-      | 'withdrawn',
+    riphStatus: RiphStatus,
     readonly text: Narrative | undefined,
     readonly title: string | undefined
   ) {
     this.resourceType = 'ResearchStudy'
+    this.status = this.convertToResearchStudyStatus(riphStatus)
+  }
+
+  private convertToResearchStudyStatus(riphStatus: RiphStatus): ResearchStudyStatus {
+    const fhirStatus = {
+      ABANDONNEE: 'completed',
+      ARCHIVEE: 'completed',
+      A_DEMARRER: 'approved',
+      EN_COURS: 'active',
+      EXPIREE: 'approved',
+      PROROGEE: 'approved',
+      SUSPENDUE: 'temporarily-closed-to-accrual',
+      TERMINEE: 'completed',
+      TERMINEE_ANTICIPEE: 'administratively-completed',
+    } satisfies { [key: string]: ResearchStudyStatus }
+
+    return fhirStatus[riphStatus]
   }
 }
+
+export type RiphStatus = 'ABANDONNEE' | 'ARCHIVEE' | 'A_DEMARRER' | 'EN_COURS' | 'EXPIREE' | 'PROROGEE' | 'SUSPENDUE' | 'TERMINEE' | 'TERMINEE_ANTICIPEE'
+
+export type ResearchStudyStatus = 'active'
+  | 'administratively-completed'
+  | 'approved'
+  | 'closed-to-accrual'
+  | 'closed-to-accrual-and-intervention'
+  | 'completed'
+  | 'disapproved'
+  | 'in-review'
+  | 'temporarily-closed-to-accrual'
+  | 'temporarily-closed-to-accrual-and-intervention'
+  | 'withdrawn'

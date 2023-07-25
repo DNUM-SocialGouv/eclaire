@@ -22,7 +22,8 @@ export class EtlShardJarde implements EtlShard {
 
   extract(riphJardeDtos: RiphJardeDto[]): RiphJardeDto[] {
     this.logger.info(`${riphJardeDtos.length} (JARDE)`)
-    return [...riphJardeDtos]
+    const removeRapatrieeCtis = (jarde: RiphJardeDto): boolean => jarde.etat !== 'RAPATRIEE_CTIS'
+    return [...riphJardeDtos.filter(removeRapatrieeCtis)]
   }
 
   transform(riphJardeDtos: RiphJardeDto[]): (IndexElasticsearch | ResearchStudyModel)[] {
