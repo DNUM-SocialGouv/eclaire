@@ -466,7 +466,7 @@ describe('ctis research study model factory', () => {
         "principalInvestigator": undefined,
         "protocol": undefined,
         "reasonStopped": undefined,
-        "referenceContents": {
+        "referenceContents": ReferenceContentsModel {
           "organizations": [
             OrganizationModel {
               "active": true,
@@ -1004,7 +1004,7 @@ describe('ctis research study model factory', () => {
         "principalInvestigator": undefined,
         "protocol": undefined,
         "reasonStopped": undefined,
-        "referenceContents": {
+        "referenceContents": ReferenceContentsModel {
           "organizations": [
             OrganizationModel {
               "active": true,

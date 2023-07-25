@@ -5,7 +5,6 @@ import {
   Identifier,
   Meta,
   Narrative,
-  Organization,
   Period,
   Reference,
   RelatedArtifact,
@@ -13,6 +12,8 @@ import {
   ResearchStudyArm,
   ResearchStudyObjective,
 } from 'fhir/r4'
+
+import { ReferenceContentsModel } from '../custom/ReferenceContentsModel'
 
 export class ResearchStudyModel implements ResearchStudy {
   readonly resourceType: 'ResearchStudy'
@@ -42,7 +43,7 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly principalInvestigator: Reference | undefined,
     readonly protocol: Reference[] | undefined,
     readonly reasonStopped: CodeableConcept | undefined,
-    readonly referenceContents: ReferenceContents | undefined,
+    readonly referenceContents: ReferenceContentsModel,
     readonly relatedArtifact: RelatedArtifact[] | undefined,
     readonly site: Reference[] | undefined,
     readonly sponsor: Reference | undefined,
@@ -84,7 +85,3 @@ export type ResearchStudyStatus = 'active'
   | 'temporarily-closed-to-accrual'
   | 'temporarily-closed-to-accrual-and-intervention'
   | 'withdrawn'
-
-export type ReferenceContents = {
-  organizations: Organization[] | undefined
-}

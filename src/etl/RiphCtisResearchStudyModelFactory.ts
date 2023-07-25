@@ -3,12 +3,13 @@ import { Identifier, Meta } from 'fhir/r4'
 
 import { RiphCtisDto } from './dto/RiphCtisDto'
 import { ModelUtils } from '../shared/models/custom/ModelUtils'
+import { ReferenceContentsModel } from '../shared/models/custom/ReferenceContentsModel'
 import { CodeableConceptModel } from '../shared/models/fhir/DataType/CodeableConceptModel'
 import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
 import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
-import { RiphStatus, ResearchStudyModel, ReferenceContents } from '../shared/models/fhir/ResearchStudyModel'
+import { RiphStatus, ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
@@ -89,7 +90,7 @@ export class RiphCtisResearchStudyModelFactory {
       ),
     ]
 
-    const referenceContents: ReferenceContents = { organizations }
+    const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(organizations)
 
     return new ResearchStudyModel(
       arm,
