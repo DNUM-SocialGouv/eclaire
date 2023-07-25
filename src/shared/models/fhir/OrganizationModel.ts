@@ -38,8 +38,8 @@ export class OrganizationModel implements Organization {
     this.resourceType = 'Organization'
   }
 
-  static createPrimarySponsor(
-    primarySponsorOrganizationId: string,
+  static createSponsor(
+    sponsorOrganizationId: string,
     sponsorName: string,
     sponsorAddress: string,
     sponsorCity: string,
@@ -81,7 +81,7 @@ export class OrganizationModel implements Organization {
       ],
       undefined,
       undefined,
-      primarySponsorOrganizationId,
+      sponsorOrganizationId,
       undefined,
       undefined,
       undefined,

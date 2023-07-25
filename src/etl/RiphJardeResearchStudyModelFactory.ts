@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Identifier, Organization } from 'fhir/r4'
+import { Extension, Identifier, Organization } from 'fhir/r4'
 
 import { RiphJardeDto } from './dto/RiphJardeDto'
 import { ModelUtils } from '../shared/models/custom/ModelUtils'
@@ -10,6 +10,7 @@ import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
 import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
 import { ResearchStudyModel, RiphStatus } from '../shared/models/fhir/ResearchStudyModel'
+import { ExtensionModel } from '../shared/models/fhir/SpecialPurposeDataType/ExtensionModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
@@ -17,6 +18,7 @@ export class RiphJardeResearchStudyModelFactory {
   static create(riphJardeDto: RiphJardeDto): ResearchStudyModel {
     const enrollmentGroupId = undefined
     const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphJardeDto.numero_national)
+    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphJardeDto.numero_national)
 
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphJardeDto.reglementation_code)]
@@ -46,6 +48,7 @@ export class RiphJardeResearchStudyModelFactory {
     ]
     const description = ModelUtils.UNAVAILABLE
     const enrollment = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
+    const extensions: Extension[] = [ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId)]
     const focus = undefined
     const id = undefined
     const identifier: Identifier[] = [
@@ -80,7 +83,7 @@ export class RiphJardeResearchStudyModelFactory {
     const title = ModelUtils.emptyIfNull(riphJardeDto.titre_recherche)
 
     const organizations: Organization[] = [
-      OrganizationModel.createPrimarySponsor(
+      OrganizationModel.createSponsor(
         primarySponsorOrganizationId,
         riphJardeDto.deposant_organisme,
         riphJardeDto.deposant_adresse,
@@ -91,6 +94,18 @@ export class RiphJardeResearchStudyModelFactory {
         riphJardeDto.deposant_nom,
         ModelUtils.UNAVAILABLE,
         riphJardeDto.deposant_courriel
+      ),
+      OrganizationModel.createSponsor(
+        secondarySponsorOrganizationId,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE
       ),
     ]
 
@@ -104,6 +119,7 @@ export class RiphJardeResearchStudyModelFactory {
       contained,
       description,
       enrollment,
+      extensions,
       focus,
       id,
       identifier,

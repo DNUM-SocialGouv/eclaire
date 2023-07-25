@@ -71,6 +71,16 @@ export class ReferenceModel implements Reference {
     )
   }
 
+  static createSecondarySponsor(secondarySponsorOrganizationId: string) {
+    return new ReferenceModel(
+      'Reference to secondary sponsor',
+      undefined,
+      undefined,
+      this.generateRelativeUrlReference(secondarySponsorOrganizationId, 'Organization'),
+      'Organization'
+    )
+  }
+
   private static generateRelativeUrlReference(id: string, type: string): string {
     return `${type}/${id}`
   }
