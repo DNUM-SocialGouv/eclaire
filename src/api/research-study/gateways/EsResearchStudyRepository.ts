@@ -10,14 +10,14 @@ import { SearchBodyType } from '../application/entities/SearchBody'
 @Injectable()
 export class EsResearchStudyRepository implements ResearchStudyRepository {
   readonly domainName: string
-  readonly numberOfResourceByPage: number
+  readonly numberOfResourcesByPage: number
 
   constructor(
     private readonly elasticsearchService: ElasticsearchService,
     private readonly configService: ConfigService
   ) {
     this.domainName = this.configService.get<string>('ECLAIRE_URL')
-    this.numberOfResourceByPage = Number(this.configService.get<string>('NUMBER_OF_RESSOURCE_BY_PAGE'))
+    this.numberOfResourcesByPage = Number(this.configService.get<string>('NUMBER_OF_RESOURCES_BY_PAGE'))
   }
 
   async findOne(id: string): Promise<unknown> {
@@ -32,7 +32,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
   }
 
   private buildSearchLinks(offset: number, total: number): BundleLink[] {
-    const hasMoreResult = total > offset * this.numberOfResourceByPage
+    const hasMoreResult = total > offset * this.numberOfResourcesByPage
     const link: BundleLink[] = [
       {
         relation: 'self',
@@ -43,7 +43,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     if (hasMoreResult) {
       link.push({
         relation: 'next',
-        url: `${this.domainName}R4/ResearchStudy?_getpagesoffset=${offset + this.numberOfResourceByPage}`,
+        url: `${this.domainName}R4/ResearchStudy?_getpagesoffset=${offset + this.numberOfResourcesByPage}`,
       })
     }
 
