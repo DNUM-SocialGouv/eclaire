@@ -1,6 +1,6 @@
 import { Identifier, Reference } from 'fhir/r4'
 
-import { ModelUtils } from '../ModelUtils'
+import { ModelUtils } from '../../custom/ModelUtils'
 
 export class ReferenceModel implements Reference {
   constructor(

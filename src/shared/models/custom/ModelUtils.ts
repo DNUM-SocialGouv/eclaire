@@ -1,5 +1,4 @@
-export class
-ModelUtils {
+export class ModelUtils {
   static UNAVAILABLE = 'INDISPONIBLE'
 
   static emptyIfNull(value: string): string {

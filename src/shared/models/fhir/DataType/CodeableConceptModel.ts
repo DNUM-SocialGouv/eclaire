@@ -1,7 +1,7 @@
 import { CodeableConcept, Coding } from 'fhir/r4'
 
 import { CodingModel } from './CodingModel'
-import { ModelUtils } from '../ModelUtils'
+import { ModelUtils } from '../../custom/ModelUtils'
 
 export class CodeableConceptModel implements CodeableConcept {
   constructor(

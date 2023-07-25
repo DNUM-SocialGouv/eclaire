@@ -12,8 +12,8 @@ import {
 
 import { AddressModel } from './DataType/AddressModel'
 import { CodeableConceptModel } from './DataType/CodeableConceptModel'
-import { ModelUtils } from './ModelUtils'
 import { OrganizationContactModel } from './OrganizationContactModel'
+import { ModelUtils } from '../custom/ModelUtils'
 
 export class OrganizationModel implements Organization {
   readonly resourceType: 'Organization'

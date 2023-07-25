@@ -2,11 +2,11 @@
 import { Identifier, Meta } from 'fhir/r4'
 
 import { RiphCtisDto } from './dto/RiphCtisDto'
+import { ModelUtils } from '../shared/models/custom/ModelUtils'
 import { CodeableConceptModel } from '../shared/models/fhir/DataType/CodeableConceptModel'
 import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
-import { ModelUtils } from '../shared/models/fhir/ModelUtils'
 import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
 import { RiphStatus, ResearchStudyModel, ReferenceContents } from '../shared/models/fhir/ResearchStudyModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'

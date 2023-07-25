@@ -1,7 +1,7 @@
 import { CodeableConcept, Group, GroupCharacteristic, GroupMember, Identifier, Meta, Reference } from 'fhir/r4'
 
 import { GroupCharacteristicModel } from './GroupCharacteristicModel'
-import { ModelUtils } from './ModelUtils'
+import { ModelUtils } from '../custom/ModelUtils'
 
 export class GroupModel implements Group {
   readonly resourceType: 'Group'
