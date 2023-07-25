@@ -7,7 +7,7 @@ import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
 import { ModelUtils } from '../shared/models/fhir/ModelUtils'
-import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
+import { ResearchStudyModel, RiphStatus } from '../shared/models/fhir/ResearchStudyModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
@@ -72,7 +72,7 @@ export class RiphJardeResearchStudyModelFactory {
     const relatedArtifact = undefined
     const site = undefined
     const sponsor = undefined
-    const status = 'active'
+    const status = riphJardeDto.etat as RiphStatus
     const text = undefined
     const title = ModelUtils.emptyIfNull(riphJardeDto.titre_recherche)
 
