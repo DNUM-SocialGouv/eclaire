@@ -12,6 +12,105 @@ describe('ctis research study model factory', () => {
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
+        "_referenceContents": {
+          "organizations": [
+            OrganizationModel {
+              "active": true,
+              "address": [
+                AddressModel {
+                  "city": "Basel Town",
+                  "country": "Switzerland",
+                  "district": undefined,
+                  "line": undefined,
+                  "period": undefined,
+                  "postalCode": "4058",
+                  "state": undefined,
+                  "text": "Grenzacherstrasse 124 Basel Town 4058 Switzerland",
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "alias": undefined,
+              "contact": [
+                OrganizationContactModel {
+                  "address": undefined,
+                  "id": undefined,
+                  "name": HumanNameModel {
+                    "family": "Trial Information Support Line-TISL, Switzerland",
+                    "given": [
+                      "Head of EU",
+                    ],
+                    "id": undefined,
+                    "period": undefined,
+                    "prefix": undefined,
+                    "suffix": undefined,
+                    "text": "Head of EU Trial Information Support Line-TISL, Switzerland",
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "id": undefined,
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "userSelected": undefined,
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "id": undefined,
+                    "text": "Organization Contact Purpose",
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "id": undefined,
+                      "period": undefined,
+                      "rank": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": "0041616881111",
+                    },
+                    ContactPointModel {
+                      "id": undefined,
+                      "period": undefined,
+                      "rank": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": "global.rochegenentechtrials@roche.com",
+                    },
+                  ],
+                },
+              ],
+              "contained": undefined,
+              "endpoint": undefined,
+              "id": "2022-500014-26-00-primary-sponsor",
+              "identifier": undefined,
+              "implicitRules": undefined,
+              "language": undefined,
+              "meta": undefined,
+              "name": "F. Hoffmann-La Roche AG",
+              "partOf": undefined,
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "id": undefined,
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "userSelected": undefined,
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Organization Sponsor Type",
+                },
+              ],
+            },
+          ],
+        },
         "arm": undefined,
         "category": [
           CodeableConceptModel {
@@ -446,103 +545,6 @@ describe('ctis research study model factory', () => {
           "versionId": undefined,
         },
         "objective": undefined,
-        "organizations": [
-          OrganizationModel {
-            "active": true,
-            "address": [
-              AddressModel {
-                "city": "Basel Town",
-                "country": "Switzerland",
-                "district": undefined,
-                "line": undefined,
-                "period": undefined,
-                "postalCode": "4058",
-                "state": undefined,
-                "text": "Grenzacherstrasse 124 Basel Town 4058 Switzerland",
-                "type": "physical",
-                "use": "work",
-              },
-            ],
-            "alias": undefined,
-            "contact": [
-              OrganizationContactModel {
-                "address": undefined,
-                "id": undefined,
-                "name": HumanNameModel {
-                  "family": "Trial Information Support Line-TISL, Switzerland",
-                  "given": [
-                    "Head of EU",
-                  ],
-                  "id": undefined,
-                  "period": undefined,
-                  "prefix": undefined,
-                  "suffix": undefined,
-                  "text": "Head of EU Trial Information Support Line-TISL, Switzerland",
-                  "use": "official",
-                },
-                "purpose": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "ADMIN",
-                      "display": "Administrative",
-                      "id": undefined,
-                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                      "userSelected": undefined,
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Organization Contact Purpose",
-                },
-                "telecom": [
-                  ContactPointModel {
-                    "id": undefined,
-                    "period": undefined,
-                    "rank": undefined,
-                    "system": "phone",
-                    "use": "work",
-                    "value": "0041616881111",
-                  },
-                  ContactPointModel {
-                    "id": undefined,
-                    "period": undefined,
-                    "rank": undefined,
-                    "system": "email",
-                    "use": "work",
-                    "value": "global.rochegenentechtrials@roche.com",
-                  },
-                ],
-              },
-            ],
-            "contained": undefined,
-            "endpoint": undefined,
-            "id": "2022-500014-26-00-primary-sponsor",
-            "identifier": undefined,
-            "implicitRules": undefined,
-            "language": undefined,
-            "meta": undefined,
-            "name": "F. Hoffmann-La Roche AG",
-            "partOf": undefined,
-            "resourceType": "Organization",
-            "telecom": undefined,
-            "type": [
-              CodeableConceptModel {
-                "coding": [
-                  CodingModel {
-                    "code": "crs",
-                    "display": "Clinical Research Sponsor",
-                    "id": undefined,
-                    "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                    "userSelected": undefined,
-                    "version": "4.0.1",
-                  },
-                ],
-                "id": undefined,
-                "text": "Organization Sponsor Type",
-              },
-            ],
-          },
-        ],
         "partOf": undefined,
         "period": undefined,
         "phase": CodeableConceptModel {
@@ -590,6 +592,105 @@ describe('ctis research study model factory', () => {
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
+        "_referenceContents": {
+          "organizations": [
+            OrganizationModel {
+              "active": true,
+              "address": [
+                AddressModel {
+                  "city": "",
+                  "country": "",
+                  "district": undefined,
+                  "line": undefined,
+                  "period": undefined,
+                  "postalCode": "",
+                  "state": undefined,
+                  "text": "   ",
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "alias": undefined,
+              "contact": [
+                OrganizationContactModel {
+                  "address": undefined,
+                  "id": undefined,
+                  "name": HumanNameModel {
+                    "family": "",
+                    "given": [
+                      "",
+                    ],
+                    "id": undefined,
+                    "period": undefined,
+                    "prefix": undefined,
+                    "suffix": undefined,
+                    "text": " ",
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "id": undefined,
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "userSelected": undefined,
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "id": undefined,
+                    "text": "Organization Contact Purpose",
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "id": undefined,
+                      "period": undefined,
+                      "rank": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": "",
+                    },
+                    ContactPointModel {
+                      "id": undefined,
+                      "period": undefined,
+                      "rank": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": "",
+                    },
+                  ],
+                },
+              ],
+              "contained": undefined,
+              "endpoint": undefined,
+              "id": "2022-500299-71-00-primary-sponsor",
+              "identifier": undefined,
+              "implicitRules": undefined,
+              "language": undefined,
+              "meta": undefined,
+              "name": "",
+              "partOf": undefined,
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "id": undefined,
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "userSelected": undefined,
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Organization Sponsor Type",
+                },
+              ],
+            },
+          ],
+        },
         "arm": undefined,
         "category": [
           CodeableConceptModel {
@@ -982,103 +1083,6 @@ describe('ctis research study model factory', () => {
           "versionId": undefined,
         },
         "objective": undefined,
-        "organizations": [
-          OrganizationModel {
-            "active": true,
-            "address": [
-              AddressModel {
-                "city": "",
-                "country": "",
-                "district": undefined,
-                "line": undefined,
-                "period": undefined,
-                "postalCode": "",
-                "state": undefined,
-                "text": "   ",
-                "type": "physical",
-                "use": "work",
-              },
-            ],
-            "alias": undefined,
-            "contact": [
-              OrganizationContactModel {
-                "address": undefined,
-                "id": undefined,
-                "name": HumanNameModel {
-                  "family": "",
-                  "given": [
-                    "",
-                  ],
-                  "id": undefined,
-                  "period": undefined,
-                  "prefix": undefined,
-                  "suffix": undefined,
-                  "text": " ",
-                  "use": "official",
-                },
-                "purpose": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "ADMIN",
-                      "display": "Administrative",
-                      "id": undefined,
-                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                      "userSelected": undefined,
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Organization Contact Purpose",
-                },
-                "telecom": [
-                  ContactPointModel {
-                    "id": undefined,
-                    "period": undefined,
-                    "rank": undefined,
-                    "system": "phone",
-                    "use": "work",
-                    "value": "",
-                  },
-                  ContactPointModel {
-                    "id": undefined,
-                    "period": undefined,
-                    "rank": undefined,
-                    "system": "email",
-                    "use": "work",
-                    "value": "",
-                  },
-                ],
-              },
-            ],
-            "contained": undefined,
-            "endpoint": undefined,
-            "id": "2022-500299-71-00-primary-sponsor",
-            "identifier": undefined,
-            "implicitRules": undefined,
-            "language": undefined,
-            "meta": undefined,
-            "name": "",
-            "partOf": undefined,
-            "resourceType": "Organization",
-            "telecom": undefined,
-            "type": [
-              CodeableConceptModel {
-                "coding": [
-                  CodingModel {
-                    "code": "crs",
-                    "display": "Clinical Research Sponsor",
-                    "id": undefined,
-                    "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                    "userSelected": undefined,
-                    "version": "4.0.1",
-                  },
-                ],
-                "id": undefined,
-                "text": "Organization Sponsor Type",
-              },
-            ],
-          },
-        ],
         "partOf": undefined,
         "period": undefined,
         "phase": CodeableConceptModel {

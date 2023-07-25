@@ -19,6 +19,7 @@ export class ResearchStudyModel implements ResearchStudy {
   readonly status: ResearchStudyStatus
 
   constructor(
+    readonly _referenceContents: ReferenceContents | undefined,
     readonly arm: ResearchStudyArm[] | undefined,
     readonly category: CodeableConcept[] | undefined,
     readonly condition: CodeableConcept[] | undefined,
@@ -35,7 +36,6 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly location: CodeableConcept[] | undefined,
     readonly meta: Meta | undefined,
     readonly objective: ResearchStudyObjective[] | undefined,
-    readonly organizations: Organization[] | undefined,
     readonly partOf: Reference[] | undefined,
     readonly period: Period | undefined,
     readonly phase: CodeableConcept | undefined,
@@ -84,3 +84,7 @@ export type ResearchStudyStatus = 'active'
   | 'temporarily-closed-to-accrual'
   | 'temporarily-closed-to-accrual-and-intervention'
   | 'withdrawn'
+
+export type ReferenceContents = {
+  organizations: Organization[] | undefined
+}

@@ -8,7 +8,7 @@ import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
 import { ModelUtils } from '../shared/models/fhir/ModelUtils'
 import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
-import { ResearchStudyModel, RiphStatus } from '../shared/models/fhir/ResearchStudyModel'
+import { ReferenceContents, ResearchStudyModel, RiphStatus } from '../shared/models/fhir/ResearchStudyModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
@@ -93,7 +93,10 @@ export class RiphJardeResearchStudyModelFactory {
       ),
     ]
 
+    const _referenceContents: ReferenceContents = { organizations }
+
     return new ResearchStudyModel(
+      _referenceContents,
       arm,
       category,
       condition,
@@ -110,7 +113,6 @@ export class RiphJardeResearchStudyModelFactory {
       location,
       meta,
       objective,
-      organizations,
       partOf,
       period,
       phase,

@@ -12,6 +12,105 @@ describe('jarde research study model factory', () => {
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
+        "_referenceContents": {
+          "organizations": [
+            OrganizationModel {
+              "active": true,
+              "address": [
+                AddressModel {
+                  "city": "Valenciennes",
+                  "country": "France",
+                  "district": undefined,
+                  "line": undefined,
+                  "period": undefined,
+                  "postalCode": "59313",
+                  "state": undefined,
+                  "text": "LAMIH - Campus du Mont-Houy Valenciennes 59313 France",
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "alias": undefined,
+              "contact": [
+                OrganizationContactModel {
+                  "address": undefined,
+                  "id": undefined,
+                  "name": HumanNameModel {
+                    "family": "GILLET",
+                    "given": [
+                      "Christophe",
+                    ],
+                    "id": undefined,
+                    "period": undefined,
+                    "prefix": undefined,
+                    "suffix": undefined,
+                    "text": "Christophe GILLET",
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "id": undefined,
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "userSelected": undefined,
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "id": undefined,
+                    "text": "Organization Contact Purpose",
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "id": undefined,
+                      "period": undefined,
+                      "rank": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": "INDISPONIBLE",
+                    },
+                    ContactPointModel {
+                      "id": undefined,
+                      "period": undefined,
+                      "rank": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": "christophe.gillet@uphf.fr",
+                    },
+                  ],
+                },
+              ],
+              "contained": undefined,
+              "endpoint": undefined,
+              "id": "2021-A01022-39-primary-sponsor",
+              "identifier": undefined,
+              "implicitRules": undefined,
+              "language": undefined,
+              "meta": undefined,
+              "name": "Université Polytechnique Hauts-de-France",
+              "partOf": undefined,
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "id": undefined,
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "userSelected": undefined,
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Organization Sponsor Type",
+                },
+              ],
+            },
+          ],
+        },
         "arm": undefined,
         "category": [
           CodeableConceptModel {
@@ -422,103 +521,6 @@ describe('jarde research study model factory', () => {
           "versionId": undefined,
         },
         "objective": undefined,
-        "organizations": [
-          OrganizationModel {
-            "active": true,
-            "address": [
-              AddressModel {
-                "city": "Valenciennes",
-                "country": "France",
-                "district": undefined,
-                "line": undefined,
-                "period": undefined,
-                "postalCode": "59313",
-                "state": undefined,
-                "text": "LAMIH - Campus du Mont-Houy Valenciennes 59313 France",
-                "type": "physical",
-                "use": "work",
-              },
-            ],
-            "alias": undefined,
-            "contact": [
-              OrganizationContactModel {
-                "address": undefined,
-                "id": undefined,
-                "name": HumanNameModel {
-                  "family": "GILLET",
-                  "given": [
-                    "Christophe",
-                  ],
-                  "id": undefined,
-                  "period": undefined,
-                  "prefix": undefined,
-                  "suffix": undefined,
-                  "text": "Christophe GILLET",
-                  "use": "official",
-                },
-                "purpose": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "ADMIN",
-                      "display": "Administrative",
-                      "id": undefined,
-                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                      "userSelected": undefined,
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Organization Contact Purpose",
-                },
-                "telecom": [
-                  ContactPointModel {
-                    "id": undefined,
-                    "period": undefined,
-                    "rank": undefined,
-                    "system": "phone",
-                    "use": "work",
-                    "value": "INDISPONIBLE",
-                  },
-                  ContactPointModel {
-                    "id": undefined,
-                    "period": undefined,
-                    "rank": undefined,
-                    "system": "email",
-                    "use": "work",
-                    "value": "christophe.gillet@uphf.fr",
-                  },
-                ],
-              },
-            ],
-            "contained": undefined,
-            "endpoint": undefined,
-            "id": "2021-A01022-39-primary-sponsor",
-            "identifier": undefined,
-            "implicitRules": undefined,
-            "language": undefined,
-            "meta": undefined,
-            "name": "Université Polytechnique Hauts-de-France",
-            "partOf": undefined,
-            "resourceType": "Organization",
-            "telecom": undefined,
-            "type": [
-              CodeableConceptModel {
-                "coding": [
-                  CodingModel {
-                    "code": "crs",
-                    "display": "Clinical Research Sponsor",
-                    "id": undefined,
-                    "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                    "userSelected": undefined,
-                    "version": "4.0.1",
-                  },
-                ],
-                "id": undefined,
-                "text": "Organization Sponsor Type",
-              },
-            ],
-          },
-        ],
         "partOf": undefined,
         "period": undefined,
         "phase": CodeableConceptModel {
@@ -566,6 +568,105 @@ describe('jarde research study model factory', () => {
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
+        "_referenceContents": {
+          "organizations": [
+            OrganizationModel {
+              "active": true,
+              "address": [
+                AddressModel {
+                  "city": "",
+                  "country": "",
+                  "district": undefined,
+                  "line": undefined,
+                  "period": undefined,
+                  "postalCode": "",
+                  "state": undefined,
+                  "text": "   ",
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "alias": undefined,
+              "contact": [
+                OrganizationContactModel {
+                  "address": undefined,
+                  "id": undefined,
+                  "name": HumanNameModel {
+                    "family": "",
+                    "given": [
+                      "",
+                    ],
+                    "id": undefined,
+                    "period": undefined,
+                    "prefix": undefined,
+                    "suffix": undefined,
+                    "text": " ",
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "id": undefined,
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "userSelected": undefined,
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "id": undefined,
+                    "text": "Organization Contact Purpose",
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "id": undefined,
+                      "period": undefined,
+                      "rank": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": "INDISPONIBLE",
+                    },
+                    ContactPointModel {
+                      "id": undefined,
+                      "period": undefined,
+                      "rank": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": "",
+                    },
+                  ],
+                },
+              ],
+              "contained": undefined,
+              "endpoint": undefined,
+              "id": "2021-A01022-39-primary-sponsor",
+              "identifier": undefined,
+              "implicitRules": undefined,
+              "language": undefined,
+              "meta": undefined,
+              "name": "",
+              "partOf": undefined,
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "id": undefined,
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "userSelected": undefined,
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Organization Sponsor Type",
+                },
+              ],
+            },
+          ],
+        },
         "arm": undefined,
         "category": [
           CodeableConceptModel {
@@ -976,103 +1077,6 @@ describe('jarde research study model factory', () => {
           "versionId": undefined,
         },
         "objective": undefined,
-        "organizations": [
-          OrganizationModel {
-            "active": true,
-            "address": [
-              AddressModel {
-                "city": "",
-                "country": "",
-                "district": undefined,
-                "line": undefined,
-                "period": undefined,
-                "postalCode": "",
-                "state": undefined,
-                "text": "   ",
-                "type": "physical",
-                "use": "work",
-              },
-            ],
-            "alias": undefined,
-            "contact": [
-              OrganizationContactModel {
-                "address": undefined,
-                "id": undefined,
-                "name": HumanNameModel {
-                  "family": "",
-                  "given": [
-                    "",
-                  ],
-                  "id": undefined,
-                  "period": undefined,
-                  "prefix": undefined,
-                  "suffix": undefined,
-                  "text": " ",
-                  "use": "official",
-                },
-                "purpose": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "ADMIN",
-                      "display": "Administrative",
-                      "id": undefined,
-                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                      "userSelected": undefined,
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Organization Contact Purpose",
-                },
-                "telecom": [
-                  ContactPointModel {
-                    "id": undefined,
-                    "period": undefined,
-                    "rank": undefined,
-                    "system": "phone",
-                    "use": "work",
-                    "value": "INDISPONIBLE",
-                  },
-                  ContactPointModel {
-                    "id": undefined,
-                    "period": undefined,
-                    "rank": undefined,
-                    "system": "email",
-                    "use": "work",
-                    "value": "",
-                  },
-                ],
-              },
-            ],
-            "contained": undefined,
-            "endpoint": undefined,
-            "id": "2021-A01022-39-primary-sponsor",
-            "identifier": undefined,
-            "implicitRules": undefined,
-            "language": undefined,
-            "meta": undefined,
-            "name": "",
-            "partOf": undefined,
-            "resourceType": "Organization",
-            "telecom": undefined,
-            "type": [
-              CodeableConceptModel {
-                "coding": [
-                  CodingModel {
-                    "code": "crs",
-                    "display": "Clinical Research Sponsor",
-                    "id": undefined,
-                    "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                    "userSelected": undefined,
-                    "version": "4.0.1",
-                  },
-                ],
-                "id": undefined,
-                "text": "Organization Sponsor Type",
-              },
-            ],
-          },
-        ],
         "partOf": undefined,
         "period": undefined,
         "phase": CodeableConceptModel {

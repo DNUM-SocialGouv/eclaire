@@ -8,7 +8,7 @@ import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
 import { ModelUtils } from '../shared/models/fhir/ModelUtils'
 import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
-import { RiphStatus, ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
+import { RiphStatus, ResearchStudyModel, ReferenceContents } from '../shared/models/fhir/ResearchStudyModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
@@ -74,7 +74,7 @@ export class RiphCtisResearchStudyModelFactory {
     const text = undefined
     const title = ModelUtils.emptyIfNull(riphCtisDto.titre)
 
-    const organizations = [
+    const organizations: OrganizationModel[] = [
       OrganizationModel.createPrimarySponsor(
         primarySponsorOrganizationId,
         riphCtisDto.organisme_nom,
@@ -89,7 +89,10 @@ export class RiphCtisResearchStudyModelFactory {
       ),
     ]
 
+    const _referenceContents: ReferenceContents = { organizations }
+
     return new ResearchStudyModel(
+      _referenceContents,
       arm,
       category,
       condition,
@@ -106,7 +109,6 @@ export class RiphCtisResearchStudyModelFactory {
       location,
       meta,
       objective,
-      organizations,
       partOf,
       period,
       phase,
