@@ -11,7 +11,7 @@ import { RiphJardeDto } from 'src/etl/dto/RiphJardeDto'
 export async function deleteElasticsearchIndice() {
   process.env.SCALINGO_ELASTICSEARCH_URL = 'http://localhost:9201'
   process.env.ECLAIRE_URL = 'http://localhost:3000/'
-  process.env.NUMBER_OF_RESSOURCE_BY_PAGE = '2'
+  process.env.NUMBER_OF_RESOURCES_BY_PAGE = '2'
   const configService = new ConfigService()
   const elasticsearchConfig = new ElasticsearchConfig(configService)
 

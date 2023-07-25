@@ -2,10 +2,11 @@ import { SearchBodyBuilder, SearchBodyType } from '../../application/entities/Se
 import { ResearchStudyQueryModel } from '../ResearchStudyQueryModel'
 
 export function researchStudyQueryToElasticsearchQuery(researchStudyQuery: Partial<ResearchStudyQueryModel>): SearchBodyType {
-  const numberOfResourceByPage = Number(process.env.NUMBER_OF_RESSOURCE_BY_PAGE)
+  const numberOfResourcesByPage = Number(process.env.NUMBER_OF_RESOURCES_BY_PAGE)
+  const maxSize = 5000
   const searchBody = new SearchBodyBuilder()
     .withFrom(0)
-    .withSize(numberOfResourceByPage)
+    .withSize(numberOfResourcesByPage)
 
   Object.entries(researchStudyQuery).forEach((key: [string, string]) => {
     const field = key[0]
@@ -42,6 +43,10 @@ export function researchStudyQueryToElasticsearchQuery(researchStudyQuery: Parti
           searchBody.withSort(sort, 'asc')
         }
       })
+    } else if (field === '_count') {
+      if (Number(value) <= maxSize) {
+        searchBody.withSize(Number(value))
+      }
     } else if (field === '_text' || field === '_content') {
       searchBody.withText(value)
     } else if (field === 'identifier') {

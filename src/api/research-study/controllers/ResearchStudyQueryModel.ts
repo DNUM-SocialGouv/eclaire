@@ -18,4 +18,7 @@ export class ResearchStudyQueryModel {
 
   @ApiProperty({ description: 'e.g. : mot1 AND (mot2 OR mot3)', required: false })
     _content: string
+
+  @ApiProperty({ description: 'ex: 100, valeur par défaut 20 et maximum à 5 000', required: false })
+    _count: string
 }
