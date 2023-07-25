@@ -1,7 +1,7 @@
 import { CodeableConcept, Coding } from 'fhir/r4'
 
 import { CodingModel } from './CodingModel'
-import { ModelUtils } from '../ModelUtils'
+import { ModelUtils } from '../../custom/ModelUtils'
 
 export class CodeableConceptModel implements CodeableConcept {
   constructor(
@@ -137,6 +137,22 @@ export class CodeableConceptModel implements CodeableConcept {
       [CodingModel.createGroupCharacteristicCode(code)],
       undefined,
       'Group characteristic code'
+    )
+  }
+
+  static createOrganizationContactPurpose(): CodeableConceptModel {
+    return new CodeableConceptModel(
+      [CodingModel.createOrganizationContactPurpose()],
+      undefined,
+      'Organization Contact Purpose'
+    )
+  }
+
+  static createClinicalResearchSponsor(): CodeableConceptModel {
+    return new CodeableConceptModel(
+      [CodingModel.createOrganizationSponsorType()],
+      undefined,
+      'Organization Sponsor Type'
     )
   }
 }

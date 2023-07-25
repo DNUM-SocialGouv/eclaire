@@ -1,6 +1,6 @@
 import { Coding, Meta } from 'fhir/r4'
 
-import { ModelUtils } from '../ModelUtils'
+import { ModelUtils } from '../../custom/ModelUtils'
 
 export class MetaModel implements Meta {
   constructor(

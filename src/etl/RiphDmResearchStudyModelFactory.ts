@@ -2,11 +2,13 @@
 import { Identifier } from 'fhir/r4'
 
 import { RiphDmDto } from './dto/RiphDmDto'
+import { ModelUtils } from '../shared/models/custom/ModelUtils'
+import { ReferenceContentsModel } from '../shared/models/custom/ReferenceContentsModel'
 import { CodeableConceptModel } from '../shared/models/fhir/DataType/CodeableConceptModel'
 import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
-import { ModelUtils } from '../shared/models/fhir/ModelUtils'
+import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
 import { ResearchStudyModel, RiphStatus } from '../shared/models/fhir/ResearchStudyModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
@@ -14,6 +16,7 @@ import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/Ref
 export class RiphDmResearchStudyModelFactory {
   static create(riphDmDto: RiphDmDto): ResearchStudyModel {
     const enrollmentGroupId = undefined
+    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphDmDto.numero_national)
 
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphDmDto.reglementation_code)]
@@ -67,10 +70,27 @@ export class RiphDmResearchStudyModelFactory {
     const reasonStopped = undefined
     const relatedArtifact = undefined
     const site = undefined
-    const sponsor = undefined
+    const sponsor = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphDmDto.etat as RiphStatus
     const text = undefined
     const title = ModelUtils.emptyIfNull(riphDmDto.titre_recherche)
+
+    const organizations: OrganizationModel[] = [
+      OrganizationModel.createPrimarySponsor(
+        primarySponsorOrganizationId,
+        riphDmDto.deposant_promoteur,
+        riphDmDto.deposant_adresse,
+        riphDmDto.deposant_ville,
+        riphDmDto.deposant_code_postal,
+        riphDmDto.deposant_pays,
+        riphDmDto.deposant_prenom,
+        riphDmDto.deposant_nom,
+        ModelUtils.UNAVAILABLE,
+        riphDmDto.deposant_courriel
+      ),
+    ]
+
+    const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(organizations)
 
     return new ResearchStudyModel(
       arm,
@@ -96,6 +116,7 @@ export class RiphDmResearchStudyModelFactory {
       principalInvestigator,
       protocol,
       reasonStopped,
+      referenceContents,
       relatedArtifact,
       site,
       sponsor,

@@ -2,18 +2,21 @@
 import { Identifier, Meta } from 'fhir/r4'
 
 import { RiphCtisDto } from './dto/RiphCtisDto'
+import { ModelUtils } from '../shared/models/custom/ModelUtils'
+import { ReferenceContentsModel } from '../shared/models/custom/ReferenceContentsModel'
 import { CodeableConceptModel } from '../shared/models/fhir/DataType/CodeableConceptModel'
 import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
-import { ModelUtils } from '../shared/models/fhir/ModelUtils'
+import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
 import { RiphStatus, ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
 export class RiphCtisResearchStudyModelFactory {
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
-    const enrollmentGroupId = riphCtisDto.numero_ctis + '-enrollment-group-id'
+    const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphCtisDto.numero_ctis)
+    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphCtisDto.numero_ctis)
 
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
@@ -67,10 +70,27 @@ export class RiphCtisResearchStudyModelFactory {
     const reasonStopped = undefined
     const relatedArtifact = undefined
     const site = undefined
-    const sponsor = undefined
+    const sponsor = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphCtisDto.etat as RiphStatus
     const text = undefined
     const title = ModelUtils.emptyIfNull(riphCtisDto.titre)
+
+    const organizations: OrganizationModel[] = [
+      OrganizationModel.createPrimarySponsor(
+        primarySponsorOrganizationId,
+        riphCtisDto.organisme_nom,
+        riphCtisDto.organisme_adresse,
+        riphCtisDto.organisme_ville,
+        riphCtisDto.organisme_code_postal,
+        riphCtisDto.organisme_pays,
+        riphCtisDto.contact_prenom,
+        riphCtisDto.contact_nom,
+        riphCtisDto.contact_telephone,
+        riphCtisDto.contact_courriel
+      ),
+    ]
+
+    const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(organizations)
 
     return new ResearchStudyModel(
       arm,
@@ -96,6 +116,7 @@ export class RiphCtisResearchStudyModelFactory {
       principalInvestigator,
       protocol,
       reasonStopped,
+      referenceContents,
       relatedArtifact,
       site,
       sponsor,

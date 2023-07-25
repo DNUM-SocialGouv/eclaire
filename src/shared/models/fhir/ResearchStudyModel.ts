@@ -13,6 +13,8 @@ import {
   ResearchStudyObjective,
 } from 'fhir/r4'
 
+import { ReferenceContentsModel } from '../custom/ReferenceContentsModel'
+
 export class ResearchStudyModel implements ResearchStudy {
   readonly resourceType: 'ResearchStudy'
   readonly status: ResearchStudyStatus
@@ -41,6 +43,7 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly principalInvestigator: Reference | undefined,
     readonly protocol: Reference[] | undefined,
     readonly reasonStopped: CodeableConcept | undefined,
+    readonly referenceContents: ReferenceContentsModel,
     readonly relatedArtifact: RelatedArtifact[] | undefined,
     readonly site: Reference[] | undefined,
     readonly sponsor: Reference | undefined,
