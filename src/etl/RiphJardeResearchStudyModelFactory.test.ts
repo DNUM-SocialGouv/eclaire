@@ -12,105 +12,6 @@ describe('jarde research study model factory', () => {
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
-        "_referenceContents": {
-          "organizations": [
-            OrganizationModel {
-              "active": true,
-              "address": [
-                AddressModel {
-                  "city": "Valenciennes",
-                  "country": "France",
-                  "district": undefined,
-                  "line": undefined,
-                  "period": undefined,
-                  "postalCode": "59313",
-                  "state": undefined,
-                  "text": "LAMIH - Campus du Mont-Houy Valenciennes 59313 France",
-                  "type": "physical",
-                  "use": "work",
-                },
-              ],
-              "alias": undefined,
-              "contact": [
-                OrganizationContactModel {
-                  "address": undefined,
-                  "id": undefined,
-                  "name": HumanNameModel {
-                    "family": "GILLET",
-                    "given": [
-                      "Christophe",
-                    ],
-                    "id": undefined,
-                    "period": undefined,
-                    "prefix": undefined,
-                    "suffix": undefined,
-                    "text": "Christophe GILLET",
-                    "use": "official",
-                  },
-                  "purpose": CodeableConceptModel {
-                    "coding": [
-                      CodingModel {
-                        "code": "ADMIN",
-                        "display": "Administrative",
-                        "id": undefined,
-                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "userSelected": undefined,
-                        "version": "4.0.1",
-                      },
-                    ],
-                    "id": undefined,
-                    "text": "Organization Contact Purpose",
-                  },
-                  "telecom": [
-                    ContactPointModel {
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
-                      "system": "phone",
-                      "use": "work",
-                      "value": "INDISPONIBLE",
-                    },
-                    ContactPointModel {
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
-                      "system": "email",
-                      "use": "work",
-                      "value": "christophe.gillet@uphf.fr",
-                    },
-                  ],
-                },
-              ],
-              "contained": undefined,
-              "endpoint": undefined,
-              "id": "2021-A01022-39-primary-sponsor",
-              "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
-              "name": "Université Polytechnique Hauts-de-France",
-              "partOf": undefined,
-              "resourceType": "Organization",
-              "telecom": undefined,
-              "type": [
-                CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "crs",
-                      "display": "Clinical Research Sponsor",
-                      "id": undefined,
-                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "userSelected": undefined,
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Organization Sponsor Type",
-                },
-              ],
-            },
-          ],
-        },
         "arm": undefined,
         "category": [
           CodeableConceptModel {
@@ -541,47 +442,20 @@ describe('jarde research study model factory', () => {
         "principalInvestigator": undefined,
         "protocol": undefined,
         "reasonStopped": undefined,
-        "relatedArtifact": undefined,
-        "resourceType": "ResearchStudy",
-        "site": undefined,
-        "sponsor": ReferenceModel {
-          "display": "Reference to primary sponsor",
-          "id": undefined,
-          "identifier": undefined,
-          "reference": "Organization/2021-A01022-39-primary-sponsor",
-          "type": "Organization",
-        },
-        "status": "active",
-        "text": undefined,
-        "title": "Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.",
-      }
-    `)
-  })
-
-  it('should build a Jarde research study model, when RIPH Jarde with null fields is given', () => {
-    // GIVEN
-    const researchStudyDtoWithEmptyFields = riphJardeDto1[1]
-
-    // WHEN
-    const researchStudyModel = RiphJardeResearchStudyModelFactory.create(researchStudyDtoWithEmptyFields)
-
-    // THEN
-    expect(researchStudyModel).toMatchInlineSnapshot(`
-      ResearchStudyModel {
-        "_referenceContents": {
+        "referenceContents": {
           "organizations": [
             OrganizationModel {
               "active": true,
               "address": [
                 AddressModel {
-                  "city": "",
-                  "country": "",
+                  "city": "Valenciennes",
+                  "country": "France",
                   "district": undefined,
                   "line": undefined,
                   "period": undefined,
-                  "postalCode": "",
+                  "postalCode": "59313",
                   "state": undefined,
-                  "text": "   ",
+                  "text": "LAMIH - Campus du Mont-Houy Valenciennes 59313 France",
                   "type": "physical",
                   "use": "work",
                 },
@@ -592,15 +466,15 @@ describe('jarde research study model factory', () => {
                   "address": undefined,
                   "id": undefined,
                   "name": HumanNameModel {
-                    "family": "",
+                    "family": "GILLET",
                     "given": [
-                      "",
+                      "Christophe",
                     ],
                     "id": undefined,
                     "period": undefined,
                     "prefix": undefined,
                     "suffix": undefined,
-                    "text": " ",
+                    "text": "Christophe GILLET",
                     "use": "official",
                   },
                   "purpose": CodeableConceptModel {
@@ -632,7 +506,7 @@ describe('jarde research study model factory', () => {
                       "rank": undefined,
                       "system": "email",
                       "use": "work",
-                      "value": "",
+                      "value": "christophe.gillet@uphf.fr",
                     },
                   ],
                 },
@@ -644,7 +518,7 @@ describe('jarde research study model factory', () => {
               "implicitRules": undefined,
               "language": undefined,
               "meta": undefined,
-              "name": "",
+              "name": "Université Polytechnique Hauts-de-France",
               "partOf": undefined,
               "resourceType": "Organization",
               "telecom": undefined,
@@ -667,6 +541,33 @@ describe('jarde research study model factory', () => {
             },
           ],
         },
+        "relatedArtifact": undefined,
+        "resourceType": "ResearchStudy",
+        "site": undefined,
+        "sponsor": ReferenceModel {
+          "display": "Reference to primary sponsor",
+          "id": undefined,
+          "identifier": undefined,
+          "reference": "Organization/2021-A01022-39-primary-sponsor",
+          "type": "Organization",
+        },
+        "status": "active",
+        "text": undefined,
+        "title": "Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.",
+      }
+    `)
+  })
+
+  it('should build a Jarde research study model, when RIPH Jarde with null fields is given', () => {
+    // GIVEN
+    const researchStudyDtoWithEmptyFields = riphJardeDto1[1]
+
+    // WHEN
+    const researchStudyModel = RiphJardeResearchStudyModelFactory.create(researchStudyDtoWithEmptyFields)
+
+    // THEN
+    expect(researchStudyModel).toMatchInlineSnapshot(`
+      ResearchStudyModel {
         "arm": undefined,
         "category": [
           CodeableConceptModel {
@@ -1097,6 +998,105 @@ describe('jarde research study model factory', () => {
         "principalInvestigator": undefined,
         "protocol": undefined,
         "reasonStopped": undefined,
+        "referenceContents": {
+          "organizations": [
+            OrganizationModel {
+              "active": true,
+              "address": [
+                AddressModel {
+                  "city": "",
+                  "country": "",
+                  "district": undefined,
+                  "line": undefined,
+                  "period": undefined,
+                  "postalCode": "",
+                  "state": undefined,
+                  "text": "   ",
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "alias": undefined,
+              "contact": [
+                OrganizationContactModel {
+                  "address": undefined,
+                  "id": undefined,
+                  "name": HumanNameModel {
+                    "family": "",
+                    "given": [
+                      "",
+                    ],
+                    "id": undefined,
+                    "period": undefined,
+                    "prefix": undefined,
+                    "suffix": undefined,
+                    "text": " ",
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "id": undefined,
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "userSelected": undefined,
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "id": undefined,
+                    "text": "Organization Contact Purpose",
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "id": undefined,
+                      "period": undefined,
+                      "rank": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": "INDISPONIBLE",
+                    },
+                    ContactPointModel {
+                      "id": undefined,
+                      "period": undefined,
+                      "rank": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": "",
+                    },
+                  ],
+                },
+              ],
+              "contained": undefined,
+              "endpoint": undefined,
+              "id": "2021-A01022-39-primary-sponsor",
+              "identifier": undefined,
+              "implicitRules": undefined,
+              "language": undefined,
+              "meta": undefined,
+              "name": "",
+              "partOf": undefined,
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "id": undefined,
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "userSelected": undefined,
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Organization Sponsor Type",
+                },
+              ],
+            },
+          ],
+        },
         "relatedArtifact": undefined,
         "resourceType": "ResearchStudy",
         "site": undefined,

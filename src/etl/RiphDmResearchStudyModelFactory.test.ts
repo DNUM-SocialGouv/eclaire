@@ -12,105 +12,6 @@ describe('dm research study model factory', () => {
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
-        "_referenceContents": {
-          "organizations": [
-            OrganizationModel {
-              "active": true,
-              "address": [
-                AddressModel {
-                  "city": "Roubaix",
-                  "country": "France",
-                  "district": undefined,
-                  "line": undefined,
-                  "period": undefined,
-                  "postalCode": "59100",
-                  "state": undefined,
-                  "text": "15 Boulevard du Général Leclerc Roubaix 59100 France",
-                  "type": "physical",
-                  "use": "work",
-                },
-              ],
-              "alias": undefined,
-              "contact": [
-                OrganizationContactModel {
-                  "address": undefined,
-                  "id": undefined,
-                  "name": HumanNameModel {
-                    "family": "D'HONDT",
-                    "given": [
-                      "Olivier",
-                    ],
-                    "id": undefined,
-                    "period": undefined,
-                    "prefix": undefined,
-                    "suffix": undefined,
-                    "text": "Olivier D'HONDT",
-                    "use": "official",
-                  },
-                  "purpose": CodeableConceptModel {
-                    "coding": [
-                      CodingModel {
-                        "code": "ADMIN",
-                        "display": "Administrative",
-                        "id": undefined,
-                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "userSelected": undefined,
-                        "version": "4.0.1",
-                      },
-                    ],
-                    "id": undefined,
-                    "text": "Organization Contact Purpose",
-                  },
-                  "telecom": [
-                    ContactPointModel {
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
-                      "system": "phone",
-                      "use": "work",
-                      "value": "INDISPONIBLE",
-                    },
-                    ContactPointModel {
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
-                      "system": "email",
-                      "use": "work",
-                      "value": "cdp_scs@soladis.fr",
-                    },
-                  ],
-                },
-              ],
-              "contained": undefined,
-              "endpoint": undefined,
-              "id": "2021-A01563-38-primary-sponsor",
-              "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
-              "name": "Promoteur institutionnel",
-              "partOf": undefined,
-              "resourceType": "Organization",
-              "telecom": undefined,
-              "type": [
-                CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "crs",
-                      "display": "Clinical Research Sponsor",
-                      "id": undefined,
-                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "userSelected": undefined,
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Organization Sponsor Type",
-                },
-              ],
-            },
-          ],
-        },
         "arm": undefined,
         "category": [
           CodeableConceptModel {
@@ -541,47 +442,20 @@ describe('dm research study model factory', () => {
         "principalInvestigator": undefined,
         "protocol": undefined,
         "reasonStopped": undefined,
-        "relatedArtifact": undefined,
-        "resourceType": "ResearchStudy",
-        "site": undefined,
-        "sponsor": ReferenceModel {
-          "display": "Reference to primary sponsor",
-          "id": undefined,
-          "identifier": undefined,
-          "reference": "Organization/2021-A01563-38-primary-sponsor",
-          "type": "Organization",
-        },
-        "status": "administratively-completed",
-        "text": undefined,
-        "title": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
-      }
-    `)
-  })
-
-  it('should build a DM research study model, when RIPH DM with null fields is given', () => {
-    // GIVEN
-    const researchStudyDtoWithEmptyFields = riphDmDto[1]
-
-    // WHEN
-    const researchStudyModel = RiphDmResearchStudyModelFactory.create(researchStudyDtoWithEmptyFields)
-
-    // THEN
-    expect(researchStudyModel).toMatchInlineSnapshot(`
-      ResearchStudyModel {
-        "_referenceContents": {
+        "referenceContents": {
           "organizations": [
             OrganizationModel {
               "active": true,
               "address": [
                 AddressModel {
-                  "city": "",
-                  "country": "",
+                  "city": "Roubaix",
+                  "country": "France",
                   "district": undefined,
                   "line": undefined,
                   "period": undefined,
-                  "postalCode": "",
+                  "postalCode": "59100",
                   "state": undefined,
-                  "text": "   ",
+                  "text": "15 Boulevard du Général Leclerc Roubaix 59100 France",
                   "type": "physical",
                   "use": "work",
                 },
@@ -592,15 +466,15 @@ describe('dm research study model factory', () => {
                   "address": undefined,
                   "id": undefined,
                   "name": HumanNameModel {
-                    "family": "",
+                    "family": "D'HONDT",
                     "given": [
-                      "",
+                      "Olivier",
                     ],
                     "id": undefined,
                     "period": undefined,
                     "prefix": undefined,
                     "suffix": undefined,
-                    "text": " ",
+                    "text": "Olivier D'HONDT",
                     "use": "official",
                   },
                   "purpose": CodeableConceptModel {
@@ -632,19 +506,19 @@ describe('dm research study model factory', () => {
                       "rank": undefined,
                       "system": "email",
                       "use": "work",
-                      "value": "",
+                      "value": "cdp_scs@soladis.fr",
                     },
                   ],
                 },
               ],
               "contained": undefined,
               "endpoint": undefined,
-              "id": "2021-A01563-39-primary-sponsor",
+              "id": "2021-A01563-38-primary-sponsor",
               "identifier": undefined,
               "implicitRules": undefined,
               "language": undefined,
               "meta": undefined,
-              "name": "",
+              "name": "Promoteur institutionnel",
               "partOf": undefined,
               "resourceType": "Organization",
               "telecom": undefined,
@@ -667,6 +541,33 @@ describe('dm research study model factory', () => {
             },
           ],
         },
+        "relatedArtifact": undefined,
+        "resourceType": "ResearchStudy",
+        "site": undefined,
+        "sponsor": ReferenceModel {
+          "display": "Reference to primary sponsor",
+          "id": undefined,
+          "identifier": undefined,
+          "reference": "Organization/2021-A01563-38-primary-sponsor",
+          "type": "Organization",
+        },
+        "status": "administratively-completed",
+        "text": undefined,
+        "title": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
+      }
+    `)
+  })
+
+  it('should build a DM research study model, when RIPH DM with null fields is given', () => {
+    // GIVEN
+    const researchStudyDtoWithEmptyFields = riphDmDto[1]
+
+    // WHEN
+    const researchStudyModel = RiphDmResearchStudyModelFactory.create(researchStudyDtoWithEmptyFields)
+
+    // THEN
+    expect(researchStudyModel).toMatchInlineSnapshot(`
+      ResearchStudyModel {
         "arm": undefined,
         "category": [
           CodeableConceptModel {
@@ -1097,6 +998,105 @@ describe('dm research study model factory', () => {
         "principalInvestigator": undefined,
         "protocol": undefined,
         "reasonStopped": undefined,
+        "referenceContents": {
+          "organizations": [
+            OrganizationModel {
+              "active": true,
+              "address": [
+                AddressModel {
+                  "city": "",
+                  "country": "",
+                  "district": undefined,
+                  "line": undefined,
+                  "period": undefined,
+                  "postalCode": "",
+                  "state": undefined,
+                  "text": "   ",
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "alias": undefined,
+              "contact": [
+                OrganizationContactModel {
+                  "address": undefined,
+                  "id": undefined,
+                  "name": HumanNameModel {
+                    "family": "",
+                    "given": [
+                      "",
+                    ],
+                    "id": undefined,
+                    "period": undefined,
+                    "prefix": undefined,
+                    "suffix": undefined,
+                    "text": " ",
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "id": undefined,
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "userSelected": undefined,
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "id": undefined,
+                    "text": "Organization Contact Purpose",
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "id": undefined,
+                      "period": undefined,
+                      "rank": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": "INDISPONIBLE",
+                    },
+                    ContactPointModel {
+                      "id": undefined,
+                      "period": undefined,
+                      "rank": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": "",
+                    },
+                  ],
+                },
+              ],
+              "contained": undefined,
+              "endpoint": undefined,
+              "id": "2021-A01563-39-primary-sponsor",
+              "identifier": undefined,
+              "implicitRules": undefined,
+              "language": undefined,
+              "meta": undefined,
+              "name": "",
+              "partOf": undefined,
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "id": undefined,
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "userSelected": undefined,
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Organization Sponsor Type",
+                },
+              ],
+            },
+          ],
+        },
         "relatedArtifact": undefined,
         "resourceType": "ResearchStudy",
         "site": undefined,

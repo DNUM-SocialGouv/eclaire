@@ -19,7 +19,6 @@ export class ResearchStudyModel implements ResearchStudy {
   readonly status: ResearchStudyStatus
 
   constructor(
-    readonly _referenceContents: ReferenceContents | undefined,
     readonly arm: ResearchStudyArm[] | undefined,
     readonly category: CodeableConcept[] | undefined,
     readonly condition: CodeableConcept[] | undefined,
@@ -43,6 +42,7 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly principalInvestigator: Reference | undefined,
     readonly protocol: Reference[] | undefined,
     readonly reasonStopped: CodeableConcept | undefined,
+    readonly referenceContents: ReferenceContents | undefined,
     readonly relatedArtifact: RelatedArtifact[] | undefined,
     readonly site: Reference[] | undefined,
     readonly sponsor: Reference | undefined,

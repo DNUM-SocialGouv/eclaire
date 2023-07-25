@@ -89,10 +89,9 @@ export class RiphCtisResearchStudyModelFactory {
       ),
     ]
 
-    const _referenceContents: ReferenceContents = { organizations }
+    const referenceContents: ReferenceContents = { organizations }
 
     return new ResearchStudyModel(
-      _referenceContents,
       arm,
       category,
       condition,
@@ -116,6 +115,7 @@ export class RiphCtisResearchStudyModelFactory {
       principalInvestigator,
       protocol,
       reasonStopped,
+      referenceContents,
       relatedArtifact,
       site,
       sponsor,

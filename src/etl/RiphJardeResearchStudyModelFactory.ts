@@ -93,10 +93,9 @@ export class RiphJardeResearchStudyModelFactory {
       ),
     ]
 
-    const _referenceContents: ReferenceContents = { organizations }
+    const referenceContents: ReferenceContents = { organizations }
 
     return new ResearchStudyModel(
-      _referenceContents,
       arm,
       category,
       condition,
@@ -120,6 +119,7 @@ export class RiphJardeResearchStudyModelFactory {
       principalInvestigator,
       protocol,
       reasonStopped,
+      referenceContents,
       relatedArtifact,
       site,
       sponsor,
