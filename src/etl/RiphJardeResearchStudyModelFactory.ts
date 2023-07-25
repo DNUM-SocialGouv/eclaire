@@ -16,7 +16,7 @@ import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/Ref
 export class RiphJardeResearchStudyModelFactory {
   static create(riphJardeDto: RiphJardeDto): ResearchStudyModel {
     const enrollmentGroupId = undefined
-    const primarySponsorOrganizationId = riphJardeDto.numero_national + '-primary-sponsor'
+    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphJardeDto.numero_national)
 
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphJardeDto.reglementation_code)]

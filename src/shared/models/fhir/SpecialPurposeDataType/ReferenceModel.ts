@@ -71,11 +71,11 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  private static generateRelativeUrlReference(id: string, type: string) {
+  private static generateRelativeUrlReference(id: string, type: string): string {
     return `${type}/${id}`
   }
 
-  private static generateInternalFragmentReference(id: string) {
+  private static generateInternalFragmentReference(id: string): string {
     return `#${id}`
   }
 }

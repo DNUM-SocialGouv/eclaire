@@ -16,7 +16,7 @@ import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/Ref
 export class RiphDmResearchStudyModelFactory {
   static create(riphDmDto: RiphDmDto): ResearchStudyModel {
     const enrollmentGroupId = undefined
-    const primarySponsorOrganizationId = riphDmDto.numero_national + '-primary-sponsor'
+    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphDmDto.numero_national)
 
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphDmDto.reglementation_code)]
