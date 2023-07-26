@@ -56,7 +56,10 @@ export class RiphDmResearchStudyModelFactory {
     ]
     const description = ModelUtils.UNAVAILABLE
     const enrollment = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
-    const extensions: Extension[] = [ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId)]
+    const extensions: Extension[] = [
+      ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId),
+      ExtensionModel.createEclaireTherapeuticArea(riphDmDto.domaine_therapeutique),
+    ]
     const focus = undefined
     const id = undefined
     const identifier: Identifier[] = [

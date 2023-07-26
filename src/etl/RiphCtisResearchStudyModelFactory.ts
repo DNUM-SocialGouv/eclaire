@@ -56,7 +56,10 @@ export class RiphCtisResearchStudyModelFactory {
     ]
     const description = ModelUtils.UNAVAILABLE
     const enrollment: ReferenceModel[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
-    const extensions: Extension[] = [ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId)]
+    const extensions: Extension[] = [
+      ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId),
+      ExtensionModel.createEclaireTherapeuticArea(riphCtisDto.domaine_therapeutique),
+    ]
     const focus = undefined
     const id = riphCtisDto.numero_ctis
     const identifier: Identifier[] = [
