@@ -4,6 +4,8 @@ import { riphDmDto } from '../shared/test/helpers/elasticsearchHelper'
 describe('dm research study model factory', () => {
   it('should build a DM research study model, when RIPH DM with all fields filled is given', () => {
     // GIVEN
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(2022, 0, 1))
     const normalResearchStudyDto = riphDmDto[0]
 
     // WHEN
@@ -560,6 +562,8 @@ describe('dm research study model factory', () => {
 
   it('should build a DM research study model, when RIPH DM with null fields is given', () => {
     // GIVEN
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(2022, 0, 1))
     const researchStudyDtoWithEmptyFields = riphDmDto[1]
 
     // WHEN
@@ -968,7 +972,7 @@ describe('dm research study model factory', () => {
         "location": undefined,
         "meta": MetaModel {
           "id": undefined,
-          "lastUpdated": "",
+          "lastUpdated": "2021-12-31T23:00:00.000Z",
           "profile": [
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],

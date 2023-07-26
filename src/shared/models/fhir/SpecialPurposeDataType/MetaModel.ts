@@ -32,7 +32,7 @@ export class MetaModel implements Meta {
   }
 
   private static getMostRecentIsoDate(datesOfHistory: string, datesOfApproval: string): string {
-    if (datesOfHistory === '' && datesOfApproval === '') return ''
+    if (datesOfHistory === '' && datesOfApproval === '') return new Date().toISOString()
 
     const sortBy = (a: string, b: string) => {
       const valueA = a

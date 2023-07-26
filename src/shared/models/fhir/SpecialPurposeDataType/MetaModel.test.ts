@@ -25,8 +25,10 @@ describe('shared | models | fhir | MetaModel', () => {
       `)
     })
 
-    it('should create a model with empty last updated date when historic and last date of approval are empty', () => {
+    it('should create a model with date of the day date when historic and last date of approval are empty', () => {
       // given
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date(2022, 0, 1))
       const historique = ''
       const datesAvisFavorableMsMns = ''
 
@@ -34,7 +36,7 @@ describe('shared | models | fhir | MetaModel', () => {
       const metaModel = MetaModel.create(historique, datesAvisFavorableMsMns)
 
       // then
-      expect(metaModel.lastUpdated).toBe('')
+      expect(metaModel.lastUpdated).toBe('2021-12-31T23:00:00.000Z')
     })
 
     it('should create a model with the last date of approval, when the last date of approval is higher than historic date', () => {
