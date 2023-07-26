@@ -31,7 +31,15 @@ export class RiphCtisResearchStudyModelFactory {
         riphCtisDto.contact_prenom,
         riphCtisDto.contact_nom,
         riphCtisDto.contact_telephone,
-        riphCtisDto.contact_courriel
+        riphCtisDto.contact_courriel,
+        undefined
+      ),
+      ContactDetailModel.create(
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        'Scientific'
       ),
     ]
     const contained = [

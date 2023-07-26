@@ -61,8 +61,9 @@ describe('dm research study model factory', () => {
         ],
         "contact": [
           ContactDetailModel {
+            "extension": undefined,
             "id": undefined,
-            "name": "Olivier, D'HONDT",
+            "name": "Olivier D'HONDT",
             "telecom": [
               ContactPointModel {
                 "id": undefined,
@@ -79,6 +80,49 @@ describe('dm research study model factory', () => {
                 "system": "email",
                 "use": "work",
                 "value": "cdp_scs@soladis.fr",
+              },
+            ],
+          },
+          ContactDetailModel {
+            "extension": [
+              ExtensionModel {
+                "id": undefined,
+                "url": "https://ansforge.github.io/IG-essais-cliniques/ig/main/StructureDefinition-eclaire-contact-type.html",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "SCI",
+                      "display": "Scientifique / Scientific",
+                      "id": undefined,
+                      "system": "https://ansforge.github.io/IG-essais-cliniques/ig/main/CodeSystem-eclaire-type-contact-code-system.html",
+                      "userSelected": undefined,
+                      "version": "0.1.0",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Contact Type",
+                },
+                "valueReference": undefined,
+              },
+            ],
+            "id": undefined,
+            "name": "INDISPONIBLE INDISPONIBLE",
+            "telecom": [
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "INDISPONIBLE",
               },
             ],
           },
@@ -376,6 +420,7 @@ describe('dm research study model factory', () => {
           ExtensionModel {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
+            "valueCodeableConcept": undefined,
             "valueReference": ReferenceModel {
               "display": "Reference to secondary sponsor",
               "id": undefined,
@@ -725,8 +770,9 @@ describe('dm research study model factory', () => {
         ],
         "contact": [
           ContactDetailModel {
+            "extension": undefined,
             "id": undefined,
-            "name": ", ",
+            "name": " ",
             "telecom": [
               ContactPointModel {
                 "id": undefined,
@@ -743,6 +789,49 @@ describe('dm research study model factory', () => {
                 "system": "email",
                 "use": "work",
                 "value": "",
+              },
+            ],
+          },
+          ContactDetailModel {
+            "extension": [
+              ExtensionModel {
+                "id": undefined,
+                "url": "https://ansforge.github.io/IG-essais-cliniques/ig/main/StructureDefinition-eclaire-contact-type.html",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "SCI",
+                      "display": "Scientifique / Scientific",
+                      "id": undefined,
+                      "system": "https://ansforge.github.io/IG-essais-cliniques/ig/main/CodeSystem-eclaire-type-contact-code-system.html",
+                      "userSelected": undefined,
+                      "version": "0.1.0",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Contact Type",
+                },
+                "valueReference": undefined,
+              },
+            ],
+            "id": undefined,
+            "name": "INDISPONIBLE INDISPONIBLE",
+            "telecom": [
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "INDISPONIBLE",
               },
             ],
           },
@@ -1040,6 +1129,7 @@ describe('dm research study model factory', () => {
           ExtensionModel {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
+            "valueCodeableConcept": undefined,
             "valueReference": ReferenceModel {
               "display": "Reference to secondary sponsor",
               "id": undefined,

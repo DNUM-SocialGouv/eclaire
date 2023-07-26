@@ -2,6 +2,7 @@ import { CodeableConcept, Coding } from 'fhir/r4'
 
 import { CodingModel } from './CodingModel'
 import { ModelUtils } from '../../custom/ModelUtils'
+import { ContactType } from '../MetadataType/ContactDetailModel'
 
 export class CodeableConceptModel implements CodeableConcept {
   constructor(
@@ -153,6 +154,14 @@ export class CodeableConceptModel implements CodeableConcept {
       [CodingModel.createOrganizationSponsorType()],
       undefined,
       'Organization Sponsor Type'
+    )
+  }
+
+  static createContactType(contactType: ContactType): CodeableConceptModel {
+    return new CodeableConceptModel(
+      [CodingModel.createContactType(contactType)],
+      undefined,
+      'Contact Type'
     )
   }
 }
