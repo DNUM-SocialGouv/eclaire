@@ -31,7 +31,15 @@ export class RiphDmResearchStudyModelFactory {
         riphDmDto.deposant_prenom,
         riphDmDto.deposant_nom,
         ModelUtils.UNAVAILABLE,
-        riphDmDto.deposant_courriel
+        riphDmDto.deposant_courriel,
+        undefined
+      ),
+      ContactDetailModel.create(
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        'Scientific'
       ),
     ]
     const contained = [

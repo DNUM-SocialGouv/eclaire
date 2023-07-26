@@ -1,8 +1,10 @@
 import { Coding } from 'fhir/r4'
 
 import { administrativeGenderCodeSystem } from '../CodeSystem/administrativeGenderCodeSystem'
+import { eclaireTypeContactCodeSystem } from '../CodeSystem/eclaireTypeContactCodeSystem'
 import { medDraCodeSystem } from '../CodeSystem/medDraCodeSystem'
 import { researchStudyPhaseCodeSystem } from '../CodeSystem/researchStudyPhaseCodeSystem'
+import { ContactType } from '../MetadataType/ContactDetailModel'
 
 export class CodingModel implements Coding {
   constructor(
@@ -200,6 +202,20 @@ export class CodingModel implements Coding {
       'http://terminology.hl7.org/CodeSystem/organization-type',
       undefined,
       '4.0.1'
+    )
+  }
+
+  static createContactType(contactType: ContactType): CodingModel {
+    const reference = eclaireTypeContactCodeSystem.concept.find(
+      (reference) => reference.display.includes(contactType)
+    )
+    return new CodingModel(
+      reference.code,
+      reference.display,
+      undefined,
+      'https://ansforge.github.io/IG-essais-cliniques/ig/main/CodeSystem-eclaire-type-contact-code-system.html',
+      undefined,
+      eclaireTypeContactCodeSystem.version
     )
   }
 }

@@ -31,7 +31,15 @@ export class RiphJardeResearchStudyModelFactory {
         riphJardeDto.deposant_prenom,
         riphJardeDto.deposant_nom,
         ModelUtils.UNAVAILABLE,
-        riphJardeDto.deposant_courriel
+        riphJardeDto.deposant_courriel,
+        undefined
+      ),
+      ContactDetailModel.create(
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        'Scientific'
       ),
     ]
     const contained = [
