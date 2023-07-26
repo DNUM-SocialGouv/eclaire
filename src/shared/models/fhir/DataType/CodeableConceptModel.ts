@@ -120,7 +120,7 @@ export class CodeableConceptModel implements CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createInclusion(studyInclusion)],
       undefined,
-      'Study Inclusion'
+      'Study Inclusion Criteria'
     )
   }
 
@@ -128,7 +128,7 @@ export class CodeableConceptModel implements CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createExclusion(studyExclusion)],
       undefined,
-      'Study Exclusion'
+      'Study Exclusion Criteria'
     )
   }
 

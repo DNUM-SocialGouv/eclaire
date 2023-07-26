@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Identifier } from 'fhir/r4'
+import { Extension, Identifier } from 'fhir/r4'
 
 import { RiphDmDto } from './dto/RiphDmDto'
 import { ModelUtils } from '../shared/models/custom/ModelUtils'
@@ -10,6 +10,7 @@ import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
 import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
 import { ResearchStudyModel, RiphStatus } from '../shared/models/fhir/ResearchStudyModel'
+import { ExtensionModel } from '../shared/models/fhir/SpecialPurposeDataType/ExtensionModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
@@ -17,6 +18,7 @@ export class RiphDmResearchStudyModelFactory {
   static create(riphDmDto: RiphDmDto): ResearchStudyModel {
     const enrollmentGroupId = undefined
     const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphDmDto.numero_national)
+    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphDmDto.numero_national)
 
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphDmDto.reglementation_code)]
@@ -46,6 +48,7 @@ export class RiphDmResearchStudyModelFactory {
     ]
     const description = ModelUtils.UNAVAILABLE
     const enrollment = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
+    const extensions: Extension[] = [ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId)]
     const focus = undefined
     const id = undefined
     const identifier: Identifier[] = [
@@ -76,7 +79,7 @@ export class RiphDmResearchStudyModelFactory {
     const title = ModelUtils.emptyIfNull(riphDmDto.titre_recherche)
 
     const organizations: OrganizationModel[] = [
-      OrganizationModel.createPrimarySponsor(
+      OrganizationModel.createSponsor(
         primarySponsorOrganizationId,
         riphDmDto.deposant_promoteur,
         riphDmDto.deposant_adresse,
@@ -87,6 +90,18 @@ export class RiphDmResearchStudyModelFactory {
         riphDmDto.deposant_nom,
         ModelUtils.UNAVAILABLE,
         riphDmDto.deposant_courriel
+      ),
+      OrganizationModel.createSponsor(
+        secondarySponsorOrganizationId,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE
       ),
     ]
 
@@ -100,6 +115,7 @@ export class RiphDmResearchStudyModelFactory {
       contained,
       description,
       enrollment,
+      extensions,
       focus,
       id,
       identifier,

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Identifier, Meta } from 'fhir/r4'
+import { Extension, Identifier, Meta } from 'fhir/r4'
 
 import { RiphCtisDto } from './dto/RiphCtisDto'
 import { ModelUtils } from '../shared/models/custom/ModelUtils'
@@ -10,6 +10,7 @@ import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
 import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
 import { RiphStatus, ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
+import { ExtensionModel } from '../shared/models/fhir/SpecialPurposeDataType/ExtensionModel'
 import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
 import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
 
@@ -17,6 +18,7 @@ export class RiphCtisResearchStudyModelFactory {
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
     const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphCtisDto.numero_ctis)
     const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphCtisDto.numero_ctis)
+    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphCtisDto.numero_ctis)
 
     const arm = undefined
     const category = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
@@ -45,7 +47,8 @@ export class RiphCtisResearchStudyModelFactory {
       ),
     ]
     const description = ModelUtils.UNAVAILABLE
-    const enrollment = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
+    const enrollment: ReferenceModel[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
+    const extensions: Extension[] = [ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId)]
     const focus = undefined
     const id = riphCtisDto.numero_ctis
     const identifier: Identifier[] = [
@@ -76,7 +79,7 @@ export class RiphCtisResearchStudyModelFactory {
     const title = ModelUtils.emptyIfNull(riphCtisDto.titre)
 
     const organizations: OrganizationModel[] = [
-      OrganizationModel.createPrimarySponsor(
+      OrganizationModel.createSponsor(
         primarySponsorOrganizationId,
         riphCtisDto.organisme_nom,
         riphCtisDto.organisme_adresse,
@@ -87,6 +90,18 @@ export class RiphCtisResearchStudyModelFactory {
         riphCtisDto.contact_nom,
         riphCtisDto.contact_telephone,
         riphCtisDto.contact_courriel
+      ),
+      OrganizationModel.createSponsor(
+        secondarySponsorOrganizationId,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE
       ),
     ]
 
@@ -100,6 +115,7 @@ export class RiphCtisResearchStudyModelFactory {
       contained,
       description,
       enrollment,
+      extensions,
       focus,
       id,
       identifier,

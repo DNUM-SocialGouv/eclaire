@@ -16,4 +16,8 @@ export class ModelUtils {
   static generatePrimarySponsorOrganizationId(value: string) {
     return `${value}-primary-sponsor`
   }
+
+  static generateSecondarySponsorOrganizationId(value: string) {
+    return `${value}-secondary-sponsor`
+  }
 }
