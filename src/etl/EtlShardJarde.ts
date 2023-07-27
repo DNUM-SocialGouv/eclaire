@@ -11,30 +11,31 @@ export class EtlShardJarde implements EtlShard {
   constructor(
     readonly logger: LoggerService,
     readonly elasticsearchService: ElasticsearchService,
-    readonly riphDto: RiphJardeDto[]
+    readonly riphDtos: RiphJardeDto[]
   ) {}
 
   async import(): Promise<void> {
+    this.logger.info(`[Import] ${this.riphDtos.length} (JARDE)`)
     const riphJardeDtos: RiphJardeDto[] = this.extract()
-    const researchStudyModel = this.transform(riphJardeDtos)
-    await this.load(researchStudyModel)
+    const researchStudyDocuments: (IndexElasticsearch | ResearchStudyModel)[] = this.transform(riphJardeDtos)
+    await this.load(researchStudyDocuments)
   }
 
   extract(): RiphJardeDto[] {
-    this.logger.info(`${this.riphDto.length} (JARDE)`)
     const removeRapatrieeCtis = (jarde: RiphJardeDto): boolean => jarde.etat !== 'RAPATRIEE_CTIS'
-    return [...this.riphDto.filter(removeRapatrieeCtis)]
+    return [...this.riphDtos.filter(removeRapatrieeCtis)]
   }
 
   transform(riphJardeDtos: RiphJardeDto[]): (IndexElasticsearch | ResearchStudyModel)[] {
     return riphJardeDtos.flatMap((riphJardeDto: RiphJardeDto): (IndexElasticsearch | ResearchStudyModel)[] => {
-      return [{ create: { _id: riphJardeDto.numero_national } }, RiphJardeResearchStudyModelFactory.create(riphJardeDto)]
+      const indexElasticsearch: IndexElasticsearch = { create: { _id: riphJardeDto.numero_national } }
+      return [indexElasticsearch, RiphJardeResearchStudyModelFactory.create(riphJardeDto)]
     })
   }
 
-  async load(researchStudyModel: (IndexElasticsearch | ResearchStudyModel)[]): Promise<void> {
+  async load(documents: (IndexElasticsearch | ResearchStudyModel)[]): Promise<void> {
     try {
-      await this.elasticsearchService.bulkDocuments<IndexElasticsearch | ResearchStudyModel>(researchStudyModel)
+      await this.elasticsearchService.bulkDocuments<IndexElasticsearch | ResearchStudyModel>(documents)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access

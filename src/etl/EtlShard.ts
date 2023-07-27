@@ -8,12 +8,12 @@ import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 export interface EtlShard {
   readonly logger: LoggerService
   readonly elasticsearchService: ElasticsearchService
-  readonly riphDto: RiphDto[]
+  readonly riphDtos: RiphDto[]
 
   import(): Promise<void>
   extract(): RiphDto[]
-  transform(riphDto: RiphDto[]): ResearchStudyElasticsearchDocument[]
-  load(researchStudyModel: ResearchStudyElasticsearchDocument[]): Promise<void>
+  transform(riphDtos: RiphDto[]): ResearchStudyElasticsearchDocument[]
+  load(documents: ResearchStudyElasticsearchDocument[]): Promise<void>
 }
 
 export type IndexElasticsearch = Readonly<{

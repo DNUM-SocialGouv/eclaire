@@ -11,29 +11,30 @@ export class EtlShardCtis implements EtlShard {
   constructor(
     readonly logger: LoggerService,
     readonly elasticsearchService: ElasticsearchService,
-    readonly riphDto: RiphCtisDto[]
+    readonly riphDtos: RiphCtisDto[]
   ) {}
 
   async import(): Promise<void> {
+    this.logger.info(`[Import] ${this.riphDtos.length} (CTIS)`)
     const riphCtisDtos: RiphCtisDto[] = this.extract()
-    const researchStudyModel = this.transform(riphCtisDtos)
-    await this.load(researchStudyModel)
+    const researchStudyDocuments: (IndexElasticsearch | ResearchStudyModel)[] = this.transform(riphCtisDtos)
+    await this.load(researchStudyDocuments)
   }
 
   extract(): RiphCtisDto[] {
-    this.logger.info(`${this.riphDto.length} (CTIS)`)
-    return [...this.riphDto]
+    return [...this.riphDtos]
   }
 
   transform(riphCtisDtos: RiphCtisDto[]): (IndexElasticsearch | ResearchStudyModel)[] {
     return riphCtisDtos.flatMap((riphCtisDto: RiphCtisDto): (IndexElasticsearch | ResearchStudyModel)[] => {
-      return [{ create: { _id: riphCtisDto.numero_ctis } }, RiphCtisResearchStudyModelFactory.create(riphCtisDto)]
+      const indexElasticsearch: IndexElasticsearch = { create: { _id: riphCtisDto.numero_ctis } }
+      return [indexElasticsearch, RiphCtisResearchStudyModelFactory.create(riphCtisDto)]
     })
   }
 
-  async load(researchStudyModel: (IndexElasticsearch | ResearchStudyModel)[]): Promise<void> {
+  async load(documents: (IndexElasticsearch | ResearchStudyModel)[]): Promise<void> {
     try {
-      await this.elasticsearchService.bulkDocuments<IndexElasticsearch | ResearchStudyModel>(researchStudyModel)
+      await this.elasticsearchService.bulkDocuments<IndexElasticsearch | ResearchStudyModel>(documents)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
