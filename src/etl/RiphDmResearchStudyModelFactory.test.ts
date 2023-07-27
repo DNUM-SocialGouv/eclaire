@@ -396,7 +396,7 @@ describe('dm research study model factory', () => {
               },
             ],
             "code": undefined,
-            "id": undefined,
+            "id": "2021-A01563-38-enrollment-group-id",
             "identifier": undefined,
             "implicitRules": undefined,
             "language": undefined,
@@ -415,7 +415,7 @@ describe('dm research study model factory', () => {
             "display": "Reference to group detailing study characteristics",
             "id": undefined,
             "identifier": undefined,
-            "reference": "#undefined",
+            "reference": "#2021-A01563-38-enrollment-group-id",
             "type": "Group",
           },
         ],
@@ -442,7 +442,7 @@ describe('dm research study model factory', () => {
           },
         ],
         "focus": undefined,
-        "id": undefined,
+        "id": "2021-A01563-38",
         "identifier": [
           IdentifierModel {
             "assigner": ReferenceModel {
@@ -1116,7 +1116,7 @@ describe('dm research study model factory', () => {
               },
             ],
             "code": undefined,
-            "id": undefined,
+            "id": "2021-A01563-39-enrollment-group-id",
             "identifier": undefined,
             "implicitRules": undefined,
             "language": undefined,
@@ -1135,7 +1135,7 @@ describe('dm research study model factory', () => {
             "display": "Reference to group detailing study characteristics",
             "id": undefined,
             "identifier": undefined,
-            "reference": "#undefined",
+            "reference": "#2021-A01563-39-enrollment-group-id",
             "type": "Group",
           },
         ],
@@ -1162,7 +1162,7 @@ describe('dm research study model factory', () => {
           },
         ],
         "focus": undefined,
-        "id": undefined,
+        "id": "2021-A01563-39",
         "identifier": [
           IdentifierModel {
             "assigner": ReferenceModel {
