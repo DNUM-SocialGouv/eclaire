@@ -4,6 +4,8 @@ import { riphJardeDto1 } from '../shared/test/helpers/elasticsearchHelper'
 describe('jarde research study model factory', () => {
   it('should build a Jarde research study model, when RIPH Jarde with all fields filled is given', () => {
     // GIVEN
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(2022, 0, 1))
     const normalResearchStudyDto = riphJardeDto1[0]
 
     // WHEN
@@ -722,6 +724,8 @@ describe('jarde research study model factory', () => {
 
   it('should build a Jarde research study model, when RIPH Jarde with null fields is given', () => {
     // GIVEN
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(2022, 0, 1))
     const researchStudyDtoWithEmptyFields = riphJardeDto1[1]
 
     // WHEN
@@ -1197,7 +1201,7 @@ describe('jarde research study model factory', () => {
         "location": undefined,
         "meta": MetaModel {
           "id": undefined,
-          "lastUpdated": "",
+          "lastUpdated": "2021-12-31T23:00:00.000Z",
           "profile": [
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],

@@ -4,6 +4,8 @@ import { riphCtisDto } from '../shared/test/helpers/elasticsearchHelper'
 describe('ctis research study model factory', () => {
   it('should build a CTIS research study model, when RIPH CTIS with all fields filled is given', () => {
     // GIVEN
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(2022, 0, 1))
     const normalResearchStudyDto = riphCtisDto[0]
 
     // WHEN
@@ -746,6 +748,8 @@ describe('ctis research study model factory', () => {
 
   it('should build a CTIS research study model, when RIPH CTIS with null fields is given', () => {
     // GIVEN
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(2022, 0, 1))
     const researchStudyDtoWithEmptyFields = riphCtisDto[1]
 
     // WHEN
@@ -1203,7 +1207,7 @@ describe('ctis research study model factory', () => {
         "location": undefined,
         "meta": MetaModel {
           "id": undefined,
-          "lastUpdated": "",
+          "lastUpdated": "2021-12-31T23:00:00.000Z",
           "profile": [
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
