@@ -1,6 +1,5 @@
 import { assertType, expect } from 'vitest'
 
-import { RiphCtisDto } from './dto/RiphCtisDto'
 import { ResearchStudyElasticsearchDocument } from './EtlShard'
 import { EtlShardCtis } from './EtlShardCtis'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
@@ -21,7 +20,6 @@ describe('etl | EtlShardCtis', () => {
       const result = etlShardCtis.extract()
 
       // then
-      assertType<RiphCtisDto[]>(result)
       expect(result).toStrictEqual(riphCtisDto)
     })
   })
