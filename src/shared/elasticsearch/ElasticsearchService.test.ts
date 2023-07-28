@@ -92,7 +92,7 @@ describe('elasticsearch service', () => {
         index: 'eclaire',
       })
       expect(result).toStrictEqual({
-        hits: [fakeDocument],
+        hits: [{ _source: fakeDocument }],
         total: 1,
       })
     })

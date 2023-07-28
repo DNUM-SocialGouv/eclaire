@@ -11,7 +11,7 @@ import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchServi
 import { LoggerModule } from '../shared/logger/LoggerModule'
 import { LoggerService } from '../shared/logger/LoggerService'
 
-const EXPORT_DATE = '15-06-2023'
+const EXPORT_DATE = '27-07-2023'
 
 @Module({
   imports: [LoggerModule, ElasticsearchModule],

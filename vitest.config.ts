@@ -6,6 +6,7 @@ export default defineConfig({
   test: {
     clearMocks: true,
     coverage: {
+      skipFull: true,
       exclude: [
         'src/api/AppController.ts',
         'src/api/auth',

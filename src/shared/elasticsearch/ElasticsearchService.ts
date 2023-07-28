@@ -52,9 +52,8 @@ export class ElasticsearchService {
     } satisfies RequestParams.Search)
 
     return {
-      // eslint-disable-next-line max-len
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return
-      hits: response.body.hits.hits.map((hit) => hit._source),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
+      hits: response.body.hits.hits,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       total: response.body.hits.total.value as number,
     }

@@ -1,4 +1,4 @@
-export type SearchBodyType = {
+export type ElasticsearchBodyType = {
   from: number
   query: {
     bool?: {
@@ -16,6 +16,7 @@ export type SearchBodyType = {
     }
   }
   size: number
+  search_after?: (number | string)[]
   sort?: {
     [key: string]: {
       order: 'asc' | 'desc'
@@ -23,8 +24,8 @@ export type SearchBodyType = {
   }[]
 }
 
-export class SearchBodyBuilder {
-  private readonly searchBody: SearchBodyType
+export class ElasticsearchBodyBuilder {
+  private readonly searchBody: ElasticsearchBodyType
 
   constructor() {
     this.searchBody = {
@@ -36,6 +37,12 @@ export class SearchBodyBuilder {
 
   withFrom(from: number): this {
     this.searchBody.from = from
+    return this
+  }
+
+  withSearchAfter(searchAfter: (number | string)[]): this {
+    this.searchBody.search_after = searchAfter
+    this.withFrom(0)
     return this
   }
 
@@ -72,7 +79,7 @@ export class SearchBodyBuilder {
     return this
   }
 
-  build(): SearchBodyType {
+  build(): ElasticsearchBodyType {
     return this.searchBody
   }
 }

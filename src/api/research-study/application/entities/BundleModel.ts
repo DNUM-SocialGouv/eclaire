@@ -1,9 +1,10 @@
-import { Bundle, BundleEntry, BundleLink, FhirResource } from 'fhir/r4'
+import { Bundle, BundleEntry, BundleLink } from 'fhir/r4'
 
 export class BundleModel {
-  static create(resources: FhirResource[], links: BundleLink[], total: number, domainName: string): Bundle {
+  static create(resources: [], links: BundleLink[], total: number, domainName: string): Bundle {
     return {
-      entry: resources.map((resource): BundleEntry => ({ fullUrl: `${domainName}/${resource.id}`, resource })),
+      // @ts-ignore
+      entry: resources.map((resource: { _source: { id: string }}): BundleEntry => ({ fullUrl: `${domainName}/${resource._source.id}`, resource: resource._source })),
       link: links,
       resourceType: 'Bundle',
       total,
