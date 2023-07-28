@@ -4,10 +4,16 @@ import { RiphJardeResearchStudyModelFactory } from './RiphJardeResearchStudyMode
 
 export class EtlShardJarde extends EtlShard {
   async import(): Promise<void> {
-    this.logger.info(`[Import] ${this.riphDtos.length} (JARDE)`)
+    this.logger.info(`[Import] ${this.riphDtos.length} riphDtos (JARDE)`)
     const riphJardeDtos: RiphJardeDto[] = super.extract()
     const researchStudyDocuments: ResearchStudyElasticsearchDocument[] = this.transform(riphJardeDtos)
-    await super.load(researchStudyDocuments)
+
+    const chunkSize = 4000
+    for (let i = 0; i < researchStudyDocuments.length; i += chunkSize) {
+      this.logger.info(`---- Chunk JARDE: ${i} / ${researchStudyDocuments.length} elasticsearch documents`)
+      const chunk = researchStudyDocuments.slice(i, i + chunkSize)
+      await super.load(chunk)
+    }
   }
 
   transform(riphJardeDtos: RiphJardeDto[]): ResearchStudyElasticsearchDocument[] {
