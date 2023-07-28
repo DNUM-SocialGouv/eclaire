@@ -11,9 +11,9 @@ export interface EtlShard {
   readonly riphDto: RiphDto[]
 
   import(): Promise<void>
-  extract(riphDto: RiphDto[]): RiphDto[]
-  transform(riphDto: RiphDto[]): (IndexElasticsearch | ResearchStudyModel)[]
-  load(researchStudyModel: (IndexElasticsearch | ResearchStudyModel)[]): Promise<void>
+  extract(): RiphDto[]
+  transform(riphDto: RiphDto[]): ResearchStudyElasticsearchDocument[]
+  load(researchStudyModel: ResearchStudyElasticsearchDocument[]): Promise<void>
 }
 
 export type IndexElasticsearch = Readonly<{
@@ -23,3 +23,5 @@ export type IndexElasticsearch = Readonly<{
 }>
 
 export type RiphDto = RiphCtisDto | RiphDmDto | RiphJardeDto
+
+export type ResearchStudyElasticsearchDocument = IndexElasticsearch | ResearchStudyModel

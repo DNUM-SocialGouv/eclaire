@@ -15,14 +15,14 @@ export class EtlShardDm implements EtlShard {
   ) {}
 
   async import(): Promise<void> {
-    const riphDmDtos: RiphDmDto[] = this.extract(this.riphDto)
+    const riphDmDtos: RiphDmDto[] = this.extract()
     const researchStudyModel = this.transform(riphDmDtos)
     await this.load(researchStudyModel)
   }
 
-  extract(riphDmDtos: RiphDmDto[]): RiphDmDto[] {
-    this.logger.info(`${riphDmDtos.length} (DM)`)
-    return [...riphDmDtos]
+  extract(): RiphDmDto[] {
+    this.logger.info(`${this.riphDto.length} (DM)`)
+    return [...this.riphDto]
   }
 
   transform(riphDmDtos: RiphDmDto[]): (IndexElasticsearch | ResearchStudyModel)[] {

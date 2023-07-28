@@ -15,15 +15,15 @@ export class EtlShardJarde implements EtlShard {
   ) {}
 
   async import(): Promise<void> {
-    const riphJardeDtos: RiphJardeDto[] = this.extract(this.riphDto)
+    const riphJardeDtos: RiphJardeDto[] = this.extract()
     const researchStudyModel = this.transform(riphJardeDtos)
     await this.load(researchStudyModel)
   }
 
-  extract(riphJardeDtos: RiphJardeDto[]): RiphJardeDto[] {
-    this.logger.info(`${riphJardeDtos.length} (JARDE)`)
+  extract(): RiphJardeDto[] {
+    this.logger.info(`${this.riphDto.length} (JARDE)`)
     const removeRapatrieeCtis = (jarde: RiphJardeDto): boolean => jarde.etat !== 'RAPATRIEE_CTIS'
-    return [...riphJardeDtos.filter(removeRapatrieeCtis)]
+    return [...this.riphDto.filter(removeRapatrieeCtis)]
   }
 
   transform(riphJardeDtos: RiphJardeDto[]): (IndexElasticsearch | ResearchStudyModel)[] {
