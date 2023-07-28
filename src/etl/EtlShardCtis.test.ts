@@ -2,9 +2,7 @@ import { assertType, expect } from 'vitest'
 
 import { ResearchStudyElasticsearchDocument } from './EtlShard'
 import { EtlShardCtis } from './EtlShardCtis'
-import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
-import { LoggerService } from '../shared/logger/LoggerService'
-import { deleteElasticsearchIndice, riphCtisDto } from '../shared/test/helpers/elasticsearchHelper'
+import { riphCtisDto, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
 
 describe('etl | EtlShardCtis', () => {
   describe('extract', () => {
@@ -13,7 +11,9 @@ describe('etl | EtlShardCtis', () => {
       const {
         elasticsearchService,
         logger,
-      } = await setup()
+      } = await setupClientAndElasticsearchService()
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(logger, 'info').mockResolvedValueOnce()
       const etlShardCtis = new EtlShardCtis(logger, elasticsearchService, riphCtisDto)
 
       // when
@@ -30,7 +30,9 @@ describe('etl | EtlShardCtis', () => {
       const {
         elasticsearchService,
         logger,
-      } = await setup()
+      } = await setupClientAndElasticsearchService()
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(logger, 'info').mockResolvedValueOnce()
       const etlShardCtis = new EtlShardCtis(logger, elasticsearchService, riphCtisDto)
 
       // when
@@ -48,7 +50,9 @@ describe('etl | EtlShardCtis', () => {
       const {
         elasticsearchService,
         logger,
-      } = await setup()
+      } = await setupClientAndElasticsearchService()
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(logger, 'info').mockResolvedValueOnce()
       const etlShardCtis = new EtlShardCtis(logger, elasticsearchService, riphCtisDto)
       const documents = etlShardCtis.transform(riphCtisDto)
 
@@ -60,16 +64,3 @@ describe('etl | EtlShardCtis', () => {
     })
   })
 })
-
-async function setup() {
-  const { client } = await deleteElasticsearchIndice()
-  const elasticsearchService = new ElasticsearchService(client)
-  const logger = new LoggerService()
-
-  vi.spyOn(elasticsearchService, 'bulkDocuments').mock
-  vi.spyOn(logger, 'info').mockImplementation(() => {
-    return
-  })
-
-  return { elasticsearchService, logger }
-}

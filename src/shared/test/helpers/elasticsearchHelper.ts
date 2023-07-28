@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config'
 
 import { ElasticsearchConfig } from '../../elasticsearch/ElasticsearchConfig'
 import { ElasticsearchService } from '../../elasticsearch/ElasticsearchService'
+import { LoggerService } from '../../logger/LoggerService'
 import { RiphCtisDto } from 'src/etl/dto/RiphCtisDto'
 import { RiphDmDto } from 'src/etl/dto/RiphDmDto'
 import { RiphJardeDto } from 'src/etl/dto/RiphJardeDto'
@@ -29,13 +30,14 @@ export async function deleteElasticsearchIndice() {
 
 export async function setupClientAndElasticsearchService() {
   const { client, configService } = await deleteElasticsearchIndice()
-
+  const logger = new LoggerService()
   const elasticsearchService = new ElasticsearchService(client)
 
   return {
     client,
     configService,
     elasticsearchService,
+    logger,
   }
 }
 

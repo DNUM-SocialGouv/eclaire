@@ -3,9 +3,7 @@ import { assertType, expect } from 'vitest'
 import { RiphJardeDto } from './dto/RiphJardeDto'
 import { ResearchStudyElasticsearchDocument } from './EtlShard'
 import { EtlShardJarde } from './EtlShardJarde'
-import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
-import { LoggerService } from '../shared/logger/LoggerService'
-import { deleteElasticsearchIndice, riphJardeDto1 } from '../shared/test/helpers/elasticsearchHelper'
+import { riphJardeDto1, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
 
 describe('etl | EtlShardJarde', () => {
   describe('extract', () => {
@@ -14,7 +12,10 @@ describe('etl | EtlShardJarde', () => {
       const {
         elasticsearchService,
         logger,
-      } = await setup()
+      } = await setupClientAndElasticsearchService()
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(logger, 'info').mockResolvedValueOnce()
+
       const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, riphJardeDto1)
 
       // when
@@ -32,7 +33,9 @@ describe('etl | EtlShardJarde', () => {
       const {
         elasticsearchService,
         logger,
-      } = await setup()
+      } = await setupClientAndElasticsearchService()
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(logger, 'info').mockResolvedValueOnce()
       const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, riphJardeDto1)
 
       // when
@@ -50,7 +53,9 @@ describe('etl | EtlShardJarde', () => {
       const {
         elasticsearchService,
         logger,
-      } = await setup()
+      } = await setupClientAndElasticsearchService()
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(logger, 'info').mockResolvedValueOnce()
       const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, riphJardeDto1)
       const documents = etlShardJarde.transform(riphJardeDto1)
 
@@ -62,16 +67,3 @@ describe('etl | EtlShardJarde', () => {
     })
   })
 })
-
-async function setup() {
-  const { client } = await deleteElasticsearchIndice()
-  const elasticsearchService = new ElasticsearchService(client)
-  const logger = new LoggerService()
-
-  vi.spyOn(elasticsearchService, 'bulkDocuments').mock
-  vi.spyOn(logger, 'info').mockImplementation(() => {
-    return
-  })
-
-  return { elasticsearchService, logger }
-}

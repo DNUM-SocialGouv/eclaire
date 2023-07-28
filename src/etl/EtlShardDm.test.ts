@@ -2,9 +2,7 @@ import { assertType, expect } from 'vitest'
 
 import { ResearchStudyElasticsearchDocument } from './EtlShard'
 import { EtlShardDm } from './EtlShardDm'
-import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
-import { LoggerService } from '../shared/logger/LoggerService'
-import { deleteElasticsearchIndice, riphDmDto } from '../shared/test/helpers/elasticsearchHelper'
+import { riphDmDto, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
 
 describe('etl | EtlShardDm', () => {
   describe('extract', () => {
@@ -13,7 +11,9 @@ describe('etl | EtlShardDm', () => {
       const {
         elasticsearchService,
         logger,
-      } = await setup()
+      } = await setupClientAndElasticsearchService()
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(logger, 'info').mockResolvedValueOnce()
       const etlShardDm = new EtlShardDm(logger, elasticsearchService, riphDmDto)
 
       // when
@@ -30,7 +30,9 @@ describe('etl | EtlShardDm', () => {
       const {
         elasticsearchService,
         logger,
-      } = await setup()
+      } = await setupClientAndElasticsearchService()
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(logger, 'info').mockResolvedValueOnce()
       const etlShardDm = new EtlShardDm(logger, elasticsearchService, riphDmDto)
 
       // when
@@ -48,7 +50,9 @@ describe('etl | EtlShardDm', () => {
       const {
         elasticsearchService,
         logger,
-      } = await setup()
+      } = await setupClientAndElasticsearchService()
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(logger, 'info').mockResolvedValueOnce()
       const etlShardDm = new EtlShardDm(logger, elasticsearchService, riphDmDto)
       const documents = etlShardDm.transform(riphDmDto)
 
@@ -60,16 +64,3 @@ describe('etl | EtlShardDm', () => {
     })
   })
 })
-
-async function setup() {
-  const { client } = await deleteElasticsearchIndice()
-  const elasticsearchService = new ElasticsearchService(client)
-  const logger = new LoggerService()
-
-  vi.spyOn(elasticsearchService, 'bulkDocuments').mock
-  vi.spyOn(logger, 'info').mockImplementation(() => {
-    return
-  })
-
-  return { elasticsearchService, logger }
-}
