@@ -16,7 +16,7 @@ import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/Ref
 
 export class RiphDmResearchStudyModelFactory {
   static create(riphDmDto: RiphDmDto): ResearchStudyModel {
-    const enrollmentGroupId = undefined
+    const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphDmDto.numero_national)
     const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphDmDto.numero_national)
     const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphDmDto.numero_national)
 
@@ -61,7 +61,7 @@ export class RiphDmResearchStudyModelFactory {
       ExtensionModel.createEclaireTherapeuticArea(riphDmDto.domaine_therapeutique),
     ]
     const focus = undefined
-    const id = undefined
+    const id = riphDmDto.numero_national
     const identifier: Identifier[] = [
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
       IdentifierModel.createSecondarySlice(riphDmDto.numero_national, riphDmDto.reglementation_code, riphDmDto.qualification),
