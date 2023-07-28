@@ -5,7 +5,7 @@ import { RiphCtisResearchStudyModelFactory } from './RiphCtisResearchStudyModelF
 export class EtlShardCtis extends EtlShard {
   async import(): Promise<void> {
     this.logger.info(`[Import] ${this.riphDtos.length} (CTIS)`)
-    const riphCtisDtos: RiphCtisDto[] = super.extract() as RiphCtisDto[]
+    const riphCtisDtos: RiphCtisDto[] = super.extract()
     const researchStudyDocuments: ResearchStudyElasticsearchDocument[] = this.transform(riphCtisDtos)
     await super.load(researchStudyDocuments)
   }

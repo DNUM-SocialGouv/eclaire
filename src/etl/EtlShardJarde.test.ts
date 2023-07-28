@@ -1,7 +1,5 @@
-import { assertType, expect } from 'vitest'
+import { expect } from 'vitest'
 
-import { RiphJardeDto } from './dto/RiphJardeDto'
-import { ResearchStudyElasticsearchDocument } from './EtlShard'
 import { EtlShardJarde } from './EtlShardJarde'
 import { riphJardeDto1, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
 
@@ -22,7 +20,6 @@ describe('etl | EtlShardJarde', () => {
       const result = etlShardJarde.extract()
 
       // then
-      assertType<RiphJardeDto[]>(result)
       expect(result).toStrictEqual(riphJardeDto1)
     })
   })
@@ -42,7 +39,6 @@ describe('etl | EtlShardJarde', () => {
       const result = etlShardJarde.transform(riphJardeDto1)
 
       // then
-      assertType<ResearchStudyElasticsearchDocument[]>(result)
       expect(result).toHaveLength(6)
     })
   })

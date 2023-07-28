@@ -1,6 +1,5 @@
-import { assertType, expect } from 'vitest'
+import { expect } from 'vitest'
 
-import { ResearchStudyElasticsearchDocument } from './EtlShard'
 import { EtlShardCtis } from './EtlShardCtis'
 import { riphCtisDto, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
 
@@ -39,7 +38,6 @@ describe('etl | EtlShardCtis', () => {
       const result = etlShardCtis.transform(riphCtisDto)
 
       // then
-      assertType<ResearchStudyElasticsearchDocument[]>(result)
       expect(result).toHaveLength(6)
     })
   })

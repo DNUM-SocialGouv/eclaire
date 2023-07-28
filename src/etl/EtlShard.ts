@@ -17,8 +17,8 @@ export abstract class EtlShard {
   abstract import(): Promise<void>
   abstract transform(riphDtos: RiphDto[]): ResearchStudyElasticsearchDocument[]
 
-  extract(): RiphDto[] {
-    return [...this.riphDtos]
+  extract<T>(): T[] {
+    return [...this.riphDtos as T[]]
   }
 
   async load(documents: ResearchStudyElasticsearchDocument[]): Promise<void> {
