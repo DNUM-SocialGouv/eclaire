@@ -1,6 +1,6 @@
 import { EsResearchStudyRepository } from './EsResearchStudyRepository'
 import { riphCtisDto, setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
-import { SearchBodyType } from '../application/entities/SearchBody'
+import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
 import { researchStudyIndexMapping } from 'src/etl/researchStudyIndexMapping'
 import { RiphCtisResearchStudyModelFactory } from 'src/etl/RiphCtisResearchStudyModelFactory'
 
@@ -22,77 +22,189 @@ describe('elasticsearch research study repository', () => {
   describe('search research studies', () => {
     const numberOfResourcesByPage = 2
 
-    it('should find research studies when filter on a field is given', async () => {
-      // GIVEN
-      const { esResearchStudyRepository } = await setup()
-      const bodySearch: SearchBodyType = {
-        from: 0,
-        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01T00:00:00Z' } } }] } },
-        size: numberOfResourcesByPage,
-      }
+    describe('below 10 000 results', () => {
+      it('should find research studies when filter on a field is given', async () => {
+        // GIVEN
+        const { esResearchStudyRepository } = await setup()
+        const elasticsearchBody: ElasticsearchBodyType = {
+          from: 0,
+          query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01T00:00:00Z' } } }] } },
+          size: numberOfResourcesByPage,
+        }
 
-      // WHEN
-      const response = await esResearchStudyRepository.search(bodySearch)
+        // WHEN
+        const response = await esResearchStudyRepository.search(elasticsearchBody)
 
-      // THEN
-      expect(response.entry).toHaveLength(2)
-      expect(response.link).toStrictEqual([
-        {
-          relation: 'self',
-          url: 'http://localhost:3000/R4/ResearchStudy?_getpagesoffset=0',
-        },
-        {
-          relation: 'next',
-          url: 'http://localhost:3000/R4/ResearchStudy?_getpagesoffset=2',
-        },
-      ])
-      expect(response.resourceType).toBe('Bundle')
-      expect(response.total).toBe(6)
-      expect(response.type).toBe('searchset')
+        // THEN
+        expect(response.entry).toHaveLength(2)
+        expect(response.link).toStrictEqual([
+          {
+            relation: 'self',
+            url: 'http://localhost:3000/R4/ResearchStudy?_getpagesoffset=0',
+          },
+          {
+            relation: 'next',
+            url: 'http://localhost:3000/R4/ResearchStudy?_getpagesoffset=2',
+          },
+        ])
+        expect(response.resourceType).toBe('Bundle')
+        expect(response.total).toBe(6)
+        expect(response.type).toBe('searchset')
+      })
+
+      it('should not send a URL for the next page when no result', async () => {
+        // GIVEN
+        const { esResearchStudyRepository } = await setup()
+        const elasticsearchBody: ElasticsearchBodyType = {
+          from: 0,
+          query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '3020-01-01T00:00:00Z' } } }] } },
+          size: numberOfResourcesByPage,
+        }
+
+        // WHEN
+        const response = await esResearchStudyRepository.search(elasticsearchBody)
+
+        // THEN
+        expect(response.total).toBe(0)
+        expect(response.link).toStrictEqual([
+          {
+            relation: 'self',
+            url: 'http://localhost:3000/R4/ResearchStudy?_getpagesoffset=0',
+          },
+        ])
+      })
+
+      it('should not send a URL for the next page when it is the final page', async () => {
+        // GIVEN
+        const { esResearchStudyRepository } = await setup()
+        const elasticsearchBody: ElasticsearchBodyType = {
+          from: 4,
+          query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01T00:00:00Z' } } }] } },
+          size: numberOfResourcesByPage,
+        }
+
+        // WHEN
+        const response = await esResearchStudyRepository.search(elasticsearchBody)
+
+        // THEN
+        expect(response.total).toBe(6)
+        expect(response.link).toStrictEqual([
+          {
+            relation: 'self',
+            url: 'http://localhost:3000/R4/ResearchStudy?_getpagesoffset=4',
+          },
+        ])
+      })
     })
 
-    it('should not send a URL for the next page when no result', async () => {
-      // GIVEN
-      const { esResearchStudyRepository } = await setup()
-      const bodySearch: SearchBodyType = {
-        from: 0,
-        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '3020-01-01T00:00:00Z' } } }] } },
-        size: numberOfResourcesByPage,
-      }
+    describe('above 10 000 results', () => {
+      const maxTotalConstraintFromElasticsearch = 10_000
 
-      // WHEN
-      const response = await esResearchStudyRepository.search(bodySearch)
+      describe('with a sort', () => {
+        it('should send a URL for the self and next page for the first page', async () => {
+          // GIVEN
+          const { elasticsearchService, esResearchStudyRepository } = await setup()
+          const elasticsearchBody: ElasticsearchBodyType = {
+            from: 0,
+            query: { bool: { must: [] } },
+            size: numberOfResourcesByPage,
+            sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
+          }
+          vi.spyOn(elasticsearchService, 'search').mockResolvedValue({
+            // @ts-ignore
+            hits: [
+              { _source: { id: '2022-500014-26-00' }, sort: [1636107200000] },
+              { _source: { id: '2023-500014-26-00' }, sort: [1637107200000] },
+            ],
+            total: maxTotalConstraintFromElasticsearch,
+          })
 
-      // THEN
-      expect(response.total).toBe(0)
-      expect(response.link).toStrictEqual([
-        {
-          relation: 'self',
-          url: 'http://localhost:3000/R4/ResearchStudy?_getpagesoffset=0',
-        },
-      ])
-    })
+          // WHEN
+          const response = await esResearchStudyRepository.search(elasticsearchBody)
 
-    it('should not send a URL for the next page when it is the final page', async () => {
-      // GIVEN
-      const { esResearchStudyRepository } = await setup()
-      const bodySearch: SearchBodyType = {
-        from: 4,
-        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01T00:00:00Z' } } }] } },
-        size: numberOfResourcesByPage,
-      }
+          // THEN
+          expect(response.link).toStrictEqual([
+            {
+              relation: 'self',
+              url: 'http://localhost:3000/R4/ResearchStudy?search_after=',
+            },
+            {
+              relation: 'next',
+              url: 'http://localhost:3000/R4/ResearchStudy?search_after=1637107200000,2023-500014-26-00',
+            },
+          ])
+        })
 
-      // WHEN
-      const response = await esResearchStudyRepository.search(bodySearch)
+        it('should send a URL for the self and next page for the second page', async () => {
+          // GIVEN
+          const { elasticsearchService, esResearchStudyRepository } = await setup()
+          const elasticsearchBody: ElasticsearchBodyType = {
+            from: 0,
+            query: { bool: { must: [] } },
+            search_after: [1636107200000],
+            size: 1,
+            sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
+          }
+          vi.spyOn(elasticsearchService, 'search').mockResolvedValue({
+            // @ts-ignore
+            hits: [
+              // { _source: { id: '2022-500014-26-00' }, sort: [1636107200000] },
+              { _source: { id: '2023-500014-26-00' }, sort: [1637107200000] },
+            ],
+            total: maxTotalConstraintFromElasticsearch,
+          })
 
-      // THEN
-      expect(response.total).toBe(6)
-      expect(response.link).toStrictEqual([
-        {
-          relation: 'self',
-          url: 'http://localhost:3000/R4/ResearchStudy?_getpagesoffset=4',
-        },
-      ])
+          // WHEN
+          const response = await esResearchStudyRepository.search(elasticsearchBody)
+
+          // THEN
+          expect(response.link).toStrictEqual([
+            {
+              relation: 'self',
+              url: 'http://localhost:3000/R4/ResearchStudy?search_after=1636107200000',
+            },
+            {
+              relation: 'next',
+              url: 'http://localhost:3000/R4/ResearchStudy?search_after=1637107200000,2023-500014-26-00',
+            },
+          ])
+        })
+      })
+
+      describe('without a sort', () => {
+        it('should send a URL for the next page', async () => {
+          // GIVEN
+          const { elasticsearchService, esResearchStudyRepository } = await setup()
+          const elasticsearchBody: ElasticsearchBodyType = {
+            from: 0,
+            query: { bool: { must: [] } },
+            size: numberOfResourcesByPage,
+          }
+          vi.spyOn(elasticsearchService, 'search').mockResolvedValue({
+            // @ts-ignore
+            hits: [
+              { _source: {} },
+              { _source: {} },
+            ],
+            total: maxTotalConstraintFromElasticsearch,
+          })
+
+          // WHEN
+          const response = await esResearchStudyRepository.search(elasticsearchBody)
+
+          // THEN
+          expect(response.link).toStrictEqual([
+            {
+              relation: 'self',
+              url: 'http://localhost:3000/R4/ResearchStudy?_getpagesoffset=0',
+            },
+            {
+              relation: 'next',
+              url: 'http://localhost:3000/R4/ResearchStudy?_getpagesoffset=2',
+            },
+          ])
+        })
+      })
     })
   })
 })

@@ -34,7 +34,9 @@ export class EsClinicalTrialRepository implements ClinicalTrialRepository {
       const response = await this.elasticsearchService.search(requestBody)
 
       return {
-        hits: response.hits.map((hit): ClinicalTrial => ClinicalTrialFactory.create(hit)),
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        hits: response.hits.map((hit): ClinicalTrial => ClinicalTrialFactory.create(hit._source)),
         total: response.total,
       }
     } catch (error) {

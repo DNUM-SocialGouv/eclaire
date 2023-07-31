@@ -1,8 +1,8 @@
 import { Bundle } from 'fhir/r4'
 
-import { SearchBodyType } from '../entities/SearchBody'
+import { ElasticsearchBodyType } from '../entities/ElasticsearchBody'
 
 export interface ResearchStudyRepository {
   findOne(id: string): Promise<unknown>
-  search(bodySearch: SearchBodyType): Promise<Bundle>
+  search(elasticsearchBody: ElasticsearchBodyType): Promise<Bundle>
 }

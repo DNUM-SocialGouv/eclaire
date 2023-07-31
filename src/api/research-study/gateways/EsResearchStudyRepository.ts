@@ -5,12 +5,13 @@ import { Bundle, BundleLink } from 'fhir/r4'
 import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
 import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
 import { BundleModel } from '../application/entities/BundleModel'
-import { SearchBodyType } from '../application/entities/SearchBody'
+import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
 
 @Injectable()
 export class EsResearchStudyRepository implements ResearchStudyRepository {
-  readonly domainName: string
-  readonly numberOfResourcesByPage: number
+  private readonly domainName: string
+  private readonly numberOfResourcesByPage: number
+  private readonly maxTotalConstraintFromElasticsearch = 10_000
 
   constructor(
     private readonly elasticsearchService: ElasticsearchService,
@@ -24,9 +25,15 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return await this.elasticsearchService.findOneDocument(id)
   }
 
-  async search(bodySearch: SearchBodyType): Promise<Bundle> {
-    const response = await this.elasticsearchService.search(bodySearch)
-    const links = this.buildSearchLinks(bodySearch.from, response.total)
+  async search(elasticsearchBody: ElasticsearchBodyType): Promise<Bundle> {
+    const response = await this.elasticsearchService.search(elasticsearchBody)
+
+    let links: BundleLink[]
+    if (response.total === this.maxTotalConstraintFromElasticsearch && elasticsearchBody.sort !== undefined) {
+      links = this.buildSearchAfterLinks(response.hits, elasticsearchBody.search_after)
+    } else {
+      links = this.buildSearchLinks(elasticsearchBody.from, response.total)
+    }
 
     return BundleModel.create(response.hits, links, response.total, `${this.domainName}R4/ResearchStudy`)
   }
@@ -46,6 +53,25 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
         url: `${this.domainName}R4/ResearchStudy?_getpagesoffset=${offset + this.numberOfResourcesByPage}`,
       })
     }
+
+    return link
+  }
+
+  private buildSearchAfterLinks(hits: [], searchAfter: (number | string)[]): BundleLink[] {
+    const nextSorts = hits.map((hit: { sort: number[] }): number => hit.sort[0]).reverse()
+    const nextIds = hits.map((hit: { _source: { id: string }}): string => hit._source.id).reverse()
+    const previousSort = searchAfter === undefined ? '' : searchAfter[0]
+
+    const link: BundleLink[] = [
+      {
+        relation: 'self',
+        url: `${this.domainName}R4/ResearchStudy?search_after=${previousSort}`,
+      },
+      {
+        relation: 'next',
+        url: `${this.domainName}R4/ResearchStudy?search_after=${nextSorts[0]},${nextIds[0]}`,
+      },
+    ]
 
     return link
   }

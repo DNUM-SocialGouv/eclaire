@@ -1,10 +1,10 @@
-import { SearchBodyBuilder, SearchBodyType } from '../../application/entities/SearchBody'
+import { ElasticsearchBodyBuilder, ElasticsearchBodyType } from '../../application/entities/ElasticsearchBody'
 import { ResearchStudyQueryModel } from '../ResearchStudyQueryModel'
 
-export function researchStudyQueryToElasticsearchQuery(researchStudyQuery: Partial<ResearchStudyQueryModel>): SearchBodyType {
+export function researchStudyQueryToElasticsearchQuery(researchStudyQuery: Partial<ResearchStudyQueryModel>): ElasticsearchBodyType {
   const numberOfResourcesByPage = Number(process.env.NUMBER_OF_RESOURCES_BY_PAGE)
   const maxSize = 5000
-  const searchBody = new SearchBodyBuilder()
+  const searchBody = new ElasticsearchBodyBuilder()
     .withFrom(0)
     .withSize(numberOfResourcesByPage)
 
@@ -51,6 +51,9 @@ export function researchStudyQueryToElasticsearchQuery(researchStudyQuery: Parti
       searchBody.withText(value)
     } else if (field === 'identifier') {
       searchBody.withMatch('_id', value)
+    } else if (field === 'search_after') {
+      // @ts-ignore
+      searchBody.withSearchAfter(value.split(',').map((term): string | number => isNaN(term) ? term : Number(term)))
     } else {
       searchBody.withMatch(field, value)
     }
