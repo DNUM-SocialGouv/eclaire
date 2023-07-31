@@ -11,6 +11,9 @@ async function console(): Promise<void> {
   const fhirEtlService = application.get(FhirEtlService)
 
   switch (command) {
+    case 'create-index':
+      await fhirEtlService.createIndex()
+      break
     case 'import':
       await fhirEtlService.import()
       break

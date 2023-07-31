@@ -23,12 +23,11 @@ const EXPORT_DATE = '27-07-2023'
         try {
           const riphCtisDto = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_ctis-${EXPORT_DATE}.json`), 'utf8')) as RiphCtisDto[]
           const riphDmDto = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_dm-dmdiv-${EXPORT_DATE}.json`), 'utf8')) as RiphDmDto[]
-          const riphJardeDto1 = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_jarde1-${EXPORT_DATE}.json`), 'utf8')) as RiphJardeDto[]
-          const riphJardeDto2 = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_jarde2-${EXPORT_DATE}.json`), 'utf8')) as RiphJardeDto[]
+          const riphJardeDto = JSON.parse(readFileSync(join(__dirname, `.data/export_eclaire_jarde-${EXPORT_DATE}.json`), 'utf8')) as RiphJardeDto[]
 
-          return new FhirEtlService(logger, elasticsearchService, riphCtisDto, riphDmDto, riphJardeDto1, riphJardeDto2)
+          return new FhirEtlService(logger, elasticsearchService, riphCtisDto, riphDmDto, riphJardeDto)
         } catch (error) {
-          return new FhirEtlService(logger, elasticsearchService, [], [], [], [])
+          return new FhirEtlService(logger, elasticsearchService, [], [], [])
         }
       },
     },

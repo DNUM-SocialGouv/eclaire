@@ -3,7 +3,13 @@ import { errors } from '@elastic/elasticsearch'
 import { EtlService } from './EtlService'
 import { LoggerService } from '../shared/logger/LoggerService'
 import { ClinicalTrialModel } from '../shared/models/ClinicalTrialModel'
-import { riphCtisDto, riphDmDto, riphJardeDto1, riphJardeDto2, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
+import {
+  riphCtisDto,
+  riphDmDto,
+  riphJardeDtoWithActiveStatus,
+  riphJardeDtoWithApprovedAndFromCtisStatuses,
+  setupClientAndElasticsearchService,
+} from '../shared/test/helpers/elasticsearchHelper'
 
 describe('extract transform load service', () => {
   describe('when index is created', () => {
@@ -56,8 +62,8 @@ describe('extract transform load service', () => {
       // THEN
       const ctisClinicalTrial = await elasticsearchService.findOneDocument<ClinicalTrialModel>(riphCtisDto[0].numero_ctis)
       const dmClinicalTrial = await elasticsearchService.findOneDocument<ClinicalTrialModel>(riphDmDto[0].numero_national)
-      const jarde1ClinicalTrial = await elasticsearchService.findOneDocument<ClinicalTrialModel>(riphJardeDto1[0].numero_national)
-      const jarde2ClinicalTrial = await elasticsearchService.findOneDocument<ClinicalTrialModel>(riphJardeDto2[0].numero_national)
+      const jarde1ClinicalTrial = await elasticsearchService.findOneDocument<ClinicalTrialModel>(riphJardeDtoWithActiveStatus[0].numero_national)
+      const jarde2ClinicalTrial = await elasticsearchService.findOneDocument<ClinicalTrialModel>(riphJardeDtoWithApprovedAndFromCtisStatuses[0].numero_national)
 
       expect(ctisClinicalTrial).not.toBeNull()
       expect(dmClinicalTrial).not.toBeNull()
@@ -115,7 +121,14 @@ async function setup() {
     return
   })
 
-  const etlService = new EtlService(logger, elasticsearchService, riphCtisDto, riphDmDto, riphJardeDto1, riphJardeDto2)
+  const etlService = new EtlService(
+    logger,
+    elasticsearchService,
+    riphCtisDto,
+    riphDmDto,
+    riphJardeDtoWithActiveStatus,
+    riphJardeDtoWithApprovedAndFromCtisStatuses
+  )
 
   return { client, elasticsearchService, etlService }
 }

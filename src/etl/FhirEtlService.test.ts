@@ -3,7 +3,14 @@ import { errors } from '@elastic/elasticsearch'
 import { FhirEtlService } from './FhirEtlService'
 import { LoggerService } from '../shared/logger/LoggerService'
 import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
-import { riphCtisDto, riphDmDto, riphJardeDto1, riphJardeDto2, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
+import {
+  riphCtisDto,
+  riphDmDto,
+  riphJardeDto,
+  riphJardeDtoWithActiveStatus,
+  riphJardeDtoWithApprovedAndFromCtisStatuses,
+  setupClientAndElasticsearchService,
+} from '../shared/test/helpers/elasticsearchHelper'
 
 describe('extract transform load service', () => {
   describe('when index is created', () => {
@@ -42,8 +49,8 @@ describe('extract transform load service', () => {
       // THEN
       const ctisResearchStudy = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphCtisDto[0].numero_ctis)
       const dmClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphDmDto[0].numero_national)
-      const jarde1ClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphJardeDto1[0].numero_national)
-      const jarde2ClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphJardeDto2[0].numero_national)
+      const jarde1ClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphJardeDtoWithActiveStatus[0].numero_national)
+      const jarde2ClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphJardeDtoWithApprovedAndFromCtisStatuses[0].numero_national)
 
       expect(ctisResearchStudy).not.toBeNull()
       expect(dmClinicalTrial).not.toBeNull()
@@ -60,7 +67,7 @@ describe('extract transform load service', () => {
       await etlService.import()
 
       // THEN
-      const excludeJarde = riphJardeDto2[1].numero_national
+      const excludeJarde = riphJardeDtoWithApprovedAndFromCtisStatuses[1].numero_national
       await expect(elasticsearchService.findOneDocument<ResearchStudyModel>(excludeJarde)).rejects.toThrow('Response Error')
     })
 
@@ -100,7 +107,7 @@ async function setup() {
     return
   })
 
-  const etlService = new FhirEtlService(logger, elasticsearchService, riphCtisDto, riphDmDto, riphJardeDto1, riphJardeDto2)
+  const etlService = new FhirEtlService(logger, elasticsearchService, riphCtisDto, riphDmDto, riphJardeDto)
 
   return { client, elasticsearchService, etlService }
 }
