@@ -1,45 +1,19 @@
-import { errors } from '@elastic/elasticsearch'
-
 import { RiphCtisDto } from './dto/RiphCtisDto'
-import { EtlShard, IndexElasticsearch } from './EtlShard'
+import { EtlShard, IndexElasticsearch, ResearchStudyElasticsearchDocument } from './EtlShard'
 import { RiphCtisResearchStudyModelFactory } from './RiphCtisResearchStudyModelFactory'
-import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
-import { LoggerService } from '../shared/logger/LoggerService'
-import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 
-export class EtlShardCtis implements EtlShard {
-  constructor(
-    readonly logger: LoggerService,
-    readonly elasticsearchService: ElasticsearchService,
-    readonly riphDto: RiphCtisDto[]
-  ) {}
-
+export class EtlShardCtis extends EtlShard {
   async import(): Promise<void> {
-    const riphCtisDtos: RiphCtisDto[] = this.extract(this.riphDto)
-    const researchStudyModel = this.transform(riphCtisDtos)
-    await this.load(researchStudyModel)
+    this.logger.info(`[Import] ${this.riphDtos.length} (CTIS)`)
+    const riphCtisDtos: RiphCtisDto[] = super.extract()
+    const researchStudyDocuments: ResearchStudyElasticsearchDocument[] = this.transform(riphCtisDtos)
+    await super.load(researchStudyDocuments)
   }
 
-  extract(riphCtisDtos: RiphCtisDto[]): RiphCtisDto[] {
-    this.logger.info(`${riphCtisDtos.length} (CTIS)`)
-    return [...riphCtisDtos]
-  }
-
-  transform(riphCtisDtos: RiphCtisDto[]): (IndexElasticsearch | ResearchStudyModel)[] {
-    return riphCtisDtos.flatMap((riphCtisDto: RiphCtisDto): (IndexElasticsearch | ResearchStudyModel)[] => {
-      return [{ create: { _id: riphCtisDto.numero_ctis } }, RiphCtisResearchStudyModelFactory.create(riphCtisDto)]
+  transform(riphCtisDtos: RiphCtisDto[]): ResearchStudyElasticsearchDocument[] {
+    return riphCtisDtos.flatMap((riphCtisDto: RiphCtisDto): ResearchStudyElasticsearchDocument[] => {
+      const indexElasticsearch: IndexElasticsearch = { create: { _id: riphCtisDto.numero_ctis } }
+      return [indexElasticsearch, RiphCtisResearchStudyModelFactory.create(riphCtisDto)]
     })
-  }
-
-  async load(researchStudyModel: (IndexElasticsearch | ResearchStudyModel)[]): Promise<void> {
-    try {
-      await this.elasticsearchService.bulkDocuments<IndexElasticsearch | ResearchStudyModel>(researchStudyModel)
-    } catch (error) {
-      if (error instanceof errors.ResponseError) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        throw new Error(error.meta.body.error.reason as string)
-      }
-      throw error
-    }
   }
 }
