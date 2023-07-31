@@ -37,9 +37,9 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
       undefined,
       undefined,
       undefined,
+      undefined,
+      undefined,
       CodeableConceptModel.createAgeRange(ageRange),
-      undefined,
-      undefined,
       undefined
     )
   }

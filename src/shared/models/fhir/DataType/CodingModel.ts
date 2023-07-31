@@ -95,17 +95,6 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createAgeRange(parsedAgeRange: string): CodingModel {
-    return new CodingModel(
-      undefined,
-      parsedAgeRange,
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    )
-  }
-
   static createStudySize(studySize: number): CodingModel {
     return new CodingModel(
       undefined,

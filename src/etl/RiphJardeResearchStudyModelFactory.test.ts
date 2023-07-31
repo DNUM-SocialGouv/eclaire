@@ -191,22 +191,33 @@ describe('jarde research study model factory', () => {
                 "id": undefined,
                 "period": undefined,
                 "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
+                "valueCodeableConcept": undefined,
+                "valueQuantity": undefined,
+                "valueRange": CodeableConceptModel {
                   "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
+                    RangeModel {
+                      "high": QuantityModel {
+                        "code": undefined,
+                        "comparator": undefined,
+                        "id": undefined,
+                        "system": undefined,
+                        "unit": undefined,
+                        "value": undefined,
+                      },
                       "id": undefined,
-                      "system": undefined,
-                      "userSelected": undefined,
-                      "version": undefined,
+                      "low": QuantityModel {
+                        "code": undefined,
+                        "comparator": undefined,
+                        "id": undefined,
+                        "system": undefined,
+                        "unit": undefined,
+                        "value": undefined,
+                      },
                     },
                   ],
                   "id": undefined,
                   "text": "Age range",
                 },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
@@ -911,22 +922,33 @@ describe('jarde research study model factory', () => {
                 "id": undefined,
                 "period": undefined,
                 "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
+                "valueCodeableConcept": undefined,
+                "valueQuantity": undefined,
+                "valueRange": CodeableConceptModel {
                   "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
+                    RangeModel {
+                      "high": QuantityModel {
+                        "code": undefined,
+                        "comparator": undefined,
+                        "id": undefined,
+                        "system": undefined,
+                        "unit": undefined,
+                        "value": undefined,
+                      },
                       "id": undefined,
-                      "system": undefined,
-                      "userSelected": undefined,
-                      "version": undefined,
+                      "low": QuantityModel {
+                        "code": undefined,
+                        "comparator": undefined,
+                        "id": undefined,
+                        "system": undefined,
+                        "unit": undefined,
+                        "value": undefined,
+                      },
                     },
                   ],
                   "id": undefined,
                   "text": "Age range",
                 },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {

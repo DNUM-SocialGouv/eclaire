@@ -1,6 +1,7 @@
 import { CodeableConcept, Coding } from 'fhir/r4'
 
 import { CodingModel } from './CodingModel'
+import { RangeModel } from './RangeModel'
 import { ModelUtils } from '../../custom/ModelUtils'
 import { ContactType } from '../MetadataType/ContactDetailModel'
 
@@ -87,7 +88,7 @@ export class CodeableConceptModel implements CodeableConcept {
     }
 
     return new CodeableConceptModel(
-      parsedAgeRanges.map((parsedAgeRange) => CodingModel.createAgeRange(parsedAgeRange)),
+      parsedAgeRanges.map((parsedAgeRange) => RangeModel.createAgeRange(parsedAgeRange)),
       undefined,
       'Age range'
     )

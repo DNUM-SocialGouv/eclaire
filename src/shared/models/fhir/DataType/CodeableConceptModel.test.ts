@@ -246,16 +246,27 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
 
   describe('#createAgeRange', () => {
     it('should create a properly formatted model with related coding when one age range is given', () => {
-      expect(CodeableConceptModel.createAgeRange('65+ years')).toMatchInlineSnapshot(`
+      expect(CodeableConceptModel.createAgeRange('0-17 years')).toMatchInlineSnapshot(`
         CodeableConceptModel {
           "coding": [
-            CodingModel {
-              "code": undefined,
-              "display": "65+ years",
+            RangeModel {
+              "high": QuantityModel {
+                "code": undefined,
+                "comparator": undefined,
+                "id": undefined,
+                "system": undefined,
+                "unit": undefined,
+                "value": 17,
+              },
               "id": undefined,
-              "system": undefined,
-              "userSelected": undefined,
-              "version": undefined,
+              "low": QuantityModel {
+                "code": undefined,
+                "comparator": undefined,
+                "id": undefined,
+                "system": undefined,
+                "unit": undefined,
+                "value": 0,
+              },
             },
           ],
           "id": undefined,
@@ -268,21 +279,43 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
       expect(CodeableConceptModel.createAgeRange('65+ years, 18-64 years')).toMatchInlineSnapshot(`
         CodeableConceptModel {
           "coding": [
-            CodingModel {
-              "code": undefined,
-              "display": "65+ years",
+            RangeModel {
+              "high": QuantityModel {
+                "code": undefined,
+                "comparator": undefined,
+                "id": undefined,
+                "system": undefined,
+                "unit": undefined,
+                "value": undefined,
+              },
               "id": undefined,
-              "system": undefined,
-              "userSelected": undefined,
-              "version": undefined,
+              "low": QuantityModel {
+                "code": undefined,
+                "comparator": ">=",
+                "id": undefined,
+                "system": undefined,
+                "unit": undefined,
+                "value": 65,
+              },
             },
-            CodingModel {
-              "code": undefined,
-              "display": "18-64 years",
+            RangeModel {
+              "high": QuantityModel {
+                "code": undefined,
+                "comparator": undefined,
+                "id": undefined,
+                "system": undefined,
+                "unit": undefined,
+                "value": 64,
+              },
               "id": undefined,
-              "system": undefined,
-              "userSelected": undefined,
-              "version": undefined,
+              "low": QuantityModel {
+                "code": undefined,
+                "comparator": undefined,
+                "id": undefined,
+                "system": undefined,
+                "unit": undefined,
+                "value": 18,
+              },
             },
           ],
           "id": undefined,
