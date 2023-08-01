@@ -77,22 +77,6 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createAgeRange(ageRange: string): CodeableConceptModel {
-    let parsedAgeRanges: string[]
-
-    if (ageRange === '') {
-      parsedAgeRanges = []
-    } else {
-      parsedAgeRanges = ageRange.split(', ')
-    }
-
-    return new CodeableConceptModel(
-      parsedAgeRanges.map((parsedAgeRange) => CodingModel.createAgeRange(parsedAgeRange)),
-      undefined,
-      'Age range'
-    )
-  }
-
   static createStudySize(studySize: number): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createStudySize(studySize)],
