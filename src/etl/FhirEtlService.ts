@@ -20,8 +20,7 @@ export class FhirEtlService {
     private readonly elasticsearchService: ElasticsearchService,
     private readonly riphCtisDto: RiphCtisDto[],
     private readonly riphDmDto: RiphDmDto[],
-    private readonly riphJardeDto1: RiphJardeDto[],
-    private readonly riphJardeDto2: RiphJardeDto[]
+    private readonly riphJardeDto: RiphJardeDto[]
   ) {}
 
   async createIndex(): Promise<void> {
@@ -58,8 +57,7 @@ export class FhirEtlService {
     const etlShards: EtlShard[] = [
       new EtlShardCtis(this.logger, this.elasticsearchService, this.riphCtisDto),
       new EtlShardDm(this.logger, this.elasticsearchService, this.riphDmDto),
-      new EtlShardJarde(this.logger, this.elasticsearchService, this.riphJardeDto1),
-      new EtlShardJarde(this.logger, this.elasticsearchService, this.riphJardeDto2),
+      new EtlShardJarde(this.logger, this.elasticsearchService, this.riphJardeDto),
     ]
 
     for (const shard of etlShards) {

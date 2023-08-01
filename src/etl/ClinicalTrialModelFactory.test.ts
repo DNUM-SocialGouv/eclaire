@@ -1,6 +1,6 @@
 import { ClinicalTrialModelFactory } from './ClinicalTrialModelFactory'
 import { ClinicalTrialModel } from '../shared/models/ClinicalTrialModel'
-import { riphCtisDto, riphDmDto, riphJardeDto1 } from '../shared/test/helpers/elasticsearchHelper'
+import { riphCtisDto, riphDmDto, riphJardeDtoWithActiveStatus } from '../shared/test/helpers/elasticsearchHelper'
 
 describe('clinical trial model factory', () => {
   const unavailable = 'INDISPONIBLE'
@@ -414,7 +414,7 @@ describe('clinical trial model factory', () => {
   describe('jardé', () => {
     it('when RIPH Jardé with all fields filled is given, should build a Jardé clinical trial model', () => {
       // GIVEN
-      const normalClinicalTrialDto = riphJardeDto1[0]
+      const normalClinicalTrialDto = riphJardeDtoWithActiveStatus[0]
 
       // WHEN
       const clinicalTrialModel = ClinicalTrialModelFactory.fromRiphJarde(normalClinicalTrialDto)
@@ -496,7 +496,7 @@ describe('clinical trial model factory', () => {
 
     it('when RIPH Jardé with null fields is given, should build a Jardé clinical trial model', () => {
       // GIVEN
-      const clinicalTrialDtoWithEmptyFields = riphJardeDto1[1]
+      const clinicalTrialDtoWithEmptyFields = riphJardeDtoWithActiveStatus[1]
 
       // WHEN
       const clinicalTrialModel = ClinicalTrialModelFactory.fromRiphJarde(clinicalTrialDtoWithEmptyFields)
@@ -573,7 +573,7 @@ describe('clinical trial model factory', () => {
 
     it('when the last date of approval is higher than historic date, should build a Jardé clinical trial with the last date of approval', () => {
       // GIVEN
-      const jardeWithDateOfApprovalHigherThanHistoricDate = riphJardeDto1[2]
+      const jardeWithDateOfApprovalHigherThanHistoricDate = riphJardeDtoWithActiveStatus[2]
 
       // WHEN
       const clinicalTrialModel = ClinicalTrialModelFactory.fromRiphJarde(jardeWithDateOfApprovalHigherThanHistoricDate)
@@ -585,7 +585,7 @@ describe('clinical trial model factory', () => {
 
     it('when the historic date is higher than last date of approval, should build a Jardé clinical trial with the historic date', () => {
       // GIVEN
-      const jardeWithHistoricDateHigherThanDateOfApproval = riphJardeDto1[0]
+      const jardeWithHistoricDateHigherThanDateOfApproval = riphJardeDtoWithActiveStatus[0]
 
       // WHEN
       const clinicalTrialModel = ClinicalTrialModelFactory.fromRiphJarde(jardeWithHistoricDateHigherThanDateOfApproval)

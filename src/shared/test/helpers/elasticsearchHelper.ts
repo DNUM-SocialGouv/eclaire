@@ -227,7 +227,7 @@ export const riphDmDto: RiphDmDto[] = [
   },
 ]
 
-export const riphJardeDto1: RiphJardeDto[] = [
+export const riphJardeDtoWithActiveStatus: RiphJardeDto[] = [
   {
     reglementation_code: 'JARDE',
     etat: 'EN_COURS',
@@ -296,7 +296,7 @@ export const riphJardeDto1: RiphJardeDto[] = [
   },
 ]
 
-export const riphJardeDto2: RiphJardeDto[] = [
+export const riphJardeDtoWithApprovedAndFromCtisStatuses: RiphJardeDto[] = [
   {
     reglementation_code: 'JARDE',
     etat: 'A_DEMARRER',
@@ -341,4 +341,9 @@ export const riphJardeDto2: RiphJardeDto[] = [
     historique: '2022-11-29:Terminée',
     dates_avis_favorable_ms_mns: '21.01155.000011-MS03:2022-10-04, 21.01155.000011-MS04.1:2023-04-06',
   },
+]
+
+export const riphJardeDto: RiphJardeDto[] = [
+  ...riphJardeDtoWithActiveStatus,
+  ...riphJardeDtoWithApprovedAndFromCtisStatuses,
 ]

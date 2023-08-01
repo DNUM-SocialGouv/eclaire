@@ -1,7 +1,7 @@
 import { expect } from 'vitest'
 
 import { EtlShardJarde } from './EtlShardJarde'
-import { riphJardeDto1, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
+import { riphJardeDtoWithActiveStatus, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
 
 describe('etl | EtlShardJarde', () => {
   describe('extract', () => {
@@ -14,13 +14,13 @@ describe('etl | EtlShardJarde', () => {
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
       vi.spyOn(logger, 'info').mockResolvedValueOnce()
 
-      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, riphJardeDto1)
+      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, riphJardeDtoWithActiveStatus)
 
       // when
       const result = etlShardJarde.extract()
 
       // then
-      expect(result).toStrictEqual(riphJardeDto1)
+      expect(result).toStrictEqual(riphJardeDtoWithActiveStatus)
     })
   })
 
@@ -33,10 +33,10 @@ describe('etl | EtlShardJarde', () => {
       } = await setupClientAndElasticsearchService()
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
       vi.spyOn(logger, 'info').mockResolvedValueOnce()
-      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, riphJardeDto1)
+      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, riphJardeDtoWithActiveStatus)
 
       // when
-      const result = etlShardJarde.transform(riphJardeDto1)
+      const result = etlShardJarde.transform(riphJardeDtoWithActiveStatus)
 
       // then
       expect(result).toHaveLength(6)
@@ -52,8 +52,8 @@ describe('etl | EtlShardJarde', () => {
       } = await setupClientAndElasticsearchService()
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
       vi.spyOn(logger, 'info').mockResolvedValueOnce()
-      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, riphJardeDto1)
-      const documents = etlShardJarde.transform(riphJardeDto1)
+      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, riphJardeDtoWithActiveStatus)
+      const documents = etlShardJarde.transform(riphJardeDtoWithActiveStatus)
 
       // when
       await etlShardJarde.load(documents)

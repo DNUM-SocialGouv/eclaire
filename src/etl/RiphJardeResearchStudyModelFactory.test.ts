@@ -1,12 +1,12 @@
 import { RiphJardeResearchStudyModelFactory } from './RiphJardeResearchStudyModelFactory'
-import { riphJardeDto1 } from '../shared/test/helpers/elasticsearchHelper'
+import { riphJardeDtoWithActiveStatus } from '../shared/test/helpers/elasticsearchHelper'
 
 describe('jarde research study model factory', () => {
   it('should build a Jarde research study model, when RIPH Jarde with all fields filled is given', () => {
     // GIVEN
     vi.useFakeTimers()
     vi.setSystemTime(new Date(2022, 0, 1))
-    const normalResearchStudyDto = riphJardeDto1[0]
+    const normalResearchStudyDto = riphJardeDtoWithActiveStatus[0]
 
     // WHEN
     const researchStudyModel = RiphJardeResearchStudyModelFactory.create(normalResearchStudyDto)
@@ -726,7 +726,7 @@ describe('jarde research study model factory', () => {
     // GIVEN
     vi.useFakeTimers()
     vi.setSystemTime(new Date(2022, 0, 1))
-    const researchStudyDtoWithEmptyFields = riphJardeDto1[1]
+    const researchStudyDtoWithEmptyFields = riphJardeDtoWithActiveStatus[1]
 
     // WHEN
     const researchStudyModel = RiphJardeResearchStudyModelFactory.create(researchStudyDtoWithEmptyFields)
