@@ -84,4 +84,4 @@ export class ElasticsearchBodyBuilder {
   }
 }
 
-type Operator = 'gte' | 'gt' | 'lte' | 'lt'
+export type Operator = 'gte' | 'gt' | 'lte' | 'lt'
