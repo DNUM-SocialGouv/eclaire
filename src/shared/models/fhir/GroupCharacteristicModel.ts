@@ -1,6 +1,7 @@
 import { CodeableConcept, GroupCharacteristic, Period, Quantity, Range, Reference } from 'fhir/r4'
 
 import { CodeableConceptModel } from './DataType/CodeableConceptModel'
+import { RangeModel } from './DataType/RangeModel'
 import { ModelUtils } from '../custom/ModelUtils'
 
 export class GroupCharacteristicModel implements GroupCharacteristic {
@@ -39,7 +40,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
       undefined,
       undefined,
       undefined,
-      CodeableConceptModel.createAgeRange(ageRange),
+      RangeModel.createAgeRange(ageRange),
       undefined
     )
   }

@@ -1,7 +1,6 @@
 import { CodeableConcept, Coding } from 'fhir/r4'
 
 import { CodingModel } from './CodingModel'
-import { RangeModel } from './RangeModel'
 import { ModelUtils } from '../../custom/ModelUtils'
 import { ContactType } from '../MetadataType/ContactDetailModel'
 
@@ -75,22 +74,6 @@ export class CodeableConceptModel implements CodeableConcept {
       parsedGenders.map((parsedGender) => CodingModel.createGender(parsedGender)),
       undefined,
       'Genders'
-    )
-  }
-
-  static createAgeRange(ageRange: string): CodeableConceptModel {
-    let parsedAgeRanges: string[]
-
-    if (ageRange === '') {
-      parsedAgeRanges = []
-    } else {
-      parsedAgeRanges = ageRange.split(', ')
-    }
-
-    return new CodeableConceptModel(
-      parsedAgeRanges.map((parsedAgeRange) => RangeModel.createAgeRange(parsedAgeRange)),
-      undefined,
-      'Age range'
     )
   }
 

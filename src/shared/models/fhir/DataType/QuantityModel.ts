@@ -2,24 +2,24 @@ import { Quantity } from 'fhir/r4'
 
 export class QuantityModel implements Quantity {
   constructor(
-    readonly code?: string | undefined,
-    readonly comparator?: AgeComparator | undefined,
-    readonly id?: string | undefined,
-    readonly system?: string | undefined,
-    readonly unit?: string | undefined,
-    readonly value?: number | undefined
+    readonly code: string | undefined,
+    readonly comparator: QuantityComparator | undefined,
+    readonly id: string | undefined,
+    readonly system: string | undefined,
+    readonly unit: string | undefined,
+    readonly value: number | undefined
   ) {}
 
-  static createResearchStudyQuantity(value: number, ageComparator?: AgeComparator | undefined): QuantityModel {
+  static create(value: number, unit: string, comparator?: QuantityComparator): QuantityModel {
     return new QuantityModel(
       undefined,
-      ageComparator,
+      comparator,
       undefined,
       undefined,
-      undefined,
+      unit,
       value
     )
   }
 }
 
-export type AgeComparator = '<' | '<=' | '>=' | '>'
+export type QuantityComparator = '<' | '<=' | '>=' | '>'
