@@ -6,7 +6,7 @@ export class ModelUtils {
   }
 
   static emptyNumberIfNull(value: number): number {
-    return value ?? -1
+    return value ?? undefined
   }
 
   static generateEnrollmentGroupId(value: string): string {

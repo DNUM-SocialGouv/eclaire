@@ -45,20 +45,6 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createStudySize(studySize: number): GroupCharacteristicModel {
-    return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
-      false,
-      undefined,
-      undefined,
-      undefined,
-      CodeableConceptModel.createStudySize(studySize),
-      undefined,
-      undefined,
-      undefined
-    )
-  }
-
   static createResearchStudyGroupCategory(researchStudyGroupCategory: string): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),

@@ -237,43 +237,6 @@ describe('dm research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "96",
-                      "id": undefined,
-                      "system": undefined,
-                      "userSelected": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Study Size",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "id": undefined,
-                      "system": undefined,
-                      "userSelected": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Group characteristic code",
-                },
-                "exclude": false,
-                "id": undefined,
-                "period": undefined,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
                       "display": "INDISPONIBLE",
                       "id": undefined,
                       "system": undefined,
@@ -409,7 +372,7 @@ describe('dm research study model factory', () => {
             "member": undefined,
             "meta": undefined,
             "name": undefined,
-            "quantity": undefined,
+            "quantity": 96,
             "resourceType": "Group",
             "type": "person",
           },
@@ -937,43 +900,6 @@ describe('dm research study model factory', () => {
                     "value": undefined,
                   },
                 },
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "id": undefined,
-                      "system": undefined,
-                      "userSelected": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Group characteristic code",
-                },
-                "exclude": false,
-                "id": undefined,
-                "period": undefined,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "-1",
-                      "id": undefined,
-                      "system": undefined,
-                      "userSelected": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Study Size",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {

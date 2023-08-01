@@ -77,14 +77,6 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createStudySize(studySize: number): CodeableConceptModel {
-    return new CodeableConceptModel(
-      [CodingModel.createStudySize(studySize)],
-      undefined,
-      'Study Size'
-    )
-  }
-
   static createResearchStudyGroupCategory(researchStudyGroupCategory: string): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createResearchStudyGroupCategory(researchStudyGroupCategory)],

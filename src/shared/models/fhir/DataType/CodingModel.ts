@@ -95,17 +95,6 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createStudySize(studySize: number): CodingModel {
-    return new CodingModel(
-      undefined,
-      studySize.toString(),
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    )
-  }
-
   static createResearchStudyGroupCategory(researchStudyGroupCategory: string): CodingModel {
     return new CodingModel(
       undefined,

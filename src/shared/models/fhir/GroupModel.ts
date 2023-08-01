@@ -62,7 +62,6 @@ export class GroupModel implements Group {
       [
         GroupCharacteristicModel.createGender(emptySexIfNull),
         ...parsedAgeRanges,
-        GroupCharacteristicModel.createStudySize(emptyStudySizeIfNull),
         GroupCharacteristicModel.createResearchStudyGroupCategory(emptyResearchStudyGroupCategoryIfNull),
         GroupCharacteristicModel.createStudyPopulation(emptyStudyPopulationIfNull),
         GroupCharacteristicModel.createInclusion(emptyStudyInclusionIfNull),
@@ -77,7 +76,7 @@ export class GroupModel implements Group {
       undefined,
       undefined,
       undefined,
-      undefined,
+      emptyStudySizeIfNull,
       'person'
     )
   }

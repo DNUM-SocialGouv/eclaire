@@ -295,43 +295,6 @@ describe('ctis research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "21",
-                      "id": undefined,
-                      "system": undefined,
-                      "userSelected": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Study Size",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "id": undefined,
-                      "system": undefined,
-                      "userSelected": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Group characteristic code",
-                },
-                "exclude": false,
-                "id": undefined,
-                "period": undefined,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
                       "display": "Données non disponible",
                       "id": undefined,
                       "system": undefined,
@@ -467,7 +430,7 @@ describe('ctis research study model factory', () => {
             "member": undefined,
             "meta": undefined,
             "name": undefined,
-            "quantity": undefined,
+            "quantity": 21,
             "resourceType": "Group",
             "type": "person",
           },
@@ -941,43 +904,6 @@ describe('ctis research study model factory', () => {
                   ],
                   "id": undefined,
                   "text": "Genders",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "id": undefined,
-                      "system": undefined,
-                      "userSelected": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Group characteristic code",
-                },
-                "exclude": false,
-                "id": undefined,
-                "period": undefined,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "-1",
-                      "id": undefined,
-                      "system": undefined,
-                      "userSelected": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "id": undefined,
-                  "text": "Study Size",
                 },
                 "valueQuantity": undefined,
                 "valueRange": undefined,
