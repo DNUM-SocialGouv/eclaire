@@ -96,6 +96,7 @@ describe('ctis research study model factory', () => {
           ContactDetailModel {
             "extension": [
               ExtensionModel {
+                "extension": undefined,
                 "id": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
                 "valueCodeableConcept": CodeableConceptModel {
@@ -440,6 +441,7 @@ describe('ctis research study model factory', () => {
         ],
         "extension": [
           ExtensionModel {
+            "extension": undefined,
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
             "valueCodeableConcept": undefined,
@@ -453,11 +455,88 @@ describe('ctis research study model factory', () => {
             "valueString": undefined,
           },
           ExtensionModel {
+            "extension": undefined,
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueCodeableConcept": undefined,
             "valueReference": undefined,
             "valueString": "Diseases [C] - Neoplasms [C04]",
+          },
+          ExtensionModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "id": undefined,
+                "url": "labelValue",
+                "valueCodeableConcept": undefined,
+                "valueReference": undefined,
+                "valueString": "INDISPONIBLE",
+              },
+              ExtensionModel {
+                "extension": undefined,
+                "id": undefined,
+                "url": "labelType",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "human-use",
+                      "id": undefined,
+                      "system": undefined,
+                      "userSelected": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Label Type",
+                },
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "id": undefined,
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "valueCodeableConcept": undefined,
+            "valueReference": undefined,
+            "valueString": undefined,
+          },
+          ExtensionModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "id": undefined,
+                "url": "labelValue",
+                "valueCodeableConcept": undefined,
+                "valueReference": undefined,
+                "valueString": "INDISPONIBLE",
+              },
+              ExtensionModel {
+                "extension": undefined,
+                "id": undefined,
+                "url": "labelType",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "acronym",
+                      "id": undefined,
+                      "system": undefined,
+                      "userSelected": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Label Type",
+                },
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "id": undefined,
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "valueCodeableConcept": undefined,
+            "valueReference": undefined,
+            "valueString": undefined,
           },
         ],
         "focus": undefined,
@@ -931,6 +1010,7 @@ describe('ctis research study model factory', () => {
           ContactDetailModel {
             "extension": [
               ExtensionModel {
+                "extension": undefined,
                 "id": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1190,6 +1270,7 @@ describe('ctis research study model factory', () => {
         ],
         "extension": [
           ExtensionModel {
+            "extension": undefined,
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
             "valueCodeableConcept": undefined,
@@ -1203,11 +1284,88 @@ describe('ctis research study model factory', () => {
             "valueString": undefined,
           },
           ExtensionModel {
+            "extension": undefined,
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueCodeableConcept": undefined,
             "valueReference": undefined,
             "valueString": "",
+          },
+          ExtensionModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "id": undefined,
+                "url": "labelValue",
+                "valueCodeableConcept": undefined,
+                "valueReference": undefined,
+                "valueString": "INDISPONIBLE",
+              },
+              ExtensionModel {
+                "extension": undefined,
+                "id": undefined,
+                "url": "labelType",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "human-use",
+                      "id": undefined,
+                      "system": undefined,
+                      "userSelected": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Label Type",
+                },
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "id": undefined,
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "valueCodeableConcept": undefined,
+            "valueReference": undefined,
+            "valueString": undefined,
+          },
+          ExtensionModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "id": undefined,
+                "url": "labelValue",
+                "valueCodeableConcept": undefined,
+                "valueReference": undefined,
+                "valueString": "INDISPONIBLE",
+              },
+              ExtensionModel {
+                "extension": undefined,
+                "id": undefined,
+                "url": "labelType",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "acronym",
+                      "id": undefined,
+                      "system": undefined,
+                      "userSelected": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Label Type",
+                },
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "id": undefined,
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "valueCodeableConcept": undefined,
+            "valueReference": undefined,
+            "valueString": undefined,
           },
         ],
         "focus": undefined,

@@ -21,12 +21,12 @@ export class RiphCtisResearchStudyModelFactory {
     const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphCtisDto.numero_ctis)
 
     const arm = undefined
-    const category = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
-    const condition = [
+    const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
+    const condition: CodeableConceptModel[] = [
       CodeableConceptModel.createDiseaseCondition(riphCtisDto.pathologies_maladies_rares),
       CodeableConceptModel.createMedDraCondition(riphCtisDto.informations_meddra),
     ]
-    const contact = [
+    const contact: ContactDetailModel[] = [
       ContactDetailModel.create(
         riphCtisDto.contact_prenom,
         riphCtisDto.contact_nom,
@@ -42,7 +42,7 @@ export class RiphCtisResearchStudyModelFactory {
         'Scientific'
       ),
     ]
-    const contained = [
+    const contained: GroupModel[] = [
       GroupModel.createStudyCharacteristics(
         enrollmentGroupId,
         riphCtisDto.sexe,
@@ -59,6 +59,8 @@ export class RiphCtisResearchStudyModelFactory {
     const extensions: Extension[] = [
       ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId),
       ExtensionModel.createEclaireTherapeuticArea(riphCtisDto.domaine_therapeutique),
+      ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
+      ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
     ]
     const focus = undefined
     const id = riphCtisDto.numero_ctis
@@ -84,7 +86,7 @@ export class RiphCtisResearchStudyModelFactory {
     const reasonStopped = undefined
     const relatedArtifact = undefined
     const site = undefined
-    const sponsor = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
+    const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphCtisDto.etat as RiphStatus
     const text = undefined
     const title = ModelUtils.emptyIfNull(riphCtisDto.titre)

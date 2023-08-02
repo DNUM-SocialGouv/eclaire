@@ -3,6 +3,7 @@ import { CodeableConcept, Coding } from 'fhir/r4'
 import { CodingModel } from './CodingModel'
 import { ModelUtils } from '../../custom/ModelUtils'
 import { ContactType } from '../MetadataType/ContactDetailModel'
+import { LabelType } from '../SpecialPurposeDataType/ExtensionModel'
 
 export class CodeableConceptModel implements CodeableConcept {
   constructor(
@@ -154,5 +155,13 @@ export class CodeableConceptModel implements CodeableConcept {
         'Countries of recruitment'
       )
     })
+  }
+
+  static createLabelType(labelType: LabelType): CodeableConceptModel {
+    return new CodeableConceptModel(
+      [CodingModel.createLabelType(labelType)],
+      undefined,
+      'Label Type'
+    )
   }
 }
