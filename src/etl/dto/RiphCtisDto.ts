@@ -26,7 +26,8 @@ export class RiphCtisDto {
     readonly population_recrutement: string,
     readonly date_debut_recrutement: string,
     readonly historique: string,
-    readonly dates_avis_favorable_ms_mns: string
+    readonly dates_avis_favorable_ms_mns: string,
+    readonly pays_concernes: string
   ) {}
 }
 

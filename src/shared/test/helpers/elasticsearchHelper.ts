@@ -80,6 +80,7 @@ export const riphCtisDto: RiphCtisDto[] = [
     date_debut_recrutement: '2022-06-30',
     historique: '2023-03-16:En cours',
     dates_avis_favorable_ms_mns: '22.00800.000094-SM-1:2022-11-07, 22.00800.000094-SM-2:2023-04-12',
+    pays_concernes: 'BE, DE, ES, FR, HU, IT, PL, PT',
   },
   {
     reglementation_code: 'REG536',
@@ -119,6 +120,7 @@ export const riphCtisDto: RiphCtisDto[] = [
     date_debut_recrutement: null,
     historique: null,
     dates_avis_favorable_ms_mns: null,
+    pays_concernes: null,
   },
   {
     reglementation_code: 'REG536',
@@ -158,6 +160,7 @@ export const riphCtisDto: RiphCtisDto[] = [
     date_debut_recrutement: null,
     historique: '2022-04-28:Suspendue, 2023-11-29:Terminée',
     dates_avis_favorable_ms_mns: '21.01155.000011-MS03:2022-10-04, 21.01155.000011-MS04.1:2023-04-06',
+    pays_concernes: null,
   },
 ]
 

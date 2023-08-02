@@ -31,6 +31,7 @@ export class CodeableConceptModel implements CodeableConcept {
 
   static createDiseaseCondition(disease: string): CodeableConceptModel {
     const emptyDiseaseIfNull = ModelUtils.emptyIfNull(disease)
+
     return new CodeableConceptModel(
       [CodingModel.createDiseaseCoding(emptyDiseaseIfNull)],
       undefined,
@@ -139,5 +140,19 @@ export class CodeableConceptModel implements CodeableConcept {
       undefined,
       'Contact Type'
     )
+  }
+
+  static createLocations(countriesCode: string): CodeableConceptModel[] | undefined {
+    const emptyCountriesCodeIfNull = ModelUtils.emptyIfNull(countriesCode)
+
+    if (emptyCountriesCodeIfNull === '') return undefined
+
+    return emptyCountriesCodeIfNull.split(', ').map((countryCode): CodeableConceptModel => {
+      return new CodeableConceptModel(
+        [CodingModel.createLocation(countryCode)],
+        undefined,
+        'Countries of recruitment'
+      )
+    })
   }
 }

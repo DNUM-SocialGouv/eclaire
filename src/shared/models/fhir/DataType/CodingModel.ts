@@ -1,6 +1,7 @@
 import { Coding } from 'fhir/r4'
 
 import { administrativeGenderCodeSystem } from '../CodeSystem/administrativeGenderCodeSystem'
+import { countryCodeSystem } from '../CodeSystem/countryCodeSystem'
 import { eclaireTypeContactCodeSystem } from '../CodeSystem/eclaireTypeContactCodeSystem'
 import { medDraCodeSystem } from '../CodeSystem/medDraCodeSystem'
 import { researchStudyPhaseCodeSystem } from '../CodeSystem/researchStudyPhaseCodeSystem'
@@ -36,26 +37,18 @@ export class CodingModel implements Coding {
   }
 
   private static getPhaseCodeFromText(isolatedPhase: string): PhaseCode {
-    let correspondingPhaseCode: PhaseCode
-
     switch (isolatedPhase) {
       case 'Phase I':
-        correspondingPhaseCode = PhaseCode.PHASE_1
-        break
+        return PhaseCode.PHASE_1
       case 'Phase II':
-        correspondingPhaseCode = PhaseCode.PHASE_2
-        break
+        return PhaseCode.PHASE_2
       case 'Phase III':
-        correspondingPhaseCode = PhaseCode.PHASE_3
-        break
+        return PhaseCode.PHASE_3
       case 'Phase IV':
-        correspondingPhaseCode = PhaseCode.PHASE_4
-        break
+        return PhaseCode.PHASE_4
       default:
-        correspondingPhaseCode = PhaseCode.NA
-        break
+        return PhaseCode.NA
     }
-    return correspondingPhaseCode
   }
 
   static createDiseaseCoding(disease: string): CodingModel {
@@ -187,6 +180,7 @@ export class CodingModel implements Coding {
     const reference = eclaireTypeContactCodeSystem.concept.find(
       (reference) => reference.display.includes(contactType)
     )
+
     return new CodingModel(
       reference.code,
       reference.display,
@@ -194,6 +188,21 @@ export class CodingModel implements Coding {
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html',
       undefined,
       eclaireTypeContactCodeSystem.version
+    )
+  }
+
+  static createLocation(countryCode: string): CodingModel {
+    const country = countryCodeSystem.compose.include[0].concept.find(
+      (country): boolean => country.code === countryCode
+    )
+
+    return new CodingModel(
+      countryCode,
+      country.display,
+      undefined,
+      countryCodeSystem.compose.include[0].system,
+      undefined,
+      undefined
     )
   }
 }

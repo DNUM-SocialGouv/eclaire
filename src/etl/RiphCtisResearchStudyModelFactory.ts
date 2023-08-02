@@ -69,7 +69,7 @@ export class RiphCtisResearchStudyModelFactory {
     const implicitRules = undefined
     const keyword = undefined
     const language = undefined
-    const location = undefined
+    const location = CodeableConceptModel.createLocations(riphCtisDto.pays_concernes)
     const meta: Meta = MetaModel.create(
       riphCtisDto.historique,
       riphCtisDto.dates_avis_favorable_ms_mns
