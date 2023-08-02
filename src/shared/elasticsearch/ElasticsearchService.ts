@@ -29,6 +29,7 @@ export class ElasticsearchService {
 
   async findOneDocument<T>(id: string): Promise<T> {
     const request = await this.client.get({
+      _source_excludes: ['referenceContents'],
       id,
       index: this.index,
       type: this.type,
@@ -47,6 +48,7 @@ export class ElasticsearchService {
 
   async search(requestBody: RequestBody): Promise<SearchResponse> {
     const response = await this.client.search({
+      _source_excludes: ['referenceContents'],
       body: requestBody,
       index: this.index,
     } satisfies RequestParams.Search)

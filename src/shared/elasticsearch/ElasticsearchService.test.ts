@@ -54,6 +54,7 @@ describe('elasticsearch service', () => {
 
     // THEN
     expect(fakeClient.get).toHaveBeenCalledWith({
+      _source_excludes: ['referenceContents'],
       id: fakeId,
       index: 'eclaire',
       type: '_doc',
@@ -88,6 +89,7 @@ describe('elasticsearch service', () => {
 
       // THEN
       expect(fakeClient.search).toHaveBeenCalledWith({
+        _source_excludes: ['referenceContents'],
         body: { query: { term: { 'scientific_title.value': 'ADN' } } },
         index: 'eclaire',
       })
