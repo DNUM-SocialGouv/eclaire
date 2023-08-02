@@ -97,14 +97,14 @@ describe('ctis research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "id": undefined,
-                "url": "https://ansforge.github.io/IG-essais-cliniques/ig/main/StructureDefinition-eclaire-contact-type.html",
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": "SCI",
                       "display": "Scientifique / Scientific",
                       "id": undefined,
-                      "system": "https://ansforge.github.io/IG-essais-cliniques/ig/main/CodeSystem-eclaire-type-contact-code-system.html",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
                       "userSelected": undefined,
                       "version": "0.1.0",
                     },
@@ -210,14 +210,7 @@ describe('ctis research study model factory', () => {
                 "valueCodeableConcept": undefined,
                 "valueQuantity": undefined,
                 "valueRange": RangeModel {
-                  "high": QuantityModel {
-                    "code": undefined,
-                    "comparator": undefined,
-                    "id": undefined,
-                    "system": undefined,
-                    "unit": undefined,
-                    "value": undefined,
-                  },
+                  "high": undefined,
                   "id": undefined,
                   "low": QuantityModel {
                     "code": undefined,
@@ -826,14 +819,14 @@ describe('ctis research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "id": undefined,
-                "url": "https://ansforge.github.io/IG-essais-cliniques/ig/main/StructureDefinition-eclaire-contact-type.html",
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": "SCI",
                       "display": "Scientifique / Scientific",
                       "id": undefined,
-                      "system": "https://ansforge.github.io/IG-essais-cliniques/ig/main/CodeSystem-eclaire-type-contact-code-system.html",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
                       "userSelected": undefined,
                       "version": "0.1.0",
                     },

@@ -37,7 +37,7 @@ export class ExtensionModel implements Extension {
   static createEclaireContactType(contactType: ContactType): ExtensionModel {
     return new ExtensionModel(
       undefined,
-      'https://ansforge.github.io/IG-essais-cliniques/ig/main/StructureDefinition-eclaire-contact-type.html',
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html',
       CodeableConceptModel.createContactType(contactType),
       undefined,
       undefined
