@@ -19,6 +19,7 @@ export class RiphJardeResearchStudyModelFactory {
     const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphJardeDto.numero_national)
     const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphJardeDto.numero_national)
     const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphJardeDto.numero_national)
+    const assigner = ModelUtils.identifyAssigner(riphJardeDto.reglementation_code, riphJardeDto.qualification_recherche)
 
     const arm = undefined
     const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphJardeDto.reglementation_code)]
@@ -73,11 +74,7 @@ export class RiphJardeResearchStudyModelFactory {
     const id = riphJardeDto.numero_national
     const identifier: Identifier[] = [
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
-      IdentifierModel.createSecondarySlice(
-        riphJardeDto.numero_national,
-        riphJardeDto.reglementation_code,
-        riphJardeDto.qualification_recherche
-      ),
+      IdentifierModel.createSecondarySlice(riphJardeDto.numero_national, assigner),
     ]
     const implicitRules = undefined
     const keyword = undefined
@@ -127,6 +124,7 @@ export class RiphJardeResearchStudyModelFactory {
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE
       ),
+      OrganizationModel.createSecondaryAssigner(assigner),
     ]
 
     const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(organizations)

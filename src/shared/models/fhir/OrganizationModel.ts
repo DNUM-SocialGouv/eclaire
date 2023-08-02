@@ -13,6 +13,7 @@ import {
 import { AddressModel } from './DataType/AddressModel'
 import { CodeableConceptModel } from './DataType/CodeableConceptModel'
 import { OrganizationContactModel } from './OrganizationContactModel'
+import { AssignerForSecondaryIdentifier, ReferenceModel } from './SpecialPurposeDataType/ReferenceModel'
 import { ModelUtils } from '../custom/ModelUtils'
 
 export class OrganizationModel implements Organization {
@@ -90,6 +91,43 @@ export class OrganizationModel implements Organization {
       undefined,
       undefined,
       [CodeableConceptModel.createClinicalResearchSponsor()]
+    )
+  }
+
+  static createSecondaryAssigner(assignerForSecondaryIdentifier: AssignerForSecondaryIdentifier) {
+    let name: string
+    let endpoint: Reference
+
+    if (assignerForSecondaryIdentifier === AssignerForSecondaryIdentifier.ANSM) {
+      name = 'Agence nationale de sécurité du médicament et des produits de santé'
+      endpoint = ReferenceModel.createUrl('https://ansm.sante.fr')
+    } else if (assignerForSecondaryIdentifier === AssignerForSecondaryIdentifier.CTIS) {
+      name = 'Clinical Trials Information System'
+      endpoint = ReferenceModel.createUrl('https://euclinicaltrials.eu/')
+    } else if (assignerForSecondaryIdentifier === AssignerForSecondaryIdentifier.EUDRACT) {
+      name = 'European Union Drug Regulating Authorities Clinical Trials Database'
+      endpoint = ReferenceModel.createUrl('https://eudract.ema.europa.eu/')
+    } else {
+      name = undefined
+      endpoint = undefined
+    }
+
+    return new OrganizationModel(
+      true,
+      undefined,
+      [assignerForSecondaryIdentifier],
+      undefined,
+      undefined,
+      [endpoint],
+      assignerForSecondaryIdentifier,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      name,
+      undefined,
+      undefined,
+      undefined
     )
   }
 }

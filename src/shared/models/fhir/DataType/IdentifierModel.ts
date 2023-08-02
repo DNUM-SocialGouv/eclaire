@@ -1,18 +1,9 @@
+import { CodeableConcept, Identifier, Period, Reference } from 'fhir/r4'
+
 import {
-  CodeableConcept,
-  Identifier,
-  Period,
-  Reference,
-} from 'fhir/r4'
-
-import { ReferenceModel } from '../SpecialPurposeDataType/ReferenceModel'
-
-enum REGULATION_CODES {
-  CTIS = 'REG536',
-  DM = 'REG745',
-  DMDIV = 'REG746',
-  JARDE = 'JARDE',
-}
+  AssignerForSecondaryIdentifier,
+  ReferenceModel,
+} from '../SpecialPurposeDataType/ReferenceModel'
 
 export class IdentifierModel implements Identifier {
   constructor(
@@ -31,7 +22,7 @@ export class IdentifierModel implements Identifier {
     readonly value: string | undefined
   ) {}
 
-  static createPrimarySlice(number: string): IdentifierModel {
+  static createPrimarySlice(nationalNumberOrEquivalent: string): IdentifierModel {
     return new IdentifierModel(
       ReferenceModel.createAssignerForPrimaryIdentifier(),
       undefined,
@@ -39,42 +30,22 @@ export class IdentifierModel implements Identifier {
       undefined,
       'official',
       undefined,
-      number
+      nationalNumberOrEquivalent
     )
   }
 
   static createSecondarySlice(
-    number: string,
-    regulationCode: string,
-    qualification: string | undefined
+    nationalNumberOrEquivalent: string,
+    assigner: AssignerForSecondaryIdentifier
   ): IdentifierModel {
-    let assigner: Reference
-
-    switch (regulationCode) {
-      case REGULATION_CODES.CTIS:
-        assigner = ReferenceModel.createCtisAssigner(number)
-        break
-      case REGULATION_CODES.DM:
-      case REGULATION_CODES.DMDIV:
-      case REGULATION_CODES.JARDE:
-        if (qualification === 'Catégorie 1') {
-          assigner = ReferenceModel.createEudraCtAssigner()
-        } else {
-          assigner = ReferenceModel.createAnsmAssigner()
-        }
-        break
-      default:
-        assigner = undefined
-    }
-
     return new IdentifierModel(
-      assigner,
+      ReferenceModel.createAssignerForSecondaryIdentifier(assigner),
       undefined,
       undefined,
       undefined,
       'secondary',
       undefined,
-      number
+      nationalNumberOrEquivalent
     )
   }
 }

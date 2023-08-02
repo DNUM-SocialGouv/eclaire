@@ -31,53 +31,46 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createCtisAssigner(ctisNumber: string): ReferenceModel {
+  static createAssignerForSecondaryIdentifier(assigner: AssignerForSecondaryIdentifier): ReferenceModel {
+    const type = 'Organization'
     return new ReferenceModel(
-      'euclinicaltrials.eu',
+      'Reference to assigner',
       undefined,
       undefined,
-      `https://euclinicaltrials.eu/app/#/view/${ctisNumber}`,
-      undefined
-    )
-  }
-
-  static createAnsmAssigner(): ReferenceModel {
-    return new ReferenceModel(
-      'Agence nationale de sécurité du médicament et des produits de santé (ANSM)',
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    )
-  }
-
-  static createEudraCtAssigner(): ReferenceModel {
-    return new ReferenceModel(
-      'European Union Drug Regulating Authorities Clinical Trials Database (Eudra CT)',
-      undefined,
-      undefined,
-      undefined,
-      undefined
+      this.generateRelativeUrlReference(assigner, type),
+      type
     )
   }
 
   static createPrimarySponsor(primarySponsorOrganizationId: string): ReferenceModel {
+    const type = 'Organization'
     return new ReferenceModel(
       'Reference to primary sponsor',
       undefined,
       undefined,
-      this.generateRelativeUrlReference(primarySponsorOrganizationId, 'Organization'),
-      'Organization'
+      this.generateRelativeUrlReference(primarySponsorOrganizationId, type),
+      type
     )
   }
 
   static createSecondarySponsor(secondarySponsorOrganizationId: string) {
+    const type = 'Organization'
     return new ReferenceModel(
       'Reference to secondary sponsor',
       undefined,
       undefined,
-      this.generateRelativeUrlReference(secondarySponsorOrganizationId, 'Organization'),
-      'Organization'
+      this.generateRelativeUrlReference(secondarySponsorOrganizationId, type),
+      type
+    )
+  }
+
+  static createUrl(url: string) {
+    return new ReferenceModel(
+      undefined,
+      undefined,
+      undefined,
+      url,
+      undefined
     )
   }
 
@@ -88,4 +81,10 @@ export class ReferenceModel implements Reference {
   private static generateInternalFragmentReference(id: string): string {
     return `#${id}`
   }
+}
+
+export enum AssignerForSecondaryIdentifier {
+  ANSM = 'ansm',
+  CTIS = 'ctis',
+  EUDRACT = 'eudract'
 }

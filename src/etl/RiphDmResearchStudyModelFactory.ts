@@ -19,6 +19,7 @@ export class RiphDmResearchStudyModelFactory {
     const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphDmDto.numero_national)
     const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphDmDto.numero_national)
     const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphDmDto.numero_national)
+    const assigner = ModelUtils.identifyAssigner(riphDmDto.reglementation_code, riphDmDto.qualification)
 
     const arm = undefined
     const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphDmDto.reglementation_code)]
@@ -73,7 +74,7 @@ export class RiphDmResearchStudyModelFactory {
     const id = riphDmDto.numero_national
     const identifier: Identifier[] = [
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
-      IdentifierModel.createSecondarySlice(riphDmDto.numero_national, riphDmDto.reglementation_code, riphDmDto.qualification),
+      IdentifierModel.createSecondarySlice(riphDmDto.numero_national, assigner),
     ]
     const implicitRules = undefined
     const keyword = undefined
@@ -123,6 +124,7 @@ export class RiphDmResearchStudyModelFactory {
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE
       ),
+      OrganizationModel.createSecondaryAssigner(assigner),
     ]
 
     const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(organizations)
