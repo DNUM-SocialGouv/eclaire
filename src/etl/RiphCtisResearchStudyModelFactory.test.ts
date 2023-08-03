@@ -497,7 +497,120 @@ describe('ctis research study model factory', () => {
         "implicitRules": undefined,
         "keyword": undefined,
         "language": undefined,
-        "location": undefined,
+        "location": [
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "BE",
+                "display": "Belgium",
+                "id": undefined,
+                "system": "urn:iso:std:iso:3166",
+                "userSelected": undefined,
+                "version": undefined,
+              },
+            ],
+            "id": undefined,
+            "text": "Countries of recruitment",
+          },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "DE",
+                "display": "Germany",
+                "id": undefined,
+                "system": "urn:iso:std:iso:3166",
+                "userSelected": undefined,
+                "version": undefined,
+              },
+            ],
+            "id": undefined,
+            "text": "Countries of recruitment",
+          },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "ES",
+                "display": "Spain",
+                "id": undefined,
+                "system": "urn:iso:std:iso:3166",
+                "userSelected": undefined,
+                "version": undefined,
+              },
+            ],
+            "id": undefined,
+            "text": "Countries of recruitment",
+          },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "FR",
+                "display": "France",
+                "id": undefined,
+                "system": "urn:iso:std:iso:3166",
+                "userSelected": undefined,
+                "version": undefined,
+              },
+            ],
+            "id": undefined,
+            "text": "Countries of recruitment",
+          },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "HU",
+                "display": "Hungary",
+                "id": undefined,
+                "system": "urn:iso:std:iso:3166",
+                "userSelected": undefined,
+                "version": undefined,
+              },
+            ],
+            "id": undefined,
+            "text": "Countries of recruitment",
+          },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "IT",
+                "display": "Italy",
+                "id": undefined,
+                "system": "urn:iso:std:iso:3166",
+                "userSelected": undefined,
+                "version": undefined,
+              },
+            ],
+            "id": undefined,
+            "text": "Countries of recruitment",
+          },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "PL",
+                "display": "Poland",
+                "id": undefined,
+                "system": "urn:iso:std:iso:3166",
+                "userSelected": undefined,
+                "version": undefined,
+              },
+            ],
+            "id": undefined,
+            "text": "Countries of recruitment",
+          },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "PT",
+                "display": "Portugal",
+                "id": undefined,
+                "system": "urn:iso:std:iso:3166",
+                "userSelected": undefined,
+                "version": undefined,
+              },
+            ],
+            "id": undefined,
+            "text": "Countries of recruitment",
+          },
+        ],
         "meta": MetaModel {
           "id": undefined,
           "lastUpdated": "2023-04-12T00:00:00.000Z",
