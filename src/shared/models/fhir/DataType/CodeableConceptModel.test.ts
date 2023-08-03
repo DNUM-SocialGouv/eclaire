@@ -18,7 +18,7 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             },
           ],
           "id": undefined,
-          "text": "Phase I",
+          "text": "Research Study Phase",
         }
       `)
     })
@@ -37,7 +37,7 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             },
           ],
           "id": undefined,
-          "text": "",
+          "text": "Research Study Phase",
         }
       `)
     })
