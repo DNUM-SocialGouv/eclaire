@@ -1,7 +1,5 @@
 import { Identifier, Reference } from 'fhir/r4'
 
-import { ModelUtils } from '../../custom/ModelUtils'
-
 export class ReferenceModel implements Reference {
   constructor(
     readonly display: string | undefined,
@@ -23,18 +21,18 @@ export class ReferenceModel implements Reference {
 
   static createAssignerForPrimaryIdentifier(): ReferenceModel {
     return new ReferenceModel(
-      ModelUtils.UNAVAILABLE,
+      'Reference to primary assigner',
       undefined,
       undefined,
       undefined,
-      undefined
+      'Organization'
     )
   }
 
   static createAssignerForSecondaryIdentifier(assigner: AssignerForSecondaryIdentifier): ReferenceModel {
     const type = 'Organization'
     return new ReferenceModel(
-      'Reference to assigner',
+      'Reference to secondary assigner',
       undefined,
       undefined,
       this.generateRelativeUrlReference(assigner, type),

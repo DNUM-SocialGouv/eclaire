@@ -589,11 +589,11 @@ describe('ctis research study model factory', () => {
         "identifier": [
           IdentifierModel {
             "assigner": ReferenceModel {
-              "display": "INDISPONIBLE",
+              "display": "Reference to primary assigner",
               "id": undefined,
               "identifier": undefined,
               "reference": undefined,
-              "type": undefined,
+              "type": "Organization",
             },
             "id": undefined,
             "period": undefined,
@@ -604,7 +604,7 @@ describe('ctis research study model factory', () => {
           },
           IdentifierModel {
             "assigner": ReferenceModel {
-              "display": "Reference to assigner",
+              "display": "Reference to secondary assigner",
               "id": undefined,
               "identifier": undefined,
               "reference": "Organization/ctis",
@@ -1495,11 +1495,11 @@ describe('ctis research study model factory', () => {
         "identifier": [
           IdentifierModel {
             "assigner": ReferenceModel {
-              "display": "INDISPONIBLE",
+              "display": "Reference to primary assigner",
               "id": undefined,
               "identifier": undefined,
               "reference": undefined,
-              "type": undefined,
+              "type": "Organization",
             },
             "id": undefined,
             "period": undefined,
@@ -1510,7 +1510,7 @@ describe('ctis research study model factory', () => {
           },
           IdentifierModel {
             "assigner": ReferenceModel {
-              "display": "Reference to assigner",
+              "display": "Reference to secondary assigner",
               "id": undefined,
               "identifier": undefined,
               "reference": "Organization/ctis",
