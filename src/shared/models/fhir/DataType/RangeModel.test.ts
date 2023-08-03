@@ -53,14 +53,7 @@ describe('rangeModel', () => {
     it('should create a properly formatted model when "65+ years" is given', () => {
       expect(RangeModel.createAgeRange('65+ years')).toMatchInlineSnapshot(`
         RangeModel {
-          "high": QuantityModel {
-            "code": undefined,
-            "comparator": undefined,
-            "id": undefined,
-            "system": undefined,
-            "unit": undefined,
-            "value": undefined,
-          },
+          "high": undefined,
           "id": undefined,
           "low": QuantityModel {
             "code": undefined,
@@ -77,23 +70,9 @@ describe('rangeModel', () => {
     it('should create a properly formatted model when no age range is given', () => {
       expect(RangeModel.createAgeRange('')).toMatchInlineSnapshot(`
         RangeModel {
-          "high": QuantityModel {
-            "code": undefined,
-            "comparator": undefined,
-            "id": undefined,
-            "system": undefined,
-            "unit": undefined,
-            "value": undefined,
-          },
+          "high": undefined,
           "id": undefined,
-          "low": QuantityModel {
-            "code": undefined,
-            "comparator": undefined,
-            "id": undefined,
-            "system": undefined,
-            "unit": undefined,
-            "value": undefined,
-          },
+          "low": undefined,
         }
       `)
     })

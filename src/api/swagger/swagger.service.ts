@@ -12,7 +12,7 @@ export class SwaggerService {
         <li>Une valeur <b>"INDISPONIBLE"</b> signifie que nous n’avons pas la valeur en base de données et qu’elle arrivera par la suite</li>
         <li>Une valeur <b>vide</b> signifie que le déposant ne l’a pas remplie</li>
       </ul>`)
-      .setExternalDoc('Guide d’implémentation', 'https://ansforge.github.io/IG-essais-cliniques/ig/main/index.html')
+      .setExternalDoc('Guide d’implémentation', 'https://interop.esante.gouv.fr/ig/fhir/eclaire/index.html')
       .setVersion('0.1')
       // .addSecurity('bearer', {
       //   scheme: 'bearer',

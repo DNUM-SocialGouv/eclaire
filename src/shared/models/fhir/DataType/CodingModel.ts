@@ -191,7 +191,7 @@ export class CodingModel implements Coding {
       reference.code,
       reference.display,
       undefined,
-      'https://ansforge.github.io/IG-essais-cliniques/ig/main/CodeSystem-eclaire-type-contact-code-system.html',
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html',
       undefined,
       eclaireTypeContactCodeSystem.version
     )
