@@ -23,12 +23,10 @@ describe('shared | models | custom | ModelUtils', () => {
       expect(result).toBe(assigner)
     })
 
-    it('should create an identifier without assigner when there is no regulation code', () => {
-      // when
-      const result = ModelUtils.identifyAssigner(undefined, undefined)
-
-      // then
-      expect(result).toBeUndefined()
+    it('should throw an error when there is no regulation code', () => {
+      expect(() => ModelUtils.identifyAssigner(undefined, undefined)).toThrow(
+        'A regulation is always given. So, the assigner cannot be unknown'
+      )
     })
   })
 })

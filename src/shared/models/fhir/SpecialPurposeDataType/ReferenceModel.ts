@@ -62,16 +62,6 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createUrl(url: string) {
-    return new ReferenceModel(
-      undefined,
-      undefined,
-      undefined,
-      url,
-      undefined
-    )
-  }
-
   private static generateRelativeUrlReference(id: string, type: string): string {
     return `${type}/${id}`
   }

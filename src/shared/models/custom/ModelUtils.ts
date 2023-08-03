@@ -23,7 +23,7 @@ export class ModelUtils {
     return `${value}-secondary-sponsor`
   }
 
-  static identifyAssigner(regulationCode: string, qualification: string): AssignerForSecondaryIdentifier {
+  static identifyAssigner(regulationCode: string, qualification?: string): AssignerForSecondaryIdentifier {
     enum REGULATION_CODES {
       CTIS = 'REG536',
       DM = 'REG745',
@@ -41,7 +41,7 @@ export class ModelUtils {
           ? AssignerForSecondaryIdentifier.EUDRACT
           : AssignerForSecondaryIdentifier.ANSM
       default:
-        return undefined
+        throw new Error('A regulation is always given. So, the assigner cannot be unknown')
     }
   }
 }

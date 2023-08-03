@@ -19,7 +19,7 @@ export class RiphCtisResearchStudyModelFactory {
     const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphCtisDto.numero_ctis)
     const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphCtisDto.numero_ctis)
     const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphCtisDto.numero_ctis)
-    const assigner = ModelUtils.identifyAssigner(riphCtisDto.reglementation_code, undefined)
+    const assigner = ModelUtils.identifyAssigner(riphCtisDto.reglementation_code)
 
     const arm = undefined
     const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]

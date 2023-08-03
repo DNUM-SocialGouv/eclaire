@@ -39,4 +39,15 @@ export class ContactPointModel implements ContactPoint {
       email
     )
   }
+
+  static createUrl(url: string) {
+    return new ContactPointModel(
+      undefined,
+      undefined,
+      undefined,
+      'url',
+      'work',
+      url
+    )
+  }
 }

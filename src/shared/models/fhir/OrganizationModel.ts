@@ -12,8 +12,9 @@ import {
 
 import { AddressModel } from './DataType/AddressModel'
 import { CodeableConceptModel } from './DataType/CodeableConceptModel'
+import { ContactPointModel } from './DataType/ContactPointModel'
 import { OrganizationContactModel } from './OrganizationContactModel'
-import { AssignerForSecondaryIdentifier, ReferenceModel } from './SpecialPurposeDataType/ReferenceModel'
+import { AssignerForSecondaryIdentifier } from './SpecialPurposeDataType/ReferenceModel'
 import { ModelUtils } from '../custom/ModelUtils'
 
 export class OrganizationModel implements Organization {
@@ -94,22 +95,26 @@ export class OrganizationModel implements Organization {
     )
   }
 
-  static createSecondaryAssigner(assignerForSecondaryIdentifier: AssignerForSecondaryIdentifier) {
+  static createSecondaryAssigner(assignerForSecondaryIdentifier: AssignerForSecondaryIdentifier): OrganizationModel {
     let name: string
-    let endpoint: Reference
+    let url: string
 
-    if (assignerForSecondaryIdentifier === AssignerForSecondaryIdentifier.ANSM) {
-      name = 'Agence nationale de sécurité du médicament et des produits de santé'
-      endpoint = ReferenceModel.createUrl('https://ansm.sante.fr')
-    } else if (assignerForSecondaryIdentifier === AssignerForSecondaryIdentifier.CTIS) {
-      name = 'Clinical Trials Information System'
-      endpoint = ReferenceModel.createUrl('https://euclinicaltrials.eu/')
-    } else if (assignerForSecondaryIdentifier === AssignerForSecondaryIdentifier.EUDRACT) {
-      name = 'European Union Drug Regulating Authorities Clinical Trials Database'
-      endpoint = ReferenceModel.createUrl('https://eudract.ema.europa.eu/')
-    } else {
-      name = undefined
-      endpoint = undefined
+    switch (assignerForSecondaryIdentifier) {
+      case AssignerForSecondaryIdentifier.ANSM:
+        name = 'Agence nationale de sécurité du médicament et des produits de santé'
+        url = 'https://ansm.sante.fr'
+        break
+      case AssignerForSecondaryIdentifier.CTIS:
+        name = 'Clinical Trials Information System'
+        url = 'https://euclinicaltrials.eu/'
+        break
+      case AssignerForSecondaryIdentifier.EUDRACT:
+        name = 'European Union Drug Regulating Authorities Clinical Trials Database'
+        url = 'https://eudract.ema.europa.eu/'
+        break
+      default:
+        name = undefined
+        url = undefined
     }
 
     return new OrganizationModel(
@@ -118,7 +123,7 @@ export class OrganizationModel implements Organization {
       [assignerForSecondaryIdentifier],
       undefined,
       undefined,
-      [endpoint],
+      undefined,
       assignerForSecondaryIdentifier,
       undefined,
       undefined,
@@ -126,7 +131,7 @@ export class OrganizationModel implements Organization {
       undefined,
       name,
       undefined,
-      undefined,
+      [ContactPointModel.createUrl(url)],
       undefined
     )
   }
