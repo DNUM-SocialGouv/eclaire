@@ -28,7 +28,7 @@ export class HumanNameModel implements HumanName {
       undefined,
       undefined,
       undefined,
-      `${firstname} ${name}`,
+      undefined,
       'official'
     )
   }

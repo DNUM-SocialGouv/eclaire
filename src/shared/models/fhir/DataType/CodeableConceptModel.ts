@@ -18,7 +18,7 @@ export class CodeableConceptModel implements CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createResearchStudyPhase(emptyResearchStudyPhaseIfNull)],
       undefined,
-      emptyResearchStudyPhaseIfNull
+      'Research Study Phase'
     )
   }
 

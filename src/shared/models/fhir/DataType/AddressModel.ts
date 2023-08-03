@@ -19,11 +19,11 @@ export class AddressModel implements Address {
       sponsorCity,
       sponsorCountry,
       undefined,
-      undefined,
+      [sponsorAdress],
       undefined,
       sponsorPostalCode,
       undefined,
-      `${sponsorAdress} ${sponsorCity} ${sponsorPostalCode} ${sponsorCountry}`,
+      undefined,
       'physical',
       'work'
     )
