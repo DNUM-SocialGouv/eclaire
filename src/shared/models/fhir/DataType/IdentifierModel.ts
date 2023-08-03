@@ -1,18 +1,9 @@
+import { CodeableConcept, Identifier, Period, Reference } from 'fhir/r4'
+
 import {
-  CodeableConcept,
-  Identifier,
-  Period,
-  Reference,
-} from 'fhir/r4'
-
-import { ReferenceModel } from '../SpecialPurposeDataType/ReferenceModel'
-
-enum REGULATION_CODES {
-  CTIS = 'REG536',
-  DM = 'REG745',
-  DMDIV = 'REG746',
-  JARDE = 'JARDE',
-}
+  AssignerForSecondaryIdentifier,
+  ReferenceModel,
+} from '../SpecialPurposeDataType/ReferenceModel'
 
 export class IdentifierModel implements Identifier {
   constructor(
@@ -44,37 +35,17 @@ export class IdentifierModel implements Identifier {
   }
 
   static createSecondarySlice(
-    number: string,
-    regulationCode: string,
-    qualification: string | undefined
+    ctisOrNationalNumber: string,
+    assigner: AssignerForSecondaryIdentifier
   ): IdentifierModel {
-    let assigner: Reference
-
-    switch (regulationCode) {
-      case REGULATION_CODES.CTIS:
-        assigner = ReferenceModel.createCtisAssigner(number)
-        break
-      case REGULATION_CODES.DM:
-      case REGULATION_CODES.DMDIV:
-      case REGULATION_CODES.JARDE:
-        if (qualification === 'Catégorie 1') {
-          assigner = ReferenceModel.createEudraCtAssigner()
-        } else {
-          assigner = ReferenceModel.createAnsmAssigner()
-        }
-        break
-      default:
-        assigner = undefined
-    }
-
     return new IdentifierModel(
-      assigner,
+      ReferenceModel.createAssignerForSecondaryIdentifier(assigner),
       undefined,
       undefined,
       undefined,
       'secondary',
       undefined,
-      number
+      ctisOrNationalNumber
     )
   }
 }

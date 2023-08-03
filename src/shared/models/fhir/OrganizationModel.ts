@@ -12,7 +12,9 @@ import {
 
 import { AddressModel } from './DataType/AddressModel'
 import { CodeableConceptModel } from './DataType/CodeableConceptModel'
+import { ContactPointModel } from './DataType/ContactPointModel'
 import { OrganizationContactModel } from './OrganizationContactModel'
+import { AssignerForSecondaryIdentifier } from './SpecialPurposeDataType/ReferenceModel'
 import { ModelUtils } from '../custom/ModelUtils'
 
 export class OrganizationModel implements Organization {
@@ -90,6 +92,47 @@ export class OrganizationModel implements Organization {
       undefined,
       undefined,
       [CodeableConceptModel.createClinicalResearchSponsor()]
+    )
+  }
+
+  static createSecondaryAssigner(assignerForSecondaryIdentifier: AssignerForSecondaryIdentifier): OrganizationModel {
+    let name: string
+    let url: string
+
+    switch (assignerForSecondaryIdentifier) {
+      case AssignerForSecondaryIdentifier.ANSM:
+        name = 'Agence nationale de sécurité du médicament et des produits de santé'
+        url = 'https://ansm.sante.fr'
+        break
+      case AssignerForSecondaryIdentifier.CTIS:
+        name = 'Clinical Trials Information System'
+        url = 'https://euclinicaltrials.eu/'
+        break
+      case AssignerForSecondaryIdentifier.EUDRACT:
+        name = 'European Union Drug Regulating Authorities Clinical Trials Database'
+        url = 'https://eudract.ema.europa.eu/'
+        break
+      default:
+        name = undefined
+        url = undefined
+    }
+
+    return new OrganizationModel(
+      true,
+      undefined,
+      [assignerForSecondaryIdentifier],
+      undefined,
+      undefined,
+      undefined,
+      assignerForSecondaryIdentifier,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      name,
+      undefined,
+      [ContactPointModel.createUrl(url)],
+      undefined
     )
   }
 }
