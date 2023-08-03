@@ -41,6 +41,13 @@ export class RiphCtisResearchStudyModelFactory {
         ModelUtils.UNAVAILABLE,
         'Scientific'
       ),
+      ContactDetailModel.create(
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        'Public'
+      ),
     ]
     const contained: GroupModel[] = [
       GroupModel.createStudyCharacteristics(

@@ -130,6 +130,51 @@ describe('jarde research study model factory', () => {
               },
             ],
           },
+          ContactDetailModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "id": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "PUB",
+                      "display": "Publique / Public",
+                      "id": undefined,
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
+                      "userSelected": undefined,
+                      "version": "0.1.0",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Contact Type",
+                },
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "id": undefined,
+            "name": "INDISPONIBLE INDISPONIBLE",
+            "telecom": [
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+            ],
+          },
         ],
         "contained": [
           GroupModel {
@@ -849,6 +894,51 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "SCI",
                       "display": "Scientifique / Scientific",
+                      "id": undefined,
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
+                      "userSelected": undefined,
+                      "version": "0.1.0",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": "Contact Type",
+                },
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "id": undefined,
+            "name": "INDISPONIBLE INDISPONIBLE",
+            "telecom": [
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+              ContactPointModel {
+                "id": undefined,
+                "period": undefined,
+                "rank": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+            ],
+          },
+          ContactDetailModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "id": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "PUB",
+                      "display": "Publique / Public",
                       "id": undefined,
                       "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
                       "userSelected": undefined,
