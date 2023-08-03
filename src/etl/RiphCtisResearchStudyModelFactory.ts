@@ -69,6 +69,7 @@ export class RiphCtisResearchStudyModelFactory {
       ExtensionModel.createEclaireTherapeuticArea(riphCtisDto.domaine_therapeutique),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
+      ExtensionModel.createEclaireRecruitmentPeriod(riphCtisDto.date_debut_recrutement),
     ]
     const focus = undefined
     const id = riphCtisDto.numero_ctis

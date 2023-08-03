@@ -1,8 +1,9 @@
-import { CodeableConcept, Extension, Reference } from 'fhir/r4'
+import { CodeableConcept, Extension, Period, Reference } from 'fhir/r4'
 
 import { ReferenceModel } from './ReferenceModel'
 import { ModelUtils } from '../../custom/ModelUtils'
 import { CodeableConceptModel } from '../DataType/CodeableConceptModel'
+import { PeriodModel } from '../DataType/PeriodModel'
 import { ContactType } from '../MetadataType/ContactDetailModel'
 
 export class ExtensionModel implements Extension {
@@ -11,6 +12,7 @@ export class ExtensionModel implements Extension {
     readonly id: string | undefined,
     readonly url: string,
     readonly valueCodeableConcept: CodeableConcept | undefined,
+    readonly valuePeriod: Period | undefined,
     readonly valueReference: Reference | undefined,
     readonly valueString: string | undefined
   ) {}
@@ -20,6 +22,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor',
+      undefined,
       undefined,
       ReferenceModel.createSecondarySponsor(secondarySponsorId),
       undefined
@@ -33,6 +36,7 @@ export class ExtensionModel implements Extension {
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area',
       undefined,
       undefined,
+      undefined,
       ModelUtils.emptyIfNull(therapeuticArea)
     )
   }
@@ -44,6 +48,7 @@ export class ExtensionModel implements Extension {
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html',
       CodeableConceptModel.createContactType(contactType),
       undefined,
+      undefined,
       undefined
     )
   }
@@ -53,6 +58,7 @@ export class ExtensionModel implements Extension {
       [this.createEclaireLabelValue(value), this.createEclaireLabelType(type)],
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label',
+      undefined,
       undefined,
       undefined,
       undefined
@@ -66,6 +72,7 @@ export class ExtensionModel implements Extension {
       'labelValue',
       undefined,
       undefined,
+      undefined,
       value
     )
   }
@@ -76,6 +83,19 @@ export class ExtensionModel implements Extension {
       undefined,
       'labelType',
       CodeableConceptModel.createLabelType(type),
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createEclaireRecruitmentPeriod(recruitmentDate: string): ExtensionModel {
+    return new ExtensionModel(
+      undefined,
+      undefined,
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period',
+      undefined,
+      PeriodModel.createRecruitmentPeriod(recruitmentDate),
       undefined,
       undefined
     )
