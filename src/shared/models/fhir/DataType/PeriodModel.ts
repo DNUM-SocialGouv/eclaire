@@ -6,4 +6,12 @@ export class PeriodModel implements Period {
     readonly id: string | undefined,
     readonly start: string | undefined
   ) {}
+
+  static createRecruitmentPeriod(start: string): PeriodModel {
+    return new PeriodModel(
+      undefined,
+      undefined,
+      new Date(start).toISOString()
+    )
+  }
 }
