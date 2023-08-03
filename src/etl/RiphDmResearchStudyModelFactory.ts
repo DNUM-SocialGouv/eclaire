@@ -21,12 +21,12 @@ export class RiphDmResearchStudyModelFactory {
     const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphDmDto.numero_national)
 
     const arm = undefined
-    const category = [CodeableConceptModel.createCategory(riphDmDto.reglementation_code)]
-    const condition = [
+    const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphDmDto.reglementation_code)]
+    const condition: CodeableConceptModel[] = [
       CodeableConceptModel.createDiseaseCondition(ModelUtils.UNAVAILABLE),
       CodeableConceptModel.createMedDraCondition(ModelUtils.UNAVAILABLE),
     ]
-    const contact = [
+    const contact: ContactDetailModel[] = [
       ContactDetailModel.create(
         riphDmDto.deposant_prenom,
         riphDmDto.deposant_nom,
@@ -41,8 +41,15 @@ export class RiphDmResearchStudyModelFactory {
         ModelUtils.UNAVAILABLE,
         'Scientific'
       ),
+      ContactDetailModel.create(
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        'Public'
+      ),
     ]
-    const contained = [
+    const contained: GroupModel[] = [
       GroupModel.createStudyCharacteristics(
         enrollmentGroupId,
         ModelUtils.UNAVAILABLE,
@@ -55,10 +62,12 @@ export class RiphDmResearchStudyModelFactory {
       ),
     ]
     const description = ModelUtils.UNAVAILABLE
-    const enrollment = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
+    const enrollment: ReferenceModel[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const extensions: Extension[] = [
       ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId),
       ExtensionModel.createEclaireTherapeuticArea(riphDmDto.domaine_therapeutique),
+      ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
+      ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
     ]
     const focus = undefined
     const id = riphDmDto.numero_national
@@ -70,7 +79,7 @@ export class RiphDmResearchStudyModelFactory {
     const keyword = undefined
     const language = undefined
     const location = undefined
-    const meta = MetaModel.create(
+    const meta: MetaModel = MetaModel.create(
       riphDmDto.historique,
       riphDmDto.dates_avis_favorable_ms_mns
     )
@@ -84,7 +93,7 @@ export class RiphDmResearchStudyModelFactory {
     const reasonStopped = undefined
     const relatedArtifact = undefined
     const site = undefined
-    const sponsor = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
+    const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphDmDto.etat as RiphStatus
     const text = undefined
     const title = ModelUtils.emptyIfNull(riphDmDto.titre_recherche)

@@ -7,6 +7,7 @@ import { ContactType } from '../MetadataType/ContactDetailModel'
 
 export class ExtensionModel implements Extension {
   constructor(
+    readonly extension: Extension[] | undefined,
     readonly id: string | undefined,
     readonly url: string,
     readonly valueCodeableConcept: CodeableConcept | undefined,
@@ -16,6 +17,7 @@ export class ExtensionModel implements Extension {
 
   static createEclaireSecondarySponsor(secondarySponsorId: string): ExtensionModel {
     return new ExtensionModel(
+      undefined,
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor',
       undefined,
@@ -27,6 +29,7 @@ export class ExtensionModel implements Extension {
   static createEclaireTherapeuticArea(therapeuticArea: string): ExtensionModel {
     return new ExtensionModel(
       undefined,
+      undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area',
       undefined,
       undefined,
@@ -37,10 +40,46 @@ export class ExtensionModel implements Extension {
   static createEclaireContactType(contactType: ContactType): ExtensionModel {
     return new ExtensionModel(
       undefined,
+      undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html',
       CodeableConceptModel.createContactType(contactType),
       undefined,
       undefined
     )
   }
+
+  static createEclaireLabel(value: string, type: LabelType): ExtensionModel {
+    return new ExtensionModel(
+      [this.createEclaireLabelValue(value), this.createEclaireLabelType(type)],
+      undefined,
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label',
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createEclaireLabelValue(value: string): ExtensionModel {
+    return new ExtensionModel(
+      undefined,
+      undefined,
+      'labelValue',
+      undefined,
+      undefined,
+      value
+    )
+  }
+
+  static createEclaireLabelType(type: LabelType): ExtensionModel {
+    return new ExtensionModel(
+      undefined,
+      undefined,
+      'labelType',
+      CodeableConceptModel.createLabelType(type),
+      undefined,
+      undefined
+    )
+  }
 }
+
+export type LabelType = 'primary' | 'official' | 'plain-language' | 'subtitle' | 'short-title' | 'acronym' | 'earlier-title' | 'language' | 'auto-translated' | 'human-use' | 'machine-use'

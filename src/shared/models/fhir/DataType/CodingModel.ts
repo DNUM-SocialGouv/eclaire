@@ -6,6 +6,7 @@ import { eclaireTypeContactCodeSystem } from '../CodeSystem/eclaireTypeContactCo
 import { medDraCodeSystem } from '../CodeSystem/medDraCodeSystem'
 import { researchStudyPhaseCodeSystem } from '../CodeSystem/researchStudyPhaseCodeSystem'
 import { ContactType } from '../MetadataType/ContactDetailModel'
+import { LabelType } from '../SpecialPurposeDataType/ExtensionModel'
 
 export class CodingModel implements Coding {
   constructor(
@@ -201,6 +202,17 @@ export class CodingModel implements Coding {
       country.display,
       undefined,
       countryCodeSystem.compose.include[0].system,
+      undefined,
+      undefined
+    )
+  }
+
+  static createLabelType(labelType: LabelType): CodingModel {
+    return new CodingModel(
+      undefined,
+      labelType,
+      undefined,
+      undefined,
       undefined,
       undefined
     )
