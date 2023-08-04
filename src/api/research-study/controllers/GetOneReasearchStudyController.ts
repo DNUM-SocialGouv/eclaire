@@ -4,7 +4,6 @@ import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Response } from 'express'
 
-import { Public } from '../../auth/public.decorator'
 import { OperationOutcomeModel } from '../application/entities/OperationOutcomeModel'
 import { EsResearchStudyRepository } from '../gateways/EsResearchStudyRepository'
 
@@ -18,7 +17,6 @@ export class GetOneReasearchStudyController {
   @ApiNotFoundResponse({ description: 'Aucun essai clinique n’a été trouvé' })
   @ApiProduces('application/fhir+json')
   @Header('content-type', 'application/fhir+json')
-  @Public()
   @Get(':id')
   async execute(@Param('id') id: string, @Res() response: Response): Promise<void> {
     try {

@@ -5,7 +5,6 @@ import { ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagg
 import { Response } from 'express'
 
 import { ResearchStudyQueryModel } from './ResearchStudyQueryModel'
-import { Public } from '../../auth/public.decorator'
 import { OperationOutcomeModel } from '../application/entities/OperationOutcomeModel'
 import { researchStudyQueryToElasticsearchQuery } from '../controllers/converter/researchStudyQueryToElasticsearchQuery'
 import { EsResearchStudyRepository } from '../gateways/EsResearchStudyRepository'
@@ -19,7 +18,6 @@ export class SearchResearchStudyController {
   @ApiOkResponse({ description: 'Des essais cliniques ont été trouvés' })
   @ApiProduces('application/fhir+json')
   @Header('content-type', 'application/fhir+json')
-  @Public()
   @Get()
   async execute(@Query() researchStudyQuery: ResearchStudyQueryModel, @Res() response: Response): Promise<void> {
     try {
