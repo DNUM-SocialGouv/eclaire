@@ -7,11 +7,11 @@ import {
   OrganizationContact,
 } from 'fhir/r4'
 
-import { AddressModel } from './DataType/AddressModel'
-import { CodeableConceptModel } from './DataType/CodeableConceptModel'
-import { ContactPointModel } from './DataType/ContactPointModel'
+import { AddressModel } from './DataTypes/AddressModel'
+import { CodeableConceptModel } from './DataTypes/CodeableConceptModel'
+import { ContactPointModel } from './DataTypes/ContactPointModel'
 import { OrganizationContactModel } from './OrganizationContactModel'
-import { AssignerForSecondaryIdentifier } from './SpecialPurposeDataType/ReferenceModel'
+import { AssignerForSecondaryIdentifier } from './SpecialPurposeDataTypes/ReferenceModel'
 import { ModelUtils } from '../custom/ModelUtils'
 
 export class OrganizationModel implements Organization {

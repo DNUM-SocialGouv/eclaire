@@ -5,9 +5,9 @@ import {
   OrganizationContact,
 } from 'fhir/r4'
 
-import { CodeableConceptModel } from './DataType/CodeableConceptModel'
-import { ContactPointModel } from './DataType/ContactPointModel'
-import { HumanNameModel } from './DataType/HumanNameModel'
+import { CodeableConceptModel } from './DataTypes/CodeableConceptModel'
+import { ContactPointModel } from './DataTypes/ContactPointModel'
+import { HumanNameModel } from './DataTypes/HumanNameModel'
 
 export class OrganizationContactModel implements OrganizationContact {
   constructor(

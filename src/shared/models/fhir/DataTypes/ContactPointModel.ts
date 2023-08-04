@@ -1,6 +1,6 @@
 import { ContactPoint, Extension } from 'fhir/r4'
 
-import { ExtensionModel } from '../SpecialPurposeDataType/ExtensionModel'
+import { ExtensionModel } from '../SpecialPurposeDataTypes/ExtensionModel'
 
 export class ContactPointModel implements ContactPoint {
   constructor(

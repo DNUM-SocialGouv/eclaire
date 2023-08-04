@@ -1,18 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Extension, Identifier, Organization } from 'fhir/r4'
 
 import { RiphJardeDto } from './dto/RiphJardeDto'
 import { ModelUtils } from '../shared/models/custom/ModelUtils'
 import { ReferenceContentsModel } from '../shared/models/custom/ReferenceContentsModel'
-import { CodeableConceptModel } from '../shared/models/fhir/DataType/CodeableConceptModel'
-import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
+import { CodeableConceptModel } from '../shared/models/fhir/DataTypes/CodeableConceptModel'
+import { IdentifierModel } from '../shared/models/fhir/DataTypes/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
-import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
+import { ContactDetailModel } from '../shared/models/fhir/MetadataTypes/ContactDetailModel'
 import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
 import { ResearchStudyModel, RiphStatus } from '../shared/models/fhir/ResearchStudyModel'
-import { ExtensionModel } from '../shared/models/fhir/SpecialPurposeDataType/ExtensionModel'
-import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
-import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
+import { ExtensionModel } from '../shared/models/fhir/SpecialPurposeDataTypes/ExtensionModel'
+import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataTypes/MetaModel'
+import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataTypes/ReferenceModel'
 
 export class RiphJardeResearchStudyModelFactory {
   static create(riphJardeDto: RiphJardeDto): ResearchStudyModel {
@@ -75,13 +74,13 @@ export class RiphJardeResearchStudyModelFactory {
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
       IdentifierModel.createSecondarySlice(riphJardeDto.numero_national, assigner),
     ]
-    const location = undefined
+    const location: CodeableConceptModel[] = undefined
     const meta: MetaModel = MetaModel.create(
       riphJardeDto.historique,
       riphJardeDto.dates_avis_favorable_ms_mns
     )
     const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(ModelUtils.UNAVAILABLE)
-    const site = undefined
+    const site: ReferenceModel[] = undefined
     const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphJardeDto.etat as RiphStatus
     const title = ModelUtils.emptyIfNull(riphJardeDto.titre_recherche)

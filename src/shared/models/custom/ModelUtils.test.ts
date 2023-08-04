@@ -1,6 +1,6 @@
 /* eslint-disable sort-keys */
 import { ModelUtils } from './ModelUtils'
-import { AssignerForSecondaryIdentifier } from '../fhir/SpecialPurposeDataType/ReferenceModel'
+import { AssignerForSecondaryIdentifier } from '../fhir/SpecialPurposeDataTypes/ReferenceModel'
 import { riphCtisDto } from 'src/shared/test/helpers/elasticsearchHelper'
 
 describe('shared | models | custom | ModelUtils', () => {

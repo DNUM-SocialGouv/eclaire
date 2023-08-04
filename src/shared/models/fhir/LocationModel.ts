@@ -1,8 +1,8 @@
 import { Address, ContactPoint, Identifier, Location } from 'fhir/r4'
 
-import { AddressModel } from './DataType/AddressModel'
-import { ContactPointModel } from './DataType/ContactPointModel'
-import { IdentifierModel } from './DataType/IdentifierModel'
+import { AddressModel } from './DataTypes/AddressModel'
+import { ContactPointModel } from './DataTypes/ContactPointModel'
+import { IdentifierModel } from './DataTypes/IdentifierModel'
 
 export class LocationModel implements Location {
   readonly resourceType: 'Location'

@@ -2,8 +2,8 @@ import { CodeableConcept, Coding } from 'fhir/r4'
 
 import { CodingModel } from './CodingModel'
 import { ModelUtils } from '../../custom/ModelUtils'
-import { ContactType } from '../MetadataType/ContactDetailModel'
-import { LabelType } from '../SpecialPurposeDataType/ExtensionModel'
+import { ContactType } from '../MetadataTypes/ContactDetailModel'
+import { LabelType } from '../SpecialPurposeDataTypes/ExtensionModel'
 
 export class CodeableConceptModel implements CodeableConcept {
   constructor(

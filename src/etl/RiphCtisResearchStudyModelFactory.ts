@@ -1,19 +1,18 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Extension, Identifier, Meta } from 'fhir/r4'
 
 import { RiphCtisDto } from './dto/RiphCtisDto'
 import { ModelUtils } from '../shared/models/custom/ModelUtils'
 import { ReferenceContentsModel } from '../shared/models/custom/ReferenceContentsModel'
-import { CodeableConceptModel } from '../shared/models/fhir/DataType/CodeableConceptModel'
-import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
+import { CodeableConceptModel } from '../shared/models/fhir/DataTypes/CodeableConceptModel'
+import { IdentifierModel } from '../shared/models/fhir/DataTypes/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
 import { LocationModel } from '../shared/models/fhir/LocationModel'
-import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
+import { ContactDetailModel } from '../shared/models/fhir/MetadataTypes/ContactDetailModel'
 import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
 import { RiphStatus, ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
-import { ExtensionModel } from '../shared/models/fhir/SpecialPurposeDataType/ExtensionModel'
-import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataType/MetaModel'
-import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/ReferenceModel'
+import { ExtensionModel } from '../shared/models/fhir/SpecialPurposeDataTypes/ExtensionModel'
+import { MetaModel } from '../shared/models/fhir/SpecialPurposeDataTypes/MetaModel'
+import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataTypes/ReferenceModel'
 
 export class RiphCtisResearchStudyModelFactory {
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {

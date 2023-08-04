@@ -2,10 +2,10 @@ import { CodeableConcept, Extension, HumanName, Period, Reference } from 'fhir/r
 
 import { ReferenceModel } from './ReferenceModel'
 import { ModelUtils } from '../../custom/ModelUtils'
-import { CodeableConceptModel } from '../DataType/CodeableConceptModel'
-import { HumanNameModel } from '../DataType/HumanNameModel'
-import { PeriodModel } from '../DataType/PeriodModel'
-import { ContactType } from '../MetadataType/ContactDetailModel'
+import { CodeableConceptModel } from '../DataTypes/CodeableConceptModel'
+import { HumanNameModel } from '../DataTypes/HumanNameModel'
+import { PeriodModel } from '../DataTypes/PeriodModel'
+import { ContactType } from '../MetadataTypes/ContactDetailModel'
 
 export class ExtensionModel implements Extension {
   constructor(

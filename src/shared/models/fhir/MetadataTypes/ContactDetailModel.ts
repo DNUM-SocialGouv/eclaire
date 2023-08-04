@@ -1,8 +1,8 @@
 import { ContactDetail, ContactPoint, Extension } from 'fhir/r4'
 
 import { ModelUtils } from '../../custom/ModelUtils'
-import { ContactPointModel } from '../DataType/ContactPointModel'
-import { ExtensionModel } from '../SpecialPurposeDataType/ExtensionModel'
+import { ContactPointModel } from '../DataTypes/ContactPointModel'
+import { ExtensionModel } from '../SpecialPurposeDataTypes/ExtensionModel'
 
 export type ContactType = 'Public' | 'Scientific';
 
