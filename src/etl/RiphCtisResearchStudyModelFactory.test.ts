@@ -466,8 +466,6 @@ describe('ctis research study model factory', () => {
         "enrollment": [
           ReferenceModel {
             "display": "Reference to group detailing study characteristics",
-            "id": undefined,
-            "identifier": undefined,
             "reference": "#2022-500014-26-00-enrollment-group-id",
             "type": "Group",
           },
@@ -483,8 +481,6 @@ describe('ctis research study model factory', () => {
             "valuePeriod": undefined,
             "valueReference": ReferenceModel {
               "display": "Reference to secondary sponsor",
-              "id": undefined,
-              "identifier": undefined,
               "reference": "Organization/2022-500014-26-00-secondary-sponsor",
               "type": "Organization",
             },
@@ -627,8 +623,6 @@ describe('ctis research study model factory', () => {
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "Reference to primary assigner",
-              "id": undefined,
-              "identifier": undefined,
               "reference": undefined,
               "type": "Organization",
             },
@@ -642,8 +636,6 @@ describe('ctis research study model factory', () => {
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "Reference to secondary assigner",
-              "id": undefined,
-              "identifier": undefined,
               "reference": "Organization/ctis",
               "type": "Organization",
             },
@@ -1069,16 +1061,12 @@ describe('ctis research study model factory', () => {
         "site": [
           ReferenceModel {
             "display": "Reference to site",
-            "id": undefined,
-            "identifier": undefined,
             "reference": "Location/0-ctis-site",
             "type": "Location",
           },
         ],
         "sponsor": ReferenceModel {
           "display": "Reference to primary sponsor",
-          "id": undefined,
-          "identifier": undefined,
           "reference": "Organization/2022-500014-26-00-primary-sponsor",
           "type": "Organization",
         },
@@ -1454,8 +1442,6 @@ describe('ctis research study model factory', () => {
         "enrollment": [
           ReferenceModel {
             "display": "Reference to group detailing study characteristics",
-            "id": undefined,
-            "identifier": undefined,
             "reference": "#2022-500299-71-00-enrollment-group-id",
             "type": "Group",
           },
@@ -1471,8 +1457,6 @@ describe('ctis research study model factory', () => {
             "valuePeriod": undefined,
             "valueReference": ReferenceModel {
               "display": "Reference to secondary sponsor",
-              "id": undefined,
-              "identifier": undefined,
               "reference": "Organization/2022-500299-71-00-secondary-sponsor",
               "type": "Organization",
             },
@@ -1615,8 +1599,6 @@ describe('ctis research study model factory', () => {
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "Reference to primary assigner",
-              "id": undefined,
-              "identifier": undefined,
               "reference": undefined,
               "type": "Organization",
             },
@@ -1630,8 +1612,6 @@ describe('ctis research study model factory', () => {
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "Reference to secondary assigner",
-              "id": undefined,
-              "identifier": undefined,
               "reference": "Organization/ctis",
               "type": "Organization",
             },
@@ -1944,16 +1924,12 @@ describe('ctis research study model factory', () => {
         "site": [
           ReferenceModel {
             "display": "Reference to site",
-            "id": undefined,
-            "identifier": undefined,
             "reference": "Location/0-ctis-site",
             "type": "Location",
           },
         ],
         "sponsor": ReferenceModel {
           "display": "Reference to primary sponsor",
-          "id": undefined,
-          "identifier": undefined,
           "reference": "Organization/2022-500299-71-00-primary-sponsor",
           "type": "Organization",
         },

@@ -403,8 +403,6 @@ describe('jarde research study model factory', () => {
         "enrollment": [
           ReferenceModel {
             "display": "Reference to group detailing study characteristics",
-            "id": undefined,
-            "identifier": undefined,
             "reference": "#2021-A01022-39-enrollment-group-id",
             "type": "Group",
           },
@@ -420,8 +418,6 @@ describe('jarde research study model factory', () => {
             "valuePeriod": undefined,
             "valueReference": ReferenceModel {
               "display": "Reference to secondary sponsor",
-              "id": undefined,
-              "identifier": undefined,
               "reference": "Organization/2021-A01022-39-secondary-sponsor",
               "type": "Organization",
             },
@@ -549,8 +545,6 @@ describe('jarde research study model factory', () => {
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "Reference to primary assigner",
-              "id": undefined,
-              "identifier": undefined,
               "reference": undefined,
               "type": "Organization",
             },
@@ -564,8 +558,6 @@ describe('jarde research study model factory', () => {
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "Reference to secondary assigner",
-              "id": undefined,
-              "identifier": undefined,
               "reference": "Organization/ansm",
               "type": "Organization",
             },
@@ -810,8 +802,6 @@ describe('jarde research study model factory', () => {
         "site": undefined,
         "sponsor": ReferenceModel {
           "display": "Reference to primary sponsor",
-          "id": undefined,
-          "identifier": undefined,
           "reference": "Organization/2021-A01022-39-primary-sponsor",
           "type": "Organization",
         },
@@ -1222,8 +1212,6 @@ describe('jarde research study model factory', () => {
         "enrollment": [
           ReferenceModel {
             "display": "Reference to group detailing study characteristics",
-            "id": undefined,
-            "identifier": undefined,
             "reference": "#2021-A01022-39-enrollment-group-id",
             "type": "Group",
           },
@@ -1239,8 +1227,6 @@ describe('jarde research study model factory', () => {
             "valuePeriod": undefined,
             "valueReference": ReferenceModel {
               "display": "Reference to secondary sponsor",
-              "id": undefined,
-              "identifier": undefined,
               "reference": "Organization/2021-A01022-39-secondary-sponsor",
               "type": "Organization",
             },
@@ -1368,8 +1354,6 @@ describe('jarde research study model factory', () => {
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "Reference to primary assigner",
-              "id": undefined,
-              "identifier": undefined,
               "reference": undefined,
               "type": "Organization",
             },
@@ -1383,8 +1367,6 @@ describe('jarde research study model factory', () => {
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "Reference to secondary assigner",
-              "id": undefined,
-              "identifier": undefined,
               "reference": "Organization/ansm",
               "type": "Organization",
             },
@@ -1629,8 +1611,6 @@ describe('jarde research study model factory', () => {
         "site": undefined,
         "sponsor": ReferenceModel {
           "display": "Reference to primary sponsor",
-          "id": undefined,
-          "identifier": undefined,
           "reference": "Organization/2021-A01022-39-primary-sponsor",
           "type": "Organization",
         },
