@@ -8,7 +8,6 @@ export type ContactType = 'Public' | 'Scientific';
 
 export class ContactDetailModel implements ContactDetail {
   constructor(
-    readonly id: string | undefined,
     readonly extension: Extension[] | undefined,
     readonly name: string | undefined,
     readonly telecom: ContactPoint[] | undefined
@@ -33,7 +32,6 @@ export class ContactDetailModel implements ContactDetail {
     }
 
     return new ContactDetailModel(
-      undefined,
       extensions,
       `${emptyFirstNameIfNull} ${emptyLastnameIfNull}`,
       [

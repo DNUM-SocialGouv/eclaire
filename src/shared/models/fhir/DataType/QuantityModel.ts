@@ -2,10 +2,7 @@ import { Quantity } from 'fhir/r4'
 
 export class QuantityModel implements Quantity {
   constructor(
-    readonly code: string | undefined,
     readonly comparator: QuantityComparator | undefined,
-    readonly id: string | undefined,
-    readonly system: string | undefined,
     readonly unit: string | undefined,
     readonly value: number | undefined
   ) {}
@@ -14,10 +11,7 @@ export class QuantityModel implements Quantity {
     if (value === undefined) return undefined
 
     return new QuantityModel(
-      undefined,
       comparator,
-      undefined,
-      undefined,
       unit,
       value
     )

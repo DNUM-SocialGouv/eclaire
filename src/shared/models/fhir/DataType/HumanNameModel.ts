@@ -1,14 +1,10 @@
-import { HumanName, Period } from 'fhir/r4'
+import { HumanName } from 'fhir/r4'
 
 export class HumanNameModel implements HumanName {
   constructor(
     readonly family: string | undefined,
     readonly given: string[] | undefined,
-    readonly id: string | undefined,
-    readonly period: Period | undefined,
     readonly prefix: string[] | undefined,
-    readonly suffix: string[] | undefined,
-    readonly text: string | undefined,
     readonly use:
       | 'anonymous'
       | 'maiden'
@@ -27,11 +23,7 @@ export class HumanNameModel implements HumanName {
     return new HumanNameModel(
       name,
       [firstname],
-      undefined,
-      undefined,
       prefix,
-      undefined,
-      undefined,
       'official'
     )
   }

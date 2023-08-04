@@ -1,13 +1,10 @@
-import { ContactPoint, Extension, Period } from 'fhir/r4'
+import { ContactPoint, Extension } from 'fhir/r4'
 
 import { ExtensionModel } from '../SpecialPurposeDataType/ExtensionModel'
 
 export class ContactPointModel implements ContactPoint {
   constructor(
-    readonly id: string | undefined,
     readonly extension: Extension[] | undefined,
-    readonly period: Period | undefined,
-    readonly rank: number | undefined,
     readonly system:
       | 'phone'
       | 'fax'
@@ -24,9 +21,6 @@ export class ContactPointModel implements ContactPoint {
   static createPhone(phone: string): ContactPointModel {
     return new ContactPointModel(
       undefined,
-      undefined,
-      undefined,
-      undefined,
       'phone',
       'work',
       phone
@@ -35,9 +29,6 @@ export class ContactPointModel implements ContactPoint {
 
   static createEmail(email: string): ContactPointModel {
     return new ContactPointModel(
-      undefined,
-      undefined,
-      undefined,
       undefined,
       'email',
       'work',
@@ -48,9 +39,6 @@ export class ContactPointModel implements ContactPoint {
   static createUrl(url: string): ContactPointModel {
     return new ContactPointModel(
       undefined,
-      undefined,
-      undefined,
-      undefined,
       'url',
       'work',
       url
@@ -59,10 +47,7 @@ export class ContactPointModel implements ContactPoint {
 
   static createSiteContactName(firstname: string, name: string, title: string): ContactPointModel {
     return new ContactPointModel(
-      undefined,
       [ExtensionModel.createEclaireSiteContactName(firstname, name, title)],
-      undefined,
-      undefined,
       undefined,
       'work',
       undefined

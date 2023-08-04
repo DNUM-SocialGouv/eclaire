@@ -1,5 +1,4 @@
 import {
-  Address,
   CodeableConcept,
   ContactPoint,
   HumanName,
@@ -12,8 +11,6 @@ import { HumanNameModel } from './DataType/HumanNameModel'
 
 export class OrganizationContactModel implements OrganizationContact {
   constructor(
-    readonly address: Address | undefined,
-    readonly id: string | undefined,
     readonly name: HumanName | undefined,
     readonly purpose: CodeableConcept | undefined,
     readonly telecom: ContactPoint[] | undefined
@@ -26,8 +23,6 @@ export class OrganizationContactModel implements OrganizationContact {
     contactMail: string
   ) {
     return new OrganizationContactModel(
-      undefined,
-      undefined,
       HumanNameModel.create(contactFirstname, contactName),
       CodeableConceptModel.createOrganizationContactPurpose(),
       [

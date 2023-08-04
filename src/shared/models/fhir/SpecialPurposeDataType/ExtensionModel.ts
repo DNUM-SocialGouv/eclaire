@@ -10,7 +10,6 @@ import { ContactType } from '../MetadataType/ContactDetailModel'
 export class ExtensionModel implements Extension {
   constructor(
     readonly extension: Extension[] | undefined,
-    readonly id: string | undefined,
     readonly url: string,
     readonly valueCodeableConcept: CodeableConcept | undefined,
     readonly valueHumanName: HumanName | undefined,
@@ -22,7 +21,6 @@ export class ExtensionModel implements Extension {
 
   static createEclaireSecondarySponsor(secondarySponsorId: string): ExtensionModel {
     return new ExtensionModel(
-      undefined,
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor',
       undefined,
@@ -37,7 +35,6 @@ export class ExtensionModel implements Extension {
   static createEclaireTherapeuticArea(therapeuticArea: string): ExtensionModel {
     return new ExtensionModel(
       undefined,
-      undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area',
       undefined,
       undefined,
@@ -50,7 +47,6 @@ export class ExtensionModel implements Extension {
 
   static createEclaireContactType(contactType: ContactType): ExtensionModel {
     return new ExtensionModel(
-      undefined,
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type',
       CodeableConceptModel.createContactType(contactType),
@@ -65,7 +61,6 @@ export class ExtensionModel implements Extension {
   static createEclaireLabel(value: string, type: LabelType): ExtensionModel {
     return new ExtensionModel(
       [this.createEclaireLabelValue(value), this.createEclaireLabelType(type)],
-      undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label',
       undefined,
       undefined,
@@ -78,7 +73,6 @@ export class ExtensionModel implements Extension {
 
   static createEclaireLabelValue(value: string): ExtensionModel {
     return new ExtensionModel(
-      undefined,
       undefined,
       'labelValue',
       undefined,
@@ -93,7 +87,6 @@ export class ExtensionModel implements Extension {
   static createEclaireLabelType(type: LabelType): ExtensionModel {
     return new ExtensionModel(
       undefined,
-      undefined,
       'labelType',
       CodeableConceptModel.createLabelType(type),
       undefined,
@@ -107,7 +100,6 @@ export class ExtensionModel implements Extension {
   static createEclaireRecruitmentPeriod(recruitmentDate: string): ExtensionModel {
     return new ExtensionModel(
       undefined,
-      undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period',
       undefined,
       undefined,
@@ -120,7 +112,6 @@ export class ExtensionModel implements Extension {
 
   static createEclaireSiteContactName(firstname: string, name: string, title: string): ExtensionModel {
     return new ExtensionModel(
-      undefined,
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name',
       undefined,
@@ -137,7 +128,6 @@ export class ExtensionModel implements Extension {
     const emptyApprovalDateIfNull = ModelUtils.emptyIfNull(approvalDate)
 
     return new ExtensionModel(
-      undefined,
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date',
       undefined,

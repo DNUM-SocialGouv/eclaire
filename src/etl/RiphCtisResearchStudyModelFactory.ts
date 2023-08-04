@@ -22,7 +22,6 @@ export class RiphCtisResearchStudyModelFactory {
     const primarySponsorOrganizationId = ModelUtils.generateIdWithSuffix(riphCtisDto.numero_ctis, 'primary-sponsor')
     const secondarySponsorOrganizationId = ModelUtils.generateIdWithSuffix(riphCtisDto.numero_ctis, 'secondary-sponsor')
 
-    const arm = undefined
     const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
     const condition: CodeableConceptModel[] = [
       CodeableConceptModel.createDiseaseCondition(riphCtisDto.pathologies_maladies_rares),
@@ -73,35 +72,22 @@ export class RiphCtisResearchStudyModelFactory {
       ExtensionModel.createEclaireRecruitmentPeriod(riphCtisDto.date_debut_recrutement),
       ExtensionModel.createEclaireReviewDate(riphCtisDto.historique, riphCtisDto.dates_avis_favorable_ms_mns),
     ]
-    const focus = undefined
     const id = riphCtisDto.numero_ctis
     const identifier: Identifier[] = [
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
       IdentifierModel.createSecondarySlice(riphCtisDto.numero_ctis, assigner),
     ]
-    const implicitRules = undefined
-    const keyword = undefined
-    const language = undefined
     const location = CodeableConceptModel.createLocations(riphCtisDto.pays_concernes)
     const meta: Meta = MetaModel.create(
       riphCtisDto.historique,
       riphCtisDto.dates_avis_favorable_ms_mns
     )
-    const objective = undefined
-    const partOf = undefined
-    const period = undefined
     const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(riphCtisDto.phase_recherche)
-    const primaryPurposeType = undefined
-    const principalInvestigator = undefined
-    const protocol = undefined
-    const reasonStopped = undefined
-    const relatedArtifact = undefined
 
     const { site, siteLocations } = this.createSitesAndSiteLocations(riphCtisDto)
 
     const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphCtisDto.etat as RiphStatus
-    const text = undefined
     const title = ModelUtils.emptyIfNull(riphCtisDto.titre)
 
     const organizations: OrganizationModel[] = [
@@ -135,7 +121,6 @@ export class RiphCtisResearchStudyModelFactory {
     const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(siteLocations, organizations)
 
     return new ResearchStudyModel(
-      arm,
       category,
       condition,
       contact,
@@ -143,28 +128,15 @@ export class RiphCtisResearchStudyModelFactory {
       description,
       enrollment,
       extensions,
-      focus,
       id,
       identifier,
-      implicitRules,
-      keyword,
-      language,
       location,
       meta,
-      objective,
-      partOf,
-      period,
       phase,
-      primaryPurposeType,
-      principalInvestigator,
-      protocol,
-      reasonStopped,
       referenceContents,
-      relatedArtifact,
       site,
       sponsor,
       status,
-      text,
       title
     )
   }

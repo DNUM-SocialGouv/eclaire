@@ -1,4 +1,4 @@
-import { CodeableConcept, Identifier, Period, Reference } from 'fhir/r4'
+import { Identifier, Reference } from 'fhir/r4'
 
 import {
   AssignerForSecondaryIdentifier,
@@ -8,9 +8,6 @@ import {
 export class IdentifierModel implements Identifier {
   constructor(
     readonly assigner: Reference | undefined,
-    readonly id: string | undefined,
-    readonly period: Period | undefined,
-    readonly type: CodeableConcept | undefined,
     readonly use:
       | 'usual'
       | 'official'
@@ -18,18 +15,13 @@ export class IdentifierModel implements Identifier {
       | 'secondary'
       | 'old'
       | undefined,
-    readonly system: string | undefined,
     readonly value: string | undefined
   ) {}
 
   static createPrimarySlice(number: string): IdentifierModel {
     return new IdentifierModel(
       ReferenceModel.createAssignerForPrimaryIdentifier(),
-      undefined,
-      undefined,
-      undefined,
       'official',
-      undefined,
       number
     )
   }
@@ -40,11 +32,7 @@ export class IdentifierModel implements Identifier {
   ): IdentifierModel {
     return new IdentifierModel(
       ReferenceModel.createAssignerForSecondaryIdentifier(assigner),
-      undefined,
-      undefined,
-      undefined,
       'secondary',
-      undefined,
       ctisOrNationalNumber
     )
   }
@@ -52,11 +40,7 @@ export class IdentifierModel implements Identifier {
   static createLocation(id: string): IdentifierModel {
     return new IdentifierModel(
       undefined,
-      undefined,
-      undefined,
-      undefined,
       'official',
-      undefined,
       id
     )
   }

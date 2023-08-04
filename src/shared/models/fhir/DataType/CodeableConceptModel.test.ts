@@ -11,13 +11,10 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             CodingModel {
               "code": "phase-1",
               "display": "Phase 1",
-              "id": undefined,
               "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
-              "userSelected": undefined,
               "version": "4.0.1",
             },
           ],
-          "id": undefined,
           "text": "Research Study Phase",
         }
       `)
@@ -30,13 +27,10 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             CodingModel {
               "code": "n-a",
               "display": "N/A",
-              "id": undefined,
               "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
-              "userSelected": undefined,
               "version": "4.0.1",
             },
           ],
-          "id": undefined,
           "text": "Research Study Phase",
         }
       `)
@@ -58,13 +52,10 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             CodingModel {
               "code": undefined,
               "display": "REG536",
-              "id": undefined,
               "system": undefined,
-              "userSelected": undefined,
               "version": undefined,
             },
           ],
-          "id": undefined,
           "text": "Regulation Code",
         }
       `)
@@ -79,13 +70,10 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             CodingModel {
               "code": undefined,
               "display": "Locally-Advanced or Metastatic breast cancer (MBC)",
-              "id": undefined,
               "system": undefined,
-              "userSelected": undefined,
               "version": undefined,
             },
           ],
-          "id": undefined,
           "text": "Disease Condition",
         }
       `)
@@ -98,13 +86,10 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             CodingModel {
               "code": undefined,
               "display": "",
-              "id": undefined,
               "system": undefined,
-              "userSelected": undefined,
               "version": undefined,
             },
           ],
-          "id": undefined,
           "text": "Disease Condition",
         }
       `)
@@ -119,13 +104,10 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             CodingModel {
               "code": "10018938",
               "display": "MedDRA",
-              "id": undefined,
               "system": "http://terminology.hl7.org/CodeSystem/mdr",
-              "userSelected": undefined,
               "version": "2.0.1",
             },
           ],
-          "id": undefined,
           "text": "MedDRA Condition",
         }
       `)
@@ -138,29 +120,22 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             CodingModel {
               "code": "10018938",
               "display": "MedDRA",
-              "id": undefined,
               "system": "http://terminology.hl7.org/CodeSystem/mdr",
-              "userSelected": undefined,
               "version": "2.0.1",
             },
             CodingModel {
               "code": "10018937",
               "display": "MedDRA",
-              "id": undefined,
               "system": "http://terminology.hl7.org/CodeSystem/mdr",
-              "userSelected": undefined,
               "version": "2.0.1",
             },
             CodingModel {
               "code": "10018939",
               "display": "MedDRA",
-              "id": undefined,
               "system": "http://terminology.hl7.org/CodeSystem/mdr",
-              "userSelected": undefined,
               "version": "2.0.1",
             },
           ],
-          "id": undefined,
           "text": "MedDRA Condition",
         }
       `)
@@ -170,7 +145,6 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
       expect(CodeableConceptModel.createMedDraCondition('')).toMatchInlineSnapshot(`
         CodeableConceptModel {
           "coding": [],
-          "id": undefined,
           "text": "MedDRA Condition",
         }
       `)
@@ -185,13 +159,10 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             CodingModel {
               "code": "female",
               "display": "Female",
-              "id": undefined,
               "system": "http://hl7.org/fhir/administrative-gender",
-              "userSelected": undefined,
               "version": "5.0.0",
             },
           ],
-          "id": undefined,
           "text": "Genders",
         }
       `)
@@ -204,21 +175,16 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             CodingModel {
               "code": "male",
               "display": "Male",
-              "id": undefined,
               "system": "http://hl7.org/fhir/administrative-gender",
-              "userSelected": undefined,
               "version": "5.0.0",
             },
             CodingModel {
               "code": "female",
               "display": "Female",
-              "id": undefined,
               "system": "http://hl7.org/fhir/administrative-gender",
-              "userSelected": undefined,
               "version": "5.0.0",
             },
           ],
-          "id": undefined,
           "text": "Genders",
         }
       `)
@@ -231,13 +197,10 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
             CodingModel {
               "code": "unknown",
               "display": "Unknown",
-              "id": undefined,
               "system": "http://hl7.org/fhir/administrative-gender",
-              "userSelected": undefined,
               "version": "5.0.0",
             },
           ],
-          "id": undefined,
           "text": "Genders",
         }
       `)

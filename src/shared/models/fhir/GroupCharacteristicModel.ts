@@ -1,4 +1,4 @@
-import { CodeableConcept, GroupCharacteristic, Period, Quantity, Range, Reference } from 'fhir/r4'
+import { CodeableConcept, GroupCharacteristic, Quantity, Range, Reference } from 'fhir/r4'
 
 import { CodeableConceptModel } from './DataType/CodeableConceptModel'
 import { RangeModel } from './DataType/RangeModel'
@@ -8,8 +8,6 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
   constructor(
     readonly code: CodeableConcept,
     readonly exclude: boolean,
-    readonly id: string | undefined,
-    readonly period: Period | undefined,
     readonly valueBoolean: boolean | undefined,
     readonly valueCodeableConcept: CodeableConcept | undefined,
     readonly valueQuantity: Quantity | undefined,
@@ -21,8 +19,6 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
-      undefined,
-      undefined,
       undefined,
       CodeableConceptModel.createGenders(genders),
       undefined,
@@ -38,8 +34,6 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
       undefined,
       undefined,
       undefined,
-      undefined,
-      undefined,
       RangeModel.createAgeRange(ageRange),
       undefined
     )
@@ -49,8 +43,6 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
-      undefined,
-      undefined,
       undefined,
       CodeableConceptModel.createResearchStudyGroupCategory(researchStudyGroupCategory),
       undefined,
@@ -64,8 +56,6 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
       CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
       undefined,
-      undefined,
-      undefined,
       CodeableConceptModel.createStudyPopulation(studyPopulation),
       undefined,
       undefined,
@@ -78,8 +68,6 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
       CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       false,
       undefined,
-      undefined,
-      undefined,
       CodeableConceptModel.createInclusion(studyInclusion),
       undefined,
       undefined,
@@ -91,8 +79,6 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
       true,
-      undefined,
-      undefined,
       undefined,
       CodeableConceptModel.createExclusion(studyExclusion),
       undefined,

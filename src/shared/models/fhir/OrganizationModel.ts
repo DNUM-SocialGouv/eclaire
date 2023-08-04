@@ -2,12 +2,9 @@ import {
   Address,
   CodeableConcept,
   ContactPoint,
-  FhirResource,
   Identifier,
-  Meta,
   Organization,
   OrganizationContact,
-  Reference,
 } from 'fhir/r4'
 
 import { AddressModel } from './DataType/AddressModel'
@@ -21,19 +18,11 @@ export class OrganizationModel implements Organization {
   readonly resourceType: 'Organization'
 
   constructor(
-    readonly active: boolean | undefined,
     readonly address: Address[] | undefined,
-    readonly alias: string[] | undefined,
     readonly contact: OrganizationContact[] | undefined,
-    readonly contained: FhirResource[] | undefined,
-    readonly endpoint: Reference[] | undefined,
     readonly id: string | undefined,
     readonly identifier: Identifier[] | undefined,
-    readonly implicitRules: string | undefined,
-    readonly language: string | undefined,
-    readonly meta: Meta | undefined,
     readonly name: string | undefined,
-    readonly partOf: Reference | undefined,
     readonly telecom: ContactPoint[] | undefined,
     readonly type: CodeableConcept[] | undefined
   ) {
@@ -63,7 +52,6 @@ export class OrganizationModel implements Organization {
     const emptyIfNullContactMail = ModelUtils.emptyIfNull(contactMail)
 
     return new OrganizationModel(
-      true,
       [
         AddressModel.create(
           [emptyIfNullSponsorAddress],
@@ -72,7 +60,6 @@ export class OrganizationModel implements Organization {
           emptyIfNullSponsorCountry
         ),
       ],
-      undefined,
       [
         OrganizationContactModel.create(
           emptyIfNullContactFirstname,
@@ -81,15 +68,9 @@ export class OrganizationModel implements Organization {
           emptyIfNullContactMail
         ),
       ],
-      undefined,
-      undefined,
       sponsorOrganizationId,
       undefined,
-      undefined,
-      undefined,
-      undefined,
       emptyIfNullSponsorName,
-      undefined,
       undefined,
       [CodeableConceptModel.createClinicalResearchSponsor()]
     )
@@ -118,19 +99,11 @@ export class OrganizationModel implements Organization {
     }
 
     return new OrganizationModel(
-      true,
-      undefined,
-      [assignerForSecondaryIdentifier],
-      undefined,
       undefined,
       undefined,
       assignerForSecondaryIdentifier,
       undefined,
-      undefined,
-      undefined,
-      undefined,
       name,
-      undefined,
       [ContactPointModel.createUrl(url)],
       undefined
     )

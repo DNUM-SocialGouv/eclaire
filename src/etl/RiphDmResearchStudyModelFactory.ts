@@ -21,7 +21,6 @@ export class RiphDmResearchStudyModelFactory {
     const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphDmDto.numero_national)
     const assigner = ModelUtils.identifyAssigner(riphDmDto.reglementation_code, riphDmDto.qualification)
 
-    const arm = undefined
     const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphDmDto.reglementation_code)]
     const condition: CodeableConceptModel[] = [
       CodeableConceptModel.createDiseaseCondition(ModelUtils.UNAVAILABLE),
@@ -71,33 +70,20 @@ export class RiphDmResearchStudyModelFactory {
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
       ExtensionModel.createEclaireReviewDate(riphDmDto.historique, riphDmDto.dates_avis_favorable_ms_mns),
     ]
-    const focus = undefined
     const id = riphDmDto.numero_national
     const identifier: Identifier[] = [
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
       IdentifierModel.createSecondarySlice(riphDmDto.numero_national, assigner),
     ]
-    const implicitRules = undefined
-    const keyword = undefined
-    const language = undefined
     const location = undefined
     const meta: MetaModel = MetaModel.create(
       riphDmDto.historique,
       riphDmDto.dates_avis_favorable_ms_mns
     )
-    const objective = undefined
-    const partOf = undefined
-    const period = undefined
     const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(ModelUtils.UNAVAILABLE)
-    const primaryPurposeType = undefined
-    const principalInvestigator = undefined
-    const protocol = undefined
-    const reasonStopped = undefined
-    const relatedArtifact = undefined
     const site = undefined
     const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphDmDto.etat as RiphStatus
-    const text = undefined
     const title = ModelUtils.emptyIfNull(riphDmDto.titre_recherche)
 
     const organizations: OrganizationModel[] = [
@@ -131,7 +117,6 @@ export class RiphDmResearchStudyModelFactory {
     const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(undefined, organizations)
 
     return new ResearchStudyModel(
-      arm,
       category,
       condition,
       contact,
@@ -139,28 +124,15 @@ export class RiphDmResearchStudyModelFactory {
       description,
       enrollment,
       extensions,
-      focus,
       id,
       identifier,
-      implicitRules,
-      keyword,
-      language,
       location,
       meta,
-      objective,
-      partOf,
-      period,
       phase,
-      primaryPurposeType,
-      principalInvestigator,
-      protocol,
-      reasonStopped,
       referenceContents,
-      relatedArtifact,
       site,
       sponsor,
       status,
-      text,
       title
     )
   }

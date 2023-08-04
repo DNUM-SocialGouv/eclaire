@@ -1,10 +1,8 @@
-import { Identifier, Reference } from 'fhir/r4'
+import { Reference } from 'fhir/r4'
 
 export class ReferenceModel implements Reference {
   constructor(
     readonly display: string | undefined,
-    readonly id: string | undefined,
-    readonly identifier: Identifier | undefined,
     readonly reference: string | undefined,
     readonly type: string | undefined
   ) {}
@@ -12,8 +10,6 @@ export class ReferenceModel implements Reference {
   static createGroupDetailingStudyCharacteristics(enrollmentGroupId: string): ReferenceModel {
     return new ReferenceModel(
       'Reference to group detailing study characteristics',
-      undefined,
-      undefined,
       this.generateInternalFragmentReference(enrollmentGroupId),
       'Group'
     )
@@ -23,8 +19,6 @@ export class ReferenceModel implements Reference {
     return new ReferenceModel(
       'Reference to primary assigner',
       undefined,
-      undefined,
-      undefined,
       'Organization'
     )
   }
@@ -33,8 +27,6 @@ export class ReferenceModel implements Reference {
     const type = 'Organization'
     return new ReferenceModel(
       'Reference to secondary assigner',
-      undefined,
-      undefined,
       this.generateRelativeUrlReference(assigner, type),
       type
     )
@@ -44,8 +36,6 @@ export class ReferenceModel implements Reference {
     const type = 'Organization'
     return new ReferenceModel(
       'Reference to primary sponsor',
-      undefined,
-      undefined,
       this.generateRelativeUrlReference(primarySponsorOrganizationId, type),
       type
     )
@@ -55,8 +45,6 @@ export class ReferenceModel implements Reference {
     const type = 'Organization'
     return new ReferenceModel(
       'Reference to secondary sponsor',
-      undefined,
-      undefined,
       this.generateRelativeUrlReference(secondarySponsorOrganizationId, type),
       type
     )
@@ -66,8 +54,6 @@ export class ReferenceModel implements Reference {
     const type = 'Location'
     return new ReferenceModel(
       'Reference to site',
-      undefined,
-      undefined,
       this.generateRelativeUrlReference(id, type),
       type
     )
