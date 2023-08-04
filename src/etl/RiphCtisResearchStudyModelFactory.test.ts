@@ -907,8 +907,6 @@ describe('ctis research study model factory', () => {
               ],
               "contact": [
                 OrganizationContactModel {
-                  "address": undefined,
-                  "id": undefined,
                   "name": HumanNameModel {
                     "family": "Trial Information Support Line-TISL, Switzerland",
                     "given": [
@@ -998,8 +996,6 @@ describe('ctis research study model factory', () => {
               ],
               "contact": [
                 OrganizationContactModel {
-                  "address": undefined,
-                  "id": undefined,
                   "name": HumanNameModel {
                     "family": "INDISPONIBLE",
                     "given": [
@@ -1805,8 +1801,6 @@ describe('ctis research study model factory', () => {
               ],
               "contact": [
                 OrganizationContactModel {
-                  "address": undefined,
-                  "id": undefined,
                   "name": HumanNameModel {
                     "family": "",
                     "given": [
@@ -1896,8 +1890,6 @@ describe('ctis research study model factory', () => {
               ],
               "contact": [
                 OrganizationContactModel {
-                  "address": undefined,
-                  "id": undefined,
                   "name": HumanNameModel {
                     "family": "INDISPONIBLE",
                     "given": [

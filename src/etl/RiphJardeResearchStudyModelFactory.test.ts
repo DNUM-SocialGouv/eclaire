@@ -646,8 +646,6 @@ describe('jarde research study model factory', () => {
               ],
               "contact": [
                 OrganizationContactModel {
-                  "address": undefined,
-                  "id": undefined,
                   "name": HumanNameModel {
                     "family": "GILLET",
                     "given": [
@@ -737,8 +735,6 @@ describe('jarde research study model factory', () => {
               ],
               "contact": [
                 OrganizationContactModel {
-                  "address": undefined,
-                  "id": undefined,
                   "name": HumanNameModel {
                     "family": "INDISPONIBLE",
                     "given": [
@@ -1490,8 +1486,6 @@ describe('jarde research study model factory', () => {
               ],
               "contact": [
                 OrganizationContactModel {
-                  "address": undefined,
-                  "id": undefined,
                   "name": HumanNameModel {
                     "family": "",
                     "given": [
@@ -1581,8 +1575,6 @@ describe('jarde research study model factory', () => {
               ],
               "contact": [
                 OrganizationContactModel {
-                  "address": undefined,
-                  "id": undefined,
                   "name": HumanNameModel {
                     "family": "INDISPONIBLE",
                     "given": [
