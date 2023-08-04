@@ -20,13 +20,16 @@ export class HumanNameModel implements HumanName {
       | undefined
   ) {}
 
-  static create(firstname: string, name: string) {
+  static create(firstname: string, name: string, title?: string) {
+    let prefix: string[] = undefined
+    if (title !== undefined) prefix = [title]
+
     return new HumanNameModel(
       name,
       [firstname],
       undefined,
       undefined,
-      undefined,
+      prefix,
       undefined,
       undefined,
       'official'

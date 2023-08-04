@@ -51,13 +51,24 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createSecondarySponsor(secondarySponsorOrganizationId: string) {
+  static createSecondarySponsor(secondarySponsorOrganizationId: string): ReferenceModel {
     const type = 'Organization'
     return new ReferenceModel(
       'Reference to secondary sponsor',
       undefined,
       undefined,
       this.generateRelativeUrlReference(secondarySponsorOrganizationId, type),
+      type
+    )
+  }
+
+  static createSite(id: string): ReferenceModel {
+    const type = 'Location'
+    return new ReferenceModel(
+      'Reference to site',
+      undefined,
+      undefined,
+      this.generateRelativeUrlReference(id, type),
       type
     )
   }

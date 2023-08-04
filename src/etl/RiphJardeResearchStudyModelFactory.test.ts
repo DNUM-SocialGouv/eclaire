@@ -68,6 +68,7 @@ describe('jarde research study model factory', () => {
             "name": "Christophe GILLET",
             "telecom": [
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -76,6 +77,7 @@ describe('jarde research study model factory', () => {
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -105,6 +107,7 @@ describe('jarde research study model factory', () => {
                   "id": undefined,
                   "text": "Contact Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -114,6 +117,7 @@ describe('jarde research study model factory', () => {
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -122,6 +126,7 @@ describe('jarde research study model factory', () => {
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -151,6 +156,7 @@ describe('jarde research study model factory', () => {
                   "id": undefined,
                   "text": "Contact Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -160,6 +166,7 @@ describe('jarde research study model factory', () => {
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -168,6 +175,7 @@ describe('jarde research study model factory', () => {
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -427,6 +435,7 @@ describe('jarde research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": ReferenceModel {
               "display": "Reference to secondary sponsor",
@@ -442,6 +451,7 @@ describe('jarde research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": "Autres",
@@ -453,6 +463,7 @@ describe('jarde research study model factory', () => {
                 "id": undefined,
                 "url": "labelValue",
                 "valueCodeableConcept": undefined,
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": "INDISPONIBLE",
@@ -475,6 +486,7 @@ describe('jarde research study model factory', () => {
                   "id": undefined,
                   "text": "Label Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -483,6 +495,7 @@ describe('jarde research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": undefined,
@@ -494,6 +507,7 @@ describe('jarde research study model factory', () => {
                 "id": undefined,
                 "url": "labelValue",
                 "valueCodeableConcept": undefined,
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": "INDISPONIBLE",
@@ -516,6 +530,7 @@ describe('jarde research study model factory', () => {
                   "id": undefined,
                   "text": "Label Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -524,6 +539,7 @@ describe('jarde research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": undefined,
@@ -600,6 +616,7 @@ describe('jarde research study model factory', () => {
         "protocol": undefined,
         "reasonStopped": undefined,
         "referenceContents": ReferenceContentsModel {
+          "locations": undefined,
           "organizations": [
             OrganizationModel {
               "active": true,
@@ -652,6 +669,7 @@ describe('jarde research study model factory', () => {
                   },
                   "telecom": [
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -660,6 +678,7 @@ describe('jarde research study model factory', () => {
                       "value": "INDISPONIBLE",
                     },
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -749,6 +768,7 @@ describe('jarde research study model factory', () => {
                   },
                   "telecom": [
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -757,6 +777,7 @@ describe('jarde research study model factory', () => {
                       "value": "INDISPONIBLE",
                     },
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -814,6 +835,7 @@ describe('jarde research study model factory', () => {
               "resourceType": "Organization",
               "telecom": [
                 ContactPointModel {
+                  "extension": undefined,
                   "id": undefined,
                   "period": undefined,
                   "rank": undefined,
@@ -909,6 +931,7 @@ describe('jarde research study model factory', () => {
             "name": " ",
             "telecom": [
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -917,6 +940,7 @@ describe('jarde research study model factory', () => {
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -946,6 +970,7 @@ describe('jarde research study model factory', () => {
                   "id": undefined,
                   "text": "Contact Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -955,6 +980,7 @@ describe('jarde research study model factory', () => {
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -963,6 +989,7 @@ describe('jarde research study model factory', () => {
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -992,6 +1019,7 @@ describe('jarde research study model factory', () => {
                   "id": undefined,
                   "text": "Contact Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -1001,6 +1029,7 @@ describe('jarde research study model factory', () => {
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -1009,6 +1038,7 @@ describe('jarde research study model factory', () => {
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -1268,6 +1298,7 @@ describe('jarde research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": ReferenceModel {
               "display": "Reference to secondary sponsor",
@@ -1283,6 +1314,7 @@ describe('jarde research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": "",
@@ -1294,6 +1326,7 @@ describe('jarde research study model factory', () => {
                 "id": undefined,
                 "url": "labelValue",
                 "valueCodeableConcept": undefined,
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": "INDISPONIBLE",
@@ -1316,6 +1349,7 @@ describe('jarde research study model factory', () => {
                   "id": undefined,
                   "text": "Label Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -1324,6 +1358,7 @@ describe('jarde research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": undefined,
@@ -1335,6 +1370,7 @@ describe('jarde research study model factory', () => {
                 "id": undefined,
                 "url": "labelValue",
                 "valueCodeableConcept": undefined,
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": "INDISPONIBLE",
@@ -1357,6 +1393,7 @@ describe('jarde research study model factory', () => {
                   "id": undefined,
                   "text": "Label Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -1365,6 +1402,7 @@ describe('jarde research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": undefined,
@@ -1441,6 +1479,7 @@ describe('jarde research study model factory', () => {
         "protocol": undefined,
         "reasonStopped": undefined,
         "referenceContents": ReferenceContentsModel {
+          "locations": undefined,
           "organizations": [
             OrganizationModel {
               "active": true,
@@ -1493,6 +1532,7 @@ describe('jarde research study model factory', () => {
                   },
                   "telecom": [
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -1501,6 +1541,7 @@ describe('jarde research study model factory', () => {
                       "value": "INDISPONIBLE",
                     },
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -1590,6 +1631,7 @@ describe('jarde research study model factory', () => {
                   },
                   "telecom": [
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -1598,6 +1640,7 @@ describe('jarde research study model factory', () => {
                       "value": "INDISPONIBLE",
                     },
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -1655,6 +1698,7 @@ describe('jarde research study model factory', () => {
               "resourceType": "Organization",
               "telecom": [
                 ContactPointModel {
+                  "extension": undefined,
                   "id": undefined,
                   "period": undefined,
                   "rank": undefined,

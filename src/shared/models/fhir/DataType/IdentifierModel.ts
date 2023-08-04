@@ -48,4 +48,16 @@ export class IdentifierModel implements Identifier {
       ctisOrNationalNumber
     )
   }
+
+  static createLocation(id: string): IdentifierModel {
+    return new IdentifierModel(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      'official',
+      undefined,
+      id
+    )
+  }
 }

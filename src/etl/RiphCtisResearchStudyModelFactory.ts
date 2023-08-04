@@ -7,6 +7,7 @@ import { ReferenceContentsModel } from '../shared/models/custom/ReferenceContent
 import { CodeableConceptModel } from '../shared/models/fhir/DataType/CodeableConceptModel'
 import { IdentifierModel } from '../shared/models/fhir/DataType/IdentifierModel'
 import { GroupModel } from '../shared/models/fhir/GroupModel'
+import { LocationModel } from '../shared/models/fhir/LocationModel'
 import { ContactDetailModel } from '../shared/models/fhir/MetadataType/ContactDetailModel'
 import { OrganizationModel } from '../shared/models/fhir/OrganizationModel'
 import { RiphStatus, ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
@@ -16,10 +17,10 @@ import { ReferenceModel } from '../shared/models/fhir/SpecialPurposeDataType/Ref
 
 export class RiphCtisResearchStudyModelFactory {
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
-    const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphCtisDto.numero_ctis)
-    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphCtisDto.numero_ctis)
-    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphCtisDto.numero_ctis)
     const assigner = ModelUtils.identifyAssigner(riphCtisDto.reglementation_code)
+    const enrollmentGroupId = ModelUtils.generateIdWithSuffix(riphCtisDto.numero_ctis, 'enrollment-group-id')
+    const primarySponsorOrganizationId = ModelUtils.generateIdWithSuffix(riphCtisDto.numero_ctis, 'primary-sponsor')
+    const secondarySponsorOrganizationId = ModelUtils.generateIdWithSuffix(riphCtisDto.numero_ctis, 'secondary-sponsor')
 
     const arm = undefined
     const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
@@ -94,7 +95,9 @@ export class RiphCtisResearchStudyModelFactory {
     const protocol = undefined
     const reasonStopped = undefined
     const relatedArtifact = undefined
-    const site = undefined
+
+    const { site, siteLocations } = this.createSitesAndSiteLocations(riphCtisDto)
+
     const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphCtisDto.etat as RiphStatus
     const text = undefined
@@ -128,7 +131,7 @@ export class RiphCtisResearchStudyModelFactory {
       OrganizationModel.createSecondaryAssigner(assigner),
     ]
 
-    const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(organizations)
+    const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(siteLocations, organizations)
 
     return new ResearchStudyModel(
       arm,
@@ -163,5 +166,29 @@ export class RiphCtisResearchStudyModelFactory {
       text,
       title
     )
+  }
+
+  private static createSitesAndSiteLocations(riphCtisDto: RiphCtisDto) {
+    const site: ReferenceModel[] = []
+    const siteLocations: LocationModel[] = []
+
+    for (let siteDtoIndex = 0; siteDtoIndex < riphCtisDto.sites.length; siteDtoIndex++) {
+      const id = ModelUtils.generateIdWithSuffix(siteDtoIndex.toString(), 'ctis-site')
+      site.push(ReferenceModel.createSite(id))
+
+      const siteDto = riphCtisDto.sites.at(siteDtoIndex)
+      siteLocations.push(LocationModel.create(
+        id,
+        ModelUtils.emptyIfNull(siteDto.adresse),
+        ModelUtils.emptyIfNull(siteDto.ville),
+        ModelUtils.emptyIfNull(siteDto.prenom),
+        ModelUtils.emptyIfNull(siteDto.nom),
+        ModelUtils.emptyIfNull(siteDto.organisme),
+        ModelUtils.emptyIfNull(siteDto.service),
+        ModelUtils.emptyIfNull(siteDto.titre)
+      ))
+    }
+
+    return { site, siteLocations }
   }
 }

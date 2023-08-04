@@ -14,14 +14,14 @@ export class AddressModel implements Address {
     readonly use: 'home' | 'work' | 'temp' | 'old' | 'billing' | undefined
   ) {}
 
-  static create(sponsorAdress: string, sponsorCity: string, sponsorPostalCode: string, sponsorCountry: string): AddressModel {
+  static create(lines: string[], city: string, postalCode: string, country: string): AddressModel {
     return new AddressModel(
-      sponsorCity,
-      sponsorCountry,
+      city,
+      country,
       undefined,
-      [sponsorAdress],
+      lines,
       undefined,
-      sponsorPostalCode,
+      postalCode,
       undefined,
       undefined,
       'physical',

@@ -1,8 +1,9 @@
-import { CodeableConcept, Extension, Period, Reference } from 'fhir/r4'
+import { CodeableConcept, Extension, HumanName, Period, Reference } from 'fhir/r4'
 
 import { ReferenceModel } from './ReferenceModel'
 import { ModelUtils } from '../../custom/ModelUtils'
 import { CodeableConceptModel } from '../DataType/CodeableConceptModel'
+import { HumanNameModel } from '../DataType/HumanNameModel'
 import { PeriodModel } from '../DataType/PeriodModel'
 import { ContactType } from '../MetadataType/ContactDetailModel'
 
@@ -12,6 +13,7 @@ export class ExtensionModel implements Extension {
     readonly id: string | undefined,
     readonly url: string,
     readonly valueCodeableConcept: CodeableConcept | undefined,
+    readonly valueHumanName: HumanName | undefined,
     readonly valuePeriod: Period | undefined,
     readonly valueReference: Reference | undefined,
     readonly valueString: string | undefined
@@ -22,6 +24,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor',
+      undefined,
       undefined,
       undefined,
       ReferenceModel.createSecondarySponsor(secondarySponsorId),
@@ -37,6 +40,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       ModelUtils.emptyIfNull(therapeuticArea)
     )
   }
@@ -49,6 +53,7 @@ export class ExtensionModel implements Extension {
       CodeableConceptModel.createContactType(contactType),
       undefined,
       undefined,
+      undefined,
       undefined
     )
   }
@@ -58,6 +63,7 @@ export class ExtensionModel implements Extension {
       [this.createEclaireLabelValue(value), this.createEclaireLabelType(type)],
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label',
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -73,6 +79,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       value
     )
   }
@@ -85,6 +92,7 @@ export class ExtensionModel implements Extension {
       CodeableConceptModel.createLabelType(type),
       undefined,
       undefined,
+      undefined,
       undefined
     )
   }
@@ -95,7 +103,21 @@ export class ExtensionModel implements Extension {
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period',
       undefined,
+      undefined,
       PeriodModel.createRecruitmentPeriod(recruitmentDate),
+      undefined,
+      undefined
+    )
+  }
+
+  static createEclaireSiteContactName(firstname: string, name: string, title: string): ExtensionModel {
+    return new ExtensionModel(
+      undefined,
+      undefined,
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name',
+      undefined,
+      HumanNameModel.create(firstname, name, title),
+      undefined,
       undefined,
       undefined
     )

@@ -23,6 +23,10 @@ export class ModelUtils {
     return `${value}-secondary-sponsor`
   }
 
+  static generateIdWithSuffix(value: string, suffix: string) {
+    return `${value}-${suffix}`
+  }
+
   static identifyAssigner(regulationCode: string, qualification?: string): AssignerForSecondaryIdentifier {
     enum REGULATION_CODES {
       CTIS = 'REG536',
