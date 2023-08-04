@@ -14,9 +14,7 @@ describe('shared | models | fhir | CodingModel', () => {
         CodingModel {
           "code": "phase-3",
           "display": "Phase 3",
-          "id": undefined,
           "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
-          "userSelected": undefined,
           "version": "4.0.1",
         }
       `)
@@ -31,9 +29,7 @@ describe('shared | models | fhir | CodingModel', () => {
         CodingModel {
           "code": "n-a",
           "display": "N/A",
-          "id": undefined,
           "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
-          "userSelected": undefined,
           "version": "4.0.1",
         }
       `)
@@ -46,9 +42,7 @@ describe('shared | models | fhir | CodingModel', () => {
         CodingModel {
           "code": "female",
           "display": "Female",
-          "id": undefined,
           "system": "http://hl7.org/fhir/administrative-gender",
-          "userSelected": undefined,
           "version": "5.0.0",
         }
       `)
@@ -59,9 +53,7 @@ describe('shared | models | fhir | CodingModel', () => {
         CodingModel {
           "code": "unknown",
           "display": "Unknown",
-          "id": undefined,
           "system": "http://hl7.org/fhir/administrative-gender",
-          "userSelected": undefined,
           "version": "5.0.0",
         }
       `)

@@ -13,9 +13,7 @@ export class CodingModel implements Coding {
   constructor(
     readonly code: string | undefined,
     readonly display: string | undefined,
-    readonly id: string | undefined,
     readonly system: string | undefined,
-    readonly userSelected: boolean | undefined,
     readonly version: string | undefined
   ) {}
 
@@ -31,9 +29,7 @@ export class CodingModel implements Coding {
     return new CodingModel(
       matchingPhase?.code,
       matchingPhase?.display,
-      undefined,
       researchStudyPhaseCodeSystem.url,
-      undefined,
       researchStudyPhaseCodeSystem.version
     )
   }
@@ -58,8 +54,6 @@ export class CodingModel implements Coding {
       undefined,
       disease,
       undefined,
-      undefined,
-      undefined,
       undefined
     )
   }
@@ -68,9 +62,7 @@ export class CodingModel implements Coding {
     return new CodingModel(
       medDraCode,
       medDraCodeSystem.title,
-      undefined,
       medDraCodeSystem.url,
-      undefined,
       medDraCodeSystem.version
     )
   }
@@ -83,9 +75,7 @@ export class CodingModel implements Coding {
     return new CodingModel(
       matchingGender?.code,
       matchingGender?.display,
-      undefined,
       administrativeGenderCodeSystem.url,
-      undefined,
       administrativeGenderCodeSystem.version
     )
   }
@@ -94,8 +84,6 @@ export class CodingModel implements Coding {
     return new CodingModel(
       undefined,
       researchStudyGroupCategory,
-      undefined,
-      undefined,
       undefined,
       undefined
     )
@@ -106,8 +94,6 @@ export class CodingModel implements Coding {
       undefined,
       studyPopulation,
       undefined,
-      undefined,
-      undefined,
       undefined
     )
   }
@@ -116,8 +102,6 @@ export class CodingModel implements Coding {
     return new CodingModel(
       undefined,
       code,
-      undefined,
-      undefined,
       undefined,
       undefined
     )
@@ -128,8 +112,6 @@ export class CodingModel implements Coding {
       undefined,
       regulationCode,
       undefined,
-      undefined,
-      undefined,
       undefined
     )
   }
@@ -138,8 +120,6 @@ export class CodingModel implements Coding {
     return new CodingModel(
       undefined,
       inclusion,
-      undefined,
-      undefined,
       undefined,
       undefined
     )
@@ -150,8 +130,6 @@ export class CodingModel implements Coding {
       undefined,
       exclusion,
       undefined,
-      undefined,
-      undefined,
       undefined
     )
   }
@@ -160,9 +138,7 @@ export class CodingModel implements Coding {
     return new CodingModel(
       'ADMIN',
       'Administrative',
-      undefined,
       'http://terminology.hl7.org/CodeSystem/contactentity-type',
-      undefined,
       '4.0.1'
     )
   }
@@ -171,9 +147,7 @@ export class CodingModel implements Coding {
     return new CodingModel(
       'crs',
       'Clinical Research Sponsor',
-      undefined,
       'http://terminology.hl7.org/CodeSystem/organization-type',
-      undefined,
       '4.0.1'
     )
   }
@@ -186,9 +160,7 @@ export class CodingModel implements Coding {
     return new CodingModel(
       reference.code,
       reference.display,
-      undefined,
       eclaireTypeContactCodeSystem.url,
-      undefined,
       eclaireTypeContactCodeSystem.version
     )
   }
@@ -201,9 +173,7 @@ export class CodingModel implements Coding {
     return new CodingModel(
       countryCode,
       country.display,
-      undefined,
       countryCodeSystem.compose.include[0].system,
-      undefined,
       countryCodeSystem.version
     )
   }
@@ -216,9 +186,7 @@ export class CodingModel implements Coding {
     return new CodingModel(
       matchingLabelType.code,
       matchingLabelType.display,
-      undefined,
       titleTypeCodeSystem.url,
-      undefined,
       titleTypeCodeSystem.version
     )
   }

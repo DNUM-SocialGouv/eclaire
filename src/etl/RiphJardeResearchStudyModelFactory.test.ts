@@ -20,9 +20,7 @@ describe('jarde research study model factory', () => {
               CodingModel {
                 "code": undefined,
                 "display": "JARDE",
-                "id": undefined,
                 "system": undefined,
-                "userSelected": undefined,
                 "version": undefined,
               },
             ],
@@ -35,9 +33,7 @@ describe('jarde research study model factory', () => {
               CodingModel {
                 "code": undefined,
                 "display": "INDISPONIBLE",
-                "id": undefined,
                 "system": undefined,
-                "userSelected": undefined,
                 "version": undefined,
               },
             ],
@@ -48,9 +44,7 @@ describe('jarde research study model factory', () => {
               CodingModel {
                 "code": "INDISPONIBLE",
                 "display": "MedDRA",
-                "id": undefined,
                 "system": "http://terminology.hl7.org/CodeSystem/mdr",
-                "userSelected": undefined,
                 "version": "2.0.1",
               },
             ],
@@ -92,9 +86,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "SCI",
                       "display": "Scientifique / Scientific",
-                      "id": undefined,
                       "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
-                      "userSelected": undefined,
                       "version": "0.1.0",
                     },
                   ],
@@ -139,9 +131,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "PUB",
                       "display": "Publique / Public",
-                      "id": undefined,
                       "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
-                      "userSelected": undefined,
                       "version": "0.1.0",
                     },
                   ],
@@ -187,9 +177,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -202,9 +190,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": undefined,
-                      "id": undefined,
                       "system": "http://hl7.org/fhir/administrative-gender",
-                      "userSelected": undefined,
                       "version": "5.0.0",
                     },
                   ],
@@ -220,9 +206,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -245,9 +229,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -260,9 +242,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -278,9 +258,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -293,9 +271,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -311,9 +287,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -326,9 +300,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -344,9 +316,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -359,9 +329,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -431,9 +399,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "human-use",
                       "display": "Human use",
-                      "id": undefined,
                       "system": "http://hl7.org/fhir/title-type",
-                      "userSelected": undefined,
                       "version": "5.0.0",
                     },
                   ],
@@ -474,9 +440,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "acronym",
                       "display": "Acronym",
-                      "id": undefined,
                       "system": "http://hl7.org/fhir/title-type",
-                      "userSelected": undefined,
                       "version": "5.0.0",
                     },
                   ],
@@ -549,9 +513,7 @@ describe('jarde research study model factory', () => {
             CodingModel {
               "code": "n-a",
               "display": "N/A",
-              "id": undefined,
               "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
-              "userSelected": undefined,
               "version": "4.0.1",
             },
           ],
@@ -592,9 +554,7 @@ describe('jarde research study model factory', () => {
                       CodingModel {
                         "code": "ADMIN",
                         "display": "Administrative",
-                        "id": undefined,
                         "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "userSelected": undefined,
                         "version": "4.0.1",
                       },
                     ],
@@ -633,9 +593,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "crs",
                       "display": "Clinical Research Sponsor",
-                      "id": undefined,
                       "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "userSelected": undefined,
                       "version": "4.0.1",
                     },
                   ],
@@ -675,9 +633,7 @@ describe('jarde research study model factory', () => {
                       CodingModel {
                         "code": "ADMIN",
                         "display": "Administrative",
-                        "id": undefined,
                         "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "userSelected": undefined,
                         "version": "4.0.1",
                       },
                     ],
@@ -716,9 +672,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "crs",
                       "display": "Clinical Research Sponsor",
-                      "id": undefined,
                       "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "userSelected": undefined,
                       "version": "4.0.1",
                     },
                   ],
@@ -779,9 +733,7 @@ describe('jarde research study model factory', () => {
               CodingModel {
                 "code": undefined,
                 "display": "JARDE",
-                "id": undefined,
                 "system": undefined,
-                "userSelected": undefined,
                 "version": undefined,
               },
             ],
@@ -794,9 +746,7 @@ describe('jarde research study model factory', () => {
               CodingModel {
                 "code": undefined,
                 "display": "INDISPONIBLE",
-                "id": undefined,
                 "system": undefined,
-                "userSelected": undefined,
                 "version": undefined,
               },
             ],
@@ -807,9 +757,7 @@ describe('jarde research study model factory', () => {
               CodingModel {
                 "code": "INDISPONIBLE",
                 "display": "MedDRA",
-                "id": undefined,
                 "system": "http://terminology.hl7.org/CodeSystem/mdr",
-                "userSelected": undefined,
                 "version": "2.0.1",
               },
             ],
@@ -851,9 +799,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "SCI",
                       "display": "Scientifique / Scientific",
-                      "id": undefined,
                       "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
-                      "userSelected": undefined,
                       "version": "0.1.0",
                     },
                   ],
@@ -898,9 +844,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "PUB",
                       "display": "Publique / Public",
-                      "id": undefined,
                       "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
-                      "userSelected": undefined,
                       "version": "0.1.0",
                     },
                   ],
@@ -946,9 +890,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -961,9 +903,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": undefined,
-                      "id": undefined,
                       "system": "http://hl7.org/fhir/administrative-gender",
-                      "userSelected": undefined,
                       "version": "5.0.0",
                     },
                   ],
@@ -979,9 +919,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -1004,9 +942,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -1019,9 +955,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -1037,9 +971,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -1052,9 +984,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -1070,9 +1000,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -1085,9 +1013,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -1103,9 +1029,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -1118,9 +1042,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
-                      "id": undefined,
                       "system": undefined,
-                      "userSelected": undefined,
                       "version": undefined,
                     },
                   ],
@@ -1190,9 +1112,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "human-use",
                       "display": "Human use",
-                      "id": undefined,
                       "system": "http://hl7.org/fhir/title-type",
-                      "userSelected": undefined,
                       "version": "5.0.0",
                     },
                   ],
@@ -1233,9 +1153,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "acronym",
                       "display": "Acronym",
-                      "id": undefined,
                       "system": "http://hl7.org/fhir/title-type",
-                      "userSelected": undefined,
                       "version": "5.0.0",
                     },
                   ],
@@ -1308,9 +1226,7 @@ describe('jarde research study model factory', () => {
             CodingModel {
               "code": "n-a",
               "display": "N/A",
-              "id": undefined,
               "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
-              "userSelected": undefined,
               "version": "4.0.1",
             },
           ],
@@ -1351,9 +1267,7 @@ describe('jarde research study model factory', () => {
                       CodingModel {
                         "code": "ADMIN",
                         "display": "Administrative",
-                        "id": undefined,
                         "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "userSelected": undefined,
                         "version": "4.0.1",
                       },
                     ],
@@ -1392,9 +1306,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "crs",
                       "display": "Clinical Research Sponsor",
-                      "id": undefined,
                       "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "userSelected": undefined,
                       "version": "4.0.1",
                     },
                   ],
@@ -1434,9 +1346,7 @@ describe('jarde research study model factory', () => {
                       CodingModel {
                         "code": "ADMIN",
                         "display": "Administrative",
-                        "id": undefined,
                         "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "userSelected": undefined,
                         "version": "4.0.1",
                       },
                     ],
@@ -1475,9 +1385,7 @@ describe('jarde research study model factory', () => {
                     CodingModel {
                       "code": "crs",
                       "display": "Clinical Research Sponsor",
-                      "id": undefined,
                       "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "userSelected": undefined,
                       "version": "4.0.1",
                     },
                   ],
