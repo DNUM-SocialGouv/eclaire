@@ -10,7 +10,6 @@ describe('rangeModel', () => {
             "unit": "years",
             "value": 17,
           },
-          "id": undefined,
           "low": QuantityModel {
             "comparator": ">=",
             "unit": "years",
@@ -28,7 +27,6 @@ describe('rangeModel', () => {
             "unit": "years",
             "value": 64,
           },
-          "id": undefined,
           "low": QuantityModel {
             "comparator": ">=",
             "unit": "years",
@@ -42,7 +40,6 @@ describe('rangeModel', () => {
       expect(RangeModel.createAgeRange('65+ years')).toMatchInlineSnapshot(`
         RangeModel {
           "high": undefined,
-          "id": undefined,
           "low": QuantityModel {
             "comparator": ">=",
             "unit": "years",
@@ -56,7 +53,6 @@ describe('rangeModel', () => {
       expect(RangeModel.createAgeRange('')).toMatchInlineSnapshot(`
         RangeModel {
           "high": undefined,
-          "id": undefined,
           "low": undefined,
         }
       `)

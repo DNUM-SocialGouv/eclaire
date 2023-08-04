@@ -5,7 +5,6 @@ import { QuantityComparator, QuantityModel } from './QuantityModel'
 export class RangeModel implements Range {
   constructor(
     readonly high: Quantity | undefined,
-    readonly id: string | undefined,
     readonly low: Quantity | undefined
   ) {}
 
@@ -50,7 +49,6 @@ export class RangeModel implements Range {
 
     return new RangeModel(
       QuantityModel.create(high, highUnit, highComparator),
-      undefined,
       QuantityModel.create(low, lowUnit, lowComparator)
     )
   }

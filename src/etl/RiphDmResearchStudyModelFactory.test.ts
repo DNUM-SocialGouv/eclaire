@@ -200,7 +200,6 @@ describe('dm research study model factory', () => {
                 "valueQuantity": undefined,
                 "valueRange": RangeModel {
                   "high": undefined,
-                  "id": undefined,
                   "low": undefined,
                 },
                 "valueReference": undefined,
@@ -864,7 +863,6 @@ describe('dm research study model factory', () => {
                 "valueQuantity": undefined,
                 "valueRange": RangeModel {
                   "high": undefined,
-                  "id": undefined,
                   "low": undefined,
                 },
                 "valueReference": undefined,
