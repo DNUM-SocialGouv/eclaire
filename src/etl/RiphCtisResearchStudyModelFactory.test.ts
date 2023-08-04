@@ -889,7 +889,6 @@ describe('ctis research study model factory', () => {
           ],
           "organizations": [
             OrganizationModel {
-              "active": true,
               "address": [
                 AddressModel {
                   "city": "Basel Town",
@@ -906,7 +905,6 @@ describe('ctis research study model factory', () => {
                   "use": "work",
                 },
               ],
-              "alias": undefined,
               "contact": [
                 OrganizationContactModel {
                   "address": undefined,
@@ -959,15 +957,9 @@ describe('ctis research study model factory', () => {
                   ],
                 },
               ],
-              "contained": undefined,
-              "endpoint": undefined,
               "id": "2022-500014-26-00-primary-sponsor",
               "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
               "name": "F. Hoffmann-La Roche AG",
-              "partOf": undefined,
               "resourceType": "Organization",
               "telecom": undefined,
               "type": [
@@ -988,7 +980,6 @@ describe('ctis research study model factory', () => {
               ],
             },
             OrganizationModel {
-              "active": true,
               "address": [
                 AddressModel {
                   "city": "INDISPONIBLE",
@@ -1005,7 +996,6 @@ describe('ctis research study model factory', () => {
                   "use": "work",
                 },
               ],
-              "alias": undefined,
               "contact": [
                 OrganizationContactModel {
                   "address": undefined,
@@ -1058,15 +1048,9 @@ describe('ctis research study model factory', () => {
                   ],
                 },
               ],
-              "contained": undefined,
-              "endpoint": undefined,
               "id": "2022-500014-26-00-secondary-sponsor",
               "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
               "name": "INDISPONIBLE",
-              "partOf": undefined,
               "resourceType": "Organization",
               "telecom": undefined,
               "type": [
@@ -1087,21 +1071,11 @@ describe('ctis research study model factory', () => {
               ],
             },
             OrganizationModel {
-              "active": true,
               "address": undefined,
-              "alias": [
-                "ctis",
-              ],
               "contact": undefined,
-              "contained": undefined,
-              "endpoint": undefined,
               "id": "ctis",
               "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
               "name": "Clinical Trials Information System",
-              "partOf": undefined,
               "resourceType": "Organization",
               "telecom": [
                 ContactPointModel {
@@ -1813,7 +1787,6 @@ describe('ctis research study model factory', () => {
           ],
           "organizations": [
             OrganizationModel {
-              "active": true,
               "address": [
                 AddressModel {
                   "city": "",
@@ -1830,7 +1803,6 @@ describe('ctis research study model factory', () => {
                   "use": "work",
                 },
               ],
-              "alias": undefined,
               "contact": [
                 OrganizationContactModel {
                   "address": undefined,
@@ -1883,15 +1855,9 @@ describe('ctis research study model factory', () => {
                   ],
                 },
               ],
-              "contained": undefined,
-              "endpoint": undefined,
               "id": "2022-500299-71-00-primary-sponsor",
               "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
               "name": "",
-              "partOf": undefined,
               "resourceType": "Organization",
               "telecom": undefined,
               "type": [
@@ -1912,7 +1878,6 @@ describe('ctis research study model factory', () => {
               ],
             },
             OrganizationModel {
-              "active": true,
               "address": [
                 AddressModel {
                   "city": "INDISPONIBLE",
@@ -1929,7 +1894,6 @@ describe('ctis research study model factory', () => {
                   "use": "work",
                 },
               ],
-              "alias": undefined,
               "contact": [
                 OrganizationContactModel {
                   "address": undefined,
@@ -1982,15 +1946,9 @@ describe('ctis research study model factory', () => {
                   ],
                 },
               ],
-              "contained": undefined,
-              "endpoint": undefined,
               "id": "2022-500299-71-00-secondary-sponsor",
               "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
               "name": "INDISPONIBLE",
-              "partOf": undefined,
               "resourceType": "Organization",
               "telecom": undefined,
               "type": [
@@ -2011,21 +1969,11 @@ describe('ctis research study model factory', () => {
               ],
             },
             OrganizationModel {
-              "active": true,
               "address": undefined,
-              "alias": [
-                "ctis",
-              ],
               "contact": undefined,
-              "contained": undefined,
-              "endpoint": undefined,
               "id": "ctis",
               "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
               "name": "Clinical Trials Information System",
-              "partOf": undefined,
               "resourceType": "Organization",
               "telecom": [
                 ContactPointModel {

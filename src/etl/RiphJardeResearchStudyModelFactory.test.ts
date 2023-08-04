@@ -628,7 +628,6 @@ describe('jarde research study model factory', () => {
           "locations": undefined,
           "organizations": [
             OrganizationModel {
-              "active": true,
               "address": [
                 AddressModel {
                   "city": "Valenciennes",
@@ -645,7 +644,6 @@ describe('jarde research study model factory', () => {
                   "use": "work",
                 },
               ],
-              "alias": undefined,
               "contact": [
                 OrganizationContactModel {
                   "address": undefined,
@@ -698,15 +696,9 @@ describe('jarde research study model factory', () => {
                   ],
                 },
               ],
-              "contained": undefined,
-              "endpoint": undefined,
               "id": "2021-A01022-39-primary-sponsor",
               "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
               "name": "Université Polytechnique Hauts-de-France",
-              "partOf": undefined,
               "resourceType": "Organization",
               "telecom": undefined,
               "type": [
@@ -727,7 +719,6 @@ describe('jarde research study model factory', () => {
               ],
             },
             OrganizationModel {
-              "active": true,
               "address": [
                 AddressModel {
                   "city": "INDISPONIBLE",
@@ -744,7 +735,6 @@ describe('jarde research study model factory', () => {
                   "use": "work",
                 },
               ],
-              "alias": undefined,
               "contact": [
                 OrganizationContactModel {
                   "address": undefined,
@@ -797,15 +787,9 @@ describe('jarde research study model factory', () => {
                   ],
                 },
               ],
-              "contained": undefined,
-              "endpoint": undefined,
               "id": "2021-A01022-39-secondary-sponsor",
               "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
               "name": "INDISPONIBLE",
-              "partOf": undefined,
               "resourceType": "Organization",
               "telecom": undefined,
               "type": [
@@ -826,21 +810,11 @@ describe('jarde research study model factory', () => {
               ],
             },
             OrganizationModel {
-              "active": true,
               "address": undefined,
-              "alias": [
-                "ansm",
-              ],
               "contact": undefined,
-              "contained": undefined,
-              "endpoint": undefined,
               "id": "ansm",
               "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
               "name": "Agence nationale de sécurité du médicament et des produits de santé",
-              "partOf": undefined,
               "resourceType": "Organization",
               "telecom": [
                 ContactPointModel {
@@ -1498,7 +1472,6 @@ describe('jarde research study model factory', () => {
           "locations": undefined,
           "organizations": [
             OrganizationModel {
-              "active": true,
               "address": [
                 AddressModel {
                   "city": "",
@@ -1515,7 +1488,6 @@ describe('jarde research study model factory', () => {
                   "use": "work",
                 },
               ],
-              "alias": undefined,
               "contact": [
                 OrganizationContactModel {
                   "address": undefined,
@@ -1568,15 +1540,9 @@ describe('jarde research study model factory', () => {
                   ],
                 },
               ],
-              "contained": undefined,
-              "endpoint": undefined,
               "id": "2021-A01022-39-primary-sponsor",
               "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
               "name": "",
-              "partOf": undefined,
               "resourceType": "Organization",
               "telecom": undefined,
               "type": [
@@ -1597,7 +1563,6 @@ describe('jarde research study model factory', () => {
               ],
             },
             OrganizationModel {
-              "active": true,
               "address": [
                 AddressModel {
                   "city": "INDISPONIBLE",
@@ -1614,7 +1579,6 @@ describe('jarde research study model factory', () => {
                   "use": "work",
                 },
               ],
-              "alias": undefined,
               "contact": [
                 OrganizationContactModel {
                   "address": undefined,
@@ -1667,15 +1631,9 @@ describe('jarde research study model factory', () => {
                   ],
                 },
               ],
-              "contained": undefined,
-              "endpoint": undefined,
               "id": "2021-A01022-39-secondary-sponsor",
               "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
               "name": "INDISPONIBLE",
-              "partOf": undefined,
               "resourceType": "Organization",
               "telecom": undefined,
               "type": [
@@ -1696,21 +1654,11 @@ describe('jarde research study model factory', () => {
               ],
             },
             OrganizationModel {
-              "active": true,
               "address": undefined,
-              "alias": [
-                "ansm",
-              ],
               "contact": undefined,
-              "contained": undefined,
-              "endpoint": undefined,
               "id": "ansm",
               "identifier": undefined,
-              "implicitRules": undefined,
-              "language": undefined,
-              "meta": undefined,
               "name": "Agence nationale de sécurité du médicament et des produits de santé",
-              "partOf": undefined,
               "resourceType": "Organization",
               "telecom": [
                 ContactPointModel {
