@@ -507,7 +507,6 @@ describe('ctis research study model factory', () => {
             "valueInstant": undefined,
             "valuePeriod": PeriodModel {
               "end": undefined,
-              "id": undefined,
               "start": "2022-06-30T00:00:00.000Z",
             },
             "valueReference": undefined,
@@ -1302,7 +1301,6 @@ describe('ctis research study model factory', () => {
             "valueInstant": undefined,
             "valuePeriod": PeriodModel {
               "end": undefined,
-              "id": undefined,
               "start": "1970-01-01T00:00:00.000Z",
             },
             "valueReference": undefined,
