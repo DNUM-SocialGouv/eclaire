@@ -66,7 +66,7 @@ export class OrganizationModel implements Organization {
       true,
       [
         AddressModel.create(
-          emptyIfNullSponsorAddress,
+          [emptyIfNullSponsorAddress],
           emptyIfNullSponsorCity,
           emptyIfNullSponsorPostalCode,
           emptyIfNullSponsorCountry

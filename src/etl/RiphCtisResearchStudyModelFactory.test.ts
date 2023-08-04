@@ -76,6 +76,7 @@ describe('ctis research study model factory', () => {
             "name": "Head of EU Trial Information Support Line-TISL, Switzerland",
             "telecom": [
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -84,6 +85,7 @@ describe('ctis research study model factory', () => {
                 "value": "0041616881111",
               },
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -98,14 +100,14 @@ describe('ctis research study model factory', () => {
               ExtensionModel {
                 "extension": undefined,
                 "id": undefined,
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": "SCI",
                       "display": "Scientifique / Scientific",
                       "id": undefined,
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
                       "userSelected": undefined,
                       "version": "0.1.0",
                     },
@@ -113,6 +115,7 @@ describe('ctis research study model factory', () => {
                   "id": undefined,
                   "text": "Contact Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -122,6 +125,7 @@ describe('ctis research study model factory', () => {
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -130,6 +134,7 @@ describe('ctis research study model factory', () => {
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -144,14 +149,14 @@ describe('ctis research study model factory', () => {
               ExtensionModel {
                 "extension": undefined,
                 "id": undefined,
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": "PUB",
                       "display": "Publique / Public",
                       "id": undefined,
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
                       "userSelected": undefined,
                       "version": "0.1.0",
                     },
@@ -159,6 +164,7 @@ describe('ctis research study model factory', () => {
                   "id": undefined,
                   "text": "Contact Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -168,6 +174,7 @@ describe('ctis research study model factory', () => {
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -176,6 +183,7 @@ describe('ctis research study model factory', () => {
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -492,6 +500,7 @@ describe('ctis research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": ReferenceModel {
               "display": "Reference to secondary sponsor",
@@ -507,6 +516,7 @@ describe('ctis research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": "Diseases [C] - Neoplasms [C04]",
@@ -518,6 +528,7 @@ describe('ctis research study model factory', () => {
                 "id": undefined,
                 "url": "labelValue",
                 "valueCodeableConcept": undefined,
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": "INDISPONIBLE",
@@ -529,17 +540,18 @@ describe('ctis research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": undefined,
-                      "display": "human-use",
+                      "code": "human-use",
+                      "display": "Human use",
                       "id": undefined,
-                      "system": undefined,
+                      "system": "http://hl7.org/fhir/title-type",
                       "userSelected": undefined,
-                      "version": undefined,
+                      "version": "5.0.0",
                     },
                   ],
                   "id": undefined,
                   "text": "Label Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -548,6 +560,7 @@ describe('ctis research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": undefined,
@@ -559,6 +572,7 @@ describe('ctis research study model factory', () => {
                 "id": undefined,
                 "url": "labelValue",
                 "valueCodeableConcept": undefined,
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": "INDISPONIBLE",
@@ -570,17 +584,18 @@ describe('ctis research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": undefined,
-                      "display": "acronym",
+                      "code": "acronym",
+                      "display": "Acronym",
                       "id": undefined,
-                      "system": undefined,
+                      "system": "http://hl7.org/fhir/title-type",
                       "userSelected": undefined,
-                      "version": undefined,
+                      "version": "5.0.0",
                     },
                   ],
                   "id": undefined,
                   "text": "Label Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -589,6 +604,7 @@ describe('ctis research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": undefined,
@@ -598,6 +614,7 @@ describe('ctis research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": PeriodModel {
               "end": undefined,
               "id": undefined,
@@ -653,7 +670,7 @@ describe('ctis research study model factory', () => {
                 "id": undefined,
                 "system": "urn:iso:std:iso:3166",
                 "userSelected": undefined,
-                "version": undefined,
+                "version": "4.0.1",
               },
             ],
             "id": undefined,
@@ -667,7 +684,7 @@ describe('ctis research study model factory', () => {
                 "id": undefined,
                 "system": "urn:iso:std:iso:3166",
                 "userSelected": undefined,
-                "version": undefined,
+                "version": "4.0.1",
               },
             ],
             "id": undefined,
@@ -681,7 +698,7 @@ describe('ctis research study model factory', () => {
                 "id": undefined,
                 "system": "urn:iso:std:iso:3166",
                 "userSelected": undefined,
-                "version": undefined,
+                "version": "4.0.1",
               },
             ],
             "id": undefined,
@@ -695,7 +712,7 @@ describe('ctis research study model factory', () => {
                 "id": undefined,
                 "system": "urn:iso:std:iso:3166",
                 "userSelected": undefined,
-                "version": undefined,
+                "version": "4.0.1",
               },
             ],
             "id": undefined,
@@ -709,7 +726,7 @@ describe('ctis research study model factory', () => {
                 "id": undefined,
                 "system": "urn:iso:std:iso:3166",
                 "userSelected": undefined,
-                "version": undefined,
+                "version": "4.0.1",
               },
             ],
             "id": undefined,
@@ -723,7 +740,7 @@ describe('ctis research study model factory', () => {
                 "id": undefined,
                 "system": "urn:iso:std:iso:3166",
                 "userSelected": undefined,
-                "version": undefined,
+                "version": "4.0.1",
               },
             ],
             "id": undefined,
@@ -737,7 +754,7 @@ describe('ctis research study model factory', () => {
                 "id": undefined,
                 "system": "urn:iso:std:iso:3166",
                 "userSelected": undefined,
-                "version": undefined,
+                "version": "4.0.1",
               },
             ],
             "id": undefined,
@@ -751,7 +768,7 @@ describe('ctis research study model factory', () => {
                 "id": undefined,
                 "system": "urn:iso:std:iso:3166",
                 "userSelected": undefined,
-                "version": undefined,
+                "version": "4.0.1",
               },
             ],
             "id": undefined,
@@ -791,6 +808,74 @@ describe('ctis research study model factory', () => {
         "protocol": undefined,
         "reasonStopped": undefined,
         "referenceContents": ReferenceContentsModel {
+          "locations": [
+            LocationModel {
+              "address": AddressModel {
+                "city": "Lille",
+                "country": undefined,
+                "district": undefined,
+                "line": [
+                  "Avenue Eugene Avinee",
+                  "Gastroenterology Hepatology and Nutrition Unit Paediatric clinic, Child Unit",
+                ],
+                "period": undefined,
+                "postalCode": undefined,
+                "state": undefined,
+                "text": undefined,
+                "type": "physical",
+                "use": "work",
+              },
+              "id": "0-ctis-site",
+              "identifier": [
+                IdentifierModel {
+                  "assigner": undefined,
+                  "id": undefined,
+                  "period": undefined,
+                  "system": undefined,
+                  "type": undefined,
+                  "use": "official",
+                  "value": "0-ctis-site",
+                },
+              ],
+              "name": "Donnée non disponible",
+              "resourceType": "Location",
+              "telecom": [
+                ContactPointModel {
+                  "extension": [
+                    ExtensionModel {
+                      "extension": undefined,
+                      "id": undefined,
+                      "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name",
+                      "valueCodeableConcept": undefined,
+                      "valueHumanName": HumanNameModel {
+                        "family": "Aumar",
+                        "given": [
+                          "Madeleine",
+                        ],
+                        "id": undefined,
+                        "period": undefined,
+                        "prefix": [
+                          "Dr.",
+                        ],
+                        "suffix": undefined,
+                        "text": undefined,
+                        "use": "official",
+                      },
+                      "valuePeriod": undefined,
+                      "valueReference": undefined,
+                      "valueString": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "period": undefined,
+                  "rank": undefined,
+                  "system": undefined,
+                  "use": "work",
+                  "value": undefined,
+                },
+              ],
+            },
+          ],
           "organizations": [
             OrganizationModel {
               "active": true,
@@ -843,6 +928,7 @@ describe('ctis research study model factory', () => {
                   },
                   "telecom": [
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -851,6 +937,7 @@ describe('ctis research study model factory', () => {
                       "value": "0041616881111",
                     },
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -940,6 +1027,7 @@ describe('ctis research study model factory', () => {
                   },
                   "telecom": [
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -948,6 +1036,7 @@ describe('ctis research study model factory', () => {
                       "value": "INDISPONIBLE",
                     },
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -1005,6 +1094,7 @@ describe('ctis research study model factory', () => {
               "resourceType": "Organization",
               "telecom": [
                 ContactPointModel {
+                  "extension": undefined,
                   "id": undefined,
                   "period": undefined,
                   "rank": undefined,
@@ -1019,7 +1109,15 @@ describe('ctis research study model factory', () => {
         },
         "relatedArtifact": undefined,
         "resourceType": "ResearchStudy",
-        "site": undefined,
+        "site": [
+          ReferenceModel {
+            "display": "Reference to site",
+            "id": undefined,
+            "identifier": undefined,
+            "reference": "Location/0-ctis-site",
+            "type": "Location",
+          },
+        ],
         "sponsor": ReferenceModel {
           "display": "Reference to primary sponsor",
           "id": undefined,
@@ -1091,6 +1189,7 @@ describe('ctis research study model factory', () => {
             "name": " ",
             "telecom": [
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -1099,6 +1198,7 @@ describe('ctis research study model factory', () => {
                 "value": "",
               },
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -1113,14 +1213,14 @@ describe('ctis research study model factory', () => {
               ExtensionModel {
                 "extension": undefined,
                 "id": undefined,
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": "SCI",
                       "display": "Scientifique / Scientific",
                       "id": undefined,
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
                       "userSelected": undefined,
                       "version": "0.1.0",
                     },
@@ -1128,6 +1228,7 @@ describe('ctis research study model factory', () => {
                   "id": undefined,
                   "text": "Contact Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -1137,6 +1238,7 @@ describe('ctis research study model factory', () => {
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -1145,6 +1247,7 @@ describe('ctis research study model factory', () => {
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -1159,14 +1262,14 @@ describe('ctis research study model factory', () => {
               ExtensionModel {
                 "extension": undefined,
                 "id": undefined,
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": "PUB",
                       "display": "Publique / Public",
                       "id": undefined,
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
                       "userSelected": undefined,
                       "version": "0.1.0",
                     },
@@ -1174,6 +1277,7 @@ describe('ctis research study model factory', () => {
                   "id": undefined,
                   "text": "Contact Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -1183,6 +1287,7 @@ describe('ctis research study model factory', () => {
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -1191,6 +1296,7 @@ describe('ctis research study model factory', () => {
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
+                "extension": undefined,
                 "id": undefined,
                 "period": undefined,
                 "rank": undefined,
@@ -1422,6 +1528,7 @@ describe('ctis research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": ReferenceModel {
               "display": "Reference to secondary sponsor",
@@ -1437,6 +1544,7 @@ describe('ctis research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": "",
@@ -1448,6 +1556,7 @@ describe('ctis research study model factory', () => {
                 "id": undefined,
                 "url": "labelValue",
                 "valueCodeableConcept": undefined,
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": "INDISPONIBLE",
@@ -1459,17 +1568,18 @@ describe('ctis research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": undefined,
-                      "display": "human-use",
+                      "code": "human-use",
+                      "display": "Human use",
                       "id": undefined,
-                      "system": undefined,
+                      "system": "http://hl7.org/fhir/title-type",
                       "userSelected": undefined,
-                      "version": undefined,
+                      "version": "5.0.0",
                     },
                   ],
                   "id": undefined,
                   "text": "Label Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -1478,6 +1588,7 @@ describe('ctis research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": undefined,
@@ -1489,6 +1600,7 @@ describe('ctis research study model factory', () => {
                 "id": undefined,
                 "url": "labelValue",
                 "valueCodeableConcept": undefined,
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": "INDISPONIBLE",
@@ -1500,17 +1612,18 @@ describe('ctis research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": undefined,
-                      "display": "acronym",
+                      "code": "acronym",
+                      "display": "Acronym",
                       "id": undefined,
-                      "system": undefined,
+                      "system": "http://hl7.org/fhir/title-type",
                       "userSelected": undefined,
-                      "version": undefined,
+                      "version": "5.0.0",
                     },
                   ],
                   "id": undefined,
                   "text": "Label Type",
                 },
+                "valueHumanName": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -1519,6 +1632,7 @@ describe('ctis research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": undefined,
@@ -1528,6 +1642,7 @@ describe('ctis research study model factory', () => {
             "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
             "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
             "valuePeriod": PeriodModel {
               "end": undefined,
               "id": undefined,
@@ -1608,6 +1723,74 @@ describe('ctis research study model factory', () => {
         "protocol": undefined,
         "reasonStopped": undefined,
         "referenceContents": ReferenceContentsModel {
+          "locations": [
+            LocationModel {
+              "address": AddressModel {
+                "city": "",
+                "country": undefined,
+                "district": undefined,
+                "line": [
+                  "",
+                  "",
+                ],
+                "period": undefined,
+                "postalCode": undefined,
+                "state": undefined,
+                "text": undefined,
+                "type": "physical",
+                "use": "work",
+              },
+              "id": "0-ctis-site",
+              "identifier": [
+                IdentifierModel {
+                  "assigner": undefined,
+                  "id": undefined,
+                  "period": undefined,
+                  "system": undefined,
+                  "type": undefined,
+                  "use": "official",
+                  "value": "0-ctis-site",
+                },
+              ],
+              "name": "",
+              "resourceType": "Location",
+              "telecom": [
+                ContactPointModel {
+                  "extension": [
+                    ExtensionModel {
+                      "extension": undefined,
+                      "id": undefined,
+                      "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name",
+                      "valueCodeableConcept": undefined,
+                      "valueHumanName": HumanNameModel {
+                        "family": "",
+                        "given": [
+                          "",
+                        ],
+                        "id": undefined,
+                        "period": undefined,
+                        "prefix": [
+                          "",
+                        ],
+                        "suffix": undefined,
+                        "text": undefined,
+                        "use": "official",
+                      },
+                      "valuePeriod": undefined,
+                      "valueReference": undefined,
+                      "valueString": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "period": undefined,
+                  "rank": undefined,
+                  "system": undefined,
+                  "use": "work",
+                  "value": undefined,
+                },
+              ],
+            },
+          ],
           "organizations": [
             OrganizationModel {
               "active": true,
@@ -1660,6 +1843,7 @@ describe('ctis research study model factory', () => {
                   },
                   "telecom": [
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -1668,6 +1852,7 @@ describe('ctis research study model factory', () => {
                       "value": "",
                     },
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -1757,6 +1942,7 @@ describe('ctis research study model factory', () => {
                   },
                   "telecom": [
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -1765,6 +1951,7 @@ describe('ctis research study model factory', () => {
                       "value": "INDISPONIBLE",
                     },
                     ContactPointModel {
+                      "extension": undefined,
                       "id": undefined,
                       "period": undefined,
                       "rank": undefined,
@@ -1822,6 +2009,7 @@ describe('ctis research study model factory', () => {
               "resourceType": "Organization",
               "telecom": [
                 ContactPointModel {
+                  "extension": undefined,
                   "id": undefined,
                   "period": undefined,
                   "rank": undefined,
@@ -1836,7 +2024,15 @@ describe('ctis research study model factory', () => {
         },
         "relatedArtifact": undefined,
         "resourceType": "ResearchStudy",
-        "site": undefined,
+        "site": [
+          ReferenceModel {
+            "display": "Reference to site",
+            "id": undefined,
+            "identifier": undefined,
+            "reference": "Location/0-ctis-site",
+            "type": "Location",
+          },
+        ],
         "sponsor": ReferenceModel {
           "display": "Reference to primary sponsor",
           "id": undefined,

@@ -127,7 +127,7 @@ export class RiphDmResearchStudyModelFactory {
       OrganizationModel.createSecondaryAssigner(assigner),
     ]
 
-    const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(organizations)
+    const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(undefined, organizations)
 
     return new ResearchStudyModel(
       arm,
