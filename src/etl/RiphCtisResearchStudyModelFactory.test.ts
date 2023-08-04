@@ -214,10 +214,7 @@ describe('ctis research study model factory', () => {
                   "high": undefined,
                   "id": undefined,
                   "low": QuantityModel {
-                    "code": undefined,
                     "comparator": ">=",
-                    "id": undefined,
-                    "system": undefined,
                     "unit": "years",
                     "value": 65,
                   },
@@ -242,19 +239,13 @@ describe('ctis research study model factory', () => {
                 "valueQuantity": undefined,
                 "valueRange": RangeModel {
                   "high": QuantityModel {
-                    "code": undefined,
                     "comparator": "<=",
-                    "id": undefined,
-                    "system": undefined,
                     "unit": "years",
                     "value": 64,
                   },
                   "id": undefined,
                   "low": QuantityModel {
-                    "code": undefined,
                     "comparator": ">=",
-                    "id": undefined,
-                    "system": undefined,
                     "unit": "years",
                     "value": 18,
                   },

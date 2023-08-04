@@ -6,19 +6,13 @@ describe('rangeModel', () => {
       expect(RangeModel.createAgeRange('0-17 years')).toMatchInlineSnapshot(`
         RangeModel {
           "high": QuantityModel {
-            "code": undefined,
             "comparator": "<=",
-            "id": undefined,
-            "system": undefined,
             "unit": "years",
             "value": 17,
           },
           "id": undefined,
           "low": QuantityModel {
-            "code": undefined,
             "comparator": ">=",
-            "id": undefined,
-            "system": undefined,
             "unit": "years",
             "value": 0,
           },
@@ -30,19 +24,13 @@ describe('rangeModel', () => {
       expect(RangeModel.createAgeRange('18-64 years')).toMatchInlineSnapshot(`
         RangeModel {
           "high": QuantityModel {
-            "code": undefined,
             "comparator": "<=",
-            "id": undefined,
-            "system": undefined,
             "unit": "years",
             "value": 64,
           },
           "id": undefined,
           "low": QuantityModel {
-            "code": undefined,
             "comparator": ">=",
-            "id": undefined,
-            "system": undefined,
             "unit": "years",
             "value": 18,
           },
@@ -56,10 +44,7 @@ describe('rangeModel', () => {
           "high": undefined,
           "id": undefined,
           "low": QuantityModel {
-            "code": undefined,
             "comparator": ">=",
-            "id": undefined,
-            "system": undefined,
             "unit": "years",
             "value": 65,
           },
