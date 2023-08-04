@@ -700,13 +700,9 @@ describe('ctis research study model factory', () => {
                         "given": [
                           "Madeleine",
                         ],
-                        "id": undefined,
-                        "period": undefined,
                         "prefix": [
                           "Dr.",
                         ],
-                        "suffix": undefined,
-                        "text": undefined,
                         "use": "official",
                       },
                       "valueInstant": undefined,
@@ -743,11 +739,7 @@ describe('ctis research study model factory', () => {
                     "given": [
                       "Head of EU",
                     ],
-                    "id": undefined,
-                    "period": undefined,
                     "prefix": undefined,
-                    "suffix": undefined,
-                    "text": undefined,
                     "use": "official",
                   },
                   "purpose": CodeableConceptModel {
@@ -816,11 +808,7 @@ describe('ctis research study model factory', () => {
                     "given": [
                       "INDISPONIBLE",
                     ],
-                    "id": undefined,
-                    "period": undefined,
                     "prefix": undefined,
-                    "suffix": undefined,
-                    "text": undefined,
                     "use": "official",
                   },
                   "purpose": CodeableConceptModel {
@@ -1430,13 +1418,9 @@ describe('ctis research study model factory', () => {
                         "given": [
                           "",
                         ],
-                        "id": undefined,
-                        "period": undefined,
                         "prefix": [
                           "",
                         ],
-                        "suffix": undefined,
-                        "text": undefined,
                         "use": "official",
                       },
                       "valueInstant": undefined,
@@ -1473,11 +1457,7 @@ describe('ctis research study model factory', () => {
                     "given": [
                       "",
                     ],
-                    "id": undefined,
-                    "period": undefined,
                     "prefix": undefined,
-                    "suffix": undefined,
-                    "text": undefined,
                     "use": "official",
                   },
                   "purpose": CodeableConceptModel {
@@ -1546,11 +1526,7 @@ describe('ctis research study model factory', () => {
                     "given": [
                       "INDISPONIBLE",
                     ],
-                    "id": undefined,
-                    "period": undefined,
                     "prefix": undefined,
-                    "suffix": undefined,
-                    "text": undefined,
                     "use": "official",
                   },
                   "purpose": CodeableConceptModel {

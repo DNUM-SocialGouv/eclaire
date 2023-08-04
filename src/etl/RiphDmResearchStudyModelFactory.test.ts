@@ -524,11 +524,7 @@ describe('dm research study model factory', () => {
                     "given": [
                       "Olivier",
                     ],
-                    "id": undefined,
-                    "period": undefined,
                     "prefix": undefined,
-                    "suffix": undefined,
-                    "text": undefined,
                     "use": "official",
                   },
                   "purpose": CodeableConceptModel {
@@ -597,11 +593,7 @@ describe('dm research study model factory', () => {
                     "given": [
                       "INDISPONIBLE",
                     ],
-                    "id": undefined,
-                    "period": undefined,
                     "prefix": undefined,
-                    "suffix": undefined,
-                    "text": undefined,
                     "use": "official",
                   },
                   "purpose": CodeableConceptModel {
@@ -1204,11 +1196,7 @@ describe('dm research study model factory', () => {
                     "given": [
                       "",
                     ],
-                    "id": undefined,
-                    "period": undefined,
                     "prefix": undefined,
-                    "suffix": undefined,
-                    "text": undefined,
                     "use": "official",
                   },
                   "purpose": CodeableConceptModel {
@@ -1277,11 +1265,7 @@ describe('dm research study model factory', () => {
                     "given": [
                       "INDISPONIBLE",
                     ],
-                    "id": undefined,
-                    "period": undefined,
                     "prefix": undefined,
-                    "suffix": undefined,
-                    "text": undefined,
                     "use": "official",
                   },
                   "purpose": CodeableConceptModel {
