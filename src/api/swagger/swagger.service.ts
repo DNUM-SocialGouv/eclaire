@@ -14,10 +14,6 @@ export class SwaggerService {
       </ul>`)
       .setExternalDoc('Guide d’implémentation', 'https://interop.esante.gouv.fr/ig/fhir/eclaire/index.html')
       .setVersion('0.1')
-      // .addSecurity('bearer', {
-      //   scheme: 'bearer',
-      //   type: 'http',
-      // })
       .build()
     const document = SwaggerModule.createDocument(app, builder)
     SwaggerModule.setup('api', app, document, { swaggerOptions: { tagsSorter: 'alpha' } })

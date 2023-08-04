@@ -147,10 +147,7 @@ describe('elasticsearch research study repository', () => {
           }
           vi.spyOn(elasticsearchService, 'search').mockResolvedValue({
             // @ts-ignore
-            hits: [
-              // { _source: { id: '2022-500014-26-00' }, sort: [1636107200000] },
-              { _source: { id: '2023-500014-26-00' }, sort: [1637107200000] },
-            ],
+            hits: [{ _source: { id: '2023-500014-26-00' }, sort: [1637107200000] }],
             total: maxTotalConstraintFromElasticsearch,
           })
 
