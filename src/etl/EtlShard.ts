@@ -40,6 +40,6 @@ export type IndexElasticsearch = Readonly<{
   }
 }>
 
-export type RiphDto = RiphCtisDto | RiphDmDto | RiphJardeDto
+type RiphDto = RiphCtisDto | RiphDmDto | RiphJardeDto
 
 export type ResearchStudyElasticsearchDocument = IndexElasticsearch | ResearchStudyModel

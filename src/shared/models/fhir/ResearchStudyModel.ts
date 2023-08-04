@@ -75,7 +75,7 @@ export class ResearchStudyModel implements ResearchStudy {
 
 export type RiphStatus = 'ABANDONNEE' | 'ARCHIVEE' | 'A_DEMARRER' | 'EN_COURS' | 'EXPIREE' | 'PROROGEE' | 'SUSPENDUE' | 'TERMINEE' | 'TERMINEE_ANTICIPEE'
 
-export type ResearchStudyStatus = 'active'
+type ResearchStudyStatus = 'active'
   | 'administratively-completed'
   | 'approved'
   | 'closed-to-accrual'

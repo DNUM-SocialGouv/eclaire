@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 
 import { AppController } from './api/AppController'
-import { ClinicalTrialModule } from './api/clinical-trial/ClinicalTrialModule'
 import { ResearchStudyModule } from './api/research-study/ResearchStudyModule'
 import { SentryModule } from './api/sentry/sentry.module'
 import { SwaggerModule } from './api/swagger/swagger.module'
@@ -20,7 +19,6 @@ import { LoggerModule } from './shared/logger/LoggerModule'
     }),
     SentryModule,
     SwaggerModule,
-    ClinicalTrialModule,
     ResearchStudyModule,
     ElasticsearchModule,
     FhirEtlModule,
