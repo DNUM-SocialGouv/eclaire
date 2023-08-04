@@ -189,7 +189,6 @@ describe('dm research study model factory', () => {
         ],
         "contained": [
           GroupModel {
-            "active": undefined,
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
@@ -406,15 +405,7 @@ describe('dm research study model factory', () => {
                 "valueReference": undefined,
               },
             ],
-            "code": undefined,
             "id": "2021-A01563-38-enrollment-group-id",
-            "identifier": undefined,
-            "implicitRules": undefined,
-            "language": undefined,
-            "managingEntity": undefined,
-            "member": undefined,
-            "meta": undefined,
-            "name": undefined,
             "quantity": 96,
             "resourceType": "Group",
             "type": "person",
@@ -1029,7 +1020,6 @@ describe('dm research study model factory', () => {
         ],
         "contained": [
           GroupModel {
-            "active": undefined,
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
@@ -1246,15 +1236,7 @@ describe('dm research study model factory', () => {
                 "valueReference": undefined,
               },
             ],
-            "code": undefined,
             "id": "2021-A01563-39-enrollment-group-id",
-            "identifier": undefined,
-            "implicitRules": undefined,
-            "language": undefined,
-            "managingEntity": undefined,
-            "member": undefined,
-            "meta": undefined,
-            "name": undefined,
             "quantity": undefined,
             "resourceType": "Group",
             "type": "person",

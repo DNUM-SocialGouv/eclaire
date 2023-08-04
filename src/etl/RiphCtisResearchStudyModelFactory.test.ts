@@ -197,7 +197,6 @@ describe('ctis research study model factory', () => {
         ],
         "contained": [
           GroupModel {
-            "active": undefined,
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
@@ -471,15 +470,7 @@ describe('ctis research study model factory', () => {
                 "valueReference": undefined,
               },
             ],
-            "code": undefined,
             "id": "2022-500014-26-00-enrollment-group-id",
-            "identifier": undefined,
-            "implicitRules": undefined,
-            "language": undefined,
-            "managingEntity": undefined,
-            "member": undefined,
-            "meta": undefined,
-            "name": undefined,
             "quantity": 21,
             "resourceType": "Group",
             "type": "person",
@@ -1289,7 +1280,6 @@ describe('ctis research study model factory', () => {
         ],
         "contained": [
           GroupModel {
-            "active": undefined,
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
@@ -1478,15 +1468,7 @@ describe('ctis research study model factory', () => {
                 "valueReference": undefined,
               },
             ],
-            "code": undefined,
             "id": "2022-500299-71-00-enrollment-group-id",
-            "identifier": undefined,
-            "implicitRules": undefined,
-            "language": undefined,
-            "managingEntity": undefined,
-            "member": undefined,
-            "meta": undefined,
-            "name": undefined,
             "quantity": undefined,
             "resourceType": "Group",
             "type": "person",
