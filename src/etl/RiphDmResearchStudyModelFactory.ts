@@ -69,6 +69,7 @@ export class RiphDmResearchStudyModelFactory {
       ExtensionModel.createEclaireTherapeuticArea(riphDmDto.domaine_therapeutique),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
+      ExtensionModel.createEclaireReviewDate(riphDmDto.historique, riphDmDto.dates_avis_favorable_ms_mns),
     ]
     const focus = undefined
     const id = riphDmDto.numero_national

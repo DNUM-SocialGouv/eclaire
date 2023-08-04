@@ -48,4 +48,35 @@ export class ModelUtils {
         throw new Error('A regulation is always given. So, the assigner cannot be unknown')
     }
   }
+
+  static getMostRecentIsoDate(datesOfHistory: string, datesOfApproval: string): string {
+    if (datesOfHistory === '' && datesOfApproval === '') return new Date().toISOString()
+
+    const dates: string[] = []
+    if (datesOfHistory !== '') {
+      datesOfHistory.split(', ').forEach((dateOfHistory) => {
+        const date = dateOfHistory.split(':')
+
+        dates.push(date[0])
+      })
+    }
+
+    if (datesOfApproval !== '') {
+      datesOfApproval.split(', ').forEach((dateOfApproval) => {
+        const date = dateOfApproval.split(':')
+
+        dates.push(date[1])
+      })
+    }
+
+    const mostRecentDate = new Date([...dates].sort(this.sortBy)[0])
+    return mostRecentDate.toISOString()
+  }
+
+  private static sortBy = (a: string, b: string) => {
+    const valueA = a
+    const valueB = b
+
+    return valueB < valueA ? -1 : valueB > valueA ? 1 : 0
+  }
 }

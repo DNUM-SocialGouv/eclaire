@@ -69,6 +69,7 @@ export class RiphJardeResearchStudyModelFactory {
       ExtensionModel.createEclaireTherapeuticArea(riphJardeDto.domaine_therapeutique),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
+      ExtensionModel.createEclaireReviewDate(riphJardeDto.historique, riphJardeDto.dates_avis_favorable_ms_mns),
     ]
     const focus = undefined
     const id = riphJardeDto.numero_national
