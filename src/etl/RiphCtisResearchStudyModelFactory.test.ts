@@ -64,18 +64,12 @@ describe('ctis research study model factory', () => {
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "phone",
                 "use": "work",
                 "value": "0041616881111",
               },
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "email",
                 "use": "work",
                 "value": "global.rochegenentechtrials@roche.com",
@@ -109,18 +103,12 @@ describe('ctis research study model factory', () => {
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "phone",
                 "use": "work",
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "email",
                 "use": "work",
                 "value": "INDISPONIBLE",
@@ -154,18 +142,12 @@ describe('ctis research study model factory', () => {
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "phone",
                 "use": "work",
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "email",
                 "use": "work",
                 "value": "INDISPONIBLE",
@@ -733,9 +715,6 @@ describe('ctis research study model factory', () => {
                       "valueString": undefined,
                     },
                   ],
-                  "id": undefined,
-                  "period": undefined,
-                  "rank": undefined,
                   "system": undefined,
                   "use": "work",
                   "value": undefined,
@@ -785,18 +764,12 @@ describe('ctis research study model factory', () => {
                   "telecom": [
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "phone",
                       "use": "work",
                       "value": "0041616881111",
                     },
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "email",
                       "use": "work",
                       "value": "global.rochegenentechtrials@roche.com",
@@ -864,18 +837,12 @@ describe('ctis research study model factory', () => {
                   "telecom": [
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "phone",
                       "use": "work",
                       "value": "INDISPONIBLE",
                     },
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "email",
                       "use": "work",
                       "value": "INDISPONIBLE",
@@ -912,9 +879,6 @@ describe('ctis research study model factory', () => {
               "telecom": [
                 ContactPointModel {
                   "extension": undefined,
-                  "id": undefined,
-                  "period": undefined,
-                  "rank": undefined,
                   "system": "url",
                   "use": "work",
                   "value": "https://euclinicaltrials.eu/",
@@ -992,18 +956,12 @@ describe('ctis research study model factory', () => {
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "phone",
                 "use": "work",
                 "value": "",
               },
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "email",
                 "use": "work",
                 "value": "",
@@ -1037,18 +995,12 @@ describe('ctis research study model factory', () => {
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "phone",
                 "use": "work",
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "email",
                 "use": "work",
                 "value": "INDISPONIBLE",
@@ -1082,18 +1034,12 @@ describe('ctis research study model factory', () => {
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "phone",
                 "use": "work",
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "email",
                 "use": "work",
                 "value": "INDISPONIBLE",
@@ -1499,9 +1445,6 @@ describe('ctis research study model factory', () => {
                       "valueString": undefined,
                     },
                   ],
-                  "id": undefined,
-                  "period": undefined,
-                  "rank": undefined,
                   "system": undefined,
                   "use": "work",
                   "value": undefined,
@@ -1551,18 +1494,12 @@ describe('ctis research study model factory', () => {
                   "telecom": [
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "phone",
                       "use": "work",
                       "value": "",
                     },
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "email",
                       "use": "work",
                       "value": "",
@@ -1630,18 +1567,12 @@ describe('ctis research study model factory', () => {
                   "telecom": [
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "phone",
                       "use": "work",
                       "value": "INDISPONIBLE",
                     },
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "email",
                       "use": "work",
                       "value": "INDISPONIBLE",
@@ -1678,9 +1609,6 @@ describe('ctis research study model factory', () => {
               "telecom": [
                 ContactPointModel {
                   "extension": undefined,
-                  "id": undefined,
-                  "period": undefined,
-                  "rank": undefined,
                   "system": "url",
                   "use": "work",
                   "value": "https://euclinicaltrials.eu/",

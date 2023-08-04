@@ -58,18 +58,12 @@ describe('dm research study model factory', () => {
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "phone",
                 "use": "work",
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "email",
                 "use": "work",
                 "value": "cdp_scs@soladis.fr",
@@ -103,18 +97,12 @@ describe('dm research study model factory', () => {
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "phone",
                 "use": "work",
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "email",
                 "use": "work",
                 "value": "INDISPONIBLE",
@@ -148,18 +136,12 @@ describe('dm research study model factory', () => {
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "phone",
                 "use": "work",
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "email",
                 "use": "work",
                 "value": "INDISPONIBLE",
@@ -563,18 +545,12 @@ describe('dm research study model factory', () => {
                   "telecom": [
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "phone",
                       "use": "work",
                       "value": "INDISPONIBLE",
                     },
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "email",
                       "use": "work",
                       "value": "cdp_scs@soladis.fr",
@@ -642,18 +618,12 @@ describe('dm research study model factory', () => {
                   "telecom": [
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "phone",
                       "use": "work",
                       "value": "INDISPONIBLE",
                     },
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "email",
                       "use": "work",
                       "value": "INDISPONIBLE",
@@ -690,9 +660,6 @@ describe('dm research study model factory', () => {
               "telecom": [
                 ContactPointModel {
                   "extension": undefined,
-                  "id": undefined,
-                  "period": undefined,
-                  "rank": undefined,
                   "system": "url",
                   "use": "work",
                   "value": "https://ansm.sante.fr",
@@ -771,18 +738,12 @@ describe('dm research study model factory', () => {
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "phone",
                 "use": "work",
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "email",
                 "use": "work",
                 "value": "",
@@ -816,18 +777,12 @@ describe('dm research study model factory', () => {
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "phone",
                 "use": "work",
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "email",
                 "use": "work",
                 "value": "INDISPONIBLE",
@@ -861,18 +816,12 @@ describe('dm research study model factory', () => {
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "phone",
                 "use": "work",
                 "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "extension": undefined,
-                "id": undefined,
-                "period": undefined,
-                "rank": undefined,
                 "system": "email",
                 "use": "work",
                 "value": "INDISPONIBLE",
@@ -1276,18 +1225,12 @@ describe('dm research study model factory', () => {
                   "telecom": [
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "phone",
                       "use": "work",
                       "value": "INDISPONIBLE",
                     },
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "email",
                       "use": "work",
                       "value": "",
@@ -1355,18 +1298,12 @@ describe('dm research study model factory', () => {
                   "telecom": [
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "phone",
                       "use": "work",
                       "value": "INDISPONIBLE",
                     },
                     ContactPointModel {
                       "extension": undefined,
-                      "id": undefined,
-                      "period": undefined,
-                      "rank": undefined,
                       "system": "email",
                       "use": "work",
                       "value": "INDISPONIBLE",
@@ -1403,9 +1340,6 @@ describe('dm research study model factory', () => {
               "telecom": [
                 ContactPointModel {
                   "extension": undefined,
-                  "id": undefined,
-                  "period": undefined,
-                  "rank": undefined,
                   "system": "url",
                   "use": "work",
                   "value": "https://ansm.sante.fr",
