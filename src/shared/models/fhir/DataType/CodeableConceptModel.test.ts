@@ -17,7 +17,6 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
               "version": "4.0.1",
             },
           ],
-          "id": undefined,
           "text": "Research Study Phase",
         }
       `)
@@ -36,7 +35,6 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
               "version": "4.0.1",
             },
           ],
-          "id": undefined,
           "text": "Research Study Phase",
         }
       `)
@@ -64,7 +62,6 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
               "version": undefined,
             },
           ],
-          "id": undefined,
           "text": "Regulation Code",
         }
       `)
@@ -85,7 +82,6 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
               "version": undefined,
             },
           ],
-          "id": undefined,
           "text": "Disease Condition",
         }
       `)
@@ -104,7 +100,6 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
               "version": undefined,
             },
           ],
-          "id": undefined,
           "text": "Disease Condition",
         }
       `)
@@ -125,7 +120,6 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
               "version": "2.0.1",
             },
           ],
-          "id": undefined,
           "text": "MedDRA Condition",
         }
       `)
@@ -160,7 +154,6 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
               "version": "2.0.1",
             },
           ],
-          "id": undefined,
           "text": "MedDRA Condition",
         }
       `)
@@ -170,7 +163,6 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
       expect(CodeableConceptModel.createMedDraCondition('')).toMatchInlineSnapshot(`
         CodeableConceptModel {
           "coding": [],
-          "id": undefined,
           "text": "MedDRA Condition",
         }
       `)
@@ -191,7 +183,6 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
               "version": "5.0.0",
             },
           ],
-          "id": undefined,
           "text": "Genders",
         }
       `)
@@ -218,7 +209,6 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
               "version": "5.0.0",
             },
           ],
-          "id": undefined,
           "text": "Genders",
         }
       `)
@@ -237,7 +227,6 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
               "version": "5.0.0",
             },
           ],
-          "id": undefined,
           "text": "Genders",
         }
       `)

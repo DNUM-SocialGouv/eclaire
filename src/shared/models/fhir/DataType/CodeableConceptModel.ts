@@ -8,7 +8,6 @@ import { LabelType } from '../SpecialPurposeDataType/ExtensionModel'
 export class CodeableConceptModel implements CodeableConcept {
   constructor(
     readonly coding: Coding[] | undefined,
-    readonly id: string | undefined,
     readonly text: string | undefined
   ) {}
 
@@ -17,7 +16,6 @@ export class CodeableConceptModel implements CodeableConcept {
 
     return new CodeableConceptModel(
       [CodingModel.createResearchStudyPhase(emptyResearchStudyPhaseIfNull)],
-      undefined,
       'Research Study Phase'
     )
   }
@@ -25,7 +23,6 @@ export class CodeableConceptModel implements CodeableConcept {
   static createCategory(regulationCode: string): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createRegulationCode(regulationCode)],
-      undefined,
       'Regulation Code'
     )
   }
@@ -35,7 +32,6 @@ export class CodeableConceptModel implements CodeableConcept {
 
     return new CodeableConceptModel(
       [CodingModel.createDiseaseCoding(emptyDiseaseIfNull)],
-      undefined,
       'Disease Condition'
     )
   }
@@ -58,7 +54,6 @@ export class CodeableConceptModel implements CodeableConcept {
 
     return new CodeableConceptModel(
       coding,
-      undefined,
       'MedDRA Condition'
     )
   }
@@ -74,7 +69,6 @@ export class CodeableConceptModel implements CodeableConcept {
 
     return new CodeableConceptModel(
       parsedGenders.map((parsedGender) => CodingModel.createGender(parsedGender)),
-      undefined,
       'Genders'
     )
   }
@@ -82,7 +76,6 @@ export class CodeableConceptModel implements CodeableConcept {
   static createResearchStudyGroupCategory(researchStudyGroupCategory: string): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createResearchStudyGroupCategory(researchStudyGroupCategory)],
-      undefined,
       'Research Study Group Category'
     )
   }
@@ -90,7 +83,6 @@ export class CodeableConceptModel implements CodeableConcept {
   static createStudyPopulation(studyPopulation: string): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createStudyPopulation(studyPopulation)],
-      undefined,
       'Study Population'
     )
   }
@@ -98,7 +90,6 @@ export class CodeableConceptModel implements CodeableConcept {
   static createInclusion(studyInclusion: string): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createInclusion(studyInclusion)],
-      undefined,
       'Study Inclusion Criteria'
     )
   }
@@ -106,7 +97,6 @@ export class CodeableConceptModel implements CodeableConcept {
   static createExclusion(studyExclusion: string): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createExclusion(studyExclusion)],
-      undefined,
       'Study Exclusion Criteria'
     )
   }
@@ -114,7 +104,6 @@ export class CodeableConceptModel implements CodeableConcept {
   static createGroupCharacteristicCode(code: string): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createGroupCharacteristicCode(code)],
-      undefined,
       'Group characteristic code'
     )
   }
@@ -122,7 +111,6 @@ export class CodeableConceptModel implements CodeableConcept {
   static createOrganizationContactPurpose(): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createOrganizationContactPurpose()],
-      undefined,
       'Organization Contact Purpose'
     )
   }
@@ -130,7 +118,6 @@ export class CodeableConceptModel implements CodeableConcept {
   static createClinicalResearchSponsor(): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createOrganizationSponsorType()],
-      undefined,
       'Organization Sponsor Type'
     )
   }
@@ -138,7 +125,6 @@ export class CodeableConceptModel implements CodeableConcept {
   static createContactType(contactType: ContactType): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createContactType(contactType)],
-      undefined,
       'Contact Type'
     )
   }
@@ -151,7 +137,7 @@ export class CodeableConceptModel implements CodeableConcept {
     return emptyCountriesCodeIfNull.split(', ').map((countryCode): CodeableConceptModel => {
       return new CodeableConceptModel(
         [CodingModel.createLocation(countryCode)],
-        undefined,
+
         'Countries of recruitment'
       )
     })
@@ -160,7 +146,6 @@ export class CodeableConceptModel implements CodeableConcept {
   static createLabelType(labelType: LabelType): CodeableConceptModel {
     return new CodeableConceptModel(
       [CodingModel.createLabelType(labelType)],
-      undefined,
       'Label Type'
     )
   }
