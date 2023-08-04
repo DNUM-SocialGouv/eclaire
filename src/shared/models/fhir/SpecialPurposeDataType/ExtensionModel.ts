@@ -14,6 +14,7 @@ export class ExtensionModel implements Extension {
     readonly url: string,
     readonly valueCodeableConcept: CodeableConcept | undefined,
     readonly valueHumanName: HumanName | undefined,
+    readonly valueInstant: string | undefined,
     readonly valuePeriod: Period | undefined,
     readonly valueReference: Reference | undefined,
     readonly valueString: string | undefined
@@ -24,6 +25,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor',
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -41,6 +43,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       ModelUtils.emptyIfNull(therapeuticArea)
     )
   }
@@ -54,6 +57,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       undefined
     )
   }
@@ -63,6 +67,7 @@ export class ExtensionModel implements Extension {
       [this.createEclaireLabelValue(value), this.createEclaireLabelType(type)],
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label',
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -80,6 +85,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       value
     )
   }
@@ -93,6 +99,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       undefined
     )
   }
@@ -102,6 +109,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period',
+      undefined,
       undefined,
       undefined,
       PeriodModel.createRecruitmentPeriod(recruitmentDate),
@@ -117,6 +125,24 @@ export class ExtensionModel implements Extension {
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name',
       undefined,
       HumanNameModel.create(firstname, name, title),
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createEclaireReviewDate(history: string, approvalDate: string): ExtensionModel {
+    const emptyHistoryDateIfNull = ModelUtils.emptyIfNull(history)
+    const emptyApprovalDateIfNull = ModelUtils.emptyIfNull(approvalDate)
+
+    return new ExtensionModel(
+      undefined,
+      undefined,
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date',
+      undefined,
+      undefined,
+      ModelUtils.getMostRecentIsoDate(emptyHistoryDateIfNull, emptyApprovalDateIfNull),
       undefined,
       undefined,
       undefined

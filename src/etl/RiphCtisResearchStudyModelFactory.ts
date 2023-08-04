@@ -71,6 +71,7 @@ export class RiphCtisResearchStudyModelFactory {
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
       ExtensionModel.createEclaireRecruitmentPeriod(riphCtisDto.date_debut_recrutement),
+      ExtensionModel.createEclaireReviewDate(riphCtisDto.historique, riphCtisDto.dates_avis_favorable_ms_mns),
     ]
     const focus = undefined
     const id = riphCtisDto.numero_ctis
