@@ -90,7 +90,6 @@ describe('dm research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "id": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -140,7 +139,6 @@ describe('dm research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "id": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -410,7 +408,6 @@ describe('dm research study model factory', () => {
         "extension": [
           ExtensionModel {
             "extension": undefined,
-            "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -425,7 +422,6 @@ describe('dm research study model factory', () => {
           },
           ExtensionModel {
             "extension": undefined,
-            "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -438,7 +434,6 @@ describe('dm research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "id": undefined,
                 "url": "labelValue",
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -449,7 +444,6 @@ describe('dm research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "id": undefined,
                 "url": "labelType",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -472,7 +466,6 @@ describe('dm research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -485,7 +478,6 @@ describe('dm research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "id": undefined,
                 "url": "labelValue",
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -496,7 +488,6 @@ describe('dm research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "id": undefined,
                 "url": "labelType",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -519,7 +510,6 @@ describe('dm research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -530,7 +520,6 @@ describe('dm research study model factory', () => {
           },
           ExtensionModel {
             "extension": undefined,
-            "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -894,7 +883,6 @@ describe('dm research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "id": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -944,7 +932,6 @@ describe('dm research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "id": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -1214,7 +1201,6 @@ describe('dm research study model factory', () => {
         "extension": [
           ExtensionModel {
             "extension": undefined,
-            "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -1229,7 +1215,6 @@ describe('dm research study model factory', () => {
           },
           ExtensionModel {
             "extension": undefined,
-            "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -1242,7 +1227,6 @@ describe('dm research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "id": undefined,
                 "url": "labelValue",
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -1253,7 +1237,6 @@ describe('dm research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "id": undefined,
                 "url": "labelType",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -1276,7 +1259,6 @@ describe('dm research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -1289,7 +1271,6 @@ describe('dm research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "id": undefined,
                 "url": "labelValue",
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -1300,7 +1281,6 @@ describe('dm research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "id": undefined,
                 "url": "labelType",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -1323,7 +1303,6 @@ describe('dm research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -1334,7 +1313,6 @@ describe('dm research study model factory', () => {
           },
           ExtensionModel {
             "extension": undefined,
-            "id": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
