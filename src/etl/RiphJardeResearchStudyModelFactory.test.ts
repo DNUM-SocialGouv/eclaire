@@ -571,15 +571,10 @@ describe('jarde research study model factory', () => {
         ],
         "location": undefined,
         "meta": MetaModel {
-          "id": undefined,
           "lastUpdated": "2023-04-04T00:00:00.000Z",
           "profile": [
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
-          "security": undefined,
-          "source": undefined,
-          "tag": undefined,
-          "versionId": undefined,
         },
         "phase": CodeableConceptModel {
           "coding": [
@@ -1380,15 +1375,10 @@ describe('jarde research study model factory', () => {
         ],
         "location": undefined,
         "meta": MetaModel {
-          "id": undefined,
           "lastUpdated": "2021-12-31T23:00:00.000Z",
           "profile": [
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
-          "security": undefined,
-          "source": undefined,
-          "tag": undefined,
-          "versionId": undefined,
         },
         "phase": CodeableConceptModel {
           "coding": [

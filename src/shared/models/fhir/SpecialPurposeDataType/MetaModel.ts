@@ -1,16 +1,11 @@
-import { Coding, Meta } from 'fhir/r4'
+import { Meta } from 'fhir/r4'
 
 import { ModelUtils } from '../../custom/ModelUtils'
 
 export class MetaModel implements Meta {
   constructor(
-    readonly id: string | undefined,
     readonly lastUpdated: string | undefined,
-    readonly profile: string[] | undefined,
-    readonly security: Coding[] | undefined,
-    readonly source: string | undefined,
-    readonly tag: Coding[] | undefined,
-    readonly versionId: string | undefined
+    readonly profile: string[] | undefined
   ) {}
 
   static create(
@@ -21,13 +16,8 @@ export class MetaModel implements Meta {
     const emptyApprovalDateIfNull = ModelUtils.emptyIfNull(approvalDate)
 
     return new MetaModel(
-      undefined,
       ModelUtils.getMostRecentIsoDate(emptyHistoryDateIfNull, emptyApprovalDateIfNull),
-      ['https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy'],
-      undefined,
-      undefined,
-      undefined,
-      undefined
+      ['https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy']
     )
   }
 }
