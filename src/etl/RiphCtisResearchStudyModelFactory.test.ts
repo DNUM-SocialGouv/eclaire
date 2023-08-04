@@ -71,7 +71,6 @@ describe('ctis research study model factory', () => {
         "contact": [
           ContactDetailModel {
             "extension": undefined,
-            "id": undefined,
             "name": "Head of EU Trial Information Support Line-TISL, Switzerland",
             "telecom": [
               ContactPointModel {
@@ -120,7 +119,6 @@ describe('ctis research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "id": undefined,
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
@@ -169,7 +167,6 @@ describe('ctis research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "id": undefined,
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
@@ -1110,7 +1107,6 @@ describe('ctis research study model factory', () => {
         "contact": [
           ContactDetailModel {
             "extension": undefined,
-            "id": undefined,
             "name": " ",
             "telecom": [
               ContactPointModel {
@@ -1159,7 +1155,6 @@ describe('ctis research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "id": undefined,
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
@@ -1208,7 +1203,6 @@ describe('ctis research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "id": undefined,
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {

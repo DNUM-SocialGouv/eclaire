@@ -63,7 +63,6 @@ describe('dm research study model factory', () => {
         "contact": [
           ContactDetailModel {
             "extension": undefined,
-            "id": undefined,
             "name": "Olivier D'HONDT",
             "telecom": [
               ContactPointModel {
@@ -112,7 +111,6 @@ describe('dm research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "id": undefined,
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
@@ -161,7 +159,6 @@ describe('dm research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "id": undefined,
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
@@ -856,7 +853,6 @@ describe('dm research study model factory', () => {
         "contact": [
           ContactDetailModel {
             "extension": undefined,
-            "id": undefined,
             "name": " ",
             "telecom": [
               ContactPointModel {
@@ -905,7 +901,6 @@ describe('dm research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "id": undefined,
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
@@ -954,7 +949,6 @@ describe('dm research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "id": undefined,
             "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
