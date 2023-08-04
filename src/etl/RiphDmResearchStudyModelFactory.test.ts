@@ -207,8 +207,6 @@ describe('dm research study model factory', () => {
                   "text": "Group characteristic code",
                 },
                 "exclude": false,
-                "id": undefined,
-                "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -244,8 +242,6 @@ describe('dm research study model factory', () => {
                   "text": "Group characteristic code",
                 },
                 "exclude": false,
-                "id": undefined,
-                "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
                 "valueQuantity": undefined,
@@ -272,8 +268,6 @@ describe('dm research study model factory', () => {
                   "text": "Group characteristic code",
                 },
                 "exclude": false,
-                "id": undefined,
-                "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -309,8 +303,6 @@ describe('dm research study model factory', () => {
                   "text": "Group characteristic code",
                 },
                 "exclude": false,
-                "id": undefined,
-                "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -346,8 +338,6 @@ describe('dm research study model factory', () => {
                   "text": "Group characteristic code",
                 },
                 "exclude": false,
-                "id": undefined,
-                "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -383,8 +373,6 @@ describe('dm research study model factory', () => {
                   "text": "Group characteristic code",
                 },
                 "exclude": true,
-                "id": undefined,
-                "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -1038,8 +1026,6 @@ describe('dm research study model factory', () => {
                   "text": "Group characteristic code",
                 },
                 "exclude": false,
-                "id": undefined,
-                "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -1075,8 +1061,6 @@ describe('dm research study model factory', () => {
                   "text": "Group characteristic code",
                 },
                 "exclude": false,
-                "id": undefined,
-                "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
                 "valueQuantity": undefined,
@@ -1103,8 +1087,6 @@ describe('dm research study model factory', () => {
                   "text": "Group characteristic code",
                 },
                 "exclude": false,
-                "id": undefined,
-                "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -1140,8 +1122,6 @@ describe('dm research study model factory', () => {
                   "text": "Group characteristic code",
                 },
                 "exclude": false,
-                "id": undefined,
-                "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -1177,8 +1157,6 @@ describe('dm research study model factory', () => {
                   "text": "Group characteristic code",
                 },
                 "exclude": false,
-                "id": undefined,
-                "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -1214,8 +1192,6 @@ describe('dm research study model factory', () => {
                   "text": "Group characteristic code",
                 },
                 "exclude": true,
-                "id": undefined,
-                "period": undefined,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
