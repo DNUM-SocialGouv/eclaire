@@ -4,13 +4,8 @@ import {
   FhirResource,
   Identifier,
   Meta,
-  Narrative,
-  Period,
   Reference,
-  RelatedArtifact,
   ResearchStudy,
-  ResearchStudyArm,
-  ResearchStudyObjective,
 } from 'fhir/r4'
 
 import { ReferenceContentsModel } from '../custom/ReferenceContentsModel'
@@ -20,7 +15,6 @@ export class ResearchStudyModel implements ResearchStudy {
   readonly status: ResearchStudyStatus
 
   constructor(
-    readonly arm: ResearchStudyArm[] | undefined,
     readonly category: CodeableConcept[] | undefined,
     readonly condition: CodeableConcept[] | undefined,
     readonly contact: ContactDetail[] | undefined,
@@ -28,28 +22,15 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly description: string | undefined,
     readonly enrollment: Reference[] | undefined,
     readonly extension: Extension[] | undefined,
-    readonly focus: CodeableConcept[] | undefined,
     readonly id: string | undefined,
     readonly identifier: Identifier[] | undefined,
-    readonly implicitRules: string | undefined,
-    readonly keyword: CodeableConcept[] | undefined,
-    readonly language: string | undefined,
     readonly location: CodeableConcept[] | undefined,
     readonly meta: Meta | undefined,
-    readonly objective: ResearchStudyObjective[] | undefined,
-    readonly partOf: Reference[] | undefined,
-    readonly period: Period | undefined,
     readonly phase: CodeableConcept | undefined,
-    readonly primaryPurposeType: CodeableConcept | undefined,
-    readonly principalInvestigator: Reference | undefined,
-    readonly protocol: Reference[] | undefined,
-    readonly reasonStopped: CodeableConcept | undefined,
     readonly referenceContents: ReferenceContentsModel,
-    readonly relatedArtifact: RelatedArtifact[] | undefined,
     readonly site: Reference[] | undefined,
     readonly sponsor: Reference | undefined,
     riphStatus: RiphStatus,
-    readonly text: Narrative | undefined,
     readonly title: string | undefined
   ) {
     this.resourceType = 'ResearchStudy'

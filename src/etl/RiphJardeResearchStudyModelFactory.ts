@@ -21,7 +21,6 @@ export class RiphJardeResearchStudyModelFactory {
     const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphJardeDto.numero_national)
     const assigner = ModelUtils.identifyAssigner(riphJardeDto.reglementation_code, riphJardeDto.qualification_recherche)
 
-    const arm = undefined
     const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphJardeDto.reglementation_code)]
     const condition: CodeableConceptModel[] = [
       CodeableConceptModel.createDiseaseCondition(ModelUtils.UNAVAILABLE),
@@ -71,33 +70,20 @@ export class RiphJardeResearchStudyModelFactory {
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
       ExtensionModel.createEclaireReviewDate(riphJardeDto.historique, riphJardeDto.dates_avis_favorable_ms_mns),
     ]
-    const focus = undefined
     const id = riphJardeDto.numero_national
     const identifier: Identifier[] = [
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
       IdentifierModel.createSecondarySlice(riphJardeDto.numero_national, assigner),
     ]
-    const implicitRules = undefined
-    const keyword = undefined
-    const language = undefined
     const location = undefined
     const meta: MetaModel = MetaModel.create(
       riphJardeDto.historique,
       riphJardeDto.dates_avis_favorable_ms_mns
     )
-    const objective = undefined
-    const partOf = undefined
-    const period = undefined
     const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(ModelUtils.UNAVAILABLE)
-    const primaryPurposeType = undefined
-    const principalInvestigator = undefined
-    const protocol = undefined
-    const reasonStopped = undefined
-    const relatedArtifact = undefined
     const site = undefined
     const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphJardeDto.etat as RiphStatus
-    const text = undefined
     const title = ModelUtils.emptyIfNull(riphJardeDto.titre_recherche)
 
     const organizations: Organization[] = [
@@ -131,7 +117,6 @@ export class RiphJardeResearchStudyModelFactory {
     const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(undefined, organizations)
 
     return new ResearchStudyModel(
-      arm,
       category,
       condition,
       contact,
@@ -139,28 +124,15 @@ export class RiphJardeResearchStudyModelFactory {
       description,
       enrollment,
       extensions,
-      focus,
       id,
       identifier,
-      implicitRules,
-      keyword,
-      language,
       location,
       meta,
-      objective,
-      partOf,
-      period,
       phase,
-      primaryPurposeType,
-      principalInvestigator,
-      protocol,
-      reasonStopped,
       referenceContents,
-      relatedArtifact,
       site,
       sponsor,
       status,
-      text,
       title
     )
   }

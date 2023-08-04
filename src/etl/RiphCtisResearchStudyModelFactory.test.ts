@@ -14,7 +14,6 @@ describe('ctis research study model factory', () => {
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
-        "arm": undefined,
         "category": [
           CodeableConceptModel {
             "coding": [
@@ -646,7 +645,6 @@ describe('ctis research study model factory', () => {
             "valueString": undefined,
           },
         ],
-        "focus": undefined,
         "id": "2022-500014-26-00",
         "identifier": [
           IdentifierModel {
@@ -680,9 +678,6 @@ describe('ctis research study model factory', () => {
             "value": "2022-500014-26-00",
           },
         ],
-        "implicitRules": undefined,
-        "keyword": undefined,
-        "language": undefined,
         "location": [
           CodeableConceptModel {
             "coding": [
@@ -808,9 +803,6 @@ describe('ctis research study model factory', () => {
           "tag": undefined,
           "versionId": undefined,
         },
-        "objective": undefined,
-        "partOf": undefined,
-        "period": undefined,
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -825,10 +817,6 @@ describe('ctis research study model factory', () => {
           "id": undefined,
           "text": "Research Study Phase",
         },
-        "primaryPurposeType": undefined,
-        "principalInvestigator": undefined,
-        "protocol": undefined,
-        "reasonStopped": undefined,
         "referenceContents": ReferenceContentsModel {
           "locations": [
             LocationModel {
@@ -1130,7 +1118,6 @@ describe('ctis research study model factory', () => {
             },
           ],
         },
-        "relatedArtifact": undefined,
         "resourceType": "ResearchStudy",
         "site": [
           ReferenceModel {
@@ -1149,7 +1136,6 @@ describe('ctis research study model factory', () => {
           "type": "Organization",
         },
         "status": "active",
-        "text": undefined,
         "title": "A PHASE III, RANDOMIZED, OPEN-LABEL STUDY EVALUATING THE EFFICACY AND SAFETY OF GIREDESTRANT IN COMBINATION WITH PHESGO VERSUS PHESGO AFTER INDUCTION THERAPY WITH PHESGO+TAXANE IN PATIENTS WITH PREVIOUSLY UNTREATED HER2-POSITIVE, ESTROGEN RECEPTOR-POSITIVE LOCALLY-ADVANCED OR METASTATIC BREAST CANCER",
       }
     `)
@@ -1167,7 +1153,6 @@ describe('ctis research study model factory', () => {
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
-        "arm": undefined,
         "category": [
           CodeableConceptModel {
             "coding": [
@@ -1697,7 +1682,6 @@ describe('ctis research study model factory', () => {
             "valueString": undefined,
           },
         ],
-        "focus": undefined,
         "id": "2022-500299-71-00",
         "identifier": [
           IdentifierModel {
@@ -1731,9 +1715,6 @@ describe('ctis research study model factory', () => {
             "value": "2022-500299-71-00",
           },
         ],
-        "implicitRules": undefined,
-        "keyword": undefined,
-        "language": undefined,
         "location": undefined,
         "meta": MetaModel {
           "id": undefined,
@@ -1746,9 +1727,6 @@ describe('ctis research study model factory', () => {
           "tag": undefined,
           "versionId": undefined,
         },
-        "objective": undefined,
-        "partOf": undefined,
-        "period": undefined,
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -1763,10 +1741,6 @@ describe('ctis research study model factory', () => {
           "id": undefined,
           "text": "Research Study Phase",
         },
-        "primaryPurposeType": undefined,
-        "principalInvestigator": undefined,
-        "protocol": undefined,
-        "reasonStopped": undefined,
         "referenceContents": ReferenceContentsModel {
           "locations": [
             LocationModel {
@@ -2068,7 +2042,6 @@ describe('ctis research study model factory', () => {
             },
           ],
         },
-        "relatedArtifact": undefined,
         "resourceType": "ResearchStudy",
         "site": [
           ReferenceModel {
@@ -2087,7 +2060,6 @@ describe('ctis research study model factory', () => {
           "type": "Organization",
         },
         "status": "approved",
-        "text": undefined,
         "title": "",
       }
     `)

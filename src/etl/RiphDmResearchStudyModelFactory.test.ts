@@ -14,7 +14,6 @@ describe('dm research study model factory', () => {
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
-        "arm": undefined,
         "category": [
           CodeableConceptModel {
             "coding": [
@@ -566,7 +565,6 @@ describe('dm research study model factory', () => {
             "valueString": undefined,
           },
         ],
-        "focus": undefined,
         "id": "2021-A01563-38",
         "identifier": [
           IdentifierModel {
@@ -600,9 +598,6 @@ describe('dm research study model factory', () => {
             "value": "2021-A01563-38",
           },
         ],
-        "implicitRules": undefined,
-        "keyword": undefined,
-        "language": undefined,
         "location": undefined,
         "meta": MetaModel {
           "id": undefined,
@@ -615,9 +610,6 @@ describe('dm research study model factory', () => {
           "tag": undefined,
           "versionId": undefined,
         },
-        "objective": undefined,
-        "partOf": undefined,
-        "period": undefined,
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -632,10 +624,6 @@ describe('dm research study model factory', () => {
           "id": undefined,
           "text": "Research Study Phase",
         },
-        "primaryPurposeType": undefined,
-        "principalInvestigator": undefined,
-        "protocol": undefined,
-        "reasonStopped": undefined,
         "referenceContents": ReferenceContentsModel {
           "locations": undefined,
           "organizations": [
@@ -869,7 +857,6 @@ describe('dm research study model factory', () => {
             },
           ],
         },
-        "relatedArtifact": undefined,
         "resourceType": "ResearchStudy",
         "site": undefined,
         "sponsor": ReferenceModel {
@@ -880,7 +867,6 @@ describe('dm research study model factory', () => {
           "type": "Organization",
         },
         "status": "administratively-completed",
-        "text": undefined,
         "title": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
       }
     `)
@@ -898,7 +884,6 @@ describe('dm research study model factory', () => {
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
       ResearchStudyModel {
-        "arm": undefined,
         "category": [
           CodeableConceptModel {
             "coding": [
@@ -1450,7 +1435,6 @@ describe('dm research study model factory', () => {
             "valueString": undefined,
           },
         ],
-        "focus": undefined,
         "id": "2021-A01563-39",
         "identifier": [
           IdentifierModel {
@@ -1484,9 +1468,6 @@ describe('dm research study model factory', () => {
             "value": "2021-A01563-39",
           },
         ],
-        "implicitRules": undefined,
-        "keyword": undefined,
-        "language": undefined,
         "location": undefined,
         "meta": MetaModel {
           "id": undefined,
@@ -1499,9 +1480,6 @@ describe('dm research study model factory', () => {
           "tag": undefined,
           "versionId": undefined,
         },
-        "objective": undefined,
-        "partOf": undefined,
-        "period": undefined,
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -1516,10 +1494,6 @@ describe('dm research study model factory', () => {
           "id": undefined,
           "text": "Research Study Phase",
         },
-        "primaryPurposeType": undefined,
-        "principalInvestigator": undefined,
-        "protocol": undefined,
-        "reasonStopped": undefined,
         "referenceContents": ReferenceContentsModel {
           "locations": undefined,
           "organizations": [
@@ -1753,7 +1727,6 @@ describe('dm research study model factory', () => {
             },
           ],
         },
-        "relatedArtifact": undefined,
         "resourceType": "ResearchStudy",
         "site": undefined,
         "sponsor": ReferenceModel {
@@ -1764,7 +1737,6 @@ describe('dm research study model factory', () => {
           "type": "Organization",
         },
         "status": "approved",
-        "text": undefined,
         "title": "",
       }
     `)
