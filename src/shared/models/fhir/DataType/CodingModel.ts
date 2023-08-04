@@ -5,6 +5,7 @@ import { countryCodeSystem } from '../CodeSystem/countryCodeSystem'
 import { eclaireTypeContactCodeSystem } from '../CodeSystem/eclaireTypeContactCodeSystem'
 import { medDraCodeSystem } from '../CodeSystem/medDraCodeSystem'
 import { researchStudyPhaseCodeSystem } from '../CodeSystem/researchStudyPhaseCodeSystem'
+import { titleTypeCodeSystem } from '../CodeSystem/titleTypeCodeSystem'
 import { ContactType } from '../MetadataType/ContactDetailModel'
 import { LabelType } from '../SpecialPurposeDataType/ExtensionModel'
 
@@ -186,7 +187,7 @@ export class CodingModel implements Coding {
       reference.code,
       reference.display,
       undefined,
-      'https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html',
+      eclaireTypeContactCodeSystem.url,
       undefined,
       eclaireTypeContactCodeSystem.version
     )
@@ -203,18 +204,22 @@ export class CodingModel implements Coding {
       undefined,
       countryCodeSystem.compose.include[0].system,
       undefined,
-      undefined
+      countryCodeSystem.version
     )
   }
 
   static createLabelType(labelType: LabelType): CodingModel {
+    const matchingLabelType = titleTypeCodeSystem.concept.find(
+      (reference) => reference.code === labelType
+    )
+
     return new CodingModel(
+      matchingLabelType.code,
+      matchingLabelType.display,
       undefined,
-      labelType,
+      titleTypeCodeSystem.url,
       undefined,
-      undefined,
-      undefined,
-      undefined
+      titleTypeCodeSystem.version
     )
   }
 }

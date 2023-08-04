@@ -49,7 +49,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       undefined,
       undefined,
-      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html',
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type',
       CodeableConceptModel.createContactType(contactType),
       undefined,
       undefined,

@@ -92,14 +92,14 @@ describe('dm research study model factory', () => {
               ExtensionModel {
                 "extension": undefined,
                 "id": undefined,
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": "SCI",
                       "display": "Scientifique / Scientific",
                       "id": undefined,
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
                       "userSelected": undefined,
                       "version": "0.1.0",
                     },
@@ -141,14 +141,14 @@ describe('dm research study model factory', () => {
               ExtensionModel {
                 "extension": undefined,
                 "id": undefined,
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": "PUB",
                       "display": "Publique / Public",
                       "id": undefined,
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
                       "userSelected": undefined,
                       "version": "0.1.0",
                     },
@@ -475,12 +475,12 @@ describe('dm research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": undefined,
-                      "display": "human-use",
+                      "code": "human-use",
+                      "display": "Human use",
                       "id": undefined,
-                      "system": undefined,
+                      "system": "http://hl7.org/fhir/title-type",
                       "userSelected": undefined,
-                      "version": undefined,
+                      "version": "5.0.0",
                     },
                   ],
                   "id": undefined,
@@ -519,12 +519,12 @@ describe('dm research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": undefined,
-                      "display": "acronym",
+                      "code": "acronym",
+                      "display": "Acronym",
                       "id": undefined,
-                      "system": undefined,
+                      "system": "http://hl7.org/fhir/title-type",
                       "userSelected": undefined,
-                      "version": undefined,
+                      "version": "5.0.0",
                     },
                   ],
                   "id": undefined,
@@ -955,14 +955,14 @@ describe('dm research study model factory', () => {
               ExtensionModel {
                 "extension": undefined,
                 "id": undefined,
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": "SCI",
                       "display": "Scientifique / Scientific",
                       "id": undefined,
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
                       "userSelected": undefined,
                       "version": "0.1.0",
                     },
@@ -1004,14 +1004,14 @@ describe('dm research study model factory', () => {
               ExtensionModel {
                 "extension": undefined,
                 "id": undefined,
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-contact-type.html",
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": "PUB",
                       "display": "Publique / Public",
                       "id": undefined,
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem-eclaire-type-contact-code-system.html",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
                       "userSelected": undefined,
                       "version": "0.1.0",
                     },
@@ -1338,12 +1338,12 @@ describe('dm research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": undefined,
-                      "display": "human-use",
+                      "code": "human-use",
+                      "display": "Human use",
                       "id": undefined,
-                      "system": undefined,
+                      "system": "http://hl7.org/fhir/title-type",
                       "userSelected": undefined,
-                      "version": undefined,
+                      "version": "5.0.0",
                     },
                   ],
                   "id": undefined,
@@ -1382,12 +1382,12 @@ describe('dm research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": undefined,
-                      "display": "acronym",
+                      "code": "acronym",
+                      "display": "Acronym",
                       "id": undefined,
-                      "system": undefined,
+                      "system": "http://hl7.org/fhir/title-type",
                       "userSelected": undefined,
-                      "version": undefined,
+                      "version": "5.0.0",
                     },
                   ],
                   "id": undefined,
