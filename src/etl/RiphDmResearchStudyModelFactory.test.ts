@@ -584,14 +584,10 @@ describe('dm research study model factory', () => {
                 AddressModel {
                   "city": "Roubaix",
                   "country": "France",
-                  "district": undefined,
                   "line": [
                     "15 Boulevard du Général Leclerc",
                   ],
-                  "period": undefined,
                   "postalCode": "59100",
-                  "state": undefined,
-                  "text": undefined,
                   "type": "physical",
                   "use": "work",
                 },
@@ -673,14 +669,10 @@ describe('dm research study model factory', () => {
                 AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
-                  "district": undefined,
                   "line": [
                     "INDISPONIBLE",
                   ],
-                  "period": undefined,
                   "postalCode": "INDISPONIBLE",
-                  "state": undefined,
-                  "text": undefined,
                   "type": "physical",
                   "use": "work",
                 },
@@ -1374,14 +1366,10 @@ describe('dm research study model factory', () => {
                 AddressModel {
                   "city": "",
                   "country": "",
-                  "district": undefined,
                   "line": [
                     "",
                   ],
-                  "period": undefined,
                   "postalCode": "",
-                  "state": undefined,
-                  "text": undefined,
                   "type": "physical",
                   "use": "work",
                 },
@@ -1463,14 +1451,10 @@ describe('dm research study model factory', () => {
                 AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
-                  "district": undefined,
                   "line": [
                     "INDISPONIBLE",
                   ],
-                  "period": undefined,
                   "postalCode": "INDISPONIBLE",
-                  "state": undefined,
-                  "text": undefined,
                   "type": "physical",
                   "use": "work",
                 },

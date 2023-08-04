@@ -772,15 +772,11 @@ describe('ctis research study model factory', () => {
               "address": AddressModel {
                 "city": "Lille",
                 "country": undefined,
-                "district": undefined,
                 "line": [
                   "Avenue Eugene Avinee",
                   "Gastroenterology Hepatology and Nutrition Unit Paediatric clinic, Child Unit",
                 ],
-                "period": undefined,
                 "postalCode": undefined,
-                "state": undefined,
-                "text": undefined,
                 "type": "physical",
                 "use": "work",
               },
@@ -841,14 +837,10 @@ describe('ctis research study model factory', () => {
                 AddressModel {
                   "city": "Basel Town",
                   "country": "Switzerland",
-                  "district": undefined,
                   "line": [
                     "Grenzacherstrasse 124",
                   ],
-                  "period": undefined,
                   "postalCode": "4058",
-                  "state": undefined,
-                  "text": undefined,
                   "type": "physical",
                   "use": "work",
                 },
@@ -930,14 +922,10 @@ describe('ctis research study model factory', () => {
                 AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
-                  "district": undefined,
                   "line": [
                     "INDISPONIBLE",
                   ],
-                  "period": undefined,
                   "postalCode": "INDISPONIBLE",
-                  "state": undefined,
-                  "text": undefined,
                   "type": "physical",
                   "use": "work",
                 },
@@ -1614,15 +1602,11 @@ describe('ctis research study model factory', () => {
               "address": AddressModel {
                 "city": "",
                 "country": undefined,
-                "district": undefined,
                 "line": [
                   "",
                   "",
                 ],
-                "period": undefined,
                 "postalCode": undefined,
-                "state": undefined,
-                "text": undefined,
                 "type": "physical",
                 "use": "work",
               },
@@ -1683,14 +1667,10 @@ describe('ctis research study model factory', () => {
                 AddressModel {
                   "city": "",
                   "country": "",
-                  "district": undefined,
                   "line": [
                     "",
                   ],
-                  "period": undefined,
                   "postalCode": "",
-                  "state": undefined,
-                  "text": undefined,
                   "type": "physical",
                   "use": "work",
                 },
@@ -1772,14 +1752,10 @@ describe('ctis research study model factory', () => {
                 AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
-                  "district": undefined,
                   "line": [
                     "INDISPONIBLE",
                   ],
-                  "period": undefined,
                   "postalCode": "INDISPONIBLE",
-                  "state": undefined,
-                  "text": undefined,
                   "type": "physical",
                   "use": "work",
                 },

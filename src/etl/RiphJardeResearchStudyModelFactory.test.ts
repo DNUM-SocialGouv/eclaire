@@ -584,14 +584,10 @@ describe('jarde research study model factory', () => {
                 AddressModel {
                   "city": "Valenciennes",
                   "country": "France",
-                  "district": undefined,
                   "line": [
                     "LAMIH - Campus du Mont-Houy",
                   ],
-                  "period": undefined,
                   "postalCode": "59313",
-                  "state": undefined,
-                  "text": undefined,
                   "type": "physical",
                   "use": "work",
                 },
@@ -673,14 +669,10 @@ describe('jarde research study model factory', () => {
                 AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
-                  "district": undefined,
                   "line": [
                     "INDISPONIBLE",
                   ],
-                  "period": undefined,
                   "postalCode": "INDISPONIBLE",
-                  "state": undefined,
-                  "text": undefined,
                   "type": "physical",
                   "use": "work",
                 },
@@ -1374,14 +1366,10 @@ describe('jarde research study model factory', () => {
                 AddressModel {
                   "city": "",
                   "country": "",
-                  "district": undefined,
                   "line": [
                     "",
                   ],
-                  "period": undefined,
                   "postalCode": "",
-                  "state": undefined,
-                  "text": undefined,
                   "type": "physical",
                   "use": "work",
                 },
@@ -1463,14 +1451,10 @@ describe('jarde research study model factory', () => {
                 AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
-                  "district": undefined,
                   "line": [
                     "INDISPONIBLE",
                   ],
-                  "period": undefined,
                   "postalCode": "INDISPONIBLE",
-                  "state": undefined,
-                  "text": undefined,
                   "type": "physical",
                   "use": "work",
                 },
