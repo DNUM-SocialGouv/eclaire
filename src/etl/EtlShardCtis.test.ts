@@ -10,10 +10,13 @@ describe('etl | EtlShardCtis', () => {
       const {
         elasticsearchService,
         logger,
+        readerService,
       } = await setupClientAndElasticsearchService()
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockResolvedValueOnce()
-      const etlShardCtis = new EtlShardCtis(logger, elasticsearchService, riphCtisDto)
+      vi.spyOn(logger, 'info').mockReturnValueOnce()
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDto)
+
+      const etlShardCtis = new EtlShardCtis(logger, elasticsearchService, readerService)
 
       // when
       const result = etlShardCtis.extract()
@@ -29,10 +32,13 @@ describe('etl | EtlShardCtis', () => {
       const {
         elasticsearchService,
         logger,
+        readerService,
       } = await setupClientAndElasticsearchService()
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockResolvedValueOnce()
-      const etlShardCtis = new EtlShardCtis(logger, elasticsearchService, riphCtisDto)
+      vi.spyOn(logger, 'info').mockReturnValueOnce()
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDto)
+
+      const etlShardCtis = new EtlShardCtis(logger, elasticsearchService, readerService)
 
       // when
       const result = etlShardCtis.transform(riphCtisDto)
@@ -48,10 +54,13 @@ describe('etl | EtlShardCtis', () => {
       const {
         elasticsearchService,
         logger,
+        readerService,
       } = await setupClientAndElasticsearchService()
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockResolvedValueOnce()
-      const etlShardCtis = new EtlShardCtis(logger, elasticsearchService, riphCtisDto)
+      vi.spyOn(logger, 'info').mockReturnValueOnce()
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDto)
+
+      const etlShardCtis = new EtlShardCtis(logger, elasticsearchService, readerService)
       const documents = etlShardCtis.transform(riphCtisDto)
 
       // when

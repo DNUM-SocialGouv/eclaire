@@ -1,9 +1,6 @@
 import { errors } from '@elastic/elasticsearch'
 import { Injectable } from '@nestjs/common'
 
-import { RiphCtisDto } from './dto/RiphCtisDto'
-import { RiphDmDto } from './dto/RiphDmDto'
-import { RiphJardeDto } from './dto/RiphJardeDto'
 import { EtlShard } from './EtlShard'
 import { EtlShardCtis } from './EtlShardCtis'
 import { EtlShardDm } from './EtlShardDm'
@@ -11,6 +8,7 @@ import { EtlShardJarde } from './EtlShardJarde'
 import { researchStudyIndexMapping } from './researchStudyIndexMapping'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
+import { ReaderService } from '../shared/reader/ReaderService'
 
 @Injectable()
 export class FhirEtlService {
@@ -18,9 +16,7 @@ export class FhirEtlService {
   constructor(
     private readonly logger: LoggerService,
     private readonly elasticsearchService: ElasticsearchService,
-    private readonly riphCtisDto: RiphCtisDto[],
-    private readonly riphDmDto: RiphDmDto[],
-    private readonly riphJardeDto: RiphJardeDto[]
+    private readonly readerService: ReaderService
   ) {}
 
   async createIndex(): Promise<void> {
@@ -55,9 +51,9 @@ export class FhirEtlService {
     this.logger.info('-- Début de l’import des essais cliniques du RIPH.')
 
     const etlShards: EtlShard[] = [
-      new EtlShardCtis(this.logger, this.elasticsearchService, this.riphCtisDto),
-      new EtlShardDm(this.logger, this.elasticsearchService, this.riphDmDto),
-      new EtlShardJarde(this.logger, this.elasticsearchService, this.riphJardeDto),
+      new EtlShardCtis(this.logger, this.elasticsearchService, this.readerService),
+      new EtlShardDm(this.logger, this.elasticsearchService, this.readerService),
+      new EtlShardJarde(this.logger, this.elasticsearchService, this.readerService),
     ]
 
     for (const shard of etlShards) {

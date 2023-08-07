@@ -3,8 +3,9 @@ import { EtlShard, IndexElasticsearch, ResearchStudyElasticsearchDocument } from
 import { RiphDmResearchStudyModelFactory } from './factories/RiphDmResearchStudyModelFactory'
 
 export class EtlShardDm extends EtlShard {
+  readonly type = 'dm-dmdiv'
+
   async import(): Promise<void> {
-    this.logger.info(`[Import] ${this.riphDtos.length} (DM)`)
     const riphDmDtos: RiphDmDto[] = super.extract()
     const researchStudyDocuments: ResearchStudyElasticsearchDocument[] = this.transform(riphDmDtos)
     await super.load(researchStudyDocuments)

@@ -10,11 +10,13 @@ describe('etl | EtlShardJarde', () => {
       const {
         elasticsearchService,
         logger,
+        readerService,
       } = await setupClientAndElasticsearchService()
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockResolvedValueOnce()
+      vi.spyOn(logger, 'info').mockReturnValueOnce()
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtoWithActiveStatus)
 
-      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, riphJardeDtoWithActiveStatus)
+      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, readerService)
 
       // when
       const result = etlShardJarde.extract()
@@ -30,10 +32,13 @@ describe('etl | EtlShardJarde', () => {
       const {
         elasticsearchService,
         logger,
+        readerService,
       } = await setupClientAndElasticsearchService()
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockResolvedValueOnce()
-      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, riphJardeDtoWithActiveStatus)
+      vi.spyOn(logger, 'info').mockReturnValueOnce()
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtoWithActiveStatus)
+
+      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, readerService)
 
       // when
       const result = etlShardJarde.transform(riphJardeDtoWithActiveStatus)
@@ -49,10 +54,13 @@ describe('etl | EtlShardJarde', () => {
       const {
         elasticsearchService,
         logger,
+        readerService,
       } = await setupClientAndElasticsearchService()
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockResolvedValueOnce()
-      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, riphJardeDtoWithActiveStatus)
+      vi.spyOn(logger, 'info').mockReturnValueOnce()
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtoWithActiveStatus)
+
+      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, readerService)
       const documents = etlShardJarde.transform(riphJardeDtoWithActiveStatus)
 
       // when

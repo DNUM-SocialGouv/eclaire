@@ -1,12 +1,10 @@
 import { errors } from '@elastic/elasticsearch'
 
 import { FhirEtlService } from './FhirEtlService'
-import { LoggerService } from '../shared/logger/LoggerService'
 import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 import {
   riphCtisDto,
-  riphDmDto,
-  riphJardeDto,
+  riphDmDto, riphJardeDto,
   riphJardeDtoWithActiveStatus,
   riphJardeDtoWithApprovedAndFromCtisStatuses,
   setupClientAndElasticsearchService,
@@ -101,13 +99,17 @@ async function setup() {
   const {
     client,
     elasticsearchService,
+    logger,
+    readerService,
   } = await setupClientAndElasticsearchService()
-  const logger = new LoggerService()
-  vi.spyOn(logger, 'info').mockImplementation(() => {
-    return
-  })
 
-  const etlService = new FhirEtlService(logger, elasticsearchService, riphCtisDto, riphDmDto, riphJardeDto)
+  vi.spyOn(logger, 'info').mockReturnValue()
+  vi.spyOn(readerService, 'read')
+    .mockReturnValueOnce(riphCtisDto)
+    .mockReturnValueOnce(riphDmDto)
+    .mockReturnValueOnce(riphJardeDto)
+
+  const etlService = new FhirEtlService(logger, elasticsearchService, readerService)
 
   return { client, elasticsearchService, etlService }
 }

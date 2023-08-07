@@ -10,10 +10,13 @@ describe('etl | EtlShardDm', () => {
       const {
         elasticsearchService,
         logger,
+        readerService,
       } = await setupClientAndElasticsearchService()
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockResolvedValueOnce()
-      const etlShardDm = new EtlShardDm(logger, elasticsearchService, riphDmDto)
+      vi.spyOn(logger, 'info').mockReturnValueOnce()
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphDmDto)
+
+      const etlShardDm = new EtlShardDm(logger, elasticsearchService, readerService)
 
       // when
       const result = etlShardDm.extract()
@@ -29,10 +32,13 @@ describe('etl | EtlShardDm', () => {
       const {
         elasticsearchService,
         logger,
+        readerService,
       } = await setupClientAndElasticsearchService()
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockResolvedValueOnce()
-      const etlShardDm = new EtlShardDm(logger, elasticsearchService, riphDmDto)
+      vi.spyOn(logger, 'info').mockReturnValueOnce()
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphDmDto)
+
+      const etlShardDm = new EtlShardDm(logger, elasticsearchService, readerService)
 
       // when
       const result = etlShardDm.transform(riphDmDto)
@@ -48,10 +54,13 @@ describe('etl | EtlShardDm', () => {
       const {
         elasticsearchService,
         logger,
+        readerService,
       } = await setupClientAndElasticsearchService()
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
       vi.spyOn(logger, 'info').mockResolvedValueOnce()
-      const etlShardDm = new EtlShardDm(logger, elasticsearchService, riphDmDto)
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphDmDto)
+
+      const etlShardDm = new EtlShardDm(logger, elasticsearchService, readerService)
       const documents = etlShardDm.transform(riphDmDto)
 
       // when

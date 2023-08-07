@@ -3,8 +3,9 @@ import { EtlShard, IndexElasticsearch, ResearchStudyElasticsearchDocument } from
 import { RiphJardeResearchStudyModelFactory } from './factories/RiphJardeResearchStudyModelFactory'
 
 export class EtlShardJarde extends EtlShard {
+  readonly type = 'jarde'
+
   async import(): Promise<void> {
-    this.logger.info(`[Import] ${this.riphDtos.length} riphDtos (JARDE)`)
     const riphJardeDtos: RiphJardeDto[] = super.extract()
     const researchStudyDocuments: ResearchStudyElasticsearchDocument[] = this.transform(riphJardeDtos)
 

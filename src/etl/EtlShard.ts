@@ -6,19 +6,26 @@ import { RiphJardeDto } from './dto/RiphJardeDto'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
 import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
+import { ReaderService } from '../shared/reader/ReaderService'
+
+const EXPORT_DATE = '27-07-2023'
 
 export abstract class EtlShard {
+  abstract readonly type: string;
+
   constructor(
     readonly logger: LoggerService,
     readonly elasticsearchService: ElasticsearchService,
-    readonly riphDtos: RiphDto[]
+    readonly readerService: ReaderService
   ) {}
 
   abstract import(): Promise<void>
   abstract transform(riphDtos: RiphDto[]): ResearchStudyElasticsearchDocument[]
 
   extract<T>(): T[] {
-    return [...this.riphDtos as T[]]
+    const dto: T[] = this.readerService.read(`export_eclaire_${this.type}-${EXPORT_DATE}.json`) as T[]
+    this.logger.info(`[Extract] ${dto.length} (${this.type})`)
+    return [...dto]
   }
 
   async load(documents: ResearchStudyElasticsearchDocument[]): Promise<void> {
