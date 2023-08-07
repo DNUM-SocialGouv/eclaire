@@ -1,8 +1,8 @@
 import { EsResearchStudyRepository } from './EsResearchStudyRepository'
 import { riphCtisDto, setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
 import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
-import { researchStudyIndexMapping } from 'src/etl/researchStudyIndexMapping'
-import { RiphCtisResearchStudyModelFactory } from 'src/etl/RiphCtisResearchStudyModelFactory'
+import { RiphCtisResearchStudyModelFactory } from 'src/etl/factories/RiphCtisResearchStudyModelFactory'
+import { elasticsearchIndexMapping } from 'src/shared/elasticsearch/elasticsearchIndexMapping'
 
 describe('elasticsearch research study repository', () => {
   describe('retrieve one research study', () => {
@@ -233,7 +233,7 @@ async function setup() {
     titre: 'un autre titre pour la pagination 6',
   }
 
-  await elasticsearchService.createAnIndex(researchStudyIndexMapping)
+  await elasticsearchService.createAnIndex(elasticsearchIndexMapping)
   await elasticsearchService.bulkDocuments([
     { index: { _id: 'fakeId1' } },
     RiphCtisResearchStudyModelFactory.create(researchStudy1),

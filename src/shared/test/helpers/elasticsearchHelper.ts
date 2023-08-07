@@ -2,6 +2,7 @@
 import { Client } from '@elastic/elasticsearch'
 import { ConfigService } from '@nestjs/config'
 
+import { ReaderService } from '../../../etl/reader/ReaderService'
 import { ElasticsearchConfig } from '../../elasticsearch/ElasticsearchConfig'
 import { ElasticsearchService } from '../../elasticsearch/ElasticsearchService'
 import { LoggerService } from '../../logger/LoggerService'
@@ -32,12 +33,14 @@ export async function setupClientAndElasticsearchService() {
   const { client, configService } = await deleteElasticsearchIndice()
   const logger = new LoggerService()
   const elasticsearchService = new ElasticsearchService(client)
+  const readerService = new ReaderService()
 
   return {
     client,
     configService,
     elasticsearchService,
     logger,
+    readerService,
   }
 }
 
