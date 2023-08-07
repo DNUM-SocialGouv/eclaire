@@ -1,6 +1,6 @@
 import { RiphJardeDto } from './dto/RiphJardeDto'
 import { EtlShard, IndexElasticsearch, ResearchStudyElasticsearchDocument } from './EtlShard'
-import { RiphJardeResearchStudyModelFactory } from './RiphJardeResearchStudyModelFactory'
+import { RiphJardeResearchStudyModelFactory } from './factories/RiphJardeResearchStudyModelFactory'
 
 export class EtlShardJarde extends EtlShard {
   async import(): Promise<void> {

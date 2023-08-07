@@ -4,7 +4,7 @@ import supertest from 'supertest'
 
 import { AppModule } from '../AppModule'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
-import { RiphCtisResearchStudyModelFactory } from 'src/etl/RiphCtisResearchStudyModelFactory'
+import { RiphCtisResearchStudyModelFactory } from 'src/etl/factories/RiphCtisResearchStudyModelFactory'
 import { deleteElasticsearchIndice, riphCtisDto } from 'src/shared/test/helpers/elasticsearchHelper'
 
 describe('app', () => {

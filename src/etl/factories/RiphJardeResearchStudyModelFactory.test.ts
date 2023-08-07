@@ -1,5 +1,5 @@
 import { RiphJardeResearchStudyModelFactory } from './RiphJardeResearchStudyModelFactory'
-import { riphJardeDtoWithActiveStatus } from '../shared/test/helpers/elasticsearchHelper'
+import { riphJardeDtoWithActiveStatus } from '../../shared/test/helpers/elasticsearchHelper'
 
 describe('jarde research study model factory', () => {
   it('should build a Jarde research study model, when RIPH Jarde with all fields filled is given', () => {

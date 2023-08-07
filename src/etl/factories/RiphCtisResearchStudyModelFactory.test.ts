@@ -1,5 +1,5 @@
 import { RiphCtisResearchStudyModelFactory } from './RiphCtisResearchStudyModelFactory'
-import { riphCtisDto } from '../shared/test/helpers/elasticsearchHelper'
+import { riphCtisDto } from '../../shared/test/helpers/elasticsearchHelper'
 
 describe('ctis research study model factory', () => {
   it('should build a CTIS research study model, when RIPH CTIS with all fields filled is given', () => {

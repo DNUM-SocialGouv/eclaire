@@ -1,5 +1,5 @@
 import { RiphDmResearchStudyModelFactory } from './RiphDmResearchStudyModelFactory'
-import { riphDmDto } from '../shared/test/helpers/elasticsearchHelper'
+import { riphDmDto } from '../../shared/test/helpers/elasticsearchHelper'
 
 describe('dm research study model factory', () => {
   it('should build a DM research study model, when RIPH DM with all fields filled is given', () => {
