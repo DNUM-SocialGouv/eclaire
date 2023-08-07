@@ -1,13 +1,13 @@
 import { expect } from 'vitest'
 
-import { EtlShardJarde } from './EtlShardJarde'
+import { IngestPipelineJarde } from './IngestPipelineJarde'
 import {
   riphJardeDtoWithActiveStatus,
   riphJardeDtoWithApprovedAndFromCtisStatuses,
   setupClientAndElasticsearchService,
-} from '../shared/test/helpers/elasticsearchHelper'
+} from '../../shared/test/helpers/elasticsearchHelper'
 
-describe('etl | EtlShardJarde', () => {
+describe('etl | IngestPipelineJarde', () => {
   describe('extract', () => {
     it('should extract raw data into an array', async () => {
       // given
@@ -20,10 +20,10 @@ describe('etl | EtlShardJarde', () => {
       vi.spyOn(logger, 'info').mockReturnValueOnce()
       vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtoWithActiveStatus)
 
-      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, readerService)
+      const ingestPipelineJarde = new IngestPipelineJarde(logger, elasticsearchService, readerService)
 
       // when
-      const result = etlShardJarde.extract()
+      const result = ingestPipelineJarde.extract()
 
       // then
       expect(result).toStrictEqual(riphJardeDtoWithActiveStatus)
@@ -42,10 +42,10 @@ describe('etl | EtlShardJarde', () => {
       vi.spyOn(logger, 'info').mockReturnValueOnce()
       vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtoWithActiveStatus)
 
-      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, readerService)
+      const ingestPipelineJarde = new IngestPipelineJarde(logger, elasticsearchService, readerService)
 
       // when
-      const result = etlShardJarde.transform(riphJardeDtoWithActiveStatus)
+      const result = ingestPipelineJarde.transform(riphJardeDtoWithActiveStatus)
 
       // then
       expect(result).toHaveLength(6)
@@ -62,10 +62,10 @@ describe('etl | EtlShardJarde', () => {
       vi.spyOn(logger, 'info').mockReturnValueOnce()
       vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtoWithApprovedAndFromCtisStatuses)
 
-      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, readerService)
+      const ingestPipelineJarde = new IngestPipelineJarde(logger, elasticsearchService, readerService)
 
       // WHEN
-      const result = etlShardJarde.transform(riphJardeDtoWithApprovedAndFromCtisStatuses)
+      const result = ingestPipelineJarde.transform(riphJardeDtoWithApprovedAndFromCtisStatuses)
 
       // THEN
       const excludeJarde = riphJardeDtoWithApprovedAndFromCtisStatuses[1].numero_national
@@ -85,11 +85,11 @@ describe('etl | EtlShardJarde', () => {
       vi.spyOn(logger, 'info').mockReturnValueOnce()
       vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtoWithActiveStatus)
 
-      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, readerService)
-      const documents = etlShardJarde.transform(riphJardeDtoWithActiveStatus)
+      const ingestPipelineJarde = new IngestPipelineJarde(logger, elasticsearchService, readerService)
+      const documents = ingestPipelineJarde.transform(riphJardeDtoWithActiveStatus)
 
       // when
-      await etlShardJarde.load(documents)
+      await ingestPipelineJarde.load(documents)
 
       // then
       expect(elasticsearchService.bulkDocuments).toHaveBeenCalledWith(documents)

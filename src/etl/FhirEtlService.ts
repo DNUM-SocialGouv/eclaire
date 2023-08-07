@@ -1,10 +1,10 @@
 import { errors } from '@elastic/elasticsearch'
 import { Injectable } from '@nestjs/common'
 
-import { EtlShard } from './EtlShard'
-import { EtlShardCtis } from './EtlShardCtis'
-import { EtlShardDm } from './EtlShardDm'
-import { EtlShardJarde } from './EtlShardJarde'
+import { IngestPipeline } from './ingest-pipelines/IngestPipeline'
+import { IngestPipelineCtis } from './ingest-pipelines/IngestPipelineCtis'
+import { IngestPipelineDmDmdiv } from './ingest-pipelines/IngestPipelineDmDmdiv'
+import { IngestPipelineJarde } from './ingest-pipelines/IngestPipelineJarde'
 import { ReaderService } from './reader/ReaderService'
 import { researchStudyIndexMapping } from './researchStudyIndexMapping'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
@@ -50,14 +50,14 @@ export class FhirEtlService {
   async import(): Promise<void> {
     this.logger.info('-- Début de l’import des essais cliniques du RIPH.')
 
-    const etlShards: EtlShard[] = [
-      new EtlShardCtis(this.logger, this.elasticsearchService, this.readerService),
-      new EtlShardDm(this.logger, this.elasticsearchService, this.readerService),
-      new EtlShardJarde(this.logger, this.elasticsearchService, this.readerService),
+    const ingestPipelines: IngestPipeline[] = [
+      new IngestPipelineCtis(this.logger, this.elasticsearchService, this.readerService),
+      new IngestPipelineDmDmdiv(this.logger, this.elasticsearchService, this.readerService),
+      new IngestPipelineJarde(this.logger, this.elasticsearchService, this.readerService),
     ]
 
-    for (const shard of etlShards) {
-      await shard.import()
+    for (const ingestPipeline of ingestPipelines) {
+      await ingestPipeline.execute()
     }
 
     this.logger.info('-- Fin de l’import des essais cliniques du RIPH.')

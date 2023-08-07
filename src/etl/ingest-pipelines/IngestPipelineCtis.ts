@@ -1,11 +1,11 @@
-import { RiphCtisDto } from './dto/RiphCtisDto'
-import { EtlShard, IndexElasticsearch, ResearchStudyElasticsearchDocument } from './EtlShard'
-import { RiphCtisResearchStudyModelFactory } from './factories/RiphCtisResearchStudyModelFactory'
+import { IngestPipeline, IndexElasticsearch, ResearchStudyElasticsearchDocument } from './IngestPipeline'
+import { RiphCtisDto } from '../dto/RiphCtisDto'
+import { RiphCtisResearchStudyModelFactory } from '../factories/RiphCtisResearchStudyModelFactory'
 
-export class EtlShardCtis extends EtlShard {
+export class IngestPipelineCtis extends IngestPipeline {
   readonly type = 'ctis'
 
-  async import(): Promise<void> {
+  async execute(): Promise<void> {
     const riphCtisDtos: RiphCtisDto[] = super.extract()
     const researchStudyDocuments: ResearchStudyElasticsearchDocument[] = this.transform(riphCtisDtos)
     await super.load(researchStudyDocuments)

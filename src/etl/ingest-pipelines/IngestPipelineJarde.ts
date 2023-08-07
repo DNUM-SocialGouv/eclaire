@@ -1,11 +1,11 @@
-import { RiphJardeDto } from './dto/RiphJardeDto'
-import { EtlShard, IndexElasticsearch, ResearchStudyElasticsearchDocument } from './EtlShard'
-import { RiphJardeResearchStudyModelFactory } from './factories/RiphJardeResearchStudyModelFactory'
+import { IngestPipeline, IndexElasticsearch, ResearchStudyElasticsearchDocument } from './IngestPipeline'
+import { RiphJardeDto } from '../dto/RiphJardeDto'
+import { RiphJardeResearchStudyModelFactory } from '../factories/RiphJardeResearchStudyModelFactory'
 
-export class EtlShardJarde extends EtlShard {
+export class IngestPipelineJarde extends IngestPipeline {
   readonly type = 'jarde'
 
-  async import(): Promise<void> {
+  async execute(): Promise<void> {
     const riphJardeDtos: RiphJardeDto[] = super.extract()
     const researchStudyDocuments: ResearchStudyElasticsearchDocument[] = this.transform(riphJardeDtos)
 

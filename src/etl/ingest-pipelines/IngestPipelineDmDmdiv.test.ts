@@ -1,9 +1,9 @@
 import { expect } from 'vitest'
 
-import { EtlShardDm } from './EtlShardDm'
-import { riphDmDto, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
+import { IngestPipelineDmDmdiv } from './IngestPipelineDmDmdiv'
+import { riphDmDto, setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
 
-describe('etl | EtlShardDm', () => {
+describe('etl | IngestPipelineDm', () => {
   describe('extract', () => {
     it('should extract raw data into an array', async () => {
       // given
@@ -16,10 +16,10 @@ describe('etl | EtlShardDm', () => {
       vi.spyOn(logger, 'info').mockReturnValueOnce()
       vi.spyOn(readerService, 'read').mockReturnValueOnce(riphDmDto)
 
-      const etlShardDm = new EtlShardDm(logger, elasticsearchService, readerService)
+      const ingestPipelineDm = new IngestPipelineDmDmdiv(logger, elasticsearchService, readerService)
 
       // when
-      const result = etlShardDm.extract()
+      const result = ingestPipelineDm.extract()
 
       // then
       expect(result).toStrictEqual(riphDmDto)
@@ -38,10 +38,10 @@ describe('etl | EtlShardDm', () => {
       vi.spyOn(logger, 'info').mockReturnValueOnce()
       vi.spyOn(readerService, 'read').mockReturnValueOnce(riphDmDto)
 
-      const etlShardDm = new EtlShardDm(logger, elasticsearchService, readerService)
+      const ingestPipelineDm = new IngestPipelineDmDmdiv(logger, elasticsearchService, readerService)
 
       // when
-      const result = etlShardDm.transform(riphDmDto)
+      const result = ingestPipelineDm.transform(riphDmDto)
 
       // then
       expect(result).toHaveLength(6)
@@ -60,11 +60,11 @@ describe('etl | EtlShardDm', () => {
       vi.spyOn(logger, 'info').mockResolvedValueOnce()
       vi.spyOn(readerService, 'read').mockReturnValueOnce(riphDmDto)
 
-      const etlShardDm = new EtlShardDm(logger, elasticsearchService, readerService)
-      const documents = etlShardDm.transform(riphDmDto)
+      const ingestPipelineDm = new IngestPipelineDmDmdiv(logger, elasticsearchService, readerService)
+      const documents = ingestPipelineDm.transform(riphDmDto)
 
       // when
-      await etlShardDm.load(documents)
+      await ingestPipelineDm.load(documents)
 
       // then
       expect(elasticsearchService.bulkDocuments).toHaveBeenCalledWith(documents)

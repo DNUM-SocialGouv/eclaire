@@ -1,11 +1,11 @@
-import { RiphDmDto } from './dto/RiphDmDto'
-import { EtlShard, IndexElasticsearch, ResearchStudyElasticsearchDocument } from './EtlShard'
-import { RiphDmResearchStudyModelFactory } from './factories/RiphDmResearchStudyModelFactory'
+import { IngestPipeline, IndexElasticsearch, ResearchStudyElasticsearchDocument } from './IngestPipeline'
+import { RiphDmDto } from '../dto/RiphDmDto'
+import { RiphDmResearchStudyModelFactory } from '../factories/RiphDmResearchStudyModelFactory'
 
-export class EtlShardDm extends EtlShard {
+export class IngestPipelineDmDmdiv extends IngestPipeline {
   readonly type = 'dm-dmdiv'
 
-  async import(): Promise<void> {
+  async execute(): Promise<void> {
     const riphDmDtos: RiphDmDto[] = super.extract()
     const researchStudyDocuments: ResearchStudyElasticsearchDocument[] = this.transform(riphDmDtos)
     await super.load(researchStudyDocuments)

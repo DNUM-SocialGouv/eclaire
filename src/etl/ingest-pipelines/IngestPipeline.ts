@@ -1,16 +1,16 @@
 import { errors } from '@elastic/elasticsearch'
 
-import { RiphCtisDto } from './dto/RiphCtisDto'
-import { RiphDmDto } from './dto/RiphDmDto'
-import { RiphJardeDto } from './dto/RiphJardeDto'
-import { ReaderService } from './reader/ReaderService'
-import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
-import { LoggerService } from '../shared/logger/LoggerService'
-import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
+import { ElasticsearchService } from '../../shared/elasticsearch/ElasticsearchService'
+import { LoggerService } from '../../shared/logger/LoggerService'
+import { ResearchStudyModel } from '../../shared/models/fhir/ResearchStudyModel'
+import { RiphCtisDto } from '../dto/RiphCtisDto'
+import { RiphDmDto } from '../dto/RiphDmDto'
+import { RiphJardeDto } from '../dto/RiphJardeDto'
+import { ReaderService } from '../reader/ReaderService'
 
 const EXPORT_DATE = '27-07-2023'
 
-export abstract class EtlShard {
+export abstract class IngestPipeline {
   abstract readonly type: string;
 
   constructor(
@@ -19,7 +19,7 @@ export abstract class EtlShard {
     readonly readerService: ReaderService
   ) {}
 
-  abstract import(): Promise<void>
+  abstract execute(): Promise<void>
   abstract transform(riphDtos: RiphDto[]): ResearchStudyElasticsearchDocument[]
 
   extract<T>(): T[] {

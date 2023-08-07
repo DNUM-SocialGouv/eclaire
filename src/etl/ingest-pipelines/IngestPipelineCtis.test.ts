@@ -1,9 +1,9 @@
 import { expect } from 'vitest'
 
-import { EtlShardCtis } from './EtlShardCtis'
-import { riphCtisDto, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
+import { IngestPipelineCtis } from './IngestPipelineCtis'
+import { riphCtisDto, setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
 
-describe('etl | EtlShardCtis', () => {
+describe('etl | IngestPipelineCtis', () => {
   describe('extract', () => {
     it('should extract raw data into an array', async () => {
       // given
@@ -16,10 +16,10 @@ describe('etl | EtlShardCtis', () => {
       vi.spyOn(logger, 'info').mockReturnValueOnce()
       vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDto)
 
-      const etlShardCtis = new EtlShardCtis(logger, elasticsearchService, readerService)
+      const ingestPipelineCtis = new IngestPipelineCtis(logger, elasticsearchService, readerService)
 
       // when
-      const result = etlShardCtis.extract()
+      const result = ingestPipelineCtis.extract()
 
       // then
       expect(result).toStrictEqual(riphCtisDto)
@@ -38,10 +38,10 @@ describe('etl | EtlShardCtis', () => {
       vi.spyOn(logger, 'info').mockReturnValueOnce()
       vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDto)
 
-      const etlShardCtis = new EtlShardCtis(logger, elasticsearchService, readerService)
+      const ingestPipelineCtis = new IngestPipelineCtis(logger, elasticsearchService, readerService)
 
       // when
-      const result = etlShardCtis.transform(riphCtisDto)
+      const result = ingestPipelineCtis.transform(riphCtisDto)
 
       // then
       expect(result).toHaveLength(6)
@@ -60,11 +60,11 @@ describe('etl | EtlShardCtis', () => {
       vi.spyOn(logger, 'info').mockReturnValueOnce()
       vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDto)
 
-      const etlShardCtis = new EtlShardCtis(logger, elasticsearchService, readerService)
-      const documents = etlShardCtis.transform(riphCtisDto)
+      const ingestPipelineCtis = new IngestPipelineCtis(logger, elasticsearchService, readerService)
+      const documents = ingestPipelineCtis.transform(riphCtisDto)
 
       // when
-      await etlShardCtis.load(documents)
+      await ingestPipelineCtis.load(documents)
 
       // then
       expect(elasticsearchService.bulkDocuments).toHaveBeenCalledWith(documents)
