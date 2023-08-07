@@ -1,7 +1,7 @@
 import { Group, GroupCharacteristic } from 'fhir/r4'
 
-import { GroupCharacteristicModel } from './GroupCharacteristicModel'
-import { ModelUtils } from '../custom/ModelUtils'
+import { GroupCharacteristicModel } from '../backbone-elements/GroupCharacteristicModel'
+import { ModelUtils } from '../eclaire/ModelUtils'
 
 export class GroupModel implements Group {
   readonly resourceType: 'Group'

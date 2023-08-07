@@ -1,13 +1,13 @@
 import { Coding } from 'fhir/r4'
 
-import { administrativeGenderCodeSystem } from '../CodeSystems/administrativeGenderCodeSystem'
-import { countryCodeSystem } from '../CodeSystems/countryCodeSystem'
-import { eclaireTypeContactCodeSystem } from '../CodeSystems/eclaireTypeContactCodeSystem'
-import { medDraCodeSystem } from '../CodeSystems/medDraCodeSystem'
-import { researchStudyPhaseCodeSystem } from '../CodeSystems/researchStudyPhaseCodeSystem'
-import { titleTypeCodeSystem } from '../CodeSystems/titleTypeCodeSystem'
-import { ContactType } from '../MetadataTypes/ContactDetailModel'
-import { LabelType } from '../SpecialPurposeDataTypes/ExtensionModel'
+import { administrativeGenderCodeSystem } from '../code-systems/administrativeGenderCodeSystem'
+import { countryCodeSystem } from '../code-systems/countryCodeSystem'
+import { eclaireTypeContactCodeSystem } from '../code-systems/eclaireTypeContactCodeSystem'
+import { medDraCodeSystem } from '../code-systems/medDraCodeSystem'
+import { researchStudyPhaseCodeSystem } from '../code-systems/researchStudyPhaseCodeSystem'
+import { titleTypeCodeSystem } from '../code-systems/titleTypeCodeSystem'
+import { ContactType } from '../metadata-types/ContactDetailModel'
+import { LabelType } from '../special-purpose-data-types/ExtensionModel'
 
 export class CodingModel implements Coding {
   constructor(

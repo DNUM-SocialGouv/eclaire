@@ -3,7 +3,7 @@ import { Identifier, Reference } from 'fhir/r4'
 import {
   AssignerForSecondaryIdentifier,
   ReferenceModel,
-} from '../SpecialPurposeDataTypes/ReferenceModel'
+} from '../special-purpose-data-types/ReferenceModel'
 
 export class IdentifierModel implements Identifier {
   constructor(

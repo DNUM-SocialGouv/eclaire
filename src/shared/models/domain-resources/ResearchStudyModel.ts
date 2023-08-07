@@ -8,7 +8,7 @@ import {
   ResearchStudy,
 } from 'fhir/r4'
 
-import { ReferenceContentsModel } from '../custom/ReferenceContentsModel'
+import { ReferenceContentsModel } from '../eclaire/ReferenceContentsModel'
 
 export class ResearchStudyModel implements ResearchStudy {
   readonly resourceType: 'ResearchStudy'

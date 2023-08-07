@@ -1,6 +1,6 @@
 import { Meta } from 'fhir/r4'
 
-import { ModelUtils } from '../../custom/ModelUtils'
+import { ModelUtils } from '../eclaire/ModelUtils'
 
 export class MetaModel implements Meta {
   constructor(

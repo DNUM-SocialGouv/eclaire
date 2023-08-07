@@ -1,8 +1,8 @@
 import { CodeableConcept, GroupCharacteristic, Quantity, Range, Reference } from 'fhir/r4'
 
-import { CodeableConceptModel } from './DataTypes/CodeableConceptModel'
-import { RangeModel } from './DataTypes/RangeModel'
-import { ModelUtils } from '../custom/ModelUtils'
+import { CodeableConceptModel } from '../data-types/CodeableConceptModel'
+import { RangeModel } from '../data-types/RangeModel'
+import { ModelUtils } from '../eclaire/ModelUtils'
 
 export class GroupCharacteristicModel implements GroupCharacteristic {
   constructor(

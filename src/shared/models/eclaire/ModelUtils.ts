@@ -1,4 +1,4 @@
-import { AssignerForSecondaryIdentifier } from '../fhir/SpecialPurposeDataTypes/ReferenceModel'
+import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
 
 export class ModelUtils {
   static UNAVAILABLE = 'INDISPONIBLE'

@@ -7,12 +7,12 @@ import {
   OrganizationContact,
 } from 'fhir/r4'
 
-import { AddressModel } from './DataTypes/AddressModel'
-import { CodeableConceptModel } from './DataTypes/CodeableConceptModel'
-import { ContactPointModel } from './DataTypes/ContactPointModel'
-import { OrganizationContactModel } from './OrganizationContactModel'
-import { AssignerForSecondaryIdentifier } from './SpecialPurposeDataTypes/ReferenceModel'
-import { ModelUtils } from '../custom/ModelUtils'
+import { OrganizationContactModel } from '../backbone-elements/OrganizationContactModel'
+import { AddressModel } from '../data-types/AddressModel'
+import { CodeableConceptModel } from '../data-types/CodeableConceptModel'
+import { ContactPointModel } from '../data-types/ContactPointModel'
+import { ModelUtils } from '../eclaire/ModelUtils'
+import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
 
 export class OrganizationModel implements Organization {
   readonly resourceType: 'Organization'

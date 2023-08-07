@@ -1,7 +1,7 @@
 import { errors } from '@elastic/elasticsearch'
 
 import { EtlService } from './EtlService'
-import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
+import { ResearchStudyModel } from '../shared/models/domain-resources/ResearchStudyModel'
 import {
   riphCtisDto,
   riphDmDto, riphJardeDto,
