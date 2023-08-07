@@ -1,23 +1,23 @@
 import { NestFactory } from '@nestjs/core'
 
-import { FhirEtlService } from './FhirEtlService'
+import { EtlService } from './EtlService'
 import { AppModule } from '../AppModule'
 
 async function console(): Promise<void> {
   const application = await NestFactory.createApplicationContext(AppModule)
   const command = process.argv[2]
-  const fhirEtlService = application.get(FhirEtlService)
+  const etlService = application.get(EtlService)
 
   switch (command) {
     case 'create-index':
-      await fhirEtlService.createIndex()
+      await etlService.createIndex()
       break
     case 'import':
-      await fhirEtlService.import()
+      await etlService.import()
       break
     case 'reset-index':
-      await fhirEtlService.deleteIndex()
-      await fhirEtlService.createIndex()
+      await etlService.deleteIndex()
+      await etlService.createIndex()
       break
     default:
       process.exit(1)

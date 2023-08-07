@@ -11,7 +11,7 @@ import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchServi
 import { LoggerService } from '../shared/logger/LoggerService'
 
 @Injectable()
-export class FhirEtlService {
+export class EtlService {
 
   constructor(
     private readonly logger: LoggerService,

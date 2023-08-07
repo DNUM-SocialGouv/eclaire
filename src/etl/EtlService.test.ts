@@ -1,6 +1,6 @@
 import { errors } from '@elastic/elasticsearch'
 
-import { FhirEtlService } from './FhirEtlService'
+import { EtlService } from './EtlService'
 import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
 import {
   riphCtisDto,
@@ -96,7 +96,7 @@ async function setup() {
     .mockReturnValueOnce(riphDmDto)
     .mockReturnValueOnce(riphJardeDto)
 
-  const etlService = new FhirEtlService(logger, elasticsearchService, readerService)
+  const etlService = new EtlService(logger, elasticsearchService, readerService)
 
   return { client, elasticsearchService, etlService }
 }
