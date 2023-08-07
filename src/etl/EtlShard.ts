@@ -3,10 +3,10 @@ import { errors } from '@elastic/elasticsearch'
 import { RiphCtisDto } from './dto/RiphCtisDto'
 import { RiphDmDto } from './dto/RiphDmDto'
 import { RiphJardeDto } from './dto/RiphJardeDto'
+import { ReaderService } from './reader/ReaderService'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
 import { ResearchStudyModel } from '../shared/models/fhir/ResearchStudyModel'
-import { ReaderService } from '../shared/reader/ReaderService'
 
 const EXPORT_DATE = '27-07-2023'
 

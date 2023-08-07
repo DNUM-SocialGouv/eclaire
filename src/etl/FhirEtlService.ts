@@ -5,10 +5,10 @@ import { EtlShard } from './EtlShard'
 import { EtlShardCtis } from './EtlShardCtis'
 import { EtlShardDm } from './EtlShardDm'
 import { EtlShardJarde } from './EtlShardJarde'
+import { ReaderService } from './reader/ReaderService'
 import { researchStudyIndexMapping } from './researchStudyIndexMapping'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
-import { ReaderService } from '../shared/reader/ReaderService'
 
 @Injectable()
 export class FhirEtlService {

@@ -2,10 +2,10 @@
 import { Client } from '@elastic/elasticsearch'
 import { ConfigService } from '@nestjs/config'
 
+import { ReaderService } from '../../../etl/reader/ReaderService'
 import { ElasticsearchConfig } from '../../elasticsearch/ElasticsearchConfig'
 import { ElasticsearchService } from '../../elasticsearch/ElasticsearchService'
 import { LoggerService } from '../../logger/LoggerService'
-import { ReaderService } from '../../reader/ReaderService'
 import { RiphCtisDto } from 'src/etl/dto/RiphCtisDto'
 import { RiphDmDto } from 'src/etl/dto/RiphDmDto'
 import { RiphJardeDto } from 'src/etl/dto/RiphJardeDto'

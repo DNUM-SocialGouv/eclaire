@@ -6,9 +6,9 @@ import { ResearchStudyModule } from './api/research-study/ResearchStudyModule'
 import { SentryModule } from './api/sentry/sentry.module'
 import { SwaggerModule } from './api/swagger/swagger.module'
 import { FhirEtlModule } from './etl/FhirEtlModule'
+import { ReaderModule } from './etl/reader/ReaderModule'
 import { ElasticsearchModule } from './shared/elasticsearch/ElasticsearchModule'
 import { LoggerModule } from './shared/logger/LoggerModule'
-import { ReaderModule } from './shared/reader/ReaderModule'
 
 @Module({
   controllers: [AppController],
