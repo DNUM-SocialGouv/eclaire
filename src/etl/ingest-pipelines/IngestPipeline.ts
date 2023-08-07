@@ -6,7 +6,7 @@ import { ResearchStudyModel } from '../../shared/models/domain-resources/Researc
 import { RiphCtisDto } from '../dto/RiphCtisDto'
 import { RiphDmDto } from '../dto/RiphDmDto'
 import { RiphJardeDto } from '../dto/RiphJardeDto'
-import { ReaderService } from '../reader/ReaderService'
+import { FileReaderService } from '../file-reader/FileReaderService'
 
 const EXPORT_DATE = '27-07-2023'
 
@@ -16,7 +16,7 @@ export abstract class IngestPipeline {
   constructor(
     readonly logger: LoggerService,
     readonly elasticsearchService: ElasticsearchService,
-    readonly readerService: ReaderService
+    readonly readerService: FileReaderService
   ) {}
 
   abstract execute(): Promise<void>
