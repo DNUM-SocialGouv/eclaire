@@ -1,7 +1,11 @@
 import { expect } from 'vitest'
 
 import { EtlShardJarde } from './EtlShardJarde'
-import { riphJardeDtoWithActiveStatus, setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
+import {
+  riphJardeDtoWithActiveStatus,
+  riphJardeDtoWithApprovedAndFromCtisStatuses,
+  setupClientAndElasticsearchService,
+} from '../shared/test/helpers/elasticsearchHelper'
 
 describe('etl | EtlShardJarde', () => {
   describe('extract', () => {
@@ -45,6 +49,27 @@ describe('etl | EtlShardJarde', () => {
 
       // then
       expect(result).toHaveLength(6)
+    })
+
+    it('should not find "RAPATRIEE_CTIS" because it is a duplicate', async () => {
+      // GIVEN
+      const {
+        elasticsearchService,
+        logger,
+        readerService,
+      } = await setupClientAndElasticsearchService()
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(logger, 'info').mockReturnValueOnce()
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtoWithApprovedAndFromCtisStatuses)
+
+      const etlShardJarde = new EtlShardJarde(logger, elasticsearchService, readerService)
+
+      // WHEN
+      const result = etlShardJarde.transform(riphJardeDtoWithApprovedAndFromCtisStatuses)
+
+      // THEN
+      const excludeJarde = riphJardeDtoWithApprovedAndFromCtisStatuses[1].numero_national
+      expect(result).not.toContain(excludeJarde)
     })
   })
 
