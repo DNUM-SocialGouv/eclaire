@@ -6,7 +6,7 @@ import { ResearchStudyModule } from './api/research-study/ResearchStudyModule'
 import { SentryModule } from './api/sentry/sentry.module'
 import { SwaggerModule } from './api/swagger/swagger.module'
 import { EtlModule } from './etl/EtlModule'
-import { ReaderModule } from './etl/reader/ReaderModule'
+import { FileReaderModule } from './etl/file-reader/FileReaderModule'
 import { ElasticsearchModule } from './shared/elasticsearch/ElasticsearchModule'
 import { LoggerModule } from './shared/logger/LoggerModule'
 
@@ -21,7 +21,7 @@ import { LoggerModule } from './shared/logger/LoggerModule'
     ElasticsearchModule,
     EtlModule,
     LoggerModule,
-    ReaderModule,
+    FileReaderModule,
     ResearchStudyModule,
     SentryModule,
     SwaggerModule,
