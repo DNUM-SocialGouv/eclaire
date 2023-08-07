@@ -6,7 +6,7 @@ import { IngestPipelineCtis } from './ingest-pipelines/IngestPipelineCtis'
 import { IngestPipelineDmDmdiv } from './ingest-pipelines/IngestPipelineDmDmdiv'
 import { IngestPipelineJarde } from './ingest-pipelines/IngestPipelineJarde'
 import { ReaderService } from './reader/ReaderService'
-import { researchStudyIndexMapping } from './researchStudyIndexMapping'
+import { elasticsearchIndexMapping } from '../shared/elasticsearch/elasticsearchIndexMapping'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
 
@@ -22,7 +22,7 @@ export class EtlService {
   async createIndex(): Promise<void> {
     this.logger.info('-- Début de la création de l’index ECLAIRE dans Elasticsearch.')
     try {
-      await this.elasticsearchService.createAnIndex(researchStudyIndexMapping)
+      await this.elasticsearchService.createAnIndex(elasticsearchIndexMapping)
       this.logger.info('-- Fin de la création de l’index ECLAIRE dans Elasticsearch.')
     } catch (error) {
       if (error instanceof errors.ResponseError) {

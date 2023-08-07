@@ -25,7 +25,7 @@ const identifier = {
     value: { type: 'text' },
   },
 }
-export const researchStudyIndexMapping = {
+export const elasticsearchIndexMapping = {
   properties: {
     category: { properties: { codeableConcept } },
     condition: { properties: { codeableConcept } },
