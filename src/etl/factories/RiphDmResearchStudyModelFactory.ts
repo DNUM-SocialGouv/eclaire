@@ -16,9 +16,9 @@ import { RiphDmDto } from '../dto/RiphDmDto'
 export class RiphDmResearchStudyModelFactory {
   static create(riphDmDto: RiphDmDto): ResearchStudyModel {
     const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphDmDto.numero_national)
-    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphDmDto.numero_national)
-    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphDmDto.numero_national)
     const assigner = ModelUtils.identifyAssigner(riphDmDto.reglementation_code, riphDmDto.qualification)
+    const { sponsor, primarySponsorOrganization } = this.createPrimarySponsor(riphDmDto)
+    const { secondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(riphDmDto)
 
     const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphDmDto.reglementation_code)]
     const condition: CodeableConceptModel[] = [
@@ -63,7 +63,7 @@ export class RiphDmResearchStudyModelFactory {
     const description = ModelUtils.UNAVAILABLE
     const enrollment: ReferenceModel[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const extensions: Extension[] = [
-      ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId),
+      secondarySponsor,
       ExtensionModel.createEclaireTherapeuticArea(riphDmDto.domaine_therapeutique),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
@@ -81,35 +81,12 @@ export class RiphDmResearchStudyModelFactory {
     )
     const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(ModelUtils.UNAVAILABLE)
     const site: ReferenceModel[] = undefined
-    const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphDmDto.etat as RiphStatus
     const title = ModelUtils.emptyIfNull(riphDmDto.titre_recherche)
 
     const organizations: OrganizationModel[] = [
-      OrganizationModel.createSponsor(
-        primarySponsorOrganizationId,
-        riphDmDto.deposant_promoteur,
-        riphDmDto.deposant_adresse,
-        riphDmDto.deposant_ville,
-        riphDmDto.deposant_code_postal,
-        riphDmDto.deposant_pays,
-        riphDmDto.deposant_prenom,
-        riphDmDto.deposant_nom,
-        ModelUtils.UNAVAILABLE,
-        riphDmDto.deposant_courriel
-      ),
-      OrganizationModel.createSponsor(
-        secondarySponsorOrganizationId,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE
-      ),
+      primarySponsorOrganization,
+      secondarySponsorOrganization,
       OrganizationModel.createSecondaryAssigner(assigner),
     ]
 
@@ -134,5 +111,43 @@ export class RiphDmResearchStudyModelFactory {
       status,
       title
     )
+  }
+
+  private static createPrimarySponsor(riphDmDto: RiphDmDto) {
+    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphDmDto.numero_national)
+    const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
+    const primarySponsorOrganization = OrganizationModel.createSponsor(
+      primarySponsorOrganizationId,
+      riphDmDto.deposant_promoteur,
+      riphDmDto.deposant_adresse,
+      riphDmDto.deposant_ville,
+      riphDmDto.deposant_code_postal,
+      riphDmDto.deposant_pays,
+      riphDmDto.deposant_prenom,
+      riphDmDto.deposant_nom,
+      ModelUtils.UNAVAILABLE,
+      riphDmDto.deposant_courriel
+    )
+
+    return { primarySponsorOrganization, sponsor }
+  }
+
+  private static createSecondarySponsor(riphDmDto: RiphDmDto) {
+    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphDmDto.numero_national)
+    const secondarySponsorOrganization = OrganizationModel.createSponsor(
+      secondarySponsorOrganizationId,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE
+    )
+    const secondarySponsor = ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId)
+
+    return { secondarySponsor, secondarySponsorOrganization }
   }
 }

@@ -18,8 +18,8 @@ export class RiphCtisResearchStudyModelFactory {
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
     const assigner = ModelUtils.identifyAssigner(riphCtisDto.reglementation_code)
     const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphCtisDto.numero_ctis)
-    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphCtisDto.numero_ctis)
-    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphCtisDto.numero_ctis)
+    const { sponsor, primarySponsorOrganization } = this.createPrimarySponsor(riphCtisDto)
+    const { secondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(riphCtisDto)
 
     const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
     const condition: CodeableConceptModel[] = [
@@ -64,7 +64,7 @@ export class RiphCtisResearchStudyModelFactory {
     const description = ModelUtils.UNAVAILABLE
     const enrollment: ReferenceModel[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const extensions: Extension[] = [
-      ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId),
+      secondarySponsor,
       ExtensionModel.createEclaireTherapeuticArea(riphCtisDto.domaine_therapeutique),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
@@ -85,35 +85,12 @@ export class RiphCtisResearchStudyModelFactory {
 
     const { site, siteLocations } = this.createSitesAndSiteLocations(riphCtisDto)
 
-    const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphCtisDto.etat as RiphStatus
     const title = ModelUtils.emptyIfNull(riphCtisDto.titre)
 
     const organizations: OrganizationModel[] = [
-      OrganizationModel.createSponsor(
-        primarySponsorOrganizationId,
-        riphCtisDto.organisme_nom,
-        riphCtisDto.organisme_adresse,
-        riphCtisDto.organisme_ville,
-        riphCtisDto.organisme_code_postal,
-        riphCtisDto.organisme_pays,
-        riphCtisDto.contact_prenom,
-        riphCtisDto.contact_nom,
-        riphCtisDto.contact_telephone,
-        riphCtisDto.contact_courriel
-      ),
-      OrganizationModel.createSponsor(
-        secondarySponsorOrganizationId,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE
-      ),
+      primarySponsorOrganization,
+      secondarySponsorOrganization,
       OrganizationModel.createSecondaryAssigner(assigner),
     ]
 
@@ -138,6 +115,44 @@ export class RiphCtisResearchStudyModelFactory {
       status,
       title
     )
+  }
+
+  private static createPrimarySponsor(riphCtisDto: RiphCtisDto) {
+    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphCtisDto.numero_ctis)
+    const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
+    const primarySponsorOrganization = OrganizationModel.createSponsor(
+      primarySponsorOrganizationId,
+      riphCtisDto.organisme_nom,
+      riphCtisDto.organisme_adresse,
+      riphCtisDto.organisme_ville,
+      riphCtisDto.organisme_code_postal,
+      riphCtisDto.organisme_pays,
+      riphCtisDto.contact_prenom,
+      riphCtisDto.contact_nom,
+      riphCtisDto.contact_telephone,
+      riphCtisDto.contact_courriel
+    )
+
+    return { primarySponsorOrganization, sponsor }
+  }
+
+  private static createSecondarySponsor(riphCtisDto: RiphCtisDto) {
+    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphCtisDto.numero_ctis)
+    const secondarySponsorOrganization = OrganizationModel.createSponsor(
+      secondarySponsorOrganizationId,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE
+    )
+    const secondarySponsor = ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId)
+
+    return { secondarySponsor, secondarySponsorOrganization }
   }
 
   private static createSitesAndSiteLocations(riphCtisDto: RiphCtisDto) {
