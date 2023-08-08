@@ -131,7 +131,7 @@ describe('elasticsearch research study repository', () => {
             },
             {
               relation: 'next',
-              url: 'http://localhost:3000/R4/ResearchStudy?search_after=1637107200000,2023-500014-26-00',
+              url: 'http://localhost:3000/R4/ResearchStudy?search_after=1637107200000%2C2023-500014-26-00',
             },
           ])
         })
@@ -163,7 +163,7 @@ describe('elasticsearch research study repository', () => {
             },
             {
               relation: 'next',
-              url: 'http://localhost:3000/R4/ResearchStudy?search_after=1637107200000,2023-500014-26-00',
+              url: 'http://localhost:3000/R4/ResearchStudy?search_after=1637107200000%2C2023-500014-26-00',
             },
           ])
         })

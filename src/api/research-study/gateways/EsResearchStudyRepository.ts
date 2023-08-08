@@ -40,17 +40,21 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
 
   private buildSearchLinks(offset: number, total: number): BundleLink[] {
     const hasMoreResult = total > offset * this.numberOfResourcesByPage
+
+    const selfUrl = this.createUrl([{ name: '_getpagesoffset', value: String(offset) }])
+    const nextUrl = this.createUrl([{ name: '_getpagesoffset', value: `${offset + this.numberOfResourcesByPage}` }])
+
     const link: BundleLink[] = [
       {
         relation: 'self',
-        url: `${this.domainName}R4/ResearchStudy?_getpagesoffset=${offset}`,
+        url: selfUrl,
       },
     ]
 
     if (hasMoreResult) {
       link.push({
         relation: 'next',
-        url: `${this.domainName}R4/ResearchStudy?_getpagesoffset=${offset + this.numberOfResourcesByPage}`,
+        url: nextUrl,
       })
     }
 
@@ -62,17 +66,31 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     const nextIds = hits.map((hit: { _source: { id: string }}): string => hit._source.id).reverse()
     const previousSort = searchAfter === undefined ? '' : searchAfter[0]
 
+    const selfUrl = this.createUrl([{ name: 'search_after', value: String(previousSort) }])
+    const nextUrl = this.createUrl([{ name: 'search_after', value: `${nextSorts[0]},${nextIds[0]}` }])
+
     const link: BundleLink[] = [
       {
         relation: 'self',
-        url: `${this.domainName}R4/ResearchStudy?search_after=${previousSort}`,
+        url: selfUrl,
       },
       {
         relation: 'next',
-        url: `${this.domainName}R4/ResearchStudy?search_after=${nextSorts[0]},${nextIds[0]}`,
+        url: nextUrl,
       },
     ]
 
     return link
+  }
+
+  private createUrl(params: { name: string, value: string }[]): string {
+    const url = new URL(this.domainName)
+    url.pathname = 'R4/ResearchStudy'
+
+    for (const param of params) {
+      url.searchParams.append(param.name, param.value)
+    }
+
+    return url.toString()
   }
 }
