@@ -12,15 +12,19 @@ export class ModelUtils {
   }
 
   static generateEnrollmentGroupId(value: string): string {
-    return `${value}-enrollment-group-id`
+    return this.generateIdWithSuffix(value, 'enrollment-group-id')
   }
 
   static generatePrimarySponsorOrganizationId(value: string) {
-    return `${value}-primary-sponsor`
+    return this.generateIdWithSuffix(value, 'primary-sponsor')
   }
 
   static generateSecondarySponsorOrganizationId(value: string) {
-    return `${value}-secondary-sponsor`
+    return this.generateIdWithSuffix(value, 'secondary-sponsor')
+  }
+
+  static generateCtisSiteId(value: string) {
+    return this.generateIdWithSuffix(value, 'ctis-site')
   }
 
   static generateIdWithSuffix(value: string, suffix: string) {

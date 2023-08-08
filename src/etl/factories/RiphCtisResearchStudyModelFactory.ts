@@ -17,9 +17,9 @@ import { RiphCtisDto } from '../dto/RiphCtisDto'
 export class RiphCtisResearchStudyModelFactory {
   static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
     const assigner = ModelUtils.identifyAssigner(riphCtisDto.reglementation_code)
-    const enrollmentGroupId = ModelUtils.generateIdWithSuffix(riphCtisDto.numero_ctis, 'enrollment-group-id')
-    const primarySponsorOrganizationId = ModelUtils.generateIdWithSuffix(riphCtisDto.numero_ctis, 'primary-sponsor')
-    const secondarySponsorOrganizationId = ModelUtils.generateIdWithSuffix(riphCtisDto.numero_ctis, 'secondary-sponsor')
+    const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphCtisDto.numero_ctis)
+    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphCtisDto.numero_ctis)
+    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphCtisDto.numero_ctis)
 
     const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
     const condition: CodeableConceptModel[] = [
@@ -145,7 +145,7 @@ export class RiphCtisResearchStudyModelFactory {
     const siteLocations: LocationModel[] = []
 
     for (let siteDtoIndex = 0; siteDtoIndex < riphCtisDto.sites.length; siteDtoIndex++) {
-      const id = ModelUtils.generateIdWithSuffix(siteDtoIndex.toString(), 'ctis-site')
+      const id = ModelUtils.generateCtisSiteId(siteDtoIndex.toString())
       site.push(ReferenceModel.createSite(id))
 
       const siteDto = riphCtisDto.sites.at(siteDtoIndex)
