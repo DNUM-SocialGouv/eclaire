@@ -15,10 +15,10 @@ import { RiphJardeDto } from '../dto/RiphJardeDto'
 
 export class RiphJardeResearchStudyModelFactory {
   static create(riphJardeDto: RiphJardeDto): ResearchStudyModel {
-    const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphJardeDto.numero_national)
-    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphJardeDto.numero_national)
-    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphJardeDto.numero_national)
-    const assigner = ModelUtils.identifyAssigner(riphJardeDto.reglementation_code, riphJardeDto.qualification_recherche)
+    const { secondaryAssignerIdentifier, secondaryAssignerOrganization } = this.createAssigner(riphJardeDto)
+    const { enrollment, enrollmentReferenceContent } = this.createEnrollmentContent(riphJardeDto)
+    const { sponsor, primarySponsorOrganization } = this.createPrimarySponsor(riphJardeDto)
+    const { eclaireSecondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(riphJardeDto)
 
     const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphJardeDto.reglementation_code)]
     const condition: CodeableConceptModel[] = [
@@ -48,22 +48,10 @@ export class RiphJardeResearchStudyModelFactory {
         'Public'
       ),
     ]
-    const contained: GroupModel[] = [
-      GroupModel.createStudyCharacteristics(
-        enrollmentGroupId,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        riphJardeDto.taille_etude,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE
-      ),
-    ]
+    const contained: GroupModel[] = [enrollmentReferenceContent]
     const description = ModelUtils.UNAVAILABLE
-    const enrollment: ReferenceModel[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const extensions: Extension[] = [
-      ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId),
+      eclaireSecondarySponsor,
       ExtensionModel.createEclaireTherapeuticArea(riphJardeDto.domaine_therapeutique),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
@@ -72,7 +60,7 @@ export class RiphJardeResearchStudyModelFactory {
     const id = riphJardeDto.numero_national
     const identifier: Identifier[] = [
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
-      IdentifierModel.createSecondarySlice(riphJardeDto.numero_national, assigner),
+      secondaryAssignerIdentifier,
     ]
     const location: CodeableConceptModel[] = undefined
     const meta: MetaModel = MetaModel.create(
@@ -81,36 +69,13 @@ export class RiphJardeResearchStudyModelFactory {
     )
     const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(ModelUtils.UNAVAILABLE)
     const site: ReferenceModel[] = undefined
-    const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const status = riphJardeDto.etat as RiphStatus
     const title = ModelUtils.emptyIfNull(riphJardeDto.titre_recherche)
 
     const organizations: Organization[] = [
-      OrganizationModel.createSponsor(
-        primarySponsorOrganizationId,
-        riphJardeDto.deposant_organisme,
-        riphJardeDto.deposant_adresse,
-        riphJardeDto.deposant_ville,
-        riphJardeDto.deposant_code_postal,
-        riphJardeDto.deposant_pays,
-        riphJardeDto.deposant_prenom,
-        riphJardeDto.deposant_nom,
-        ModelUtils.UNAVAILABLE,
-        riphJardeDto.deposant_courriel
-      ),
-      OrganizationModel.createSponsor(
-        secondarySponsorOrganizationId,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE
-      ),
-      OrganizationModel.createSecondaryAssigner(assigner),
+      primarySponsorOrganization,
+      secondarySponsorOrganization,
+      secondaryAssignerOrganization,
     ]
 
     const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(undefined, organizations)
@@ -134,5 +99,68 @@ export class RiphJardeResearchStudyModelFactory {
       status,
       title
     )
+  }
+
+  private static createAssigner(riphJardeDto: RiphJardeDto) {
+    const assigner = ModelUtils.identifyAssigner(riphJardeDto.reglementation_code)
+    const secondaryAssignerIdentifier = IdentifierModel.createSecondarySlice(riphJardeDto.numero_national, assigner)
+    const secondaryAssignerOrganization = OrganizationModel.createSecondaryAssigner(assigner)
+
+    return { secondaryAssignerIdentifier, secondaryAssignerOrganization }
+  }
+
+  private static createEnrollmentContent(riphJardeDto: RiphJardeDto) {
+    const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphJardeDto.numero_national)
+    const enrollment: ReferenceModel[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
+    const enrollmentReferenceContent: GroupModel = GroupModel.createStudyCharacteristics(
+      enrollmentGroupId,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      riphJardeDto.taille_etude,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE
+    )
+
+    return { enrollment, enrollmentReferenceContent }
+  }
+
+  private static createPrimarySponsor(riphJardeDto: RiphJardeDto) {
+    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphJardeDto.numero_national)
+    const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
+    const primarySponsorOrganization: OrganizationModel = OrganizationModel.createSponsor(
+      primarySponsorOrganizationId,
+      riphJardeDto.deposant_organisme,
+      riphJardeDto.deposant_adresse,
+      riphJardeDto.deposant_ville,
+      riphJardeDto.deposant_code_postal,
+      riphJardeDto.deposant_pays,
+      riphJardeDto.deposant_prenom,
+      riphJardeDto.deposant_nom,
+      ModelUtils.UNAVAILABLE,
+      riphJardeDto.deposant_courriel
+    )
+
+    return { primarySponsorOrganization, sponsor }
+  }
+
+  private static createSecondarySponsor(riphJardeDto: RiphJardeDto) {
+    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphJardeDto.numero_national)
+    const secondarySponsorOrganization: OrganizationModel = OrganizationModel.createSponsor(
+      secondarySponsorOrganizationId,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE
+    )
+    const eclaireSecondarySponsor = ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId)
+
+    return { eclaireSecondarySponsor, secondarySponsorOrganization }
   }
 }
