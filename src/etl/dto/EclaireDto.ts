@@ -68,6 +68,7 @@ export class EclaireDto {
       riphCtisDto.pays_concernes
     )
   }
+
   static fromDm(riphDmDto: RiphDmDto): EclaireDto {
     return new EclaireDto(
       riphDmDto.reglementation_code,

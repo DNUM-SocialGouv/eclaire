@@ -1,7 +1,7 @@
 import { EsResearchStudyRepository } from './EsResearchStudyRepository'
+import { ResearchStudyModelFactory } from '../../../etl/factories/ResearchStudyModelFactory'
 import { riphCtisDto, setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
 import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
-import { RiphCtisResearchStudyModelFactory } from 'src/etl/factories/RiphCtisResearchStudyModelFactory'
 import { elasticsearchIndexMapping } from 'src/shared/elasticsearch/elasticsearchIndexMapping'
 
 describe('elasticsearch research study repository', () => {
@@ -236,17 +236,17 @@ async function setup() {
   await elasticsearchService.createAnIndex(elasticsearchIndexMapping)
   await elasticsearchService.bulkDocuments([
     { index: { _id: 'fakeId1' } },
-    RiphCtisResearchStudyModelFactory.create(researchStudy1),
+    ResearchStudyModelFactory.create(researchStudy1),
     { index: { _id: 'fakeId2' } },
-    RiphCtisResearchStudyModelFactory.create(researchStudy2),
+    ResearchStudyModelFactory.create(researchStudy2),
     { index: { _id: 'fakeId3' } },
-    RiphCtisResearchStudyModelFactory.create(researchStudy3),
+    ResearchStudyModelFactory.create(researchStudy3),
     { index: { _id: 'fakeId4' } },
-    RiphCtisResearchStudyModelFactory.create(researchStudy4),
+    ResearchStudyModelFactory.create(researchStudy4),
     { index: { _id: 'fakeId5' } },
-    RiphCtisResearchStudyModelFactory.create(researchStudy5),
+    ResearchStudyModelFactory.create(researchStudy5),
     { index: { _id: 'fakeId6' } },
-    RiphCtisResearchStudyModelFactory.create(researchStudy6),
+    ResearchStudyModelFactory.create(researchStudy6),
   ])
 
   const esResearchStudyRepository = new EsResearchStudyRepository(elasticsearchService, configService)

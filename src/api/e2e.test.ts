@@ -3,8 +3,8 @@ import { Test } from '@nestjs/testing'
 import supertest from 'supertest'
 
 import { AppModule } from '../AppModule'
+import { ResearchStudyModelFactory } from '../etl/factories/ResearchStudyModelFactory'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
-import { RiphCtisResearchStudyModelFactory } from 'src/etl/factories/RiphCtisResearchStudyModelFactory'
 import { deleteElasticsearchIndice, riphCtisDto } from 'src/shared/test/helpers/elasticsearchHelper'
 
 describe('app', () => {
@@ -67,9 +67,9 @@ async function getHttpServer() {
   const elasticsearchService = app.get<ElasticsearchService>(ElasticsearchService)
   await elasticsearchService.bulkDocuments([
     { index: { _id: 'fakeId1' } },
-    RiphCtisResearchStudyModelFactory.create(riphCtisDto[0]),
+    ResearchStudyModelFactory.create(riphCtisDto[0]),
     { index: { _id: 'fakeId2' } },
-    RiphCtisResearchStudyModelFactory.create(riphCtisDto[1]),
+    ResearchStudyModelFactory.create(riphCtisDto[1]),
   ])
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
