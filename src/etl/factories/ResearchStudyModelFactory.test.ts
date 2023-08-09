@@ -161,17 +161,7 @@ describe('research study model factory', () => {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -196,17 +186,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
@@ -222,17 +202,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
@@ -252,17 +222,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -281,17 +241,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -310,17 +260,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -339,17 +279,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": true,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1024,17 +954,7 @@ describe('research study model factory', () => {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1053,17 +973,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
@@ -1075,17 +985,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1104,17 +1004,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1133,17 +1023,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1162,17 +1042,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": true,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1688,17 +1558,7 @@ describe('research study model factory', () => {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1717,17 +1577,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
@@ -1739,17 +1589,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1768,17 +1608,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1797,17 +1627,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1826,17 +1646,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": true,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2345,17 +2155,7 @@ describe('research study model factory', () => {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2374,17 +2174,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2403,17 +2193,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2432,17 +2212,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2461,17 +2231,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": true,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
