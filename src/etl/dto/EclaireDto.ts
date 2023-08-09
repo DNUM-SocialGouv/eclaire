@@ -72,7 +72,7 @@ export class EclaireDto {
     return new EclaireDto(
       riphDmDto.reglementation_code,
       riphDmDto.etat,
-      riphDmDto.deposant_promoteur,
+      riphDmDto.deposant_organisme,
       riphDmDto.deposant_adresse,
       riphDmDto.deposant_code_postal,
       riphDmDto.deposant_pays,
@@ -105,7 +105,7 @@ export class EclaireDto {
     return new EclaireDto(
       riphJardeDto.reglementation_code,
       riphJardeDto.etat,
-      riphJardeDto.deposant_promoteur,
+      riphJardeDto.deposant_organisme,
       riphJardeDto.deposant_adresse,
       riphJardeDto.deposant_code_postal,
       riphJardeDto.deposant_pays,

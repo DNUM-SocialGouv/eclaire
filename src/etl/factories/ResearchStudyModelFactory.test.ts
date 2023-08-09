@@ -1,5 +1,4 @@
 import { ResearchStudyModelFactory } from './ResearchStudyModelFactory'
-import { RiphJardeResearchStudyModelFactory } from './RiphJardeResearchStudyModelFactory'
 import { riphCtisDto, riphDmDto, riphJardeDtoWithActiveStatus } from '../../shared/test/helpers/elasticsearchHelper'
 import { EclaireDto } from '../dto/EclaireDto'
 
@@ -1419,7 +1418,7 @@ describe('research study model factory', () => {
               ],
               "id": "2021-A01563-38-primary-sponsor",
               "identifier": undefined,
-              "name": "Promoteur institutionnel",
+              "name": "Soladis Clinical Studies",
               "resourceType": "Organization",
               "telecom": undefined,
               "type": [
@@ -1541,10 +1540,10 @@ describe('research study model factory', () => {
     // GIVEN
     vi.useFakeTimers()
     vi.setSystemTime(new Date(2022, 0, 1))
-    const normalResearchStudyDto = riphJardeDtoWithActiveStatus[0]
+    const normalResearchStudyDto = EclaireDto.fromJarde(riphJardeDtoWithActiveStatus[0])
 
     // WHEN
-    const researchStudyModel = RiphJardeResearchStudyModelFactory.create(normalResearchStudyDto)
+    const researchStudyModel = ResearchStudyModelFactory.create(normalResearchStudyDto)
 
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
@@ -1705,8 +1704,8 @@ describe('research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": undefined,
-                      "display": undefined,
+                      "code": "unknown",
+                      "display": "Unknown",
                       "system": "http://hl7.org/fhir/administrative-gender",
                       "version": "5.0.0",
                     },
@@ -1977,6 +1976,7 @@ describe('research study model factory', () => {
             "valueReference": undefined,
             "valueString": undefined,
           },
+          undefined,
           ExtensionModel {
             "extension": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
@@ -2028,7 +2028,7 @@ describe('research study model factory', () => {
           "text": "Research Study Phase",
         },
         "referenceContents": ReferenceContentsModel {
-          "locations": undefined,
+          "locations": [],
           "organizations": [
             OrganizationModel {
               "address": [
@@ -2188,7 +2188,7 @@ describe('research study model factory', () => {
           ],
         },
         "resourceType": "ResearchStudy",
-        "site": undefined,
+        "site": [],
         "sponsor": ReferenceModel {
           "display": "Reference to primary sponsor",
           "reference": "Organization/2021-A01022-39-primary-sponsor",
