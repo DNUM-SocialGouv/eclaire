@@ -2,6 +2,8 @@ import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/Re
 
 export class ModelUtils {
   static UNAVAILABLE = 'INDISPONIBLE'
+  static UNDEFINED_IN_SOURCE: string = undefined
+  static UNDEFINED_ARRAY_IN_SOURCE: Array<never> = []
 
   static emptyIfNull(value: string): string {
     return value ?? ''

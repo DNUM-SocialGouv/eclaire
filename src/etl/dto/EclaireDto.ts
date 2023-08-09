@@ -1,6 +1,9 @@
 import { RiphCtisDto } from './RiphCtisDto'
+import { RiphDmDto } from './RiphDmDto'
+import { ModelUtils } from '../../shared/models/eclaire/ModelUtils'
 
 export class EclaireDto {
+
   constructor(
     readonly reglementation_code: string,
     readonly etat: string,
@@ -62,6 +65,38 @@ export class EclaireDto {
       riphCtisDto.historique,
       riphCtisDto.dates_avis_favorable_ms_mns,
       riphCtisDto.pays_concernes
+    )
+  }
+  static fromDm(riphDmDto: RiphDmDto): EclaireDto {
+    return new EclaireDto(
+      riphDmDto.reglementation_code,
+      riphDmDto.etat,
+      riphDmDto.deposant_promoteur,
+      riphDmDto.deposant_adresse,
+      riphDmDto.deposant_code_postal,
+      riphDmDto.deposant_pays,
+      riphDmDto.deposant_ville,
+      riphDmDto.deposant_nom,
+      riphDmDto.deposant_prenom,
+      ModelUtils.UNAVAILABLE,
+      riphDmDto.deposant_courriel,
+      ModelUtils.UNDEFINED_ARRAY_IN_SOURCE,
+      riphDmDto.numero_national,
+      riphDmDto.titre_recherche,
+      ModelUtils.UNDEFINED_IN_SOURCE,
+      ModelUtils.UNDEFINED_IN_SOURCE,
+      riphDmDto.domaine_therapeutique,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      riphDmDto.taille_etude,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNDEFINED_IN_SOURCE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNDEFINED_IN_SOURCE,
+      riphDmDto.historique,
+      riphDmDto.dates_avis_favorable_ms_mns,
+      ModelUtils.UNDEFINED_IN_SOURCE
     )
   }
 }
