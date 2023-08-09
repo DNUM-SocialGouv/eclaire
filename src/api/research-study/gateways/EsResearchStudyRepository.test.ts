@@ -1,5 +1,5 @@
 import { EsResearchStudyRepository } from './EsResearchStudyRepository'
-import { ResearchStudyModelFactory } from '../../../etl/factories/ResearchStudyModelFactory'
+import { ResearchStudyModelFactory } from '../../../etl/factory/ResearchStudyModelFactory'
 import { riphCtisDto, setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
 import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
 import { elasticsearchIndexMapping } from 'src/shared/elasticsearch/elasticsearchIndexMapping'

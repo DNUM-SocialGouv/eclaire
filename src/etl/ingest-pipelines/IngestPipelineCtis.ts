@@ -2,7 +2,7 @@ import { IngestPipeline, IndexElasticsearch, ResearchStudyElasticsearchDocument 
 import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { EclaireDto } from '../dto/EclaireDto'
 import { RiphCtisDto } from '../dto/RiphCtisDto'
-import { ResearchStudyModelFactory } from '../factories/ResearchStudyModelFactory'
+import { ResearchStudyModelFactory } from '../factory/ResearchStudyModelFactory'
 
 export class IngestPipelineCtis extends IngestPipeline {
   readonly type = 'ctis'

@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing'
 import supertest from 'supertest'
 
 import { AppModule } from '../AppModule'
-import { ResearchStudyModelFactory } from '../etl/factories/ResearchStudyModelFactory'
+import { ResearchStudyModelFactory } from '../etl/factory/ResearchStudyModelFactory'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { deleteElasticsearchIndice, riphCtisDto } from 'src/shared/test/helpers/elasticsearchHelper'
 
