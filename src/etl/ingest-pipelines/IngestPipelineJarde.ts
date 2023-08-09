@@ -1,6 +1,8 @@
 import { IngestPipeline, IndexElasticsearch, ResearchStudyElasticsearchDocument } from './IngestPipeline'
+import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
+import { EclaireDto } from '../dto/EclaireDto'
 import { RiphJardeDto } from '../dto/RiphJardeDto'
-import { RiphJardeResearchStudyModelFactory } from '../factories/RiphJardeResearchStudyModelFactory'
+import { ResearchStudyModelFactory } from '../factories/ResearchStudyModelFactory'
 
 export class IngestPipelineJarde extends IngestPipeline {
   readonly type = 'jarde'
@@ -23,7 +25,9 @@ export class IngestPipelineJarde extends IngestPipeline {
 
     return riphJardeDtosWithoutRapatrieeCtis.flatMap((riphJardeDto: RiphJardeDto): ResearchStudyElasticsearchDocument[] => {
       const indexElasticsearch: IndexElasticsearch = { create: { _id: riphJardeDto.numero_national } }
-      return [indexElasticsearch, RiphJardeResearchStudyModelFactory.create(riphJardeDto)]
+      const eclaireDto: EclaireDto = EclaireDto.fromJarde(riphJardeDto)
+      const researchStudyModel: ResearchStudyModel = ResearchStudyModelFactory.create(eclaireDto)
+      return [indexElasticsearch, researchStudyModel]
     })
   }
 }

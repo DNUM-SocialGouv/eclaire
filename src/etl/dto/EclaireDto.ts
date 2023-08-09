@@ -1,5 +1,6 @@
 import { RiphCtisDto } from './RiphCtisDto'
 import { RiphDmDto } from './RiphDmDto'
+import { RiphJardeDto } from './RiphJardeDto'
 import { ModelUtils } from '../../shared/models/eclaire/ModelUtils'
 
 export class EclaireDto {
@@ -96,6 +97,39 @@ export class EclaireDto {
       ModelUtils.UNDEFINED_IN_SOURCE,
       riphDmDto.historique,
       riphDmDto.dates_avis_favorable_ms_mns,
+      ModelUtils.UNDEFINED_IN_SOURCE
+    )
+  }
+
+  static fromJarde(riphJardeDto: RiphJardeDto): EclaireDto {
+    return new EclaireDto(
+      riphJardeDto.reglementation_code,
+      riphJardeDto.etat,
+      riphJardeDto.deposant_promoteur,
+      riphJardeDto.deposant_adresse,
+      riphJardeDto.deposant_code_postal,
+      riphJardeDto.deposant_pays,
+      riphJardeDto.deposant_ville,
+      riphJardeDto.deposant_nom,
+      riphJardeDto.deposant_prenom,
+      ModelUtils.UNAVAILABLE,
+      riphJardeDto.deposant_courriel,
+      ModelUtils.UNDEFINED_ARRAY_IN_SOURCE,
+      riphJardeDto.numero_national,
+      riphJardeDto.titre_recherche,
+      ModelUtils.UNDEFINED_IN_SOURCE,
+      ModelUtils.UNDEFINED_IN_SOURCE,
+      riphJardeDto.domaine_therapeutique,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      riphJardeDto.taille_etude,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNDEFINED_IN_SOURCE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNAVAILABLE,
+      ModelUtils.UNDEFINED_IN_SOURCE,
+      riphJardeDto.historique,
+      riphJardeDto.dates_avis_favorable_ms_mns,
       ModelUtils.UNDEFINED_IN_SOURCE
     )
   }
