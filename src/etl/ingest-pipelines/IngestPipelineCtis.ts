@@ -1,6 +1,7 @@
 import { IngestPipeline, IndexElasticsearch, ResearchStudyElasticsearchDocument } from './IngestPipeline'
+import { EclaireDto } from '../dto/EclaireDto'
 import { RiphCtisDto } from '../dto/RiphCtisDto'
-import { RiphCtisResearchStudyModelFactory } from '../factories/RiphCtisResearchStudyModelFactory'
+import { ResearchStudyModelFactory } from '../factories/ResearchStudyModelFactory'
 
 export class IngestPipelineCtis extends IngestPipeline {
   readonly type = 'ctis'
@@ -14,7 +15,9 @@ export class IngestPipelineCtis extends IngestPipeline {
   transform(riphCtisDtos: RiphCtisDto[]): ResearchStudyElasticsearchDocument[] {
     return riphCtisDtos.flatMap((riphCtisDto: RiphCtisDto): ResearchStudyElasticsearchDocument[] => {
       const indexElasticsearch: IndexElasticsearch = { create: { _id: riphCtisDto.numero_ctis } }
-      return [indexElasticsearch, RiphCtisResearchStudyModelFactory.create(riphCtisDto)]
+      const eclaireDto = EclaireDto.fromCtis(riphCtisDto)
+      const researchStudyModel = ResearchStudyModelFactory.create(eclaireDto)
+      return [indexElasticsearch, researchStudyModel]
     })
   }
 }
