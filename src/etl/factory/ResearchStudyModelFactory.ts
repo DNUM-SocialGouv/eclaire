@@ -62,7 +62,7 @@ export class ResearchStudyModelFactory {
         ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement) : undefined,
       ExtensionModel.createEclaireReviewDate(eclaireDto.historique, eclaireDto.dates_avis_favorable_ms_mns),
     ]
-    const id = eclaireDto.numero_ctis
+    const id = eclaireDto.numero_secondaire
     const identifier: Identifier[] = [
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
       secondaryAssignerIdentifier,
@@ -108,14 +108,14 @@ export class ResearchStudyModelFactory {
 
   private static createAssigner(eclaireDto: EclaireDto) {
     const assigner = ModelUtils.identifyAssigner(eclaireDto.reglementation_code)
-    const secondaryAssignerIdentifier = IdentifierModel.createSecondarySlice(eclaireDto.numero_ctis, assigner)
+    const secondaryAssignerIdentifier = IdentifierModel.createSecondarySlice(eclaireDto.numero_secondaire, assigner)
     const secondaryAssignerOrganization = OrganizationModel.createSecondaryAssigner(assigner)
 
     return { secondaryAssignerIdentifier, secondaryAssignerOrganization }
   }
 
   private static createEnrollmentContent(eclaireDto: EclaireDto) {
-    const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(eclaireDto.numero_ctis)
+    const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(eclaireDto.numero_secondaire)
     const enrollment: ReferenceModel[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const enrollmentReferenceContent: GroupModel = GroupModel.createStudyCharacteristics(
       enrollmentGroupId,
@@ -132,7 +132,7 @@ export class ResearchStudyModelFactory {
   }
 
   private static createPrimarySponsor(eclaireDto: EclaireDto) {
-    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(eclaireDto.numero_ctis)
+    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(eclaireDto.numero_secondaire)
     const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const primarySponsorOrganization: OrganizationModel = OrganizationModel.createSponsor(
       primarySponsorOrganizationId,
@@ -151,7 +151,7 @@ export class ResearchStudyModelFactory {
   }
 
   private static createSecondarySponsor(eclaireDto: EclaireDto) {
-    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(eclaireDto.numero_ctis)
+    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(eclaireDto.numero_secondaire)
     const secondarySponsorOrganization: OrganizationModel = OrganizationModel.createSponsor(
       secondarySponsorOrganizationId,
       ModelUtils.UNAVAILABLE,

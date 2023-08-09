@@ -2014,7 +2014,7 @@ describe('research study model factory', () => {
     // GIVEN
     vi.useFakeTimers()
     vi.setSystemTime(new Date(2022, 0, 1))
-    const researchStudyDtoWithEmptyFields = riphCtisDto[1]
+    const researchStudyDtoWithEmptyFields = EclaireDto.fromCtis(riphCtisDto[1])
 
     // WHEN
     const researchStudyModel = ResearchStudyModelFactory.create(researchStudyDtoWithEmptyFields)

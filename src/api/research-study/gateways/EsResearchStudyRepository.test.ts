@@ -1,4 +1,5 @@
 import { EsResearchStudyRepository } from './EsResearchStudyRepository'
+import { EclaireDto } from '../../../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../../etl/factory/ResearchStudyModelFactory'
 import { riphCtisDto, setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
 import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
@@ -209,27 +210,27 @@ describe('elasticsearch research study repository', () => {
 async function setup() {
   const { configService, elasticsearchService } = await setupClientAndElasticsearchService()
   const researchStudy1 = {
-    ...riphCtisDto[0],
+    ...EclaireDto.fromCtis(riphCtisDto[0]),
     titre: 'un autre titre pour la pagination 1',
   }
   const researchStudy2 = {
-    ...riphCtisDto[0],
+    ...EclaireDto.fromCtis(riphCtisDto[0]),
     titre: 'un autre titre pour la pagination 2',
   }
   const researchStudy3 = {
-    ...riphCtisDto[0],
+    ...EclaireDto.fromCtis(riphCtisDto[0]),
     titre: 'un autre titre pour la pagination 3',
   }
   const researchStudy4 = {
-    ...riphCtisDto[0],
+    ...EclaireDto.fromCtis(riphCtisDto[0]),
     titre: 'un autre titre pour la pagination 4',
   }
   const researchStudy5 = {
-    ...riphCtisDto[0],
+    ...EclaireDto.fromCtis(riphCtisDto[0]),
     titre: 'un autre titre pour la pagination 5',
   }
   const researchStudy6 = {
-    ...riphCtisDto[0],
+    ...EclaireDto.fromCtis(riphCtisDto[0]),
     titre: 'un autre titre pour la pagination 6',
   }
 
