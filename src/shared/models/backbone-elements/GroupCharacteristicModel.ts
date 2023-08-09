@@ -2,7 +2,6 @@ import { CodeableConcept, GroupCharacteristic, Quantity, Range, Reference } from
 
 import { CodeableConceptModel } from '../data-types/CodeableConceptModel'
 import { RangeModel } from '../data-types/RangeModel'
-import { ModelUtils } from '../eclaire/ModelUtils'
 
 export class GroupCharacteristicModel implements GroupCharacteristic {
   constructor(
@@ -17,7 +16,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createGender(genders: string): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
+      undefined,
       false,
       undefined,
       CodeableConceptModel.createGenders(genders),
@@ -29,7 +28,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createAgeRange(ageRange: string): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
+      undefined,
       false,
       undefined,
       undefined,
@@ -41,7 +40,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createResearchStudyGroupCategory(researchStudyGroupCategory: string): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
+      undefined,
       false,
       undefined,
       CodeableConceptModel.createResearchStudyGroupCategory(researchStudyGroupCategory),
@@ -53,7 +52,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createStudyPopulation(studyPopulation: string): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
+      undefined,
       false,
       undefined,
       CodeableConceptModel.createStudyPopulation(studyPopulation),
@@ -65,7 +64,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createInclusion(studyInclusion: string): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
+      undefined,
       false,
       undefined,
       CodeableConceptModel.createInclusion(studyInclusion),
@@ -77,7 +76,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createExclusion(studyExclusion: string): GroupCharacteristicModel {
     return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicCode(ModelUtils.UNAVAILABLE),
+      undefined,
       true,
       undefined,
       CodeableConceptModel.createExclusion(studyExclusion),

@@ -3,8 +3,9 @@ import { Test } from '@nestjs/testing'
 import supertest from 'supertest'
 
 import { AppModule } from '../AppModule'
+import { EclaireDto } from '../etl/dto/EclaireDto'
+import { ResearchStudyModelFactory } from '../etl/factory/ResearchStudyModelFactory'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
-import { RiphCtisResearchStudyModelFactory } from 'src/etl/factories/RiphCtisResearchStudyModelFactory'
 import { deleteElasticsearchIndice, riphCtisDto } from 'src/shared/test/helpers/elasticsearchHelper'
 
 describe('app', () => {
@@ -65,11 +66,14 @@ async function getHttpServer() {
   await app.init()
 
   const elasticsearchService = app.get<ElasticsearchService>(ElasticsearchService)
+  const eclaireDto1: EclaireDto = EclaireDto.fromCtis(riphCtisDto[0])
+  const eclaireDto2: EclaireDto = EclaireDto.fromCtis(riphCtisDto[1])
+
   await elasticsearchService.bulkDocuments([
     { index: { _id: 'fakeId1' } },
-    RiphCtisResearchStudyModelFactory.create(riphCtisDto[0]),
+    ResearchStudyModelFactory.create(eclaireDto1),
     { index: { _id: 'fakeId2' } },
-    RiphCtisResearchStudyModelFactory.create(riphCtisDto[1]),
+    ResearchStudyModelFactory.create(eclaireDto2),
   ])
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return

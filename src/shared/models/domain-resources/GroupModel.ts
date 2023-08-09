@@ -41,7 +41,7 @@ export class GroupModel implements Group {
 
     let parsedAgeRanges: GroupCharacteristic[] = []
 
-    if (emptyAgeRangeIfNull !== '') {
+    if (emptyAgeRangeIfNull !== ModelUtils.NULL_IN_SOURCE) {
       parsedAgeRanges = emptyAgeRangeIfNull
         .split(', ')
         .map((ageRange: string): GroupCharacteristicModel => GroupCharacteristicModel.createAgeRange(ageRange))

@@ -12,27 +12,27 @@ import { ContactDetailModel } from '../../shared/models/metadata-types/ContactDe
 import { ExtensionModel } from '../../shared/models/special-purpose-data-types/ExtensionModel'
 import { MetaModel } from '../../shared/models/special-purpose-data-types/MetaModel'
 import { ReferenceModel } from '../../shared/models/special-purpose-data-types/ReferenceModel'
-import { RiphCtisDto } from '../dto/RiphCtisDto'
+import { EclaireDto } from '../dto/EclaireDto'
 
-export class RiphCtisResearchStudyModelFactory {
-  static create(riphCtisDto: RiphCtisDto): ResearchStudyModel {
-    const { secondaryAssignerIdentifier, secondaryAssignerOrganization } = this.createAssigner(riphCtisDto)
-    const { enrollment, enrollmentReferenceContent } = this.createEnrollmentContent(riphCtisDto)
-    const { sponsor, primarySponsorOrganization } = this.createPrimarySponsor(riphCtisDto)
-    const { eclaireSecondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(riphCtisDto)
-    const { site, siteLocations } = this.createSitesAndSiteLocations(riphCtisDto)
+export class ResearchStudyModelFactory {
+  static create(eclaireDto: EclaireDto): ResearchStudyModel {
+    const { secondaryAssignerIdentifier, secondaryAssignerOrganization } = this.createAssigner(eclaireDto)
+    const { enrollment, enrollmentReferenceContent } = this.createEnrollmentContent(eclaireDto)
+    const { sponsor, primarySponsorOrganization } = this.createPrimarySponsor(eclaireDto)
+    const { eclaireSecondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(eclaireDto)
+    const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto)
 
-    const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(riphCtisDto.reglementation_code)]
+    const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(eclaireDto.reglementation_code)]
     const condition: CodeableConceptModel[] = [
-      CodeableConceptModel.createDiseaseCondition(riphCtisDto.pathologies_maladies_rares),
-      CodeableConceptModel.createMedDraCondition(riphCtisDto.informations_meddra),
+      CodeableConceptModel.createDiseaseCondition(eclaireDto.pathologies_maladies_rares),
+      CodeableConceptModel.createMedDraCondition(eclaireDto.informations_meddra),
     ]
     const contact: ContactDetailModel[] = [
       ContactDetailModel.create(
-        riphCtisDto.contact_prenom,
-        riphCtisDto.contact_nom,
-        riphCtisDto.contact_telephone,
-        riphCtisDto.contact_courriel,
+        eclaireDto.contact_prenom,
+        eclaireDto.contact_nom,
+        eclaireDto.contact_telephone,
+        eclaireDto.contact_courriel,
         undefined
       ),
       ContactDetailModel.create(
@@ -55,26 +55,27 @@ export class RiphCtisResearchStudyModelFactory {
 
     const extensions: Extension[] = [
       eclaireSecondarySponsor,
-      ExtensionModel.createEclaireTherapeuticArea(riphCtisDto.domaine_therapeutique),
+      ExtensionModel.createEclaireTherapeuticArea(eclaireDto.domaine_therapeutique),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
-      ExtensionModel.createEclaireRecruitmentPeriod(riphCtisDto.date_debut_recrutement),
-      ExtensionModel.createEclaireReviewDate(riphCtisDto.historique, riphCtisDto.dates_avis_favorable_ms_mns),
+      eclaireDto.date_debut_recrutement !== ModelUtils.NULL_IN_SOURCE ?
+        ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement) : undefined,
+      ExtensionModel.createEclaireReviewDate(eclaireDto.historique, eclaireDto.dates_avis_favorable_ms_mns),
     ]
-    const id = riphCtisDto.numero_ctis
+    const id = eclaireDto.numero_secondaire
     const identifier: Identifier[] = [
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
       secondaryAssignerIdentifier,
     ]
-    const location = CodeableConceptModel.createLocations(riphCtisDto.pays_concernes)
+    const location = CodeableConceptModel.createLocations(eclaireDto.pays_concernes)
     const meta: Meta = MetaModel.create(
-      riphCtisDto.historique,
-      riphCtisDto.dates_avis_favorable_ms_mns
+      eclaireDto.historique,
+      eclaireDto.dates_avis_favorable_ms_mns
     )
-    const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(riphCtisDto.phase_recherche)
+    const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(eclaireDto.phase_recherche)
 
-    const status = riphCtisDto.etat as RiphStatus
-    const title = ModelUtils.emptyIfNull(riphCtisDto.titre)
+    const status = eclaireDto.etat as RiphStatus
+    const title = ModelUtils.emptyIfNull(eclaireDto.titre)
 
     const organizations: OrganizationModel[] = [
       primarySponsorOrganization,
@@ -105,24 +106,24 @@ export class RiphCtisResearchStudyModelFactory {
     )
   }
 
-  private static createAssigner(riphCtisDto: RiphCtisDto) {
-    const assigner = ModelUtils.identifyAssigner(riphCtisDto.reglementation_code)
-    const secondaryAssignerIdentifier = IdentifierModel.createSecondarySlice(riphCtisDto.numero_ctis, assigner)
+  private static createAssigner(eclaireDto: EclaireDto) {
+    const assigner = ModelUtils.identifyAssigner(eclaireDto.reglementation_code)
+    const secondaryAssignerIdentifier = IdentifierModel.createSecondarySlice(eclaireDto.numero_secondaire, assigner)
     const secondaryAssignerOrganization = OrganizationModel.createSecondaryAssigner(assigner)
 
     return { secondaryAssignerIdentifier, secondaryAssignerOrganization }
   }
 
-  private static createEnrollmentContent(riphCtisDto: RiphCtisDto) {
-    const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(riphCtisDto.numero_ctis)
+  private static createEnrollmentContent(eclaireDto: EclaireDto) {
+    const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(eclaireDto.numero_secondaire)
     const enrollment: ReferenceModel[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const enrollmentReferenceContent: GroupModel = GroupModel.createStudyCharacteristics(
       enrollmentGroupId,
-      riphCtisDto.sexe,
-      riphCtisDto.tranches_age,
-      riphCtisDto.taille_etude,
-      riphCtisDto.groupes_sujet,
-      riphCtisDto.population_recrutement,
+      eclaireDto.sexe,
+      eclaireDto.tranches_age,
+      eclaireDto.taille_etude,
+      eclaireDto.groupes_sujet,
+      eclaireDto.population_recrutement,
       ModelUtils.UNAVAILABLE,
       ModelUtils.UNAVAILABLE
     )
@@ -130,27 +131,27 @@ export class RiphCtisResearchStudyModelFactory {
     return { enrollment, enrollmentReferenceContent }
   }
 
-  private static createPrimarySponsor(riphCtisDto: RiphCtisDto) {
-    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(riphCtisDto.numero_ctis)
+  private static createPrimarySponsor(eclaireDto: EclaireDto) {
+    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(eclaireDto.numero_secondaire)
     const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     const primarySponsorOrganization: OrganizationModel = OrganizationModel.createSponsor(
       primarySponsorOrganizationId,
-      riphCtisDto.organisme_nom,
-      riphCtisDto.organisme_adresse,
-      riphCtisDto.organisme_ville,
-      riphCtisDto.organisme_code_postal,
-      riphCtisDto.organisme_pays,
-      riphCtisDto.contact_prenom,
-      riphCtisDto.contact_nom,
-      riphCtisDto.contact_telephone,
-      riphCtisDto.contact_courriel
+      eclaireDto.organisme_nom,
+      eclaireDto.organisme_adresse,
+      eclaireDto.organisme_ville,
+      eclaireDto.organisme_code_postal,
+      eclaireDto.organisme_pays,
+      eclaireDto.contact_prenom,
+      eclaireDto.contact_nom,
+      eclaireDto.contact_telephone,
+      eclaireDto.contact_courriel
     )
 
     return { primarySponsorOrganization, sponsor }
   }
 
-  private static createSecondarySponsor(riphCtisDto: RiphCtisDto) {
-    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(riphCtisDto.numero_ctis)
+  private static createSecondarySponsor(eclaireDto: EclaireDto) {
+    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(eclaireDto.numero_secondaire)
     const secondarySponsorOrganization: OrganizationModel = OrganizationModel.createSponsor(
       secondarySponsorOrganizationId,
       ModelUtils.UNAVAILABLE,
@@ -168,15 +169,15 @@ export class RiphCtisResearchStudyModelFactory {
     return { eclaireSecondarySponsor, secondarySponsorOrganization }
   }
 
-  private static createSitesAndSiteLocations(riphCtisDto: RiphCtisDto) {
+  private static createSitesAndSiteLocations(eclaireDto: EclaireDto) {
     const site: ReferenceModel[] = []
     const siteLocations: LocationModel[] = []
 
-    for (let siteDtoIndex = 0; siteDtoIndex < riphCtisDto.sites.length; siteDtoIndex++) {
+    for (let siteDtoIndex = 0; siteDtoIndex < eclaireDto.sites.length; siteDtoIndex++) {
       const id = ModelUtils.generateCtisSiteId(siteDtoIndex.toString())
       site.push(ReferenceModel.createSite(id))
 
-      const siteDto = riphCtisDto.sites.at(siteDtoIndex)
+      const siteDto = eclaireDto.sites.at(siteDtoIndex)
       siteLocations.push(LocationModel.create(
         id,
         ModelUtils.emptyIfNull(siteDto.adresse),

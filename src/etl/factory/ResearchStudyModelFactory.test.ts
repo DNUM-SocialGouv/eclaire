@@ -1,15 +1,16 @@
-import { RiphCtisResearchStudyModelFactory } from './RiphCtisResearchStudyModelFactory'
-import { riphCtisDto } from '../../shared/test/helpers/elasticsearchHelper'
+import { ResearchStudyModelFactory } from './ResearchStudyModelFactory'
+import { riphCtisDto, riphDmDto, riphJardeDtoWithActiveStatus } from '../../shared/test/helpers/elasticsearchHelper'
+import { EclaireDto } from '../dto/EclaireDto'
 
-describe('ctis research study model factory', () => {
-  it('should build a CTIS research study model, when RIPH CTIS with all fields filled is given', () => {
+describe('research study model factory', () => {
+  it('should build a research study model, when a RIPH CTIS object with all fields filled is given', () => {
     // GIVEN
     vi.useFakeTimers()
     vi.setSystemTime(new Date(2022, 0, 1))
-    const normalResearchStudyDto = riphCtisDto[0]
+    const normalResearchStudyDto = EclaireDto.fromCtis(riphCtisDto[0])
 
     // WHEN
-    const researchStudyModel = RiphCtisResearchStudyModelFactory.create(normalResearchStudyDto)
+    const researchStudyModel = ResearchStudyModelFactory.create(normalResearchStudyDto)
 
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
@@ -160,17 +161,7 @@ describe('ctis research study model factory', () => {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -195,17 +186,7 @@ describe('ctis research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
@@ -221,17 +202,7 @@ describe('ctis research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
@@ -251,17 +222,7 @@ describe('ctis research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -280,17 +241,7 @@ describe('ctis research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -309,17 +260,7 @@ describe('ctis research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -338,17 +279,7 @@ describe('ctis research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": true,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -871,14 +802,14 @@ describe('ctis research study model factory', () => {
     `)
   })
 
-  it('should build a CTIS research study model, when RIPH CTIS with null fields is given', () => {
+  it('should build a research study model, when a RIPH DM object with all fields filled is given', () => {
     // GIVEN
     vi.useFakeTimers()
     vi.setSystemTime(new Date(2022, 0, 1))
-    const researchStudyDtoWithEmptyFields = riphCtisDto[1]
+    const normalResearchStudyDto = EclaireDto.fromDm(riphDmDto[0])
 
     // WHEN
-    const researchStudyModel = RiphCtisResearchStudyModelFactory.create(researchStudyDtoWithEmptyFields)
+    const researchStudyModel = ResearchStudyModelFactory.create(normalResearchStudyDto)
 
     // THEN
     expect(researchStudyModel).toMatchInlineSnapshot(`
@@ -888,7 +819,7 @@ describe('ctis research study model factory', () => {
             "coding": [
               CodingModel {
                 "code": undefined,
-                "display": "REG536",
+                "display": "REG745",
                 "system": undefined,
                 "version": undefined,
               },
@@ -901,7 +832,7 @@ describe('ctis research study model factory', () => {
             "coding": [
               CodingModel {
                 "code": undefined,
-                "display": "",
+                "display": "INDISPONIBLE",
                 "system": undefined,
                 "version": undefined,
               },
@@ -909,26 +840,33 @@ describe('ctis research study model factory', () => {
             "text": "Disease Condition",
           },
           CodeableConceptModel {
-            "coding": [],
+            "coding": [
+              CodingModel {
+                "code": "INDISPONIBLE",
+                "display": "MedDRA",
+                "system": "http://terminology.hl7.org/CodeSystem/mdr",
+                "version": "2.0.1",
+              },
+            ],
             "text": "MedDRA Condition",
           },
         ],
         "contact": [
           ContactDetailModel {
             "extension": undefined,
-            "name": " ",
+            "name": "Olivier D'HONDT",
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
                 "system": "phone",
                 "use": "work",
-                "value": "",
+                "value": "INDISPONIBLE",
               },
               ContactPointModel {
                 "extension": undefined,
                 "system": "email",
                 "use": "work",
-                "value": "",
+                "value": "cdp_scs@soladis.fr",
               },
             ],
           },
@@ -1016,17 +954,7 @@ describe('ctis research study model factory', () => {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1045,24 +973,26 @@ describe('ctis research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": undefined,
+                "valueQuantity": undefined,
+                "valueRange": RangeModel {
+                  "high": undefined,
+                  "low": undefined,
                 },
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "",
+                      "display": "INDISPONIBLE",
                       "system": undefined,
                       "version": undefined,
                     },
@@ -1074,24 +1004,14 @@ describe('ctis research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "",
+                      "display": "INDISPONIBLE",
                       "system": undefined,
                       "version": undefined,
                     },
@@ -1103,17 +1023,7 @@ describe('ctis research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Group characteristic code",
-                },
+                "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1132,7 +1042,10 @@ describe('ctis research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": CodeableConceptModel {
+                "code": undefined,
+                "exclude": true,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
                       "code": undefined,
@@ -1141,8 +1054,1184 @@ describe('ctis research study model factory', () => {
                       "version": undefined,
                     },
                   ],
-                  "text": "Group characteristic code",
+                  "text": "Study Exclusion Criteria",
                 },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+            ],
+            "id": "2021-A01563-38-enrollment-group-id",
+            "quantity": 96,
+            "resourceType": "Group",
+            "type": "person",
+          },
+        ],
+        "description": "INDISPONIBLE",
+        "enrollment": [
+          ReferenceModel {
+            "display": "Reference to group detailing study characteristics",
+            "reference": "#2021-A01563-38-enrollment-group-id",
+            "type": "Group",
+          },
+        ],
+        "extension": [
+          ExtensionModel {
+            "extension": undefined,
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
+            "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
+            "valueInstant": undefined,
+            "valuePeriod": undefined,
+            "valueReference": ReferenceModel {
+              "display": "Reference to secondary sponsor",
+              "reference": "Organization/2021-A01563-38-secondary-sponsor",
+              "type": "Organization",
+            },
+            "valueString": undefined,
+          },
+          ExtensionModel {
+            "extension": undefined,
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
+            "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
+            "valueInstant": undefined,
+            "valuePeriod": undefined,
+            "valueReference": undefined,
+            "valueString": "Hépato-gastro-entérologie",
+          },
+          ExtensionModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": "labelValue",
+                "valueCodeableConcept": undefined,
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": "INDISPONIBLE",
+              },
+              ExtensionModel {
+                "extension": undefined,
+                "url": "labelType",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "human-use",
+                      "display": "Human use",
+                      "system": "http://hl7.org/fhir/title-type",
+                      "version": "5.0.0",
+                    },
+                  ],
+                  "text": "Label Type",
+                },
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
+            "valueInstant": undefined,
+            "valuePeriod": undefined,
+            "valueReference": undefined,
+            "valueString": undefined,
+          },
+          ExtensionModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": "labelValue",
+                "valueCodeableConcept": undefined,
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": "INDISPONIBLE",
+              },
+              ExtensionModel {
+                "extension": undefined,
+                "url": "labelType",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "acronym",
+                      "display": "Acronym",
+                      "system": "http://hl7.org/fhir/title-type",
+                      "version": "5.0.0",
+                    },
+                  ],
+                  "text": "Label Type",
+                },
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
+            "valueInstant": undefined,
+            "valuePeriod": undefined,
+            "valueReference": undefined,
+            "valueString": undefined,
+          },
+          undefined,
+          ExtensionModel {
+            "extension": undefined,
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
+            "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
+            "valueInstant": "2023-04-06T00:00:00.000Z",
+            "valuePeriod": undefined,
+            "valueReference": undefined,
+            "valueString": undefined,
+          },
+        ],
+        "id": "2021-A01563-38",
+        "identifier": [
+          IdentifierModel {
+            "assigner": ReferenceModel {
+              "display": "Reference to primary assigner",
+              "reference": undefined,
+              "type": "Organization",
+            },
+            "use": "official",
+            "value": "INDISPONIBLE",
+          },
+          IdentifierModel {
+            "assigner": ReferenceModel {
+              "display": "Reference to secondary assigner",
+              "reference": "Organization/ansm",
+              "type": "Organization",
+            },
+            "use": "secondary",
+            "value": "2021-A01563-38",
+          },
+        ],
+        "location": undefined,
+        "meta": MetaModel {
+          "lastUpdated": "2023-04-06T00:00:00.000Z",
+          "profile": [
+            "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
+          ],
+        },
+        "phase": CodeableConceptModel {
+          "coding": [
+            CodingModel {
+              "code": "n-a",
+              "display": "N/A",
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
+              "version": "4.0.1",
+            },
+          ],
+          "text": "Research Study Phase",
+        },
+        "referenceContents": ReferenceContentsModel {
+          "locations": [],
+          "organizations": [
+            OrganizationModel {
+              "address": [
+                AddressModel {
+                  "city": "Roubaix",
+                  "country": "France",
+                  "line": [
+                    "15 Boulevard du Général Leclerc",
+                  ],
+                  "postalCode": "59100",
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "contact": [
+                OrganizationContactModel {
+                  "name": HumanNameModel {
+                    "family": "D'HONDT",
+                    "given": [
+                      "Olivier",
+                    ],
+                    "prefix": undefined,
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "text": "Organization Contact Purpose",
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": "INDISPONIBLE",
+                    },
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": "cdp_scs@soladis.fr",
+                    },
+                  ],
+                },
+              ],
+              "id": "2021-A01563-38-primary-sponsor",
+              "identifier": undefined,
+              "name": "Soladis Clinical Studies",
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "text": "Organization Sponsor Type",
+                },
+              ],
+            },
+            OrganizationModel {
+              "address": [
+                AddressModel {
+                  "city": "INDISPONIBLE",
+                  "country": "INDISPONIBLE",
+                  "line": [
+                    "INDISPONIBLE",
+                  ],
+                  "postalCode": "INDISPONIBLE",
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "contact": [
+                OrganizationContactModel {
+                  "name": HumanNameModel {
+                    "family": "INDISPONIBLE",
+                    "given": [
+                      "INDISPONIBLE",
+                    ],
+                    "prefix": undefined,
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "text": "Organization Contact Purpose",
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": "INDISPONIBLE",
+                    },
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": "INDISPONIBLE",
+                    },
+                  ],
+                },
+              ],
+              "id": "2021-A01563-38-secondary-sponsor",
+              "identifier": undefined,
+              "name": "INDISPONIBLE",
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "text": "Organization Sponsor Type",
+                },
+              ],
+            },
+            OrganizationModel {
+              "address": undefined,
+              "contact": undefined,
+              "id": "ansm",
+              "identifier": undefined,
+              "name": "Agence nationale de sécurité du médicament et des produits de santé",
+              "resourceType": "Organization",
+              "telecom": [
+                ContactPointModel {
+                  "extension": undefined,
+                  "system": "url",
+                  "use": "work",
+                  "value": "https://ansm.sante.fr",
+                },
+              ],
+              "type": undefined,
+            },
+          ],
+        },
+        "resourceType": "ResearchStudy",
+        "site": [],
+        "sponsor": ReferenceModel {
+          "display": "Reference to primary sponsor",
+          "reference": "Organization/2021-A01563-38-primary-sponsor",
+          "type": "Organization",
+        },
+        "status": "administratively-completed",
+        "title": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
+      }
+    `)
+  })
+
+  it('should build a research study model, when a RIPH Jarde object with all fields filled is given', () => {
+    // GIVEN
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(2022, 0, 1))
+    const normalResearchStudyDto = EclaireDto.fromJarde(riphJardeDtoWithActiveStatus[0])
+
+    // WHEN
+    const researchStudyModel = ResearchStudyModelFactory.create(normalResearchStudyDto)
+
+    // THEN
+    expect(researchStudyModel).toMatchInlineSnapshot(`
+      ResearchStudyModel {
+        "category": [
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": undefined,
+                "display": "JARDE",
+                "system": undefined,
+                "version": undefined,
+              },
+            ],
+            "text": "Regulation Code",
+          },
+        ],
+        "condition": [
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": undefined,
+                "display": "INDISPONIBLE",
+                "system": undefined,
+                "version": undefined,
+              },
+            ],
+            "text": "Disease Condition",
+          },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": "INDISPONIBLE",
+                "display": "MedDRA",
+                "system": "http://terminology.hl7.org/CodeSystem/mdr",
+                "version": "2.0.1",
+              },
+            ],
+            "text": "MedDRA Condition",
+          },
+        ],
+        "contact": [
+          ContactDetailModel {
+            "extension": undefined,
+            "name": "Christophe GILLET",
+            "telecom": [
+              ContactPointModel {
+                "extension": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+              ContactPointModel {
+                "extension": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "christophe.gillet@uphf.fr",
+              },
+            ],
+          },
+          ContactDetailModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "SCI",
+                      "display": "Scientifique / Scientific",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
+                      "version": "0.1.0",
+                    },
+                  ],
+                  "text": "Contact Type",
+                },
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "name": "INDISPONIBLE INDISPONIBLE",
+            "telecom": [
+              ContactPointModel {
+                "extension": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+              ContactPointModel {
+                "extension": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+            ],
+          },
+          ContactDetailModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "PUB",
+                      "display": "Publique / Public",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
+                      "version": "0.1.0",
+                    },
+                  ],
+                  "text": "Contact Type",
+                },
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "name": "INDISPONIBLE INDISPONIBLE",
+            "telecom": [
+              ContactPointModel {
+                "extension": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+              ContactPointModel {
+                "extension": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+            ],
+          },
+        ],
+        "contained": [
+          GroupModel {
+            "actual": true,
+            "characteristic": [
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "unknown",
+                      "display": "Unknown",
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "version": "5.0.0",
+                    },
+                  ],
+                  "text": "Genders",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": undefined,
+                "valueQuantity": undefined,
+                "valueRange": RangeModel {
+                  "high": undefined,
+                  "low": undefined,
+                },
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Research Study Group Category",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Population",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Inclusion Criteria",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": true,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Exclusion Criteria",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+            ],
+            "id": "2021-A01022-39-enrollment-group-id",
+            "quantity": 23,
+            "resourceType": "Group",
+            "type": "person",
+          },
+        ],
+        "description": "INDISPONIBLE",
+        "enrollment": [
+          ReferenceModel {
+            "display": "Reference to group detailing study characteristics",
+            "reference": "#2021-A01022-39-enrollment-group-id",
+            "type": "Group",
+          },
+        ],
+        "extension": [
+          ExtensionModel {
+            "extension": undefined,
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
+            "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
+            "valueInstant": undefined,
+            "valuePeriod": undefined,
+            "valueReference": ReferenceModel {
+              "display": "Reference to secondary sponsor",
+              "reference": "Organization/2021-A01022-39-secondary-sponsor",
+              "type": "Organization",
+            },
+            "valueString": undefined,
+          },
+          ExtensionModel {
+            "extension": undefined,
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
+            "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
+            "valueInstant": undefined,
+            "valuePeriod": undefined,
+            "valueReference": undefined,
+            "valueString": "Autres",
+          },
+          ExtensionModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": "labelValue",
+                "valueCodeableConcept": undefined,
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": "INDISPONIBLE",
+              },
+              ExtensionModel {
+                "extension": undefined,
+                "url": "labelType",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "human-use",
+                      "display": "Human use",
+                      "system": "http://hl7.org/fhir/title-type",
+                      "version": "5.0.0",
+                    },
+                  ],
+                  "text": "Label Type",
+                },
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
+            "valueInstant": undefined,
+            "valuePeriod": undefined,
+            "valueReference": undefined,
+            "valueString": undefined,
+          },
+          ExtensionModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": "labelValue",
+                "valueCodeableConcept": undefined,
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": "INDISPONIBLE",
+              },
+              ExtensionModel {
+                "extension": undefined,
+                "url": "labelType",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "acronym",
+                      "display": "Acronym",
+                      "system": "http://hl7.org/fhir/title-type",
+                      "version": "5.0.0",
+                    },
+                  ],
+                  "text": "Label Type",
+                },
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
+            "valueInstant": undefined,
+            "valuePeriod": undefined,
+            "valueReference": undefined,
+            "valueString": undefined,
+          },
+          undefined,
+          ExtensionModel {
+            "extension": undefined,
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
+            "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
+            "valueInstant": "2023-04-04T00:00:00.000Z",
+            "valuePeriod": undefined,
+            "valueReference": undefined,
+            "valueString": undefined,
+          },
+        ],
+        "id": "2021-A01022-39",
+        "identifier": [
+          IdentifierModel {
+            "assigner": ReferenceModel {
+              "display": "Reference to primary assigner",
+              "reference": undefined,
+              "type": "Organization",
+            },
+            "use": "official",
+            "value": "INDISPONIBLE",
+          },
+          IdentifierModel {
+            "assigner": ReferenceModel {
+              "display": "Reference to secondary assigner",
+              "reference": "Organization/ansm",
+              "type": "Organization",
+            },
+            "use": "secondary",
+            "value": "2021-A01022-39",
+          },
+        ],
+        "location": undefined,
+        "meta": MetaModel {
+          "lastUpdated": "2023-04-04T00:00:00.000Z",
+          "profile": [
+            "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
+          ],
+        },
+        "phase": CodeableConceptModel {
+          "coding": [
+            CodingModel {
+              "code": "n-a",
+              "display": "N/A",
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
+              "version": "4.0.1",
+            },
+          ],
+          "text": "Research Study Phase",
+        },
+        "referenceContents": ReferenceContentsModel {
+          "locations": [],
+          "organizations": [
+            OrganizationModel {
+              "address": [
+                AddressModel {
+                  "city": "Valenciennes",
+                  "country": "France",
+                  "line": [
+                    "LAMIH - Campus du Mont-Houy",
+                  ],
+                  "postalCode": "59313",
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "contact": [
+                OrganizationContactModel {
+                  "name": HumanNameModel {
+                    "family": "GILLET",
+                    "given": [
+                      "Christophe",
+                    ],
+                    "prefix": undefined,
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "text": "Organization Contact Purpose",
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": "INDISPONIBLE",
+                    },
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": "christophe.gillet@uphf.fr",
+                    },
+                  ],
+                },
+              ],
+              "id": "2021-A01022-39-primary-sponsor",
+              "identifier": undefined,
+              "name": "Université Polytechnique Hauts-de-France",
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "text": "Organization Sponsor Type",
+                },
+              ],
+            },
+            OrganizationModel {
+              "address": [
+                AddressModel {
+                  "city": "INDISPONIBLE",
+                  "country": "INDISPONIBLE",
+                  "line": [
+                    "INDISPONIBLE",
+                  ],
+                  "postalCode": "INDISPONIBLE",
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "contact": [
+                OrganizationContactModel {
+                  "name": HumanNameModel {
+                    "family": "INDISPONIBLE",
+                    "given": [
+                      "INDISPONIBLE",
+                    ],
+                    "prefix": undefined,
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "text": "Organization Contact Purpose",
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": "INDISPONIBLE",
+                    },
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": "INDISPONIBLE",
+                    },
+                  ],
+                },
+              ],
+              "id": "2021-A01022-39-secondary-sponsor",
+              "identifier": undefined,
+              "name": "INDISPONIBLE",
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "text": "Organization Sponsor Type",
+                },
+              ],
+            },
+            OrganizationModel {
+              "address": undefined,
+              "contact": undefined,
+              "id": "ansm",
+              "identifier": undefined,
+              "name": "Agence nationale de sécurité du médicament et des produits de santé",
+              "resourceType": "Organization",
+              "telecom": [
+                ContactPointModel {
+                  "extension": undefined,
+                  "system": "url",
+                  "use": "work",
+                  "value": "https://ansm.sante.fr",
+                },
+              ],
+              "type": undefined,
+            },
+          ],
+        },
+        "resourceType": "ResearchStudy",
+        "site": [],
+        "sponsor": ReferenceModel {
+          "display": "Reference to primary sponsor",
+          "reference": "Organization/2021-A01022-39-primary-sponsor",
+          "type": "Organization",
+        },
+        "status": "active",
+        "title": "Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.",
+      }
+    `)
+  })
+
+  it('should build a research study model, when null fields is given', () => {
+    // GIVEN
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(2022, 0, 1))
+    const researchStudyDtoWithEmptyFields = EclaireDto.fromCtis(riphCtisDto[1])
+
+    // WHEN
+    const researchStudyModel = ResearchStudyModelFactory.create(researchStudyDtoWithEmptyFields)
+
+    // THEN
+    expect(researchStudyModel).toMatchInlineSnapshot(`
+      ResearchStudyModel {
+        "category": [
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": undefined,
+                "display": "REG536",
+                "system": undefined,
+                "version": undefined,
+              },
+            ],
+            "text": "Regulation Code",
+          },
+        ],
+        "condition": [
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": undefined,
+                "display": "NULL",
+                "system": undefined,
+                "version": undefined,
+              },
+            ],
+            "text": "Disease Condition",
+          },
+          CodeableConceptModel {
+            "coding": [],
+            "text": "MedDRA Condition",
+          },
+        ],
+        "contact": [
+          ContactDetailModel {
+            "extension": undefined,
+            "name": "NULL NULL",
+            "telecom": [
+              ContactPointModel {
+                "extension": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "NULL",
+              },
+              ContactPointModel {
+                "extension": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "NULL",
+              },
+            ],
+          },
+          ContactDetailModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "SCI",
+                      "display": "Scientifique / Scientific",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
+                      "version": "0.1.0",
+                    },
+                  ],
+                  "text": "Contact Type",
+                },
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "name": "INDISPONIBLE INDISPONIBLE",
+            "telecom": [
+              ContactPointModel {
+                "extension": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+              ContactPointModel {
+                "extension": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+            ],
+          },
+          ContactDetailModel {
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "PUB",
+                      "display": "Publique / Public",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
+                      "version": "0.1.0",
+                    },
+                  ],
+                  "text": "Contact Type",
+                },
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
+            "name": "INDISPONIBLE INDISPONIBLE",
+            "telecom": [
+              ContactPointModel {
+                "extension": undefined,
+                "system": "phone",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+              ContactPointModel {
+                "extension": undefined,
+                "system": "email",
+                "use": "work",
+                "value": "INDISPONIBLE",
+              },
+            ],
+          },
+        ],
+        "contained": [
+          GroupModel {
+            "actual": true,
+            "characteristic": [
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "unknown",
+                      "display": "Unknown",
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "version": "5.0.0",
+                    },
+                  ],
+                  "text": "Genders",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "NULL",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Research Study Group Category",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "NULL",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Population",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Inclusion Criteria",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
                 "exclude": true,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1198,7 +2287,7 @@ describe('ctis research study model factory', () => {
             "valueInstant": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
-            "valueString": "",
+            "valueString": "NULL",
           },
           ExtensionModel {
             "extension": [
@@ -1349,11 +2438,11 @@ describe('ctis research study model factory', () => {
           "locations": [
             LocationModel {
               "address": AddressModel {
-                "city": "",
+                "city": "NULL",
                 "country": undefined,
                 "line": [
-                  "",
-                  "",
+                  "NULL",
+                  "NULL",
                 ],
                 "postalCode": undefined,
                 "type": "physical",
@@ -1367,7 +2456,7 @@ describe('ctis research study model factory', () => {
                   "value": "0-ctis-site",
                 },
               ],
-              "name": "",
+              "name": "NULL",
               "resourceType": "Location",
               "telecom": [
                 ContactPointModel {
@@ -1377,12 +2466,12 @@ describe('ctis research study model factory', () => {
                       "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name",
                       "valueCodeableConcept": undefined,
                       "valueHumanName": HumanNameModel {
-                        "family": "",
+                        "family": "NULL",
                         "given": [
-                          "",
+                          "NULL",
                         ],
                         "prefix": [
-                          "",
+                          "NULL",
                         ],
                         "use": "official",
                       },
@@ -1403,12 +2492,12 @@ describe('ctis research study model factory', () => {
             OrganizationModel {
               "address": [
                 AddressModel {
-                  "city": "",
-                  "country": "",
+                  "city": "NULL",
+                  "country": "NULL",
                   "line": [
-                    "",
+                    "NULL",
                   ],
-                  "postalCode": "",
+                  "postalCode": "NULL",
                   "type": "physical",
                   "use": "work",
                 },
@@ -1416,9 +2505,9 @@ describe('ctis research study model factory', () => {
               "contact": [
                 OrganizationContactModel {
                   "name": HumanNameModel {
-                    "family": "",
+                    "family": "NULL",
                     "given": [
-                      "",
+                      "NULL",
                     ],
                     "prefix": undefined,
                     "use": "official",
@@ -1439,20 +2528,20 @@ describe('ctis research study model factory', () => {
                       "extension": undefined,
                       "system": "phone",
                       "use": "work",
-                      "value": "",
+                      "value": "NULL",
                     },
                     ContactPointModel {
                       "extension": undefined,
                       "system": "email",
                       "use": "work",
-                      "value": "",
+                      "value": "NULL",
                     },
                   ],
                 },
               ],
               "id": "2022-500299-71-00-primary-sponsor",
               "identifier": undefined,
-              "name": "",
+              "name": "NULL",
               "resourceType": "Organization",
               "telecom": undefined,
               "type": [
@@ -1571,7 +2660,7 @@ describe('ctis research study model factory', () => {
           "type": "Organization",
         },
         "status": "approved",
-        "title": "",
+        "title": "NULL",
       }
     `)
   })

@@ -1,6 +1,7 @@
 import { expect } from 'vitest'
 
 import { CodeableConceptModel } from './CodeableConceptModel'
+import { ModelUtils } from '../eclaire/ModelUtils'
 
 describe('shared | models | fhir | CodeableConceptModel', () => {
   describe('#createResearchStudyPhase', () => {
@@ -21,7 +22,7 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
     })
 
     it('should create a properly formatted model with research study phase when information is empty', () => {
-      expect(CodeableConceptModel.createResearchStudyPhase('')).toMatchInlineSnapshot(`
+      expect(CodeableConceptModel.createResearchStudyPhase(ModelUtils.NULL_IN_SOURCE)).toMatchInlineSnapshot(`
         CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -80,12 +81,12 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
     })
 
     it('should create a properly formatted model with research study phase when information is empty', () => {
-      expect(CodeableConceptModel.createDiseaseCondition('')).toMatchInlineSnapshot(`
+      expect(CodeableConceptModel.createDiseaseCondition(ModelUtils.NULL_IN_SOURCE)).toMatchInlineSnapshot(`
         CodeableConceptModel {
           "coding": [
             CodingModel {
               "code": undefined,
-              "display": "",
+              "display": "NULL",
               "system": undefined,
               "version": undefined,
             },
@@ -142,7 +143,7 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
     })
 
     it('should create a properly formatted model with research study phase when information is not given', () => {
-      expect(CodeableConceptModel.createMedDraCondition('')).toMatchInlineSnapshot(`
+      expect(CodeableConceptModel.createMedDraCondition(ModelUtils.NULL_IN_SOURCE)).toMatchInlineSnapshot(`
         CodeableConceptModel {
           "coding": [],
           "text": "MedDRA Condition",
@@ -191,7 +192,7 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
     })
 
     it('should create a properly formatted model with related coding when no gender is given', () => {
-      expect(CodeableConceptModel.createGenders('')).toMatchInlineSnapshot(`
+      expect(CodeableConceptModel.createGenders(ModelUtils.NULL_IN_SOURCE)).toMatchInlineSnapshot(`
         CodeableConceptModel {
           "coding": [
             CodingModel {
