@@ -2040,7 +2040,7 @@ describe('research study model factory', () => {
             "coding": [
               CodingModel {
                 "code": undefined,
-                "display": "",
+                "display": "NULL",
                 "system": undefined,
                 "version": undefined,
               },
@@ -2055,19 +2055,19 @@ describe('research study model factory', () => {
         "contact": [
           ContactDetailModel {
             "extension": undefined,
-            "name": " ",
+            "name": "NULL NULL",
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
                 "system": "phone",
                 "use": "work",
-                "value": "",
+                "value": "NULL",
               },
               ContactPointModel {
                 "extension": undefined,
                 "system": "email",
                 "use": "work",
-                "value": "",
+                "value": "NULL",
               },
             ],
           },
@@ -2181,7 +2181,7 @@ describe('research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "",
+                      "display": "NULL",
                       "system": undefined,
                       "version": undefined,
                     },
@@ -2200,7 +2200,7 @@ describe('research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "",
+                      "display": "NULL",
                       "system": undefined,
                       "version": undefined,
                     },
@@ -2287,7 +2287,7 @@ describe('research study model factory', () => {
             "valueInstant": undefined,
             "valuePeriod": undefined,
             "valueReference": undefined,
-            "valueString": "",
+            "valueString": "NULL",
           },
           ExtensionModel {
             "extension": [
@@ -2371,7 +2371,19 @@ describe('research study model factory', () => {
             "valueReference": undefined,
             "valueString": undefined,
           },
-          undefined,
+          ExtensionModel {
+            "extension": undefined,
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
+            "valueCodeableConcept": undefined,
+            "valueHumanName": undefined,
+            "valueInstant": undefined,
+            "valuePeriod": PeriodModel {
+              "end": undefined,
+              "start": "1970-01-01T00:00:00.000Z",
+            },
+            "valueReference": undefined,
+            "valueString": undefined,
+          },
           ExtensionModel {
             "extension": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
@@ -2426,11 +2438,11 @@ describe('research study model factory', () => {
           "locations": [
             LocationModel {
               "address": AddressModel {
-                "city": "",
+                "city": "NULL",
                 "country": undefined,
                 "line": [
-                  "",
-                  "",
+                  "NULL",
+                  "NULL",
                 ],
                 "postalCode": undefined,
                 "type": "physical",
@@ -2444,7 +2456,7 @@ describe('research study model factory', () => {
                   "value": "0-ctis-site",
                 },
               ],
-              "name": "",
+              "name": "NULL",
               "resourceType": "Location",
               "telecom": [
                 ContactPointModel {
@@ -2454,12 +2466,12 @@ describe('research study model factory', () => {
                       "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name",
                       "valueCodeableConcept": undefined,
                       "valueHumanName": HumanNameModel {
-                        "family": "",
+                        "family": "NULL",
                         "given": [
-                          "",
+                          "NULL",
                         ],
                         "prefix": [
-                          "",
+                          "NULL",
                         ],
                         "use": "official",
                       },
@@ -2480,12 +2492,12 @@ describe('research study model factory', () => {
             OrganizationModel {
               "address": [
                 AddressModel {
-                  "city": "",
-                  "country": "",
+                  "city": "NULL",
+                  "country": "NULL",
                   "line": [
-                    "",
+                    "NULL",
                   ],
-                  "postalCode": "",
+                  "postalCode": "NULL",
                   "type": "physical",
                   "use": "work",
                 },
@@ -2493,9 +2505,9 @@ describe('research study model factory', () => {
               "contact": [
                 OrganizationContactModel {
                   "name": HumanNameModel {
-                    "family": "",
+                    "family": "NULL",
                     "given": [
-                      "",
+                      "NULL",
                     ],
                     "prefix": undefined,
                     "use": "official",
@@ -2516,20 +2528,20 @@ describe('research study model factory', () => {
                       "extension": undefined,
                       "system": "phone",
                       "use": "work",
-                      "value": "",
+                      "value": "NULL",
                     },
                     ContactPointModel {
                       "extension": undefined,
                       "system": "email",
                       "use": "work",
-                      "value": "",
+                      "value": "NULL",
                     },
                   ],
                 },
               ],
               "id": "2022-500299-71-00-primary-sponsor",
               "identifier": undefined,
-              "name": "",
+              "name": "NULL",
               "resourceType": "Organization",
               "telecom": undefined,
               "type": [
@@ -2648,7 +2660,7 @@ describe('research study model factory', () => {
           "type": "Organization",
         },
         "status": "approved",
-        "title": "",
+        "title": "NULL",
       }
     `)
   })

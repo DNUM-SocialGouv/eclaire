@@ -41,7 +41,7 @@ export class CodeableConceptModel implements CodeableConcept {
 
     const emptyMedDraInformationIfNull = ModelUtils.emptyIfNull(medDraInformation)
 
-    if (emptyMedDraInformationIfNull === '') {
+    if (emptyMedDraInformationIfNull === ModelUtils.NULL_IN_SOURCE) {
       parsedMedDraInformation = []
     } else {
       parsedMedDraInformation = emptyMedDraInformationIfNull.split(', ')
@@ -61,7 +61,7 @@ export class CodeableConceptModel implements CodeableConcept {
   static createGenders(genders: string): CodeableConceptModel {
     let parsedGenders: string[]
 
-    if (genders === '') {
+    if (genders === ModelUtils.NULL_IN_SOURCE) {
       parsedGenders = ['unknown']
     } else {
       parsedGenders = genders.split(',')
@@ -132,7 +132,7 @@ export class CodeableConceptModel implements CodeableConcept {
   static createLocations(countriesCode: string): CodeableConceptModel[] | undefined {
     const emptyCountriesCodeIfNull = ModelUtils.emptyIfNull(countriesCode)
 
-    if (emptyCountriesCodeIfNull === '') return undefined
+    if (emptyCountriesCodeIfNull === ModelUtils.NULL_IN_SOURCE) return undefined
 
     return emptyCountriesCodeIfNull.split(', ').map((countryCode): CodeableConceptModel => {
       return new CodeableConceptModel(

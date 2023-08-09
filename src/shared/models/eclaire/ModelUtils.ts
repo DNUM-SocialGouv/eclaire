@@ -2,11 +2,11 @@ import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/Re
 
 export class ModelUtils {
   static UNAVAILABLE = 'INDISPONIBLE'
-  static NULL_IN_SOURCE: string = null
+  static NULL_IN_SOURCE = 'NULL'
   static EMPTY_ARRAY_IN_SOURCE: Array<never> = []
 
   static emptyIfNull(value: string): string {
-    return value ?? ''
+    return value ?? ModelUtils.NULL_IN_SOURCE
   }
 
   static emptyNumberIfNull(value: number): number {
@@ -56,10 +56,10 @@ export class ModelUtils {
   }
 
   static getMostRecentIsoDate(datesOfHistory: string, datesOfApproval: string): string {
-    if (datesOfHistory === '' && datesOfApproval === '') return new Date().toISOString()
+    if (datesOfHistory === ModelUtils.NULL_IN_SOURCE && datesOfApproval === ModelUtils.NULL_IN_SOURCE) return new Date().toISOString()
 
     const dates: string[] = []
-    if (datesOfHistory !== '') {
+    if (datesOfHistory !== ModelUtils.NULL_IN_SOURCE) {
       datesOfHistory.split(', ').forEach((dateOfHistory) => {
         const date = dateOfHistory.split(':')
 
@@ -67,7 +67,7 @@ export class ModelUtils {
       })
     }
 
-    if (datesOfApproval !== '') {
+    if (datesOfApproval !== ModelUtils.NULL_IN_SOURCE) {
       datesOfApproval.split(', ').forEach((dateOfApproval) => {
         const date = dateOfApproval.split(':')
 

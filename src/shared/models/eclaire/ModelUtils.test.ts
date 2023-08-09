@@ -52,8 +52,8 @@ describe('shared | models | custom | ModelUtils', () => {
       // given
       vi.useFakeTimers()
       vi.setSystemTime(new Date(2022, 0, 1))
-      const historique = ''
-      const datesAvisFavorableMsMns = ''
+      const historique = ModelUtils.NULL_IN_SOURCE
+      const datesAvisFavorableMsMns = ModelUtils.NULL_IN_SOURCE
 
       // when
       const mostRecentIsoDate = ModelUtils.getMostRecentIsoDate(historique, datesAvisFavorableMsMns)

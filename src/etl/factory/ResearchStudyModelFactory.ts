@@ -58,7 +58,8 @@ export class ResearchStudyModelFactory {
       ExtensionModel.createEclaireTherapeuticArea(eclaireDto.domaine_therapeutique),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
       ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
-      eclaireDto.date_debut_recrutement ? ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement) : undefined,
+      eclaireDto.date_debut_recrutement !== ModelUtils.NULL_IN_SOURCE ?
+        ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement) : undefined,
       ExtensionModel.createEclaireReviewDate(eclaireDto.historique, eclaireDto.dates_avis_favorable_ms_mns),
     ]
     const id = eclaireDto.numero_ctis
