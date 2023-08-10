@@ -25,7 +25,7 @@ describe('shared | models | custom | ModelUtils', () => {
     })
 
     it('should throw an error when there is no regulation code', () => {
-      expect(() => ModelUtils.identifyAssigner(undefined, undefined)).toThrow(
+      expect(() => ModelUtils.identifyAssigner(undefined)).toThrow(
         'A regulation is always given. So, the assigner cannot be unknown'
       )
     })

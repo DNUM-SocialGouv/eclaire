@@ -15,7 +15,7 @@ export function researchStudyQueryToElasticsearchQuery(researchStudyQuery: Parti
 
     switch (field) {
       case '_getpagesoffset':
-        buildForm(searchBody, value)
+        buildFrom(searchBody, value)
         break
 
       case '_lastUpdated':
@@ -91,7 +91,7 @@ function buildRange(searchBody: ElasticsearchBodyBuilder, field: string, value: 
   searchBody.withRange(field, value, operators)
 }
 
-function buildForm(searchBody: ElasticsearchBodyBuilder, value: string) {
+function buildFrom(searchBody: ElasticsearchBodyBuilder, value: string) {
   searchBody.withFrom(Number(value))
 }
 

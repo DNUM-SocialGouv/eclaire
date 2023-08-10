@@ -4,5 +4,5 @@ import { ElasticsearchBodyType } from '../entities/ElasticsearchBody'
 
 export interface ResearchStudyRepository {
   findOne(id: string): Promise<unknown>
-  search(elasticsearchBody: ElasticsearchBodyType): Promise<Bundle>
+  search(elasticsearchBody: ElasticsearchBodyType, query: []): Promise<Bundle>
 }

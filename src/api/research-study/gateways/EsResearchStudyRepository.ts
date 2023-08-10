@@ -25,70 +25,72 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return await this.elasticsearchService.findOneDocument(id)
   }
 
-  async search(elasticsearchBody: ElasticsearchBodyType): Promise<Bundle> {
+  async search(elasticsearchBody: ElasticsearchBodyType, queryParams: { name: string, value: string }[]): Promise<Bundle> {
     const response = await this.elasticsearchService.search(elasticsearchBody)
 
-    let links: BundleLink[]
+    const links: BundleLink[] = []
     if (response.total === this.maxTotalConstraintFromElasticsearch && elasticsearchBody.sort !== undefined) {
-      links = this.buildSearchAfterLinks(response.hits, elasticsearchBody.search_after)
+      this.buildSearchAfterLinks(links, response.hits, queryParams)
     } else {
-      links = this.buildSearchLinks(elasticsearchBody.from, response.total)
+      this.buildSearchLinks(links, elasticsearchBody.from, response.total, queryParams)
     }
 
     return BundleModel.create(response.hits, links, response.total, `${this.domainName}R4/ResearchStudy`)
   }
 
-  private buildSearchLinks(offset: number, total: number): BundleLink[] {
+  private buildSearchLinks(links: BundleLink[], offset: number, total: number, queryParams: { name: string, value: string }[]) {
     const hasMoreResult = total > offset * this.numberOfResourcesByPage
+    const hasMoreResultsThanResourcesPerPage = total > this.numberOfResourcesByPage
 
-    const selfUrl = this.createUrl([{ name: '_getpagesoffset', value: String(offset) }])
-    const nextUrl = this.createUrl([{ name: '_getpagesoffset', value: `${offset + this.numberOfResourcesByPage}` }])
+    const removePagesOffsetParam = (queryParam: { name: string, value: string }): boolean => queryParam.name !== '_getpagesoffset'
+    const nextUrl = this.buildUrl([
+      ...queryParams.filter(removePagesOffsetParam),
+      { name: '_getpagesoffset', value: `${offset + this.numberOfResourcesByPage}` },
+    ])
 
-    const link: BundleLink[] = [
-      {
-        relation: 'self',
-        url: selfUrl,
-      },
-    ]
+    this.buildSelfLink(links, queryParams)
 
-    if (hasMoreResult) {
-      link.push({
+    if (hasMoreResult && hasMoreResultsThanResourcesPerPage) {
+      links.push({
         relation: 'next',
         url: nextUrl,
       })
     }
-
-    return link
   }
 
-  private buildSearchAfterLinks(hits: [], searchAfter: (number | string)[]): BundleLink[] {
+  private buildSearchAfterLinks(links: BundleLink[], hits: [], queryParams: { name: string, value: string }[]) {
     const nextSorts = hits.map((hit: { sort: number[] }): number => hit.sort[0]).reverse()
     const nextIds = hits.map((hit: { _source: { id: string }}): string => hit._source.id).reverse()
-    const previousSort = searchAfter === undefined ? '' : searchAfter[0]
 
-    const selfUrl = this.createUrl([{ name: 'search_after', value: String(previousSort) }])
-    const nextUrl = this.createUrl([{ name: 'search_after', value: `${nextSorts[0]},${nextIds[0]}` }])
+    this.buildSelfLink(links, queryParams)
 
-    const link: BundleLink[] = [
-      {
-        relation: 'self',
-        url: selfUrl,
-      },
-      {
-        relation: 'next',
-        url: nextUrl,
-      },
-    ]
+    const removeSearchAfterParam = (queryParam: { name: string, value: string }): boolean => queryParam.name !== 'search_after'
+    const nextUrl = this.buildUrl([
+      ...queryParams.filter(removeSearchAfterParam),
+      { name: 'search_after', value: `${nextSorts[0]},${nextIds[0]}` },
+    ])
 
-    return link
+    links.push({
+      relation: 'next',
+      url: nextUrl,
+    })
   }
 
-  private createUrl(params: { name: string, value: string }[]): string {
+  private buildSelfLink(links: BundleLink[], queryParams: { name: string, value: string }[]) {
+    links.push(
+      {
+        relation: 'self',
+        url: this.buildUrl(queryParams),
+      }
+    )
+  }
+
+  private buildUrl(queryParams: { name: string, value: string }[]): string {
     const url = new URL(this.domainName)
     url.pathname = 'R4/ResearchStudy'
 
-    for (const param of params) {
-      url.searchParams.append(param.name, param.value)
+    for (const queryParam of queryParams) {
+      url.searchParams.append(queryParam.name, queryParam.value)
     }
 
     return url.toString()

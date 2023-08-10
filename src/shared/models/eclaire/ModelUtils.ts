@@ -83,6 +83,10 @@ export class ModelUtils {
     const valueA = a
     const valueB = b
 
-    return valueB < valueA ? -1 : valueB > valueA ? 1 : 0
+    if (valueB < valueA) {
+      return -1
+    }
+
+    return valueB > valueA ? 1 : 0
   }
 }

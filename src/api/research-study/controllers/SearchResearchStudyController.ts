@@ -21,7 +21,9 @@ export class SearchResearchStudyController {
   @Get()
   async execute(@Query() researchStudyQuery: ResearchStudyQueryModel, @Res() response: Response): Promise<void> {
     try {
-      response.json(await this.researchStudyRepository.search(researchStudyQueryToElasticsearchQuery(researchStudyQuery)))
+      const queryParams = this.transform(researchStudyQuery)
+
+      response.json(await this.researchStudyRepository.search(researchStudyQueryToElasticsearchQuery(researchStudyQuery), queryParams))
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
@@ -30,5 +32,15 @@ export class SearchResearchStudyController {
         throw error
       }
     }
+  }
+
+  private transform(researchStudyQuery: ResearchStudyQueryModel) {
+    const queryParams: { name: string, value: string }[] = []
+
+    for (const [key, value] of Object.entries(researchStudyQuery)) {
+      queryParams.push({ name: key, value: value as string })
+    }
+
+    return queryParams
   }
 }
