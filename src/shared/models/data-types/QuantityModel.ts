@@ -7,7 +7,7 @@ export class QuantityModel implements Quantity {
     readonly value: number | undefined
   ) {}
 
-  static create(value: number, unit: string, comparator?: QuantityComparator): QuantityModel | undefined {
+  static create(value: number, unit: string, comparator?: QuantityComparator): Quantity | undefined {
     if (value === undefined) return undefined
 
     return new QuantityModel(

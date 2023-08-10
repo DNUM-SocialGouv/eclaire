@@ -19,7 +19,7 @@ export class ExtensionModel implements Extension {
     readonly valueString: string | undefined
   ) {}
 
-  static createEclaireSecondarySponsor(secondarySponsorId: string): ExtensionModel {
+  static createEclaireSecondarySponsor(secondarySponsorId: string): Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor',
@@ -32,7 +32,7 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireTherapeuticArea(therapeuticArea: string): ExtensionModel {
+  static createEclaireTherapeuticArea(therapeuticArea: string): Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area',
@@ -45,7 +45,7 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireContactType(contactType: ContactType): ExtensionModel {
+  static createEclaireContactType(contactType: ContactType): Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type',
@@ -58,7 +58,7 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireLabel(value: string, type: LabelType): ExtensionModel {
+  static createEclaireLabel(value: string, type: LabelType): Extension {
     return new ExtensionModel(
       [this.createEclaireLabelValue(value), this.createEclaireLabelType(type)],
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label',
@@ -71,7 +71,7 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireLabelValue(value: string): ExtensionModel {
+  static createEclaireLabelValue(value: string): Extension {
     return new ExtensionModel(
       undefined,
       'labelValue',
@@ -84,7 +84,7 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireLabelType(type: LabelType): ExtensionModel {
+  static createEclaireLabelType(type: LabelType): Extension {
     return new ExtensionModel(
       undefined,
       'labelType',
@@ -97,7 +97,7 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireRecruitmentPeriod(recruitmentDate: string): ExtensionModel {
+  static createEclaireRecruitmentPeriod(recruitmentDate: string): Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period',
@@ -110,7 +110,7 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireSiteContactName(firstname: string, name: string, title: string): ExtensionModel {
+  static createEclaireSiteContactName(firstname: string, name: string, title: string): Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name',
@@ -123,7 +123,7 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireReviewDate(history: string, approvalDate: string): ExtensionModel {
+  static createEclaireReviewDate(history: string, approvalDate: string): Extension {
     const emptyHistoryDateIfNull = ModelUtils.emptyIfNull(history)
     const emptyApprovalDateIfNull = ModelUtils.emptyIfNull(approvalDate)
 

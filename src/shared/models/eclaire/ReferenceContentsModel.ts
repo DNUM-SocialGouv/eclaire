@@ -6,10 +6,7 @@ export class ReferenceContentsModel {
     readonly organizations: Organization[] | undefined
   ) {}
 
-  static create(
-    locations: Location[],
-    organizations: Organization[]
-  ): ReferenceContentsModel {
+  static create(locations: Location[], organizations: Organization[]): ReferenceContentsModel {
     return new ReferenceContentsModel(
       locations,
       organizations

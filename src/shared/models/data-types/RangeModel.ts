@@ -8,7 +8,7 @@ export class RangeModel implements Range {
     readonly low: Quantity | undefined
   ) {}
 
-  static createAgeRange(ageRange: string): RangeModel {
+  static createAgeRange(ageRange: string): Range {
     let low: number
     let lowComparator: QuantityComparator
     let lowUnit: string

@@ -1,4 +1,4 @@
-import { Extension, Identifier, Meta } from 'fhir/r4'
+import { CodeableConcept, ContactDetail, Extension, Group, Identifier, Location, Meta, Organization, Reference } from 'fhir/r4'
 
 import { CodeableConceptModel } from '../../shared/models/data-types/CodeableConceptModel'
 import { IdentifierModel } from '../../shared/models/data-types/IdentifierModel'
@@ -11,7 +11,7 @@ import { ReferenceContentsModel } from '../../shared/models/eclaire/ReferenceCon
 import { ContactDetailModel } from '../../shared/models/metadata-types/ContactDetailModel'
 import { ExtensionModel } from '../../shared/models/special-purpose-data-types/ExtensionModel'
 import { MetaModel } from '../../shared/models/special-purpose-data-types/MetaModel'
-import { ReferenceModel } from '../../shared/models/special-purpose-data-types/ReferenceModel'
+import { AssignerForSecondaryIdentifier, ReferenceModel } from '../../shared/models/special-purpose-data-types/ReferenceModel'
 import { EclaireDto } from '../dto/EclaireDto'
 
 export class ResearchStudyModelFactory {
@@ -22,12 +22,12 @@ export class ResearchStudyModelFactory {
     const { eclaireSecondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(eclaireDto)
     const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto)
 
-    const category: CodeableConceptModel[] = [CodeableConceptModel.createCategory(eclaireDto.reglementation_code)]
-    const condition: CodeableConceptModel[] = [
+    const category: CodeableConcept[] = [CodeableConceptModel.createCategory(eclaireDto.reglementation_code)]
+    const condition: CodeableConcept[] = [
       CodeableConceptModel.createDiseaseCondition(eclaireDto.pathologies_maladies_rares),
       CodeableConceptModel.createMedDraCondition(eclaireDto.informations_meddra),
     ]
-    const contact: ContactDetailModel[] = [
+    const contact: ContactDetail[] = [
       ContactDetailModel.create(
         eclaireDto.contact_prenom,
         eclaireDto.contact_nom,
@@ -50,7 +50,7 @@ export class ResearchStudyModelFactory {
         'Public'
       ),
     ]
-    const contained: GroupModel[] = [enrollmentReferenceContent]
+    const contained: Group[] = [enrollmentReferenceContent]
     const description = ModelUtils.UNAVAILABLE
 
     const extensions: Extension[] = [
@@ -72,12 +72,12 @@ export class ResearchStudyModelFactory {
       eclaireDto.historique,
       eclaireDto.dates_avis_favorable_ms_mns
     )
-    const phase: CodeableConceptModel = CodeableConceptModel.createResearchStudyPhase(eclaireDto.phase_recherche)
+    const phase: CodeableConcept = CodeableConceptModel.createResearchStudyPhase(eclaireDto.phase_recherche)
 
     const status = eclaireDto.etat as RiphStatus
     const title = ModelUtils.emptyIfNull(eclaireDto.titre)
 
-    const organizations: OrganizationModel[] = [
+    const organizations: Organization[] = [
       primarySponsorOrganization,
       secondarySponsorOrganization,
       secondaryAssignerOrganization,
@@ -107,17 +107,17 @@ export class ResearchStudyModelFactory {
   }
 
   private static createAssigner(eclaireDto: EclaireDto) {
-    const assigner = ModelUtils.identifyAssigner(eclaireDto.reglementation_code)
-    const secondaryAssignerIdentifier = IdentifierModel.createSecondarySlice(eclaireDto.numero_secondaire, assigner)
-    const secondaryAssignerOrganization = OrganizationModel.createSecondaryAssigner(assigner)
+    const assigner: AssignerForSecondaryIdentifier = ModelUtils.identifyAssigner(eclaireDto.reglementation_code)
+    const secondaryAssignerIdentifier: Identifier = IdentifierModel.createSecondarySlice(eclaireDto.numero_secondaire, assigner)
+    const secondaryAssignerOrganization: Organization = OrganizationModel.createSecondaryAssigner(assigner)
 
     return { secondaryAssignerIdentifier, secondaryAssignerOrganization }
   }
 
   private static createEnrollmentContent(eclaireDto: EclaireDto) {
     const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(eclaireDto.numero_secondaire)
-    const enrollment: ReferenceModel[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
-    const enrollmentReferenceContent: GroupModel = GroupModel.createStudyCharacteristics(
+    const enrollment: Reference[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
+    const enrollmentReferenceContent: Group = GroupModel.createStudyCharacteristics(
       enrollmentGroupId,
       eclaireDto.sexe,
       eclaireDto.tranches_age,
@@ -133,8 +133,8 @@ export class ResearchStudyModelFactory {
 
   private static createPrimarySponsor(eclaireDto: EclaireDto) {
     const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(eclaireDto.numero_secondaire)
-    const sponsor: ReferenceModel = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
-    const primarySponsorOrganization: OrganizationModel = OrganizationModel.createSponsor(
+    const sponsor: Reference = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
+    const primarySponsorOrganization: Organization = OrganizationModel.createSponsor(
       primarySponsorOrganizationId,
       eclaireDto.organisme_nom,
       eclaireDto.organisme_adresse,
@@ -152,7 +152,7 @@ export class ResearchStudyModelFactory {
 
   private static createSecondarySponsor(eclaireDto: EclaireDto) {
     const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(eclaireDto.numero_secondaire)
-    const secondarySponsorOrganization: OrganizationModel = OrganizationModel.createSponsor(
+    const secondarySponsorOrganization: Organization = OrganizationModel.createSponsor(
       secondarySponsorOrganizationId,
       ModelUtils.UNAVAILABLE,
       ModelUtils.UNAVAILABLE,
@@ -164,14 +164,14 @@ export class ResearchStudyModelFactory {
       ModelUtils.UNAVAILABLE,
       ModelUtils.UNAVAILABLE
     )
-    const eclaireSecondarySponsor = ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId)
+    const eclaireSecondarySponsor: Extension = ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId)
 
     return { eclaireSecondarySponsor, secondarySponsorOrganization }
   }
 
   private static createSitesAndSiteLocations(eclaireDto: EclaireDto) {
-    const site: ReferenceModel[] = []
-    const siteLocations: LocationModel[] = []
+    const site: Reference[] = []
+    const siteLocations: Location[] = []
 
     for (let siteDtoIndex = 0; siteDtoIndex < eclaireDto.sites.length; siteDtoIndex++) {
       const id = ModelUtils.generateCtisSiteId(siteDtoIndex.toString())

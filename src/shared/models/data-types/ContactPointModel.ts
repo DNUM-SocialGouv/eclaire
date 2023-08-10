@@ -18,7 +18,7 @@ export class ContactPointModel implements ContactPoint {
     readonly value: string | undefined
   ) {}
 
-  static createPhone(phone: string): ContactPointModel {
+  static createPhone(phone: string): ContactPoint {
     return new ContactPointModel(
       undefined,
       'phone',
@@ -27,7 +27,7 @@ export class ContactPointModel implements ContactPoint {
     )
   }
 
-  static createEmail(email: string): ContactPointModel {
+  static createEmail(email: string): ContactPoint {
     return new ContactPointModel(
       undefined,
       'email',
@@ -36,7 +36,7 @@ export class ContactPointModel implements ContactPoint {
     )
   }
 
-  static createUrl(url: string): ContactPointModel {
+  static createUrl(url: string): ContactPoint {
     return new ContactPointModel(
       undefined,
       'url',
@@ -45,7 +45,7 @@ export class ContactPointModel implements ContactPoint {
     )
   }
 
-  static createSiteContactName(firstname: string, name: string, title: string): ContactPointModel {
+  static createSiteContactName(firstname: string, name: string, title: string): ContactPoint {
     return new ContactPointModel(
       [ExtensionModel.createEclaireSiteContactName(firstname, name, title)],
       undefined,

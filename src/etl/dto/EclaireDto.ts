@@ -4,7 +4,6 @@ import { RiphJardeDto } from './RiphJardeDto'
 import { ModelUtils } from '../../shared/models/eclaire/ModelUtils'
 
 export class EclaireDto {
-
   constructor(
     readonly reglementation_code: string,
     readonly etat: string,

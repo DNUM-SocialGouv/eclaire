@@ -87,7 +87,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
   }
 
   private buildUrl(queryParams: ResearchStudyQueryParams[]): string {
-    const url = new URL(this.domainName)
+    const url: URL = new URL(this.domainName)
     url.pathname = 'R4/ResearchStudy'
 
     for (const queryParam of queryParams) {

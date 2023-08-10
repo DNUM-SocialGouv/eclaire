@@ -18,7 +18,7 @@ export class IdentifierModel implements Identifier {
     readonly value: string | undefined
   ) {}
 
-  static createPrimarySlice(number: string): IdentifierModel {
+  static createPrimarySlice(number: string): Identifier {
     return new IdentifierModel(
       ReferenceModel.createAssignerForPrimaryIdentifier(),
       'official',
@@ -29,7 +29,7 @@ export class IdentifierModel implements Identifier {
   static createSecondarySlice(
     ctisOrNationalNumber: string,
     assigner: AssignerForSecondaryIdentifier
-  ): IdentifierModel {
+  ): Identifier {
     return new IdentifierModel(
       ReferenceModel.createAssignerForSecondaryIdentifier(assigner),
       'secondary',

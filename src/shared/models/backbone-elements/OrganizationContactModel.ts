@@ -21,7 +21,7 @@ export class OrganizationContactModel implements OrganizationContact {
     contactName: string,
     contactPhone: string,
     contactMail: string
-  ) {
+  ): OrganizationContact {
     return new OrganizationContactModel(
       HumanNameModel.create(contactFirstname, contactName),
       CodeableConceptModel.createOrganizationContactPurpose(),

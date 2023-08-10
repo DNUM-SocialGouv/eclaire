@@ -26,8 +26,9 @@ export class LocationModel implements Location {
     organism: string,
     service: string,
     title: string
-  ) {
+  ): Location {
     const lines: string[] = [address, service]
+
     return new LocationModel(
       id,
       AddressModel.create(lines, city, undefined, undefined),

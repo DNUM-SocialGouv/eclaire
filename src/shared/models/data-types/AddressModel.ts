@@ -10,7 +10,7 @@ export class AddressModel implements Address {
     readonly use: 'home' | 'work' | 'temp' | 'old' | 'billing' | undefined
   ) {}
 
-  static create(lines: string[], city: string, postalCode: string, country: string): AddressModel {
+  static create(lines: string[], city: string, postalCode: string, country: string): Address {
     return new AddressModel(
       city,
       country,

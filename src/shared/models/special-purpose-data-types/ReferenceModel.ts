@@ -7,7 +7,7 @@ export class ReferenceModel implements Reference {
     readonly type: string | undefined
   ) {}
 
-  static createGroupDetailingStudyCharacteristics(enrollmentGroupId: string): ReferenceModel {
+  static createGroupDetailingStudyCharacteristics(enrollmentGroupId: string): Reference {
     return new ReferenceModel(
       'Reference to group detailing study characteristics',
       this.generateInternalFragmentReference(enrollmentGroupId),
@@ -15,7 +15,7 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createAssignerForPrimaryIdentifier(): ReferenceModel {
+  static createAssignerForPrimaryIdentifier(): Reference {
     return new ReferenceModel(
       'Reference to primary assigner',
       undefined,
@@ -23,7 +23,7 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createAssignerForSecondaryIdentifier(assigner: AssignerForSecondaryIdentifier): ReferenceModel {
+  static createAssignerForSecondaryIdentifier(assigner: AssignerForSecondaryIdentifier): Reference {
     const type = 'Organization'
     return new ReferenceModel(
       'Reference to secondary assigner',
@@ -32,7 +32,7 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createPrimarySponsor(primarySponsorOrganizationId: string): ReferenceModel {
+  static createPrimarySponsor(primarySponsorOrganizationId: string): Reference {
     const type = 'Organization'
     return new ReferenceModel(
       'Reference to primary sponsor',
@@ -41,7 +41,7 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createSecondarySponsor(secondarySponsorOrganizationId: string): ReferenceModel {
+  static createSecondarySponsor(secondarySponsorOrganizationId: string): Reference {
     const type = 'Organization'
     return new ReferenceModel(
       'Reference to secondary sponsor',
@@ -50,7 +50,7 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createSite(id: string): ReferenceModel {
+  static createSite(id: string): Reference {
     const type = 'Location'
     return new ReferenceModel(
       'Reference to site',

@@ -30,7 +30,7 @@ export class GroupModel implements Group {
     studyPopulation: string,
     studyInclusion: string,
     studyExclusion: string
-  ): GroupModel {
+  ): Group {
     const emptySexIfNull = ModelUtils.emptyIfNull(sex)
     const emptyAgeRangeIfNull = ModelUtils.emptyIfNull(ageRange)
     const emptyStudySizeIfNull = ModelUtils.emptyNumberIfNull(studySize)
@@ -44,7 +44,7 @@ export class GroupModel implements Group {
     if (emptyAgeRangeIfNull !== ModelUtils.NULL_IN_SOURCE) {
       parsedAgeRanges = emptyAgeRangeIfNull
         .split(', ')
-        .map((ageRange: string): GroupCharacteristicModel => GroupCharacteristicModel.createAgeRange(ageRange))
+        .map((ageRange): GroupCharacteristic => GroupCharacteristicModel.createAgeRange(ageRange))
     }
 
     return new GroupModel(

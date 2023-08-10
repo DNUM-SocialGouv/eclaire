@@ -17,19 +17,19 @@ export class ModelUtils {
     return this.generateIdWithSuffix(value, 'enrollment-group-id')
   }
 
-  static generatePrimarySponsorOrganizationId(value: string) {
+  static generatePrimarySponsorOrganizationId(value: string): string {
     return this.generateIdWithSuffix(value, 'primary-sponsor')
   }
 
-  static generateSecondarySponsorOrganizationId(value: string) {
+  static generateSecondarySponsorOrganizationId(value: string): string {
     return this.generateIdWithSuffix(value, 'secondary-sponsor')
   }
 
-  static generateCtisSiteId(value: string) {
+  static generateCtisSiteId(value: string): string {
     return this.generateIdWithSuffix(value, 'ctis-site')
   }
 
-  static generateIdWithSuffix(value: string, suffix: string) {
+  static generateIdWithSuffix(value: string, suffix: string): string {
     return `${value}-${suffix}`
   }
 

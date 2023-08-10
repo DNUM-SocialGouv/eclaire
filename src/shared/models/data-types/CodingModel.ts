@@ -17,7 +17,7 @@ export class CodingModel implements Coding {
     readonly version: string | undefined
   ) {}
 
-  static createResearchStudyPhase(rawPhase: string): CodingModel {
+  static createResearchStudyPhase(rawPhase: string): Coding {
     const isolatedPhase = rawPhase?.split(/(Phase( *)\w{1,3})/)[1]
 
     const correspondingPhaseCode: PhaseCode = this.getPhaseCodeFromText(isolatedPhase)
@@ -49,7 +49,7 @@ export class CodingModel implements Coding {
     }
   }
 
-  static createDiseaseCoding(disease: string): CodingModel {
+  static createDiseaseCoding(disease: string): Coding {
     return new CodingModel(
       undefined,
       disease,
@@ -58,7 +58,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createMedDraCode(medDraCode: string): CodingModel {
+  static createMedDraCode(medDraCode: string): Coding {
     return new CodingModel(
       medDraCode,
       medDraCodeSystem.title,
@@ -67,7 +67,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createGender(gender: string): CodingModel {
+  static createGender(gender: string): Coding {
     const matchingGender = administrativeGenderCodeSystem.concept.find(
       (genderReference) => genderReference.code === gender.toLowerCase()
     )
@@ -80,7 +80,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createResearchStudyGroupCategory(researchStudyGroupCategory: string): CodingModel {
+  static createResearchStudyGroupCategory(researchStudyGroupCategory: string): Coding {
     return new CodingModel(
       undefined,
       researchStudyGroupCategory,
@@ -89,7 +89,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createStudyPopulation(studyPopulation: string): CodingModel {
+  static createStudyPopulation(studyPopulation: string): Coding {
     return new CodingModel(
       undefined,
       studyPopulation,
@@ -98,7 +98,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createGroupCharacteristicCode(code: string): CodingModel {
+  static createGroupCharacteristicCode(code: string): Coding {
     return new CodingModel(
       undefined,
       code,
@@ -107,7 +107,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createRegulationCode(regulationCode: string): CodingModel {
+  static createRegulationCode(regulationCode: string): Coding {
     return new CodingModel(
       undefined,
       regulationCode,
@@ -116,7 +116,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createInclusion(inclusion: string): CodingModel {
+  static createInclusion(inclusion: string): Coding {
     return new CodingModel(
       undefined,
       inclusion,
@@ -125,7 +125,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createExclusion(exclusion: string): CodingModel {
+  static createExclusion(exclusion: string): Coding {
     return new CodingModel(
       undefined,
       exclusion,
@@ -134,7 +134,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createOrganizationContactPurpose(): CodingModel {
+  static createOrganizationContactPurpose(): Coding {
     return new CodingModel(
       'ADMIN',
       'Administrative',
@@ -143,7 +143,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createOrganizationSponsorType(): CodingModel {
+  static createOrganizationSponsorType(): Coding {
     return new CodingModel(
       'crs',
       'Clinical Research Sponsor',
@@ -152,7 +152,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createContactType(contactType: ContactType): CodingModel {
+  static createContactType(contactType: ContactType): Coding {
     const reference = eclaireTypeContactCodeSystem.concept.find(
       (reference) => reference.display.includes(contactType)
     )
@@ -165,7 +165,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createLocation(countryCode: string): CodingModel {
+  static createLocation(countryCode: string): Coding {
     const country = countryCodeSystem.compose.include[0].concept.find(
       (country): boolean => country.code === countryCode
     )
@@ -178,7 +178,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createLabelType(labelType: LabelType): CodingModel {
+  static createLabelType(labelType: LabelType): Coding {
     const matchingLabelType = titleTypeCodeSystem.concept.find(
       (reference) => reference.code === labelType
     )

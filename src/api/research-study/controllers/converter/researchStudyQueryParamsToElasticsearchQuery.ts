@@ -3,7 +3,7 @@ import { ElasticsearchBodyBuilder, ElasticsearchBodyType, Operator } from '../..
 
 export function researchStudyQueryParamsToElasticsearchQuery(researchStudyQueryParams: ResearchStudyQueryParams[]): ElasticsearchBodyType {
   const numberOfResourcesByPage = Number(process.env.NUMBER_OF_RESOURCES_BY_PAGE)
-  const searchBody = new ElasticsearchBodyBuilder()
+  const searchBody: ElasticsearchBodyBuilder = new ElasticsearchBodyBuilder()
     .withFrom(0)
     .withSize(numberOfResourcesByPage)
 

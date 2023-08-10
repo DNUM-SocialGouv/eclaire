@@ -11,7 +11,7 @@ export class CodeableConceptModel implements CodeableConcept {
     readonly text: string | undefined
   ) {}
 
-  static createResearchStudyPhase(researchStudyPhase: string): CodeableConceptModel {
+  static createResearchStudyPhase(researchStudyPhase: string): CodeableConcept {
     const emptyResearchStudyPhaseIfNull = ModelUtils.emptyIfNull(researchStudyPhase)
 
     return new CodeableConceptModel(
@@ -20,14 +20,14 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createCategory(regulationCode: string): CodeableConceptModel {
+  static createCategory(regulationCode: string): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createRegulationCode(regulationCode)],
       'Regulation Code'
     )
   }
 
-  static createDiseaseCondition(disease: string): CodeableConceptModel {
+  static createDiseaseCondition(disease: string): CodeableConcept {
     const emptyDiseaseIfNull = ModelUtils.emptyIfNull(disease)
 
     return new CodeableConceptModel(
@@ -36,7 +36,7 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createMedDraCondition(medDraInformation: string): CodeableConceptModel {
+  static createMedDraCondition(medDraInformation: string): CodeableConcept {
     let parsedMedDraInformation: string[]
 
     const emptyMedDraInformationIfNull = ModelUtils.emptyIfNull(medDraInformation)
@@ -47,7 +47,7 @@ export class CodeableConceptModel implements CodeableConcept {
       parsedMedDraInformation = emptyMedDraInformationIfNull.split(', ')
     }
 
-    const coding: CodingModel[] = []
+    const coding: Coding[] = []
     parsedMedDraInformation.forEach((medDRACode) => {
       coding.push(CodingModel.createMedDraCode(medDRACode))
     })
@@ -58,7 +58,7 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createGenders(genders: string): CodeableConceptModel {
+  static createGenders(genders: string): CodeableConcept {
     let parsedGenders: string[]
 
     if (genders === ModelUtils.NULL_IN_SOURCE) {
@@ -73,68 +73,68 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createResearchStudyGroupCategory(researchStudyGroupCategory: string): CodeableConceptModel {
+  static createResearchStudyGroupCategory(researchStudyGroupCategory: string): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createResearchStudyGroupCategory(researchStudyGroupCategory)],
       'Research Study Group Category'
     )
   }
 
-  static createStudyPopulation(studyPopulation: string): CodeableConceptModel {
+  static createStudyPopulation(studyPopulation: string): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createStudyPopulation(studyPopulation)],
       'Study Population'
     )
   }
 
-  static createInclusion(studyInclusion: string): CodeableConceptModel {
+  static createInclusion(studyInclusion: string): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createInclusion(studyInclusion)],
       'Study Inclusion Criteria'
     )
   }
 
-  static createExclusion(studyExclusion: string): CodeableConceptModel {
+  static createExclusion(studyExclusion: string): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createExclusion(studyExclusion)],
       'Study Exclusion Criteria'
     )
   }
 
-  static createGroupCharacteristicCode(code: string): CodeableConceptModel {
+  static createGroupCharacteristicCode(code: string): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createGroupCharacteristicCode(code)],
       'Group characteristic code'
     )
   }
 
-  static createOrganizationContactPurpose(): CodeableConceptModel {
+  static createOrganizationContactPurpose(): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createOrganizationContactPurpose()],
       'Organization Contact Purpose'
     )
   }
 
-  static createClinicalResearchSponsor(): CodeableConceptModel {
+  static createClinicalResearchSponsor(): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createOrganizationSponsorType()],
       'Organization Sponsor Type'
     )
   }
 
-  static createContactType(contactType: ContactType): CodeableConceptModel {
+  static createContactType(contactType: ContactType): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createContactType(contactType)],
       'Contact Type'
     )
   }
 
-  static createLocations(countriesCode: string): CodeableConceptModel[] | undefined {
+  static createLocations(countriesCode: string): CodeableConcept[] | undefined {
     const emptyCountriesCodeIfNull = ModelUtils.emptyIfNull(countriesCode)
 
     if (emptyCountriesCodeIfNull === ModelUtils.NULL_IN_SOURCE) return undefined
 
-    return emptyCountriesCodeIfNull.split(', ').map((countryCode): CodeableConceptModel => {
+    return emptyCountriesCodeIfNull.split(', ').map((countryCode): CodeableConcept => {
       return new CodeableConceptModel(
         [CodingModel.createLocation(countryCode)],
 
@@ -143,7 +143,7 @@ export class CodeableConceptModel implements CodeableConcept {
     })
   }
 
-  static createLabelType(labelType: LabelType): CodeableConceptModel {
+  static createLabelType(labelType: LabelType): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createLabelType(labelType)],
       'Label Type'

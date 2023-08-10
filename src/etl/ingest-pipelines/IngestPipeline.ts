@@ -1,8 +1,8 @@
 import { errors } from '@elastic/elasticsearch'
+import { ResearchStudy } from 'fhir/r4'
 
 import { ElasticsearchService } from '../../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../../shared/logger/LoggerService'
-import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { RiphCtisDto } from '../dto/RiphCtisDto'
 import { RiphDmDto } from '../dto/RiphDmDto'
 import { RiphJardeDto } from '../dto/RiphJardeDto'
@@ -11,19 +11,19 @@ import { FileReaderService } from '../file-reader/FileReaderService'
 const EXPORT_DATE = '27-07-2023'
 
 export abstract class IngestPipeline {
-  abstract readonly type: string;
+  protected abstract readonly type: string;
 
   constructor(
-    readonly logger: LoggerService,
-    readonly elasticsearchService: ElasticsearchService,
-    readonly readerService: FileReaderService
+    protected readonly logger: LoggerService,
+    private readonly elasticsearchService: ElasticsearchService,
+    private readonly readerService: FileReaderService
   ) {}
 
   abstract execute(): Promise<void>
   abstract transform(riphDtos: RiphDto[]): ResearchStudyElasticsearchDocument[]
 
-  extract<T>(): T[] {
-    const dto: T[] = this.readerService.read(`export_eclaire_${this.type}-${EXPORT_DATE}.json`) as T[]
+  extract(): [] {
+    const dto: [] = this.readerService.read(`export_eclaire_${this.type}-${EXPORT_DATE}.json`) as []
     this.logger.info(`[Extract] ${dto.length} (${this.type})`)
     return [...dto]
   }
@@ -49,4 +49,4 @@ export type IndexElasticsearch = Readonly<{
 
 type RiphDto = RiphCtisDto | RiphDmDto | RiphJardeDto
 
-export type ResearchStudyElasticsearchDocument = IndexElasticsearch | ResearchStudyModel
+export type ResearchStudyElasticsearchDocument = IndexElasticsearch | ResearchStudy

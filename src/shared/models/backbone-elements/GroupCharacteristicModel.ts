@@ -14,7 +14,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     readonly valueReference: Reference | undefined
   ) {}
 
-  static createGender(genders: string): GroupCharacteristicModel {
+  static createGender(genders: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
       undefined,
       false,
@@ -26,7 +26,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createAgeRange(ageRange: string): GroupCharacteristicModel {
+  static createAgeRange(ageRange: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
       undefined,
       false,
@@ -38,7 +38,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createResearchStudyGroupCategory(researchStudyGroupCategory: string): GroupCharacteristicModel {
+  static createResearchStudyGroupCategory(researchStudyGroupCategory: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
       undefined,
       false,
@@ -50,7 +50,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createStudyPopulation(studyPopulation: string): GroupCharacteristicModel {
+  static createStudyPopulation(studyPopulation: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
       undefined,
       false,
@@ -62,7 +62,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createInclusion(studyInclusion: string): GroupCharacteristicModel {
+  static createInclusion(studyInclusion: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
       undefined,
       false,
@@ -74,7 +74,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createExclusion(studyExclusion: string): GroupCharacteristicModel {
+  static createExclusion(studyExclusion: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
       undefined,
       true,

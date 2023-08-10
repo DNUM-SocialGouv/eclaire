@@ -19,7 +19,7 @@ export class ContactDetailModel implements ContactDetail {
     phone: string,
     email: string,
     contactType: ContactType | undefined
-  ): ContactDetailModel {
+  ): ContactDetail {
     const emptyFirstNameIfNull = ModelUtils.emptyIfNull(firstname)
     const emptyLastnameIfNull = ModelUtils.emptyIfNull(lastname)
     const emptyPhoneIfNull = ModelUtils.emptyIfNull(phone)

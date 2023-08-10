@@ -8,10 +8,7 @@ export class MetaModel implements Meta {
     readonly profile: string[] | undefined
   ) {}
 
-  static create(
-    history: string,
-    approvalDate: string
-  ): MetaModel {
+  static create(history: string, approvalDate: string): Meta {
     const emptyHistoryDateIfNull = ModelUtils.emptyIfNull(history)
     const emptyApprovalDateIfNull = ModelUtils.emptyIfNull(approvalDate)
 

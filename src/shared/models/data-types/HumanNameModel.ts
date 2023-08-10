@@ -16,7 +16,7 @@ export class HumanNameModel implements HumanName {
       | undefined
   ) {}
 
-  static create(firstname: string, name: string, title?: string) {
+  static create(firstname: string, name: string, title?: string): HumanName {
     let prefix: string[] = undefined
     if (title !== undefined) prefix = [title]
 

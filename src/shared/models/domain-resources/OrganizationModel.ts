@@ -40,7 +40,7 @@ export class OrganizationModel implements Organization {
     contactName: string,
     contactPhone: string,
     contactMail: string
-  ): OrganizationModel {
+  ): Organization {
     const emptyIfNullSponsorName = ModelUtils.emptyIfNull(sponsorName)
     const emptyIfNullSponsorAddress = ModelUtils.emptyIfNull(sponsorAddress)
     const emptyIfNullSponsorCity = ModelUtils.emptyIfNull(sponsorCity)
@@ -76,7 +76,7 @@ export class OrganizationModel implements Organization {
     )
   }
 
-  static createSecondaryAssigner(assignerForSecondaryIdentifier: AssignerForSecondaryIdentifier): OrganizationModel {
+  static createSecondaryAssigner(assignerForSecondaryIdentifier: AssignerForSecondaryIdentifier): Organization {
     let name: string
     let url: string
 
