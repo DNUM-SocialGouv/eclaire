@@ -3,6 +3,7 @@ import { EclaireDto } from '../../../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../../etl/factory/ResearchStudyModelFactory'
 import { riphCtisDto, setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
 import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
+import { ResearchStudyQueryParams } from '../controllers/converter/ResearchStudyQueryParams'
 import { elasticsearchIndexMapping } from 'src/shared/elasticsearch/elasticsearchIndexMapping'
 
 describe('elasticsearch research study repository', () => {
@@ -24,7 +25,7 @@ describe('elasticsearch research study repository', () => {
     it('should find research studies', async () => {
       // GIVEN
       const { esResearchStudyRepository } = await setup()
-      const queryParams: { name: string, value: string }[] = []
+      const queryParams: ResearchStudyQueryParams[] = []
       const elasticsearchBody: ElasticsearchBodyType = {
         from: 0,
         query: { bool: { must: [] } },
@@ -294,7 +295,7 @@ describe('elasticsearch research study repository', () => {
         it('should send a URL for the next page', async () => {
           // GIVEN
           const { elasticsearchService, esResearchStudyRepository, numberOfResourcesByPage } = await setup()
-          const queryParams: { name: string, value: string }[] = []
+          const queryParams: ResearchStudyQueryParams[] = []
           const firstPage = numberOfResourcesByPage * 0
           const elasticsearchBody: ElasticsearchBodyType = {
             from: firstPage,

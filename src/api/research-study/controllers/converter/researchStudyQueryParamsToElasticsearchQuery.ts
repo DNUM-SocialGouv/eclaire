@@ -1,19 +1,16 @@
+import { ResearchStudyQueryParams } from './ResearchStudyQueryParams'
 import { ElasticsearchBodyBuilder, ElasticsearchBodyType, Operator } from '../../application/entities/ElasticsearchBody'
-import { ResearchStudyQueryModel } from '../ResearchStudyQueryModel'
 
-export function researchStudyQueryToElasticsearchQuery(researchStudyQuery: Partial<ResearchStudyQueryModel>): ElasticsearchBodyType {
+export function researchStudyQueryParamsToElasticsearchQuery(researchStudyQueryParams: ResearchStudyQueryParams[]): ElasticsearchBodyType {
   const numberOfResourcesByPage = Number(process.env.NUMBER_OF_RESOURCES_BY_PAGE)
   const searchBody = new ElasticsearchBodyBuilder()
     .withFrom(0)
     .withSize(numberOfResourcesByPage)
 
-  Object.entries(researchStudyQuery).forEach((key: [string, string]) => {
-    const field = key[0]
-    const value = key[1]
+  for (const { name, value } of researchStudyQueryParams) {
+    if (value === '') break
 
-    if (value === '') return
-
-    switch (field) {
+    switch (name) {
       case '_getpagesoffset':
         buildFrom(searchBody, value)
         break
@@ -44,9 +41,9 @@ export function researchStudyQueryToElasticsearchQuery(researchStudyQuery: Parti
         break
 
       default:
-        buildMatch(searchBody, field, value)
+        buildMatch(searchBody, name, value)
     }
-  })
+  }
 
   return searchBody.build()
 }
@@ -87,8 +84,8 @@ function buildLastUpdated(searchBody: ElasticsearchBodyBuilder, value: string) {
   }
 }
 
-function buildRange(searchBody: ElasticsearchBodyBuilder, field: string, value: string, operators: Operator[]) {
-  searchBody.withRange(field, value, operators)
+function buildRange(searchBody: ElasticsearchBodyBuilder, name: string, value: string, operators: Operator[]) {
+  searchBody.withRange(name, value, operators)
 }
 
 function buildFrom(searchBody: ElasticsearchBodyBuilder, value: string) {
@@ -124,6 +121,6 @@ function buildSort(searchBody: ElasticsearchBodyBuilder, value: string) {
   })
 }
 
-function buildMatch(searchBody: ElasticsearchBodyBuilder, field: string, value: string) {
-  searchBody.withMatch(field, value)
+function buildMatch(searchBody: ElasticsearchBodyBuilder, name: string, value: string) {
+  searchBody.withMatch(name, value)
 }

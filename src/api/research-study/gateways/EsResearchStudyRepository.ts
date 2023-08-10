@@ -6,6 +6,7 @@ import { ElasticsearchService } from '../../../shared/elasticsearch/Elasticsearc
 import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
 import { BundleModel } from '../application/entities/BundleModel'
 import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
+import { ResearchStudyQueryParams } from '../controllers/converter/ResearchStudyQueryParams'
 
 @Injectable()
 export class EsResearchStudyRepository implements ResearchStudyRepository {
@@ -25,7 +26,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return await this.elasticsearchService.findOneDocument(id)
   }
 
-  async search(elasticsearchBody: ElasticsearchBodyType, queryParams: { name: string, value: string }[]): Promise<Bundle> {
+  async search(elasticsearchBody: ElasticsearchBodyType, queryParams: ResearchStudyQueryParams[]): Promise<Bundle> {
     const response = await this.elasticsearchService.search(elasticsearchBody)
 
     const links: BundleLink[] = []
@@ -38,11 +39,11 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return BundleModel.create(response.hits, links, response.total, `${this.domainName}R4/ResearchStudy`)
   }
 
-  private buildSearchLinks(links: BundleLink[], offset: number, total: number, queryParams: { name: string, value: string }[]) {
+  private buildSearchLinks(links: BundleLink[], offset: number, total: number, queryParams: ResearchStudyQueryParams[]) {
     const hasMoreResult = total > offset * this.numberOfResourcesByPage
     const hasMoreResultsThanResourcesPerPage = total > this.numberOfResourcesByPage
 
-    const removePagesOffsetParam = (queryParam: { name: string, value: string }): boolean => queryParam.name !== '_getpagesoffset'
+    const removePagesOffsetParam = (queryParam: ResearchStudyQueryParams): boolean => queryParam.name !== '_getpagesoffset'
     const nextUrl = this.buildUrl([
       ...queryParams.filter(removePagesOffsetParam),
       { name: '_getpagesoffset', value: `${offset + this.numberOfResourcesByPage}` },
@@ -58,13 +59,13 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     }
   }
 
-  private buildSearchAfterLinks(links: BundleLink[], hits: [], queryParams: { name: string, value: string }[]) {
+  private buildSearchAfterLinks(links: BundleLink[], hits: [], queryParams: ResearchStudyQueryParams[]) {
     const nextSorts = hits.map((hit: { sort: number[] }): number => hit.sort[0]).reverse()
     const nextIds = hits.map((hit: { _source: { id: string }}): string => hit._source.id).reverse()
 
     this.buildSelfLink(links, queryParams)
 
-    const removeSearchAfterParam = (queryParam: { name: string, value: string }): boolean => queryParam.name !== 'search_after'
+    const removeSearchAfterParam = (queryParam: ResearchStudyQueryParams): boolean => queryParam.name !== 'search_after'
     const nextUrl = this.buildUrl([
       ...queryParams.filter(removeSearchAfterParam),
       { name: 'search_after', value: `${nextSorts[0]},${nextIds[0]}` },
@@ -76,7 +77,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     })
   }
 
-  private buildSelfLink(links: BundleLink[], queryParams: { name: string, value: string }[]) {
+  private buildSelfLink(links: BundleLink[], queryParams: ResearchStudyQueryParams[]) {
     links.push(
       {
         relation: 'self',
@@ -85,7 +86,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     )
   }
 
-  private buildUrl(queryParams: { name: string, value: string }[]): string {
+  private buildUrl(queryParams: ResearchStudyQueryParams[]): string {
     const url = new URL(this.domainName)
     url.pathname = 'R4/ResearchStudy'
 
