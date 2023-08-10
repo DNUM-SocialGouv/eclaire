@@ -4,9 +4,9 @@ import { ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagg
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Response } from 'express'
 
+import { researchStudyQueryParamsToElasticsearchQuery } from './converter/researchStudyQueryParamsToElasticsearchQuery'
 import { ResearchStudyQueryModel } from './ResearchStudyQueryModel'
 import { OperationOutcomeModel } from '../application/entities/OperationOutcomeModel'
-import { researchStudyQueryToElasticsearchQuery } from '../controllers/converter/researchStudyQueryToElasticsearchQuery'
 import { EsResearchStudyRepository } from '../gateways/EsResearchStudyRepository'
 
 @ApiTags('Research study')
@@ -21,7 +21,9 @@ export class SearchResearchStudyController {
   @Get()
   async execute(@Query() researchStudyQuery: ResearchStudyQueryModel, @Res() response: Response): Promise<void> {
     try {
-      response.json(await this.researchStudyRepository.search(researchStudyQueryToElasticsearchQuery(researchStudyQuery)))
+      const researchStudyQueryParams = ResearchStudyQueryModel.transform(researchStudyQuery)
+
+      response.json(await this.researchStudyRepository.search(researchStudyQueryParamsToElasticsearchQuery(researchStudyQueryParams), researchStudyQueryParams))
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access

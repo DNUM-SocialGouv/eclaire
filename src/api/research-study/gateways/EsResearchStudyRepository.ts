@@ -6,6 +6,7 @@ import { ElasticsearchService } from '../../../shared/elasticsearch/Elasticsearc
 import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
 import { BundleModel } from '../application/entities/BundleModel'
 import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
+import { ResearchStudyQueryParams } from '../controllers/converter/ResearchStudyQueryParams'
 
 @Injectable()
 export class EsResearchStudyRepository implements ResearchStudyRepository {
@@ -25,54 +26,74 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return await this.elasticsearchService.findOneDocument(id)
   }
 
-  async search(elasticsearchBody: ElasticsearchBodyType): Promise<Bundle> {
+  async search(elasticsearchBody: ElasticsearchBodyType, queryParams: ResearchStudyQueryParams[]): Promise<Bundle> {
     const response = await this.elasticsearchService.search(elasticsearchBody)
 
-    let links: BundleLink[]
+    const links: BundleLink[] = []
     if (response.total === this.maxTotalConstraintFromElasticsearch && elasticsearchBody.sort !== undefined) {
-      links = this.buildSearchAfterLinks(response.hits, elasticsearchBody.search_after)
+      this.buildSearchAfterLinks(links, response.hits, queryParams)
     } else {
-      links = this.buildSearchLinks(elasticsearchBody.from, response.total)
+      this.buildSearchLinks(links, elasticsearchBody.from, response.total, queryParams)
     }
 
     return BundleModel.create(response.hits, links, response.total, `${this.domainName}R4/ResearchStudy`)
   }
 
-  private buildSearchLinks(offset: number, total: number): BundleLink[] {
+  private buildSearchLinks(links: BundleLink[], offset: number, total: number, queryParams: ResearchStudyQueryParams[]) {
     const hasMoreResult = total > offset * this.numberOfResourcesByPage
-    const link: BundleLink[] = [
-      {
-        relation: 'self',
-        url: `${this.domainName}R4/ResearchStudy?_getpagesoffset=${offset}`,
-      },
-    ]
+    const hasMoreResultsThanResourcesPerPage = total > this.numberOfResourcesByPage
 
-    if (hasMoreResult) {
-      link.push({
+    const removePagesOffsetParam = (queryParam: ResearchStudyQueryParams): boolean => queryParam.name !== '_getpagesoffset'
+    const nextUrl = this.buildUrl([
+      ...queryParams.filter(removePagesOffsetParam),
+      { name: '_getpagesoffset', value: `${offset + this.numberOfResourcesByPage}` },
+    ])
+
+    this.buildSelfLink(links, queryParams)
+
+    if (hasMoreResult && hasMoreResultsThanResourcesPerPage) {
+      links.push({
         relation: 'next',
-        url: `${this.domainName}R4/ResearchStudy?_getpagesoffset=${offset + this.numberOfResourcesByPage}`,
+        url: nextUrl,
       })
     }
-
-    return link
   }
 
-  private buildSearchAfterLinks(hits: [], searchAfter: (number | string)[]): BundleLink[] {
+  private buildSearchAfterLinks(links: BundleLink[], hits: [], queryParams: ResearchStudyQueryParams[]) {
     const nextSorts = hits.map((hit: { sort: number[] }): number => hit.sort[0]).reverse()
     const nextIds = hits.map((hit: { _source: { id: string }}): string => hit._source.id).reverse()
-    const previousSort = searchAfter === undefined ? '' : searchAfter[0]
 
-    const link: BundleLink[] = [
+    this.buildSelfLink(links, queryParams)
+
+    const removeSearchAfterParam = (queryParam: ResearchStudyQueryParams): boolean => queryParam.name !== 'search_after'
+    const nextUrl = this.buildUrl([
+      ...queryParams.filter(removeSearchAfterParam),
+      { name: 'search_after', value: `${nextSorts[0]},${nextIds[0]}` },
+    ])
+
+    links.push({
+      relation: 'next',
+      url: nextUrl,
+    })
+  }
+
+  private buildSelfLink(links: BundleLink[], queryParams: ResearchStudyQueryParams[]) {
+    links.push(
       {
         relation: 'self',
-        url: `${this.domainName}R4/ResearchStudy?search_after=${previousSort}`,
-      },
-      {
-        relation: 'next',
-        url: `${this.domainName}R4/ResearchStudy?search_after=${nextSorts[0]},${nextIds[0]}`,
-      },
-    ]
+        url: this.buildUrl(queryParams),
+      }
+    )
+  }
 
-    return link
+  private buildUrl(queryParams: ResearchStudyQueryParams[]): string {
+    const url = new URL(this.domainName)
+    url.pathname = 'R4/ResearchStudy'
+
+    for (const queryParam of queryParams) {
+      url.searchParams.append(queryParam.name, queryParam.value)
+    }
+
+    return url.toString()
   }
 }

@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 
+import { ResearchStudyQueryParams } from './converter/ResearchStudyQueryParams'
+
 export class ResearchStudyQueryModel {
   @ApiProperty({ description: 'e.g. CTIS : 2022-500014-26-00, e.g. DM : 2021-A01861-40, e.g. JARDE : 2021-000304-38', required: false })
     identifier: string
@@ -24,4 +26,12 @@ export class ResearchStudyQueryModel {
 
   _getpagesoffset: string
   search_after: string
+
+  static transform(researchStudyQuery: ResearchStudyQueryModel): ResearchStudyQueryParams[] {
+    return Object
+      .entries(researchStudyQuery)
+      .map((key: [string, string]): ResearchStudyQueryParams => {
+        return { name: key[0], value: key[1] }
+      })
+  }
 }
