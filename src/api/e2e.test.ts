@@ -1,4 +1,5 @@
 import { ConfigModule } from '@nestjs/config'
+import { NestExpressApplication } from '@nestjs/platform-express'
 import { Test } from '@nestjs/testing'
 import supertest from 'supertest'
 
@@ -6,7 +7,7 @@ import { AppModule } from '../AppModule'
 import { EclaireDto } from '../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../etl/factory/ResearchStudyModelFactory'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
-import { deleteElasticsearchIndice, riphCtisDto } from 'src/shared/test/helpers/elasticsearchHelper'
+import { riphCtisDto } from 'src/shared/test/helpers/elasticsearchHelper'
 
 describe('app', () => {
   it('should retrieve one research study', async () => {
@@ -53,19 +54,18 @@ describe('app', () => {
 })
 
 async function getHttpServer() {
-  await deleteElasticsearchIndice()
-
   const moduleFixture = await Test.createTestingModule({
     imports: [
-      ConfigModule.forRoot({ envFilePath: ['.env.test'] }),
+      ConfigModule.forRoot({ envFilePath: ['.env.end2end.test'] }),
       AppModule,
     ],
   }).compile()
 
-  const app = moduleFixture.createNestApplication()
+  const app = moduleFixture.createNestApplication<NestExpressApplication>()
   await app.init()
 
   const elasticsearchService = app.get<ElasticsearchService>(ElasticsearchService)
+  await elasticsearchService.deleteAnIndex()
   const eclaireDto1: EclaireDto = EclaireDto.fromCtis(riphCtisDto[0])
   const eclaireDto2: EclaireDto = EclaireDto.fromCtis(riphCtisDto[1])
 
@@ -76,6 +76,5 @@ async function getHttpServer() {
     ResearchStudyModelFactory.create(eclaireDto2),
   ])
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return app.getHttpServer()
 }

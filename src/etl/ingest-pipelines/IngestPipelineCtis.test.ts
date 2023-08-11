@@ -7,16 +7,7 @@ describe('etl | IngestPipelineCtis', () => {
   describe('extract', () => {
     it('should extract raw data into an array', async () => {
       // given
-      const {
-        elasticsearchService,
-        logger,
-        readerService,
-      } = await setupClientAndElasticsearchService()
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockReturnValueOnce()
-      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDto)
-
-      const ingestPipelineCtis = new IngestPipelineCtis(logger, elasticsearchService, readerService)
+      const { ingestPipelineCtis } = await setup()
 
       // when
       const result = ingestPipelineCtis.extract()
@@ -29,16 +20,7 @@ describe('etl | IngestPipelineCtis', () => {
   describe('transform', () => {
     it('should transform array of raw data into a collection of research study documents', async () => {
       // given
-      const {
-        elasticsearchService,
-        logger,
-        readerService,
-      } = await setupClientAndElasticsearchService()
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockReturnValueOnce()
-      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDto)
-
-      const ingestPipelineCtis = new IngestPipelineCtis(logger, elasticsearchService, readerService)
+      const { ingestPipelineCtis } = await setup()
 
       // when
       const result = ingestPipelineCtis.transform(riphCtisDto)
@@ -51,16 +33,7 @@ describe('etl | IngestPipelineCtis', () => {
   describe('load', () => {
     it('should load in bulk a collection of research study documents', async () => {
       // given
-      const {
-        elasticsearchService,
-        logger,
-        readerService,
-      } = await setupClientAndElasticsearchService()
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockReturnValueOnce()
-      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDto)
-
-      const ingestPipelineCtis = new IngestPipelineCtis(logger, elasticsearchService, readerService)
+      const { elasticsearchService, ingestPipelineCtis } = await setup()
       const documents = ingestPipelineCtis.transform(riphCtisDto)
 
       // when
@@ -71,3 +44,17 @@ describe('etl | IngestPipelineCtis', () => {
     })
   })
 })
+
+async function setup() {
+  const {
+    elasticsearchService,
+    logger,
+    readerService,
+  } = await setupClientAndElasticsearchService()
+  vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+  vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDto)
+
+  const ingestPipelineCtis = new IngestPipelineCtis(logger, elasticsearchService, readerService)
+
+  return { elasticsearchService, ingestPipelineCtis }
+}

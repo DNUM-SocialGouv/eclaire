@@ -17,7 +17,7 @@ export class ElasticsearchService {
   }
 
   async deleteAnIndex(): Promise<void> {
-    await this.client.indices.delete({ index: this.index } satisfies RequestParams.IndicesDelete)
+    await this.client.indices.delete({ ignore_unavailable: true, index: this.index } satisfies RequestParams.IndicesDelete)
   }
 
   async updateAnIndex<T>(mappings: T): Promise<void> {

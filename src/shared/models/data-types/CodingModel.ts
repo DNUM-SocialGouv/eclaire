@@ -23,12 +23,12 @@ export class CodingModel implements Coding {
     const correspondingPhaseCode: PhaseCode = this.getPhaseCodeFromText(isolatedPhase)
 
     const matchingPhase = researchStudyPhaseCodeSystem.concept.find(
-      (phase) => phase.code === correspondingPhaseCode
+      (phase): boolean => phase.code === correspondingPhaseCode
     )
 
     return new CodingModel(
-      matchingPhase?.code,
-      matchingPhase?.display,
+      matchingPhase.code,
+      matchingPhase.display,
       researchStudyPhaseCodeSystem.url,
       researchStudyPhaseCodeSystem.version
     )
@@ -69,12 +69,12 @@ export class CodingModel implements Coding {
 
   static createGender(gender: string): Coding {
     const matchingGender = administrativeGenderCodeSystem.concept.find(
-      (genderReference) => genderReference.code === gender.toLowerCase()
+      (genderReference): boolean => genderReference.code === gender.toLowerCase()
     )
 
     return new CodingModel(
-      matchingGender?.code,
-      matchingGender?.display,
+      matchingGender.code,
+      matchingGender.display,
       administrativeGenderCodeSystem.url,
       administrativeGenderCodeSystem.version
     )
@@ -93,15 +93,6 @@ export class CodingModel implements Coding {
     return new CodingModel(
       undefined,
       studyPopulation,
-      undefined,
-      undefined
-    )
-  }
-
-  static createGroupCharacteristicCode(code: string): Coding {
-    return new CodingModel(
-      undefined,
-      code,
       undefined,
       undefined
     )

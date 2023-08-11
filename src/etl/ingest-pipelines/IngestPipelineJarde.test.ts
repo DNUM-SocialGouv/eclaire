@@ -6,21 +6,13 @@ import {
   riphJardeDtoWithApprovedAndFromCtisStatuses,
   setupClientAndElasticsearchService,
 } from '../../shared/test/helpers/elasticsearchHelper'
+import { RiphJardeDto } from '../dto/RiphJardeDto'
 
 describe('etl | IngestPipelineJarde', () => {
   describe('extract', () => {
     it('should extract raw data into an array', async () => {
       // given
-      const {
-        elasticsearchService,
-        logger,
-        readerService,
-      } = await setupClientAndElasticsearchService()
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockReturnValueOnce()
-      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtoWithActiveStatus)
-
-      const ingestPipelineJarde = new IngestPipelineJarde(logger, elasticsearchService, readerService)
+      const { ingestPipelineJarde } = await setup(riphJardeDtoWithActiveStatus)
 
       // when
       const result = ingestPipelineJarde.extract()
@@ -33,16 +25,7 @@ describe('etl | IngestPipelineJarde', () => {
   describe('transform', () => {
     it('should transform array of raw data into a collection of research study documents', async () => {
       // given
-      const {
-        elasticsearchService,
-        logger,
-        readerService,
-      } = await setupClientAndElasticsearchService()
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockReturnValueOnce()
-      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtoWithActiveStatus)
-
-      const ingestPipelineJarde = new IngestPipelineJarde(logger, elasticsearchService, readerService)
+      const { ingestPipelineJarde } = await setup(riphJardeDtoWithActiveStatus)
 
       // when
       const result = ingestPipelineJarde.transform(riphJardeDtoWithActiveStatus)
@@ -53,39 +36,21 @@ describe('etl | IngestPipelineJarde', () => {
 
     it('should not find "RAPATRIEE_CTIS" because it is a duplicate', async () => {
       // GIVEN
-      const {
-        elasticsearchService,
-        logger,
-        readerService,
-      } = await setupClientAndElasticsearchService()
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockReturnValueOnce()
-      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtoWithApprovedAndFromCtisStatuses)
-
-      const ingestPipelineJarde = new IngestPipelineJarde(logger, elasticsearchService, readerService)
+      const { ingestPipelineJarde } = await setup(riphJardeDtoWithApprovedAndFromCtisStatuses)
 
       // WHEN
       const result = ingestPipelineJarde.transform(riphJardeDtoWithApprovedAndFromCtisStatuses)
 
       // THEN
-      const excludeJarde = riphJardeDtoWithApprovedAndFromCtisStatuses[1].numero_national
-      expect(result).not.toContain(excludeJarde)
+      expect(result).toHaveLength(2)
+      expect(result).not.toContainEqual({ create: { _id: '2021-A01022-59' } })
     })
   })
 
   describe('load', () => {
     it('should load in bulk a collection of research study documents', async () => {
       // given
-      const {
-        elasticsearchService,
-        logger,
-        readerService,
-      } = await setupClientAndElasticsearchService()
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockReturnValueOnce()
-      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtoWithActiveStatus)
-
-      const ingestPipelineJarde = new IngestPipelineJarde(logger, elasticsearchService, readerService)
+      const { elasticsearchService, ingestPipelineJarde } = await setup(riphJardeDtoWithActiveStatus)
       const documents = ingestPipelineJarde.transform(riphJardeDtoWithActiveStatus)
 
       // when
@@ -96,3 +61,17 @@ describe('etl | IngestPipelineJarde', () => {
     })
   })
 })
+
+async function setup(riphJardeDto: RiphJardeDto[]) {
+  const {
+    elasticsearchService,
+    logger,
+    readerService,
+  } = await setupClientAndElasticsearchService()
+  vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+  vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDto)
+
+  const ingestPipelineJarde = new IngestPipelineJarde(logger, elasticsearchService, readerService)
+
+  return { elasticsearchService, ingestPipelineJarde }
+}

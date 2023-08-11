@@ -4,16 +4,7 @@ import { EclaireDto } from '../dto/EclaireDto'
 
 describe('research study model factory', () => {
   it('should build a research study model, when a RIPH CTIS object with all fields filled is given', () => {
-    // GIVEN
-    vi.useFakeTimers()
-    vi.setSystemTime(new Date(2022, 0, 1))
-    const normalResearchStudyDto: EclaireDto = EclaireDto.fromCtis(riphCtisDto[0])
-
-    // WHEN
-    const researchStudyModel = ResearchStudyModelFactory.create(normalResearchStudyDto)
-
-    // THEN
-    expect(researchStudyModel).toMatchInlineSnapshot(`
+    expect(ResearchStudyModelFactory.create(EclaireDto.fromCtis(riphCtisDto[0]))).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "category": [
           CodeableConceptModel {
@@ -803,16 +794,7 @@ describe('research study model factory', () => {
   })
 
   it('should build a research study model, when a RIPH DM object with all fields filled is given', () => {
-    // GIVEN
-    vi.useFakeTimers()
-    vi.setSystemTime(new Date(2022, 0, 1))
-    const normalResearchStudyDto: EclaireDto = EclaireDto.fromDm(riphDmDto[0])
-
-    // WHEN
-    const researchStudyModel = ResearchStudyModelFactory.create(normalResearchStudyDto)
-
-    // THEN
-    expect(researchStudyModel).toMatchInlineSnapshot(`
+    expect(ResearchStudyModelFactory.create(EclaireDto.fromDm(riphDmDto[0]))).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "category": [
           CodeableConceptModel {
@@ -1407,16 +1389,7 @@ describe('research study model factory', () => {
   })
 
   it('should build a research study model, when a RIPH Jarde object with all fields filled is given', () => {
-    // GIVEN
-    vi.useFakeTimers()
-    vi.setSystemTime(new Date(2022, 0, 1))
-    const normalResearchStudyDto: EclaireDto = EclaireDto.fromJarde(riphJardeDtoWithActiveStatus[0])
-
-    // WHEN
-    const researchStudyModel = ResearchStudyModelFactory.create(normalResearchStudyDto)
-
-    // THEN
-    expect(researchStudyModel).toMatchInlineSnapshot(`
+    expect(ResearchStudyModelFactory.create(EclaireDto.fromJarde(riphJardeDtoWithActiveStatus[0]))).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "category": [
           CodeableConceptModel {
@@ -2011,16 +1984,9 @@ describe('research study model factory', () => {
   })
 
   it('should build a research study model, when null fields is given', () => {
-    // GIVEN
     vi.useFakeTimers()
     vi.setSystemTime(new Date(2022, 0, 1))
-    const researchStudyDtoWithEmptyFields: EclaireDto = EclaireDto.fromCtis(riphCtisDto[1])
-
-    // WHEN
-    const researchStudyModel = ResearchStudyModelFactory.create(researchStudyDtoWithEmptyFields)
-
-    // THEN
-    expect(researchStudyModel).toMatchInlineSnapshot(`
+    expect(ResearchStudyModelFactory.create(EclaireDto.fromCtis(riphCtisDto[1]))).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "category": [
           CodeableConceptModel {

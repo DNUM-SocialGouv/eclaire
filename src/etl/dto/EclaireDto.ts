@@ -36,6 +36,16 @@ export class EclaireDto {
   ) {}
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
+    const sites = riphCtisDto.sites.map((site): Site => new Site(
+      site.organisme,
+      site.adresse,
+      site.ville,
+      site.titre,
+      site.nom,
+      site.prenom,
+      site.service
+    ))
+
     return new EclaireDto(
       riphCtisDto.reglementation_code,
       riphCtisDto.etat,
@@ -48,7 +58,7 @@ export class EclaireDto {
       riphCtisDto.contact_prenom,
       riphCtisDto.contact_telephone,
       riphCtisDto.contact_courriel,
-      riphCtisDto.sites,
+      sites,
       riphCtisDto.numero_ctis,
       riphCtisDto.titre,
       riphCtisDto.intervention_faible,

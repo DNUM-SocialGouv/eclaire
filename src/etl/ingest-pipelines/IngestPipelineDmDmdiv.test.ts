@@ -7,16 +7,7 @@ describe('etl | IngestPipelineDm', () => {
   describe('extract', () => {
     it('should extract raw data into an array', async () => {
       // given
-      const {
-        elasticsearchService,
-        logger,
-        readerService,
-      } = await setupClientAndElasticsearchService()
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockReturnValueOnce()
-      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphDmDto)
-
-      const ingestPipelineDm = new IngestPipelineDmDmdiv(logger, elasticsearchService, readerService)
+      const { ingestPipelineDm } = await setup()
 
       // when
       const result = ingestPipelineDm.extract()
@@ -29,16 +20,7 @@ describe('etl | IngestPipelineDm', () => {
   describe('transform', () => {
     it('should transform array of raw data into a collection of research study documents', async () => {
       // given
-      const {
-        elasticsearchService,
-        logger,
-        readerService,
-      } = await setupClientAndElasticsearchService()
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockReturnValueOnce()
-      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphDmDto)
-
-      const ingestPipelineDm = new IngestPipelineDmDmdiv(logger, elasticsearchService, readerService)
+      const { ingestPipelineDm } = await setup()
 
       // when
       const result = ingestPipelineDm.transform(riphDmDto)
@@ -51,16 +33,7 @@ describe('etl | IngestPipelineDm', () => {
   describe('load', () => {
     it('should load in bulk a collection of research study documents', async () => {
       // given
-      const {
-        elasticsearchService,
-        logger,
-        readerService,
-      } = await setupClientAndElasticsearchService()
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      vi.spyOn(logger, 'info').mockResolvedValueOnce()
-      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphDmDto)
-
-      const ingestPipelineDm = new IngestPipelineDmDmdiv(logger, elasticsearchService, readerService)
+      const { elasticsearchService, ingestPipelineDm } = await setup()
       const documents = ingestPipelineDm.transform(riphDmDto)
 
       // when
@@ -71,3 +44,17 @@ describe('etl | IngestPipelineDm', () => {
     })
   })
 })
+
+async function setup() {
+  const {
+    elasticsearchService,
+    logger,
+    readerService,
+  } = await setupClientAndElasticsearchService()
+  vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+  vi.spyOn(readerService, 'read').mockReturnValueOnce(riphDmDto)
+
+  const ingestPipelineDm = new IngestPipelineDmDmdiv(logger, elasticsearchService, readerService)
+
+  return { elasticsearchService, ingestPipelineDm }
+}

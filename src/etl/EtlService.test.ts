@@ -35,16 +35,44 @@ describe('extract transform load service', () => {
     })
   })
 
+  describe('when index is deleted', () => {
+    it('should not delete an index when delete has failed with ResponseError', async () => {
+      // GIVEN
+      const { client, etlService } = await setup()
+      // @ts-ignore
+      vi.spyOn(client.indices, 'delete').mockRejectedValueOnce(new errors.ResponseError({ body: { error: { reason: 'ES delete operation has failed' } } }))
+
+      // WHEN
+      // THEN
+      await expect(etlService.deleteIndex()).rejects.toThrow('ES delete operation has failed')
+    })
+
+    it('should not delete an index when delete has failed with ElasticsearchClientError', async () => {
+      // GIVEN
+      const { client, etlService } = await setup()
+      vi.spyOn(client.indices, 'delete').mockRejectedValueOnce(new errors.ElasticsearchClientError('ES delete operation has failed'))
+
+      // WHEN
+      // THEN
+      await expect(etlService.deleteIndex()).rejects.toThrow('ES delete operation has failed')
+    })
+  })
+
   describe('when import is performed', () => {
     it('should find data for each clinical trials type (CTIS, DM, JARDE)', async () => {
       // GIVEN
-      const { elasticsearchService, etlService } = await setup()
+      const { elasticsearchService, etlService, readerService } = await setup()
+      await etlService.deleteIndex()
       await etlService.createIndex()
 
       // WHEN
       await etlService.import()
 
       // THEN
+      expect(readerService.read).toHaveBeenNthCalledWith(1, 'export_eclaire_ctis-27-07-2023.json')
+      expect(readerService.read).toHaveBeenNthCalledWith(2, 'export_eclaire_dm-dmdiv-27-07-2023.json')
+      expect(readerService.read).toHaveBeenNthCalledWith(3, 'export_eclaire_jarde-27-07-2023.json')
+
       const ctisResearchStudy = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphCtisDto[0].numero_ctis)
       const dmClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphDmDto[0].numero_national)
       const jarde1ClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphJardeDtoWithActiveStatus[0].numero_national)
@@ -89,8 +117,6 @@ async function setup() {
     logger,
     readerService,
   } = await setupClientAndElasticsearchService()
-
-  vi.spyOn(logger, 'info').mockReturnValue()
   vi.spyOn(readerService, 'read')
     .mockReturnValueOnce(riphCtisDto)
     .mockReturnValueOnce(riphDmDto)
@@ -98,5 +124,5 @@ async function setup() {
 
   const etlService = new EtlService(logger, elasticsearchService, readerService)
 
-  return { client, elasticsearchService, etlService }
+  return { client, elasticsearchService, etlService, readerService }
 }

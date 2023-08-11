@@ -10,29 +10,18 @@ import { RiphCtisDto } from 'src/etl/dto/RiphCtisDto'
 import { RiphDmDto } from 'src/etl/dto/RiphDmDto'
 import { RiphJardeDto } from 'src/etl/dto/RiphJardeDto'
 
-export async function deleteElasticsearchIndice() {
+export async function setupClientAndElasticsearchService() {
   process.env.SCALINGO_ELASTICSEARCH_URL = 'http://localhost:9201'
   process.env.ECLAIRE_URL = 'http://localhost:3000/'
   process.env.NUMBER_OF_RESOURCES_BY_PAGE = '2'
+
   const configService = new ConfigService()
   const elasticsearchConfig = new ElasticsearchConfig(configService)
-
   const client = new Client(elasticsearchConfig.getClientOptions())
-  await client.indices.delete({
-    ignore_unavailable: true,
-    index: 'eclaire',
-  })
-
-  return {
-    client,
-    configService,
-  }
-}
-
-export async function setupClientAndElasticsearchService() {
-  const { client, configService } = await deleteElasticsearchIndice()
   const logger = new LoggerService()
+  vi.spyOn(logger, 'info').mockReturnValue()
   const elasticsearchService = new ElasticsearchService(client)
+  await elasticsearchService.deleteAnIndex()
   const readerService = new FileReaderService()
 
   return {

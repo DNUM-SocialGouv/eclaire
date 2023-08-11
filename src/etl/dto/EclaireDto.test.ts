@@ -32,7 +32,7 @@ describe('etl | dto | EclaireDto', () => {
         "reglementation_code": "REG536",
         "sexe": "Male,Female",
         "sites": [
-          {
+          Site {
             "adresse": "Avenue Eugene Avinee",
             "nom": "Aumar",
             "organisme": "Donnée non disponible",

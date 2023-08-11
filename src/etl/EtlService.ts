@@ -12,7 +12,6 @@ import { LoggerService } from '../shared/logger/LoggerService'
 
 @Injectable()
 export class EtlService {
-
   constructor(
     private readonly logger: LoggerService,
     private readonly elasticsearchService: ElasticsearchService,
@@ -21,6 +20,7 @@ export class EtlService {
 
   async createIndex(): Promise<void> {
     this.logger.info('-- Début de la création de l’index ECLAIRE dans Elasticsearch.')
+
     try {
       await this.elasticsearchService.createAnIndex(elasticsearchIndexMapping)
       this.logger.info('-- Fin de la création de l’index ECLAIRE dans Elasticsearch.')
@@ -35,6 +35,7 @@ export class EtlService {
 
   async deleteIndex(): Promise<void> {
     this.logger.info('-- Début de la destruction de l’index ECLAIRE dans Elasticsearch.')
+
     try {
       await this.elasticsearchService.deleteAnIndex()
       this.logger.info('-- Fin de la destruction de l’index ECLAIRE dans Elasticsearch.')

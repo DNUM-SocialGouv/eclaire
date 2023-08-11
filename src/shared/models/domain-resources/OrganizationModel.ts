@@ -77,8 +77,8 @@ export class OrganizationModel implements Organization {
   }
 
   static createSecondaryAssigner(assignerForSecondaryIdentifier: AssignerForSecondaryIdentifier): Organization {
-    let name: string
-    let url: string
+    let name: string = undefined
+    let url: string = undefined
 
     switch (assignerForSecondaryIdentifier) {
       case AssignerForSecondaryIdentifier.ANSM:
@@ -94,8 +94,6 @@ export class OrganizationModel implements Organization {
         url = 'https://eudract.ema.europa.eu/'
         break
       default:
-        name = undefined
-        url = undefined
     }
 
     return new OrganizationModel(

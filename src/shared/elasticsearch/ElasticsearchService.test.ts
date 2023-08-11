@@ -26,7 +26,7 @@ describe('elasticsearch service', () => {
     await service.deleteAnIndex()
 
     // THEN
-    expect(fakeClient.indices.delete).toHaveBeenCalledWith({ index: 'eclaire' })
+    expect(fakeClient.indices.delete).toHaveBeenCalledWith({ ignore_unavailable: true, index: 'eclaire' })
   })
 
   it('should update an index', async () => {

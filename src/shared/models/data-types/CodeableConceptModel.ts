@@ -101,13 +101,6 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createGroupCharacteristicCode(code: string): CodeableConcept {
-    return new CodeableConceptModel(
-      [CodingModel.createGroupCharacteristicCode(code)],
-      'Group characteristic code'
-    )
-  }
-
   static createOrganizationContactPurpose(): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createOrganizationContactPurpose()],

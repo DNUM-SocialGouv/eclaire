@@ -40,14 +40,7 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
 
   describe('#createCategory', () => {
     it('should create a properly formatted model with category when information is given', () => {
-      // given
-      const regulationCode = 'REG536'
-
-      // when
-      const result = CodeableConceptModel.createCategory(regulationCode)
-
-      // then
-      expect(result).toMatchInlineSnapshot(`
+      expect(CodeableConceptModel.createCategory('REG536')).toMatchInlineSnapshot(`
         CodeableConceptModel {
           "coding": [
             CodingModel {

@@ -10,7 +10,6 @@
     "src/shared/**/*.ts",
     "!src/**/*.test.ts",
     "!src/api/**/*.ts",
-    "!src/etl/researchStudyIndexMapping.ts",
     "!src/etl/console.ts",
     "!src/shared/elasticsearch/ElasticsearchConfig.ts",
     "!src/shared/logger/*.ts",
