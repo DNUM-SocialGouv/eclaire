@@ -1,30 +1,34 @@
 import { expect } from 'vitest'
 
 import { IngestPipelineDmDmdiv } from './IngestPipelineDmDmdiv'
-import { riphDmDto, setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
+import { setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
 import { RiphDmDto } from '../dto/RiphDmDto'
+import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('etl | IngestPipelineDm', () => {
   describe('extract', () => {
     it('should extract raw data into an array', async () => {
       // given
-      const { ingestPipelineDm } = await setup()
+      const riphDmDtos = [RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm()]
+      const { ingestPipelineDm, readerService } = await setup()
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphDmDtos)
 
       // when
       const result = ingestPipelineDm.extract<RiphDmDto>()
 
       // then
-      expect(result).toStrictEqual(riphDmDto)
+      expect(result).toStrictEqual(riphDmDtos)
     })
   })
 
   describe('transform', () => {
     it('should transform array of raw data into a collection of research study documents', async () => {
       // given
+      const riphDmDtos = [RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm()]
       const { ingestPipelineDm } = await setup()
 
       // when
-      const result = ingestPipelineDm.transform(riphDmDto)
+      const result = ingestPipelineDm.transform(riphDmDtos)
 
       // then
       expect(result).toHaveLength(6)
@@ -34,8 +38,10 @@ describe('etl | IngestPipelineDm', () => {
   describe('load', () => {
     it('should load in bulk a collection of research study documents', async () => {
       // given
+      const riphDmDtos = [RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm()]
       const { elasticsearchService, ingestPipelineDm } = await setup()
-      const documents = ingestPipelineDm.transform(riphDmDto)
+      const documents = ingestPipelineDm.transform(riphDmDtos)
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
 
       // when
       await ingestPipelineDm.load(documents)
@@ -52,10 +58,8 @@ async function setup() {
     logger,
     readerService,
   } = await setupClientAndElasticsearchService()
-  vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-  vi.spyOn(readerService, 'read').mockReturnValueOnce(riphDmDto)
 
   const ingestPipelineDm = new IngestPipelineDmDmdiv(logger, elasticsearchService, readerService)
 
-  return { elasticsearchService, ingestPipelineDm }
+  return { elasticsearchService, ingestPipelineDm, readerService }
 }

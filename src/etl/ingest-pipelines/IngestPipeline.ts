@@ -1,4 +1,3 @@
-import { errors } from '@elastic/elasticsearch'
 import { ResearchStudy } from 'fhir/r4'
 
 import { ElasticsearchService } from '../../shared/elasticsearch/ElasticsearchService'
@@ -29,15 +28,7 @@ export abstract class IngestPipeline {
   }
 
   async load(documents: ResearchStudyElasticsearchDocument[]): Promise<void> {
-    try {
-      await this.elasticsearchService.bulkDocuments<ResearchStudyElasticsearchDocument>(documents)
-    } catch (error) {
-      if (error instanceof errors.ResponseError) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        throw new Error(error.meta.body.error.reason as string)
-      }
-      throw error
-    }
+    await this.elasticsearchService.bulkDocuments<ResearchStudyElasticsearchDocument>(documents)
   }
 }
 

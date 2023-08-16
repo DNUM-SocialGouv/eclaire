@@ -1,11 +1,12 @@
 import { EsResearchStudyRepository } from './EsResearchStudyRepository'
 import { EclaireDto } from '../../../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../../etl/factory/ResearchStudyModelFactory'
-import { riphCtisDto, setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
+import { setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
 import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
 import { ResearchStudyQueryParams } from '../controllers/converter/ResearchStudyQueryParams'
 import { elasticsearchIndexMapping } from 'src/shared/elasticsearch/elasticsearchIndexMapping'
 import { SearchResponse } from 'src/shared/elasticsearch/ElasticsearchService'
+import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('elasticsearch research study repository', () => {
   describe('retrieve one research study', () => {
@@ -362,30 +363,12 @@ describe('elasticsearch research study repository', () => {
 async function setup() {
   const { configService, elasticsearchService } = await setupClientAndElasticsearchService()
   const numberOfResourcesByPage = Number(process.env.NUMBER_OF_RESOURCES_BY_PAGE)
-  const researchStudy1 = {
-    ...EclaireDto.fromCtis(riphCtisDto[0]),
-    titre: 'un autre titre pour la pagination 1',
-  }
-  const researchStudy2 = {
-    ...EclaireDto.fromCtis(riphCtisDto[0]),
-    titre: 'un autre titre pour la pagination 2',
-  }
-  const researchStudy3 = {
-    ...EclaireDto.fromCtis(riphCtisDto[0]),
-    titre: 'un autre titre pour la pagination 3',
-  }
-  const researchStudy4 = {
-    ...EclaireDto.fromCtis(riphCtisDto[0]),
-    titre: 'un autre titre pour la pagination 4',
-  }
-  const researchStudy5 = {
-    ...EclaireDto.fromCtis(riphCtisDto[0]),
-    titre: 'un autre titre pour la pagination 5',
-  }
-  const researchStudy6 = {
-    ...EclaireDto.fromCtis(riphCtisDto[0]),
-    titre: 'un autre titre pour la pagination 6',
-  }
+  const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'un autre titre pour la pagination 1' }))
+  const researchStudy2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'un autre titre pour la pagination 2' }))
+  const researchStudy3: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'un autre titre pour la pagination 3' }))
+  const researchStudy4: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'un autre titre pour la pagination 4' }))
+  const researchStudy5: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'un autre titre pour la pagination 5' }))
+  const researchStudy6: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'un autre titre pour la pagination 6' }))
 
   await elasticsearchService.createAnIndex(elasticsearchIndexMapping)
   await elasticsearchService.bulkDocuments([

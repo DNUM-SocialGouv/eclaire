@@ -1,30 +1,34 @@
 import { expect } from 'vitest'
 
 import { IngestPipelineCtis } from './IngestPipelineCtis'
-import { riphCtisDto, setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
+import { setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
 import { RiphCtisDto } from '../dto/RiphCtisDto'
+import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('etl | IngestPipelineCtis', () => {
   describe('extract', () => {
     it('should extract raw data into an array', async () => {
       // given
-      const { ingestPipelineCtis } = await setup()
+      const riphCtisDtos = [RiphDtoTestFactory.ctis(), RiphDtoTestFactory.ctis(), RiphDtoTestFactory.ctis()]
+      const { ingestPipelineCtis, readerService } = await setup()
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDtos)
 
       // when
       const result = ingestPipelineCtis.extract<RiphCtisDto>()
 
       // then
-      expect(result).toStrictEqual(riphCtisDto)
+      expect(result).toStrictEqual(riphCtisDtos)
     })
   })
 
   describe('transform', () => {
     it('should transform array of raw data into a collection of research study documents', async () => {
       // given
+      const riphCtisDtos = [RiphDtoTestFactory.ctis(), RiphDtoTestFactory.ctis(), RiphDtoTestFactory.ctis()]
       const { ingestPipelineCtis } = await setup()
 
       // when
-      const result = ingestPipelineCtis.transform(riphCtisDto)
+      const result = ingestPipelineCtis.transform(riphCtisDtos)
 
       // then
       expect(result).toHaveLength(6)
@@ -34,8 +38,10 @@ describe('etl | IngestPipelineCtis', () => {
   describe('load', () => {
     it('should load in bulk a collection of research study documents', async () => {
       // given
+      const riphCtisDtos = [RiphDtoTestFactory.ctis(), RiphDtoTestFactory.ctis(), RiphDtoTestFactory.ctis()]
       const { elasticsearchService, ingestPipelineCtis } = await setup()
-      const documents = ingestPipelineCtis.transform(riphCtisDto)
+      const documents = ingestPipelineCtis.transform(riphCtisDtos)
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
 
       // when
       await ingestPipelineCtis.load(documents)
@@ -52,10 +58,8 @@ async function setup() {
     logger,
     readerService,
   } = await setupClientAndElasticsearchService()
-  vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-  vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDto)
 
   const ingestPipelineCtis = new IngestPipelineCtis(logger, elasticsearchService, readerService)
 
-  return { elasticsearchService, ingestPipelineCtis }
+  return { elasticsearchService, ingestPipelineCtis, readerService }
 }

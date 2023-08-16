@@ -1,10 +1,10 @@
 import { ResearchStudyModelFactory } from './ResearchStudyModelFactory'
-import { riphCtisDto, riphDmDto, riphJardeDtoWithActiveStatus } from '../../shared/test/helpers/elasticsearchHelper'
 import { EclaireDto } from '../dto/EclaireDto'
+import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('research study model factory', () => {
   it('should build a research study model, when a RIPH CTIS object with all fields filled is given', () => {
-    expect(ResearchStudyModelFactory.create(EclaireDto.fromCtis(riphCtisDto[0]))).toMatchInlineSnapshot(`
+    expect(ResearchStudyModelFactory.create(EclaireDto.fromCtis(RiphDtoTestFactory.ctis()))).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "category": [
           CodeableConceptModel {
@@ -794,7 +794,7 @@ describe('research study model factory', () => {
   })
 
   it('should build a research study model, when a RIPH DM object with all fields filled is given', () => {
-    expect(ResearchStudyModelFactory.create(EclaireDto.fromDm(riphDmDto[0]))).toMatchInlineSnapshot(`
+    expect(ResearchStudyModelFactory.create(EclaireDto.fromDm(RiphDtoTestFactory.dm()))).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "category": [
           CodeableConceptModel {
@@ -1389,7 +1389,7 @@ describe('research study model factory', () => {
   })
 
   it('should build a research study model, when a RIPH Jarde object with all fields filled is given', () => {
-    expect(ResearchStudyModelFactory.create(EclaireDto.fromJarde(riphJardeDtoWithActiveStatus[0]))).toMatchInlineSnapshot(`
+    expect(ResearchStudyModelFactory.create(EclaireDto.fromJarde(RiphDtoTestFactory.jarde()))).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "category": [
           CodeableConceptModel {
@@ -1986,7 +1986,7 @@ describe('research study model factory', () => {
   it('should build a research study model, when null fields is given', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date(2022, 0, 1))
-    expect(ResearchStudyModelFactory.create(EclaireDto.fromCtis(riphCtisDto[1]))).toMatchInlineSnapshot(`
+    expect(ResearchStudyModelFactory.create(EclaireDto.fromCtis(RiphDtoTestFactory.emptyCtis()))).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "category": [
           CodeableConceptModel {

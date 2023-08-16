@@ -1,6 +1,6 @@
 import { ModelUtils } from './ModelUtils'
 import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
-import { riphCtisDto } from 'src/shared/test/helpers/elasticsearchHelper'
+import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('shared | models | custom | ModelUtils', () => {
   describe('#identifyAssigner', () => {
@@ -32,16 +32,28 @@ describe('shared | models | custom | ModelUtils', () => {
 
   describe('#getMostRecentIsoDate', () => {
     it('should return the last date of approval, when the last date of approval is higher than historic date', () => {
+      // given
+      const riphCtisDto = RiphDtoTestFactory.ctis({
+        dates_avis_favorable_ms_mns: '22.00800.000094-SM-1:2022-11-07, 22.00800.000094-SM-2:2023-04-12',
+        historique: '2023-03-16:En cours',
+      })
+
       // when
-      const mostRecentIsoDate = ModelUtils.getMostRecentIsoDate(riphCtisDto[0].historique, riphCtisDto[0].dates_avis_favorable_ms_mns)
+      const mostRecentIsoDate = ModelUtils.getMostRecentIsoDate(riphCtisDto.historique, riphCtisDto.dates_avis_favorable_ms_mns)
 
       // then
       expect(mostRecentIsoDate).toBe('2023-04-12T00:00:00.000Z')
     })
 
     it('should return the historic date, when the historic date is higher than last date of approval', () => {
+      // given
+      const riphCtisDto = RiphDtoTestFactory.ctis({
+        dates_avis_favorable_ms_mns: '21.01155.000011-MS03:2022-10-04, 21.01155.000011-MS04.1:2023-04-06',
+        historique: '2022-04-28:Suspendue, 2023-11-29:Terminée',
+      })
+
       // when
-      const mostRecentIsoDate = ModelUtils.getMostRecentIsoDate(riphCtisDto[2].historique, riphCtisDto[2].dates_avis_favorable_ms_mns)
+      const mostRecentIsoDate = ModelUtils.getMostRecentIsoDate(riphCtisDto.historique, riphCtisDto.dates_avis_favorable_ms_mns)
 
       // then
       expect(mostRecentIsoDate).toBe('2023-11-29T00:00:00.000Z')

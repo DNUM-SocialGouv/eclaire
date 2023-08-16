@@ -1,34 +1,34 @@
 import { expect } from 'vitest'
 
 import { IngestPipelineJarde } from './IngestPipelineJarde'
-import {
-  riphJardeDtoWithActiveStatus,
-  riphJardeDtoWithApprovedAndFromCtisStatuses,
-  setupClientAndElasticsearchService,
-} from '../../shared/test/helpers/elasticsearchHelper'
+import { setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
 import { RiphJardeDto } from '../dto/RiphJardeDto'
+import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('etl | IngestPipelineJarde', () => {
   describe('extract', () => {
     it('should extract raw data into an array', async () => {
       // given
-      const { ingestPipelineJarde } = await setup(riphJardeDtoWithActiveStatus)
+      const riphJardeDtos = [RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde()]
+      const { ingestPipelineJarde, readerService } = await setup()
+      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtos)
 
       // when
       const result = ingestPipelineJarde.extract<RiphJardeDto>()
 
       // then
-      expect(result).toStrictEqual(riphJardeDtoWithActiveStatus)
+      expect(result).toStrictEqual(riphJardeDtos)
     })
   })
 
   describe('transform', () => {
     it('should transform array of raw data into a collection of research study documents', async () => {
       // given
-      const { ingestPipelineJarde } = await setup(riphJardeDtoWithActiveStatus)
+      const riphJardeDtos = [RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde()]
+      const { ingestPipelineJarde } = await setup()
 
       // when
-      const result = ingestPipelineJarde.transform(riphJardeDtoWithActiveStatus)
+      const result = ingestPipelineJarde.transform(riphJardeDtos)
 
       // then
       expect(result).toHaveLength(6)
@@ -36,7 +36,8 @@ describe('etl | IngestPipelineJarde', () => {
 
     it('should not find "RAPATRIEE_CTIS" because it is a duplicate', async () => {
       // GIVEN
-      const { ingestPipelineJarde } = await setup(riphJardeDtoWithApprovedAndFromCtisStatuses)
+      const riphJardeDtoWithApprovedAndFromCtisStatuses = [RiphDtoTestFactory.jarde({ etat: 'A_DEMARRER' }), RiphDtoTestFactory.jarde({ etat: 'RAPATRIEE_CTIS' })]
+      const { ingestPipelineJarde } = await setup()
 
       // WHEN
       const result = ingestPipelineJarde.transform(riphJardeDtoWithApprovedAndFromCtisStatuses)
@@ -50,8 +51,10 @@ describe('etl | IngestPipelineJarde', () => {
   describe('load', () => {
     it('should load in bulk a collection of research study documents', async () => {
       // given
-      const { elasticsearchService, ingestPipelineJarde } = await setup(riphJardeDtoWithActiveStatus)
-      const documents = ingestPipelineJarde.transform(riphJardeDtoWithActiveStatus)
+      const riphJardeDtos = [RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde()]
+      const { elasticsearchService, ingestPipelineJarde } = await setup()
+      const documents = ingestPipelineJarde.transform(riphJardeDtos)
+      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
 
       // when
       await ingestPipelineJarde.load(documents)
@@ -62,16 +65,14 @@ describe('etl | IngestPipelineJarde', () => {
   })
 })
 
-async function setup(riphJardeDto: RiphJardeDto[]) {
+async function setup() {
   const {
     elasticsearchService,
     logger,
     readerService,
   } = await setupClientAndElasticsearchService()
-  vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-  vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDto)
 
   const ingestPipelineJarde = new IngestPipelineJarde(logger, elasticsearchService, readerService)
 
-  return { elasticsearchService, ingestPipelineJarde }
+  return { elasticsearchService, ingestPipelineJarde, readerService }
 }

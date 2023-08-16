@@ -7,7 +7,7 @@ import { AppModule } from '../AppModule'
 import { EclaireDto } from '../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../etl/factory/ResearchStudyModelFactory'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
-import { riphCtisDto } from 'src/shared/test/helpers/elasticsearchHelper'
+import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('app', () => {
   it('should retrieve one research study', async () => {
@@ -66,8 +66,8 @@ async function getHttpServer() {
 
   const elasticsearchService = app.get<ElasticsearchService>(ElasticsearchService)
   await elasticsearchService.deleteAnIndex()
-  const eclaireDto1: EclaireDto = EclaireDto.fromCtis(riphCtisDto[0])
-  const eclaireDto2: EclaireDto = EclaireDto.fromCtis(riphCtisDto[1])
+  const eclaireDto1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis())
+  const eclaireDto2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.emptyCtis())
 
   await elasticsearchService.bulkDocuments([
     { index: { _id: 'fakeId1' } },

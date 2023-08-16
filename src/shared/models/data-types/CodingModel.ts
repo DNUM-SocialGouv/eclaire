@@ -20,32 +20,38 @@ export class CodingModel implements Coding {
   static createResearchStudyPhase(rawPhase: string): Coding {
     const isolatedPhase = rawPhase?.split(/(Phase( *)\w{1,3})/)[1]
 
-    const correspondingPhaseCode = this.getPhaseCodeFromText(isolatedPhase)
-
-    const matchingPhase = researchStudyPhaseCodeSystem.concept.find(
-      (phase): boolean => phase.code === correspondingPhaseCode
-    )
+    const { code, display } = this.getPhaseCodeFromText(isolatedPhase)
 
     return new CodingModel(
-      matchingPhase.code,
-      matchingPhase.display,
+      code,
+      display,
       researchStudyPhaseCodeSystem.url,
       researchStudyPhaseCodeSystem.version
     )
   }
 
-  private static getPhaseCodeFromText(isolatedPhase: string): string {
+  private static getPhaseCodeFromText(isolatedPhase: string): { code: string, display: string } {
+    let index = 0
+
     switch (isolatedPhase) {
       case 'Phase I':
-        return PhaseCode.PHASE_1
+        index = 2
+        break
       case 'Phase II':
-        return PhaseCode.PHASE_2
+        index = 4
+        break
       case 'Phase III':
-        return PhaseCode.PHASE_3
+        index = 6
+        break
       case 'Phase IV':
-        return PhaseCode.PHASE_4
+        index = 7
+        break
       default:
-        return PhaseCode.NA
+    }
+
+    return {
+      code: researchStudyPhaseCodeSystem.concept[index].code,
+      display: researchStudyPhaseCodeSystem.concept[index].display,
     }
   }
 
@@ -181,15 +187,4 @@ export class CodingModel implements Coding {
       titleTypeCodeSystem.version
     )
   }
-}
-
-enum PhaseCode {
-  NA = 'n-a',
-  EARLY_PHASE_1 = 'early-phase-1',
-  PHASE_1 = 'phase-1',
-  PHASE_1_2 = 'phase-1-phase-2',
-  PHASE_2 = 'phase-2',
-  PHASE_2_3 = 'phase-2-phase-3',
-  PHASE_3 = 'phase-3',
-  PHASE_4 = 'phase-4',
 }

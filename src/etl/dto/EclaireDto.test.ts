@@ -1,11 +1,11 @@
 import { expect } from 'vitest'
 
 import { EclaireDto } from './EclaireDto'
-import { riphCtisDto, riphDmDto, riphJardeDtoWithActiveStatus } from '../../shared/test/helpers/elasticsearchHelper'
+import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('etl | dto | EclaireDto', () => {
   it('should return a properly mapped eclaire dto when a riph ctis dto is given', () => {
-    expect(EclaireDto.fromCtis(riphCtisDto[0])).toMatchInlineSnapshot(`
+    expect(EclaireDto.fromCtis(RiphDtoTestFactory.ctis())).toMatchInlineSnapshot(`
       EclaireDto {
         "contact_courriel": "global.rochegenentechtrials@roche.com",
         "contact_nom": "Trial Information Support Line-TISL, Switzerland",
@@ -50,7 +50,7 @@ describe('etl | dto | EclaireDto', () => {
   })
 
   it('should return a properly mapped eclaire dto when a riph dm dto is given', () => {
-    expect(EclaireDto.fromDm(riphDmDto[0])).toMatchInlineSnapshot(`
+    expect(EclaireDto.fromDm(RiphDtoTestFactory.dm())).toMatchInlineSnapshot(`
       EclaireDto {
         "contact_courriel": "cdp_scs@soladis.fr",
         "contact_nom": "D'HONDT",
@@ -85,7 +85,7 @@ describe('etl | dto | EclaireDto', () => {
   })
 
   it('should return a properly mapped eclaire dto when a riph jarde dto is given', () => {
-    expect(EclaireDto.fromJarde(riphJardeDtoWithActiveStatus[0])).toMatchInlineSnapshot(`
+    expect(EclaireDto.fromJarde(RiphDtoTestFactory.jarde())).toMatchInlineSnapshot(`
       EclaireDto {
         "contact_courriel": "christophe.gillet@uphf.fr",
         "contact_nom": "GILLET",

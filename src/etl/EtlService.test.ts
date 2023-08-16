@@ -1,13 +1,8 @@
 import { errors } from '@elastic/elasticsearch'
 
 import { EtlService } from './EtlService'
-import {
-  riphCtisDto,
-  riphDmDto, riphJardeDto,
-  riphJardeDtoWithActiveStatus,
-  riphJardeDtoWithApprovedAndFromCtisStatuses,
-  setupClientAndElasticsearchService,
-} from '../shared/test/helpers/elasticsearchHelper'
+import { setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
+import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('extract transform load service', () => {
   describe('when index is created', () => {
@@ -81,15 +76,13 @@ describe('extract transform load service', () => {
       expect(readerService.read).toHaveBeenNthCalledWith(2, 'export_eclaire_dm-dmdiv-27-07-2023.json')
       expect(readerService.read).toHaveBeenNthCalledWith(3, 'export_eclaire_jarde-27-07-2023.json')
 
-      const ctisResearchStudy = await elasticsearchService.findOneDocument(riphCtisDto[0].numero_ctis)
-      const dmClinicalTrial = await elasticsearchService.findOneDocument(riphDmDto[0].numero_national)
-      const jarde1ClinicalTrial = await elasticsearchService.findOneDocument(riphJardeDtoWithActiveStatus[0].numero_national)
-      const jarde2ClinicalTrial = await elasticsearchService.findOneDocument(riphJardeDtoWithApprovedAndFromCtisStatuses[0].numero_national)
+      const ctisResearchStudy = await elasticsearchService.findOneDocument(RiphDtoTestFactory.ctis().numero_ctis)
+      const dmResearchStudy = await elasticsearchService.findOneDocument(RiphDtoTestFactory.dm().numero_national)
+      const jardeResearchStudy = await elasticsearchService.findOneDocument(RiphDtoTestFactory.jarde().numero_national)
 
       expect(ctisResearchStudy).not.toBeNull()
-      expect(dmClinicalTrial).not.toBeNull()
-      expect(jarde1ClinicalTrial).not.toBeNull()
-      expect(jarde2ClinicalTrial).not.toBeNull()
+      expect(dmResearchStudy).not.toBeNull()
+      expect(jardeResearchStudy).not.toBeNull()
     })
 
     it('should not create some clinical trials when bulk has failed with ResponseError', async () => {
@@ -130,9 +123,9 @@ async function setup() {
     readerService,
   } = await setupClientAndElasticsearchService()
   vi.spyOn(readerService, 'read')
-    .mockReturnValueOnce(riphCtisDto)
-    .mockReturnValueOnce(riphDmDto)
-    .mockReturnValueOnce(riphJardeDto)
+    .mockReturnValueOnce([RiphDtoTestFactory.ctis()])
+    .mockReturnValueOnce([RiphDtoTestFactory.dm()])
+    .mockReturnValueOnce([RiphDtoTestFactory.jarde()])
 
   const etlService = new EtlService(logger, elasticsearchService, readerService)
 

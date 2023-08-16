@@ -79,14 +79,7 @@ export class ModelUtils {
     return mostRecentDate.toISOString()
   }
 
-  private static sortBy = (a: string, b: string) => {
-    const valueA = a
-    const valueB = b
-
-    if (valueB < valueA) {
-      return -1
-    }
-
-    return valueB > valueA ? 1 : 0
+  private static sortBy = (valueA: string, valueB: string) => {
+    return valueB < valueA ? -1 : 1
   }
 }

@@ -58,7 +58,15 @@ export class EtlService {
     ]
 
     for (const ingestPipeline of ingestPipelines) {
-      await ingestPipeline.execute()
+      try {
+        await ingestPipeline.execute()
+      } catch (error) {
+        if (error instanceof errors.ResponseError) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          throw new Error(error.meta.body.error.reason as string)
+        }
+        throw error
+      }
     }
 
     this.logger.info('-- Fin de l’import des essais cliniques du RIPH.')

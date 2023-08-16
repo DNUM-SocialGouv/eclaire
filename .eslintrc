@@ -113,7 +113,7 @@
       }
     },
     {
-      "files": ["src/shared/models/code-systems/*.ts"],
+      "files": ["src/shared/models/code-systems/*.ts", "src/shared/test/helpers/RiphDtoTestFactory.ts"],
       "rules": {
         "sort-keys": "off"
       }
