@@ -239,7 +239,13 @@ describe('research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "Women of child bearing potential not using contraception, Women of child bearing potential using contraception",
+                      "display": "Femmes en âge de procréer n’utilisant pas de contraception",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                    CodingModel {
+                      "code": undefined,
+                      "display": "Femmes en âge de procréer utilisant une méthode de contraception",
                       "system": undefined,
                       "version": undefined,
                     },

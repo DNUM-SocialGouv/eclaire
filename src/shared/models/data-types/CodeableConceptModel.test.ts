@@ -88,4 +88,44 @@ describe('shared | models | fhir | CodeableConceptModel', () => {
       `)
     })
   })
+
+  describe('#createStudyPopulation', () => {
+    it('should create a properly formatted model with related coding when one study population is given', () => {
+      expect(CodeableConceptModel.createStudyPopulation('Women of child bearing potential using contraception')).toMatchInlineSnapshot(`
+        CodeableConceptModel {
+          "coding": [
+            CodingModel {
+              "code": undefined,
+              "display": "Femmes en âge de procréer utilisant une méthode de contraception",
+              "system": undefined,
+              "version": undefined,
+            },
+          ],
+          "text": "Study Population",
+        }
+      `)
+    })
+
+    it('should create a properly formatted model with related coding when multiple study population is given', () => {
+      expect(CodeableConceptModel.createStudyPopulation('Women of child bearing potential using contraception, Minors')).toMatchInlineSnapshot(`
+        CodeableConceptModel {
+          "coding": [
+            CodingModel {
+              "code": undefined,
+              "display": "Femmes en âge de procréer utilisant une méthode de contraception",
+              "system": undefined,
+              "version": undefined,
+            },
+            CodingModel {
+              "code": undefined,
+              "display": "Mineurs",
+              "system": undefined,
+              "version": undefined,
+            },
+          ],
+          "text": "Study Population",
+        }
+      `)
+    })
+  })
 })
