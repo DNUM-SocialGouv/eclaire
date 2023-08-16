@@ -60,11 +60,22 @@ describe('shared | models | fhir | CodingModel', () => {
   })
 
   describe('#createGender', () => {
-    it('should create a properly formatted model with gender when information is given', () => {
+    it('should create a properly formatted model with female when information is given', () => {
       expect(CodingModel.createGender('Female')).toMatchInlineSnapshot(`
         CodingModel {
           "code": "female",
           "display": "Female",
+          "system": "http://hl7.org/fhir/administrative-gender",
+          "version": "5.0.0",
+        }
+      `)
+    })
+
+    it('should create a properly formatted model with male when information is given', () => {
+      expect(CodingModel.createGender('Male')).toMatchInlineSnapshot(`
+        CodingModel {
+          "code": "male",
+          "display": "Male",
           "system": "http://hl7.org/fhir/administrative-gender",
           "version": "5.0.0",
         }
