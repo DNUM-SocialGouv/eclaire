@@ -22,8 +22,8 @@ export abstract class IngestPipeline {
   abstract execute(): Promise<void>
   abstract transform(riphDtos: RiphDto[]): ResearchStudyElasticsearchDocument[]
 
-  extract(): [] {
-    const dto: [] = this.readerService.read(`export_eclaire_${this.type}-${EXPORT_DATE}.json`) as []
+  extract<T>(): T[] {
+    const dto: T[] = this.readerService.read(`export_eclaire_${this.type}-${EXPORT_DATE}.json`) as T[]
     this.logger.info(`[Extract] ${dto.length} (${this.type})`)
     return [...dto]
   }

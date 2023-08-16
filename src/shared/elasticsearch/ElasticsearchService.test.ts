@@ -50,7 +50,7 @@ describe('elasticsearch service', () => {
     vi.spyOn(fakeClient, 'get')
 
     // WHEN
-    const result = await service.findOneDocument<FakeDocument>(fakeId)
+    const result = await service.findOneDocument(fakeId)
 
     // THEN
     expect(fakeClient.get).toHaveBeenCalledWith({

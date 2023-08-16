@@ -2,6 +2,7 @@ import { expect } from 'vitest'
 
 import { IngestPipelineCtis } from './IngestPipelineCtis'
 import { riphCtisDto, setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
+import { RiphCtisDto } from '../dto/RiphCtisDto'
 
 describe('etl | IngestPipelineCtis', () => {
   describe('extract', () => {
@@ -10,7 +11,7 @@ describe('etl | IngestPipelineCtis', () => {
       const { ingestPipelineCtis } = await setup()
 
       // when
-      const result = ingestPipelineCtis.extract()
+      const result = ingestPipelineCtis.extract<RiphCtisDto>()
 
       // then
       expect(result).toStrictEqual(riphCtisDto)

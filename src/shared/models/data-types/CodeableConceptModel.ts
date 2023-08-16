@@ -37,20 +37,14 @@ export class CodeableConceptModel implements CodeableConcept {
   }
 
   static createMedDraCondition(medDraInformation: string): CodeableConcept {
-    let parsedMedDraInformation: string[]
-
     const emptyMedDraInformationIfNull = ModelUtils.emptyIfNull(medDraInformation)
+    let coding: Coding[] = []
 
-    if (emptyMedDraInformationIfNull === ModelUtils.NULL_IN_SOURCE) {
-      parsedMedDraInformation = []
-    } else {
-      parsedMedDraInformation = emptyMedDraInformationIfNull.split(', ')
+    if (emptyMedDraInformationIfNull !== ModelUtils.NULL_IN_SOURCE) {
+      coding = emptyMedDraInformationIfNull
+        .split(', ')
+        .map((medDRACode): Coding => CodingModel.createMedDraCode(medDRACode))
     }
-
-    const coding: Coding[] = []
-    parsedMedDraInformation.forEach((medDRACode) => {
-      coding.push(CodingModel.createMedDraCode(medDRACode))
-    })
 
     return new CodeableConceptModel(
       coding,
@@ -59,16 +53,14 @@ export class CodeableConceptModel implements CodeableConcept {
   }
 
   static createGenders(genders: string): CodeableConcept {
-    let parsedGenders: string[]
+    let parsedGenders: string[] = ['unknown']
 
-    if (genders === ModelUtils.NULL_IN_SOURCE) {
-      parsedGenders = ['unknown']
-    } else {
+    if (genders !== ModelUtils.NULL_IN_SOURCE) {
       parsedGenders = genders.split(',')
     }
 
     return new CodeableConceptModel(
-      parsedGenders.map((parsedGender) => CodingModel.createGender(parsedGender)),
+      parsedGenders.map((parsedGender): Coding => CodingModel.createGender(parsedGender)),
       'Genders'
     )
   }
@@ -130,7 +122,6 @@ export class CodeableConceptModel implements CodeableConcept {
     return emptyCountriesCodeIfNull.split(', ').map((countryCode): CodeableConcept => {
       return new CodeableConceptModel(
         [CodingModel.createLocation(countryCode)],
-
         'Countries of recruitment'
       )
     })

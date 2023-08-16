@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 export const eclaireTypeContactCodeSystem = {
   resourceType: 'CodeSystem',
   id: 'eclaire-type-contact-code-system',

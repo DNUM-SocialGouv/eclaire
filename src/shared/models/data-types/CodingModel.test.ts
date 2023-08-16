@@ -1,4 +1,5 @@
 import { CodingModel } from './CodingModel'
+import { ModelUtils } from '../eclaire/ModelUtils'
 
 describe('shared | models | fhir | CodingModel', () => {
   describe('#createResearchStudyPhase', () => {
@@ -47,7 +48,7 @@ describe('shared | models | fhir | CodingModel', () => {
     })
 
     it('should create a properly formatted model without phase when phase is not given', () => {
-      expect(CodingModel.createResearchStudyPhase('')).toMatchInlineSnapshot(`
+      expect(CodingModel.createResearchStudyPhase(ModelUtils.NULL_IN_SOURCE)).toMatchInlineSnapshot(`
         CodingModel {
           "code": "n-a",
           "display": "N/A",

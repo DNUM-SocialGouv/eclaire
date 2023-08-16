@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 import { ModelUtils } from './ModelUtils'
 import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
 import { riphCtisDto } from 'src/shared/test/helpers/elasticsearchHelper'
@@ -6,16 +5,16 @@ import { riphCtisDto } from 'src/shared/test/helpers/elasticsearchHelper'
 describe('shared | models | custom | ModelUtils', () => {
   describe('#identifyAssigner', () => {
     it.each([
-      { regulationCode: 'REG536', qualification: undefined, assigner: AssignerForSecondaryIdentifier.CTIS },
-      { regulationCode: 'REG745', qualification: undefined, assigner: AssignerForSecondaryIdentifier.ANSM },
-      { regulationCode: 'REG746', qualification: undefined, assigner: AssignerForSecondaryIdentifier.ANSM },
-      { regulationCode: 'JARDE', qualification: 'Catégorie 1', assigner: AssignerForSecondaryIdentifier.EUDRACT },
-      { regulationCode: 'JARDE', qualification: 'Catégorie 2', assigner: AssignerForSecondaryIdentifier.ANSM },
-      { regulationCode: 'JARDE', qualification: 'Catégorie 3', assigner: AssignerForSecondaryIdentifier.ANSM },
+      { assigner: AssignerForSecondaryIdentifier.CTIS, qualification: undefined, regulationCode: 'REG536' },
+      { assigner: AssignerForSecondaryIdentifier.ANSM, qualification: undefined, regulationCode: 'REG745' },
+      { assigner: AssignerForSecondaryIdentifier.ANSM, qualification: undefined, regulationCode: 'REG746' },
+      { assigner: AssignerForSecondaryIdentifier.EUDRACT, qualification: 'Catégorie 1', regulationCode: 'JARDE' },
+      { assigner: AssignerForSecondaryIdentifier.ANSM, qualification: 'Catégorie 2', regulationCode: 'JARDE' },
+      { assigner: AssignerForSecondaryIdentifier.ANSM, qualification: 'Catégorie 3', regulationCode: 'JARDE' },
     ])('should create an identifier assigned by $assigner', ({
-      regulationCode,
-      qualification,
       assigner,
+      qualification,
+      regulationCode,
     }) => {
       // when
       const result = ModelUtils.identifyAssigner(regulationCode, qualification)

@@ -16,7 +16,7 @@ export type ElasticsearchBodyType = {
     }
   }
   size: number
-  search_after?: (number | string)[]
+  search_after?: string[]
   sort?: {
     [key: string]: {
       order: 'asc' | 'desc'
@@ -40,7 +40,7 @@ export class ElasticsearchBodyBuilder {
     return this
   }
 
-  withSearchAfter(searchAfter: (number | string)[]): this {
+  withSearchAfter(searchAfter: string[]): this {
     this.searchBody.search_after = searchAfter
     this.withFrom(0)
     return this

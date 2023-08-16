@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 export const medDraCodeSystem = {
   resourceType : 'CodeSystem',
   id : 'mdr',

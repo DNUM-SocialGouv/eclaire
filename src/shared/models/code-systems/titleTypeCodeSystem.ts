@@ -1,5 +1,3 @@
-/* eslint-disable sort-keys */
-
 export const titleTypeCodeSystem = {
   resourceType : 'CodeSystem',
   id : 'title-type',

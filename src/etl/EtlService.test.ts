@@ -1,7 +1,6 @@
 import { errors } from '@elastic/elasticsearch'
 
 import { EtlService } from './EtlService'
-import { ResearchStudyModel } from '../shared/models/domain-resources/ResearchStudyModel'
 import {
   riphCtisDto,
   riphDmDto, riphJardeDto,
@@ -15,8 +14,13 @@ describe('extract transform load service', () => {
     it('should not create an index when create has failed with ResponseError', async () => {
       // GIVEN
       const { client, etlService } = await setup()
-      // @ts-ignore
-      vi.spyOn(client.indices, 'create').mockRejectedValueOnce(new errors.ResponseError({ body: { error: { reason: 'ES create operation has failed' } } }))
+      vi.spyOn(client.indices, 'create').mockRejectedValueOnce(new errors.ResponseError({
+        body: { error: { reason: 'ES create operation has failed' } },
+        headers: null,
+        meta: null,
+        statusCode: null,
+        warnings: null,
+      }))
 
       // WHEN
       // THEN
@@ -26,7 +30,6 @@ describe('extract transform load service', () => {
     it('should not create an index when create has failed with ElasticsearchClientError', async () => {
       // GIVEN
       const { client, etlService } = await setup()
-      // @ts-ignore
       vi.spyOn(client.indices, 'create').mockRejectedValueOnce(new errors.ElasticsearchClientError('ES create operation has failed'))
 
       // WHEN
@@ -39,8 +42,13 @@ describe('extract transform load service', () => {
     it('should not delete an index when delete has failed with ResponseError', async () => {
       // GIVEN
       const { client, etlService } = await setup()
-      // @ts-ignore
-      vi.spyOn(client.indices, 'delete').mockRejectedValueOnce(new errors.ResponseError({ body: { error: { reason: 'ES delete operation has failed' } } }))
+      vi.spyOn(client.indices, 'delete').mockRejectedValueOnce(new errors.ResponseError({
+        body: { error: { reason: 'ES delete operation has failed' } },
+        headers: null,
+        meta: null,
+        statusCode: null,
+        warnings: null,
+      }))
 
       // WHEN
       // THEN
@@ -73,10 +81,10 @@ describe('extract transform load service', () => {
       expect(readerService.read).toHaveBeenNthCalledWith(2, 'export_eclaire_dm-dmdiv-27-07-2023.json')
       expect(readerService.read).toHaveBeenNthCalledWith(3, 'export_eclaire_jarde-27-07-2023.json')
 
-      const ctisResearchStudy = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphCtisDto[0].numero_ctis)
-      const dmClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphDmDto[0].numero_national)
-      const jarde1ClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphJardeDtoWithActiveStatus[0].numero_national)
-      const jarde2ClinicalTrial = await elasticsearchService.findOneDocument<ResearchStudyModel>(riphJardeDtoWithApprovedAndFromCtisStatuses[0].numero_national)
+      const ctisResearchStudy = await elasticsearchService.findOneDocument(riphCtisDto[0].numero_ctis)
+      const dmClinicalTrial = await elasticsearchService.findOneDocument(riphDmDto[0].numero_national)
+      const jarde1ClinicalTrial = await elasticsearchService.findOneDocument(riphJardeDtoWithActiveStatus[0].numero_national)
+      const jarde2ClinicalTrial = await elasticsearchService.findOneDocument(riphJardeDtoWithApprovedAndFromCtisStatuses[0].numero_national)
 
       expect(ctisResearchStudy).not.toBeNull()
       expect(dmClinicalTrial).not.toBeNull()
@@ -88,8 +96,13 @@ describe('extract transform load service', () => {
       // GIVEN
       const { client, etlService } = await setup()
       await etlService.createIndex()
-      // @ts-ignore
-      vi.spyOn(client, 'bulk').mockRejectedValueOnce(new errors.ResponseError({ body: { error: { reason: 'ES bulk operation has failed' } } }))
+      vi.spyOn(client, 'bulk').mockRejectedValueOnce(new errors.ResponseError({
+        body: { error: { reason: 'ES bulk operation has failed' } },
+        headers: null,
+        meta: null,
+        statusCode: null,
+        warnings: null,
+      }))
 
       // WHEN
       // THEN
@@ -100,7 +113,6 @@ describe('extract transform load service', () => {
       // GIVEN
       const { client, etlService } = await setup()
       await etlService.createIndex()
-      // @ts-ignore
       vi.spyOn(client, 'bulk').mockRejectedValueOnce(new errors.ElasticsearchClientError('ES bulk operation has failed'))
 
       // WHEN

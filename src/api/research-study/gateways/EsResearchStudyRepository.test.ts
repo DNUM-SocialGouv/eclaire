@@ -5,6 +5,7 @@ import { riphCtisDto, setupClientAndElasticsearchService } from '../../../shared
 import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
 import { ResearchStudyQueryParams } from '../controllers/converter/ResearchStudyQueryParams'
 import { elasticsearchIndexMapping } from 'src/shared/elasticsearch/elasticsearchIndexMapping'
+import { SearchResponse } from 'src/shared/elasticsearch/ElasticsearchService'
 
 describe('elasticsearch research study repository', () => {
   describe('retrieve one research study', () => {
@@ -203,8 +204,16 @@ describe('elasticsearch research study repository', () => {
             sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
           }
           vi.spyOn(elasticsearchService, 'search').mockResolvedValue({
-            // @ts-ignore
-            hits: [{ _source: { id: '2022-500014-26-00' }, sort: [1636107200000] }],
+            hits: [
+              {
+                _id: '2022-500014-26-00',
+                _index: 'eclaire',
+                _score: null,
+                _source: { id: '2022-500014-26-00' },
+                _type: '_doc',
+                sort: [1636107200000],
+              },
+            ],
             total: maxTotalConstraintFromElasticsearch,
           })
 
@@ -236,13 +245,21 @@ describe('elasticsearch research study repository', () => {
           const elasticsearchBody: ElasticsearchBodyType = {
             from: secondPage,
             query: { bool: { must: [] } },
-            search_after: [1636107200000],
+            search_after: ['1636107200000'],
             size: numberOfResourcesByPage,
             sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
           }
           vi.spyOn(elasticsearchService, 'search').mockResolvedValue({
-            // @ts-ignore
-            hits: [{ _source: { id: '2023-500014-26-00' }, sort: [1637107200000] }],
+            hits: [
+              {
+                _id: '2023-500014-26-00',
+                _index: 'eclaire',
+                _score: null,
+                _source: { id: '2023-500014-26-00' },
+                _type: '_doc',
+                sort: [1637107200000],
+              },
+            ],
             total: maxTotalConstraintFromElasticsearch,
           })
 
@@ -303,11 +320,22 @@ describe('elasticsearch research study repository', () => {
             size: numberOfResourcesByPage,
           }
           vi.spyOn(elasticsearchService, 'search').mockResolvedValue({
-            // @ts-ignore
             hits: [
-              { _source: {} },
-              { _source: {} },
-            ],
+              {
+                _id: 'fakeId1',
+                _index: 'eclaire',
+                _score: null,
+                _source: {},
+                _type: '_doc',
+              },
+              {
+                _id: 'fakeId2',
+                _index: 'eclaire',
+                _score: null,
+                _source: {},
+                _type: '_doc',
+              },
+            ] as SearchResponse['hits'],
             total: maxTotalConstraintFromElasticsearch,
           })
 

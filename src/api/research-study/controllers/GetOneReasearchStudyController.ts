@@ -1,7 +1,6 @@
 import { errors } from '@elastic/elasticsearch'
 import { Controller, Get, Header, Param, Res } from '@nestjs/common'
 import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Response } from 'express'
 
 import { OperationOutcomeModel } from '../application/entities/OperationOutcomeModel'

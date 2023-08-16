@@ -337,7 +337,7 @@ describe('research study query to elasticsearch query', () => {
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
         query: { bool: { must: [] } },
-        search_after: [1631232000000, '2019-A00427-50'],
+        search_after: ['1631232000000', '2019-A00427-50'],
         size: numberOfResourcesByPageByDefault,
         sort: [
           { 'meta.lastUpdated': { order: 'asc' } },

@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 export const countryCodeSystem = {
   resourceType : 'ValueSet',
   id : 'iso3166-1-2',

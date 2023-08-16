@@ -111,6 +111,12 @@
         "vitest/require-hook": "off",
         "vitest/prefer-expect-assertions": "off"
       }
+    },
+    {
+      "files": ["src/shared/models/code-systems/*.ts"],
+      "rules": {
+        "sort-keys": "off"
+      }
     }
   ]
 }

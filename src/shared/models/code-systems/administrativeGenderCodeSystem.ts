@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 export const administrativeGenderCodeSystem = {
   resourceType : 'CodeSystem',
   id : 'administrative-gender',

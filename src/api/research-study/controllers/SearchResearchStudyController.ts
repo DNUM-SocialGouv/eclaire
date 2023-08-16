@@ -1,7 +1,6 @@
 import { errors } from '@elastic/elasticsearch'
 import { Controller, Get, Header, Query, Res } from '@nestjs/common'
 import { ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Response } from 'express'
 
 import { researchStudyQueryParamsToElasticsearchQuery } from './converter/researchStudyQueryParamsToElasticsearchQuery'

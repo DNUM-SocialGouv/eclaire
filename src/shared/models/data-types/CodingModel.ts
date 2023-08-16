@@ -20,7 +20,7 @@ export class CodingModel implements Coding {
   static createResearchStudyPhase(rawPhase: string): Coding {
     const isolatedPhase = rawPhase?.split(/(Phase( *)\w{1,3})/)[1]
 
-    const correspondingPhaseCode: PhaseCode = this.getPhaseCodeFromText(isolatedPhase)
+    const correspondingPhaseCode = this.getPhaseCodeFromText(isolatedPhase)
 
     const matchingPhase = researchStudyPhaseCodeSystem.concept.find(
       (phase): boolean => phase.code === correspondingPhaseCode
@@ -34,7 +34,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  private static getPhaseCodeFromText(isolatedPhase: string): PhaseCode {
+  private static getPhaseCodeFromText(isolatedPhase: string): string {
     switch (isolatedPhase) {
       case 'Phase I':
         return PhaseCode.PHASE_1

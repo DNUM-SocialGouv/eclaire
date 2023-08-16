@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 export const researchStudyPhaseCodeSystem = {
   resourceType : 'CodeSystem',
   id : 'research-study-phase',

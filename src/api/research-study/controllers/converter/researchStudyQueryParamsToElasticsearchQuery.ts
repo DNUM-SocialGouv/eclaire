@@ -105,8 +105,7 @@ function buildText(searchBody: ElasticsearchBodyBuilder, value: string) {
 }
 
 function buildSearchAfter(searchBody: ElasticsearchBodyBuilder, value: string) {
-  // @ts-ignore
-  searchBody.withSearchAfter(value.split(',').map((term): string | number => isNaN(term) ? term : Number(term)))
+  searchBody.withSearchAfter(value.split(','))
 }
 
 function buildSort(searchBody: ElasticsearchBodyBuilder, value: string) {

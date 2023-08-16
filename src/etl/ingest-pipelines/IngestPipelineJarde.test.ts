@@ -15,7 +15,7 @@ describe('etl | IngestPipelineJarde', () => {
       const { ingestPipelineJarde } = await setup(riphJardeDtoWithActiveStatus)
 
       // when
-      const result = ingestPipelineJarde.extract()
+      const result = ingestPipelineJarde.extract<RiphJardeDto>()
 
       // then
       expect(result).toStrictEqual(riphJardeDtoWithActiveStatus)

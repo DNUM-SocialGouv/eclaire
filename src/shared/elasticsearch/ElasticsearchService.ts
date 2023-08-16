@@ -27,7 +27,7 @@ export class ElasticsearchService {
     } satisfies RequestParams.IndicesPutMapping)
   }
 
-  async findOneDocument<T>(id: string): Promise<T> {
+  async findOneDocument(id: string): Promise<unknown> {
     const request = await this.client.get({
       _source_excludes: ['referenceContents'],
       id,
@@ -35,7 +35,7 @@ export class ElasticsearchService {
       type: this.type,
     } satisfies RequestParams.Get)
 
-    return request.body._source as T
+    return request.body._source as unknown
   }
 
   async bulkDocuments<T>(documents: T[]): Promise<void> {
@@ -54,7 +54,7 @@ export class ElasticsearchService {
     } satisfies RequestParams.Search)
 
     return {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       hits: response.body.hits.hits,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       total: response.body.hits.total.value as number,
@@ -62,7 +62,14 @@ export class ElasticsearchService {
   }
 }
 
-type SearchResponse = Readonly<{
-  hits: []
+export type SearchResponse = Readonly<{
+  hits: ReadonlyArray<{
+    _index: string
+    _type: string
+    _id: string
+    _score: number
+    _source: Record<string, string>
+    sort?: (number | string)[]
+  }>
   total: number
 }>

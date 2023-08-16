@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { Bundle, BundleLink } from 'fhir/r4'
 
-import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
+import { ElasticsearchService, SearchResponse } from '../../../shared/elasticsearch/ElasticsearchService'
 import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
 import { BundleModel } from '../application/entities/BundleModel'
 import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
@@ -59,9 +59,9 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     }
   }
 
-  private buildSearchAfterLinks(links: BundleLink[], hits: [], queryParams: ResearchStudyQueryParams[]) {
-    const nextSorts = hits.map((hit: { sort: number[] }): number => hit.sort[0]).reverse()
-    const nextIds = hits.map((hit: { _source: { id: string }}): string => hit._source.id).reverse()
+  private buildSearchAfterLinks(links: BundleLink[], hits: SearchResponse['hits'], queryParams: ResearchStudyQueryParams[]) {
+    const nextSorts = hits.map((hit): number | string => hit.sort[0]).reverse()
+    const nextIds = hits.map((hit): string => hit._source.id).reverse()
 
     this.buildSelfLink(links, queryParams)
 

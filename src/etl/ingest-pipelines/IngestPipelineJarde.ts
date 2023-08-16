@@ -9,7 +9,7 @@ export class IngestPipelineJarde extends IngestPipeline {
   readonly type = 'jarde'
 
   async execute(): Promise<void> {
-    const riphJardeDtos: RiphJardeDto[] = super.extract()
+    const riphJardeDtos: RiphJardeDto[] = super.extract<RiphJardeDto>()
     const researchStudyDocuments: ResearchStudyElasticsearchDocument[] = this.transform(riphJardeDtos)
 
     const chunkSize = 200
