@@ -38,7 +38,7 @@ export class ResearchStudyModel implements ResearchStudy {
   }
 
   private convertToResearchStudyStatus(riphStatus: RiphStatus): ResearchStudyStatus {
-    const fhirStatus = {
+    const fhirStatus: Record<string, ResearchStudyStatus> = {
       ABANDONNEE: 'completed',
       ARCHIVEE: 'completed',
       A_DEMARRER: 'approved',
@@ -48,7 +48,7 @@ export class ResearchStudyModel implements ResearchStudy {
       SUSPENDUE: 'temporarily-closed-to-accrual',
       TERMINEE: 'completed',
       TERMINEE_ANTICIPEE: 'administratively-completed',
-    } satisfies { [key: string]: ResearchStudyStatus }
+    }
 
     return fhirStatus[riphStatus]
   }

@@ -4,7 +4,7 @@ import { ContactPointModel } from '../data-types/ContactPointModel'
 import { ModelUtils } from '../eclaire/ModelUtils'
 import { ExtensionModel } from '../special-purpose-data-types/ExtensionModel'
 
-export type ContactType = 'Public' | 'Scientific';
+export type ContactType = 'Public' | 'Scientific'
 
 export class ContactDetailModel implements ContactDetail {
   constructor(

@@ -10,7 +10,7 @@ import { FileReaderService } from '../file-reader/FileReaderService'
 const EXPORT_DATE = '27-07-2023'
 
 export abstract class IngestPipeline {
-  protected abstract readonly type: string;
+  protected abstract readonly type: string
 
   constructor(
     protected readonly logger: LoggerService,
