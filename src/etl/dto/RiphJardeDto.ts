@@ -15,9 +15,7 @@ export class RiphJardeDto {
     readonly titre_recherche: string,
     readonly domaine_therapeutique: string,
     readonly taille_etude: number,
-    readonly competences: string,
     readonly qualification_recherche: string,
-    readonly date_creation_etude: string,
     readonly historique: string,
     readonly dates_avis_favorable_ms_mns: string
   ) {}

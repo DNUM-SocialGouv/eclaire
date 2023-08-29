@@ -13,7 +13,10 @@ import { EsResearchStudyRepository } from '../gateways/EsResearchStudyRepository
 export class SearchResearchStudyController {
   constructor(private readonly researchStudyRepository: EsResearchStudyRepository) {}
 
-  @ApiOperation({ summary: 'Recherche des essais cliniques selon un ou des filtres.' })
+  @ApiOperation({
+    description: 'Seuls les paramètres ci-dessous sont pour le moment disponible.<br>Les autres seront développés au besoin dans une démarche itérative.<br>Documentation FHIR sur <a href="https://hl7.org/fhir/R4/search.html">les filtres de recherche</a>.',
+    summary: 'Recherche des essais cliniques selon un ou plusieurs filtres.',
+  })
   @ApiOkResponse({ description: 'Des essais cliniques ont été trouvés' })
   @ApiProduces('application/fhir+json')
   @Header('content-type', 'application/fhir+json')

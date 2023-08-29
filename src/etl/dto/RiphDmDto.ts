@@ -16,7 +16,6 @@ export class RiphDmDto {
     readonly domaine_therapeutique: string,
     readonly taille_etude: number,
     readonly qualification: string,
-    readonly date_creation_etude: string,
     readonly historique: string,
     readonly dates_avis_favorable_ms_mns: string
   ) {}

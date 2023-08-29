@@ -12,7 +12,7 @@ export class ResearchStudyQueryModel {
   @ApiProperty({ description: 'e.g. : (eq|ne|lt|le|gt)2019-10-18', required: false })
     _lastUpdated: string
 
-  @ApiProperty({ description: 'e.g. : meta.lastUpdated', required: false })
+  @ApiProperty({ description: 'meta.lastUpdated', required: false })
     _sort: string
 
   @ApiProperty({ description: 'e.g. : mot1 AND (mot2 OR mot3)', required: false })
@@ -21,7 +21,7 @@ export class ResearchStudyQueryModel {
   @ApiProperty({ description: 'e.g. : mot1 AND (mot2 OR mot3)', required: false })
     _content: string
 
-  @ApiProperty({ description: 'e.g. : 100, valeur par défaut 20 et maximum à 5 000', required: false })
+  @ApiProperty({ description: 'De 1 à 5 000, valeur par défaut 20 si vide', required: false })
     _count: string
 
   _getpagesoffset: string
