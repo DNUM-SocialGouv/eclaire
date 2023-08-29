@@ -1,6 +1,6 @@
 import { Quantity, Range } from 'fhir/r4'
 
-import { QuantityComparator, QuantityModel } from './QuantityModel'
+import { QuantityModel } from './QuantityModel'
 
 export class RangeModel implements Range {
   constructor(
@@ -10,37 +10,29 @@ export class RangeModel implements Range {
 
   static createAgeRange(ageRange: string): Range {
     let low: number
-    let lowComparator: QuantityComparator
     let lowUnit: string
     let high: number
-    let highComparator: QuantityComparator
     let highUnit: string
 
     switch (ageRange) {
       case '0-17 years':
         low = 0
-        lowComparator = '>='
         lowUnit = 'years'
         high = 17
-        highComparator = '<='
         highUnit = 'years'
         break
 
       case '18-64 years':
         low = 18
-        lowComparator = '>='
         lowUnit = 'years'
         high = 64
-        highComparator = '<='
         highUnit = 'years'
         break
 
       case '65+ years':
         low = 65
-        lowComparator = '>='
         lowUnit = 'years'
         high = undefined
-        highComparator = undefined
         highUnit = undefined
         break
 
@@ -48,8 +40,8 @@ export class RangeModel implements Range {
     }
 
     return new RangeModel(
-      QuantityModel.create(high, highUnit, highComparator),
-      QuantityModel.create(low, lowUnit, lowComparator)
+      QuantityModel.create(high, highUnit),
+      QuantityModel.create(low, lowUnit)
     )
   }
 }

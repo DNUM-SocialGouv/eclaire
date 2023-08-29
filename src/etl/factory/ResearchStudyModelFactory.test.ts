@@ -185,7 +185,6 @@ describe('research study model factory', () => {
                 "valueRange": RangeModel {
                   "high": undefined,
                   "low": QuantityModel {
-                    "comparator": ">=",
                     "unit": "years",
                     "value": 65,
                   },
@@ -200,12 +199,10 @@ describe('research study model factory', () => {
                 "valueQuantity": undefined,
                 "valueRange": RangeModel {
                   "high": QuantityModel {
-                    "comparator": "<=",
                     "unit": "years",
                     "value": 64,
                   },
                   "low": QuantityModel {
-                    "comparator": ">=",
                     "unit": "years",
                     "value": 18,
                   },
