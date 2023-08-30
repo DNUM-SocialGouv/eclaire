@@ -55,7 +55,7 @@ export class CodingModel implements Coding {
     }
   }
 
-  static createDiseaseCoding(disease: string): Coding {
+  static createDisease(disease: string): Coding {
     return new CodingModel(
       undefined,
       disease,
@@ -64,10 +64,10 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createMedDraCode(medDraCode: string): Coding {
+  static createMedDra(code: string, label: string): Coding {
     return new CodingModel(
-      medDraCode,
-      medDraCodeSystem.title,
+      code,
+      label,
       medDraCodeSystem.url,
       medDraCodeSystem.version
     )

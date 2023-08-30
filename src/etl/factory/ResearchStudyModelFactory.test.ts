@@ -35,13 +35,13 @@ describe('research study model factory', () => {
             "coding": [
               CodingModel {
                 "code": "10070575",
-                "display": "MedDRA",
+                "display": "N/A",
                 "system": "http://terminology.hl7.org/CodeSystem/mdr",
                 "version": "2.0.1",
               },
               CodingModel {
                 "code": "10065430",
-                "display": "MedDRA",
+                "display": "HER2 positive breast cancer",
                 "system": "http://terminology.hl7.org/CodeSystem/mdr",
                 "version": "2.0.1",
               },
@@ -828,7 +828,7 @@ describe('research study model factory', () => {
             "coding": [
               CodingModel {
                 "code": "INDISPONIBLE",
-                "display": "MedDRA",
+                "display": "N/A",
                 "system": "http://terminology.hl7.org/CodeSystem/mdr",
                 "version": "2.0.1",
               },
@@ -1423,7 +1423,7 @@ describe('research study model factory', () => {
             "coding": [
               CodingModel {
                 "code": "INDISPONIBLE",
-                "display": "MedDRA",
+                "display": "N/A",
                 "system": "http://terminology.hl7.org/CodeSystem/mdr",
                 "version": "2.0.1",
               },

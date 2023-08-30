@@ -24,8 +24,8 @@ export class ResearchStudyModelFactory {
 
     const category: CodeableConcept[] = [CodeableConceptModel.createCategory(eclaireDto.reglementation_code)]
     const condition: CodeableConcept[] = [
-      CodeableConceptModel.createDiseaseCondition(eclaireDto.pathologies_maladies_rares),
-      CodeableConceptModel.createMedDraCondition(eclaireDto.informations_meddra),
+      CodeableConceptModel.createDisease(eclaireDto.pathologies_maladies_rares),
+      CodeableConceptModel.createMedDra(eclaireDto.informations_meddra),
     ]
     const contact: ContactDetail[] = [
       ContactDetailModel.create(
