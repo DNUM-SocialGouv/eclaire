@@ -1,6 +1,7 @@
 import { CodeableConcept, Coding } from 'fhir/r4'
 
 import { CodingModel } from './CodingModel'
+import { medDraCodeMapping } from '../code-systems/medDraCodeMapping'
 import { ModelUtils } from '../eclaire/ModelUtils'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 import { LabelType } from '../special-purpose-data-types/ExtensionModel'
@@ -27,23 +28,27 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createDiseaseCondition(disease: string): CodeableConcept {
+  static createDisease(disease: string): CodeableConcept {
     const emptyDiseaseIfNull = ModelUtils.emptyIfNull(disease)
 
     return new CodeableConceptModel(
-      [CodingModel.createDiseaseCoding(emptyDiseaseIfNull)],
+      [CodingModel.createDisease(emptyDiseaseIfNull)],
       'Disease Condition'
     )
   }
 
-  static createMedDraCondition(medDraInformation: string): CodeableConcept {
+  static createMedDra(medDraInformation: string): CodeableConcept {
     const emptyMedDraInformationIfNull = ModelUtils.emptyIfNull(medDraInformation)
     let coding: Coding[] = []
 
     if (emptyMedDraInformationIfNull !== ModelUtils.NULL_IN_SOURCE) {
       coding = emptyMedDraInformationIfNull
         .split(', ')
-        .map((medDRACode): Coding => CodingModel.createMedDraCode(medDRACode))
+        .map((code): Coding => {
+          const label = medDraCodeMapping[`M${code}`] as string || 'N/A'
+
+          return CodingModel.createMedDra(code, label)
+        })
     }
 
     return new CodeableConceptModel(
