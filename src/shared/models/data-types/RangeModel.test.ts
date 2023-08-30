@@ -1,56 +1,46 @@
 import { RangeModel } from './RangeModel'
 
-describe('rangeModel', () => {
+describe('shared | models | RangeModel', () => {
   describe('#createAgeRange', () => {
     it('should create a properly formatted model when "0-17 years" is given', () => {
-      expect(RangeModel.createAgeRange('0-17 years')).toMatchInlineSnapshot(`
-        RangeModel {
-          "high": QuantityModel {
-            "unit": "years",
-            "value": 17,
-          },
-          "low": QuantityModel {
-            "unit": "years",
-            "value": 0,
-          },
-        }
-      `)
+      // WHEN
+      const range = RangeModel.createAgeRange('0-17 years')
+
+      // THEN
+      expect(range.high.unit).toBe('years')
+      expect(range.high.value).toBe(17)
+      expect(range.low.unit).toBe('years')
+      expect(range.low.value).toBe(0)
     })
 
     it('should create a properly formatted model when "18-64 years" is given', () => {
-      expect(RangeModel.createAgeRange('18-64 years')).toMatchInlineSnapshot(`
-        RangeModel {
-          "high": QuantityModel {
-            "unit": "years",
-            "value": 64,
-          },
-          "low": QuantityModel {
-            "unit": "years",
-            "value": 18,
-          },
-        }
-      `)
+      // WHEN
+      const range = RangeModel.createAgeRange('18-64 years')
+
+      // THEN
+      expect(range.high.unit).toBe('years')
+      expect(range.high.value).toBe(64)
+      expect(range.low.unit).toBe('years')
+      expect(range.low.value).toBe(18)
     })
 
     it('should create a properly formatted model when "65+ years" is given', () => {
-      expect(RangeModel.createAgeRange('65+ years')).toMatchInlineSnapshot(`
-        RangeModel {
-          "high": undefined,
-          "low": QuantityModel {
-            "unit": "years",
-            "value": 65,
-          },
-        }
-      `)
+      // WHEN
+      const range = RangeModel.createAgeRange('65+ years')
+
+      // THEN
+      expect(range.high).toBeUndefined()
+      expect(range.low.unit).toBe('years')
+      expect(range.low.value).toBe(65)
     })
 
     it('should create a properly formatted model when no age range is given', () => {
-      expect(RangeModel.createAgeRange('')).toMatchInlineSnapshot(`
-        RangeModel {
-          "high": undefined,
-          "low": undefined,
-        }
-      `)
+      // WHEN
+      const range = RangeModel.createAgeRange('')
+
+      // THEN
+      expect(range.high).toBeUndefined()
+      expect(range.low).toBeUndefined()
     })
   })
 })
