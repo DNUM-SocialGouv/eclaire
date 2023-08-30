@@ -22,7 +22,10 @@ export class ResearchStudyModelFactory {
     const { eclaireSecondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(eclaireDto)
     const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto)
 
-    const category: CodeableConcept[] = [CodeableConceptModel.createCategory(eclaireDto.reglementation_code)]
+    const category: CodeableConcept[] = [
+      CodeableConceptModel.createRegulationCode(eclaireDto.reglementation_code),
+      CodeableConceptModel.createReglementationPrecision(eclaireDto.precision_reglementation),
+    ]
     const condition: CodeableConcept[] = [
       CodeableConceptModel.createDisease(eclaireDto.pathologies_maladies_rares),
       CodeableConceptModel.createMedDra(eclaireDto.informations_meddra),

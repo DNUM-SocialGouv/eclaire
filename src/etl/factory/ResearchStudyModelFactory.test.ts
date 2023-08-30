@@ -18,6 +18,17 @@ describe('research study model factory', () => {
             ],
             "text": "Regulation Code",
           },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": undefined,
+                "display": "un essai clinique",
+                "system": undefined,
+                "version": undefined,
+              },
+            ],
+            "text": "Reglementation Precision",
+          },
         ],
         "condition": [
           CodeableConceptModel {
@@ -811,6 +822,17 @@ describe('research study model factory', () => {
             ],
             "text": "Regulation Code",
           },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": undefined,
+                "display": "IC-Cas 4.2",
+                "system": undefined,
+                "version": undefined,
+              },
+            ],
+            "text": "Reglementation Precision",
+          },
         ],
         "condition": [
           CodeableConceptModel {
@@ -1405,6 +1427,17 @@ describe('research study model factory', () => {
               },
             ],
             "text": "Regulation Code",
+          },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": undefined,
+                "display": "Catégorie 3",
+                "system": undefined,
+                "version": undefined,
+              },
+            ],
+            "text": "Reglementation Precision",
           },
         ],
         "condition": [
@@ -2002,6 +2035,17 @@ describe('research study model factory', () => {
               },
             ],
             "text": "Regulation Code",
+          },
+          CodeableConceptModel {
+            "coding": [
+              CodingModel {
+                "code": undefined,
+                "display": "NULL",
+                "system": undefined,
+                "version": undefined,
+              },
+            ],
+            "text": "Reglementation Precision",
           },
         ],
         "condition": [

@@ -29,6 +29,7 @@ describe('etl | dto | EclaireDto', () => {
         "pays_concernes": "BE, DE, ES, FR, HU, IT, PL, PT",
         "phase_recherche": "Therapeutic confirmatory  (Phase III)",
         "population_recrutement": "Women of child bearing potential not using contraception, Women of child bearing potential using contraception",
+        "precision_reglementation": "No",
         "reglementation_code": "REG536",
         "sexe": "Male,Female",
         "sites": [
@@ -74,6 +75,7 @@ describe('etl | dto | EclaireDto', () => {
         "pays_concernes": "NULL",
         "phase_recherche": "NULL",
         "population_recrutement": "INDISPONIBLE",
+        "precision_reglementation": "IC-Cas 4.2",
         "reglementation_code": "REG745",
         "sexe": "NULL",
         "sites": [],
@@ -109,6 +111,7 @@ describe('etl | dto | EclaireDto', () => {
         "pays_concernes": "NULL",
         "phase_recherche": "NULL",
         "population_recrutement": "INDISPONIBLE",
+        "precision_reglementation": "Catégorie 3",
         "reglementation_code": "JARDE",
         "sexe": "NULL",
         "sites": [],
