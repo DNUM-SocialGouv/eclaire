@@ -21,10 +21,19 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createCategory(regulationCode: string): CodeableConcept {
+  static createRegulationCode(regulationCode: string): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createRegulationCode(regulationCode)],
       'Regulation Code'
+    )
+  }
+
+  static createReglementationPrecision(reglementationPrecision: string): CodeableConcept {
+    const emptyReglementationPrecisionIfNull = ModelUtils.emptyIfNull(reglementationPrecision)
+
+    return new CodeableConceptModel(
+      [CodingModel.createReglementationPrecision(emptyReglementationPrecisionIfNull)],
+      'Reglementation Precision'
     )
   }
 

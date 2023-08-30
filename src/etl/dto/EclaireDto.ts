@@ -6,6 +6,7 @@ import { ModelUtils } from '../../shared/models/eclaire/ModelUtils'
 export class EclaireDto {
   constructor(
     readonly reglementation_code: string,
+    readonly precision_reglementation: string,
     readonly etat: string,
     readonly organisme_nom: string,
     readonly organisme_adresse: string,
@@ -48,6 +49,7 @@ export class EclaireDto {
 
     return new EclaireDto(
       riphCtisDto.reglementation_code,
+      riphCtisDto.intervention_faible,
       riphCtisDto.etat,
       riphCtisDto.organisme_nom,
       riphCtisDto.organisme_adresse,
@@ -81,6 +83,7 @@ export class EclaireDto {
   static fromDm(riphDmDto: RiphDmDto): EclaireDto {
     return new EclaireDto(
       riphDmDto.reglementation_code,
+      riphDmDto.qualification,
       riphDmDto.etat,
       riphDmDto.deposant_organisme,
       riphDmDto.deposant_adresse,
@@ -114,6 +117,7 @@ export class EclaireDto {
   static fromJarde(riphJardeDto: RiphJardeDto): EclaireDto {
     return new EclaireDto(
       riphJardeDto.reglementation_code,
+      riphJardeDto.qualification_recherche,
       riphJardeDto.etat,
       riphJardeDto.deposant_organisme,
       riphJardeDto.deposant_adresse,

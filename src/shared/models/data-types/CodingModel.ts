@@ -113,6 +113,23 @@ export class CodingModel implements Coding {
     )
   }
 
+  static createReglementationPrecision(reglementationPrecisionRaw: string): Coding {
+    let reglementationPrecision = reglementationPrecisionRaw
+
+    if (reglementationPrecisionRaw === 'No') {
+      reglementationPrecision = 'un essai clinique'
+    } else if (reglementationPrecisionRaw === 'Yes') {
+      reglementationPrecision = 'un essai clinique à faible intervention'
+    }
+
+    return new CodingModel(
+      undefined,
+      reglementationPrecision,
+      undefined,
+      undefined
+    )
+  }
+
   static createInclusion(inclusion: string): Coding {
     return new CodingModel(
       undefined,

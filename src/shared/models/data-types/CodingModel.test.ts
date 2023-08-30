@@ -93,4 +93,28 @@ describe('shared | models | fhir | CodingModel', () => {
       `)
     })
   })
+
+  describe('#createReglementationPrecision', () => {
+    it('should create a properly formatted model when no low intervention', () => {
+      expect(CodingModel.createReglementationPrecision('No')).toMatchInlineSnapshot(`
+        CodingModel {
+          "code": undefined,
+          "display": "un essai clinique",
+          "system": undefined,
+          "version": undefined,
+        }
+      `)
+    })
+
+    it('should create a properly formatted model when low intervention', () => {
+      expect(CodingModel.createReglementationPrecision('Yes')).toMatchInlineSnapshot(`
+        CodingModel {
+          "code": undefined,
+          "display": "un essai clinique à faible intervention",
+          "system": undefined,
+          "version": undefined,
+        }
+      `)
+    })
+  })
 })
