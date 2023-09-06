@@ -6,7 +6,7 @@ import {
 } from '../special-purpose-data-types/ReferenceModel'
 
 export class IdentifierModel implements Identifier {
-  constructor(
+  private constructor(
     readonly assigner: Reference | undefined,
     readonly use:
       | 'usual'

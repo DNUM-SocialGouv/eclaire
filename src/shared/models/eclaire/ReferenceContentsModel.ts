@@ -1,7 +1,7 @@
 import { Location, Organization } from 'fhir/r4'
 
 export class ReferenceContentsModel {
-  constructor(
+  private constructor(
     readonly locations: Location[] | undefined,
     readonly organizations: Organization[] | undefined
   ) {}

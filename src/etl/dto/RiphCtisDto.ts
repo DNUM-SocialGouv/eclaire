@@ -1,5 +1,5 @@
 export class RiphCtisDto {
-  constructor(
+  private constructor(
     readonly reglementation_code: string,
     readonly etat: string,
     readonly organisme_nom: string,
@@ -32,7 +32,7 @@ export class RiphCtisDto {
 }
 
 class Site {
-  constructor(
+  private constructor(
     readonly organisme: string,
     readonly adresse: string,
     readonly ville: string,

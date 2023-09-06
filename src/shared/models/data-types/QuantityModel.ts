@@ -1,7 +1,7 @@
 import { Quantity } from 'fhir/r4'
 
 export class QuantityModel implements Quantity {
-  constructor(
+  private constructor(
     readonly unit: string | undefined,
     readonly value: number | undefined
   ) {}

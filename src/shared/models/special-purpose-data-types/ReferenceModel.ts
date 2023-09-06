@@ -1,7 +1,7 @@
 import { Reference } from 'fhir/r4'
 
 export class ReferenceModel implements Reference {
-  constructor(
+  private constructor(
     readonly display: string | undefined,
     readonly reference: string | undefined,
     readonly type: string | undefined

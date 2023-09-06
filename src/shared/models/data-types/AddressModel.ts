@@ -1,7 +1,7 @@
 import { Address } from 'fhir/r4'
 
 export class AddressModel implements Address {
-  constructor(
+  private constructor(
     readonly city: string | undefined,
     readonly country: string | undefined,
     readonly line: string[] | undefined,

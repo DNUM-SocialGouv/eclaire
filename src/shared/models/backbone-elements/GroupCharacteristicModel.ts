@@ -4,7 +4,7 @@ import { CodeableConceptModel } from '../data-types/CodeableConceptModel'
 import { RangeModel } from '../data-types/RangeModel'
 
 export class GroupCharacteristicModel implements GroupCharacteristic {
-  constructor(
+  private constructor(
     readonly code: CodeableConcept,
     readonly exclude: boolean,
     readonly valueBoolean: boolean | undefined,

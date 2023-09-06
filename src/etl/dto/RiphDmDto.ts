@@ -1,5 +1,5 @@
 export class RiphDmDto {
-  constructor(
+  private constructor(
     readonly reglementation_code: string,
     readonly etat: string,
     readonly deposant_promoteur: string,

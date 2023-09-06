@@ -8,7 +8,7 @@ import { ModelUtils } from '../eclaire/ModelUtils'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 
 export class ExtensionModel implements Extension {
-  constructor(
+  private constructor(
     readonly extension: Extension[] | undefined,
     readonly url: string,
     readonly valueCodeableConcept: CodeableConcept | undefined,
