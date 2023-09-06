@@ -10,7 +10,7 @@ import { ContactType } from '../metadata-types/ContactDetailModel'
 import { LabelType } from '../special-purpose-data-types/ExtensionModel'
 
 export class CodingModel implements Coding {
-  constructor(
+  private constructor(
     readonly code: string | undefined,
     readonly display: string | undefined,
     readonly system: string | undefined,

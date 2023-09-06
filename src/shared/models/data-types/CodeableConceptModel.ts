@@ -7,7 +7,7 @@ import { ContactType } from '../metadata-types/ContactDetailModel'
 import { LabelType } from '../special-purpose-data-types/ExtensionModel'
 
 export class CodeableConceptModel implements CodeableConcept {
-  constructor(
+  private constructor(
     readonly coding: Coding[] | undefined,
     readonly text: string | undefined
   ) {}

@@ -17,7 +17,7 @@ import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/Re
 export class OrganizationModel implements Organization {
   readonly resourceType: 'Organization'
 
-  constructor(
+  private constructor(
     readonly address: Address[] | undefined,
     readonly contact: OrganizationContact[] | undefined,
     readonly id: string | undefined,

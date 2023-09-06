@@ -1,7 +1,7 @@
 import { HumanName } from 'fhir/r4'
 
 export class HumanNameModel implements HumanName {
-  constructor(
+  private constructor(
     readonly family: string | undefined,
     readonly given: string[] | undefined,
     readonly prefix: string[] | undefined,

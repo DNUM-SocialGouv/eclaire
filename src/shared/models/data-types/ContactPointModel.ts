@@ -3,7 +3,7 @@ import { ContactPoint, Extension } from 'fhir/r4'
 import { ExtensionModel } from '../special-purpose-data-types/ExtensionModel'
 
 export class ContactPointModel implements ContactPoint {
-  constructor(
+  private constructor(
     readonly extension: Extension[] | undefined,
     readonly system:
       | 'phone'
