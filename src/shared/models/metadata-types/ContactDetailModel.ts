@@ -7,7 +7,7 @@ import { ExtensionModel } from '../special-purpose-data-types/ExtensionModel'
 export type ContactType = 'Public' | 'Scientific'
 
 export class ContactDetailModel implements ContactDetail {
-  constructor(
+  private constructor(
     readonly extension: Extension[] | undefined,
     readonly name: string | undefined,
     readonly telecom: ContactPoint[] | undefined

@@ -3,7 +3,7 @@ import { Quantity, Range } from 'fhir/r4'
 import { QuantityModel } from './QuantityModel'
 
 export class RangeModel implements Range {
-  constructor(
+  private constructor(
     readonly high: Quantity | undefined,
     readonly low: Quantity | undefined
   ) {}

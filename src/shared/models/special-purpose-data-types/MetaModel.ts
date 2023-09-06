@@ -3,7 +3,7 @@ import { Meta } from 'fhir/r4'
 import { ModelUtils } from '../eclaire/ModelUtils'
 
 export class MetaModel implements Meta {
-  constructor(
+  private constructor(
     readonly lastUpdated: string | undefined,
     readonly profile: string[] | undefined
   ) {}

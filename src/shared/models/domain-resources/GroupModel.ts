@@ -5,7 +5,7 @@ import { ModelUtils } from '../eclaire/ModelUtils'
 
 export class GroupModel implements Group {
   readonly resourceType: 'Group'
-  constructor(
+  private constructor(
     readonly actual: boolean,
     readonly characteristic: GroupCharacteristic[] | undefined,
     readonly id: string | undefined,

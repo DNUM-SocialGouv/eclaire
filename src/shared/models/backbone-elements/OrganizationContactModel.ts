@@ -10,7 +10,7 @@ import { ContactPointModel } from '../data-types/ContactPointModel'
 import { HumanNameModel } from '../data-types/HumanNameModel'
 
 export class OrganizationContactModel implements OrganizationContact {
-  constructor(
+  private constructor(
     readonly name: HumanName | undefined,
     readonly purpose: CodeableConcept | undefined,
     readonly telecom: ContactPoint[] | undefined

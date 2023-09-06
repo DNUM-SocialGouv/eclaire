@@ -7,7 +7,7 @@ import { IdentifierModel } from '../data-types/IdentifierModel'
 export class LocationModel implements Location {
   readonly resourceType: 'Location'
 
-  constructor(
+  private constructor(
     readonly id: string | undefined,
     readonly address: Address | undefined,
     readonly identifier: Identifier[] | undefined,
