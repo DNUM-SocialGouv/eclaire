@@ -1,21 +1,23 @@
 import { Client } from '@elastic/elasticsearch'
 
-export type FakeDocument = Readonly<{
+export type FakeFhirDocument = Readonly<{
   fake_field: string
-  uuid: string
+  id: string
 }>
 
 export const fakeId = '999'
 
-export const fakeDocument: FakeDocument = {
+export const fakeDocument: FakeFhirDocument = {
   fake_field: 'fake_field',
-  uuid: fakeId,
+  id: fakeId,
 }
 
-export const fakeDocuments = [
-  { index: { _id: fakeDocument.uuid } },
-  fakeDocument,
-]
+export const fakeDocument2: FakeFhirDocument = {
+  fake_field: 'fake_field',
+  id: '888',
+}
+
+export const fakeDocuments = [fakeDocument, fakeDocument2]
 
 export const fakeClient = {
   bulk: () => {
@@ -52,5 +54,5 @@ export const fakeClient = {
 
 export const fakeMapping = {
   fake_field: 'string',
-  uuid: 'string',
+  id: 'string',
 }

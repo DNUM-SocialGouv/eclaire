@@ -1,6 +1,7 @@
 import { expect } from 'vitest'
 
 import { IngestPipelineDmDmdiv } from './IngestPipelineDmDmdiv'
+import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
 import { RiphDmDto } from '../dto/RiphDmDto'
 import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
@@ -24,14 +25,14 @@ describe('etl | IngestPipelineDm', () => {
   describe('transform', () => {
     it('should transform array of raw data into a collection of research study documents', async () => {
       // given
-      const riphDmDtos = [RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm()]
+      const riphDmDtos = [RiphDtoTestFactory.dm()]
       const { ingestPipelineDm } = await setup()
 
       // when
       const result = ingestPipelineDm.transform(riphDmDtos)
 
       // then
-      expect(result).toHaveLength(6)
+      expect(result[0]).toBeInstanceOf(ResearchStudyModel)
     })
   })
 
