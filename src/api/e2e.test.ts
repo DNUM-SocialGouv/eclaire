@@ -9,11 +9,14 @@ import { ResearchStudyModelFactory } from '../etl/factory/ResearchStudyModelFact
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
+const BASE_URL = '/R4/ResearchStudy/'
+const DOCUMENT_ID = '2022-500014-26-00'
+
 describe('app', () => {
   it('should retrieve one research study', async () => {
     // WHEN
     const response = await supertest(await getHttpServer())
-      .get('/R4/ResearchStudy/fakeId1')
+      .get(BASE_URL + DOCUMENT_ID)
 
     // THEN
     expect(response.statusCode).toBe(200)
@@ -22,9 +25,12 @@ describe('app', () => {
   })
 
   it('should not retrieve one research study when an unknown id is given', async () => {
+    // GIVEN
+    const unknownDocumentId = '999999'
+
     // WHEN
     const response = await supertest(await getHttpServer())
-      .get('/R4/ResearchStudy/999999')
+      .get(BASE_URL + unknownDocumentId)
 
     // THEN
     expect(response.statusCode).toBe(404)
@@ -32,9 +38,12 @@ describe('app', () => {
   })
 
   it('should retrieve researches study when good filter is given', async () => {
+    // GIVEN
+    const filter = '?_lastUpdated=2023-04-12'
+
     // WHEN
     const response = await supertest(await getHttpServer())
-      .get('/R4/ResearchStudy?_lastUpdated=2023-04-12')
+      .get(BASE_URL + filter)
 
     // THEN
     expect(response.statusCode).toBe(200)
@@ -43,9 +52,12 @@ describe('app', () => {
   })
 
   it('should not retrieve researches study when wrong filter is given', async () => {
+    // GIVEN
+    const wrongFilter = '?_lastUpdated=d'
+
     // WHEN
     const response = await supertest(await getHttpServer())
-      .get('/R4/ResearchStudy?_lastUpdated=d')
+      .get(BASE_URL + wrongFilter)
 
     // THEN
     expect(response.statusCode).toBe(400)
@@ -66,13 +78,11 @@ async function getHttpServer() {
 
   const elasticsearchService = app.get<ElasticsearchService>(ElasticsearchService)
   await elasticsearchService.deleteAnIndex()
-  const eclaireDto1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis())
+  const eclaireDto1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: DOCUMENT_ID }))
   const eclaireDto2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.emptyCtis())
 
   await elasticsearchService.bulkDocuments([
-    { index: { _id: 'fakeId1' } },
     ResearchStudyModelFactory.create(eclaireDto1),
-    { index: { _id: 'fakeId2' } },
     ResearchStudyModelFactory.create(eclaireDto2),
   ])
 

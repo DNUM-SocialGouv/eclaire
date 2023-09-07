@@ -27,8 +27,8 @@ const identifier = {
 }
 export const elasticsearchIndexMapping = {
   properties: {
-    category: { properties: { codeableConcept } },
-    condition: { properties: { codeableConcept } },
+    category: codeableConcept,
+    condition: codeableConcept,
     contact: {
       properties: {
         name: { type: 'text' },
@@ -65,7 +65,7 @@ export const elasticsearchIndexMapping = {
         profile: { type: 'text' },
       },
     },
-    phase: { properties: { codeableConcept } },
+    phase: codeableConcept,
     status: { type: 'text' },
     title: { type: 'text' },
   },

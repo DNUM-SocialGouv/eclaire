@@ -1,16 +1,15 @@
-import { ResearchStudy } from 'fhir/r4'
-
-import { IngestPipeline, IndexElasticsearch, ResearchStudyElasticsearchDocument } from './IngestPipeline'
+import { IngestPipeline } from './IngestPipeline'
 import { EclaireDto } from '../dto/EclaireDto'
 import { RiphJardeDto } from '../dto/RiphJardeDto'
 import { ResearchStudyModelFactory } from '../factory/ResearchStudyModelFactory'
+import { ResearchStudyModel } from 'src/shared/models/domain-resources/ResearchStudyModel'
 
 export class IngestPipelineJarde extends IngestPipeline {
   readonly type = 'jarde'
 
   async execute(): Promise<void> {
     const riphJardeDtos: RiphJardeDto[] = super.extract<RiphJardeDto>()
-    const researchStudyDocuments: ResearchStudyElasticsearchDocument[] = this.transform(riphJardeDtos)
+    const researchStudyDocuments: ResearchStudyModel[] = this.transform(riphJardeDtos)
 
     const chunkSize = 200
     for (let i = 0; i < researchStudyDocuments.length; i += chunkSize) {
@@ -20,15 +19,13 @@ export class IngestPipelineJarde extends IngestPipeline {
     }
   }
 
-  transform(riphJardeDtos: RiphJardeDto[]): ResearchStudyElasticsearchDocument[] {
+  transform(riphJardeDtos: RiphJardeDto[]): ResearchStudyModel[] {
     const removeRapatrieeCtis = (jarde: RiphJardeDto): boolean => jarde.etat !== 'RAPATRIEE_CTIS'
     const riphJardeDtosWithoutRapatrieeCtis = riphJardeDtos.filter(removeRapatrieeCtis)
 
-    return riphJardeDtosWithoutRapatrieeCtis.flatMap((riphJardeDto: RiphJardeDto): ResearchStudyElasticsearchDocument[] => {
-      const indexElasticsearch: IndexElasticsearch = { create: { _id: riphJardeDto.numero_national } }
+    return riphJardeDtosWithoutRapatrieeCtis.flatMap((riphJardeDto: RiphJardeDto): ResearchStudyModel => {
       const eclaireDto: EclaireDto = EclaireDto.fromJarde(riphJardeDto)
-      const researchStudyModel: ResearchStudy = ResearchStudyModelFactory.create(eclaireDto)
-      return [indexElasticsearch, researchStudyModel]
+      return ResearchStudyModelFactory.create(eclaireDto)
     })
   }
 }
