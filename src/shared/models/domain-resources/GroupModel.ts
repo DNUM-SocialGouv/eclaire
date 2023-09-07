@@ -1,7 +1,6 @@
 import { Group, GroupCharacteristic } from 'fhir/r4'
 
 import { GroupCharacteristicModel } from '../backbone-elements/GroupCharacteristicModel'
-import { ModelUtils } from '../eclaire/ModelUtils'
 
 export class GroupModel implements Group {
   readonly resourceType: 'Group'
@@ -31,34 +30,40 @@ export class GroupModel implements Group {
     studyInclusion: string,
     studyExclusion: string
   ): Group {
-    const emptySexIfNull = ModelUtils.emptyIfNull(sex)
-    const emptyAgeRangeIfNull = ModelUtils.emptyIfNull(ageRange)
-    const emptyStudySizeIfNull = ModelUtils.emptyNumberIfNull(studySize)
-    const emptyResearchStudyGroupCategoryIfNull = ModelUtils.emptyIfNull(researchStudyGroupCategory)
-    const emptyStudyPopulationIfNull = ModelUtils.emptyIfNull(studyPopulation)
-    const emptyStudyInclusionIfNull = ModelUtils.emptyIfNull(studyInclusion)
-    const emptyStudyExclusionIfNull = ModelUtils.emptyIfNull(studyExclusion)
-
     let parsedAgeRanges: GroupCharacteristic[] = []
 
-    if (emptyAgeRangeIfNull !== ModelUtils.NULL_IN_SOURCE) {
-      parsedAgeRanges = emptyAgeRangeIfNull
+    if (ageRange !== null) {
+      parsedAgeRanges = ageRange
         .split(', ')
         .map((ageRange): GroupCharacteristic => GroupCharacteristicModel.createAgeRange(ageRange))
     }
 
+    const characteristic: GroupCharacteristic[] = []
+
+    if (sex !== null) {
+      characteristic.push(GroupCharacteristicModel.createGender(sex))
+    }
+    if (ageRange !== null) {
+      characteristic.push(...parsedAgeRanges)
+    }
+    if (researchStudyGroupCategory !== null) {
+      characteristic.push(GroupCharacteristicModel.createResearchStudyGroupCategory(researchStudyGroupCategory))
+    }
+    if (studyPopulation !== null) {
+      characteristic.push(GroupCharacteristicModel.createStudyPopulation(studyPopulation))
+    }
+    if (studyInclusion !== null) {
+      characteristic.push(GroupCharacteristicModel.createInclusion(studyInclusion))
+    }
+    if (studyExclusion !== null) {
+      characteristic.push(GroupCharacteristicModel.createExclusion(studyExclusion))
+    }
+
     return new GroupModel(
       true,
-      [
-        GroupCharacteristicModel.createGender(emptySexIfNull),
-        ...parsedAgeRanges,
-        GroupCharacteristicModel.createResearchStudyGroupCategory(emptyResearchStudyGroupCategoryIfNull),
-        GroupCharacteristicModel.createStudyPopulation(emptyStudyPopulationIfNull),
-        GroupCharacteristicModel.createInclusion(emptyStudyInclusionIfNull),
-        GroupCharacteristicModel.createExclusion(emptyStudyExclusionIfNull),
-      ],
+      characteristic.length === 0 ? undefined : characteristic,
       enrollmentGroupId,
-      emptyStudySizeIfNull,
+      studySize !== null ? studySize : undefined,
       'person'
     )
   }

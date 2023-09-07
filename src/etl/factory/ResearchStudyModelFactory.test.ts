@@ -2147,63 +2147,6 @@ describe('research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": "unknown",
-                      "display": "Unknown",
-                      "system": "http://hl7.org/fhir/administrative-gender",
-                      "version": "5.0.0",
-                    },
-                  ],
-                  "text": "Genders",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "NULL",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Research Study Group Category",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "NULL",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Population",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
                       "system": undefined,
