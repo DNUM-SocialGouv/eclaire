@@ -110,7 +110,7 @@ export class EclaireDto {
       ModelUtils.NULL_IN_SOURCE,
       riphDmDto.historique,
       riphDmDto.dates_avis_favorable_ms_mns,
-      ModelUtils.NULL_IN_SOURCE
+      null
     )
   }
 
@@ -144,7 +144,7 @@ export class EclaireDto {
       ModelUtils.NULL_IN_SOURCE,
       riphJardeDto.historique,
       riphJardeDto.dates_avis_favorable_ms_mns,
-      ModelUtils.NULL_IN_SOURCE
+      null
     )
   }
 }

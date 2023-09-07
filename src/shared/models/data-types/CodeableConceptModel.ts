@@ -145,11 +145,7 @@ export class CodeableConceptModel implements CodeableConcept {
   }
 
   static createLocations(countriesCode: string): CodeableConcept[] | undefined {
-    const emptyCountriesCodeIfNull = ModelUtils.emptyIfNull(countriesCode)
-
-    if (emptyCountriesCodeIfNull === ModelUtils.NULL_IN_SOURCE) return undefined
-
-    return emptyCountriesCodeIfNull.split(', ').map((countryCode): CodeableConcept => {
+    return countriesCode.split(', ').map((countryCode): CodeableConcept => {
       return new CodeableConceptModel(
         [CodingModel.createLocation(countryCode)],
         'Countries of recruitment'

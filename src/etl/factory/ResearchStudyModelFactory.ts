@@ -78,7 +78,7 @@ export class ResearchStudyModelFactory {
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
       secondaryAssignerIdentifier,
     ]
-    const location = CodeableConceptModel.createLocations(eclaireDto.pays_concernes)
+    const location = eclaireDto.pays_concernes !== null ? CodeableConceptModel.createLocations(eclaireDto.pays_concernes) : undefined
     const meta: Meta = MetaModel.create(
       eclaireDto.historique,
       eclaireDto.dates_avis_favorable_ms_mns
