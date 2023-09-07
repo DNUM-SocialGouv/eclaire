@@ -22,10 +22,14 @@ export class ResearchStudyModelFactory {
     const { eclaireSecondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(eclaireDto)
     const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto)
 
-    const category: CodeableConcept[] = [
-      CodeableConceptModel.createRegulationCode(eclaireDto.reglementation_code),
-      CodeableConceptModel.createReglementationPrecision(eclaireDto.precision_reglementation),
-    ]
+    const category: CodeableConcept[] = []
+    if (eclaireDto.reglementation_code !== null) {
+      category.push(CodeableConceptModel.createRegulationCode(eclaireDto.reglementation_code))
+    }
+    if (eclaireDto.precision_reglementation !== null) {
+      category.push(CodeableConceptModel.createReglementationPrecision(eclaireDto.precision_reglementation))
+    }
+
     const condition: CodeableConcept[] = [
       CodeableConceptModel.createDisease(eclaireDto.pathologies_maladies_rares),
       CodeableConceptModel.createMedDra(eclaireDto.informations_meddra),
@@ -89,7 +93,7 @@ export class ResearchStudyModelFactory {
     const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(siteLocations, organizations)
 
     return new ResearchStudyModel(
-      category,
+      category.length === 0 ? undefined : category,
       condition,
       contact,
       contained,

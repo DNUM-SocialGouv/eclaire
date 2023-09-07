@@ -2036,17 +2036,6 @@ describe('research study model factory', () => {
             ],
             "text": "Regulation Code",
           },
-          CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": undefined,
-                "display": "NULL",
-                "system": undefined,
-                "version": undefined,
-              },
-            ],
-            "text": "Reglementation Precision",
-          },
         ],
         "condition": [
           CodeableConceptModel {

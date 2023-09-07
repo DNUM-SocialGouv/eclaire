@@ -29,10 +29,8 @@ export class CodeableConceptModel implements CodeableConcept {
   }
 
   static createReglementationPrecision(reglementationPrecision: string): CodeableConcept {
-    const emptyReglementationPrecisionIfNull = ModelUtils.emptyIfNull(reglementationPrecision)
-
     return new CodeableConceptModel(
-      [CodingModel.createReglementationPrecision(emptyReglementationPrecisionIfNull)],
+      [CodingModel.createReglementationPrecision(reglementationPrecision)],
       'Reglementation Precision'
     )
   }
