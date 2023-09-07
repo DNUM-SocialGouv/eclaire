@@ -40,7 +40,7 @@ export class ElasticsearchService {
 
   async bulkDocuments<T>(documents: T[]): Promise<void> {
     await this.client.bulk({
-      body: documents,
+      body: this.buildBody(documents),
       index: this.index,
       refresh: true,
     } satisfies RequestParams.Bulk)
@@ -60,6 +60,15 @@ export class ElasticsearchService {
       total: response.body.hits.total.value as number,
     }
   }
+
+  private buildBody<T>(documents: T[]): UpsertElasticsearchBody[] {
+    return documents.flatMap((document: T): UpsertElasticsearchBody[] => {
+      return [
+        { update: { _id: document['id'] as string } },
+        { doc: document, doc_as_upsert: true },
+      ]
+    })
+  }
 }
 
 export type SearchResponse = Readonly<{
@@ -73,3 +82,5 @@ export type SearchResponse = Readonly<{
   }>
   total: number
 }>
+
+type UpsertElasticsearchBody = Readonly<({ update: { _id: string } } | { doc_as_upsert: true; doc: unknown })>

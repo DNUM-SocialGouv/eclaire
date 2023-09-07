@@ -363,26 +363,20 @@ describe('elasticsearch research study repository', () => {
 async function setup() {
   const { configService, elasticsearchService } = await setupClientAndElasticsearchService()
   const numberOfResourcesByPage = Number(process.env.NUMBER_OF_RESOURCES_BY_PAGE)
-  const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'un autre titre pour la pagination 1' }))
-  const researchStudy2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'un autre titre pour la pagination 2' }))
-  const researchStudy3: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'un autre titre pour la pagination 3' }))
-  const researchStudy4: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'un autre titre pour la pagination 4' }))
-  const researchStudy5: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'un autre titre pour la pagination 5' }))
-  const researchStudy6: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'un autre titre pour la pagination 6' }))
+  const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1', titre: 'un autre titre pour la pagination 1' }))
+  const researchStudy2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId2', titre: 'un autre titre pour la pagination 2' }))
+  const researchStudy3: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId3', titre: 'un autre titre pour la pagination 3' }))
+  const researchStudy4: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId4', titre: 'un autre titre pour la pagination 4' }))
+  const researchStudy5: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId5', titre: 'un autre titre pour la pagination 5' }))
+  const researchStudy6: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId6', titre: 'un autre titre pour la pagination 6' }))
 
   await elasticsearchService.createAnIndex(elasticsearchIndexMapping)
   await elasticsearchService.bulkDocuments([
-    { index: { _id: 'fakeId1' } },
     ResearchStudyModelFactory.create(researchStudy1),
-    { index: { _id: 'fakeId2' } },
     ResearchStudyModelFactory.create(researchStudy2),
-    { index: { _id: 'fakeId3' } },
     ResearchStudyModelFactory.create(researchStudy3),
-    { index: { _id: 'fakeId4' } },
     ResearchStudyModelFactory.create(researchStudy4),
-    { index: { _id: 'fakeId5' } },
     ResearchStudyModelFactory.create(researchStudy5),
-    { index: { _id: 'fakeId6' } },
     ResearchStudyModelFactory.create(researchStudy6),
   ])
 

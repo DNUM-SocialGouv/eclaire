@@ -1,5 +1,5 @@
 import { ElasticsearchService } from './ElasticsearchService'
-import { fakeClient, FakeDocument, fakeDocument, fakeDocuments, fakeId, fakeMapping } from '../test/helpers/fakeHelper'
+import { fakeClient, FakeFhirDocument, fakeDocument, fakeDocument2, fakeDocuments, fakeId, fakeMapping } from '../test/helpers/fakeHelper'
 
 describe('elasticsearch service', () => {
   it('should create an index', async () => {
@@ -8,7 +8,7 @@ describe('elasticsearch service', () => {
     vi.spyOn(fakeClient.indices, 'create')
 
     // WHEN
-    await service.createAnIndex<FakeDocument>(fakeMapping)
+    await service.createAnIndex<FakeFhirDocument>(fakeMapping)
 
     // THEN
     expect(fakeClient.indices.create).toHaveBeenCalledWith({
@@ -62,7 +62,7 @@ describe('elasticsearch service', () => {
     expect(result).toStrictEqual(fakeDocument)
   })
 
-  it('should create some documents', async () => {
+  it('should bulk elastic index with documents', async () => {
     // GIVEN
     const service = new ElasticsearchService(fakeClient)
     vi.spyOn(fakeClient, 'bulk')
@@ -72,7 +72,12 @@ describe('elasticsearch service', () => {
 
     // THEN
     expect(fakeClient.bulk).toHaveBeenCalledWith({
-      body: fakeDocuments,
+      body: [
+        { update: { _id: fakeDocument.id } },
+        { doc: fakeDocument, doc_as_upsert: true },
+        { update: { _id: fakeDocument2.id } },
+        { doc: fakeDocument2, doc_as_upsert: true },
+      ],
       index: 'eclaire',
       refresh: true,
     })

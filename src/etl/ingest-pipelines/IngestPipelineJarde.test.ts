@@ -1,6 +1,7 @@
 import { expect } from 'vitest'
 
 import { IngestPipelineJarde } from './IngestPipelineJarde'
+import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
 import { RiphJardeDto } from '../dto/RiphJardeDto'
 import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
@@ -24,26 +25,29 @@ describe('etl | IngestPipelineJarde', () => {
   describe('transform', () => {
     it('should transform array of raw data into a collection of research study documents', async () => {
       // given
-      const riphJardeDtos = [RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde()]
+      const riphJardeDtos = [RiphDtoTestFactory.jarde()]
       const { ingestPipelineJarde } = await setup()
 
       // when
       const result = ingestPipelineJarde.transform(riphJardeDtos)
 
       // then
-      expect(result).toHaveLength(6)
+      expect(result[0]).toBeInstanceOf(ResearchStudyModel)
     })
 
     it('should not find "RAPATRIEE_CTIS" because it is a duplicate', async () => {
       // GIVEN
-      const riphJardeDtoWithApprovedAndFromCtisStatuses = [RiphDtoTestFactory.jarde({ etat: 'A_DEMARRER' }), RiphDtoTestFactory.jarde({ etat: 'RAPATRIEE_CTIS' })]
+      const riphJardeDtoWithApprovedAndFromCtisStatuses = [
+        RiphDtoTestFactory.jarde({ etat: 'A_DEMARRER' }),
+        RiphDtoTestFactory.jarde({ etat: 'RAPATRIEE_CTIS' }),
+      ]
       const { ingestPipelineJarde } = await setup()
 
       // WHEN
       const result = ingestPipelineJarde.transform(riphJardeDtoWithApprovedAndFromCtisStatuses)
 
       // THEN
-      expect(result).toHaveLength(2)
+      expect(result).toHaveLength(1)
       expect(result).not.toContainEqual({ create: { _id: '2021-A01022-59' } })
     })
   })
