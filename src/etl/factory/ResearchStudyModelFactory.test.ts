@@ -2037,23 +2037,7 @@ describe('research study model factory', () => {
             "text": "Regulation Code",
           },
         ],
-        "condition": [
-          CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": undefined,
-                "display": "NULL",
-                "system": undefined,
-                "version": undefined,
-              },
-            ],
-            "text": "Disease Condition",
-          },
-          CodeableConceptModel {
-            "coding": [],
-            "text": "MedDRA Condition",
-          },
-        ],
+        "condition": undefined,
         "contact": [
           ContactDetailModel {
             "extension": undefined,

@@ -30,10 +30,14 @@ export class ResearchStudyModelFactory {
       category.push(CodeableConceptModel.createReglementationPrecision(eclaireDto.precision_reglementation))
     }
 
-    const condition: CodeableConcept[] = [
-      CodeableConceptModel.createDisease(eclaireDto.pathologies_maladies_rares),
-      CodeableConceptModel.createMedDra(eclaireDto.informations_meddra),
-    ]
+    const condition: CodeableConcept[] = []
+    if (eclaireDto.pathologies_maladies_rares !== null) {
+      condition.push(CodeableConceptModel.createDisease(eclaireDto.pathologies_maladies_rares))
+    }
+    if (eclaireDto.informations_meddra !== null) {
+      condition.push(CodeableConceptModel.createMedDra(eclaireDto.informations_meddra))
+    }
+
     const contact: ContactDetail[] = [
       ContactDetailModel.create(
         eclaireDto.contact_prenom,
@@ -94,7 +98,7 @@ export class ResearchStudyModelFactory {
 
     return new ResearchStudyModel(
       category.length === 0 ? undefined : category,
-      condition,
+      condition.length === 0 ? undefined : condition,
       contact,
       contained,
       description,
