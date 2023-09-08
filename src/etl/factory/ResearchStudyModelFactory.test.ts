@@ -1240,7 +1240,7 @@ describe('research study model factory', () => {
           "text": "Research Study Phase",
         },
         "referenceContents": ReferenceContentsModel {
-          "locations": [],
+          "locations": undefined,
           "organizations": [
             OrganizationModel {
               "address": [
@@ -1845,7 +1845,7 @@ describe('research study model factory', () => {
           "text": "Research Study Phase",
         },
         "referenceContents": ReferenceContentsModel {
-          "locations": [],
+          "locations": undefined,
           "organizations": [
             OrganizationModel {
               "address": [
@@ -2321,129 +2321,8 @@ describe('research study model factory', () => {
           "text": "Research Study Phase",
         },
         "referenceContents": ReferenceContentsModel {
-          "locations": [
-            LocationModel {
-              "address": AddressModel {
-                "city": "NULL",
-                "country": undefined,
-                "line": [
-                  "NULL",
-                  "NULL",
-                ],
-                "postalCode": undefined,
-                "type": "physical",
-                "use": "work",
-              },
-              "id": "0-ctis-site",
-              "identifier": [
-                IdentifierModel {
-                  "assigner": undefined,
-                  "use": "official",
-                  "value": "0-ctis-site",
-                },
-              ],
-              "name": "NULL",
-              "resourceType": "Location",
-              "telecom": [
-                ContactPointModel {
-                  "extension": [
-                    ExtensionModel {
-                      "extension": undefined,
-                      "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name",
-                      "valueCodeableConcept": undefined,
-                      "valueHumanName": HumanNameModel {
-                        "family": "NULL",
-                        "given": [
-                          "NULL",
-                        ],
-                        "prefix": [
-                          "NULL",
-                        ],
-                        "use": "official",
-                      },
-                      "valueInstant": undefined,
-                      "valuePeriod": undefined,
-                      "valueReference": undefined,
-                      "valueString": undefined,
-                    },
-                  ],
-                  "system": undefined,
-                  "use": "work",
-                  "value": undefined,
-                },
-              ],
-            },
-          ],
+          "locations": undefined,
           "organizations": [
-            OrganizationModel {
-              "address": [
-                AddressModel {
-                  "city": "NULL",
-                  "country": "NULL",
-                  "line": [
-                    "NULL",
-                  ],
-                  "postalCode": "NULL",
-                  "type": "physical",
-                  "use": "work",
-                },
-              ],
-              "contact": [
-                OrganizationContactModel {
-                  "name": HumanNameModel {
-                    "family": "NULL",
-                    "given": [
-                      "NULL",
-                    ],
-                    "prefix": undefined,
-                    "use": "official",
-                  },
-                  "purpose": CodeableConceptModel {
-                    "coding": [
-                      CodingModel {
-                        "code": "ADMIN",
-                        "display": "Administrative",
-                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "version": "4.0.1",
-                      },
-                    ],
-                    "text": "Organization Contact Purpose",
-                  },
-                  "telecom": [
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "phone",
-                      "use": "work",
-                      "value": "NULL",
-                    },
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "email",
-                      "use": "work",
-                      "value": "NULL",
-                    },
-                  ],
-                },
-              ],
-              "id": "2022-500299-71-00-primary-sponsor",
-              "identifier": undefined,
-              "name": "NULL",
-              "resourceType": "Organization",
-              "telecom": undefined,
-              "type": [
-                CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "crs",
-                      "display": "Clinical Research Sponsor",
-                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "text": "Organization Sponsor Type",
-                },
-              ],
-            },
             OrganizationModel {
               "address": [
                 AddressModel {

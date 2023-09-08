@@ -100,11 +100,16 @@ export class ResearchStudyModelFactory {
     const status = eclaireDto.etat as RiphStatus
     const title = ModelUtils.emptyIfNull(eclaireDto.titre)
 
-    const organizations: Organization[] = [
-      primarySponsorOrganization,
-      secondarySponsorOrganization,
-      secondaryAssignerOrganization,
-    ]
+    const organizations: Organization[] = []
+    if (primarySponsorOrganization !== null) {
+      organizations.push(primarySponsorOrganization)
+    }
+    if (secondarySponsorOrganization !== null) {
+      organizations.push(secondarySponsorOrganization)
+    }
+    if (secondaryAssignerOrganization !== null) {
+      organizations.push(secondaryAssignerOrganization)
+    }
 
     const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(siteLocations, organizations)
 
@@ -157,18 +162,31 @@ export class ResearchStudyModelFactory {
   private static createPrimarySponsor(eclaireDto: EclaireDto) {
     const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(eclaireDto.numero_secondaire)
     const sponsor: Reference = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
-    const primarySponsorOrganization: Organization = OrganizationModel.createSponsor(
-      primarySponsorOrganizationId,
-      eclaireDto.organisme_nom,
-      eclaireDto.organisme_adresse,
-      eclaireDto.organisme_ville,
-      eclaireDto.organisme_code_postal,
-      eclaireDto.organisme_pays,
-      eclaireDto.contact_prenom,
-      eclaireDto.contact_nom,
-      eclaireDto.contact_telephone,
-      eclaireDto.contact_courriel
-    )
+    let primarySponsorOrganization: Organization = null
+    if (
+      eclaireDto.organisme_nom !== null &&
+      eclaireDto.organisme_adresse !== null &&
+      eclaireDto.organisme_ville !== null &&
+      eclaireDto.organisme_code_postal !== null &&
+      eclaireDto.organisme_pays !== null &&
+      eclaireDto.contact_prenom !== null &&
+      eclaireDto.contact_nom !== null &&
+      eclaireDto.contact_telephone !== null &&
+      eclaireDto.contact_courriel !== null
+    ) {
+      primarySponsorOrganization = OrganizationModel.createSponsor(
+        primarySponsorOrganizationId,
+        eclaireDto.organisme_nom,
+        eclaireDto.organisme_adresse,
+        eclaireDto.organisme_ville,
+        eclaireDto.organisme_code_postal,
+        eclaireDto.organisme_pays,
+        eclaireDto.contact_prenom,
+        eclaireDto.contact_nom,
+        eclaireDto.contact_telephone,
+        eclaireDto.contact_courriel
+      )
+    }
 
     return { primarySponsorOrganization, sponsor }
   }
@@ -201,16 +219,26 @@ export class ResearchStudyModelFactory {
       site.push(ReferenceModel.createSite(id))
 
       const siteDto = eclaireDto.sites.at(siteDtoIndex)
-      siteLocations.push(LocationModel.create(
-        id,
-        ModelUtils.emptyIfNull(siteDto.adresse),
-        ModelUtils.emptyIfNull(siteDto.ville),
-        ModelUtils.emptyIfNull(siteDto.prenom),
-        ModelUtils.emptyIfNull(siteDto.nom),
-        ModelUtils.emptyIfNull(siteDto.organisme),
-        ModelUtils.emptyIfNull(siteDto.service),
-        ModelUtils.emptyIfNull(siteDto.titre)
-      ))
+      if (
+        siteDto.adresse !== null &&
+        siteDto.ville !== null &&
+        siteDto.prenom !== null &&
+        siteDto.nom !== null &&
+        siteDto.organisme !== null &&
+        siteDto.service !== null &&
+        siteDto.titre !== null
+      ) {
+        siteLocations.push(LocationModel.create(
+          id,
+          ModelUtils.emptyIfNull(siteDto.adresse),
+          ModelUtils.emptyIfNull(siteDto.ville),
+          ModelUtils.emptyIfNull(siteDto.prenom),
+          ModelUtils.emptyIfNull(siteDto.nom),
+          ModelUtils.emptyIfNull(siteDto.organisme),
+          ModelUtils.emptyIfNull(siteDto.service),
+          ModelUtils.emptyIfNull(siteDto.titre)
+        ))
+      }
     }
 
     return { site, siteLocations }
