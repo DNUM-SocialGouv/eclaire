@@ -1189,7 +1189,6 @@ describe('research study model factory', () => {
             "valueReference": undefined,
             "valueString": undefined,
           },
-          undefined,
           ExtensionModel {
             "extension": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
@@ -1795,7 +1794,6 @@ describe('research study model factory', () => {
             "valueReference": undefined,
             "valueString": undefined,
           },
-          undefined,
           ExtensionModel {
             "extension": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
@@ -2191,16 +2189,6 @@ describe('research study model factory', () => {
             "valueString": undefined,
           },
           ExtensionModel {
-            "extension": undefined,
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
-            "valueCodeableConcept": undefined,
-            "valueHumanName": undefined,
-            "valueInstant": undefined,
-            "valuePeriod": undefined,
-            "valueReference": undefined,
-            "valueString": "NULL",
-          },
-          ExtensionModel {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
@@ -2279,19 +2267,6 @@ describe('research study model factory', () => {
             "valueHumanName": undefined,
             "valueInstant": undefined,
             "valuePeriod": undefined,
-            "valueReference": undefined,
-            "valueString": undefined,
-          },
-          ExtensionModel {
-            "extension": undefined,
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
-            "valueCodeableConcept": undefined,
-            "valueHumanName": undefined,
-            "valueInstant": undefined,
-            "valuePeriod": PeriodModel {
-              "end": undefined,
-              "start": "1970-01-01T00:00:00.000Z",
-            },
             "valueReference": undefined,
             "valueString": undefined,
           },

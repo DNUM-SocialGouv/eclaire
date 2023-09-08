@@ -23,9 +23,7 @@ export class ResearchStudyModelFactory {
     const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto)
 
     const category: CodeableConcept[] = []
-    if (eclaireDto.reglementation_code !== null) {
-      category.push(CodeableConceptModel.createRegulationCode(eclaireDto.reglementation_code))
-    }
+    category.push(CodeableConceptModel.createRegulationCode(eclaireDto.reglementation_code))
     if (eclaireDto.precision_reglementation !== null) {
       category.push(CodeableConceptModel.createReglementationPrecision(eclaireDto.precision_reglementation))
     }
@@ -75,15 +73,18 @@ export class ResearchStudyModelFactory {
     const contained: Group[] = [enrollmentReferenceContent]
     const description = ModelUtils.UNAVAILABLE
 
-    const extensions: Extension[] = [
-      eclaireSecondarySponsor,
-      ExtensionModel.createEclaireTherapeuticArea(eclaireDto.domaine_therapeutique),
-      ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
-      ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
-      eclaireDto.date_debut_recrutement !== ModelUtils.NULL_IN_SOURCE ?
-        ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement) : undefined,
-      ExtensionModel.createEclaireReviewDate(eclaireDto.historique, eclaireDto.dates_avis_favorable_ms_mns),
-    ]
+    const extensions: Extension[] = []
+    extensions.push(eclaireSecondarySponsor)
+    if (eclaireDto.domaine_therapeutique !== null) {
+      extensions.push(ExtensionModel.createEclaireTherapeuticArea(eclaireDto.domaine_therapeutique))
+    }
+    extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'))
+    extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'))
+    if (eclaireDto.date_debut_recrutement !== null) {
+      extensions.push(ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement))
+    }
+    extensions.push(ExtensionModel.createEclaireReviewDate(eclaireDto.historique, eclaireDto.dates_avis_favorable_ms_mns))
+
     const id = eclaireDto.numero_secondaire
     const identifier: Identifier[] = [
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
@@ -108,7 +109,7 @@ export class ResearchStudyModelFactory {
     const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(siteLocations, organizations)
 
     return new ResearchStudyModel(
-      category.length === 0 ? undefined : category,
+      category,
       condition.length === 0 ? undefined : condition,
       contact,
       contained,

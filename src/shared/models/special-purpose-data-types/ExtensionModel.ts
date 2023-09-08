@@ -41,7 +41,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
-      ModelUtils.emptyIfNull(therapeuticArea)
+      therapeuticArea
     )
   }
 
