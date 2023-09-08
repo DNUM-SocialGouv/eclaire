@@ -9,8 +9,8 @@ export class MetaModel implements Meta {
   ) {}
 
   static create(history: string, approvalDate: string): Meta {
-    const emptyHistoryDateIfNull = ModelUtils.emptyIfNull(history)
-    const emptyApprovalDateIfNull = ModelUtils.emptyIfNull(approvalDate)
+    const emptyHistoryDateIfNull = ModelUtils.undefinedIfNull(history)
+    const emptyApprovalDateIfNull = ModelUtils.undefinedIfNull(approvalDate)
 
     return new MetaModel(
       ModelUtils.getMostRecentIsoDate(emptyHistoryDateIfNull, emptyApprovalDateIfNull),

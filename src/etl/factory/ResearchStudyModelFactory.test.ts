@@ -964,25 +964,6 @@ describe('research study model factory', () => {
                 "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "unknown",
-                      "display": "Unknown",
-                      "system": "http://hl7.org/fhir/administrative-gender",
-                      "version": "5.0.0",
-                    },
-                  ],
-                  "text": "Genders",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
                 "valueQuantity": undefined,
                 "valueRange": RangeModel {
@@ -1189,7 +1170,6 @@ describe('research study model factory', () => {
             "valueReference": undefined,
             "valueString": undefined,
           },
-          undefined,
           ExtensionModel {
             "extension": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
@@ -1241,7 +1221,7 @@ describe('research study model factory', () => {
           "text": "Research Study Phase",
         },
         "referenceContents": ReferenceContentsModel {
-          "locations": [],
+          "locations": undefined,
           "organizations": [
             OrganizationModel {
               "address": [
@@ -1570,25 +1550,6 @@ describe('research study model factory', () => {
                 "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "unknown",
-                      "display": "Unknown",
-                      "system": "http://hl7.org/fhir/administrative-gender",
-                      "version": "5.0.0",
-                    },
-                  ],
-                  "text": "Genders",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
                 "valueQuantity": undefined,
                 "valueRange": RangeModel {
@@ -1795,7 +1756,6 @@ describe('research study model factory', () => {
             "valueReference": undefined,
             "valueString": undefined,
           },
-          undefined,
           ExtensionModel {
             "extension": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
@@ -1847,7 +1807,7 @@ describe('research study model factory', () => {
           "text": "Research Study Phase",
         },
         "referenceContents": ReferenceContentsModel {
-          "locations": [],
+          "locations": undefined,
           "organizations": [
             OrganizationModel {
               "address": [
@@ -2036,54 +1996,9 @@ describe('research study model factory', () => {
             ],
             "text": "Regulation Code",
           },
-          CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": undefined,
-                "display": "NULL",
-                "system": undefined,
-                "version": undefined,
-              },
-            ],
-            "text": "Reglementation Precision",
-          },
         ],
-        "condition": [
-          CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": undefined,
-                "display": "NULL",
-                "system": undefined,
-                "version": undefined,
-              },
-            ],
-            "text": "Disease Condition",
-          },
-          CodeableConceptModel {
-            "coding": [],
-            "text": "MedDRA Condition",
-          },
-        ],
+        "condition": undefined,
         "contact": [
-          ContactDetailModel {
-            "extension": undefined,
-            "name": "NULL NULL",
-            "telecom": [
-              ContactPointModel {
-                "extension": undefined,
-                "system": "phone",
-                "use": "work",
-                "value": "NULL",
-              },
-              ContactPointModel {
-                "extension": undefined,
-                "system": "email",
-                "use": "work",
-                "value": "NULL",
-              },
-            ],
-          },
           ContactDetailModel {
             "extension": [
               ExtensionModel {
@@ -2174,63 +2089,6 @@ describe('research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": "unknown",
-                      "display": "Unknown",
-                      "system": "http://hl7.org/fhir/administrative-gender",
-                      "version": "5.0.0",
-                    },
-                  ],
-                  "text": "Genders",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "NULL",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Research Study Group Category",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "NULL",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Population",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
                       "code": undefined,
                       "display": "INDISPONIBLE",
                       "system": undefined,
@@ -2291,16 +2149,6 @@ describe('research study model factory', () => {
               "type": "Organization",
             },
             "valueString": undefined,
-          },
-          ExtensionModel {
-            "extension": undefined,
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
-            "valueCodeableConcept": undefined,
-            "valueHumanName": undefined,
-            "valueInstant": undefined,
-            "valuePeriod": undefined,
-            "valueReference": undefined,
-            "valueString": "NULL",
           },
           ExtensionModel {
             "extension": [
@@ -2386,19 +2234,6 @@ describe('research study model factory', () => {
           },
           ExtensionModel {
             "extension": undefined,
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
-            "valueCodeableConcept": undefined,
-            "valueHumanName": undefined,
-            "valueInstant": undefined,
-            "valuePeriod": PeriodModel {
-              "end": undefined,
-              "start": "1970-01-01T00:00:00.000Z",
-            },
-            "valueReference": undefined,
-            "valueString": undefined,
-          },
-          ExtensionModel {
-            "extension": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -2448,129 +2283,8 @@ describe('research study model factory', () => {
           "text": "Research Study Phase",
         },
         "referenceContents": ReferenceContentsModel {
-          "locations": [
-            LocationModel {
-              "address": AddressModel {
-                "city": "NULL",
-                "country": undefined,
-                "line": [
-                  "NULL",
-                  "NULL",
-                ],
-                "postalCode": undefined,
-                "type": "physical",
-                "use": "work",
-              },
-              "id": "0-ctis-site",
-              "identifier": [
-                IdentifierModel {
-                  "assigner": undefined,
-                  "use": "official",
-                  "value": "0-ctis-site",
-                },
-              ],
-              "name": "NULL",
-              "resourceType": "Location",
-              "telecom": [
-                ContactPointModel {
-                  "extension": [
-                    ExtensionModel {
-                      "extension": undefined,
-                      "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name",
-                      "valueCodeableConcept": undefined,
-                      "valueHumanName": HumanNameModel {
-                        "family": "NULL",
-                        "given": [
-                          "NULL",
-                        ],
-                        "prefix": [
-                          "NULL",
-                        ],
-                        "use": "official",
-                      },
-                      "valueInstant": undefined,
-                      "valuePeriod": undefined,
-                      "valueReference": undefined,
-                      "valueString": undefined,
-                    },
-                  ],
-                  "system": undefined,
-                  "use": "work",
-                  "value": undefined,
-                },
-              ],
-            },
-          ],
+          "locations": undefined,
           "organizations": [
-            OrganizationModel {
-              "address": [
-                AddressModel {
-                  "city": "NULL",
-                  "country": "NULL",
-                  "line": [
-                    "NULL",
-                  ],
-                  "postalCode": "NULL",
-                  "type": "physical",
-                  "use": "work",
-                },
-              ],
-              "contact": [
-                OrganizationContactModel {
-                  "name": HumanNameModel {
-                    "family": "NULL",
-                    "given": [
-                      "NULL",
-                    ],
-                    "prefix": undefined,
-                    "use": "official",
-                  },
-                  "purpose": CodeableConceptModel {
-                    "coding": [
-                      CodingModel {
-                        "code": "ADMIN",
-                        "display": "Administrative",
-                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "version": "4.0.1",
-                      },
-                    ],
-                    "text": "Organization Contact Purpose",
-                  },
-                  "telecom": [
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "phone",
-                      "use": "work",
-                      "value": "NULL",
-                    },
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "email",
-                      "use": "work",
-                      "value": "NULL",
-                    },
-                  ],
-                },
-              ],
-              "id": "2022-500299-71-00-primary-sponsor",
-              "identifier": undefined,
-              "name": "NULL",
-              "resourceType": "Organization",
-              "telecom": undefined,
-              "type": [
-                CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "crs",
-                      "display": "Clinical Research Sponsor",
-                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "text": "Organization Sponsor Type",
-                },
-              ],
-            },
             OrganizationModel {
               "address": [
                 AddressModel {
@@ -2673,7 +2387,7 @@ describe('research study model factory', () => {
           "type": "Organization",
         },
         "status": "approved",
-        "title": "NULL",
+        "title": undefined,
       }
     `)
   })

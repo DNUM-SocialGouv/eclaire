@@ -41,15 +41,15 @@ export class OrganizationModel implements Organization {
     contactPhone: string,
     contactMail: string
   ): Organization {
-    const emptyIfNullSponsorName = ModelUtils.emptyIfNull(sponsorName)
-    const emptyIfNullSponsorAddress = ModelUtils.emptyIfNull(sponsorAddress)
-    const emptyIfNullSponsorCity = ModelUtils.emptyIfNull(sponsorCity)
-    const emptyIfNullSponsorPostalCode = ModelUtils.emptyIfNull(sponsorPostalCode)
-    const emptyIfNullSponsorCountry = ModelUtils.emptyIfNull(sponsorCountry)
-    const emptyIfNullContactFirstname = ModelUtils.emptyIfNull(contactFirstname)
-    const emptyIfNullContactName = ModelUtils.emptyIfNull(contactName)
-    const emptyIfNullContactPhone = ModelUtils.emptyIfNull(contactPhone)
-    const emptyIfNullContactMail = ModelUtils.emptyIfNull(contactMail)
+    const emptyIfNullSponsorName = ModelUtils.undefinedIfNull(sponsorName)
+    const emptyIfNullSponsorAddress = ModelUtils.undefinedIfNull(sponsorAddress)
+    const emptyIfNullSponsorCity = ModelUtils.undefinedIfNull(sponsorCity)
+    const emptyIfNullSponsorPostalCode = ModelUtils.undefinedIfNull(sponsorPostalCode)
+    const emptyIfNullSponsorCountry = ModelUtils.undefinedIfNull(sponsorCountry)
+    const emptyIfNullContactFirstname = ModelUtils.undefinedIfNull(contactFirstname)
+    const emptyIfNullContactName = ModelUtils.undefinedIfNull(contactName)
+    const emptyIfNullContactPhone = ModelUtils.undefinedIfNull(contactPhone)
+    const emptyIfNullContactMail = ModelUtils.undefinedIfNull(contactMail)
 
     return new OrganizationModel(
       [

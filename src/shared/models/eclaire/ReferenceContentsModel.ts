@@ -8,7 +8,7 @@ export class ReferenceContentsModel {
 
   static create(locations: Location[], organizations: Organization[]): ReferenceContentsModel {
     return new ReferenceContentsModel(
-      locations,
+      locations.length === 0 ? undefined : locations,
       organizations
     )
   }

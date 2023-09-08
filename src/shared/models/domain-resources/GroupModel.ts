@@ -31,34 +31,40 @@ export class GroupModel implements Group {
     studyInclusion: string,
     studyExclusion: string
   ): Group {
-    const emptySexIfNull = ModelUtils.emptyIfNull(sex)
-    const emptyAgeRangeIfNull = ModelUtils.emptyIfNull(ageRange)
-    const emptyStudySizeIfNull = ModelUtils.emptyNumberIfNull(studySize)
-    const emptyResearchStudyGroupCategoryIfNull = ModelUtils.emptyIfNull(researchStudyGroupCategory)
-    const emptyStudyPopulationIfNull = ModelUtils.emptyIfNull(studyPopulation)
-    const emptyStudyInclusionIfNull = ModelUtils.emptyIfNull(studyInclusion)
-    const emptyStudyExclusionIfNull = ModelUtils.emptyIfNull(studyExclusion)
-
     let parsedAgeRanges: GroupCharacteristic[] = []
 
-    if (emptyAgeRangeIfNull !== ModelUtils.NULL_IN_SOURCE) {
-      parsedAgeRanges = emptyAgeRangeIfNull
+    if (ModelUtils.isNotNull(ageRange)) {
+      parsedAgeRanges = ageRange
         .split(', ')
         .map((ageRange): GroupCharacteristic => GroupCharacteristicModel.createAgeRange(ageRange))
     }
 
+    const characteristic: GroupCharacteristic[] = []
+
+    if (ModelUtils.isNotNull(sex)) {
+      characteristic.push(GroupCharacteristicModel.createGender(sex))
+    }
+    if (ModelUtils.isNotNull(ageRange)) {
+      characteristic.push(...parsedAgeRanges)
+    }
+    if (ModelUtils.isNotNull(researchStudyGroupCategory)) {
+      characteristic.push(GroupCharacteristicModel.createResearchStudyGroupCategory(researchStudyGroupCategory))
+    }
+    if (ModelUtils.isNotNull(studyPopulation)) {
+      characteristic.push(GroupCharacteristicModel.createStudyPopulation(studyPopulation))
+    }
+    if (ModelUtils.isNotNull(studyInclusion)) {
+      characteristic.push(GroupCharacteristicModel.createInclusion(studyInclusion))
+    }
+    if (ModelUtils.isNotNull(studyExclusion)) {
+      characteristic.push(GroupCharacteristicModel.createExclusion(studyExclusion))
+    }
+
     return new GroupModel(
       true,
-      [
-        GroupCharacteristicModel.createGender(emptySexIfNull),
-        ...parsedAgeRanges,
-        GroupCharacteristicModel.createResearchStudyGroupCategory(emptyResearchStudyGroupCategoryIfNull),
-        GroupCharacteristicModel.createStudyPopulation(emptyStudyPopulationIfNull),
-        GroupCharacteristicModel.createInclusion(emptyStudyInclusionIfNull),
-        GroupCharacteristicModel.createExclusion(emptyStudyExclusionIfNull),
-      ],
+      characteristic.length === 0 ? undefined : characteristic,
       enrollmentGroupId,
-      emptyStudySizeIfNull,
+      ModelUtils.isNotNull(studySize) ? studySize : undefined,
       'person'
     )
   }
