@@ -2040,24 +2040,6 @@ describe('research study model factory', () => {
         "condition": undefined,
         "contact": [
           ContactDetailModel {
-            "extension": undefined,
-            "name": "NULL NULL",
-            "telecom": [
-              ContactPointModel {
-                "extension": undefined,
-                "system": "phone",
-                "use": "work",
-                "value": "NULL",
-              },
-              ContactPointModel {
-                "extension": undefined,
-                "system": "email",
-                "use": "work",
-                "value": "NULL",
-              },
-            ],
-          },
-          ContactDetailModel {
             "extension": [
               ExtensionModel {
                 "extension": undefined,

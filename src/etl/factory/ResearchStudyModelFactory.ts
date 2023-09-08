@@ -38,29 +38,40 @@ export class ResearchStudyModelFactory {
       condition.push(CodeableConceptModel.createMedDra(eclaireDto.informations_meddra))
     }
 
-    const contact: ContactDetail[] = [
-      ContactDetailModel.create(
+    const contact: ContactDetail[] = []
+    if (
+      eclaireDto.contact_prenom !== null &&
+      eclaireDto.contact_nom !== null &&
+      eclaireDto.contact_telephone !== null &&
+      eclaireDto.contact_courriel !== null
+    ) {
+      contact.push(ContactDetailModel.create(
         eclaireDto.contact_prenom,
         eclaireDto.contact_nom,
         eclaireDto.contact_telephone,
         eclaireDto.contact_courriel,
         undefined
-      ),
+      ))
+    }
+    contact.push(
       ContactDetailModel.create(
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         'Scientific'
-      ),
+      )
+    )
+    contact.push(
       ContactDetailModel.create(
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         'Public'
-      ),
-    ]
+      )
+    )
+
     const contained: Group[] = [enrollmentReferenceContent]
     const description = ModelUtils.UNAVAILABLE
 
