@@ -964,25 +964,6 @@ describe('research study model factory', () => {
                 "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "unknown",
-                      "display": "Unknown",
-                      "system": "http://hl7.org/fhir/administrative-gender",
-                      "version": "5.0.0",
-                    },
-                  ],
-                  "text": "Genders",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
                 "valueQuantity": undefined,
                 "valueRange": RangeModel {
@@ -1565,25 +1546,6 @@ describe('research study model factory', () => {
           GroupModel {
             "actual": true,
             "characteristic": [
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "unknown",
-                      "display": "Unknown",
-                      "system": "http://hl7.org/fhir/administrative-gender",
-                      "version": "5.0.0",
-                    },
-                  ],
-                  "text": "Genders",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
               GroupCharacteristicModel {
                 "code": undefined,
                 "exclude": false,
@@ -2425,7 +2387,7 @@ describe('research study model factory', () => {
           "type": "Organization",
         },
         "status": "approved",
-        "title": "NULL",
+        "title": undefined,
       }
     `)
   })

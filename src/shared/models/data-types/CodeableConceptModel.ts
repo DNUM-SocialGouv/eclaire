@@ -13,7 +13,7 @@ export class CodeableConceptModel implements CodeableConcept {
   ) {}
 
   static createResearchStudyPhase(researchStudyPhase: string): CodeableConcept {
-    const emptyResearchStudyPhaseIfNull = ModelUtils.emptyIfNull(researchStudyPhase)
+    const emptyResearchStudyPhaseIfNull = ModelUtils.undefinedIfNull(researchStudyPhase)
 
     return new CodeableConceptModel(
       [CodingModel.createResearchStudyPhase(emptyResearchStudyPhaseIfNull)],
@@ -36,7 +36,7 @@ export class CodeableConceptModel implements CodeableConcept {
   }
 
   static createDisease(disease: string): CodeableConcept {
-    const emptyDiseaseIfNull = ModelUtils.emptyIfNull(disease)
+    const emptyDiseaseIfNull = ModelUtils.undefinedIfNull(disease)
 
     return new CodeableConceptModel(
       [CodingModel.createDisease(emptyDiseaseIfNull)],
@@ -45,10 +45,10 @@ export class CodeableConceptModel implements CodeableConcept {
   }
 
   static createMedDra(medDraInformation: string): CodeableConcept {
-    const emptyMedDraInformationIfNull = ModelUtils.emptyIfNull(medDraInformation)
+    const emptyMedDraInformationIfNull = ModelUtils.undefinedIfNull(medDraInformation)
     let coding: Coding[] = []
 
-    if (emptyMedDraInformationIfNull !== ModelUtils.NULL_IN_SOURCE) {
+    if (ModelUtils.isNotNull(emptyMedDraInformationIfNull)) {
       coding = emptyMedDraInformationIfNull
         .split(', ')
         .map((code): Coding => {
@@ -67,7 +67,7 @@ export class CodeableConceptModel implements CodeableConcept {
   static createGenders(genders: string): CodeableConcept {
     let parsedGenders = ['unknown']
 
-    if (genders !== ModelUtils.NULL_IN_SOURCE) {
+    if (ModelUtils.isNotNull(genders)) {
       parsedGenders = genders.split(',')
     }
 
@@ -97,9 +97,9 @@ export class CodeableConceptModel implements CodeableConcept {
       'Women of child bearing potential not using contraception': 'Femmes en âge de procréer n’utilisant pas de contraception',
       'Women of child bearing potential using contraception': 'Femmes en âge de procréer utilisant une méthode de contraception',
     }
-    let parsedStudyPopulations = [ModelUtils.NULL_IN_SOURCE]
+    let parsedStudyPopulations: string[] = []
 
-    if (studyPopulation !== ModelUtils.NULL_IN_SOURCE) {
+    if (ModelUtils.isNotNull(studyPopulation)) {
       parsedStudyPopulations = studyPopulation.split(', ').map((studyPopulation) => studyPopulationTranslation[studyPopulation])
     }
 

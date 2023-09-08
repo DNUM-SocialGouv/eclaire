@@ -24,24 +24,24 @@ export class ResearchStudyModelFactory {
 
     const category: CodeableConcept[] = []
     category.push(CodeableConceptModel.createRegulationCode(eclaireDto.reglementation_code))
-    if (eclaireDto.precision_reglementation !== null) {
+    if (ModelUtils.isNotNull(eclaireDto.precision_reglementation)) {
       category.push(CodeableConceptModel.createReglementationPrecision(eclaireDto.precision_reglementation))
     }
 
     const condition: CodeableConcept[] = []
-    if (eclaireDto.pathologies_maladies_rares !== null) {
+    if (ModelUtils.isNotNull(eclaireDto.pathologies_maladies_rares)) {
       condition.push(CodeableConceptModel.createDisease(eclaireDto.pathologies_maladies_rares))
     }
-    if (eclaireDto.informations_meddra !== null) {
+    if (ModelUtils.isNotNull(eclaireDto.informations_meddra)) {
       condition.push(CodeableConceptModel.createMedDra(eclaireDto.informations_meddra))
     }
 
     const contact: ContactDetail[] = []
     if (
-      eclaireDto.contact_prenom !== null &&
-      eclaireDto.contact_nom !== null &&
-      eclaireDto.contact_telephone !== null &&
-      eclaireDto.contact_courriel !== null
+      ModelUtils.isNotNull(eclaireDto.contact_prenom) &&
+      ModelUtils.isNotNull(eclaireDto.contact_nom) &&
+      ModelUtils.isNotNull(eclaireDto.contact_telephone) &&
+      ModelUtils.isNotNull(eclaireDto.contact_courriel)
     ) {
       contact.push(ContactDetailModel.create(
         eclaireDto.contact_prenom,
@@ -75,12 +75,12 @@ export class ResearchStudyModelFactory {
 
     const extensions: Extension[] = []
     extensions.push(eclaireSecondarySponsor)
-    if (eclaireDto.domaine_therapeutique !== null) {
+    if (ModelUtils.isNotNull(eclaireDto.domaine_therapeutique)) {
       extensions.push(ExtensionModel.createEclaireTherapeuticArea(eclaireDto.domaine_therapeutique))
     }
     extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'))
     extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'))
-    if (eclaireDto.date_debut_recrutement !== null) {
+    if (ModelUtils.isNotNull(eclaireDto.date_debut_recrutement)) {
       extensions.push(ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement))
     }
     extensions.push(ExtensionModel.createEclaireReviewDate(eclaireDto.historique, eclaireDto.dates_avis_favorable_ms_mns))
@@ -90,7 +90,7 @@ export class ResearchStudyModelFactory {
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
       secondaryAssignerIdentifier,
     ]
-    const location = eclaireDto.pays_concernes !== null ? CodeableConceptModel.createLocations(eclaireDto.pays_concernes) : undefined
+    const location = ModelUtils.isNotNull(eclaireDto.pays_concernes) ? CodeableConceptModel.createLocations(eclaireDto.pays_concernes) : undefined
     const meta: Meta = MetaModel.create(
       eclaireDto.historique,
       eclaireDto.dates_avis_favorable_ms_mns
@@ -98,16 +98,16 @@ export class ResearchStudyModelFactory {
     const phase: CodeableConcept = CodeableConceptModel.createResearchStudyPhase(eclaireDto.phase_recherche)
 
     const status = eclaireDto.etat as RiphStatus
-    const title = ModelUtils.emptyIfNull(eclaireDto.titre)
+    const title = ModelUtils.isNotNull(eclaireDto.titre) ? eclaireDto.titre : undefined
 
     const organizations: Organization[] = []
-    if (primarySponsorOrganization !== null) {
+    if (ModelUtils.isNotNull(primarySponsorOrganization)) {
       organizations.push(primarySponsorOrganization)
     }
-    if (secondarySponsorOrganization !== null) {
+    if (ModelUtils.isNotNull(secondarySponsorOrganization)) {
       organizations.push(secondarySponsorOrganization)
     }
-    if (secondaryAssignerOrganization !== null) {
+    if (ModelUtils.isNotNull(secondaryAssignerOrganization)) {
       organizations.push(secondaryAssignerOrganization)
     }
 
@@ -164,15 +164,15 @@ export class ResearchStudyModelFactory {
     const sponsor: Reference = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
     let primarySponsorOrganization: Organization = null
     if (
-      eclaireDto.organisme_nom !== null &&
-      eclaireDto.organisme_adresse !== null &&
-      eclaireDto.organisme_ville !== null &&
-      eclaireDto.organisme_code_postal !== null &&
-      eclaireDto.organisme_pays !== null &&
-      eclaireDto.contact_prenom !== null &&
-      eclaireDto.contact_nom !== null &&
-      eclaireDto.contact_telephone !== null &&
-      eclaireDto.contact_courriel !== null
+      ModelUtils.isNotNull(eclaireDto.organisme_nom) &&
+      ModelUtils.isNotNull(eclaireDto.organisme_adresse) &&
+      ModelUtils.isNotNull(eclaireDto.organisme_ville) &&
+      ModelUtils.isNotNull(eclaireDto.organisme_code_postal) &&
+      ModelUtils.isNotNull(eclaireDto.organisme_pays) &&
+      ModelUtils.isNotNull(eclaireDto.contact_prenom) &&
+      ModelUtils.isNotNull(eclaireDto.contact_nom) &&
+      ModelUtils.isNotNull(eclaireDto.contact_telephone) &&
+      ModelUtils.isNotNull(eclaireDto.contact_courriel)
     ) {
       primarySponsorOrganization = OrganizationModel.createSponsor(
         primarySponsorOrganizationId,
@@ -220,23 +220,23 @@ export class ResearchStudyModelFactory {
 
       const siteDto = eclaireDto.sites.at(siteDtoIndex)
       if (
-        siteDto.adresse !== null &&
-        siteDto.ville !== null &&
-        siteDto.prenom !== null &&
-        siteDto.nom !== null &&
-        siteDto.organisme !== null &&
-        siteDto.service !== null &&
-        siteDto.titre !== null
+        ModelUtils.isNotNull(siteDto.adresse) &&
+        ModelUtils.isNotNull(siteDto.ville) &&
+        ModelUtils.isNotNull(siteDto.prenom) &&
+        ModelUtils.isNotNull(siteDto.nom) &&
+        ModelUtils.isNotNull(siteDto.organisme) &&
+        ModelUtils.isNotNull(siteDto.service) &&
+        ModelUtils.isNotNull(siteDto.titre)
       ) {
         siteLocations.push(LocationModel.create(
           id,
-          ModelUtils.emptyIfNull(siteDto.adresse),
-          ModelUtils.emptyIfNull(siteDto.ville),
-          ModelUtils.emptyIfNull(siteDto.prenom),
-          ModelUtils.emptyIfNull(siteDto.nom),
-          ModelUtils.emptyIfNull(siteDto.organisme),
-          ModelUtils.emptyIfNull(siteDto.service),
-          ModelUtils.emptyIfNull(siteDto.titre)
+          ModelUtils.undefinedIfNull(siteDto.adresse),
+          ModelUtils.undefinedIfNull(siteDto.ville),
+          ModelUtils.undefinedIfNull(siteDto.prenom),
+          ModelUtils.undefinedIfNull(siteDto.nom),
+          ModelUtils.undefinedIfNull(siteDto.organisme),
+          ModelUtils.undefinedIfNull(siteDto.service),
+          ModelUtils.undefinedIfNull(siteDto.titre)
         ))
       }
     }

@@ -1,6 +1,7 @@
 import { Group, GroupCharacteristic } from 'fhir/r4'
 
 import { GroupCharacteristicModel } from '../backbone-elements/GroupCharacteristicModel'
+import { ModelUtils } from '../eclaire/ModelUtils'
 
 export class GroupModel implements Group {
   readonly resourceType: 'Group'
@@ -32,7 +33,7 @@ export class GroupModel implements Group {
   ): Group {
     let parsedAgeRanges: GroupCharacteristic[] = []
 
-    if (ageRange !== null) {
+    if (ModelUtils.isNotNull(ageRange)) {
       parsedAgeRanges = ageRange
         .split(', ')
         .map((ageRange): GroupCharacteristic => GroupCharacteristicModel.createAgeRange(ageRange))
@@ -40,22 +41,22 @@ export class GroupModel implements Group {
 
     const characteristic: GroupCharacteristic[] = []
 
-    if (sex !== null) {
+    if (ModelUtils.isNotNull(sex)) {
       characteristic.push(GroupCharacteristicModel.createGender(sex))
     }
-    if (ageRange !== null) {
+    if (ModelUtils.isNotNull(ageRange)) {
       characteristic.push(...parsedAgeRanges)
     }
-    if (researchStudyGroupCategory !== null) {
+    if (ModelUtils.isNotNull(researchStudyGroupCategory)) {
       characteristic.push(GroupCharacteristicModel.createResearchStudyGroupCategory(researchStudyGroupCategory))
     }
-    if (studyPopulation !== null) {
+    if (ModelUtils.isNotNull(studyPopulation)) {
       characteristic.push(GroupCharacteristicModel.createStudyPopulation(studyPopulation))
     }
-    if (studyInclusion !== null) {
+    if (ModelUtils.isNotNull(studyInclusion)) {
       characteristic.push(GroupCharacteristicModel.createInclusion(studyInclusion))
     }
-    if (studyExclusion !== null) {
+    if (ModelUtils.isNotNull(studyExclusion)) {
       characteristic.push(GroupCharacteristicModel.createExclusion(studyExclusion))
     }
 
@@ -63,7 +64,7 @@ export class GroupModel implements Group {
       true,
       characteristic.length === 0 ? undefined : characteristic,
       enrollmentGroupId,
-      studySize !== null ? studySize : undefined,
+      ModelUtils.isNotNull(studySize) ? studySize : undefined,
       'person'
     )
   }
