@@ -20,10 +20,10 @@ export class ContactDetailModel implements ContactDetail {
     email: string,
     contactType: ContactType | undefined
   ): ContactDetail {
-    const emptyFirstNameIfNull = ModelUtils.emptyIfNull(firstname)
-    const emptyLastnameIfNull = ModelUtils.emptyIfNull(lastname)
-    const emptyPhoneIfNull = ModelUtils.emptyIfNull(phone)
-    const emptyEmailIfNull = ModelUtils.emptyIfNull(email)
+    const emptyFirstNameIfNull = ModelUtils.undefinedIfNull(firstname)
+    const emptyLastnameIfNull = ModelUtils.undefinedIfNull(lastname)
+    const emptyPhoneIfNull = ModelUtils.undefinedIfNull(phone)
+    const emptyEmailIfNull = ModelUtils.undefinedIfNull(email)
 
     let extensions: Extension[] = undefined
 

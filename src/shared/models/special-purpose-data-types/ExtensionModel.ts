@@ -41,7 +41,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
-      ModelUtils.emptyIfNull(therapeuticArea)
+      therapeuticArea
     )
   }
 
@@ -124,8 +124,8 @@ export class ExtensionModel implements Extension {
   }
 
   static createEclaireReviewDate(history: string, approvalDate: string): Extension {
-    const emptyHistoryDateIfNull = ModelUtils.emptyIfNull(history)
-    const emptyApprovalDateIfNull = ModelUtils.emptyIfNull(approvalDate)
+    const emptyHistoryDateIfNull = ModelUtils.undefinedIfNull(history)
+    const emptyApprovalDateIfNull = ModelUtils.undefinedIfNull(approvalDate)
 
     return new ExtensionModel(
       undefined,

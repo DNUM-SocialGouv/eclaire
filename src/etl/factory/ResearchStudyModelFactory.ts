@@ -22,55 +22,75 @@ export class ResearchStudyModelFactory {
     const { eclaireSecondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(eclaireDto)
     const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto)
 
-    const category: CodeableConcept[] = [
-      CodeableConceptModel.createRegulationCode(eclaireDto.reglementation_code),
-      CodeableConceptModel.createReglementationPrecision(eclaireDto.precision_reglementation),
-    ]
-    const condition: CodeableConcept[] = [
-      CodeableConceptModel.createDisease(eclaireDto.pathologies_maladies_rares),
-      CodeableConceptModel.createMedDra(eclaireDto.informations_meddra),
-    ]
-    const contact: ContactDetail[] = [
-      ContactDetailModel.create(
+    const category: CodeableConcept[] = []
+    category.push(CodeableConceptModel.createRegulationCode(eclaireDto.reglementation_code))
+    if (ModelUtils.isNotNull(eclaireDto.precision_reglementation)) {
+      category.push(CodeableConceptModel.createReglementationPrecision(eclaireDto.precision_reglementation))
+    }
+
+    const condition: CodeableConcept[] = []
+    if (ModelUtils.isNotNull(eclaireDto.pathologies_maladies_rares)) {
+      condition.push(CodeableConceptModel.createDisease(eclaireDto.pathologies_maladies_rares))
+    }
+    if (ModelUtils.isNotNull(eclaireDto.informations_meddra)) {
+      condition.push(CodeableConceptModel.createMedDra(eclaireDto.informations_meddra))
+    }
+
+    const contact: ContactDetail[] = []
+    if (
+      ModelUtils.isNotNull(eclaireDto.contact_prenom) &&
+      ModelUtils.isNotNull(eclaireDto.contact_nom) &&
+      ModelUtils.isNotNull(eclaireDto.contact_telephone) &&
+      ModelUtils.isNotNull(eclaireDto.contact_courriel)
+    ) {
+      contact.push(ContactDetailModel.create(
         eclaireDto.contact_prenom,
         eclaireDto.contact_nom,
         eclaireDto.contact_telephone,
         eclaireDto.contact_courriel,
         undefined
-      ),
+      ))
+    }
+    contact.push(
       ContactDetailModel.create(
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         'Scientific'
-      ),
+      )
+    )
+    contact.push(
       ContactDetailModel.create(
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         'Public'
-      ),
-    ]
+      )
+    )
+
     const contained: Group[] = [enrollmentReferenceContent]
     const description = ModelUtils.UNAVAILABLE
 
-    const extensions: Extension[] = [
-      eclaireSecondarySponsor,
-      ExtensionModel.createEclaireTherapeuticArea(eclaireDto.domaine_therapeutique),
-      ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'),
-      ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'),
-      eclaireDto.date_debut_recrutement !== ModelUtils.NULL_IN_SOURCE ?
-        ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement) : undefined,
-      ExtensionModel.createEclaireReviewDate(eclaireDto.historique, eclaireDto.dates_avis_favorable_ms_mns),
-    ]
+    const extensions: Extension[] = []
+    extensions.push(eclaireSecondarySponsor)
+    if (ModelUtils.isNotNull(eclaireDto.domaine_therapeutique)) {
+      extensions.push(ExtensionModel.createEclaireTherapeuticArea(eclaireDto.domaine_therapeutique))
+    }
+    extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'))
+    extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'))
+    if (ModelUtils.isNotNull(eclaireDto.date_debut_recrutement)) {
+      extensions.push(ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement))
+    }
+    extensions.push(ExtensionModel.createEclaireReviewDate(eclaireDto.historique, eclaireDto.dates_avis_favorable_ms_mns))
+
     const id = eclaireDto.numero_secondaire
     const identifier: Identifier[] = [
       IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
       secondaryAssignerIdentifier,
     ]
-    const location = CodeableConceptModel.createLocations(eclaireDto.pays_concernes)
+    const location = ModelUtils.isNotNull(eclaireDto.pays_concernes) ? CodeableConceptModel.createLocations(eclaireDto.pays_concernes) : undefined
     const meta: Meta = MetaModel.create(
       eclaireDto.historique,
       eclaireDto.dates_avis_favorable_ms_mns
@@ -78,19 +98,24 @@ export class ResearchStudyModelFactory {
     const phase: CodeableConcept = CodeableConceptModel.createResearchStudyPhase(eclaireDto.phase_recherche)
 
     const status = eclaireDto.etat as RiphStatus
-    const title = ModelUtils.emptyIfNull(eclaireDto.titre)
+    const title = ModelUtils.isNotNull(eclaireDto.titre) ? eclaireDto.titre : undefined
 
-    const organizations: Organization[] = [
-      primarySponsorOrganization,
-      secondarySponsorOrganization,
-      secondaryAssignerOrganization,
-    ]
+    const organizations: Organization[] = []
+    if (ModelUtils.isNotNull(primarySponsorOrganization)) {
+      organizations.push(primarySponsorOrganization)
+    }
+    if (ModelUtils.isNotNull(secondarySponsorOrganization)) {
+      organizations.push(secondarySponsorOrganization)
+    }
+    if (ModelUtils.isNotNull(secondaryAssignerOrganization)) {
+      organizations.push(secondaryAssignerOrganization)
+    }
 
     const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(siteLocations, organizations)
 
     return new ResearchStudyModel(
       category,
-      condition,
+      condition.length === 0 ? undefined : condition,
       contact,
       contained,
       description,
@@ -137,18 +162,31 @@ export class ResearchStudyModelFactory {
   private static createPrimarySponsor(eclaireDto: EclaireDto) {
     const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(eclaireDto.numero_secondaire)
     const sponsor: Reference = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
-    const primarySponsorOrganization: Organization = OrganizationModel.createSponsor(
-      primarySponsorOrganizationId,
-      eclaireDto.organisme_nom,
-      eclaireDto.organisme_adresse,
-      eclaireDto.organisme_ville,
-      eclaireDto.organisme_code_postal,
-      eclaireDto.organisme_pays,
-      eclaireDto.contact_prenom,
-      eclaireDto.contact_nom,
-      eclaireDto.contact_telephone,
-      eclaireDto.contact_courriel
-    )
+    let primarySponsorOrganization: Organization = null
+    if (
+      ModelUtils.isNotNull(eclaireDto.organisme_nom) &&
+      ModelUtils.isNotNull(eclaireDto.organisme_adresse) &&
+      ModelUtils.isNotNull(eclaireDto.organisme_ville) &&
+      ModelUtils.isNotNull(eclaireDto.organisme_code_postal) &&
+      ModelUtils.isNotNull(eclaireDto.organisme_pays) &&
+      ModelUtils.isNotNull(eclaireDto.contact_prenom) &&
+      ModelUtils.isNotNull(eclaireDto.contact_nom) &&
+      ModelUtils.isNotNull(eclaireDto.contact_telephone) &&
+      ModelUtils.isNotNull(eclaireDto.contact_courriel)
+    ) {
+      primarySponsorOrganization = OrganizationModel.createSponsor(
+        primarySponsorOrganizationId,
+        eclaireDto.organisme_nom,
+        eclaireDto.organisme_adresse,
+        eclaireDto.organisme_ville,
+        eclaireDto.organisme_code_postal,
+        eclaireDto.organisme_pays,
+        eclaireDto.contact_prenom,
+        eclaireDto.contact_nom,
+        eclaireDto.contact_telephone,
+        eclaireDto.contact_courriel
+      )
+    }
 
     return { primarySponsorOrganization, sponsor }
   }
@@ -181,16 +219,26 @@ export class ResearchStudyModelFactory {
       site.push(ReferenceModel.createSite(id))
 
       const siteDto = eclaireDto.sites.at(siteDtoIndex)
-      siteLocations.push(LocationModel.create(
-        id,
-        ModelUtils.emptyIfNull(siteDto.adresse),
-        ModelUtils.emptyIfNull(siteDto.ville),
-        ModelUtils.emptyIfNull(siteDto.prenom),
-        ModelUtils.emptyIfNull(siteDto.nom),
-        ModelUtils.emptyIfNull(siteDto.organisme),
-        ModelUtils.emptyIfNull(siteDto.service),
-        ModelUtils.emptyIfNull(siteDto.titre)
-      ))
+      if (
+        ModelUtils.isNotNull(siteDto.adresse) &&
+        ModelUtils.isNotNull(siteDto.ville) &&
+        ModelUtils.isNotNull(siteDto.prenom) &&
+        ModelUtils.isNotNull(siteDto.nom) &&
+        ModelUtils.isNotNull(siteDto.organisme) &&
+        ModelUtils.isNotNull(siteDto.service) &&
+        ModelUtils.isNotNull(siteDto.titre)
+      ) {
+        siteLocations.push(LocationModel.create(
+          id,
+          ModelUtils.undefinedIfNull(siteDto.adresse),
+          ModelUtils.undefinedIfNull(siteDto.ville),
+          ModelUtils.undefinedIfNull(siteDto.prenom),
+          ModelUtils.undefinedIfNull(siteDto.nom),
+          ModelUtils.undefinedIfNull(siteDto.organisme),
+          ModelUtils.undefinedIfNull(siteDto.service),
+          ModelUtils.undefinedIfNull(siteDto.titre)
+        ))
+      }
     }
 
     return { site, siteLocations }

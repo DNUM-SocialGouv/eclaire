@@ -1,5 +1,4 @@
 import { CodingModel } from './CodingModel'
-import { ModelUtils } from '../eclaire/ModelUtils'
 
 describe('shared | models | CodingModel', () => {
   describe('#createResearchStudyPhase', () => {
@@ -8,7 +7,7 @@ describe('shared | models | CodingModel', () => {
       ['Therapeutic exploratory (Phase II)', 'phase-2', 'Phase 2'],
       ['Therapeutic confirmatory (Phase III)', 'phase-3', 'Phase 3'],
       ['Therapeutic use (Phase IV)', 'phase-4', 'Phase 4'],
-      [ModelUtils.NULL_IN_SOURCE, 'n-a', 'N/A'],
+      [null, 'n-a', 'N/A'],
     ])('should create a properly formatted model with phase when %s is given', (rawPhase, code, display) => {
       // WHEN
       const phase = CodingModel.createResearchStudyPhase(rawPhase)

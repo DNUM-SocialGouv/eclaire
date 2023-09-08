@@ -2,15 +2,14 @@ import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/Re
 
 export class ModelUtils {
   static UNAVAILABLE = 'INDISPONIBLE'
-  static NULL_IN_SOURCE = 'NULL'
   static EMPTY_ARRAY_IN_SOURCE: Array<never> = []
 
-  static emptyIfNull(value: string): string {
-    return value ?? ModelUtils.NULL_IN_SOURCE
+  static undefinedIfNull(value: string): string {
+    return value ?? undefined
   }
 
-  static emptyNumberIfNull(value: number): number {
-    return value ?? undefined
+  static isNotNull(value: unknown): boolean {
+    return value !== null
   }
 
   static generateEnrollmentGroupId(value: string): string {
@@ -56,10 +55,10 @@ export class ModelUtils {
   }
 
   static getMostRecentIsoDate(datesOfHistory: string, datesOfApproval: string): string {
-    if (datesOfHistory === ModelUtils.NULL_IN_SOURCE && datesOfApproval === ModelUtils.NULL_IN_SOURCE) return new Date().toISOString()
+    if (datesOfHistory === undefined && datesOfApproval === undefined) return new Date().toISOString()
 
     const dates: string[] = []
-    if (datesOfHistory !== ModelUtils.NULL_IN_SOURCE) {
+    if (datesOfHistory !== undefined) {
       datesOfHistory.split(', ').forEach((dateOfHistory) => {
         const date = dateOfHistory.split(':')
 
@@ -67,7 +66,7 @@ export class ModelUtils {
       })
     }
 
-    if (datesOfApproval !== ModelUtils.NULL_IN_SOURCE) {
+    if (datesOfApproval !== undefined) {
       datesOfApproval.split(', ').forEach((dateOfApproval) => {
         const date = dateOfApproval.split(':')
 

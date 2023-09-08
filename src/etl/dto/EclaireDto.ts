@@ -97,20 +97,20 @@ export class EclaireDto {
       ModelUtils.EMPTY_ARRAY_IN_SOURCE,
       riphDmDto.numero_national,
       riphDmDto.titre_recherche,
-      ModelUtils.NULL_IN_SOURCE,
-      ModelUtils.NULL_IN_SOURCE,
+      null,
+      null,
       riphDmDto.domaine_therapeutique,
       ModelUtils.UNAVAILABLE,
       ModelUtils.UNAVAILABLE,
       riphDmDto.taille_etude,
       ModelUtils.UNAVAILABLE,
-      ModelUtils.NULL_IN_SOURCE,
+      null,
       ModelUtils.UNAVAILABLE,
       ModelUtils.UNAVAILABLE,
-      ModelUtils.NULL_IN_SOURCE,
+      null,
       riphDmDto.historique,
       riphDmDto.dates_avis_favorable_ms_mns,
-      ModelUtils.NULL_IN_SOURCE
+      null
     )
   }
 
@@ -131,20 +131,20 @@ export class EclaireDto {
       ModelUtils.EMPTY_ARRAY_IN_SOURCE,
       riphJardeDto.numero_national,
       riphJardeDto.titre_recherche,
-      ModelUtils.NULL_IN_SOURCE,
-      ModelUtils.NULL_IN_SOURCE,
+      null,
+      null,
       riphJardeDto.domaine_therapeutique,
       ModelUtils.UNAVAILABLE,
       ModelUtils.UNAVAILABLE,
       riphJardeDto.taille_etude,
       ModelUtils.UNAVAILABLE,
-      ModelUtils.NULL_IN_SOURCE,
+      null,
       ModelUtils.UNAVAILABLE,
       ModelUtils.UNAVAILABLE,
-      ModelUtils.NULL_IN_SOURCE,
+      null,
       riphJardeDto.historique,
       riphJardeDto.dates_avis_favorable_ms_mns,
-      ModelUtils.NULL_IN_SOURCE
+      null
     )
   }
 }
