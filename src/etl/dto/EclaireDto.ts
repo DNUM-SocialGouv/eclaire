@@ -117,7 +117,7 @@ export class EclaireDto {
   }
 
   static fromJarde(riphJardeDto: RiphJardeDto): EclaireDto {
-    const phaseRecherche: string = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'Phase I' : null
+    const phaseRecherche = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'Phase I' : null
     return new EclaireDto(
       riphJardeDto.reglementation_code,
       riphJardeDto.qualification_recherche,
