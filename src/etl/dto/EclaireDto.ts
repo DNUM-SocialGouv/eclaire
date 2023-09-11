@@ -21,7 +21,7 @@ export class EclaireDto {
     readonly numero_secondaire: string,
     readonly titre: string,
     readonly intervention_faible: string,
-    readonly phase_recherche: string,
+    readonly phase_recherche: Phase,
     readonly domaine_therapeutique: string,
     readonly pathologies_maladies_rares: string,
     readonly informations_meddra: string,
@@ -47,7 +47,7 @@ export class EclaireDto {
       site.service
     ))
 
-    const phaseRecherche = riphCtisDto.phase_recherche?.split(/(Phase( *)\w{1,3})/)[1]
+    const phaseRecherche: Phase = riphCtisDto.phase_recherche?.split(/(Phase( *)\w{1,3})/)[1] as Phase
 
     return new EclaireDto(
       riphCtisDto.reglementation_code,
@@ -117,7 +117,7 @@ export class EclaireDto {
   }
 
   static fromJarde(riphJardeDto: RiphJardeDto): EclaireDto {
-    const phaseRecherche = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'Phase I' : null
+    const phaseRecherche: Phase = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'Phase I' : null
     return new EclaireDto(
       riphJardeDto.reglementation_code,
       riphJardeDto.qualification_recherche,
@@ -163,3 +163,5 @@ class Site {
     readonly service: string
   ) {}
 }
+
+type Phase = 'Phase I' | 'Phase II' | 'Phase III' | 'Phase IV'
