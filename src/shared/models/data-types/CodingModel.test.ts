@@ -4,8 +4,11 @@ describe('shared | models | CodingModel', () => {
   describe('#createResearchStudyPhase', () => {
     it.each([
       ['Phase I', 'phase-1', 'Phase 1'],
+      ['Phase I/Phase II', 'phase-1-phase-2', 'Phase 1/Phase 2'],
       ['Phase II', 'phase-2', 'Phase 2'],
+      ['Phase II/Phase III', 'phase-2-phase-3', 'Phase 2/Phase 3'],
       ['Phase III', 'phase-3', 'Phase 3'],
+      ['Phase III/Phase IV', 'phase-3-phase-4', 'Phase III and phase IV (Integrated)'],
       ['Phase IV', 'phase-4', 'Phase 4'],
       [null, 'n-a', 'N/A'],
     ])('should create a properly formatted model with phase when %s is given', (rawPhase, code, display) => {

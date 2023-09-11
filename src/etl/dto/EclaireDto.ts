@@ -47,7 +47,8 @@ export class EclaireDto {
       site.service
     ))
 
-    const phaseRecherche: Phase = riphCtisDto.phase_recherche?.split(/(Phase( *)\w{1,3})/)[1] as Phase
+    const listePhaseRecherche: Phase[] = riphCtisDto.phase_recherche?.match(/Phase (IV|III|II|I)/g) as Phase[]
+    const phaseRecherche: Phase = listePhaseRecherche?.join('/') as Phase
 
     return new EclaireDto(
       riphCtisDto.reglementation_code,
@@ -164,4 +165,4 @@ class Site {
   ) {}
 }
 
-type Phase = 'Phase I' | 'Phase II' | 'Phase III' | 'Phase IV'
+type Phase = 'Phase I' | 'Phase I/Phase II' | 'Phase II' | 'Phase II/Phase III' | 'Phase III' | 'Phase III/Phase IV' | 'Phase IV'
