@@ -1798,8 +1798,8 @@ describe('research study model factory', () => {
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
-              "code": "n-a",
-              "display": "N/A",
+              "code": "phase-1",
+              "display": "Phase 1",
               "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
               "version": "4.0.1",
             },

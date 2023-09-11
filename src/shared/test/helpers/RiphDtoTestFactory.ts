@@ -134,6 +134,7 @@ export class RiphDtoTestFactory {
       qualification_recherche: 'Catégorie 3',
       historique: '2023-04-04:En cours',
       dates_avis_favorable_ms_mns: '20.00002.210204-MS02:2021-07-29, 20.00002.210204-MS03:2021-10-26, 20.00002.210204-MS04:2023-01-26',
+      competences: 'Essai de phase précoce, Oncologie, Thérapie cellulaire et génique',
       ...override,
     }
   }
