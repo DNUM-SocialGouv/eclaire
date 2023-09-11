@@ -17,10 +17,8 @@ export class CodingModel implements Coding {
     readonly version: string | undefined
   ) {}
 
-  static createResearchStudyPhase(rawPhase: string): Coding {
-    const isolatedPhase = rawPhase?.split(/(Phase( *)\w{1,3})/)[1]
-
-    const { code, display } = this.getPhaseCodeFromText(isolatedPhase)
+  static createResearchStudyPhase(phase: string): Coding {
+    const { code, display } = this.getPhaseCodeFromText(phase)
 
     return new CodingModel(
       code,

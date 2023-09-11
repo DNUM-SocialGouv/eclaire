@@ -3,10 +3,10 @@ import { CodingModel } from './CodingModel'
 describe('shared | models | CodingModel', () => {
   describe('#createResearchStudyPhase', () => {
     it.each([
-      ['Human Pharmacology (Phase I)', 'phase-1', 'Phase 1'],
-      ['Therapeutic exploratory (Phase II)', 'phase-2', 'Phase 2'],
-      ['Therapeutic confirmatory (Phase III)', 'phase-3', 'Phase 3'],
-      ['Therapeutic use (Phase IV)', 'phase-4', 'Phase 4'],
+      ['Phase I', 'phase-1', 'Phase 1'],
+      ['Phase II', 'phase-2', 'Phase 2'],
+      ['Phase III', 'phase-3', 'Phase 3'],
+      ['Phase IV', 'phase-4', 'Phase 4'],
       [null, 'n-a', 'N/A'],
     ])('should create a properly formatted model with phase when %s is given', (rawPhase, code, display) => {
       // WHEN
