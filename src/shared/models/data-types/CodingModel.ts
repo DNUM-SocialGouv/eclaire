@@ -2,6 +2,7 @@ import { Coding } from 'fhir/r4'
 
 import { administrativeGenderCodeSystem } from '../code-systems/administrativeGenderCodeSystem'
 import { countryCodeSystem } from '../code-systems/countryCodeSystem'
+import { eclaireStudyPhaseCodeSystem } from '../code-systems/eclaireStudyPhaseCodeSystem'
 import { eclaireTypeContactCodeSystem } from '../code-systems/eclaireTypeContactCodeSystem'
 import { medDraCodeSystem } from '../code-systems/medDraCodeSystem'
 import { researchStudyPhaseCodeSystem } from '../code-systems/researchStudyPhaseCodeSystem'
@@ -18,25 +19,32 @@ export class CodingModel implements Coding {
   ) {}
 
   static createResearchStudyPhase(phase: string): Coding {
-    const { code, display } = this.getPhaseCodeFromText(phase)
+    const { code, display, url, version } = this.findPhaseInCodeSystems(phase)
 
     return new CodingModel(
       code,
       display,
-      researchStudyPhaseCodeSystem.url,
-      researchStudyPhaseCodeSystem.version
+      url,
+      version
     )
   }
 
-  private static getPhaseCodeFromText(isolatedPhase: string): { code: string, display: string } {
-    let index = 0
+  private static findPhaseInCodeSystems(phase: string): { code: string; display: string; version: string; url: string } {
+    let index: number
+    const codeSystemToUse = phase === 'Phase III/Phase IV' ? eclaireStudyPhaseCodeSystem : researchStudyPhaseCodeSystem
 
-    switch (isolatedPhase) {
+    switch (phase) {
       case 'Phase I':
         index = 2
         break
+      case 'Phase I/Phase II':
+        index = 3
+        break
       case 'Phase II':
         index = 4
+        break
+      case 'Phase II/Phase III':
+        index = 5
         break
       case 'Phase III':
         index = 6
@@ -44,12 +52,18 @@ export class CodingModel implements Coding {
       case 'Phase IV':
         index = 7
         break
+      case 'Phase III/Phase IV':
+        index = 0
+        break
       default:
+        index = 0
     }
 
     return {
-      code: researchStudyPhaseCodeSystem.concept[index].code,
-      display: researchStudyPhaseCodeSystem.concept[index].display,
+      code: codeSystemToUse.concept[index].code,
+      display: codeSystemToUse.concept[index].display,
+      url: codeSystemToUse.url,
+      version: codeSystemToUse.version,
     }
   }
 
