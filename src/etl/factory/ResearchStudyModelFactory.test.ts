@@ -158,157 +158,6 @@ describe('research study model factory', () => {
             ],
           },
         ],
-        "contained": [
-          GroupModel {
-            "actual": true,
-            "characteristic": [
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "male",
-                      "display": "Male",
-                      "system": "http://hl7.org/fhir/administrative-gender",
-                      "version": "5.0.0",
-                    },
-                    CodingModel {
-                      "code": "female",
-                      "display": "Female",
-                      "system": "http://hl7.org/fhir/administrative-gender",
-                      "version": "5.0.0",
-                    },
-                  ],
-                  "text": "Genders",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": undefined,
-                "valueQuantity": undefined,
-                "valueRange": RangeModel {
-                  "high": undefined,
-                  "low": QuantityModel {
-                    "unit": "years",
-                    "value": 65,
-                  },
-                },
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": undefined,
-                "valueQuantity": undefined,
-                "valueRange": RangeModel {
-                  "high": QuantityModel {
-                    "unit": "years",
-                    "value": 64,
-                  },
-                  "low": QuantityModel {
-                    "unit": "years",
-                    "value": 18,
-                  },
-                },
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "Données non disponible",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Research Study Group Category",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "Femmes en âge de procréer n’utilisant pas de contraception",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                    CodingModel {
-                      "code": undefined,
-                      "display": "Femmes en âge de procréer utilisant une méthode de contraception",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Population",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Inclusion Criteria",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": true,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Exclusion Criteria",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-            ],
-            "id": "2022-500014-26-00-enrollment-group-id",
-            "quantity": 21,
-            "resourceType": "Group",
-            "type": "person",
-          },
-        ],
         "description": "INDISPONIBLE",
         "enrollment": [
           ReferenceModel {
@@ -577,6 +426,155 @@ describe('research study model factory', () => {
           "text": "Research Study Phase",
         },
         "referenceContents": ReferenceContentsModel {
+          "enrollmentGroup": GroupModel {
+            "actual": true,
+            "characteristic": [
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "male",
+                      "display": "Male",
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "version": "5.0.0",
+                    },
+                    CodingModel {
+                      "code": "female",
+                      "display": "Female",
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "version": "5.0.0",
+                    },
+                  ],
+                  "text": "Genders",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": undefined,
+                "valueQuantity": undefined,
+                "valueRange": RangeModel {
+                  "high": undefined,
+                  "low": QuantityModel {
+                    "unit": "years",
+                    "value": 65,
+                  },
+                },
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": undefined,
+                "valueQuantity": undefined,
+                "valueRange": RangeModel {
+                  "high": QuantityModel {
+                    "unit": "years",
+                    "value": 64,
+                  },
+                  "low": QuantityModel {
+                    "unit": "years",
+                    "value": 18,
+                  },
+                },
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "Données non disponible",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Research Study Group Category",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "Femmes en âge de procréer n’utilisant pas de contraception",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                    CodingModel {
+                      "code": undefined,
+                      "display": "Femmes en âge de procréer utilisant une méthode de contraception",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Population",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Inclusion Criteria",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": true,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Exclusion Criteria",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+            ],
+            "id": "2022-500014-26-00-enrollment-group-id",
+            "quantity": 21,
+            "resourceType": "Group",
+            "type": "person",
+          },
           "locations": [
             LocationModel {
               "address": AddressModel {
@@ -956,105 +954,6 @@ describe('research study model factory', () => {
             ],
           },
         ],
-        "contained": [
-          GroupModel {
-            "actual": true,
-            "characteristic": [
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": undefined,
-                "valueQuantity": undefined,
-                "valueRange": RangeModel {
-                  "high": undefined,
-                  "low": undefined,
-                },
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Research Study Group Category",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Population",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Inclusion Criteria",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": true,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Exclusion Criteria",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-            ],
-            "id": "2021-A01563-38-enrollment-group-id",
-            "quantity": 96,
-            "resourceType": "Group",
-            "type": "person",
-          },
-        ],
         "description": "INDISPONIBLE",
         "enrollment": [
           ReferenceModel {
@@ -1221,6 +1120,103 @@ describe('research study model factory', () => {
           "text": "Research Study Phase",
         },
         "referenceContents": ReferenceContentsModel {
+          "enrollmentGroup": GroupModel {
+            "actual": true,
+            "characteristic": [
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": undefined,
+                "valueQuantity": undefined,
+                "valueRange": RangeModel {
+                  "high": undefined,
+                  "low": undefined,
+                },
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Research Study Group Category",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Population",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Inclusion Criteria",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": true,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Exclusion Criteria",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+            ],
+            "id": "2021-A01563-38-enrollment-group-id",
+            "quantity": 96,
+            "resourceType": "Group",
+            "type": "person",
+          },
           "locations": undefined,
           "organizations": [
             OrganizationModel {
@@ -1542,105 +1538,6 @@ describe('research study model factory', () => {
             ],
           },
         ],
-        "contained": [
-          GroupModel {
-            "actual": true,
-            "characteristic": [
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": undefined,
-                "valueQuantity": undefined,
-                "valueRange": RangeModel {
-                  "high": undefined,
-                  "low": undefined,
-                },
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Research Study Group Category",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Population",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Inclusion Criteria",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": true,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Exclusion Criteria",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-            ],
-            "id": "2021-A01022-39-enrollment-group-id",
-            "quantity": 23,
-            "resourceType": "Group",
-            "type": "person",
-          },
-        ],
         "description": "INDISPONIBLE",
         "enrollment": [
           ReferenceModel {
@@ -1807,6 +1704,103 @@ describe('research study model factory', () => {
           "text": "Research Study Phase",
         },
         "referenceContents": ReferenceContentsModel {
+          "enrollmentGroup": GroupModel {
+            "actual": true,
+            "characteristic": [
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": undefined,
+                "valueQuantity": undefined,
+                "valueRange": RangeModel {
+                  "high": undefined,
+                  "low": undefined,
+                },
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Research Study Group Category",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Population",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Inclusion Criteria",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": true,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Exclusion Criteria",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+            ],
+            "id": "2021-A01022-39-enrollment-group-id",
+            "quantity": 23,
+            "resourceType": "Group",
+            "type": "person",
+          },
           "locations": undefined,
           "organizations": [
             OrganizationModel {
@@ -2078,55 +2072,6 @@ describe('research study model factory', () => {
             ],
           },
         ],
-        "contained": [
-          GroupModel {
-            "actual": true,
-            "characteristic": [
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Inclusion Criteria",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": true,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Exclusion Criteria",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-            ],
-            "id": "2022-500299-71-00-enrollment-group-id",
-            "quantity": undefined,
-            "resourceType": "Group",
-            "type": "person",
-          },
-        ],
         "description": "INDISPONIBLE",
         "enrollment": [
           ReferenceModel {
@@ -2283,6 +2228,53 @@ describe('research study model factory', () => {
           "text": "Research Study Phase",
         },
         "referenceContents": ReferenceContentsModel {
+          "enrollmentGroup": GroupModel {
+            "actual": true,
+            "characteristic": [
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Inclusion Criteria",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": true,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "INDISPONIBLE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "text": "Study Exclusion Criteria",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+            ],
+            "id": "2022-500299-71-00-enrollment-group-id",
+            "quantity": undefined,
+            "resourceType": "Group",
+            "type": "person",
+          },
           "locations": undefined,
           "organizations": [
             OrganizationModel {

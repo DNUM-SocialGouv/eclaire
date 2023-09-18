@@ -17,7 +17,7 @@ import { EclaireDto } from '../dto/EclaireDto'
 export class ResearchStudyModelFactory {
   static create(eclaireDto: EclaireDto): ResearchStudyModel {
     const { secondaryAssignerIdentifier, secondaryAssignerOrganization } = this.createAssigner(eclaireDto)
-    const { enrollment, enrollmentReferenceContent } = this.createEnrollmentContent(eclaireDto)
+    const { enrollment, enrollmentGroup } = this.createEnrollmentContent(eclaireDto)
     const { sponsor, primarySponsorOrganization } = this.createPrimarySponsor(eclaireDto)
     const { eclaireSecondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(eclaireDto)
     const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto)
@@ -70,7 +70,6 @@ export class ResearchStudyModelFactory {
       )
     )
 
-    const contained: Group[] = [enrollmentReferenceContent]
     const description = ModelUtils.UNAVAILABLE
 
     const extensions: Extension[] = []
@@ -111,13 +110,16 @@ export class ResearchStudyModelFactory {
       organizations.push(secondaryAssignerOrganization)
     }
 
-    const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(siteLocations, organizations)
+    const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(
+      enrollmentGroup,
+      siteLocations,
+      organizations
+    )
 
     return new ResearchStudyModel(
       category,
       condition.length === 0 ? undefined : condition,
       contact,
-      contained,
       description,
       enrollment,
       extensions,
@@ -145,7 +147,7 @@ export class ResearchStudyModelFactory {
   private static createEnrollmentContent(eclaireDto: EclaireDto) {
     const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(eclaireDto.numero_secondaire)
     const enrollment: Reference[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
-    const enrollmentReferenceContent: Group = GroupModel.createStudyCharacteristics(
+    const enrollmentGroup: Group = GroupModel.createStudyCharacteristics(
       enrollmentGroupId,
       eclaireDto.sexe,
       eclaireDto.tranches_age,
@@ -156,7 +158,7 @@ export class ResearchStudyModelFactory {
       ModelUtils.UNAVAILABLE
     )
 
-    return { enrollment, enrollmentReferenceContent }
+    return { enrollment, enrollmentGroup }
   }
 
   private static createPrimarySponsor(eclaireDto: EclaireDto) {
