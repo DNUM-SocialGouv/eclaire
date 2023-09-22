@@ -1,10 +1,10 @@
 import { Client } from '@elastic/elasticsearch'
 import { ConfigService } from '@nestjs/config'
 
-import { FileReaderService } from '../../../etl/file-reader/FileReaderService'
 import { ElasticsearchConfig } from '../../elasticsearch/ElasticsearchConfig'
 import { ElasticsearchService } from '../../elasticsearch/ElasticsearchService'
 import { LoggerService } from '../../logger/LoggerService'
+import { S3Service } from 'src/etl/s3/S3Service'
 
 export async function setupClientAndElasticsearchService() {
   process.env.SCALINGO_ELASTICSEARCH_URL = 'http://localhost:9201'
@@ -18,7 +18,7 @@ export async function setupClientAndElasticsearchService() {
   vi.spyOn(logger, 'info').mockReturnValue()
   const elasticsearchService = new ElasticsearchService(client)
   await elasticsearchService.deleteAnIndex()
-  const readerService = new FileReaderService()
+  const readerService = new S3Service(configService)
 
   return {
     client,

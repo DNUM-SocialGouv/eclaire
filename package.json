@@ -33,6 +33,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.414.0",
     "@elastic/elasticsearch": "7.10.0",
     "@nestjs/common": "^10.0.5",
     "@nestjs/config": "^3.0.0",

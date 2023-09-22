@@ -1,11 +1,11 @@
 import { errors } from '@elastic/elasticsearch'
 import { Injectable } from '@nestjs/common'
 
-import { FileReaderService } from './file-reader/FileReaderService'
 import { IngestPipeline } from './ingest-pipelines/IngestPipeline'
 import { IngestPipelineCtis } from './ingest-pipelines/IngestPipelineCtis'
 import { IngestPipelineDmDmdiv } from './ingest-pipelines/IngestPipelineDmDmdiv'
 import { IngestPipelineJarde } from './ingest-pipelines/IngestPipelineJarde'
+import { S3Service } from './s3/S3Service'
 import { elasticsearchIndexMapping } from '../shared/elasticsearch/elasticsearchIndexMapping'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
@@ -15,7 +15,7 @@ export class EtlService {
   constructor(
     private readonly logger: LoggerService,
     private readonly elasticsearchService: ElasticsearchService,
-    private readonly readerService: FileReaderService
+    private readonly readerService: S3Service
   ) {}
 
   async createIndex(): Promise<void> {
