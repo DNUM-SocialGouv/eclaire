@@ -25,11 +25,15 @@ export class SearchResearchStudyController {
     try {
       const researchStudyQueryParams = ResearchStudyQueryModel.transform(researchStudyQuery)
 
-      response.json(await this.researchStudyRepository.search(researchStudyQueryParamsToElasticsearchQuery(researchStudyQueryParams), researchStudyQueryParams))
+      const elasticsearchBody = researchStudyQueryParamsToElasticsearchQuery(researchStudyQueryParams)
+      const fhirResourceBundle = await this.researchStudyRepository.search(elasticsearchBody, researchStudyQueryParams)
+
+      response.json(fhirResourceBundle)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-        response.status(400).json(OperationOutcomeModel.create(error.meta.body.error.root_cause[0].reason))
+        const operationOutcome = OperationOutcomeModel.create(error.meta.body.error.root_cause[0].reason)
+        response.status(400).json(operationOutcome)
       } else {
         throw error
       }
