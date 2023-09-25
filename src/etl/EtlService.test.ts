@@ -72,9 +72,9 @@ describe('extract transform load service', () => {
       await etlService.import()
 
       // THEN
-      expect(readerService.read).toHaveBeenNthCalledWith(1, 'export_eclaire_ctis-27-07-2023.json')
-      expect(readerService.read).toHaveBeenNthCalledWith(2, 'export_eclaire_dm-dmdiv-27-07-2023.json')
-      expect(readerService.read).toHaveBeenNthCalledWith(3, 'export_eclaire_jarde-27-07-2023.json')
+      expect(readerService.read).toHaveBeenNthCalledWith(1, 'export_eclaire_ctis.json')
+      expect(readerService.read).toHaveBeenNthCalledWith(2, 'export_eclaire_dm-dmdiv.json')
+      expect(readerService.read).toHaveBeenNthCalledWith(3, 'export_eclaire_jarde.json')
 
       const ctisResearchStudy = await elasticsearchService.findOneDocument(RiphDtoTestFactory.ctis().numero_ctis)
       const dmResearchStudy = await elasticsearchService.findOneDocument(RiphDtoTestFactory.dm().numero_national)
@@ -123,9 +123,9 @@ async function setup() {
     readerService,
   } = await setupClientAndElasticsearchService()
   vi.spyOn(readerService, 'read')
-    .mockReturnValueOnce([RiphDtoTestFactory.ctis()])
-    .mockReturnValueOnce([RiphDtoTestFactory.dm()])
-    .mockReturnValueOnce([RiphDtoTestFactory.jarde()])
+    .mockResolvedValueOnce([RiphDtoTestFactory.ctis()])
+    .mockResolvedValueOnce([RiphDtoTestFactory.dm()])
+    .mockResolvedValueOnce([RiphDtoTestFactory.jarde()])
 
   const etlService = new EtlService(logger, elasticsearchService, readerService)
 

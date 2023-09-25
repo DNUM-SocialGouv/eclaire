@@ -8,7 +8,7 @@ export class IngestPipelineDmDmdiv extends IngestPipeline {
   readonly type = 'dm-dmdiv'
 
   async execute(): Promise<void> {
-    const riphDmDtos: RiphDmDto[] = super.extract<RiphDmDto>()
+    const riphDmDtos: RiphDmDto[] = await super.extract<RiphDmDto>()
     const researchStudyDocuments: ResearchStudyModel[] = this.transform(riphDmDtos)
     await super.load(researchStudyDocuments)
   }
