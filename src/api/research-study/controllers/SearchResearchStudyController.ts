@@ -26,9 +26,9 @@ export class SearchResearchStudyController {
       const researchStudyQueryParams = ResearchStudyQueryModel.transform(researchStudyQuery)
 
       const elasticsearchBody = researchStudyQueryParamsToElasticsearchQuery(researchStudyQueryParams)
-      const fhirResourceBundle = await this.researchStudyRepository.search(elasticsearchBody, researchStudyQueryParams)
+      const documentBundle = await this.researchStudyRepository.search(elasticsearchBody, researchStudyQueryParams)
 
-      response.json(fhirResourceBundle)
+      response.json(documentBundle)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access

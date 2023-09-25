@@ -8,7 +8,7 @@ import { EsResearchStudyRepository } from '../gateways/EsResearchStudyRepository
 
 @ApiTags('Research study')
 @Controller('R4/ResearchStudy')
-export class GetOneReasearchStudyController {
+export class GetOneResearchStudyController {
   constructor(private readonly researchStudyRepository: EsResearchStudyRepository) {}
 
   @ApiOperation({ summary: 'Récupère un essai clinique depuis son identifiant unique.' })
@@ -19,10 +19,12 @@ export class GetOneReasearchStudyController {
   @Get(':id')
   async execute(@Param('id') id: string, @Res() response: Response): Promise<void> {
     try {
-      response.json(await this.researchStudyRepository.findOne(id))
+      const document = await this.researchStudyRepository.findOne(id)
+      response.json(document)
     } catch (error) {
       if (error instanceof errors.ResponseError && error.meta.statusCode === 404) {
-        response.status(404).json(OperationOutcomeModel.create(error.message))
+        const operationOutcome = OperationOutcomeModel.create(error.message)
+        response.status(404).json(operationOutcome)
       } else {
         throw error
       }
