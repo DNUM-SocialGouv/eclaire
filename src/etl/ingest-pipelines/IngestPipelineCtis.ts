@@ -8,7 +8,7 @@ export class IngestPipelineCtis extends IngestPipeline {
   readonly type = 'ctis'
 
   async execute(): Promise<void> {
-    const riphCtisDtos: RiphCtisDto[] = super.extract<RiphCtisDto>()
+    const riphCtisDtos: RiphCtisDto[] = await super.extract<RiphCtisDto>()
     const researchStudyDocuments: ResearchStudyModel[] = this.transform(riphCtisDtos)
     await super.load(researchStudyDocuments)
   }

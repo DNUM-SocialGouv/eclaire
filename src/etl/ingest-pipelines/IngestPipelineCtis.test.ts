@@ -12,10 +12,10 @@ describe('etl | IngestPipelineCtis', () => {
       // given
       const riphCtisDtos = [RiphDtoTestFactory.ctis(), RiphDtoTestFactory.ctis(), RiphDtoTestFactory.ctis()]
       const { ingestPipelineCtis, readerService } = await setup()
-      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphCtisDtos)
+      vi.spyOn(readerService, 'read').mockResolvedValueOnce(riphCtisDtos)
 
       // when
-      const result = ingestPipelineCtis.extract<RiphCtisDto>()
+      const result = await ingestPipelineCtis.extract<RiphCtisDto>()
 
       // then
       expect(result).toStrictEqual(riphCtisDtos)

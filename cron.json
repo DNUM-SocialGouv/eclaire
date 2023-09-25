@@ -1,0 +1,8 @@
+{
+  "jobs": [
+    {
+      "command": "0 4 * * * node dist/src/etl/console.js import",
+      "size": "S"
+    }
+  ]
+}

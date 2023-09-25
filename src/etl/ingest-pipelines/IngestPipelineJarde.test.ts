@@ -12,10 +12,10 @@ describe('etl | IngestPipelineJarde', () => {
       // given
       const riphJardeDtos = [RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde()]
       const { ingestPipelineJarde, readerService } = await setup()
-      vi.spyOn(readerService, 'read').mockReturnValueOnce(riphJardeDtos)
+      vi.spyOn(readerService, 'read').mockResolvedValueOnce(riphJardeDtos)
 
       // when
-      const result = ingestPipelineJarde.extract<RiphJardeDto>()
+      const result = await ingestPipelineJarde.extract<RiphJardeDto>()
 
       // then
       expect(result).toStrictEqual(riphJardeDtos)

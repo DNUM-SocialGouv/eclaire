@@ -11,8 +11,8 @@ export class SwaggerService {
         <p>Si vous avez des demandes d'améliorations ou des bugs, vous pouvez écrire une <a href="https://github.com/DNUM-SocialGouv/eclaire/issues">issue</a> sur notre Github.</p>
         <p>Pour information :</p>
         <ul>
-        <li>Une valeur <b>"INDISPONIBLE"</b> signifie que nous n’avons pas encore la donnée et qu’elle arrivera par la suite</li>
-        <li>Une valeur <b>"NULL"</b> signifie que le déposant ne l’a pas remplie</li>
+        <li>Une valeur <b>"INDISPONIBLE"</b> signifie que nous n’avons pas encore la donnée et qu’elle arrivera par la suite ;</li>
+        <li>Les données sont mises à jour toutes les nuits à 6 heures du matin.</li>
       </ul>`)
       .setExternalDoc('Notre documentation FHIR est disponible via notre guide d’implémentation (R4).', 'https://interop.esante.gouv.fr/ig/fhir/eclaire/index.html')
       .setVersion('0.1')
