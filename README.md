@@ -126,3 +126,9 @@ yarn bash:production
 - Les variables d'environnement ne contiennent pas de configuration
 - Les secrets doivent être sur Scalingo
 - En local, il y a un fichier `.env.sample` commité et vide et on le surcharge avec un fichier `.env`
+
+### Code MedDra/label en Français in code
+
+- Facile et rapide d'implémentation
+- Evite de faire trop d'appel à leur API
+- Par contre, il faut mettre cette liste à jour tous les semestres
