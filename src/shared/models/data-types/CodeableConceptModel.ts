@@ -52,6 +52,7 @@ export class CodeableConceptModel implements CodeableConcept {
       coding = emptyMedDraInformationIfNull
         .split(', ')
         .map((code): Coding => {
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
           const label = medDraCodeMapping[`M${code}`] as string || 'N/A'
 
           return CodingModel.createMedDra(code, label)
