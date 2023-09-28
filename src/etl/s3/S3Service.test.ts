@@ -9,9 +9,9 @@ describe('s3 service', () => {
   it('should read the S3 API', async () => {
     // GIVEN
     const key = 'fake_key'
-    process.env.S3_ACCESS_KEY = 'fake_access_key'
-    process.env.S3_SECRET_KEY = 'fake_secret_key'
-    process.env.S3_BUCKET = 'fake_bucket'
+    vi.stubEnv('S3_ACCESS_KEY', 'fake_access_key')
+    vi.stubEnv('S3_SECRET_KEY', 'fake_secret_key')
+    vi.stubEnv('S3_BUCKET', 'fake_bucket')
     const configService = new ConfigService()
     const s3Service = new S3Service(configService)
     // @ts-ignore

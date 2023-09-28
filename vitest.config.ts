@@ -24,6 +24,7 @@ export default defineConfig({
     singleThread: true,
     snapshotFormat: {
       escapeString: false,
-    }
+    },
+    unstubEnvs: true
   },
 })
