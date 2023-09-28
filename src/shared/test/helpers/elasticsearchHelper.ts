@@ -7,9 +7,9 @@ import { LoggerService } from '../../logger/LoggerService'
 import { S3Service } from 'src/etl/s3/S3Service'
 
 export async function setupClientAndElasticsearchService() {
-  process.env.SCALINGO_ELASTICSEARCH_URL = 'http://localhost:9201'
-  process.env.ECLAIRE_URL = 'http://localhost:3000/'
-  process.env.NUMBER_OF_RESOURCES_BY_PAGE = '2'
+  vi.stubEnv('SCALINGO_ELASTICSEARCH_URL', 'http://localhost:9201')
+  vi.stubEnv('ECLAIRE_URL', 'http://localhost:3000/')
+  vi.stubEnv('NUMBER_OF_RESOURCES_BY_PAGE', '2')
 
   const configService = new ConfigService()
   const elasticsearchConfig = new ElasticsearchConfig(configService)
