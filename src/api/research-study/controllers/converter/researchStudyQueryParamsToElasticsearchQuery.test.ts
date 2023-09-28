@@ -1,10 +1,15 @@
+import { beforeEach } from 'vitest'
+
 import { ResearchStudyQueryParams } from './ResearchStudyQueryParams'
 import { researchStudyQueryParamsToElasticsearchQuery } from './researchStudyQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../application/entities/ElasticsearchBody'
 
 describe('research study query to elasticsearch query', () => {
   const numberOfResourcesByPageByDefault = 20
-  process.env.NUMBER_OF_RESOURCES_BY_PAGE = String(numberOfResourcesByPageByDefault)
+
+  beforeEach(() => {
+    vi.stubEnv('NUMBER_OF_RESOURCES_BY_PAGE', String(numberOfResourcesByPageByDefault))
+  })
 
   describe('should filter', () => {
     it('just by identifier', () => {
