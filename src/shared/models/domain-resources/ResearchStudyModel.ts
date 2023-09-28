@@ -1,7 +1,7 @@
 import {
   CodeableConcept,
-  ContactDetail, Extension,
-  FhirResource,
+  ContactDetail,
+  Extension,
   Identifier,
   Meta,
   Reference,
@@ -18,7 +18,6 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly category: CodeableConcept[] | undefined,
     readonly condition: CodeableConcept[] | undefined,
     readonly contact: ContactDetail[] | undefined,
-    readonly contained: FhirResource[] | undefined,
     readonly description: string | undefined,
     readonly enrollment: Reference[] | undefined,
     readonly extension: Extension[] | undefined,
