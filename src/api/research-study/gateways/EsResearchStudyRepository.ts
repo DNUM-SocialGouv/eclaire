@@ -29,7 +29,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
   async search(
     elasticsearchBody: ElasticsearchBodyType,
     queryParams: ResearchStudyQueryParams[],
-    withReferenceContents?: boolean
+    withReferenceContents: boolean = false
   ): Promise<Bundle> {
     const response: SearchResponse = await this.elasticsearchService.search(elasticsearchBody, withReferenceContents)
 
