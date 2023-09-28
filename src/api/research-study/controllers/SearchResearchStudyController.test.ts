@@ -1,5 +1,5 @@
 import supertest from 'supertest'
-import { expect } from 'vitest'
+import { afterEach, expect } from 'vitest'
 
 import { getHttpServer } from '../../../shared/test/helpers/controllerHelper'
 
@@ -9,9 +9,15 @@ const SNAPSHOT_WITH_FILTER = '../../../shared/test/snapshots/BundleWithFilter.sn
 const SNAPSHOT_WITH_INCLUDE = '../../../shared/test/snapshots/BundleWithInclude.snap.json'
 
 describe('#SearchResearchStudyController - e2e', () => {
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
   it('should retrieve all researches studies without related resource content when no filter is given', async () => {
     // GIVEN
     const filter = ''
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(2022, 0, 1))
 
     // WHEN
     const response = await supertest(await getHttpServer())

@@ -43,8 +43,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return BundleModel.create(
       response.hits,
       links,
-      response.total,
-      `${this.domainName}R4/ResearchStudy`
+      response.total
     )
   }
 

@@ -1,9 +1,11 @@
 import { BundleEntry, FhirResource } from 'fhir/r4'
+import * as process from 'process'
 
 export class BundleEntryModel {
-  static create(domainName: string, _source: FhirResource): BundleEntry {
+  static create(_source: FhirResource): BundleEntry {
+    const domain = process.env.ECLAIRE_URL
     return {
-      fullUrl: `${domainName}/${_source.id}`,
+      fullUrl: `${domain}R4/${_source.resourceType}/${_source.id}`,
       resource: _source,
     }
   }
