@@ -40,6 +40,9 @@ export function researchStudyQueryParamsToElasticsearchQuery(researchStudyQueryP
         buildSearchAfter(searchBody, value)
         break
 
+      case '_include':
+        break
+
       default:
         buildMatch(searchBody, name, value)
     }

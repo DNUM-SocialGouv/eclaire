@@ -9,7 +9,10 @@ export class ResearchStudyQueryModel {
   @ApiProperty({ description: 'completed | approved | active | temporarily-closed-to-accrual | administratively-completed', required: false })
     status: string
 
-  @ApiProperty({ description: 'e.g. : (eq|ne|lt|le|gt)2019-10-18', required: false })
+  @ApiProperty({ description: 'e.g. : *', required: false })
+    _include: string
+
+  @ApiProperty({ description: 'e.g. : (eq | ne | lt | le | gt)2019-10-18', required: false })
     _lastUpdated: string
 
   @ApiProperty({ description: 'meta.lastUpdated', required: false })

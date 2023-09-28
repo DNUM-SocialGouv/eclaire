@@ -1,11 +1,28 @@
 import supertest from 'supertest'
+import { expect } from 'vitest'
 
 import { getHttpServer } from '../../../shared/test/helpers/controllerHelper'
 
 const BASE_URL = '/R4/ResearchStudy/'
-const SNAPSHOT_PATH = '../../../shared/test/snapshots/Bundle.snap.json'
+const SNAPSHOT_WITH_ALL_STUDIES = '../../../shared/test/snapshots/BundleWithAllStudies.snap.json'
+const SNAPSHOT_WITH_FILTER = '../../../shared/test/snapshots/BundleWithFilter.snap.json'
+const SNAPSHOT_WITH_INCLUDE = '../../../shared/test/snapshots/BundleWithInclude.snap.json'
 
 describe('#SearchResearchStudyController - e2e', () => {
+  it('should retrieve all researches studies without related resource content when no filter is given', async () => {
+    // GIVEN
+    const filter = ''
+
+    // WHEN
+    const response = await supertest(await getHttpServer())
+      .get(BASE_URL + filter)
+
+    // THEN
+    expect(response.statusCode).toBe(200)
+    expect(response.get('content-type')).toBe('application/fhir+json; charset=utf-8')
+    await expect(response.text).toMatchFileSnapshot(SNAPSHOT_WITH_ALL_STUDIES)
+  })
+
   it('should retrieve researches study when good filter is given', async () => {
     // GIVEN
     const filter = '?_lastUpdated=2023-04-12'
@@ -17,7 +34,23 @@ describe('#SearchResearchStudyController - e2e', () => {
     // THEN
     expect(response.statusCode).toBe(200)
     expect(response.get('content-type')).toBe('application/fhir+json; charset=utf-8')
-    await expect(response.text).toMatchFileSnapshot(SNAPSHOT_PATH)
+    await expect(response.text).toMatchFileSnapshot(SNAPSHOT_WITH_FILTER)
+  })
+
+  it('should retrieve researches study with related resource content when corresponding filter is given', async () => {
+    // GIVEN
+    const filter = '?_include=*'
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(2022, 0, 1))
+
+    // WHEN
+    const response = await supertest(await getHttpServer())
+      .get(BASE_URL + filter)
+
+    // THEN
+    expect(response.statusCode).toBe(200)
+    expect(response.get('content-type')).toBe('application/fhir+json; charset=utf-8')
+    await expect(response.text).toMatchFileSnapshot(SNAPSHOT_WITH_INCLUDE)
   })
 
   it('should not retrieve researches study when wrong filter is given', async () => {

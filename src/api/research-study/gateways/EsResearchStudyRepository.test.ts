@@ -1,3 +1,5 @@
+import { expect } from 'vitest'
+
 import { EsResearchStudyRepository } from './EsResearchStudyRepository'
 import { EclaireDto } from '../../../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../../etl/factory/ResearchStudyModelFactory'
@@ -42,6 +44,28 @@ describe('elasticsearch research study repository', () => {
       expect(response.resourceType).toBe('Bundle')
       expect(response.total).toBe(6)
       expect(response.type).toBe('searchset')
+      expect(response.entry[0].resource['referenceContents']).toBeUndefined()
+    })
+
+    it('should find research studies with related ressources', async () => {
+      // GIVEN
+      const { esResearchStudyRepository } = await setup()
+      const queryParams: ResearchStudyQueryParams[] = []
+      const elasticsearchBody: ElasticsearchBodyType = {
+        from: 0,
+        query: { bool: { must: [] } },
+        size: Number(process.env.NUMBER_OF_RESOURCES_BY_PAGE),
+      }
+
+      // WHEN
+      const response = await esResearchStudyRepository.search(elasticsearchBody, queryParams, true)
+
+      // THEN
+      expect(response.entry).toHaveLength(2)
+      expect(response.resourceType).toBe('Bundle')
+      expect(response.total).toStrictEqual(6)
+      expect(response.type).toBe('searchset')
+      expect(response.entry[0].resource['referenceContents']).toBeDefined()
     })
 
     describe('below 10 000 results', () => {

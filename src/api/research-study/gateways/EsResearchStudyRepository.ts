@@ -26,8 +26,12 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return await this.elasticsearchService.findOneDocument(id)
   }
 
-  async search(elasticsearchBody: ElasticsearchBodyType, queryParams: ResearchStudyQueryParams[]): Promise<Bundle> {
-    const response = await this.elasticsearchService.search(elasticsearchBody)
+  async search(
+    elasticsearchBody: ElasticsearchBodyType,
+    queryParams: ResearchStudyQueryParams[],
+    withReferenceContents?: boolean
+  ): Promise<Bundle> {
+    const response: SearchResponse = await this.elasticsearchService.search(elasticsearchBody, withReferenceContents)
 
     const links: BundleLink[] = []
     if (response.total === this.maxTotalConstraintFromElasticsearch && elasticsearchBody.sort !== undefined) {
@@ -36,7 +40,12 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
       this.buildSearchLinks(links, elasticsearchBody.from, response.total, queryParams)
     }
 
-    return BundleModel.create(response.hits, links, response.total, `${this.domainName}R4/ResearchStudy`)
+    return BundleModel.create(
+      response.hits,
+      links,
+      response.total,
+      `${this.domainName}R4/ResearchStudy`
+    )
   }
 
   private buildSearchLinks(links: BundleLink[], offset: number, total: number, queryParams: ResearchStudyQueryParams[]) {
