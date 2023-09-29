@@ -129,7 +129,7 @@ export class ResearchStudyModelFactory {
       meta,
       phase,
       referenceContents,
-      site,
+      site.length === 0 ? undefined : site,
       sponsor,
       status,
       title
@@ -217,10 +217,8 @@ export class ResearchStudyModelFactory {
     const siteLocations: Location[] = []
 
     for (let siteDtoIndex = 0; siteDtoIndex < eclaireDto.sites.length; siteDtoIndex++) {
-      const id = ModelUtils.generateCtisSiteId(siteDtoIndex.toString())
-      site.push(ReferenceModel.createSite(id))
-
       const siteDto = eclaireDto.sites.at(siteDtoIndex)
+
       if (
         ModelUtils.isNotNull(siteDto.adresse) &&
         ModelUtils.isNotNull(siteDto.ville) &&
@@ -230,8 +228,11 @@ export class ResearchStudyModelFactory {
         ModelUtils.isNotNull(siteDto.service) &&
         ModelUtils.isNotNull(siteDto.titre)
       ) {
+        const siteId = ModelUtils.generateSiteId(eclaireDto.numero_secondaire + '-' + siteDtoIndex.toString())
+        site.push(ReferenceModel.createSite(siteId))
+
         siteLocations.push(LocationModel.create(
-          id,
+          siteId,
           ModelUtils.undefinedIfNull(siteDto.adresse),
           ModelUtils.undefinedIfNull(siteDto.ville),
           ModelUtils.undefinedIfNull(siteDto.prenom),

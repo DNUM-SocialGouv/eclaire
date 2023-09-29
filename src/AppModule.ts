@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 
 import { AppController } from './api/AppController'
+import { LocationModule } from './api/location/LocationModule'
 import { OrganizationModule } from './api/organization/OrganizationModule'
 import { ResearchStudyModule } from './api/research-study/ResearchStudyModule'
 import { SentryModule } from './api/sentry/sentry.module'
@@ -22,6 +23,7 @@ import { LoggerModule } from './shared/logger/LoggerModule'
     EtlModule,
     LoggerModule,
     OrganizationModule,
+    LocationModule,
     ResearchStudyModule,
     SentryModule,
     SwaggerModule,

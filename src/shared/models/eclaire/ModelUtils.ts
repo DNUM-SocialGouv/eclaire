@@ -24,8 +24,8 @@ export class ModelUtils {
     return this.generateIdWithSuffix(value, 'secondary-sponsor')
   }
 
-  static generateCtisSiteId(value: string): string {
-    return this.generateIdWithSuffix(value, 'ctis-site')
+  static generateSiteId(value: string): string {
+    return this.generateIdWithSuffix(value, 'site')
   }
 
   static generateIdWithSuffix(value: string, suffix: string): string {

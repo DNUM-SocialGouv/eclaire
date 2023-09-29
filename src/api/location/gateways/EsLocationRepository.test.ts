@@ -1,24 +1,24 @@
 import { expect } from 'vitest'
 
-import { EsOrganizationRepository } from './EsOrganizationRepository'
+import { EsLocationRepository } from './EsLocationRepository'
 import { EclaireDto } from '../../../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../../etl/factory/ResearchStudyModelFactory'
 import { setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
 import { elasticsearchIndexMapping } from 'src/shared/elasticsearch/elasticsearchIndexMapping'
 import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
-describe('elasticsearch organization repository', () => {
-  it('should retrieve one organization', async () => {
+describe('elasticsearch location repository', () => {
+  it('should retrieve one location', async () => {
     // GIVEN
-    const { elasticsearchService, esOrganizationRepository } = await setup()
+    const { elasticsearchService, esLocationRepository } = await setup()
     vi.spyOn(elasticsearchService, 'findReferenceContent')
       .mockImplementationOnce(async (id: string) => await Promise.resolve(['blah', id]))
 
     // WHEN
-    await esOrganizationRepository.find('ctis')
+    await esLocationRepository.find('0-ctis-site')
 
     // THEN
-    expect(elasticsearchService.findReferenceContent).toHaveBeenCalledWith('ctis', 'organizations')
+    expect(elasticsearchService.findReferenceContent).toHaveBeenCalledWith('0-ctis-site', 'locations')
   })
 })
 
@@ -34,7 +34,7 @@ async function setup() {
     ResearchStudyModelFactory.create(researchStudy2),
   ])
 
-  const esOrganizationRepository = new EsOrganizationRepository(elasticsearchService)
+  const esLocationRepository = new EsLocationRepository(elasticsearchService)
 
-  return { elasticsearchService, esOrganizationRepository, numberOfResourcesByPage }
+  return { elasticsearchService, esLocationRepository, numberOfResourcesByPage }
 }
