@@ -11,11 +11,10 @@ export class EsOrganizationRepository implements OrganizationRepository {
     private readonly elasticsearchService: ElasticsearchService
   ) {}
 
-  async find(id: string): Promise<Organization> {
-    const organizations: Organization[] = await this.elasticsearchService.findReferenceContent(
+  async find(id: string): Promise<Organization[]> {
+    return await this.elasticsearchService.findReferenceContent(
       id,
       'organizations'
     ) as Organization[]
-    return organizations.filter((organization: Organization) => organization.id === id)[0]
   }
 }

@@ -83,6 +83,58 @@ describe('elasticsearch service', () => {
     })
   })
 
+  it('should find a reference content', async () => {
+    // GIVEN
+    const id = 'ctis'
+    const elasticsearchService = new ElasticsearchService(fakeClient)
+    vi.spyOn(fakeClient, 'search')
+
+    // WHEN
+    const result = await elasticsearchService.findReferenceContent(id, 'organizations')
+
+    // THEN
+    expect(fakeClient.search).toHaveBeenCalledWith({
+      body: {
+        query: {
+          bool: {
+            filter: [
+              {
+                multi_match: {
+                  lenient: true,
+                  query: id,
+                  type: 'phrase',
+                },
+              },
+            ],
+          },
+        },
+      },
+      index: 'eclaire',
+    })
+    expect(result).toStrictEqual({ fake_field: 'fake_field' })
+  })
+
+  it('should not find a reference content', async () => {
+    // GIVEN
+    const id = 'ctis'
+    const elasticsearchService = new ElasticsearchService(fakeClient)
+    vi.spyOn(fakeClient, 'search').mockReturnValueOnce({
+      // @ts-ignore
+      body: {
+        hits: {
+          hits: [],
+          total: { value: 0 },
+        },
+      },
+    })
+
+    // WHEN
+    const result = await elasticsearchService.findReferenceContent(id, 'organizations')
+
+    // THEN
+    expect(result).toStrictEqual([])
+  })
+
   describe('#Search', () => {
     it('should filter results and return corresponding document', async () => {
       // GIVEN

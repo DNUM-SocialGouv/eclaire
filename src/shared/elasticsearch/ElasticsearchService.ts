@@ -28,14 +28,14 @@ export class ElasticsearchService {
   }
 
   async findOneDocument(id: string): Promise<unknown> {
-    const request = await this.client.get({
+    const response = await this.client.get({
       _source_excludes: ['referenceContents'],
       id,
       index: this.index,
       type: this.type,
     } satisfies RequestParams.Get)
 
-    return request.body._source as unknown
+    return response.body._source as unknown
   }
 
   async findReferenceContent(id: string, referenceType: 'enrollmentGroup' | 'locations' | 'organizations'): Promise<unknown> {
@@ -58,8 +58,13 @@ export class ElasticsearchService {
       index: this.index,
     } satisfies RequestParams.Search)
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-return
-    return response.body.hits.hits[0]._source['referenceContents'][referenceType]
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (response.body.hits.hits.length === 0) {
+      return []
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-return
+      return response.body.hits.hits[0]._source['referenceContents'][referenceType]
+    }
   }
 
   async bulkDocuments<T>(documents: T[]): Promise<void> {

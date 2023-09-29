@@ -1,7 +1,7 @@
-import { errors } from '@elastic/elasticsearch'
 import { Controller, Get, Header, Param, Res } from '@nestjs/common'
 import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
+import { Organization } from 'fhir/r4'
 
 import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
 import { EsOrganizationRepository } from '../gateways/EsOrganizationRepository'
@@ -18,16 +18,13 @@ export class FindOrganizationController {
   @Header('content-type', 'application/fhir+json')
   @Get(':id')
   async execute(@Param('id') id: string, @Res() response: Response): Promise<void> {
-    try {
-      const document = await this.organizationRepository.find(id)
-      response.json(document)
-    } catch (error) {
-      if (error instanceof errors.ResponseError && error.meta.statusCode === 404) {
-        const operationOutcome = OperationOutcomeModel.create(error.message)
-        response.status(404).json(operationOutcome)
-      } else {
-        throw error
-      }
+    const document = await this.organizationRepository.find(id)
+
+    if (document.length !== 0) {
+      response.json(document.filter((organization: Organization) => organization.id === id)[0])
+    } else {
+      const operationOutcome = OperationOutcomeModel.create('No organization fund')
+      response.status(404).json(operationOutcome)
     }
   }
 }
