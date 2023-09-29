@@ -1,5 +1,5 @@
 import { ResearchStudyQueryParams } from './ResearchStudyQueryParams'
-import { ElasticsearchBodyBuilder, ElasticsearchBodyType, Operator } from '../../application/entities/ElasticsearchBody'
+import { ElasticsearchBodyBuilder, ElasticsearchBodyType, Operator } from '../../../../shared/elasticsearch/ElasticsearchBody'
 
 export function researchStudyQueryParamsToElasticsearchQuery(researchStudyQueryParams: ResearchStudyQueryParams[]): ElasticsearchBodyType {
   const numberOfResourcesByPage = Number(process.env['NUMBER_OF_RESOURCES_BY_PAGE'])

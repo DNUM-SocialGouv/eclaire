@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { Bundle, BundleLink } from 'fhir/r4'
 
+import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse } from '../../../shared/elasticsearch/ElasticsearchService'
+import { BundleModel } from '../../../shared/models/resources/BundleModel'
 import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
-import { BundleModel } from '../application/entities/BundleModel'
-import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
 import { ResearchStudyQueryParams } from '../controllers/converter/ResearchStudyQueryParams'
 
 @Injectable()
