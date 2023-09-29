@@ -2,7 +2,13 @@
   "checkers": ["typescript"],
   "disableTypeChecks": true,
   "htmlReporter": { "fileName": "reports/mutation/mutation-etl.html" },
-  "ignorePatterns": [".*", "coverage", "dist", "reports", "src/api/e2e.test.ts"],
+  "ignorePatterns": [
+    ".*",
+    "coverage",
+    "dist",
+    "reports",
+    "src/api/research-study/controllers/*.test.ts"
+  ],
   "ignoreStatic": true,
   "logLevel": "info",
   "mutate": [
