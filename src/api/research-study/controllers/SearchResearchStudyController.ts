@@ -18,7 +18,7 @@ export class SearchResearchStudyController {
   constructor(private readonly researchStudyRepository: EsResearchStudyRepository) {}
 
   @ApiOperation({
-    description: 'Seuls les paramètres ci-dessous sont pour le moment disponible.<br>Les autres seront développés au besoin dans une démarche itérative.<br>Documentation FHIR sur <a href="https://hl7.org/fhir/R4/search.html">les filtres de recherche</a>.',
+    description: 'Seuls les paramètres ci-dessous sont disponibles pour le moment.<br>Les autres seront développés au besoin dans une démarche itérative.<br>Documentation FHIR sur <a href="https://hl7.org/fhir/R4/search.html">les filtres de recherche</a>.',
     summary: 'Recherche des essais cliniques selon un ou plusieurs filtres.',
   })
   @ApiOkResponse({ description: 'Des essais cliniques ont été trouvés' })
