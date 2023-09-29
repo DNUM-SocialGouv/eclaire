@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { Organization } from 'fhir/r4'
 
 import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
 import { OrganizationRepository } from '../application/contracts/OrganizationRepository'
@@ -10,7 +11,11 @@ export class EsOrganizationRepository implements OrganizationRepository {
     private readonly elasticsearchService: ElasticsearchService
   ) {}
 
-  async findOne(id: string): Promise<unknown> {
-    return await this.elasticsearchService.findOneDocument(id)
+  async find(id: string): Promise<Organization> {
+    const organizations: Organization[] = await this.elasticsearchService.findReferenceContent(
+      id,
+      'organizations'
+    ) as Organization[]
+    return organizations.filter((organization: Organization) => organization.id === id)[0]
   }
 }

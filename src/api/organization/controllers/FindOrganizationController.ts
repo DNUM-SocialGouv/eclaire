@@ -19,7 +19,7 @@ export class FindOrganizationController {
   @Get(':id')
   async execute(@Param('id') id: string, @Res() response: Response): Promise<void> {
     try {
-      const document = await this.organizationRepository.findOne(id)
+      const document = await this.organizationRepository.find(id)
       response.json(document)
     } catch (error) {
       if (error instanceof errors.ResponseError && error.meta.statusCode === 404) {

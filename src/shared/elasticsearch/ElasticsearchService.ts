@@ -38,6 +38,30 @@ export class ElasticsearchService {
     return request.body._source as unknown
   }
 
+  async findReferenceContent(id: string, referenceType: 'enrollmentGroup' | 'locations' | 'organizations'): Promise<unknown> {
+    const response = await this.client.search({
+      body: {
+        query: {
+          bool: {
+            filter: [
+              {
+                multi_match: {
+                  lenient: true,
+                  query: id,
+                  type: 'phrase',
+                },
+              },
+            ],
+          },
+        },
+      },
+      index: this.index,
+    } satisfies RequestParams.Search)
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-return
+    return response.body.hits.hits[0]._source['referenceContents'][referenceType]
+  }
+
   async bulkDocuments<T>(documents: T[]): Promise<void> {
     await this.client.bulk({
       body: this.buildBody(documents),
