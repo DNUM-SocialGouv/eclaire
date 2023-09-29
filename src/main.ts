@@ -11,6 +11,6 @@ async function bootstrap() {
 
   app.get(SwaggerService).create(app)
 
-  await app.listen(process.env.PORT || 3000)
+  await app.listen(process.env['PORT'] || 3000)
 }
 void bootstrap()

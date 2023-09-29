@@ -14,7 +14,7 @@ import { LoggerModule } from './shared/logger/LoggerModule'
   imports: [
     ConfigModule.forRoot({
       envFilePath: ['.env'],
-      ignoreEnvFile: process.env.NODE_ENV !== undefined,
+      ignoreEnvFile: process.env['NODE_ENV'] !== undefined,
       isGlobal: true,
     }),
     ElasticsearchModule,

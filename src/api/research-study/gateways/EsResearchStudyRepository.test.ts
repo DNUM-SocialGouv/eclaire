@@ -33,7 +33,7 @@ describe('elasticsearch research study repository', () => {
       const elasticsearchBody: ElasticsearchBodyType = {
         from: 0,
         query: { bool: { must: [] } },
-        size: Number(process.env.NUMBER_OF_RESOURCES_BY_PAGE),
+        size: Number(process.env['NUMBER_OF_RESOURCES_BY_PAGE']),
       }
 
       // WHEN
@@ -54,7 +54,7 @@ describe('elasticsearch research study repository', () => {
       const elasticsearchBody: ElasticsearchBodyType = {
         from: 0,
         query: { bool: { must: [] } },
-        size: Number(process.env.NUMBER_OF_RESOURCES_BY_PAGE),
+        size: Number(process.env['NUMBER_OF_RESOURCES_BY_PAGE']),
       }
 
       // WHEN
@@ -386,7 +386,7 @@ describe('elasticsearch research study repository', () => {
 
 async function setup() {
   const { configService, elasticsearchService } = await setupClientAndElasticsearchService()
-  const numberOfResourcesByPage = Number(process.env.NUMBER_OF_RESOURCES_BY_PAGE)
+  const numberOfResourcesByPage = Number(process.env['NUMBER_OF_RESOURCES_BY_PAGE'])
   const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1', titre: 'un autre titre pour la pagination 1' }))
   const researchStudy2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId2', titre: 'un autre titre pour la pagination 2' }))
   const researchStudy3: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId3', titre: 'un autre titre pour la pagination 3' }))

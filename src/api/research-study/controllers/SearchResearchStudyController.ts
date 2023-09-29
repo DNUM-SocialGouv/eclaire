@@ -50,7 +50,7 @@ export class SearchResearchStudyController {
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-        const operationOutcome: OperationOutcome = OperationOutcomeModel.create(error.meta.body.error.root_cause[0].reason)
+        const operationOutcome: OperationOutcome = OperationOutcomeModel.create(error.meta.body.error['root_cause'][0].reason)
         response.status(400).json(operationOutcome)
       } else {
         throw error
