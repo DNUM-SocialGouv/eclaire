@@ -2,7 +2,7 @@ import { beforeEach } from 'vitest'
 
 import { ResearchStudyQueryParams } from './ResearchStudyQueryParams'
 import { researchStudyQueryParamsToElasticsearchQuery } from './researchStudyQueryParamsToElasticsearchQuery'
-import { ElasticsearchBodyType } from '../../application/entities/ElasticsearchBody'
+import { ElasticsearchBodyType } from '../../../../shared/elasticsearch/ElasticsearchBody'
 
 describe('research study query to elasticsearch query', () => {
   const numberOfResourcesByPageByDefault = 20

@@ -7,9 +7,9 @@ import { Bundle, BundleEntry, Group, Location, OperationOutcome, Organization } 
 import { ResearchStudyQueryParams } from './converter/ResearchStudyQueryParams'
 import { researchStudyQueryParamsToElasticsearchQuery } from './converter/researchStudyQueryParamsToElasticsearchQuery'
 import { ResearchStudyQueryModel } from './ResearchStudyQueryModel'
-import { BundleEntryModel } from '../application/entities/BundleEntryModel'
-import { ElasticsearchBodyType } from '../application/entities/ElasticsearchBody'
-import { OperationOutcomeModel } from '../application/entities/OperationOutcomeModel'
+import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
+import { BundleEntryModel } from '../../../shared/models/backbone-elements/BundleEntryModel'
+import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
 import { EsResearchStudyRepository } from '../gateways/EsResearchStudyRepository'
 
 @ApiTags('Research study')

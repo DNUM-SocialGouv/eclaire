@@ -3,7 +3,7 @@ import { Controller, Get, Header, Param, Res } from '@nestjs/common'
 import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 
-import { OperationOutcomeModel } from '../application/entities/OperationOutcomeModel'
+import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
 import { EsResearchStudyRepository } from '../gateways/EsResearchStudyRepository'
 
 @ApiTags('Research study')
