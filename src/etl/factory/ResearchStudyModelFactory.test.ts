@@ -1,8 +1,14 @@
+import { afterEach } from 'vitest'
+
 import { ResearchStudyModelFactory } from './ResearchStudyModelFactory'
 import { EclaireDto } from '../dto/EclaireDto'
 import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('research study model factory', () => {
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
   it('should build a research study model, when a RIPH CTIS object with all fields filled is given', () => {
     expect(ResearchStudyModelFactory.create(EclaireDto.fromCtis(RiphDtoTestFactory.ctis()))).toMatchInlineSnapshot(`
       ResearchStudyModel {

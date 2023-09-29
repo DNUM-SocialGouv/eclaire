@@ -46,9 +46,9 @@ export class ElasticsearchService {
     } satisfies RequestParams.Bulk)
   }
 
-  async search(requestBody: RequestBody): Promise<SearchResponse> {
+  async search(requestBody: RequestBody, withReferenceContents?: boolean): Promise<SearchResponse> {
     const response = await this.client.search({
-      _source_excludes: ['referenceContents'],
+      _source_excludes: withReferenceContents ? undefined : ['referenceContents'],
       body: requestBody,
       index: this.index,
     } satisfies RequestParams.Search)
@@ -72,15 +72,17 @@ export class ElasticsearchService {
 }
 
 export type SearchResponse = Readonly<{
-  hits: ReadonlyArray<{
-    _index: string
-    _type: string
-    _id: string
-    _score: number
-    _source: Record<string, string>
-    sort?: (number | string)[]
-  }>
+  hits: SearchResponseHits[]
   total: number
+}>
+
+export type SearchResponseHits = Readonly<{
+  _index: string
+  _type: string
+  _id: string
+  _score: number
+  _source: Record<string, string>
+  sort?: (number | string)[]
 }>
 
 type UpsertElasticsearchBody = Readonly<({ update: { _id: string } } | { doc_as_upsert: true; doc: unknown })>
