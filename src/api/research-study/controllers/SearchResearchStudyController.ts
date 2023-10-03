@@ -59,8 +59,9 @@ export class SearchResearchStudyController {
   }
 
   private getAdditionalFhirResourceBundle(fhirResourceBundle: Bundle): BundleEntry[] {
-    return fhirResourceBundle.entry.flatMap((bundleEntry: BundleEntry) => {
-      const additionalFhirResourceBundleEntries: unknown[] = []
+    const additionalFhirResourceBundleEntries = []
+
+    for (const bundleEntry of fhirResourceBundle.entry) {
       const referenceContents: unknown = bundleEntry.resource['referenceContents']
 
       const enrollmentGroup: Group = referenceContents['enrollmentGroup'] as Group
@@ -74,7 +75,8 @@ export class SearchResearchStudyController {
         const locationBundleEntries: BundleEntry[] = locations.map((location: Location) => {
           return BundleEntryModel.create(location)
         })
-        additionalFhirResourceBundleEntries.push(locationBundleEntries)
+
+        additionalFhirResourceBundleEntries.push(...locationBundleEntries)
       }
 
       const organizations: Organization[] = referenceContents['organizations'] as Organization[]
@@ -82,12 +84,18 @@ export class SearchResearchStudyController {
         const organizationBundleEntries: BundleEntry[] = organizations.map((organization: Organization) => {
           return BundleEntryModel.create(organization)
         })
-        additionalFhirResourceBundleEntries.push(organizationBundleEntries)
+
+        additionalFhirResourceBundleEntries.push(...organizationBundleEntries)
       }
 
       delete bundleEntry.resource['referenceContents']
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
+    const bundleIds = additionalFhirResourceBundleEntries.map((bundle) => bundle.resource.id)
+    const additionalFhirResourceBundleEntriesFiltered =
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      additionalFhirResourceBundleEntries.filter((bundle, index) => !bundleIds.includes(bundle.resource.id, index + 1))
 
-      return additionalFhirResourceBundleEntries.flat()
-    })
+    return [...additionalFhirResourceBundleEntriesFiltered as BundleEntry[]]
   }
 }
