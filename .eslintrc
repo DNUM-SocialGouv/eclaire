@@ -15,8 +15,7 @@
   },
   "ignorePatterns": [
     "dist",
-    "src/shared/models/code-systems/medDraCodeMapping.ts",
-    "vitest.config.ts"
+    "src/shared/models/code-systems/medDraCodeMapping.ts"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "unused-imports", "import"],
