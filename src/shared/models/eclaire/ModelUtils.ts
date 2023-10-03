@@ -13,7 +13,7 @@ export class ModelUtils {
   }
 
   static generateEnrollmentGroupId(value: string): string {
-    return this.generateIdWithSuffix(value, 'enrollment-group-id')
+    return this.generateIdWithSuffix(value, 'enrollment-group')
   }
 
   static generatePrimarySponsorOrganizationId(value: string): string {
