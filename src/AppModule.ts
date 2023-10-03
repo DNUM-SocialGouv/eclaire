@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 
 import { AppController } from './api/AppController'
+import { GroupModule } from './api/group/GroupModule'
 import { LocationModule } from './api/location/LocationModule'
 import { OrganizationModule } from './api/organization/OrganizationModule'
 import { ResearchStudyModule } from './api/research-study/ResearchStudyModule'
@@ -21,6 +22,7 @@ import { LoggerModule } from './shared/logger/LoggerModule'
     }),
     ElasticsearchModule,
     EtlModule,
+    GroupModule,
     LoggerModule,
     OrganizationModule,
     LocationModule,
