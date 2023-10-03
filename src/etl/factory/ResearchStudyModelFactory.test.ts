@@ -594,12 +594,12 @@ describe('research study model factory', () => {
                 "type": "physical",
                 "use": "work",
               },
-              "id": "0-ctis-site",
+              "id": "2022-500014-26-00-0-site",
               "identifier": [
                 IdentifierModel {
                   "assigner": undefined,
                   "use": "official",
-                  "value": "0-ctis-site",
+                  "value": "2022-500014-26-00-0-site",
                 },
               ],
               "name": "Donnée non disponible",
@@ -796,7 +796,7 @@ describe('research study model factory', () => {
         "site": [
           ReferenceModel {
             "display": "Reference to site",
-            "reference": "Location/0-ctis-site",
+            "reference": "Location/2022-500014-26-00-0-site",
             "type": "Location",
           },
         ],
@@ -1383,7 +1383,7 @@ describe('research study model factory', () => {
           ],
         },
         "resourceType": "ResearchStudy",
-        "site": [],
+        "site": undefined,
         "sponsor": ReferenceModel {
           "display": "Reference to primary sponsor",
           "reference": "Organization/2021-A01563-38-primary-sponsor",
@@ -1967,7 +1967,7 @@ describe('research study model factory', () => {
           ],
         },
         "resourceType": "ResearchStudy",
-        "site": [],
+        "site": undefined,
         "sponsor": ReferenceModel {
           "display": "Reference to primary sponsor",
           "reference": "Organization/2021-A01022-39-primary-sponsor",
@@ -2372,13 +2372,7 @@ describe('research study model factory', () => {
           ],
         },
         "resourceType": "ResearchStudy",
-        "site": [
-          ReferenceModel {
-            "display": "Reference to site",
-            "reference": "Location/0-ctis-site",
-            "type": "Location",
-          },
-        ],
+        "site": undefined,
         "sponsor": ReferenceModel {
           "display": "Reference to primary sponsor",
           "reference": "Organization/2022-500299-71-00-primary-sponsor",

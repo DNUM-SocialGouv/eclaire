@@ -6,14 +6,14 @@ export default defineConfig({
   test: {
     clearMocks: true,
     coverage: {
-      skipFull: true,
       exclude: [
         'src/api/AppController.ts',
         'src/api/sentry',
         'src/api/swagger',
         'src/shared/logger',
       ],
-      provider: 'istanbul'
+      provider: 'istanbul',
+      skipFull: true,
     },
     environment: 'node',
     exclude: [...configDefaults.exclude, '.stryker-tmp/**'],
@@ -22,9 +22,7 @@ export default defineConfig({
     restoreMocks: true,
     sequence: { shuffle: true },
     singleThread: true,
-    snapshotFormat: {
-      escapeString: false,
-    },
-    unstubEnvs: true
+    snapshotFormat: { escapeString: false },
+    unstubEnvs: true,
   },
 })
