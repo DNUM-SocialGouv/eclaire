@@ -168,7 +168,7 @@ describe('research study model factory', () => {
         "enrollment": [
           ReferenceModel {
             "display": "Reference to group detailing study characteristics",
-            "reference": "#2022-500014-26-00-enrollment-group-id",
+            "reference": "Group/2022-500014-26-00-enrollment-group",
             "type": "Group",
           },
         ],
@@ -576,7 +576,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
             ],
-            "id": "2022-500014-26-00-enrollment-group-id",
+            "id": "2022-500014-26-00-enrollment-group",
             "quantity": 21,
             "resourceType": "Group",
             "type": "person",
@@ -964,7 +964,7 @@ describe('research study model factory', () => {
         "enrollment": [
           ReferenceModel {
             "display": "Reference to group detailing study characteristics",
-            "reference": "#2021-A01563-38-enrollment-group-id",
+            "reference": "Group/2021-A01563-38-enrollment-group",
             "type": "Group",
           },
         ],
@@ -1218,7 +1218,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
             ],
-            "id": "2021-A01563-38-enrollment-group-id",
+            "id": "2021-A01563-38-enrollment-group",
             "quantity": 96,
             "resourceType": "Group",
             "type": "person",
@@ -1548,7 +1548,7 @@ describe('research study model factory', () => {
         "enrollment": [
           ReferenceModel {
             "display": "Reference to group detailing study characteristics",
-            "reference": "#2021-A01022-39-enrollment-group-id",
+            "reference": "Group/2021-A01022-39-enrollment-group",
             "type": "Group",
           },
         ],
@@ -1802,7 +1802,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
             ],
-            "id": "2021-A01022-39-enrollment-group-id",
+            "id": "2021-A01022-39-enrollment-group",
             "quantity": 23,
             "resourceType": "Group",
             "type": "person",
@@ -2082,7 +2082,7 @@ describe('research study model factory', () => {
         "enrollment": [
           ReferenceModel {
             "display": "Reference to group detailing study characteristics",
-            "reference": "#2022-500299-71-00-enrollment-group-id",
+            "reference": "Group/2022-500299-71-00-enrollment-group",
             "type": "Group",
           },
         ],
@@ -2276,7 +2276,7 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
             ],
-            "id": "2022-500299-71-00-enrollment-group-id",
+            "id": "2022-500299-71-00-enrollment-group",
             "quantity": undefined,
             "resourceType": "Group",
             "type": "person",

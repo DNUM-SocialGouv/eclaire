@@ -8,10 +8,11 @@ export class ReferenceModel implements Reference {
   ) {}
 
   static createGroupDetailingStudyCharacteristics(enrollmentGroupId: string): Reference {
+    const type = 'Group'
     return new ReferenceModel(
       'Reference to group detailing study characteristics',
-      this.generateInternalFragmentReference(enrollmentGroupId),
-      'Group'
+      this.generateRelativeUrlReference(enrollmentGroupId, type),
+      type
     )
   }
 
@@ -61,10 +62,6 @@ export class ReferenceModel implements Reference {
 
   private static generateRelativeUrlReference(id: string, type: string): string {
     return `${type}/${id}`
-  }
-
-  private static generateInternalFragmentReference(id: string): string {
-    return `#${id}`
   }
 }
 

@@ -1,4 +1,4 @@
-import { Client, RequestParams } from '@elastic/elasticsearch'
+import { ApiResponse, Client, RequestParams } from '@elastic/elasticsearch'
 import { RequestBody } from '@elastic/elasticsearch/lib/Transport'
 import { Injectable } from '@nestjs/common'
 
@@ -39,7 +39,7 @@ export class ElasticsearchService {
   }
 
   async findReferenceContent(id: string, referenceType: 'enrollmentGroup' | 'locations' | 'organizations'): Promise<unknown> {
-    const response = await this.client.search({
+    const response: ApiResponse = await this.client.search({
       body: {
         query: {
           bool: {
@@ -60,7 +60,7 @@ export class ElasticsearchService {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (response.body.hits.hits.length === 0) {
-      return []
+      return referenceType === 'enrollmentGroup' ? undefined : []
     } else {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-return
       return response.body.hits.hits[0]._source['referenceContents'][referenceType]
