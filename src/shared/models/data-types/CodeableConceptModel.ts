@@ -1,7 +1,6 @@
 import { CodeableConcept, Coding } from 'fhir/r4'
 
 import { CodingModel } from './CodingModel'
-import { medDraCodeMapping } from '../code-systems/medDraCodeMapping'
 import { ModelUtils } from '../eclaire/ModelUtils'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 import { LabelType } from '../special-purpose-data-types/ExtensionModel'
@@ -53,7 +52,7 @@ export class CodeableConceptModel implements CodeableConcept {
         .split(', ')
         .map((code): Coding => {
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-          const label = medDraCodeMapping[`M${code}`] as string || 'N/A'
+          const label = 'N/A'
 
           return CodingModel.createMedDra(code, label)
         })

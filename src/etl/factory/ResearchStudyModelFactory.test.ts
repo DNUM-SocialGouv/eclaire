@@ -52,13 +52,13 @@ describe('research study model factory', () => {
             "coding": [
               CodingModel {
                 "code": "10070575",
-                "display": "Cancer du sein à récepteurs aux oestrogènes positifs",
+                "display": "N/A",
                 "system": "http://terminology.hl7.org/CodeSystem/mdr",
                 "version": "2.0.1",
               },
               CodingModel {
                 "code": "10065430",
-                "display": "Cancer du sein HER2 positif",
+                "display": "N/A",
                 "system": "http://terminology.hl7.org/CodeSystem/mdr",
                 "version": "2.0.1",
               },
