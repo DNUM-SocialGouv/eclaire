@@ -49,3 +49,4 @@ lerna-debug.log*
 .vscode
 .stryker-tmp
 reports
+meddra-utf8.asc

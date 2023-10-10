@@ -98,6 +98,41 @@ export class ElasticsearchService {
       ]
     })
   }
+
+  async createMedDraIndex(): Promise<void> {
+    await this.client.indices.create({ index: 'meddra' } satisfies RequestParams.IndicesCreate)
+  }
+
+  async deleteMedDraIndex(): Promise<void> {
+    await this.client.indices.delete({ ignore_unavailable: true, index: 'meddra' } satisfies RequestParams.IndicesDelete)
+  }
+
+  async findMedDraDocument(id: string): Promise<unknown> {
+    const response = await this.client.get({
+      id,
+      index: 'meddra',
+      type: this.type,
+    } satisfies RequestParams.Get)
+
+    return response.body._source as unknown
+  }
+
+  async bulkMedDraDocuments<T>(documents: T[]): Promise<void> {
+    await this.client.bulk({
+      body: this.buildMedDraBody(documents),
+      index: 'meddra',
+      refresh: true,
+    } satisfies RequestParams.Bulk)
+  }
+
+  private buildMedDraBody<T>(documents: T[]): UpsertElasticsearchBody[] {
+    return documents.flatMap((document: T): UpsertElasticsearchBody[] => {
+      return [
+        { update: { _id: document['code'] as string } },
+        { doc: document, doc_as_upsert: true },
+      ]
+    })
+  }
 }
 
 export type SearchResponse = Readonly<{

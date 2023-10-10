@@ -19,6 +19,9 @@ async function console(): Promise<void> {
       await etlService.deleteIndex()
       await etlService.createIndex()
       break
+    case 'medDra-import':
+      await etlService.medDraImport()
+      break
     default:
       process.exit(1)
   }

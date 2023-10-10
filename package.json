@@ -18,6 +18,7 @@
     "dev": "nest start --watch",
     "etl:create-index": "ts-node src/etl/console.ts create-index",
     "etl:import": "ts-node src/etl/console.ts import",
+    "etl:meddra-import": "ts-node src/etl/console.ts medDra-import",
     "etl:reset-index": "ts-node src/etl/console.ts reset-index",
     "lint": "eslint 'src/**/*.ts' --max-warnings=0",
     "prepare": "husky install",
