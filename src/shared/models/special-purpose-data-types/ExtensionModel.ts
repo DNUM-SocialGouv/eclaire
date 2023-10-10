@@ -138,6 +138,19 @@ export class ExtensionModel implements Extension {
       undefined
     )
   }
+
+  static createEclaireContactName(firstname: string, name: string): Extension {
+    return new ExtensionModel(
+      undefined,
+      undefined,
+      undefined,
+      HumanNameModel.create(firstname, name),
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
 }
 
 export type LabelType = 'primary' | 'official' | 'plain-language' | 'subtitle' | 'short-title' | 'acronym' | 'earlier-title' | 'language' | 'auto-translated' | 'human-use' | 'machine-use'

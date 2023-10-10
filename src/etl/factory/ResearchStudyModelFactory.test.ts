@@ -73,8 +73,25 @@ describe('research study model factory', () => {
         ],
         "contact": [
           ContactDetailModel {
-            "extension": undefined,
-            "name": "Head of EU Trial Information Support Line-TISL, Switzerland",
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": undefined,
+                "valueCodeableConcept": undefined,
+                "valueHumanName": HumanNameModel {
+                  "family": "Trial Information Support Line-TISL, Switzerland",
+                  "given": [
+                    "Head of EU",
+                  ],
+                  "prefix": undefined,
+                  "use": "official",
+                },
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
@@ -92,6 +109,23 @@ describe('research study model factory', () => {
           },
           ContactDetailModel {
             "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": undefined,
+                "valueCodeableConcept": undefined,
+                "valueHumanName": HumanNameModel {
+                  "family": "INDISPONIBLE",
+                  "given": [
+                    "INDISPONIBLE",
+                  ],
+                  "prefix": undefined,
+                  "use": "official",
+                },
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
               ExtensionModel {
                 "extension": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
@@ -113,7 +147,6 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
@@ -131,6 +164,23 @@ describe('research study model factory', () => {
           },
           ContactDetailModel {
             "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": undefined,
+                "valueCodeableConcept": undefined,
+                "valueHumanName": HumanNameModel {
+                  "family": "INDISPONIBLE",
+                  "given": [
+                    "INDISPONIBLE",
+                  ],
+                  "prefix": undefined,
+                  "use": "official",
+                },
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
               ExtensionModel {
                 "extension": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
@@ -152,7 +202,6 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
@@ -869,8 +918,25 @@ describe('research study model factory', () => {
         ],
         "contact": [
           ContactDetailModel {
-            "extension": undefined,
-            "name": "Olivier D'HONDT",
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": undefined,
+                "valueCodeableConcept": undefined,
+                "valueHumanName": HumanNameModel {
+                  "family": "D'HONDT",
+                  "given": [
+                    "Olivier",
+                  ],
+                  "prefix": undefined,
+                  "use": "official",
+                },
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
@@ -888,6 +954,23 @@ describe('research study model factory', () => {
           },
           ContactDetailModel {
             "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": undefined,
+                "valueCodeableConcept": undefined,
+                "valueHumanName": HumanNameModel {
+                  "family": "INDISPONIBLE",
+                  "given": [
+                    "INDISPONIBLE",
+                  ],
+                  "prefix": undefined,
+                  "use": "official",
+                },
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
               ExtensionModel {
                 "extension": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
@@ -909,7 +992,6 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
@@ -927,6 +1009,23 @@ describe('research study model factory', () => {
           },
           ContactDetailModel {
             "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": undefined,
+                "valueCodeableConcept": undefined,
+                "valueHumanName": HumanNameModel {
+                  "family": "INDISPONIBLE",
+                  "given": [
+                    "INDISPONIBLE",
+                  ],
+                  "prefix": undefined,
+                  "use": "official",
+                },
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
               ExtensionModel {
                 "extension": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
@@ -948,7 +1047,6 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
@@ -1453,8 +1551,25 @@ describe('research study model factory', () => {
         ],
         "contact": [
           ContactDetailModel {
-            "extension": undefined,
-            "name": "Christophe GILLET",
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": undefined,
+                "valueCodeableConcept": undefined,
+                "valueHumanName": HumanNameModel {
+                  "family": "GILLET",
+                  "given": [
+                    "Christophe",
+                  ],
+                  "prefix": undefined,
+                  "use": "official",
+                },
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+            ],
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
@@ -1472,6 +1587,23 @@ describe('research study model factory', () => {
           },
           ContactDetailModel {
             "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": undefined,
+                "valueCodeableConcept": undefined,
+                "valueHumanName": HumanNameModel {
+                  "family": "INDISPONIBLE",
+                  "given": [
+                    "INDISPONIBLE",
+                  ],
+                  "prefix": undefined,
+                  "use": "official",
+                },
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
               ExtensionModel {
                 "extension": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
@@ -1493,7 +1625,6 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
@@ -1511,6 +1642,23 @@ describe('research study model factory', () => {
           },
           ContactDetailModel {
             "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": undefined,
+                "valueCodeableConcept": undefined,
+                "valueHumanName": HumanNameModel {
+                  "family": "INDISPONIBLE",
+                  "given": [
+                    "INDISPONIBLE",
+                  ],
+                  "prefix": undefined,
+                  "use": "official",
+                },
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
               ExtensionModel {
                 "extension": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
@@ -1532,7 +1680,6 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
@@ -2008,6 +2155,23 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
+                "url": undefined,
+                "valueCodeableConcept": undefined,
+                "valueHumanName": HumanNameModel {
+                  "family": "INDISPONIBLE",
+                  "given": [
+                    "INDISPONIBLE",
+                  ],
+                  "prefix": undefined,
+                  "use": "official",
+                },
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
+              ExtensionModel {
+                "extension": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -2027,7 +2191,6 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
                 "extension": undefined,
@@ -2045,6 +2208,23 @@ describe('research study model factory', () => {
           },
           ContactDetailModel {
             "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": undefined,
+                "valueCodeableConcept": undefined,
+                "valueHumanName": HumanNameModel {
+                  "family": "INDISPONIBLE",
+                  "given": [
+                    "INDISPONIBLE",
+                  ],
+                  "prefix": undefined,
+                  "use": "official",
+                },
+                "valueInstant": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
+              },
               ExtensionModel {
                 "extension": undefined,
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
@@ -2066,7 +2246,6 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "name": "INDISPONIBLE INDISPONIBLE",
             "telecom": [
               ContactPointModel {
                 "extension": undefined,

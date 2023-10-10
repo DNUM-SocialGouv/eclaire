@@ -9,7 +9,6 @@ export type ContactType = 'Public' | 'Scientific'
 export class ContactDetailModel implements ContactDetail {
   private constructor(
     readonly extension: Extension[] | undefined,
-    readonly name: string | undefined,
     readonly telecom: ContactPoint[] | undefined
   ) {}
 
@@ -25,15 +24,16 @@ export class ContactDetailModel implements ContactDetail {
     const emptyPhoneIfNull = ModelUtils.undefinedIfNull(phone)
     const emptyEmailIfNull = ModelUtils.undefinedIfNull(email)
 
-    let extensions: Extension[] = undefined
+    const extensions: Extension[] = []
+
+    extensions.push(ExtensionModel.createEclaireContactName(emptyFirstNameIfNull, emptyLastnameIfNull))
 
     if (contactType) {
-      extensions = [ExtensionModel.createEclaireContactType(contactType)]
+      extensions.push(ExtensionModel.createEclaireContactType(contactType))
     }
 
     return new ContactDetailModel(
       extensions,
-      `${emptyFirstNameIfNull} ${emptyLastnameIfNull}`,
       [
         ContactPointModel.createPhone(emptyPhoneIfNull),
         ContactPointModel.createEmail(emptyEmailIfNull),
