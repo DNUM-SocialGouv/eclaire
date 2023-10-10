@@ -118,11 +118,17 @@ export class ElasticsearchService {
   }
 
   async bulkMedDraDocuments<T>(documents: T[]): Promise<void> {
-    await this.client.bulk({
-      body: this.buildMedDraBody(documents),
-      index: 'meddra',
-      refresh: true,
-    } satisfies RequestParams.Bulk)
+    const chunkSize = 5000
+
+    for (let i = 0; i < documents.length; i += chunkSize) {
+      const chunk = documents.slice(i, i + chunkSize)
+
+      await this.client.bulk({
+        body: this.buildMedDraBody(chunk),
+        index: 'meddra',
+        refresh: true,
+      } satisfies RequestParams.Bulk)
+    }
   }
 
   private buildMedDraBody<T>(documents: T[]): UpsertElasticsearchBody[] {
