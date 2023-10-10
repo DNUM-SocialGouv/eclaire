@@ -1,5 +1,6 @@
 import { errors } from '@elastic/elasticsearch'
 import { Injectable } from '@nestjs/common'
+import fs from 'fs'
 
 import { IngestPipeline } from './ingest-pipelines/IngestPipeline'
 import { IngestPipelineCtis } from './ingest-pipelines/IngestPipelineCtis'
@@ -70,5 +71,35 @@ export class EtlService {
     }
 
     this.logger.info('-- Fin de l’import des essais cliniques du RIPH.')
+  }
+
+  async medDraImport(): Promise<void> {
+    this.logger.info('-- Début de l’import des données de MedDra.')
+
+    const medDraRawData = fs.readFileSync('meddra-utf8.asc', 'utf8')
+    const medDraCodeAndLabel = medDraRawData
+      .split('\n')
+      .map((rawData) => {
+        const splitedData = rawData.split('$')
+
+        return {
+          code: splitedData[0],
+          label: splitedData[1],
+        }
+      })
+
+    try {
+      await this.elasticsearchService.deleteMedDraIndex()
+      await this.elasticsearchService.createMedDraIndex()
+      await this.elasticsearchService.bulkMedDraDocuments(medDraCodeAndLabel)
+    } catch (error) {
+      if (error instanceof errors.ResponseError) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        throw new Error(error.meta.body.error.reason as string)
+      }
+      throw error
+    }
+
+    this.logger.info('-- Fin de l’import des données de MedDra.')
   }
 }

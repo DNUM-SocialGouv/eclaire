@@ -1,4 +1,5 @@
 import { errors } from '@elastic/elasticsearch'
+import fs from 'fs'
 
 import { EtlService } from './EtlService'
 import { setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
@@ -111,6 +112,59 @@ describe('extract transform load service', () => {
       // WHEN
       // THEN
       await expect(etlService.import()).rejects.toThrow('ES bulk operation has failed')
+    })
+  })
+
+  describe('when import medDra data', () => {
+    it('should find MedDra codes and labels', async () => {
+      // GIVEN
+      const { elasticsearchService, etlService } = await setup()
+      const medDraFile = '10000001$Pneumopathie due à la ventilation$10081988$$$$$$$N$$\n10000002$Déficience en 11-bêta-hydroxylase$10000002$$$$$$$Y$$'
+      vi.spyOn(fs, 'readFileSync').mockReturnValueOnce(medDraFile)
+
+      // WHEN
+      await etlService.medDraImport()
+
+      // THEN
+      const medDraCode1 = await elasticsearchService.findMedDraDocument('10000001')
+      expect(medDraCode1).toStrictEqual({
+        code: '10000001',
+        label: 'Pneumopathie due à la ventilation',
+      })
+
+      const medDraCode2 = await elasticsearchService.findMedDraDocument('10000002')
+      expect(medDraCode2).toStrictEqual({
+        code: '10000002',
+        label: 'Déficience en 11-bêta-hydroxylase',
+      })
+    })
+
+    it('should not create some MedDra labels when bulk has failed with ResponseError', async () => {
+      // GIVEN
+      const { client, etlService } = await setup()
+      vi.spyOn(fs, 'readFileSync').mockReturnValueOnce('')
+      vi.spyOn(client, 'bulk').mockRejectedValueOnce(new errors.ResponseError({
+        body: { error: { reason: 'ES bulk operation has failed' } },
+        headers: null,
+        meta: null,
+        statusCode: null,
+        warnings: null,
+      }))
+
+      // WHEN
+      // THEN
+      await expect(etlService.medDraImport()).rejects.toThrow('ES bulk operation has failed')
+    })
+
+    it('should not create some MedDra labels when bulk has failed with ElasticsearchClientError', async () => {
+      // GIVEN
+      const { client, etlService } = await setup()
+      vi.spyOn(fs, 'readFileSync').mockReturnValueOnce('')
+      vi.spyOn(client, 'bulk').mockRejectedValueOnce(new errors.ElasticsearchClientError('ES bulk operation has failed'))
+
+      // WHEN
+      // THEN
+      await expect(etlService.medDraImport()).rejects.toThrow('ES bulk operation has failed')
     })
   })
 })
