@@ -46,7 +46,7 @@ describe('research study model factory', () => {
                 "version": undefined,
               },
             ],
-            "text": "Disease Condition",
+            "text": "diseaseCondition",
           },
           CodeableConceptModel {
             "coding": [
@@ -56,6 +56,11 @@ describe('research study model factory', () => {
                 "system": "http://terminology.hl7.org/CodeSystem/mdr",
                 "version": "2.0.1",
               },
+            ],
+            "text": "medDRACondition",
+          },
+          CodeableConceptModel {
+            "coding": [
               CodingModel {
                 "code": "10065430",
                 "display": "N/A",
@@ -63,7 +68,7 @@ describe('research study model factory', () => {
                 "version": "2.0.1",
               },
             ],
-            "text": "MedDRA Condition",
+            "text": "medDRACondition",
           },
         ],
         "contact": [
@@ -848,7 +853,7 @@ describe('research study model factory', () => {
                 "version": undefined,
               },
             ],
-            "text": "Disease Condition",
+            "text": "diseaseCondition",
           },
           CodeableConceptModel {
             "coding": [
@@ -859,7 +864,7 @@ describe('research study model factory', () => {
                 "version": "2.0.1",
               },
             ],
-            "text": "MedDRA Condition",
+            "text": "medDRACondition",
           },
         ],
         "contact": [
@@ -1432,7 +1437,7 @@ describe('research study model factory', () => {
                 "version": undefined,
               },
             ],
-            "text": "Disease Condition",
+            "text": "diseaseCondition",
           },
           CodeableConceptModel {
             "coding": [
@@ -1443,7 +1448,7 @@ describe('research study model factory', () => {
                 "version": "2.0.1",
               },
             ],
-            "text": "MedDRA Condition",
+            "text": "medDRACondition",
           },
         ],
         "contact": [

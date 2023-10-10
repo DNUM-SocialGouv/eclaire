@@ -30,10 +30,10 @@ export class ResearchStudyModelFactory {
 
     const condition: CodeableConcept[] = []
     if (ModelUtils.isNotNull(eclaireDto.pathologies_maladies_rares)) {
-      condition.push(CodeableConceptModel.createDisease(eclaireDto.pathologies_maladies_rares))
+      condition.push(CodeableConceptModel.createDiseaseSlice(eclaireDto.pathologies_maladies_rares))
     }
     if (ModelUtils.isNotNull(eclaireDto.informations_meddra)) {
-      condition.push(CodeableConceptModel.createMedDra(eclaireDto.informations_meddra))
+      condition.push(...CodeableConceptModel.createMedDraSlice(eclaireDto.informations_meddra))
     }
 
     const contact: ContactDetail[] = []

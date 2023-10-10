@@ -34,34 +34,35 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createDisease(disease: string): CodeableConcept {
+  static createDiseaseSlice(disease: string): CodeableConcept {
     const emptyDiseaseIfNull = ModelUtils.undefinedIfNull(disease)
 
     return new CodeableConceptModel(
       [CodingModel.createDisease(emptyDiseaseIfNull)],
-      'Disease Condition'
+      'diseaseCondition'
     )
   }
 
-  static createMedDra(medDraInformation: string): CodeableConcept {
+  static createMedDraSlice(medDraInformation: string): CodeableConcept[] {
     const emptyMedDraInformationIfNull = ModelUtils.undefinedIfNull(medDraInformation)
-    let coding: Coding[] = []
 
     if (ModelUtils.isNotNull(emptyMedDraInformationIfNull)) {
-      coding = emptyMedDraInformationIfNull
+      return emptyMedDraInformationIfNull
         .split(', ')
-        .map((code): Coding => {
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+        .map((code): CodeableConcept => {
           const label = 'N/A'
-
-          return CodingModel.createMedDra(code, label)
+          return new CodeableConceptModel(
+            [CodingModel.createMedDra(code, label)],
+            'medDRACondition'
+          )
         })
     }
 
-    return new CodeableConceptModel(
-      coding,
-      'MedDRA Condition'
+    const emptyMedDraCondition: CodeableConceptModel = new CodeableConceptModel(
+      [],
+      'medDRACondition'
     )
+    return [emptyMedDraCondition]
   }
 
   static createGenders(genders: string): CodeableConcept {
