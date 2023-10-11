@@ -48,7 +48,11 @@ export class ResearchStudyModelFactory {
         eclaireDto.contact_nom,
         eclaireDto.contact_telephone,
         eclaireDto.contact_courriel,
-        undefined
+        undefined,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE
       ))
     }
     contact.push(
@@ -57,7 +61,11 @@ export class ResearchStudyModelFactory {
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
-        'Scientific'
+        'Scientific',
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE
       )
     )
     contact.push(
@@ -66,7 +74,11 @@ export class ResearchStudyModelFactory {
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
-        'Public'
+        'Public',
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE
       )
     )
 

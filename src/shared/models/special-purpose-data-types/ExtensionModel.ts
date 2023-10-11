@@ -1,6 +1,7 @@
-import { CodeableConcept, Extension, HumanName, Period, Reference } from 'fhir/r4'
+import { Address, CodeableConcept, Extension, HumanName, Period, Reference } from 'fhir/r4'
 
 import { ReferenceModel } from './ReferenceModel'
+import { AddressModel } from '../data-types/AddressModel'
 import { CodeableConceptModel } from '../data-types/CodeableConceptModel'
 import { HumanNameModel } from '../data-types/HumanNameModel'
 import { PeriodModel } from '../data-types/PeriodModel'
@@ -11,6 +12,7 @@ export class ExtensionModel implements Extension {
   private constructor(
     readonly extension: Extension[] | undefined,
     readonly url: string,
+    readonly valueAddress: Address | undefined,
     readonly valueCodeableConcept: CodeableConcept | undefined,
     readonly valueHumanName: HumanName | undefined,
     readonly valueInstant: string | undefined,
@@ -23,6 +25,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor',
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -41,6 +44,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       therapeuticArea
     )
   }
@@ -49,6 +53,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type',
+      undefined,
       CodeableConceptModel.createContactType(contactType),
       undefined,
       undefined,
@@ -67,6 +72,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       undefined
     )
   }
@@ -80,6 +86,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       value
     )
   }
@@ -88,6 +95,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       undefined,
       'labelType',
+      undefined,
       CodeableConceptModel.createLabelType(type),
       undefined,
       undefined,
@@ -104,6 +112,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       PeriodModel.createRecruitmentPeriod(recruitmentDate),
       undefined,
       undefined
@@ -114,6 +123,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name',
+      undefined,
       undefined,
       HumanNameModel.create(firstname, name, title),
       undefined,
@@ -132,6 +142,7 @@ export class ExtensionModel implements Extension {
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date',
       undefined,
       undefined,
+      undefined,
       ModelUtils.getMostRecentIsoDate(emptyHistoryDateIfNull, emptyApprovalDateIfNull),
       undefined,
       undefined,
@@ -144,7 +155,22 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       HumanNameModel.create(firstname, name),
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createEclaireContactAddress(address: string, city: string, country: string, zip: string): Extension {
+    return new ExtensionModel(
+      undefined,
+      undefined,
+      AddressModel.create([address], city, zip, country),
+      undefined,
+      undefined,
       undefined,
       undefined,
       undefined,

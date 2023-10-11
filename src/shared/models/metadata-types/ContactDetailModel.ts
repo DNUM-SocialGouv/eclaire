@@ -17,7 +17,11 @@ export class ContactDetailModel implements ContactDetail {
     lastname: string,
     phone: string,
     email: string,
-    contactType: ContactType | undefined
+    contactType: ContactType | undefined,
+    address: string,
+    city: string,
+    country: string,
+    zip: string
   ): ContactDetail {
     const emptyFirstNameIfNull = ModelUtils.undefinedIfNull(firstname)
     const emptyLastnameIfNull = ModelUtils.undefinedIfNull(lastname)
@@ -27,6 +31,7 @@ export class ContactDetailModel implements ContactDetail {
     const extensions: Extension[] = []
 
     extensions.push(ExtensionModel.createEclaireContactName(emptyFirstNameIfNull, emptyLastnameIfNull))
+    extensions.push(ExtensionModel.createEclaireContactAddress(address, city, country, zip))
 
     if (contactType) {
       extensions.push(ExtensionModel.createEclaireContactType(contactType))
