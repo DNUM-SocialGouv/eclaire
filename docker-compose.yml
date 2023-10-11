@@ -7,6 +7,9 @@ services:
     environment:
       - xpack.security.enabled=false
       - discovery.type=single-node
+      # Pour avoir les même conditions qu'en production
+      # A augmenter si on change la taille du serveur Scalingo
+      - ES_JAVA_OPTS=-Xms192m -Xmx192m
     networks:
       - eclaire
     volumes:
@@ -32,6 +35,9 @@ services:
     environment:
       - xpack.security.enabled=false
       - discovery.type=single-node
+      # Pour avoir les même conditions qu'en production
+      # A augmenter si on change la taille du serveur Scalingo
+      - ES_JAVA_OPTS=-Xms192m -Xmx192m
     networks:
       - eclaire
     volumes:
