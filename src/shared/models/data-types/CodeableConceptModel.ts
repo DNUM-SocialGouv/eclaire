@@ -4,6 +4,7 @@ import { CodingModel } from './CodingModel'
 import { ModelUtils } from '../eclaire/ModelUtils'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 import { LabelType } from '../special-purpose-data-types/ExtensionModel'
+import { MedDra } from 'src/etl/dto/EclaireDto'
 
 export class CodeableConceptModel implements CodeableConcept {
   private constructor(
@@ -43,26 +44,13 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createMedDraSlice(medDraInformation: string): CodeableConcept[] {
-    const emptyMedDraInformationIfNull = ModelUtils.undefinedIfNull(medDraInformation)
-
-    if (ModelUtils.isNotNull(emptyMedDraInformationIfNull)) {
-      return emptyMedDraInformationIfNull
-        .split(', ')
-        .map((code): CodeableConcept => {
-          const label = 'N/A'
-          return new CodeableConceptModel(
-            [CodingModel.createMedDra(code, label)],
-            'medDRACondition'
-          )
-        })
-    }
-
-    const emptyMedDraCondition: CodeableConceptModel = new CodeableConceptModel(
-      [],
-      'medDRACondition'
-    )
-    return [emptyMedDraCondition]
+  static createMedDraSlice(medDraInformation: MedDra[]): CodeableConcept[] {
+    return medDraInformation.map((medDra): CodeableConcept => {
+      return new CodeableConceptModel(
+        [CodingModel.createMedDra(medDra.code, medDra.label)],
+        'medDRACondition'
+      )
+    })
   }
 
   static createGenders(genders: string): CodeableConcept {

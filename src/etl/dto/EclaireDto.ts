@@ -24,7 +24,7 @@ export class EclaireDto {
     readonly phase_recherche: Phase,
     readonly domaine_therapeutique: string,
     readonly pathologies_maladies_rares: string,
-    readonly informations_meddra: string,
+    readonly informations_meddra: MedDra[],
     readonly taille_etude: number,
     readonly tranches_age: string,
     readonly sexe: string,
@@ -70,7 +70,13 @@ export class EclaireDto {
       phaseRecherche,
       riphCtisDto.domaine_therapeutique,
       riphCtisDto.pathologies_maladies_rares,
-      riphCtisDto.informations_meddra,
+      riphCtisDto.informations_meddra?.split(', ')
+        .map((code: string): MedDra => {
+          return {
+            code,
+            label: 'N/A',
+          }
+        }) || null,
       riphCtisDto.taille_etude,
       riphCtisDto.tranches_age,
       riphCtisDto.sexe,
@@ -104,7 +110,12 @@ export class EclaireDto {
       null,
       riphDmDto.domaine_therapeutique,
       ModelUtils.UNAVAILABLE,
-      ModelUtils.UNAVAILABLE,
+      [
+        {
+          code: ModelUtils.UNAVAILABLE,
+          label: 'N/A',
+        },
+      ],
       riphDmDto.taille_etude,
       ModelUtils.UNAVAILABLE,
       null,
@@ -139,7 +150,12 @@ export class EclaireDto {
       phaseRecherche,
       riphJardeDto.domaine_therapeutique,
       ModelUtils.UNAVAILABLE,
-      ModelUtils.UNAVAILABLE,
+      [
+        {
+          code: ModelUtils.UNAVAILABLE,
+          label: 'N/A',
+        },
+      ],
       riphJardeDto.taille_etude,
       ModelUtils.UNAVAILABLE,
       null,
@@ -166,3 +182,8 @@ class Site {
 }
 
 type Phase = 'Phase I' | 'Phase I/Phase II' | 'Phase II' | 'Phase II/Phase III' | 'Phase III' | 'Phase III/Phase IV' | 'Phase IV'
+
+export type MedDra = Readonly<{
+  code: string
+  label: string
+}>
