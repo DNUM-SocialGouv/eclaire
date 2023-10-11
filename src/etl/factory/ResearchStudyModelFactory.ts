@@ -45,28 +45,46 @@ export class ResearchStudyModelFactory {
     ) {
       contact.push(ContactDetailModel.create(
         eclaireDto.contact_prenom,
+        null,
         eclaireDto.contact_nom,
         eclaireDto.contact_telephone,
         eclaireDto.contact_courriel,
-        undefined
+        undefined,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE
       ))
     }
     contact.push(
       ContactDetailModel.create(
         ModelUtils.UNAVAILABLE,
+        null,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
-        'Scientific'
+        'Scientific',
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE
       )
     )
     contact.push(
       ContactDetailModel.create(
         ModelUtils.UNAVAILABLE,
+        null,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
-        'Public'
+        'Public',
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE
       )
     )
 

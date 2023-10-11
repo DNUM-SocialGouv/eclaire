@@ -9,31 +9,40 @@ export type ContactType = 'Public' | 'Scientific'
 export class ContactDetailModel implements ContactDetail {
   private constructor(
     readonly extension: Extension[] | undefined,
-    readonly name: string | undefined,
     readonly telecom: ContactPoint[] | undefined
   ) {}
 
   static create(
     firstname: string,
+    middleName: string,
     lastname: string,
     phone: string,
     email: string,
-    contactType: ContactType | undefined
+    contactType: ContactType | undefined,
+    address: string,
+    city: string,
+    country: string,
+    zip: string,
+    affiliation: string
   ): ContactDetail {
     const emptyFirstNameIfNull = ModelUtils.undefinedIfNull(firstname)
+    const emptyMiddleNameIfNull = ModelUtils.undefinedIfNull(middleName)
     const emptyLastnameIfNull = ModelUtils.undefinedIfNull(lastname)
     const emptyPhoneIfNull = ModelUtils.undefinedIfNull(phone)
     const emptyEmailIfNull = ModelUtils.undefinedIfNull(email)
 
-    let extensions: Extension[] = undefined
+    const extensions: Extension[] = []
+
+    extensions.push(ExtensionModel.createEclaireContactName(emptyFirstNameIfNull, emptyMiddleNameIfNull, emptyLastnameIfNull))
+    extensions.push(ExtensionModel.createEclaireContactAddress(address, city, country, zip))
+    extensions.push(ExtensionModel.createEclaireContactAffiliation(affiliation))
 
     if (contactType) {
-      extensions = [ExtensionModel.createEclaireContactType(contactType)]
+      extensions.push(ExtensionModel.createEclaireContactType(contactType))
     }
 
     return new ContactDetailModel(
       extensions,
-      `${emptyFirstNameIfNull} ${emptyLastnameIfNull}`,
       [
         ContactPointModel.createPhone(emptyPhoneIfNull),
         ContactPointModel.createEmail(emptyEmailIfNull),

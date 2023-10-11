@@ -23,7 +23,7 @@ export class OrganizationContactModel implements OrganizationContact {
     contactMail: string
   ): OrganizationContact {
     return new OrganizationContactModel(
-      HumanNameModel.create(contactFirstname, contactName),
+      HumanNameModel.create(contactFirstname, undefined, contactName, undefined),
       CodeableConceptModel.createOrganizationContactPurpose(),
       [
         ContactPointModel.createPhone(contactPhone),
