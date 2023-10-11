@@ -52,6 +52,7 @@ export class ResearchStudyModelFactory {
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE
       ))
     }
@@ -65,6 +66,7 @@ export class ResearchStudyModelFactory {
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE
       )
     )
@@ -75,6 +77,7 @@ export class ResearchStudyModelFactory {
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         'Public',
+        ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,

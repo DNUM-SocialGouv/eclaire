@@ -177,6 +177,20 @@ export class ExtensionModel implements Extension {
       undefined
     )
   }
+
+  static createEclaireContactAffiliation(affiliation: string): Extension {
+    return new ExtensionModel(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      affiliation
+    )
+  }
 }
 
 export type LabelType = 'primary' | 'official' | 'plain-language' | 'subtitle' | 'short-title' | 'acronym' | 'earlier-title' | 'language' | 'auto-translated' | 'human-use' | 'machine-use'
