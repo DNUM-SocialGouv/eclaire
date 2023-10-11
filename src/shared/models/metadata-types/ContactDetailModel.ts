@@ -14,6 +14,7 @@ export class ContactDetailModel implements ContactDetail {
 
   static create(
     firstname: string,
+    middleName: string,
     lastname: string,
     phone: string,
     email: string,
@@ -25,13 +26,14 @@ export class ContactDetailModel implements ContactDetail {
     affiliation: string
   ): ContactDetail {
     const emptyFirstNameIfNull = ModelUtils.undefinedIfNull(firstname)
+    const emptyMiddleNameIfNull = ModelUtils.undefinedIfNull(middleName)
     const emptyLastnameIfNull = ModelUtils.undefinedIfNull(lastname)
     const emptyPhoneIfNull = ModelUtils.undefinedIfNull(phone)
     const emptyEmailIfNull = ModelUtils.undefinedIfNull(email)
 
     const extensions: Extension[] = []
 
-    extensions.push(ExtensionModel.createEclaireContactName(emptyFirstNameIfNull, emptyLastnameIfNull))
+    extensions.push(ExtensionModel.createEclaireContactName(emptyFirstNameIfNull, emptyMiddleNameIfNull, emptyLastnameIfNull))
     extensions.push(ExtensionModel.createEclaireContactAddress(address, city, country, zip))
     extensions.push(ExtensionModel.createEclaireContactAffiliation(affiliation))
 

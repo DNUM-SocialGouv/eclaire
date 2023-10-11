@@ -45,6 +45,7 @@ export class ResearchStudyModelFactory {
     ) {
       contact.push(ContactDetailModel.create(
         eclaireDto.contact_prenom,
+        null,
         eclaireDto.contact_nom,
         eclaireDto.contact_telephone,
         eclaireDto.contact_courriel,
@@ -59,6 +60,7 @@ export class ResearchStudyModelFactory {
     contact.push(
       ContactDetailModel.create(
         ModelUtils.UNAVAILABLE,
+        null,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
@@ -73,6 +75,7 @@ export class ResearchStudyModelFactory {
     contact.push(
       ContactDetailModel.create(
         ModelUtils.UNAVAILABLE,
+        null,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,

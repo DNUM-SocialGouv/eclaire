@@ -125,7 +125,7 @@ export class ExtensionModel implements Extension {
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name',
       undefined,
       undefined,
-      HumanNameModel.create(firstname, name, title),
+      HumanNameModel.create(firstname, undefined, name, title),
       undefined,
       undefined,
       undefined,
@@ -150,13 +150,13 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireContactName(firstname: string, name: string): Extension {
+  static createEclaireContactName(firstname: string, middleName: string, name: string): Extension {
     return new ExtensionModel(
       undefined,
       undefined,
       undefined,
       undefined,
-      HumanNameModel.create(firstname, name),
+      HumanNameModel.create(firstname, middleName, name, undefined),
       undefined,
       undefined,
       undefined,
