@@ -26,6 +26,10 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return await this.databaseService.findOneDocument(id) as ResearchStudy
   }
 
+  async update(researchStudies: ResearchStudy[]): Promise<void> {
+    await this.databaseService.bulkDocuments(researchStudies)
+  }
+
   async search(fhirParsedQueryParams: FhirParsedQueryParams[]): Promise<Bundle> {
     const elasticsearchBody: ElasticsearchBodyType = fhirParsedQueryParamsToElasticsearchQuery(
       fhirParsedQueryParams,
@@ -35,7 +39,6 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     const withReferenceContents: boolean = fhirParsedQueryParams.some(
       (param: FhirParsedQueryParams) => param.name === '_include' && param.value === '*'
     )
-
     const response: SearchResponse = await this.databaseService.search(elasticsearchBody, withReferenceContents)
 
     const links: BundleLink[] = []
