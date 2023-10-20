@@ -64,7 +64,7 @@ export class ElasticsearchService {
   }
 
   async findOneDocument(id: string): Promise<unknown> {
-    const response = await this.client.get({
+    const response: ApiResponse = await this.client.get({
       _source_excludes: ['referenceContents'],
       id,
       index: this.index,
@@ -168,7 +168,7 @@ export class ElasticsearchService {
   }
 
   async findMedDraDocument(id: string): Promise<unknown> {
-    const response = await this.client.get({
+    const response: ApiResponse = await this.client.get({
       id,
       index: 'meddra',
       type: this.type,
