@@ -85,27 +85,9 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createStudyPopulation(studyPopulation: string): CodeableConcept {
-    const studyPopulationTranslation: Record<string, string> = {
-      INDISPONIBLE: ModelUtils.UNAVAILABLE,
-      'Incapacitated population': 'Population en situation de handicap',
-      Minors: 'Mineurs',
-      'Nursing women': 'Femmes allaitant',
-      Other: 'Autres',
-      'Pregnant women': 'Femmes enceintes',
-      'Subjects in emergency situation': 'Sujets en situation d’urgence',
-      'Subjects incapable of giving consent personally': 'Sujets incapables de donner leur consentement personnel',
-      'Women of child bearing potential not using contraception': 'Femmes en âge de procréer n’utilisant pas de contraception',
-      'Women of child bearing potential using contraception': 'Femmes en âge de procréer utilisant une méthode de contraception',
-    }
-    let parsedStudyPopulations: string[] = []
-
-    if (ModelUtils.isNotNull(studyPopulation)) {
-      parsedStudyPopulations = studyPopulation.split(', ').map((studyPopulation) => studyPopulationTranslation[studyPopulation])
-    }
-
+  static createStudyPopulation(studyPopulation: string[]): CodeableConcept {
     return new CodeableConceptModel(
-      parsedStudyPopulations.map((parsedStudyPopulation): Coding => CodingModel.createStudyPopulation(parsedStudyPopulation)),
+      studyPopulation.map((parsedStudyPopulation): Coding => CodingModel.createStudyPopulation(parsedStudyPopulation)),
       'Study Population'
     )
   }

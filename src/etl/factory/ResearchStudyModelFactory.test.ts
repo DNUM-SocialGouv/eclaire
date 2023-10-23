@@ -16,10 +16,10 @@ describe('research study model factory', () => {
           CodeableConceptModel {
             "coding": [
               CodingModel {
-                "code": undefined,
-                "display": "REG536",
-                "system": undefined,
-                "version": undefined,
+                "code": "REG536",
+                "display": "REG536 (CTIS)",
+                "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-regulation-code-code-system",
+                "version": "0.2.0",
               },
             ],
             "text": "Regulation Code",
@@ -27,10 +27,10 @@ describe('research study model factory', () => {
           CodeableConceptModel {
             "coding": [
               CodingModel {
-                "code": undefined,
-                "display": "un essai clinique",
-                "system": undefined,
-                "version": undefined,
+                "code": "study-ctis",
+                "display": "un essai clinique (CTIS)",
+                "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-reglementation-precision-code-system",
+                "version": "0.2.0",
               },
             ],
             "text": "Reglementation Precision",
@@ -681,16 +681,16 @@ describe('research study model factory', () => {
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": undefined,
-                      "display": "Femmes en âge de procréer n’utilisant pas de contraception",
-                      "system": undefined,
-                      "version": undefined,
+                      "code": "no-using-contraception",
+                      "display": "Women of child bearing potential not using contraception (Femmes en âge de procréer n'utilisant pas de contraception)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-population-code-system",
+                      "version": "0.2.0",
                     },
                     CodingModel {
-                      "code": undefined,
-                      "display": "Femmes en âge de procréer utilisant une méthode de contraception",
-                      "system": undefined,
-                      "version": undefined,
+                      "code": "using-contraception",
+                      "display": "Women of child bearing potential using contraception (Femmes en âge de procréer utilisant une méthode de contraception)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-population-code-system",
+                      "version": "0.2.0",
                     },
                   ],
                   "text": "Study Population",
@@ -981,10 +981,10 @@ describe('research study model factory', () => {
           CodeableConceptModel {
             "coding": [
               CodingModel {
-                "code": undefined,
-                "display": "REG745",
-                "system": undefined,
-                "version": undefined,
+                "code": "REG745",
+                "display": "REG745 (DM)",
+                "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-regulation-code-code-system",
+                "version": "0.2.0",
               },
             ],
             "text": "Regulation Code",
@@ -992,10 +992,10 @@ describe('research study model factory', () => {
           CodeableConceptModel {
             "coding": [
               CodingModel {
-                "code": undefined,
-                "display": "IC-Cas 4.2",
-                "system": undefined,
-                "version": undefined,
+                "code": "IC-Cas-4-2",
+                "display": "IC-Cas 4.2 (DM)",
+                "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-reglementation-precision-code-system",
+                "version": "0.2.0",
               },
             ],
             "text": "Reglementation Precision",
@@ -1492,25 +1492,6 @@ describe('research study model factory', () => {
                       "version": undefined,
                     },
                   ],
-                  "text": "Study Population",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
                   "text": "Study Inclusion Criteria",
                 },
                 "valueQuantity": undefined,
@@ -1721,10 +1702,10 @@ describe('research study model factory', () => {
           CodeableConceptModel {
             "coding": [
               CodingModel {
-                "code": undefined,
-                "display": "JARDE",
-                "system": undefined,
-                "version": undefined,
+                "code": "JARDE",
+                "display": "JARDE (Jarde)",
+                "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-regulation-code-code-system",
+                "version": "0.2.0",
               },
             ],
             "text": "Regulation Code",
@@ -1732,10 +1713,10 @@ describe('research study model factory', () => {
           CodeableConceptModel {
             "coding": [
               CodingModel {
-                "code": undefined,
-                "display": "Catégorie 3",
-                "system": undefined,
-                "version": undefined,
+                "code": "cat3-jarde",
+                "display": "Catégorie 3 (JARDE)",
+                "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-reglementation-precision-code-system",
+                "version": "0.2.0",
               },
             ],
             "text": "Reglementation Precision",
@@ -2232,25 +2213,6 @@ describe('research study model factory', () => {
                       "version": undefined,
                     },
                   ],
-                  "text": "Study Population",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
                   "text": "Study Inclusion Criteria",
                 },
                 "valueQuantity": undefined,
@@ -2463,10 +2425,10 @@ describe('research study model factory', () => {
           CodeableConceptModel {
             "coding": [
               CodingModel {
-                "code": undefined,
-                "display": "REG536",
-                "system": undefined,
-                "version": undefined,
+                "code": "REG536",
+                "display": "REG536 (CTIS)",
+                "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-regulation-code-code-system",
+                "version": "0.2.0",
               },
             ],
             "text": "Regulation Code",

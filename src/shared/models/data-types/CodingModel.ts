@@ -2,7 +2,10 @@ import { Coding } from 'fhir/r4'
 
 import { administrativeGenderCodeSystem } from '../code-systems/administrativeGenderCodeSystem'
 import { countryCodeSystem } from '../code-systems/countryCodeSystem'
+import { eclaireReglementationPrecisionCodeSystem } from '../code-systems/eclaireReglementationPrecisionCodeSystem'
+import { eclaireRegulationCodeCodeSystem } from '../code-systems/eclaireRegulationCodeCodeSystem'
 import { eclaireStudyPhaseCodeSystem } from '../code-systems/eclaireStudyPhaseCodeSystem'
+import { eclaireStudyPopulationCodeSystem } from '../code-systems/eclaireStudyPopulationCodeSystem'
 import { eclaireTypeContactCodeSystem } from '../code-systems/eclaireTypeContactCodeSystem'
 import { medDraCodeSystem } from '../code-systems/medDraCodeSystem'
 import { researchStudyPhaseCodeSystem } from '../code-systems/researchStudyPhaseCodeSystem'
@@ -108,20 +111,28 @@ export class CodingModel implements Coding {
   }
 
   static createStudyPopulation(studyPopulation: string): Coding {
+    const matchingStudyPopulation = eclaireStudyPopulationCodeSystem.concept.find(
+      (studyPopulationCode): boolean => studyPopulationCode.display.includes(studyPopulation)
+    )
+
     return new CodingModel(
-      undefined,
-      studyPopulation,
-      undefined,
-      undefined
+      matchingStudyPopulation.code,
+      matchingStudyPopulation.display,
+      eclaireStudyPopulationCodeSystem.url,
+      eclaireStudyPopulationCodeSystem.version
     )
   }
 
   static createRegulationCode(regulationCode: string): Coding {
+    const matchingRegulationCode = eclaireRegulationCodeCodeSystem.concept.find(
+      (regulationCodeCode): boolean => regulationCodeCode.code === regulationCode
+    )
+
     return new CodingModel(
-      undefined,
-      regulationCode,
-      undefined,
-      undefined
+      matchingRegulationCode.code,
+      matchingRegulationCode.display,
+      eclaireRegulationCodeCodeSystem.url,
+      eclaireRegulationCodeCodeSystem.version
     )
   }
 
@@ -129,16 +140,20 @@ export class CodingModel implements Coding {
     let reglementationPrecision = reglementationPrecisionRaw
 
     if (reglementationPrecisionRaw === 'No') {
-      reglementationPrecision = 'un essai clinique'
+      reglementationPrecision = 'un essai clinique (CTIS)'
     } else if (reglementationPrecisionRaw === 'Yes') {
-      reglementationPrecision = 'un essai clinique à faible intervention'
+      reglementationPrecision = 'un essai clinique à faible intervention (CTIS)'
     }
 
+    const matchingReglementationPrecision = eclaireReglementationPrecisionCodeSystem.concept.find(
+      (reglementationPrecisionCode): boolean => reglementationPrecisionCode.display.includes(reglementationPrecision)
+    )
+
     return new CodingModel(
-      undefined,
-      reglementationPrecision,
-      undefined,
-      undefined
+      matchingReglementationPrecision.code,
+      matchingReglementationPrecision.display,
+      eclaireReglementationPrecisionCodeSystem.url,
+      eclaireReglementationPrecisionCodeSystem.version
     )
   }
 
