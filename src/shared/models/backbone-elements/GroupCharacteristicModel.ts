@@ -50,7 +50,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createStudyPopulation(studyPopulation: string): GroupCharacteristic {
+  static createStudyPopulation(studyPopulation: string[]): GroupCharacteristic {
     return new GroupCharacteristicModel(
       undefined,
       false,

@@ -27,7 +27,7 @@ export class GroupModel implements Group {
     ageRange: string,
     studySize: number,
     researchStudyGroupCategory: string,
-    studyPopulation: string,
+    studyPopulation: string[],
     studyInclusion: string,
     studyExclusion: string
   ): Group {
