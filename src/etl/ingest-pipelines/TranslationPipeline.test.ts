@@ -11,26 +11,23 @@ import { EclaireDto } from '../dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../factory/ResearchStudyModelFactory'
 
 describe('etl | Pipelines | TranslationPipeline', () => {
-  describe('#extractAndTransform', () => {
-    it('should get data from the repository and translate the title', async () => {
+  describe('#transform', () => {
+    it('should get data from the repository and translate the title', () => {
       // given
       const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
-      const documents = [ResearchStudyModelFactory.create(researchStudy1)]
-      const {
-        elasticsearchService,
-        esResearchStudyRepository,
-      } = await setup(documents)
-      vi.spyOn(elasticsearchService, 'findOneDocument').mockResolvedValueOnce((id: string) => {
-        return documents.find((document) => document.id === id)
-      })
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(esResearchStudyRepository)
+      const researchStudy2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId2' }))
+      const documents: ResearchStudyModel[] = [
+        ResearchStudyModelFactory.create(researchStudy1),
+        ResearchStudyModelFactory.create(researchStudy2),
+      ]
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null)
 
       // when
-      const result: ResearchStudy = await translationPipeline.extractAndTransform('fakeId1')
+      const result: ResearchStudy[] = translationPipeline.transform(documents)
 
       // then
-      expect(elasticsearchService.findOneDocument).toHaveBeenCalledWith('fakeId1')
-      expect(result.title).toBe('blah-blah-blah-traduction')
+      expect(result[0].title).toBe('blah-blah-blah-traduction')
+      expect(result[1].title).toBe('blah-blah-blah-traduction')
     })
   })
 
@@ -38,7 +35,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
     it('should load data into the repository', async () => {
       // given
       const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
-      const documents = [ResearchStudyModelFactory.create(researchStudy1)]
+      const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(researchStudy1)]
       const {
         elasticsearchService,
         esResearchStudyRepository,
@@ -63,7 +60,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const translationPipeline: TranslationPipeline = new TranslationPipeline(esResearchStudyRepository)
 
       // when
-      await translationPipeline.execute('fakeId1')
+      await translationPipeline.execute()
 
       // then
       const researchStudy: ResearchStudy = await esResearchStudyRepository.findOne('fakeId1')

@@ -7,15 +7,21 @@ export class TranslationPipeline {
     private readonly repository: EsResearchStudyRepository
   ) {}
 
-  async execute(id: string): Promise<void> {
-    const data: ResearchStudy = await this.extractAndTransform(id)
-    await this.load([data])
+  async execute(): Promise<void> {
+    const data: ResearchStudy[] = await this.extract()
+    const transformedResearchStudies: ResearchStudy[] = this.transform(data)
+    await this.load(transformedResearchStudies)
   }
 
-  async extractAndTransform(id: string): Promise<ResearchStudy> {
-    const researchStudy: ResearchStudy = await this.repository.findOne(id)
-    researchStudy.title = 'blah-blah-blah-traduction'
-    return researchStudy
+  async extract() {
+    return undefined
+  }
+
+  transform(researchStudies: ResearchStudy[]): ResearchStudy[] {
+    researchStudies.forEach((researchStudy: ResearchStudy) => {
+      researchStudy.title = 'blah-blah-blah-traduction'
+    })
+    return researchStudies
   }
 
   async load(researchStudies: ResearchStudy[]): Promise<void> {
