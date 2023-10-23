@@ -1,5 +1,3 @@
-import { expect } from 'vitest'
-
 import { EclaireDto } from './EclaireDto'
 import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 

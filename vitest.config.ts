@@ -4,7 +4,6 @@ import { configDefaults, defineConfig } from 'vitest/config'
 export default defineConfig({
   plugins: [swc.vite({ module: { type: 'es6' } })],
   test: {
-    clearMocks: true,
     coverage: {
       exclude: [
         'src/api/AppController.ts',
@@ -18,7 +17,6 @@ export default defineConfig({
     environment: 'node',
     exclude: [...configDefaults.exclude, '.stryker-tmp/**'],
     globals: true,
-    mockReset: true,
     restoreMocks: true,
     sequence: { shuffle: true },
     singleThread: true,

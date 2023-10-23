@@ -1,5 +1,4 @@
 import supertest from 'supertest'
-import { afterEach, expect } from 'vitest'
 
 import { getHttpServer } from '../../../shared/test/helpers/controllerHelper'
 
@@ -8,19 +7,21 @@ const SNAPSHOT_WITH_ALL_STUDIES = '../../../shared/test/snapshots/BundleWithAllS
 const SNAPSHOT_WITH_FILTER = '../../../shared/test/snapshots/BundleWithFilter.snap.json'
 const SNAPSHOT_WITH_INCLUDE = '../../../shared/test/snapshots/BundleWithInclude.snap.json'
 
-describe('#SearchResearchStudyController - e2e', () => {
-  afterEach(() => {
+describe('#SearchResearchStudyController - e2e', async () => {
+  vi.useFakeTimers()
+  vi.setSystemTime(new Date(2022, 0, 1))
+  const app = await getHttpServer()
+
+  afterAll(() => {
     vi.useRealTimers()
   })
 
   it('should retrieve all researches studies without related resource content when no filter is given', async () => {
     // GIVEN
     const filter = ''
-    vi.useFakeTimers()
-    vi.setSystemTime(new Date(2022, 0, 1))
 
     // WHEN
-    const response = await supertest(await getHttpServer())
+    const response = await supertest(app)
       .get(BASE_URL + filter)
 
     // THEN
@@ -34,7 +35,7 @@ describe('#SearchResearchStudyController - e2e', () => {
     const filter = '?_lastUpdated=2023-04-12'
 
     // WHEN
-    const response = await supertest(await getHttpServer())
+    const response = await supertest(app)
       .get(BASE_URL + filter)
 
     // THEN
@@ -46,11 +47,9 @@ describe('#SearchResearchStudyController - e2e', () => {
   it('should retrieve researches study with related resource content when corresponding filter is given', async () => {
     // GIVEN
     const filter = '?_include=*'
-    vi.useFakeTimers()
-    vi.setSystemTime(new Date(2022, 0, 1))
 
     // WHEN
-    const response = await supertest(await getHttpServer())
+    const response = await supertest(app)
       .get(BASE_URL + filter)
 
     // THEN
@@ -64,7 +63,7 @@ describe('#SearchResearchStudyController - e2e', () => {
     const wrongFilter = '?_lastUpdated=d'
 
     // WHEN
-    const response = await supertest(await getHttpServer())
+    const response = await supertest(app)
       .get(BASE_URL + wrongFilter)
 
     // THEN
@@ -77,7 +76,7 @@ describe('#SearchResearchStudyController - e2e', () => {
     const unknownDocumentId = '999999'
 
     // WHEN
-    const response = await supertest(await getHttpServer())
+    const response = await supertest(app)
       .get(BASE_URL + unknownDocumentId)
 
     // THEN

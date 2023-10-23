@@ -1,5 +1,3 @@
-import { afterEach } from 'vitest'
-
 import { ModelUtils } from './ModelUtils'
 import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
 import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'

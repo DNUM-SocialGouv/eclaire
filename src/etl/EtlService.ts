@@ -92,6 +92,7 @@ export class EtlService {
       await this.elasticsearchService.deleteMedDraIndex()
       await this.elasticsearchService.createMedDraIndex()
       await this.elasticsearchService.bulkMedDraDocuments(medDraCodeAndLabel)
+      await this.elasticsearchService.createPolicies()
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -101,5 +102,50 @@ export class EtlService {
     }
 
     this.logger.info('-- Fin de l’import des données de MedDra.')
+  }
+
+  async createPolicies(): Promise<void> {
+    this.logger.info('-- Début de la création des polices dans Elasticsearch.')
+
+    try {
+      await this.elasticsearchService.createPolicies()
+      this.logger.info('-- Fin de la création des polices dans Elasticsearch.')
+    } catch (error) {
+      if (error instanceof errors.ResponseError) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        throw new Error(error.meta.body.error.reason as string)
+      }
+      throw error
+    }
+  }
+
+  async deletePolicies(): Promise<void> {
+    this.logger.info('-- Début de la destruction des polices dans Elasticsearch.')
+
+    try {
+      await this.elasticsearchService.deletePolicies()
+      this.logger.info('-- Fin de la destruction des polices dans Elasticsearch.')
+    } catch (error) {
+      if (error instanceof errors.ResponseError) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        throw new Error(error.meta.body.error.reason as string)
+      }
+      throw error
+    }
+  }
+
+  async deletePipelines(): Promise<void> {
+    this.logger.info('-- Début de la destruction des pipelines dans Elasticsearch.')
+
+    try {
+      await this.elasticsearchService.deletePipelines()
+      this.logger.info('-- Fin de la destruction des pipelines dans Elasticsearch.')
+    } catch (error) {
+      if (error instanceof errors.ResponseError) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        throw new Error(error.meta.body.error.reason as string)
+      }
+      throw error
+    }
   }
 }

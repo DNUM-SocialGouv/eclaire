@@ -5,10 +5,12 @@ import { CONTROLLER_DOCUMENT_ID, getHttpServer } from '../../../shared/test/help
 const BASE_URL = '/R4/ResearchStudy/'
 const SNAPSHOT_PATH = '../../../shared/test/snapshots/ResearchStudy.snap.json'
 
-describe('#GetOneResearchStudyController - e2e', () => {
+describe('#GetOneResearchStudyController - e2e', async () => {
+  const app = await getHttpServer()
+
   it('should retrieve one research study', async () => {
     // WHEN
-    const response = await supertest(await getHttpServer())
+    const response = await supertest(app)
       .get(BASE_URL + CONTROLLER_DOCUMENT_ID)
 
     // THEN

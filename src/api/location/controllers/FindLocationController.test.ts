@@ -4,10 +4,12 @@ import { CONTROLLER_DOCUMENT_ID, getHttpServer } from '../../../shared/test/help
 
 const BASE_URL = '/R4/Location/'
 
-describe('#FindLocationController - e2e', () => {
+describe('#FindLocationController - e2e', async () => {
+  const app = await getHttpServer()
+
   it('should retrieve one location', async () => {
     // WHEN
-    const response = await supertest(await getHttpServer())
+    const response = await supertest(app)
       .get(BASE_URL + CONTROLLER_DOCUMENT_ID + '-0-site')
 
     // THEN
@@ -18,7 +20,7 @@ describe('#FindLocationController - e2e', () => {
 
   it('should retrieve none', async () => {
     // WHEN
-    const response = await supertest(await getHttpServer())
+    const response = await supertest(app)
       .get(BASE_URL + 'unavailable_id')
 
     // THEN

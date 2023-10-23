@@ -1,3 +1,5 @@
+import { TransportRequestCallback } from '@elastic/elasticsearch/lib/Transport'
+
 import { ElasticsearchService } from './ElasticsearchService'
 import { fakeClient, FakeFhirDocument, fakeDocument, fakeDocument2, fakeDocuments, fakeId, fakeMapping } from '../test/helpers/fakeHelper'
 
@@ -6,6 +8,7 @@ describe('elasticsearch service', () => {
     // GIVEN
     const service = new ElasticsearchService(fakeClient)
     vi.spyOn(fakeClient.indices, 'create')
+    vi.spyOn(fakeClient.ingest, 'putPipeline')
 
     // WHEN
     await service.createAnIndex<FakeFhirDocument>(fakeMapping)
@@ -14,6 +17,42 @@ describe('elasticsearch service', () => {
     expect(fakeClient.indices.create).toHaveBeenCalledWith({
       body: { mappings: fakeMapping },
       index: 'eclaire',
+    })
+    expect(fakeClient.ingest.putPipeline).toHaveBeenCalledWith({
+      body: {
+        processors: [
+          {
+            foreach : {
+              field : 'condition',
+              ignore_missing: true,
+              processor : {
+                enrich: {
+                  description: 'Add MedDra label in french',
+                  field: '_ingest._value.coding.0.code',
+                  ignore_missing: true,
+                  policy_name: 'update-meddra-labels',
+                  target_field: '_ingest._value.coding.0.display',
+                },
+              },
+            },
+          },
+          {
+            foreach : {
+              field : 'condition',
+              ignore_missing: true,
+              processor : {
+                set: {
+                  field: '_ingest._value.coding.0.display',
+                  ignore_empty_value: true,
+                  value: '{{_ingest._value.coding.0.display.label}}',
+                },
+              },
+            },
+          },
+        ],
+        version: 1,
+      },
+      id: 'update-meddra-labels',
     })
   })
 
@@ -66,6 +105,7 @@ describe('elasticsearch service', () => {
     // GIVEN
     const service = new ElasticsearchService(fakeClient)
     vi.spyOn(fakeClient, 'bulk')
+    vi.spyOn(fakeClient, 'updateByQuery')
 
     // WHEN
     await service.bulkDocuments(fakeDocuments)
@@ -80,6 +120,11 @@ describe('elasticsearch service', () => {
       ],
       index: 'eclaire',
       refresh: true,
+    })
+    expect(fakeClient.updateByQuery).toHaveBeenCalledWith({
+      ignore_unavailable: true,
+      index: 'eclaire',
+      pipeline: 'update-meddra-labels',
     })
   })
 
@@ -133,6 +178,68 @@ describe('elasticsearch service', () => {
 
     // THEN
     expect(result).toStrictEqual([])
+  })
+
+  it('should create policies', async () => {
+    // GIVEN
+    const service = new ElasticsearchService(fakeClient)
+    vi.spyOn(fakeClient.enrich, 'putPolicy')
+    vi.spyOn(fakeClient.enrich, 'executePolicy')
+
+    // WHEN
+    await service.createPolicies()
+
+    // THEN
+    expect(fakeClient.enrich.putPolicy).toHaveBeenCalledWith({
+      body: {
+        match: {
+          enrich_fields: ['label'],
+          indices: 'meddra',
+          match_field: 'code',
+        },
+      },
+      name: 'update-meddra-labels',
+    })
+    expect(fakeClient.enrich.executePolicy).toHaveBeenCalledWith({ name: 'update-meddra-labels' })
+  })
+
+  it('should delete policies when a policy exists', async () => {
+    // GIVEN
+    const service = new ElasticsearchService(fakeClient)
+    vi.spyOn(fakeClient.enrich, 'getPolicy').mockResolvedValueOnce({ body: { policies: [{}] } } as unknown as TransportRequestCallback)
+    vi.spyOn(fakeClient.enrich, 'deletePolicy')
+
+    // WHEN
+    await service.deletePolicies()
+
+    // THEN
+    expect(fakeClient.enrich.getPolicy).toHaveBeenCalledWith({ name: 'update-meddra-labels' })
+    expect(fakeClient.enrich.deletePolicy).toHaveBeenCalledWith({ name: 'update-meddra-labels' })
+  })
+
+  it('should not delete policies when the policy exists', async () => {
+    // GIVEN
+    const service = new ElasticsearchService(fakeClient)
+    vi.spyOn(fakeClient.enrich, 'getPolicy').mockResolvedValueOnce({ body: { policies: [] } } as unknown as TransportRequestCallback)
+    vi.spyOn(fakeClient.enrich, 'deletePolicy')
+
+    // WHEN
+    await service.deletePolicies()
+
+    // THEN
+    expect(fakeClient.enrich.deletePolicy).not.toHaveBeenCalled()
+  })
+
+  it('should delete pipeline', async () => {
+    // GIVEN
+    const service = new ElasticsearchService(fakeClient)
+    vi.spyOn(fakeClient.ingest, 'deletePipeline')
+
+    // WHEN
+    await service.deletePipelines()
+
+    // THEN
+    expect(fakeClient.ingest.deletePipeline).toHaveBeenCalledWith({ id: '*' })
   })
 
   describe('#Search', () => {

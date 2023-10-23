@@ -4,10 +4,12 @@ import { getHttpServer } from '../../../shared/test/helpers/controllerHelper'
 
 const BASE_URL = '/R4/Group/'
 
-describe('#FindGroupController - e2e', () => {
+describe('#FindGroupController - e2e', async () => {
+  const app = await getHttpServer()
+
   it('should retrieve one group', async () => {
     // WHEN
-    const response = await supertest(await getHttpServer())
+    const response = await supertest(app)
       .get(BASE_URL + '2022-500014-26-00-enrollment-group')
 
     // THEN
@@ -18,7 +20,7 @@ describe('#FindGroupController - e2e', () => {
 
   it('should retrieve none', async () => {
     // WHEN
-    const response = await supertest(await getHttpServer())
+    const response = await supertest(app)
       .get(BASE_URL + 'unavailable_id')
 
     // THEN

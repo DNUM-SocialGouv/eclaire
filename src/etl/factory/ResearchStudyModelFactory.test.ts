@@ -1,5 +1,3 @@
-import { afterEach } from 'vitest'
-
 import { ResearchStudyModelFactory } from './ResearchStudyModelFactory'
 import { EclaireDto } from '../dto/EclaireDto'
 import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'

@@ -1,5 +1,3 @@
-import { expect } from 'vitest'
-
 import { EsResearchStudyRepository } from './EsResearchStudyRepository'
 import { EclaireDto } from '../../../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../../etl/factory/ResearchStudyModelFactory'
@@ -10,12 +8,13 @@ import { elasticsearchIndexMapping } from 'src/shared/elasticsearch/elasticsearc
 import { SearchResponse } from 'src/shared/elasticsearch/ElasticsearchService'
 import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
-describe('elasticsearch research study repository', () => {
+describe('elasticsearch research study repository', async () => {
+  const { elasticsearchService, esResearchStudyRepository, numberOfResourcesByPage } = await setup()
+
   describe('retrieve one research study', () => {
     it('should retrieve one research study', async () => {
       // GIVEN
-      const { elasticsearchService, esResearchStudyRepository } = await setup()
-      vi.spyOn(elasticsearchService, 'findOneDocument').mockImplementationOnce(async (id: string) => await Promise.resolve(id))
+      vi.spyOn(elasticsearchService, 'findOneDocument')
 
       // WHEN
       await esResearchStudyRepository.findOne('fakeId2')
@@ -28,12 +27,11 @@ describe('elasticsearch research study repository', () => {
   describe('search research studies', () => {
     it('should find research studies', async () => {
       // GIVEN
-      const { esResearchStudyRepository } = await setup()
       const queryParams: ResearchStudyQueryParams[] = []
       const elasticsearchBody: ElasticsearchBodyType = {
         from: 0,
         query: { bool: { must: [] } },
-        size: Number(process.env['NUMBER_OF_RESOURCES_BY_PAGE']),
+        size: numberOfResourcesByPage,
       }
 
       // WHEN
@@ -49,12 +47,11 @@ describe('elasticsearch research study repository', () => {
 
     it('should find research studies with related ressources', async () => {
       // GIVEN
-      const { esResearchStudyRepository } = await setup()
       const queryParams: ResearchStudyQueryParams[] = []
       const elasticsearchBody: ElasticsearchBodyType = {
         from: 0,
         query: { bool: { must: [] } },
-        size: Number(process.env['NUMBER_OF_RESOURCES_BY_PAGE']),
+        size: numberOfResourcesByPage,
       }
 
       // WHEN
@@ -71,7 +68,6 @@ describe('elasticsearch research study repository', () => {
     describe('below 10 000 results', () => {
       it('should send a URL for the self and next page for the first page', async () => {
         // GIVEN
-        const { esResearchStudyRepository, numberOfResourcesByPage } = await setup()
         const queryParams = [
           { name: '_lastUpdated', value: 'gt2020-01-01' },
           { name: '_sort', value: 'meta.lastUpdated' },
@@ -101,7 +97,6 @@ describe('elasticsearch research study repository', () => {
 
       it('should send a URL for the self and next page for the second page', async () => {
         // GIVEN
-        const { esResearchStudyRepository, numberOfResourcesByPage } = await setup()
         const queryParams = [
           { name: '_lastUpdated', value: 'gt2020-01-01' },
           { name: '_sort', value: 'meta.lastUpdated' },
@@ -132,7 +127,6 @@ describe('elasticsearch research study repository', () => {
 
       it('should not send a URL for the next page when it is the final page', async () => {
         // GIVEN
-        const { esResearchStudyRepository, numberOfResourcesByPage } = await setup()
         const queryParams = [
           { name: '_lastUpdated', value: 'gt2020-01-01' },
           { name: '_sort', value: 'meta.lastUpdated' },
@@ -160,7 +154,6 @@ describe('elasticsearch research study repository', () => {
 
       it('should not send a URL for the next page when no result', async () => {
         // GIVEN
-        const { esResearchStudyRepository, numberOfResourcesByPage } = await setup()
         const queryParams = [
           { name: '_lastUpdated', value: 'gt3020-01-01' },
           { name: '_sort', value: 'meta.lastUpdated' },
@@ -187,7 +180,6 @@ describe('elasticsearch research study repository', () => {
 
       it('should not send a URL for the next page when the result number is inferior to the number of resources by page', async () => {
         // GIVEN
-        const { esResearchStudyRepository, numberOfResourcesByPage } = await setup()
         const queryParams = [{ name: 'identifier', value: 'fakeId1' }]
         const firstPage = numberOfResourcesByPage * 0
         const elasticsearchBody: ElasticsearchBodyType = {
@@ -216,7 +208,6 @@ describe('elasticsearch research study repository', () => {
       describe('with a sort', () => {
         it('should send a URL for the self and next page for the first page', async () => {
           // GIVEN
-          const { elasticsearchService, esResearchStudyRepository, numberOfResourcesByPage } = await setup()
           const queryParams = [
             { name: '_lastUpdated', value: 'gt2020-01-01' },
             { name: '_sort', value: 'meta.lastUpdated' },
@@ -228,7 +219,7 @@ describe('elasticsearch research study repository', () => {
             size: numberOfResourcesByPage,
             sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
           }
-          vi.spyOn(elasticsearchService, 'search').mockResolvedValue({
+          vi.spyOn(elasticsearchService, 'search').mockResolvedValueOnce({
             hits: [
               {
                 _id: '2022-500014-26-00',
@@ -260,7 +251,6 @@ describe('elasticsearch research study repository', () => {
 
         it('should send a URL for the self and next page for the second page', async () => {
           // GIVEN
-          const { elasticsearchService, esResearchStudyRepository, numberOfResourcesByPage } = await setup()
           const queryParams = [
             { name: '_lastUpdated', value: 'gt2020-01-01' },
             { name: '_sort', value: 'meta.lastUpdated' },
@@ -274,7 +264,7 @@ describe('elasticsearch research study repository', () => {
             size: numberOfResourcesByPage,
             sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
           }
-          vi.spyOn(elasticsearchService, 'search').mockResolvedValue({
+          vi.spyOn(elasticsearchService, 'search').mockResolvedValueOnce({
             hits: [
               {
                 _id: '2023-500014-26-00',
@@ -306,7 +296,6 @@ describe('elasticsearch research study repository', () => {
 
         it('should not send a URL for the next page when no result', async () => {
           // GIVEN
-          const { esResearchStudyRepository, numberOfResourcesByPage } = await setup()
           const queryParams = [
             { name: '_lastUpdated', value: 'gt3020-01-01' },
             { name: '_sort', value: 'meta.lastUpdated' },
@@ -336,7 +325,6 @@ describe('elasticsearch research study repository', () => {
       describe('without a sort', () => {
         it('should send a URL for the next page', async () => {
           // GIVEN
-          const { elasticsearchService, esResearchStudyRepository, numberOfResourcesByPage } = await setup()
           const queryParams: ResearchStudyQueryParams[] = []
           const firstPage = numberOfResourcesByPage * 0
           const elasticsearchBody: ElasticsearchBodyType = {
@@ -344,7 +332,7 @@ describe('elasticsearch research study repository', () => {
             query: { bool: { must: [] } },
             size: numberOfResourcesByPage,
           }
-          vi.spyOn(elasticsearchService, 'search').mockResolvedValue({
+          vi.spyOn(elasticsearchService, 'search').mockResolvedValueOnce({
             hits: [
               {
                 _id: 'fakeId1',
@@ -385,7 +373,9 @@ describe('elasticsearch research study repository', () => {
 })
 
 async function setup() {
-  const { configService, elasticsearchService } = await setupClientAndElasticsearchService()
+  vi.stubEnv('ECLAIRE_URL', 'http://localhost:3000/')
+  vi.stubEnv('NUMBER_OF_RESOURCES_BY_PAGE', '2')
+  const { configService, elasticsearchService } = setupClientAndElasticsearchService()
   const numberOfResourcesByPage = Number(process.env['NUMBER_OF_RESOURCES_BY_PAGE'])
   const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1', titre: 'un autre titre pour la pagination 1' }))
   const researchStudy2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId2', titre: 'un autre titre pour la pagination 2' }))
@@ -394,6 +384,22 @@ async function setup() {
   const researchStudy5: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId5', titre: 'un autre titre pour la pagination 5' }))
   const researchStudy6: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId6', titre: 'un autre titre pour la pagination 6' }))
 
+  await elasticsearchService.deletePipelines()
+  await elasticsearchService.deletePolicies()
+  await elasticsearchService.deleteMedDraIndex()
+  await elasticsearchService.deleteAnIndex()
+  await elasticsearchService.createMedDraIndex()
+  await elasticsearchService.bulkMedDraDocuments([
+    {
+      code: '10070575',
+      label: 'Cancer du sein à récepteurs aux oestrogènes positifs',
+    },
+    {
+      code: '10065430',
+      label: 'Cancer du sein HER2 positif',
+    },
+  ])
+  await elasticsearchService.createPolicies()
   await elasticsearchService.createAnIndex(elasticsearchIndexMapping)
   await elasticsearchService.bulkDocuments([
     ResearchStudyModelFactory.create(researchStudy1),

@@ -4,10 +4,12 @@ import { getHttpServer } from '../../../shared/test/helpers/controllerHelper'
 
 const BASE_URL = '/R4/Organization/'
 
-describe('#FindOrganizationController - e2e', () => {
+describe('#FindOrganizationController - e2e', async () => {
+  const app = await getHttpServer()
+
   it('should retrieve one organization', async () => {
     // WHEN
-    const response = await supertest(await getHttpServer())
+    const response = await supertest(app)
       .get(BASE_URL + 'ctis')
 
     // THEN
@@ -18,7 +20,7 @@ describe('#FindOrganizationController - e2e', () => {
 
   it('should retrieve none', async () => {
     // WHEN
-    const response = await supertest(await getHttpServer())
+    const response = await supertest(app)
       .get(BASE_URL + 'unavailable_id')
 
     // THEN

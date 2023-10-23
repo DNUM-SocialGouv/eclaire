@@ -1,5 +1,3 @@
-import { expect } from 'vitest'
-
 import { IngestPipelineDmDmdiv } from './IngestPipelineDmDmdiv'
 import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
@@ -11,7 +9,7 @@ describe('etl | IngestPipelineDm', () => {
     it('should extract raw data into an array', async () => {
       // given
       const riphDmDtos = [RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm()]
-      const { ingestPipelineDm, readerService } = await setup()
+      const { ingestPipelineDm, readerService } = setup()
       vi.spyOn(readerService, 'read').mockResolvedValueOnce(riphDmDtos)
 
       // when
@@ -23,10 +21,10 @@ describe('etl | IngestPipelineDm', () => {
   })
 
   describe('transform', () => {
-    it('should transform array of raw data into a collection of research study documents', async () => {
+    it('should transform array of raw data into a collection of research study documents', () => {
       // given
       const riphDmDtos = [RiphDtoTestFactory.dm()]
-      const { ingestPipelineDm } = await setup()
+      const { ingestPipelineDm } = setup()
 
       // when
       const result = ingestPipelineDm.transform(riphDmDtos)
@@ -40,7 +38,7 @@ describe('etl | IngestPipelineDm', () => {
     it('should load in bulk a collection of research study documents', async () => {
       // given
       const riphDmDtos = [RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm()]
-      const { elasticsearchService, ingestPipelineDm } = await setup()
+      const { elasticsearchService, ingestPipelineDm } = setup()
       const documents = ingestPipelineDm.transform(riphDmDtos)
       vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
 
@@ -53,12 +51,12 @@ describe('etl | IngestPipelineDm', () => {
   })
 })
 
-async function setup() {
+function setup() {
   const {
     elasticsearchService,
     logger,
     readerService,
-  } = await setupClientAndElasticsearchService()
+  } = setupClientAndElasticsearchService()
 
   const ingestPipelineDm = new IngestPipelineDmDmdiv(logger, elasticsearchService, readerService)
 
