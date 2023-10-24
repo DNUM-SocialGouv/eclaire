@@ -1,11 +1,11 @@
 import { EsGroupRepository } from './EsGroupRepository'
-import { setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
+import { setupDependencies } from '../../../shared/test/helpers/elasticsearchHelper'
 
 describe('elasticsearch research study repository', () => {
   it('should retrieve one research study', async () => {
     // GIVEN
     const { elasticsearchService, esGroupRepository } = setup()
-    vi.spyOn(elasticsearchService, 'findReferenceContent').mockResolvedValueOnce({})
+    vi.spyOn(elasticsearchService, 'findReferenceContent')
 
     // WHEN
     await esGroupRepository.find('2022-500014-26-00-enrollment-group')
@@ -16,7 +16,7 @@ describe('elasticsearch research study repository', () => {
 })
 
 function setup() {
-  const { elasticsearchService } = setupClientAndElasticsearchService()
+  const { elasticsearchService } = setupDependencies()
 
   const esGroupRepository = new EsGroupRepository(elasticsearchService)
 

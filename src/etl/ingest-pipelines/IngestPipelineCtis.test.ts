@@ -1,6 +1,6 @@
 import { IngestPipelineCtis } from './IngestPipelineCtis'
 import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
-import { setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
+import { setupDependencies } from '../../shared/test/helpers/elasticsearchHelper'
 import { RiphCtisDto } from '../dto/RiphCtisDto'
 import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
@@ -56,7 +56,7 @@ function setup() {
     elasticsearchService,
     logger,
     readerService,
-  } = setupClientAndElasticsearchService()
+  } = setupDependencies()
 
   const ingestPipelineCtis = new IngestPipelineCtis(logger, elasticsearchService, readerService)
 

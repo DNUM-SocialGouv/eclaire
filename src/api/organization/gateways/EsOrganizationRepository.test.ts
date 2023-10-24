@@ -1,11 +1,11 @@
 import { EsOrganizationRepository } from './EsOrganizationRepository'
-import { setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
+import { setupDependencies } from '../../../shared/test/helpers/elasticsearchHelper'
 
 describe('elasticsearch organization repository', () => {
   it('should retrieve one organization', async () => {
     // GIVEN
     const { elasticsearchService, esOrganizationRepository } = setup()
-    vi.spyOn(elasticsearchService, 'findReferenceContent').mockResolvedValueOnce({})
+    vi.spyOn(elasticsearchService, 'findReferenceContent')
 
     // WHEN
     await esOrganizationRepository.find('ctis')
@@ -16,7 +16,7 @@ describe('elasticsearch organization repository', () => {
 })
 
 function setup() {
-  const { elasticsearchService } = setupClientAndElasticsearchService()
+  const { elasticsearchService } = setupDependencies()
 
   const esOrganizationRepository = new EsOrganizationRepository(elasticsearchService)
 

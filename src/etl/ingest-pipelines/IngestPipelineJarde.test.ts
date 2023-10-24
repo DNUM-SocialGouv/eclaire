@@ -1,6 +1,6 @@
 import { IngestPipelineJarde } from './IngestPipelineJarde'
 import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
-import { setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
+import { setupDependencies } from '../../shared/test/helpers/elasticsearchHelper'
 import { RiphJardeDto } from '../dto/RiphJardeDto'
 import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
@@ -72,7 +72,7 @@ function setup() {
     elasticsearchService,
     logger,
     readerService,
-  } = setupClientAndElasticsearchService()
+  } = setupDependencies()
 
   const ingestPipelineJarde = new IngestPipelineJarde(logger, elasticsearchService, readerService)
 

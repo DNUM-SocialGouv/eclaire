@@ -1,11 +1,11 @@
 import { EsLocationRepository } from './EsLocationRepository'
-import { setupClientAndElasticsearchService } from '../../../shared/test/helpers/elasticsearchHelper'
+import { setupDependencies } from '../../../shared/test/helpers/elasticsearchHelper'
 
 describe('elasticsearch location repository', () => {
   it('should retrieve one location', async () => {
     // GIVEN
     const { elasticsearchService, esLocationRepository } = setup()
-    vi.spyOn(elasticsearchService, 'findReferenceContent').mockResolvedValueOnce({})
+    vi.spyOn(elasticsearchService, 'findReferenceContent')
 
     // WHEN
     await esLocationRepository.find('0-ctis-site')
@@ -16,7 +16,7 @@ describe('elasticsearch location repository', () => {
 })
 
 function setup() {
-  const { elasticsearchService } = setupClientAndElasticsearchService()
+  const { elasticsearchService } = setupDependencies()
 
   const esLocationRepository = new EsLocationRepository(elasticsearchService)
 

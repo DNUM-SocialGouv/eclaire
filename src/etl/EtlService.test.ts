@@ -3,7 +3,7 @@ import { TransportRequestCallback } from '@elastic/elasticsearch/lib/Transport'
 import fs from 'fs'
 
 import { EtlService } from './EtlService'
-import { setupClientAndElasticsearchService } from '../shared/test/helpers/elasticsearchHelper'
+import { setupDependencies } from '../shared/test/helpers/elasticsearchHelper'
 import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('extract transform load service', () => {
@@ -279,7 +279,7 @@ async function setup() {
     elasticsearchService,
     logger,
     readerService,
-  } = setupClientAndElasticsearchService()
+  } = setupDependencies()
   await elasticsearchService.deletePipelines()
   await elasticsearchService.deletePolicies()
   await elasticsearchService.deleteMedDraIndex()

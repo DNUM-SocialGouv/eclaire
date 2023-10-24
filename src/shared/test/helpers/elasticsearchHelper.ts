@@ -6,7 +6,7 @@ import { ElasticsearchService } from '../../elasticsearch/ElasticsearchService'
 import { LoggerService } from '../../logger/LoggerService'
 import { S3Service } from 'src/etl/s3/S3Service'
 
-export function setupClientAndElasticsearchService() {
+export function setupDependencies() {
   vi.stubEnv('SCALINGO_ELASTICSEARCH_URL', 'http://localhost:9201')
 
   const configService = new ConfigService()
