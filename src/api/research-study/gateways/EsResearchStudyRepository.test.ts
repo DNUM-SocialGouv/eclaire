@@ -50,12 +50,11 @@ describe('elasticsearch research study repository', () => {
       expect(response.resourceType).toBe('Bundle')
       expect(response.total).toBe(6)
       expect(response.type).toBe('searchset')
-      expect(response.entry[0].resource['referenceContents']).toBeUndefined()
     })
 
     it('should find research studies with related ressources', async () => {
       // GIVEN
-      const queryParams: ResearchStudyQueryParams[] = []
+      const queryParams: ResearchStudyQueryParams[] = [{ name: '_include', value: '*' }]
       const elasticsearchBody: ElasticsearchBodyType = {
         from: 0,
         query: { bool: { must: [] } },
@@ -63,14 +62,13 @@ describe('elasticsearch research study repository', () => {
       }
 
       // WHEN
-      const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams, true)
+      const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams)
 
       // THEN
-      expect(response.entry).toHaveLength(2)
+      expect(response.entry).toHaveLength(11)
       expect(response.resourceType).toBe('Bundle')
       expect(response.total).toStrictEqual(6)
       expect(response.type).toBe('searchset')
-      expect(response.entry[0].resource['referenceContents']).toBeDefined()
     })
 
     describe('below 10 000 results', () => {
