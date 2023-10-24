@@ -76,6 +76,10 @@ export const eclaireReglementationPrecisionCodeSystem = {
       display : 'EP-Cas 2 (DM)',
     },
     {
+      code : 'EP-Cas-3',
+      display : 'EP-Cas 3 (DM)',
+    },
+    {
       code : 'cat1-jarde',
       display : 'Catégorie 1 (JARDE)',
     },

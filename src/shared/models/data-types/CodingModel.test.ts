@@ -47,6 +47,7 @@ describe('shared | models | CodingModel', () => {
       ['IC-Cas 4.4', 'IC-Cas-4-4', 'IC-Cas 4.4 (DM)'],
       ['EP-Cas 1', 'EP-Cas-1', 'EP-Cas 1 (DM)'],
       ['EP-Cas 2', 'EP-Cas-2', 'EP-Cas 2 (DM)'],
+      ['EP-Cas 3', 'EP-Cas-3', 'EP-Cas 3 (DM)'],
       ['Catégorie 1', 'cat1-jarde', 'Catégorie 1 (JARDE)'],
       ['Catégorie 2', 'cat2-jarde', 'Catégorie 2 (JARDE)'],
       ['Catégorie 3', 'cat3-jarde', 'Catégorie 3 (JARDE)'],

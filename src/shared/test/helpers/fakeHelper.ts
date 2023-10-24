@@ -27,6 +27,21 @@ export const fakeClient = {
     return {}
   },
 
+  enrich: {
+    deletePolicy: () => {
+      return {}
+    },
+    executePolicy: () => {
+      return {}
+    },
+    getPolicy: () => {
+      return {}
+    },
+    putPolicy: () => {
+      return {}
+    },
+  },
+
   get: () => {
     return { body: { _source: fakeDocument } }
   },
@@ -43,6 +58,15 @@ export const fakeClient = {
     },
   },
 
+  ingest: {
+    deletePipeline: () => {
+      return {}
+    },
+    putPipeline: () => {
+      return {}
+    },
+  },
+
   search: () => {
     return {
       body: {
@@ -52,6 +76,10 @@ export const fakeClient = {
         },
       },
     }
+  },
+
+  updateByQuery: () => {
+    return {}
   },
 } as unknown as Client
 

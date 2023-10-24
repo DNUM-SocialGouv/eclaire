@@ -1,5 +1,3 @@
-import { beforeEach } from 'vitest'
-
 import { ResearchStudyQueryParams } from './ResearchStudyQueryParams'
 import { researchStudyQueryParamsToElasticsearchQuery } from './researchStudyQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../../shared/elasticsearch/ElasticsearchBody'
@@ -9,6 +7,10 @@ describe('research study query to elasticsearch query', () => {
 
   beforeEach(() => {
     vi.stubEnv('NUMBER_OF_RESOURCES_BY_PAGE', String(numberOfResourcesByPageByDefault))
+  })
+
+  afterEach(() => {
+    vi.unstubAllEnvs()
   })
 
   describe('should filter', () => {

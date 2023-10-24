@@ -6,6 +6,7 @@ import { Injectable } from '@nestjs/common'
 export class ElasticsearchService {
   private readonly index = 'eclaire'
   private readonly type = '_doc'
+  private readonly updateMedDraLabels = 'update-meddra-labels'
 
   constructor(private readonly client: Client) {}
 
@@ -14,6 +15,43 @@ export class ElasticsearchService {
       body: { mappings },
       index: this.index,
     } satisfies RequestParams.IndicesCreate)
+
+    await this.client.ingest.putPipeline({
+      body: {
+        processors: [
+          {
+            foreach : {
+              field : 'condition',
+              ignore_missing: true,
+              processor : {
+                enrich: {
+                  description: 'Add MedDra label in french',
+                  field: '_ingest._value.coding.0.code',
+                  ignore_missing: true,
+                  policy_name: this.updateMedDraLabels,
+                  target_field: '_ingest._value.coding.0.display',
+                },
+              },
+            },
+          },
+          {
+            foreach : {
+              field : 'condition',
+              ignore_missing: true,
+              processor : {
+                set: {
+                  field: '_ingest._value.coding.0.display',
+                  ignore_empty_value: true,
+                  value: '{{_ingest._value.coding.0.display.label}}',
+                },
+              },
+            },
+          },
+        ],
+        version: 1,
+      },
+      id: this.updateMedDraLabels,
+    } satisfies RequestParams.IngestPutPipeline)
   }
 
   async deleteAnIndex(): Promise<void> {
@@ -71,6 +109,7 @@ export class ElasticsearchService {
     await this.client.bulk({
       body: this.buildBody(documents),
       index: this.index,
+      pipeline: this.updateMedDraLabels,
       refresh: true,
     } satisfies RequestParams.Bulk)
   }
@@ -90,17 +129,54 @@ export class ElasticsearchService {
     }
   }
 
-  private buildBody<T>(documents: T[]): UpsertElasticsearchBody[] {
-    return documents.flatMap((document: T): UpsertElasticsearchBody[] => {
+  private buildBody<T>(documents: T[]): UpsertElasticsearchBody<T>[] {
+    return documents.flatMap((document: T): UpsertElasticsearchBody<T>[] => {
       return [
-        { update: { _id: document['id'] as string } },
-        { doc: document, doc_as_upsert: true },
+        { index: { _id: document['id'] as string } },
+        document,
       ]
     })
   }
 
+  async createPolicies(): Promise<void> {
+    await this.client.enrich.putPolicy({
+      body: {
+        match: {
+          enrich_fields: ['label'],
+          indices: 'meddra',
+          match_field: 'code',
+        },
+      },
+      name: this.updateMedDraLabels,
+    } satisfies RequestParams.EnrichPutPolicy)
+
+    await this.client.enrich.executePolicy({ name: this.updateMedDraLabels } satisfies RequestParams.EnrichExecutePolicy)
+  }
+
+  async deletePolicies(): Promise<void> {
+    const policies = await this.client.enrich.getPolicy({ name: this.updateMedDraLabels } satisfies RequestParams.EnrichGetPolicy)
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (policies.body.policies.length > 0) {
+      await this.client.enrich.deletePolicy({ name: this.updateMedDraLabels } satisfies RequestParams.EnrichDeletePolicy)
+    }
+  }
+
+  async deletePipelines(): Promise<void> {
+    await this.client.ingest.deletePipeline({ id: '*' } satisfies RequestParams.IngestDeletePipeline)
+  }
+
   async createMedDraIndex(): Promise<void> {
-    await this.client.indices.create({ index: 'meddra' } satisfies RequestParams.IndicesCreate)
+    const mappings = {
+      properties: {
+        code: { type: 'text' },
+        label: { type: 'text' },
+      },
+    }
+    await this.client.indices.create({
+      body: { mappings },
+      index: 'meddra',
+    } satisfies RequestParams.IndicesCreate)
   }
 
   async deleteMedDraIndex(): Promise<void> {
@@ -117,6 +193,16 @@ export class ElasticsearchService {
     return response.body._source as unknown
   }
 
+  async findMedDraDocuments<T>(ids: string[]): Promise<T[]> {
+    const response = await this.client.search({
+      body: { query: { bool: { filter: { terms: { _id: ids } } } } },
+      index: 'meddra',
+    } satisfies RequestParams.Search)
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+    return response.body.hits.hits.map((hit): string => hit._source as string) as T[]
+  }
+
   async bulkMedDraDocuments<T>(documents: T[]): Promise<void> {
     const chunkSize = 5000
 
@@ -131,11 +217,11 @@ export class ElasticsearchService {
     }
   }
 
-  private buildMedDraBody<T>(documents: T[]): UpsertElasticsearchBody[] {
-    return documents.flatMap((document: T): UpsertElasticsearchBody[] => {
+  private buildMedDraBody<T>(documents: T[]): UpsertElasticsearchBody<T>[] {
+    return documents.flatMap((document: T): UpsertElasticsearchBody<T>[] => {
       return [
-        { update: { _id: document['code'] as string } },
-        { doc: document, doc_as_upsert: true },
+        { index: { _id: document['code'] as string } },
+        document,
       ]
     })
   }
@@ -155,4 +241,4 @@ export type SearchResponseHits = Readonly<{
   sort?: (number | string)[]
 }>
 
-type UpsertElasticsearchBody = Readonly<({ update: { _id: string } } | { doc_as_upsert: true; doc: unknown })>
+type UpsertElasticsearchBody<T> = Readonly<({ index: { _id: string }} | T )>
