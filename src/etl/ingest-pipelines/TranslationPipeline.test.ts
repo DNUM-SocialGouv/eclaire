@@ -2,17 +2,64 @@ import { ResearchStudy } from 'fhir/r4'
 import { expect } from 'vitest'
 
 import { TranslationPipeline } from './TranslationPipeline'
+import { SearchResearchStudyController } from '../../api/research-study/controllers/SearchResearchStudyController'
 import { EsResearchStudyRepository } from '../../api/research-study/gateways/EsResearchStudyRepository'
 import { elasticsearchIndexMapping } from '../../shared/elasticsearch/elasticsearchIndexMapping'
 import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
-import { setupClientAndElasticsearchService } from '../../shared/test/helpers/elasticsearchHelper'
+import { setupDependencies } from '../../shared/test/helpers/elasticsearchHelper'
 import { RiphDtoTestFactory } from '../../shared/test/helpers/RiphDtoTestFactory'
 import { EclaireDto } from '../dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../factory/ResearchStudyModelFactory'
 
 describe('etl | Pipelines | TranslationPipeline', () => {
+  describe('#extract', () => {
+    it('should call the source to get data', async () => {
+      // given
+      const { esResearchStudyRepository } = await setup()
+      const controller: SearchResearchStudyController = new SearchResearchStudyController(esResearchStudyRepository)
+
+      vi.spyOn(controller, 'generateBundle')
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, controller)
+
+      // when
+      await translationPipeline.extract()
+
+      // then
+      expect(controller.generateBundle).toHaveBeenCalledWith({ _count: '1000', _text: 'REG536' })
+    })
+
+    it('should get CTIS data from the repository', async () => {
+      // given
+      const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
+      const researchStudy2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId2' }))
+      const researchStudy3: EclaireDto = EclaireDto.fromJarde(RiphDtoTestFactory.jarde())
+      const documents: ResearchStudyModel[] = [
+        ResearchStudyModelFactory.create(researchStudy1),
+        ResearchStudyModelFactory.create(researchStudy2),
+        ResearchStudyModelFactory.create(researchStudy3),
+      ]
+
+      const {
+        databaseService,
+        esResearchStudyRepository,
+      } = await setup()
+      await databaseService.bulkDocuments(documents)
+
+      const controller: SearchResearchStudyController = new SearchResearchStudyController(esResearchStudyRepository)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, controller)
+
+      // when
+      const result: ResearchStudy[] = await translationPipeline.extract()
+
+      // then
+      expect(result[0].id).toBe('fakeId1')
+      expect(result[1].id).toBe('fakeId2')
+      expect(result).toHaveLength(2)
+    })
+  })
+
   describe('#transform', () => {
-    it('should get data from the repository and translate the title', () => {
+    it('should translate the title', () => {
       // given
       const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
       const researchStudy2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId2' }))
@@ -20,7 +67,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         ResearchStudyModelFactory.create(researchStudy1),
         ResearchStudyModelFactory.create(researchStudy2),
       ]
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(null)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, null)
 
       // when
       const result: ResearchStudy[] = translationPipeline.transform(documents)
@@ -37,46 +84,91 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
       const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(researchStudy1)]
       const {
-        elasticsearchService,
+        databaseService,
         esResearchStudyRepository,
-      } = await setup(documents)
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(esResearchStudyRepository)
+      } = await setup()
+      vi.spyOn(databaseService, 'bulkDocuments').mockResolvedValueOnce()
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(esResearchStudyRepository, null)
 
       // when
       await translationPipeline.load(documents)
 
       // then
-      expect(elasticsearchService.bulkDocuments).toHaveBeenCalledWith(documents)
+      expect(databaseService.bulkDocuments).toHaveBeenCalledWith(documents)
     })
   })
 
   describe('#execute', () => {
     it('should get data, do a translation and load the translated data into the repository', async () => {
       // given
-      const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
-      const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(researchStudy1)]
-      const { esResearchStudyRepository } = await setup(documents)
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(esResearchStudyRepository)
+      const eclaireDtoCtis1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'ctis1', titre: 'english ctis title' }))
+      const eclaireDtoCtis2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'ctis2', titre: 'another english ctis title' }))
+
+      const jardeTitreRecherche = 'titre jarde en français'
+      const eclaireDtoJarde: EclaireDto = EclaireDto.fromJarde(RiphDtoTestFactory.jarde({ numero_national: 'jarde', titre_recherche: jardeTitreRecherche }))
+
+      const dmTitreRecherche = 'titre dm en français'
+      const eclaireDtoDm: EclaireDto = EclaireDto.fromDm(RiphDtoTestFactory.dm({ numero_national: 'dm', titre_recherche: dmTitreRecherche }))
+      const documents: ResearchStudyModel[] = [
+        ResearchStudyModelFactory.create(eclaireDtoCtis1),
+        ResearchStudyModelFactory.create(eclaireDtoCtis2),
+        ResearchStudyModelFactory.create(eclaireDtoJarde),
+        ResearchStudyModelFactory.create(eclaireDtoDm),
+      ]
+
+      const { esResearchStudyRepository, databaseService } = await setup()
+      await databaseService.bulkDocuments(documents)
+
+      const controller: SearchResearchStudyController = new SearchResearchStudyController(esResearchStudyRepository)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(esResearchStudyRepository, controller)
 
       // when
       await translationPipeline.execute()
 
       // then
-      const researchStudy: ResearchStudy = await esResearchStudyRepository.findOne('fakeId1')
-      expect(researchStudy.title).toBe('blah-blah-blah-traduction')
+      const ctis1: ResearchStudy = await esResearchStudyRepository.findOne('ctis1')
+      expect(ctis1.title).toBe('blah-blah-blah-traduction')
+
+      const ctis2: ResearchStudy = await esResearchStudyRepository.findOne('ctis2')
+      expect(ctis2.title).toBe('blah-blah-blah-traduction')
+
+      const jarde: ResearchStudy = await esResearchStudyRepository.findOne('jarde')
+      expect(jarde.title).toBe(jardeTitreRecherche)
+
+      const dm: ResearchStudy = await esResearchStudyRepository.findOne('dm')
+      expect(dm.title).toBe(dmTitreRecherche)
     })
   })
 })
 
-async function setup(documents: ResearchStudyModel[]) {
-  const { configService, elasticsearchService } = await setupClientAndElasticsearchService()
+async function setup() {
+  const { configService, databaseService } = setupDependencies()
+
+  await databaseService.deletePipelines()
+  await databaseService.deletePolicies()
+
+  await databaseService.deleteMedDraIndex()
+  await databaseService.createMedDraIndex()
+  await databaseService.bulkMedDraDocuments([
+    {
+      code: '10070575',
+      label: 'Cancer du sein à récepteurs aux oestrogènes positifs',
+    },
+    {
+      code: '10065430',
+      label: 'Cancer du sein HER2 positif',
+    },
+  ])
+  await databaseService.createPolicies()
+
+  await databaseService.deleteAnIndex()
+  await databaseService.createAnIndex(elasticsearchIndexMapping)
+
+  vi.stubEnv('ECLAIRE_URL', 'http://localhost:3000/')
+  vi.stubEnv('NUMBER_OF_RESOURCES_BY_PAGE', '2')
   const numberOfResourcesByPage = Number(process.env['NUMBER_OF_RESOURCES_BY_PAGE'])
 
-  await elasticsearchService.createAnIndex(elasticsearchIndexMapping)
-  await elasticsearchService.bulkDocuments(documents)
+  const esResearchStudyRepository: EsResearchStudyRepository = new EsResearchStudyRepository(databaseService, configService)
 
-  const esResearchStudyRepository = new EsResearchStudyRepository(elasticsearchService, configService)
-
-  return { elasticsearchService, esResearchStudyRepository, numberOfResourcesByPage }
+  return { databaseService, esResearchStudyRepository, numberOfResourcesByPage }
 }
