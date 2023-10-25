@@ -6,10 +6,10 @@ import { eclaireReglementationPrecisionCodeSystem } from '../code-systems/eclair
 import { eclaireRegulationCodeCodeSystem } from '../code-systems/eclaireRegulationCodeCodeSystem'
 import { eclaireStudyPhaseCodeSystem } from '../code-systems/eclaireStudyPhaseCodeSystem'
 import { eclaireStudyPopulationCodeSystem } from '../code-systems/eclaireStudyPopulationCodeSystem'
+import { eclaireStudyTitleTypeCodeSystem } from '../code-systems/eclaireStudyTitleTypeCodeSystem'
 import { eclaireTypeContactCodeSystem } from '../code-systems/eclaireTypeContactCodeSystem'
 import { medDraCodeSystem } from '../code-systems/medDraCodeSystem'
 import { researchStudyPhaseCodeSystem } from '../code-systems/researchStudyPhaseCodeSystem'
-import { titleTypeCodeSystem } from '../code-systems/titleTypeCodeSystem'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 import { LabelType } from '../special-purpose-data-types/ExtensionModel'
 
@@ -220,15 +220,15 @@ export class CodingModel implements Coding {
   }
 
   static createLabelType(labelType: LabelType): Coding {
-    const matchingLabelType = titleTypeCodeSystem.concept.find(
+    const matchingLabelType = eclaireStudyTitleTypeCodeSystem.concept.find(
       (reference) => reference.code === labelType
     )
 
     return new CodingModel(
       matchingLabelType.code,
       matchingLabelType.display,
-      titleTypeCodeSystem.url,
-      titleTypeCodeSystem.version
+      eclaireStudyTitleTypeCodeSystem.url,
+      eclaireStudyTitleTypeCodeSystem.version
     )
   }
 }
