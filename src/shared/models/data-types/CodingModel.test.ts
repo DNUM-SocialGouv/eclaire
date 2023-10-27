@@ -53,8 +53,8 @@ describe('shared | models | CodingModel', () => {
       ['Catégorie 3', 'cat3-jarde', 'Catégorie 3 (JARDE)'],
       ['Catégorie 3 questionnaire', 'cat3-questionnaire-jarde', 'Catégorie 3 questionnaire (JARDE)'],
       ['Dérogation à l’obligation d’information', 'derog-obligation-info-jarde', 'Dérogation à l’obligation d’information (JARDE)'],
-      ['No', 'study-ctis', 'un essai clinique (CTIS)'],
-      ['Yes', 'study-low-inter-ctis', 'un essai clinique à faible intervention (CTIS)'],
+      ['un essai clinique (CTIS)', 'study-ctis', 'un essai clinique (CTIS)'],
+      ['un essai clinique à faible intervention (CTIS)', 'study-low-inter-ctis', 'un essai clinique à faible intervention (CTIS)'],
     ])('should create a properly formatted model when %s is given', (rawPrecision, code, display) => {
       // WHEN
       const reglementationPrecision = CodingModel.createReglementationPrecision(rawPrecision)

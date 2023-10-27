@@ -20,20 +20,19 @@ export class EclaireDto {
     readonly sites: Site[],
     readonly numero_secondaire: string,
     readonly titre: string,
-    readonly intervention_faible: string,
     readonly phase_recherche: Phase,
     readonly domaine_therapeutique: string,
     readonly pathologies_maladies_rares: string,
     readonly informations_meddra: MedDra[],
     readonly taille_etude: number,
-    readonly tranches_age: string,
-    readonly sexe: string,
+    readonly tranches_age: string[],
+    readonly sexe: string[],
     readonly groupes_sujet: string,
     readonly population_recrutement: string[],
     readonly date_debut_recrutement: string,
     readonly historique: string,
     readonly dates_avis_favorable_ms_mns: string,
-    readonly pays_concernes: string
+    readonly pays_concernes: string[]
   ) {}
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
@@ -50,9 +49,16 @@ export class EclaireDto {
     const listePhaseRecherche: Phase[] = riphCtisDto.phase_recherche?.match(/Phase (IV|III|II|I)/g) as Phase[]
     const phaseRecherche: Phase = listePhaseRecherche?.join('/') as Phase
 
+    let precisionReglementation = riphCtisDto.intervention_faible
+    if (riphCtisDto.intervention_faible === 'No') {
+      precisionReglementation = 'un essai clinique (CTIS)'
+    } else if (riphCtisDto.intervention_faible === 'Yes') {
+      precisionReglementation = 'un essai clinique à faible intervention (CTIS)'
+    }
+
     return new EclaireDto(
       riphCtisDto.reglementation_code,
-      riphCtisDto.intervention_faible,
+      precisionReglementation,
       riphCtisDto.etat,
       riphCtisDto.organisme_nom,
       riphCtisDto.organisme_adresse,
@@ -66,8 +72,7 @@ export class EclaireDto {
       sites,
       riphCtisDto.numero_ctis,
       riphCtisDto.titre,
-      riphCtisDto.intervention_faible,
-      phaseRecherche,
+      phaseRecherche || 'N/A',
       riphCtisDto.domaine_therapeutique,
       riphCtisDto.pathologies_maladies_rares,
       riphCtisDto.informations_meddra?.split(', ')
@@ -78,14 +83,14 @@ export class EclaireDto {
           }
         }) || null,
       riphCtisDto.taille_etude,
-      riphCtisDto.tranches_age,
-      riphCtisDto.sexe,
+      riphCtisDto.tranches_age?.split(', ') || null,
+      riphCtisDto.sexe?.split(',') || ['unknown'],
       riphCtisDto.groupes_sujet,
       riphCtisDto.population_recrutement?.split(', ') || null,
-      riphCtisDto.date_debut_recrutement,
+      riphCtisDto.date_debut_recrutement !== null ? new Date(riphCtisDto.date_debut_recrutement).toISOString() : null,
       riphCtisDto.historique,
       riphCtisDto.dates_avis_favorable_ms_mns,
-      riphCtisDto.pays_concernes
+      riphCtisDto.pays_concernes?.split(', ') || null
     )
   }
 
@@ -106,8 +111,7 @@ export class EclaireDto {
       ModelUtils.EMPTY_ARRAY_IN_SOURCE,
       riphDmDto.numero_national,
       riphDmDto.titre_recherche,
-      null,
-      null,
+      'N/A',
       riphDmDto.domaine_therapeutique,
       ModelUtils.UNAVAILABLE,
       [
@@ -117,7 +121,7 @@ export class EclaireDto {
         },
       ],
       riphDmDto.taille_etude,
-      ModelUtils.UNAVAILABLE,
+      null,
       null,
       ModelUtils.UNAVAILABLE,
       null,
@@ -129,7 +133,8 @@ export class EclaireDto {
   }
 
   static fromJarde(riphJardeDto: RiphJardeDto): EclaireDto {
-    const phaseRecherche: Phase = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'Phase I' : null
+    const phaseRecherche: Phase = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'Phase I' : 'N/A'
+
     return new EclaireDto(
       riphJardeDto.reglementation_code,
       riphJardeDto.qualification_recherche,
@@ -146,7 +151,6 @@ export class EclaireDto {
       ModelUtils.EMPTY_ARRAY_IN_SOURCE,
       riphJardeDto.numero_national,
       riphJardeDto.titre_recherche,
-      null,
       phaseRecherche,
       riphJardeDto.domaine_therapeutique,
       ModelUtils.UNAVAILABLE,
@@ -157,7 +161,7 @@ export class EclaireDto {
         },
       ],
       riphJardeDto.taille_etude,
-      ModelUtils.UNAVAILABLE,
+      null,
       null,
       ModelUtils.UNAVAILABLE,
       null,
@@ -181,7 +185,7 @@ class Site {
   ) {}
 }
 
-type Phase = 'Phase I' | 'Phase I/Phase II' | 'Phase II' | 'Phase II/Phase III' | 'Phase III' | 'Phase III/Phase IV' | 'Phase IV'
+type Phase = 'Phase I' | 'Phase I/Phase II' | 'Phase II' | 'Phase II/Phase III' | 'Phase III' | 'Phase III/Phase IV' | 'Phase IV' | 'N/A'
 
 export type MedDra = Readonly<{
   code: string

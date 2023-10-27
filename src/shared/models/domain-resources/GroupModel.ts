@@ -23,8 +23,8 @@ export class GroupModel implements Group {
 
   static createStudyCharacteristics(
     enrollmentGroupId: string,
-    sex: string,
-    ageRange: string,
+    genders: string[],
+    ageRanges: string[],
     studySize: number,
     researchStudyGroupCategory: string,
     studyPopulation: string[],
@@ -32,19 +32,13 @@ export class GroupModel implements Group {
     studyExclusion: string
   ): Group {
     let parsedAgeRanges: GroupCharacteristic[] = []
-
-    if (ModelUtils.isNotNull(ageRange)) {
-      parsedAgeRanges = ageRange
-        .split(', ')
-        .map((ageRange): GroupCharacteristic => GroupCharacteristicModel.createAgeRange(ageRange))
-    }
-
     const characteristic: GroupCharacteristic[] = []
 
-    if (ModelUtils.isNotNull(sex)) {
-      characteristic.push(GroupCharacteristicModel.createGender(sex))
+    if (ModelUtils.isNotNull(genders)) {
+      characteristic.push(GroupCharacteristicModel.createGender(genders))
     }
-    if (ModelUtils.isNotNull(ageRange)) {
+    if (ModelUtils.isNotNull(ageRanges)) {
+      parsedAgeRanges = ageRanges.map((ageRange): GroupCharacteristic => GroupCharacteristicModel.createAgeRange(ageRange))
       characteristic.push(...parsedAgeRanges)
     }
     if (ModelUtils.isNotNull(researchStudyGroupCategory)) {

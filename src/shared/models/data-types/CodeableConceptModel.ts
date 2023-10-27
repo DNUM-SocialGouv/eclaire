@@ -13,10 +13,8 @@ export class CodeableConceptModel implements CodeableConcept {
   ) {}
 
   static createResearchStudyPhase(researchStudyPhase: string): CodeableConcept {
-    const emptyResearchStudyPhaseIfNull = ModelUtils.undefinedIfNull(researchStudyPhase)
-
     return new CodeableConceptModel(
-      [CodingModel.createResearchStudyPhase(emptyResearchStudyPhaseIfNull)],
+      [CodingModel.createResearchStudyPhase(researchStudyPhase)],
       'Research Study Phase'
     )
   }
@@ -53,15 +51,9 @@ export class CodeableConceptModel implements CodeableConcept {
     })
   }
 
-  static createGenders(genders: string): CodeableConcept {
-    let parsedGenders = ['unknown']
-
-    if (ModelUtils.isNotNull(genders)) {
-      parsedGenders = genders.split(',')
-    }
-
+  static createGenders(genders: string[]): CodeableConcept {
     return new CodeableConceptModel(
-      parsedGenders.map((parsedGender): Coding => CodingModel.createGender(parsedGender)),
+      genders.map((gender): Coding => CodingModel.createGender(gender)),
       'Genders'
     )
   }
@@ -115,8 +107,8 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createLocations(countriesCode: string): CodeableConcept[] | undefined {
-    return countriesCode.split(', ').map((countryCode): CodeableConcept => {
+  static createLocations(countriesCode: string[]): CodeableConcept[] {
+    return countriesCode.map((countryCode): CodeableConcept => {
       return new CodeableConceptModel(
         [CodingModel.createLocation(countryCode)],
         'Countries of recruitment'

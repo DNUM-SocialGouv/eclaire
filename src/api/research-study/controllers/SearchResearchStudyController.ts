@@ -66,14 +66,14 @@ export class SearchResearchStudyController {
 
       const enrollmentGroup: Group = referenceContents['enrollmentGroup'] as Group
       if (enrollmentGroup) {
-        const enrollmentGroupBundleEntry: BundleEntry = BundleEntryModel.create(enrollmentGroup)
+        const enrollmentGroupBundleEntry: BundleEntry = BundleEntryModel.create(enrollmentGroup, process.env['ECLAIRE_URL'])
         additionalFhirResourceBundleEntries.push(enrollmentGroupBundleEntry)
       }
 
       const locations: Location[] = referenceContents['locations'] as Location[]
       if (locations) {
         const locationBundleEntries: BundleEntry[] = locations.map((location: Location) => {
-          return BundleEntryModel.create(location)
+          return BundleEntryModel.create(location, process.env['ECLAIRE_URL'])
         })
 
         additionalFhirResourceBundleEntries.push(...locationBundleEntries)
@@ -82,7 +82,7 @@ export class SearchResearchStudyController {
       const organizations: Organization[] = referenceContents['organizations'] as Organization[]
       if (organizations) {
         const organizationBundleEntries: BundleEntry[] = organizations.map((organization: Organization) => {
-          return BundleEntryModel.create(organization)
+          return BundleEntryModel.create(organization, process.env['ECLAIRE_URL'])
         })
 
         additionalFhirResourceBundleEntries.push(...organizationBundleEntries)

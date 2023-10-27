@@ -4,10 +4,10 @@ import { BundleEntryModel } from '../backbone-elements/BundleEntryModel'
 import { SearchResponse, SearchResponseHits } from 'src/shared/elasticsearch/ElasticsearchService'
 
 export class BundleModel {
-  static create(resources: SearchResponse['hits'], links: BundleLink[], total: number): Bundle {
+  static create(resources: SearchResponse['hits'], links: BundleLink[], total: number, domainName: string): Bundle {
     return {
       entry: resources.map((resource: SearchResponseHits): BundleEntry => {
-        return BundleEntryModel.create(resource._source as unknown as FhirResource)
+        return BundleEntryModel.create(resource._source as unknown as FhirResource, domainName)
       }),
       link: links,
       resourceType: 'Bundle',

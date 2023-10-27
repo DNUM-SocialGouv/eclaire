@@ -137,16 +137,8 @@ export class CodingModel implements Coding {
   }
 
   static createReglementationPrecision(reglementationPrecisionRaw: string): Coding {
-    let reglementationPrecision = reglementationPrecisionRaw
-
-    if (reglementationPrecisionRaw === 'No') {
-      reglementationPrecision = 'un essai clinique (CTIS)'
-    } else if (reglementationPrecisionRaw === 'Yes') {
-      reglementationPrecision = 'un essai clinique à faible intervention (CTIS)'
-    }
-
     const matchingReglementationPrecision = eclaireReglementationPrecisionCodeSystem.concept.find(
-      (reglementationPrecisionCode): boolean => reglementationPrecisionCode.display.includes(reglementationPrecision)
+      (reglementationPrecisionCode): boolean => reglementationPrecisionCode.display.includes(reglementationPrecisionRaw)
     )
 
     return new CodingModel(

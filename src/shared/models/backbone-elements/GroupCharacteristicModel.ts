@@ -14,7 +14,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     readonly valueReference: Reference | undefined
   ) {}
 
-  static createGender(genders: string): GroupCharacteristic {
+  static createGender(genders: string[]): GroupCharacteristic {
     return new GroupCharacteristicModel(
       undefined,
       false,

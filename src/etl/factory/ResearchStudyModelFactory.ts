@@ -158,7 +158,7 @@ export class ResearchStudyModelFactory {
     secondaryAssignerIdentifier: Identifier;
     secondaryAssignerOrganization: Organization
   } {
-    const assigner: AssignerForSecondaryIdentifier = ModelUtils.identifyAssigner(eclaireDto.reglementation_code)
+    const assigner: AssignerForSecondaryIdentifier = ModelUtils.identifyAssigner(eclaireDto.reglementation_code, eclaireDto.precision_reglementation)
     const secondaryAssignerIdentifier: Identifier = IdentifierModel.createSecondarySlice(eclaireDto.numero_secondaire, assigner)
     const secondaryAssignerOrganization: Organization = OrganizationModel.createSecondaryAssigner(assigner)
 

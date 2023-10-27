@@ -1450,18 +1450,6 @@ describe('research study model factory', () => {
                 "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
-                "valueCodeableConcept": undefined,
-                "valueQuantity": undefined,
-                "valueRange": RangeModel {
-                  "high": undefined,
-                  "low": undefined,
-                },
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
@@ -2171,18 +2159,6 @@ describe('research study model factory', () => {
                 "code": undefined,
                 "exclude": false,
                 "valueBoolean": undefined,
-                "valueCodeableConcept": undefined,
-                "valueQuantity": undefined,
-                "valueRange": RangeModel {
-                  "high": undefined,
-                  "low": undefined,
-                },
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
                     CodingModel {
@@ -2778,6 +2754,25 @@ describe('research study model factory', () => {
           "enrollmentGroup": GroupModel {
             "actual": true,
             "characteristic": [
+              GroupCharacteristicModel {
+                "code": undefined,
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "unknown",
+                      "display": "Unknown",
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "version": "5.0.0",
+                    },
+                  ],
+                  "text": "Genders",
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
               GroupCharacteristicModel {
                 "code": undefined,
                 "exclude": false,

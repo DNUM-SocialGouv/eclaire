@@ -9,7 +9,7 @@ export class PeriodModel implements Period {
   static createRecruitmentPeriod(start: string): Period {
     return new PeriodModel(
       undefined,
-      new Date(start).toISOString()
+      start
     )
   }
 }

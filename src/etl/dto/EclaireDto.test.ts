@@ -9,7 +9,7 @@ describe('etl | dto | EclaireDto', () => {
         "contact_nom": "Trial Information Support Line-TISL, Switzerland",
         "contact_prenom": "Head of EU",
         "contact_telephone": "0041616881111",
-        "date_debut_recrutement": "2022-06-30",
+        "date_debut_recrutement": "2022-06-30T00:00:00.000Z",
         "dates_avis_favorable_ms_mns": "22.00800.000094-SM-1:2022-11-07, 22.00800.000094-SM-2:2023-04-12",
         "domaine_therapeutique": "Diseases [C] - Neoplasms [C04]",
         "etat": "EN_COURS",
@@ -25,7 +25,6 @@ describe('etl | dto | EclaireDto', () => {
             "label": "N/A",
           },
         ],
-        "intervention_faible": "No",
         "numero_secondaire": "2022-500014-26-00",
         "organisme_adresse": "Grenzacherstrasse 124",
         "organisme_code_postal": "4058",
@@ -33,15 +32,27 @@ describe('etl | dto | EclaireDto', () => {
         "organisme_pays": "Switzerland",
         "organisme_ville": "Basel Town",
         "pathologies_maladies_rares": "Locally-Advanced or Metastatic breast cancer (MBC)",
-        "pays_concernes": "BE, DE, ES, FR, HU, IT, PL, PT",
+        "pays_concernes": [
+          "BE",
+          "DE",
+          "ES",
+          "FR",
+          "HU",
+          "IT",
+          "PL",
+          "PT",
+        ],
         "phase_recherche": "Phase III",
         "population_recrutement": [
           "Women of child bearing potential not using contraception",
           "Women of child bearing potential using contraception",
         ],
-        "precision_reglementation": "No",
+        "precision_reglementation": "un essai clinique (CTIS)",
         "reglementation_code": "REG536",
-        "sexe": "Male,Female",
+        "sexe": [
+          "Male",
+          "Female",
+        ],
         "sites": [
           Site {
             "adresse": "Avenue Eugene Avinee",
@@ -55,7 +66,10 @@ describe('etl | dto | EclaireDto', () => {
         ],
         "taille_etude": 21,
         "titre": "A PHASE III, RANDOMIZED, OPEN-LABEL STUDY EVALUATING THE EFFICACY AND SAFETY OF GIREDESTRANT IN COMBINATION WITH PHESGO VERSUS PHESGO AFTER INDUCTION THERAPY WITH PHESGO+TAXANE IN PATIENTS WITH PREVIOUSLY UNTREATED HER2-POSITIVE, ESTROGEN RECEPTOR-POSITIVE LOCALLY-ADVANCED OR METASTATIC BREAST CANCER",
-        "tranches_age": "65+ years, 18-64 years",
+        "tranches_age": [
+          "65+ years",
+          "18-64 years",
+        ],
       }
     `)
   })
@@ -79,7 +93,6 @@ describe('etl | dto | EclaireDto', () => {
             "label": "N/A",
           },
         ],
-        "intervention_faible": null,
         "numero_secondaire": "2021-A01563-38",
         "organisme_adresse": "15 Boulevard du Général Leclerc",
         "organisme_code_postal": "59100",
@@ -88,7 +101,7 @@ describe('etl | dto | EclaireDto', () => {
         "organisme_ville": "Roubaix",
         "pathologies_maladies_rares": "INDISPONIBLE",
         "pays_concernes": null,
-        "phase_recherche": null,
+        "phase_recherche": "N/A",
         "population_recrutement": null,
         "precision_reglementation": "IC-Cas 4.2",
         "reglementation_code": "REG745",
@@ -96,7 +109,7 @@ describe('etl | dto | EclaireDto', () => {
         "sites": [],
         "taille_etude": 96,
         "titre": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
-        "tranches_age": "INDISPONIBLE",
+        "tranches_age": null,
       }
     `)
   })
@@ -120,7 +133,6 @@ describe('etl | dto | EclaireDto', () => {
             "label": "N/A",
           },
         ],
-        "intervention_faible": null,
         "numero_secondaire": "2021-A01022-39",
         "organisme_adresse": "LAMIH - Campus du Mont-Houy",
         "organisme_code_postal": "59313",
@@ -137,7 +149,7 @@ describe('etl | dto | EclaireDto', () => {
         "sites": [],
         "taille_etude": 23,
         "titre": "Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.",
-        "tranches_age": "INDISPONIBLE",
+        "tranches_age": null,
       }
     `)
   })
