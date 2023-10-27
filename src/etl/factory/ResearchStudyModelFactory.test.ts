@@ -74,7 +74,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": HumanNameModel {
@@ -92,7 +92,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
                 "valueAddress": AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
@@ -112,7 +112,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -141,7 +141,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": HumanNameModel {
@@ -159,7 +159,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
                 "valueAddress": AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
@@ -179,7 +179,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -229,7 +229,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": HumanNameModel {
@@ -247,7 +247,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
                 "valueAddress": AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
@@ -267,7 +267,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -1028,7 +1028,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": HumanNameModel {
@@ -1046,7 +1046,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
                 "valueAddress": AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
@@ -1066,7 +1066,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -1095,7 +1095,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": HumanNameModel {
@@ -1113,7 +1113,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
                 "valueAddress": AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
@@ -1133,7 +1133,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -1183,7 +1183,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": HumanNameModel {
@@ -1201,7 +1201,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
                 "valueAddress": AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
@@ -1221,7 +1221,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -1749,7 +1749,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": HumanNameModel {
@@ -1767,7 +1767,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
                 "valueAddress": AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
@@ -1787,7 +1787,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -1816,7 +1816,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": HumanNameModel {
@@ -1834,7 +1834,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
                 "valueAddress": AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
@@ -1854,7 +1854,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -1904,7 +1904,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": HumanNameModel {
@@ -1922,7 +1922,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
                 "valueAddress": AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
@@ -1942,7 +1942,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -2438,7 +2438,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": HumanNameModel {
@@ -2456,7 +2456,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
                 "valueAddress": AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
@@ -2476,7 +2476,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -2526,7 +2526,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": HumanNameModel {
@@ -2544,7 +2544,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
                 "valueAddress": AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
@@ -2564,7 +2564,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": undefined,
+                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,

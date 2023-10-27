@@ -153,7 +153,7 @@ export class ExtensionModel implements Extension {
   static createEclaireContactName(firstname: string, middleName: string, name: string): Extension {
     return new ExtensionModel(
       undefined,
-      undefined,
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name',
       undefined,
       undefined,
       HumanNameModel.create(firstname, middleName, name, undefined),
@@ -167,7 +167,7 @@ export class ExtensionModel implements Extension {
   static createEclaireContactAddress(address: string, city: string, country: string, zip: string): Extension {
     return new ExtensionModel(
       undefined,
-      undefined,
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address',
       AddressModel.create([address], city, zip, country),
       undefined,
       undefined,
@@ -181,7 +181,7 @@ export class ExtensionModel implements Extension {
   static createEclaireContactAffiliation(affiliation: string): Extension {
     return new ExtensionModel(
       undefined,
-      undefined,
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation',
       undefined,
       undefined,
       undefined,
