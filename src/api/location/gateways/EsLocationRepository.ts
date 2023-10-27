@@ -6,13 +6,12 @@ import { LocationRepository } from '../application/contracts/LocationRepository'
 
 @Injectable()
 export class EsLocationRepository implements LocationRepository {
-
   constructor(
-    private readonly elasticsearchService: ElasticsearchService
+    private readonly databaseService: ElasticsearchService
   ) {}
 
   async find(id: string): Promise<Location[]> {
-    return await this.elasticsearchService.findReferenceContent(
+    return await this.databaseService.findReferenceContent(
       id,
       'locations'
     ) as Location[]

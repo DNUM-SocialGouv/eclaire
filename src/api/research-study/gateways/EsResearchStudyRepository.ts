@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { Bundle, BundleLink } from 'fhir/r4'
+import { Bundle, BundleLink, ResearchStudy } from 'fhir/r4'
 
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse } from '../../../shared/elasticsearch/ElasticsearchService'
@@ -15,15 +15,15 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
   private readonly maxTotalConstraintFromElasticsearch = 10_000
 
   constructor(
-    private readonly elasticsearchService: ElasticsearchService,
+    private readonly databaseService: ElasticsearchService,
     private readonly configService: ConfigService
   ) {
     this.domainName = this.configService.get<string>('ECLAIRE_URL')
     this.numberOfResourcesByPage = Number(this.configService.get<string>('NUMBER_OF_RESOURCES_BY_PAGE'))
   }
 
-  async findOne(id: string): Promise<unknown> {
-    return await this.elasticsearchService.findOneDocument(id)
+  async findOne(id: string): Promise<ResearchStudy> {
+    return await this.databaseService.findOneDocument(id) as ResearchStudy
   }
 
   async search(
@@ -31,7 +31,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     queryParams: ResearchStudyQueryParams[],
     withReferenceContents: boolean = false
   ): Promise<Bundle> {
-    const response: SearchResponse = await this.elasticsearchService.search(elasticsearchBody, withReferenceContents)
+    const response: SearchResponse = await this.databaseService.search(elasticsearchBody, withReferenceContents)
 
     const links: BundleLink[] = []
     if (response.total === this.maxTotalConstraintFromElasticsearch && elasticsearchBody.sort !== undefined) {

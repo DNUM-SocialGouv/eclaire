@@ -18,7 +18,7 @@ export class FindLocationController {
   @Header('content-type', 'application/fhir+json')
   @Get(':id')
   async execute(@Param('id') id: string, @Res() response: Response): Promise<void> {
-    const document = await this.locationRepository.find(id)
+    const document: Location[] = await this.locationRepository.find(id)
 
     if (document.length !== 0) {
       response.json(document.filter((location: Location) => location.id === id)[0])

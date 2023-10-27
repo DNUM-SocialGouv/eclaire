@@ -6,13 +6,12 @@ import { GroupRepository } from '../application/contracts/GroupRepository'
 
 @Injectable()
 export class EsGroupRepository implements GroupRepository {
-
   constructor(
-    private readonly elasticsearchService: ElasticsearchService
+    private readonly databaseService: ElasticsearchService
   ) {}
 
   async find(id: string): Promise<Group> {
-    return await this.elasticsearchService.findReferenceContent(
+    return await this.databaseService.findReferenceContent(
       id,
       'enrollmentGroup'
     ) as Group

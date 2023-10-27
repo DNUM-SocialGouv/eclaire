@@ -18,7 +18,7 @@ export class FindOrganizationController {
   @Header('content-type', 'application/fhir+json')
   @Get(':id')
   async execute(@Param('id') id: string, @Res() response: Response): Promise<void> {
-    const document = await this.organizationRepository.find(id)
+    const document: Organization[] = await this.organizationRepository.find(id)
 
     if (document.length !== 0) {
       response.json(document.filter((organization: Organization) => organization.id === id)[0])

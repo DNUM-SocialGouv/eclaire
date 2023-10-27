@@ -6,13 +6,12 @@ import { OrganizationRepository } from '../application/contracts/OrganizationRep
 
 @Injectable()
 export class EsOrganizationRepository implements OrganizationRepository {
-
   constructor(
-    private readonly elasticsearchService: ElasticsearchService
+    private readonly databaseService: ElasticsearchService
   ) {}
 
   async find(id: string): Promise<Organization[]> {
-    return await this.elasticsearchService.findReferenceContent(
+    return await this.databaseService.findReferenceContent(
       id,
       'organizations'
     ) as Organization[]
