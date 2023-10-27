@@ -78,21 +78,7 @@ export class ElasticsearchService {
 
   async findReferenceContent(id: string, referenceType: 'enrollmentGroup' | 'locations' | 'organizations'): Promise<unknown> {
     const response: ApiResponse = await this.client.search({
-      body: {
-        query: {
-          bool: {
-            filter: [
-              {
-                multi_match: {
-                  lenient: true,
-                  query: id,
-                  type: 'phrase',
-                },
-              },
-            ],
-          },
-        },
-      },
+      body: { query: { match_phrase: { [`referenceContents.${referenceType}.id`]: id } } },
       index: this.index,
     } satisfies RequestParams.Search)
 

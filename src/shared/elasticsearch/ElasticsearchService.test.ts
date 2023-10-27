@@ -127,34 +127,100 @@ describe('elasticsearch service', () => {
     // GIVEN
     const id = 'ctis'
     const elasticsearchService = new ElasticsearchService(fakeClient)
-    vi.spyOn(fakeClient, 'search')
+    vi.spyOn(fakeClient, 'search').mockReturnValueOnce({
+      // @ts-ignore
+      body: {
+        hits: {
+          hits: [
+            {
+              _source: {
+                referenceContents: {
+                  organizations: [
+                    {
+                      id: '2022-500063-13-00-secondary-sponsor',
+                      name: 'INDISPONIBLE',
+                      resourceType: 'Organization',
+                    },
+                    {
+                      id: 'ctis',
+                      name: 'Clinical Trials Information System',
+                      resourceType: 'Organization',
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+          total: { value: 1 },
+        },
+      },
+    })
 
     // WHEN
     const result = await elasticsearchService.findReferenceContent(id, 'organizations')
 
     // THEN
     expect(fakeClient.search).toHaveBeenCalledWith({
-      body: {
-        query: {
-          bool: {
-            filter: [
-              {
-                multi_match: {
-                  lenient: true,
-                  query: id,
-                  type: 'phrase',
-                },
-              },
-            ],
-          },
-        },
-      },
+      body: { query: { match_phrase: { 'referenceContents.organizations.id': 'ctis' } } },
       index: 'eclaire',
     })
-    expect(result).toStrictEqual({ fake_field: 'fake_field' })
+    expect(result).toStrictEqual([
+      {
+        id: '2022-500063-13-00-secondary-sponsor',
+        name: 'INDISPONIBLE',
+        resourceType: 'Organization',
+      },
+      {
+        id: 'ctis',
+        name: 'Clinical Trials Information System',
+        resourceType: 'Organization',
+      },
+    ])
   })
 
-  it('should not find a reference content', async () => {
+  it('should not find a reference content when searching a reference type with wrong id', async () => {
+    // GIVEN
+    const id = 'ctis'
+    const elasticsearchService = new ElasticsearchService(fakeClient)
+    vi.spyOn(fakeClient, 'search').mockReturnValueOnce({
+      // @ts-ignore
+      body: {
+        hits: {
+          hits: [],
+          total: { value: 0 },
+        },
+      },
+    })
+
+    // WHEN
+    const result = await elasticsearchService.findReferenceContent(id, 'locations')
+
+    // THEN
+    expect(result).toStrictEqual([])
+  })
+
+  it('should not find a reference content when searching an enrollment group who does not exist', async () => {
+    // GIVEN
+    const id = '2022-500014-26-00-enrollment-group'
+    const elasticsearchService = new ElasticsearchService(fakeClient)
+    vi.spyOn(fakeClient, 'search').mockReturnValueOnce({
+      // @ts-ignore
+      body: {
+        hits: {
+          hits: [],
+          total: { value: 0 },
+        },
+      },
+    })
+
+    // WHEN
+    const result = await elasticsearchService.findReferenceContent(id, 'enrollmentGroup')
+
+    // THEN
+    expect(result).toStrictEqual(undefined)
+  })
+
+  it('should not find a reference content when searching an id who does not exist', async () => {
     // GIVEN
     const id = 'ctis'
     const elasticsearchService = new ElasticsearchService(fakeClient)
