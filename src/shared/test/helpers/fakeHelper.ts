@@ -77,10 +77,6 @@ export const fakeClient = {
       },
     }
   },
-
-  updateByQuery: () => {
-    return {}
-  },
 } as unknown as Client
 
 export const fakeMapping = {
