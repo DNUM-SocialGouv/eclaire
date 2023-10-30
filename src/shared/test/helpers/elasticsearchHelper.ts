@@ -14,13 +14,13 @@ export function setupDependencies() {
   const client = new Client(elasticsearchConfig.getClientOptions())
   const logger = new LoggerService()
   vi.spyOn(logger, 'info').mockReturnValue()
-  const elasticsearchService = new ElasticsearchService(client)
+  const databaseService = new ElasticsearchService(client)
   const readerService = new S3Service(configService)
 
   return {
     client,
     configService,
-    elasticsearchService,
+    databaseService,
     logger,
     readerService,
   }

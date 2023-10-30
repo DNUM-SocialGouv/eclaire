@@ -38,27 +38,27 @@ describe('etl | IngestPipelineCtis', () => {
     it('should load in bulk a collection of research study documents', async () => {
       // given
       const riphCtisDtos = [RiphDtoTestFactory.ctis(), RiphDtoTestFactory.ctis(), RiphDtoTestFactory.ctis()]
-      const { elasticsearchService, ingestPipelineCtis } = setup()
+      const { databaseService, ingestPipelineCtis } = setup()
       const documents = ingestPipelineCtis.transform(riphCtisDtos)
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(databaseService, 'bulkDocuments').mockResolvedValueOnce()
 
       // when
       await ingestPipelineCtis.load(documents)
 
       // then
-      expect(elasticsearchService.bulkDocuments).toHaveBeenCalledWith(documents)
+      expect(databaseService.bulkDocuments).toHaveBeenCalledWith(documents)
     })
   })
 })
 
 function setup() {
   const {
-    elasticsearchService,
+    databaseService,
     logger,
     readerService,
   } = setupDependencies()
 
-  const ingestPipelineCtis = new IngestPipelineCtis(logger, elasticsearchService, readerService)
+  const ingestPipelineCtis = new IngestPipelineCtis(logger, databaseService, readerService)
 
-  return { elasticsearchService, ingestPipelineCtis, readerService }
+  return { databaseService, ingestPipelineCtis, readerService }
 }

@@ -4,21 +4,21 @@ import { setupDependencies } from '../../../shared/test/helpers/elasticsearchHel
 describe('elasticsearch research study repository', () => {
   it('should retrieve one research study', async () => {
     // GIVEN
-    const { elasticsearchService, esGroupRepository } = setup()
-    vi.spyOn(elasticsearchService, 'findReferenceContent').mockResolvedValueOnce({})
+    const { databaseService, esGroupRepository } = setup()
+    vi.spyOn(databaseService, 'findReferenceContent').mockResolvedValueOnce({})
 
     // WHEN
     await esGroupRepository.find('2022-500014-26-00-enrollment-group')
 
     // THEN
-    expect(elasticsearchService.findReferenceContent).toHaveBeenCalledWith('2022-500014-26-00-enrollment-group', 'enrollmentGroup')
+    expect(databaseService.findReferenceContent).toHaveBeenCalledWith('2022-500014-26-00-enrollment-group', 'enrollmentGroup')
   })
 })
 
 function setup() {
-  const { elasticsearchService } = setupDependencies()
+  const { databaseService } = setupDependencies()
 
-  const esGroupRepository = new EsGroupRepository(elasticsearchService)
+  const esGroupRepository = new EsGroupRepository(databaseService)
 
-  return { elasticsearchService, esGroupRepository }
+  return { databaseService, esGroupRepository }
 }

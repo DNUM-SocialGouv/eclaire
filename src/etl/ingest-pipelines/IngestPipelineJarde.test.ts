@@ -54,27 +54,27 @@ describe('etl | IngestPipelineJarde', () => {
     it('should load in bulk a collection of research study documents', async () => {
       // given
       const riphJardeDtos = [RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde()]
-      const { elasticsearchService, ingestPipelineJarde } = setup()
+      const { databaseService, ingestPipelineJarde } = setup()
       const documents = ingestPipelineJarde.transform(riphJardeDtos)
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(databaseService, 'bulkDocuments').mockResolvedValueOnce()
 
       // when
       await ingestPipelineJarde.load(documents)
 
       // then
-      expect(elasticsearchService.bulkDocuments).toHaveBeenCalledWith(documents)
+      expect(databaseService.bulkDocuments).toHaveBeenCalledWith(documents)
     })
   })
 })
 
 function setup() {
   const {
-    elasticsearchService,
+    databaseService,
     logger,
     readerService,
   } = setupDependencies()
 
-  const ingestPipelineJarde = new IngestPipelineJarde(logger, elasticsearchService, readerService)
+  const ingestPipelineJarde = new IngestPipelineJarde(logger, databaseService, readerService)
 
-  return { elasticsearchService, ingestPipelineJarde, readerService }
+  return { databaseService, ingestPipelineJarde, readerService }
 }

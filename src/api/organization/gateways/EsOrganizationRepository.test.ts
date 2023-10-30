@@ -4,21 +4,21 @@ import { setupDependencies } from '../../../shared/test/helpers/elasticsearchHel
 describe('elasticsearch organization repository', () => {
   it('should retrieve one organization', async () => {
     // GIVEN
-    const { elasticsearchService, esOrganizationRepository } = setup()
-    vi.spyOn(elasticsearchService, 'findReferenceContent').mockResolvedValueOnce({})
+    const { databaseService, esOrganizationRepository } = setup()
+    vi.spyOn(databaseService, 'findReferenceContent').mockResolvedValueOnce({})
 
     // WHEN
     await esOrganizationRepository.find('ctis')
 
     // THEN
-    expect(elasticsearchService.findReferenceContent).toHaveBeenCalledWith('ctis', 'organizations')
+    expect(databaseService.findReferenceContent).toHaveBeenCalledWith('ctis', 'organizations')
   })
 })
 
 function setup() {
-  const { elasticsearchService } = setupDependencies()
+  const { databaseService } = setupDependencies()
 
-  const esOrganizationRepository = new EsOrganizationRepository(elasticsearchService)
+  const esOrganizationRepository = new EsOrganizationRepository(databaseService)
 
-  return { elasticsearchService, esOrganizationRepository }
+  return { databaseService, esOrganizationRepository }
 }

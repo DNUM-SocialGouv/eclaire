@@ -126,7 +126,7 @@ describe('elasticsearch service', () => {
   it('should find a reference content', async () => {
     // GIVEN
     const id = 'ctis'
-    const elasticsearchService = new ElasticsearchService(fakeClient)
+    const databaseService = new ElasticsearchService(fakeClient)
     vi.spyOn(fakeClient, 'search').mockReturnValueOnce({
       // @ts-ignore
       body: {
@@ -157,7 +157,7 @@ describe('elasticsearch service', () => {
     })
 
     // WHEN
-    const result = await elasticsearchService.findReferenceContent(id, 'organizations')
+    const result = await databaseService.findReferenceContent(id, 'organizations')
 
     // THEN
     expect(fakeClient.search).toHaveBeenCalledWith({
@@ -181,7 +181,7 @@ describe('elasticsearch service', () => {
   it('should not find a reference content when searching a reference type with wrong id', async () => {
     // GIVEN
     const id = 'ctis'
-    const elasticsearchService = new ElasticsearchService(fakeClient)
+    const databaseService = new ElasticsearchService(fakeClient)
     vi.spyOn(fakeClient, 'search').mockReturnValueOnce({
       // @ts-ignore
       body: {
@@ -193,7 +193,7 @@ describe('elasticsearch service', () => {
     })
 
     // WHEN
-    const result = await elasticsearchService.findReferenceContent(id, 'locations')
+    const result = await databaseService.findReferenceContent(id, 'locations')
 
     // THEN
     expect(result).toStrictEqual([])
@@ -202,7 +202,7 @@ describe('elasticsearch service', () => {
   it('should not find a reference content when searching an enrollment group who does not exist', async () => {
     // GIVEN
     const id = '2022-500014-26-00-enrollment-group'
-    const elasticsearchService = new ElasticsearchService(fakeClient)
+    const databaseService = new ElasticsearchService(fakeClient)
     vi.spyOn(fakeClient, 'search').mockReturnValueOnce({
       // @ts-ignore
       body: {
@@ -214,7 +214,7 @@ describe('elasticsearch service', () => {
     })
 
     // WHEN
-    const result = await elasticsearchService.findReferenceContent(id, 'enrollmentGroup')
+    const result = await databaseService.findReferenceContent(id, 'enrollmentGroup')
 
     // THEN
     expect(result).toStrictEqual(undefined)
@@ -223,7 +223,7 @@ describe('elasticsearch service', () => {
   it('should not find a reference content when searching an id who does not exist', async () => {
     // GIVEN
     const id = 'ctis'
-    const elasticsearchService = new ElasticsearchService(fakeClient)
+    const databaseService = new ElasticsearchService(fakeClient)
     vi.spyOn(fakeClient, 'search').mockReturnValueOnce({
       // @ts-ignore
       body: {
@@ -235,7 +235,7 @@ describe('elasticsearch service', () => {
     })
 
     // WHEN
-    const result = await elasticsearchService.findReferenceContent(id, 'organizations')
+    const result = await databaseService.findReferenceContent(id, 'organizations')
 
     // THEN
     expect(result).toStrictEqual([])
@@ -306,11 +306,11 @@ describe('elasticsearch service', () => {
   describe('#Search', () => {
     it('should filter results and return corresponding document', async () => {
       // GIVEN
-      const elasticsearchService = new ElasticsearchService(fakeClient)
+      const databaseService = new ElasticsearchService(fakeClient)
       vi.spyOn(fakeClient, 'search')
 
       // WHEN
-      const result = await elasticsearchService.search({ query: { term: { 'scientific_title.value': 'ADN' } } })
+      const result = await databaseService.search({ query: { term: { 'scientific_title.value': 'ADN' } } })
 
       // THEN
       expect(fakeClient.search).toHaveBeenCalledWith({

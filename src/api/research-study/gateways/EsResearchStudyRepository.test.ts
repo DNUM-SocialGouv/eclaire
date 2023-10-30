@@ -10,7 +10,7 @@ import { ResearchStudyQueryParams } from '../controllers/converter/ResearchStudy
 
 describe('elasticsearch research study repository', () => {
   let dependencies: {
-    elasticsearchService: ElasticsearchService
+    databaseService: ElasticsearchService
     esResearchStudyRepository: EsResearchStudyRepository
     numberOfResourcesByPage: number
   }
@@ -22,13 +22,13 @@ describe('elasticsearch research study repository', () => {
   describe('retrieve one research study', () => {
     it('should retrieve one research study', async () => {
       // GIVEN
-      vi.spyOn(dependencies.elasticsearchService, 'findOneDocument').mockResolvedValueOnce({})
+      vi.spyOn(dependencies.databaseService, 'findOneDocument').mockResolvedValueOnce({})
 
       // WHEN
       await dependencies.esResearchStudyRepository.findOne('fakeId2')
 
       // THEN
-      expect(dependencies.elasticsearchService.findOneDocument).toHaveBeenCalledWith('fakeId2')
+      expect(dependencies.databaseService.findOneDocument).toHaveBeenCalledWith('fakeId2')
     })
   })
 
@@ -227,7 +227,7 @@ describe('elasticsearch research study repository', () => {
             size: dependencies.numberOfResourcesByPage,
             sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
           }
-          vi.spyOn(dependencies.elasticsearchService, 'search').mockResolvedValueOnce({
+          vi.spyOn(dependencies.databaseService, 'search').mockResolvedValueOnce({
             hits: [
               {
                 _id: '2022-500014-26-00',
@@ -272,7 +272,7 @@ describe('elasticsearch research study repository', () => {
             size: dependencies.numberOfResourcesByPage,
             sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
           }
-          vi.spyOn(dependencies.elasticsearchService, 'search').mockResolvedValueOnce({
+          vi.spyOn(dependencies.databaseService, 'search').mockResolvedValueOnce({
             hits: [
               {
                 _id: '2023-500014-26-00',
@@ -340,7 +340,7 @@ describe('elasticsearch research study repository', () => {
             query: { bool: { must: [] } },
             size: dependencies.numberOfResourcesByPage,
           }
-          vi.spyOn(dependencies.elasticsearchService, 'search').mockResolvedValueOnce({
+          vi.spyOn(dependencies.databaseService, 'search').mockResolvedValueOnce({
             hits: [
               {
                 _id: 'fakeId1',
@@ -383,7 +383,7 @@ describe('elasticsearch research study repository', () => {
 async function setup() {
   vi.stubEnv('ECLAIRE_URL', 'http://localhost:3000/')
   vi.stubEnv('NUMBER_OF_RESOURCES_BY_PAGE', '2')
-  const { configService, elasticsearchService } = setupDependencies()
+  const { configService, databaseService } = setupDependencies()
   const numberOfResourcesByPage = Number(process.env['NUMBER_OF_RESOURCES_BY_PAGE'])
   const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1', titre: 'un autre titre pour la pagination 1' }))
   const researchStudy2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId2', titre: 'un autre titre pour la pagination 2' }))
@@ -392,12 +392,12 @@ async function setup() {
   const researchStudy5: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId5', titre: 'un autre titre pour la pagination 5' }))
   const researchStudy6: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId6', titre: 'un autre titre pour la pagination 6' }))
 
-  await elasticsearchService.deletePipelines()
-  await elasticsearchService.deletePolicies()
-  await elasticsearchService.deleteMedDraIndex()
-  await elasticsearchService.deleteAnIndex()
-  await elasticsearchService.createMedDraIndex()
-  await elasticsearchService.bulkMedDraDocuments([
+  await databaseService.deletePipelines()
+  await databaseService.deletePolicies()
+  await databaseService.deleteMedDraIndex()
+  await databaseService.deleteAnIndex()
+  await databaseService.createMedDraIndex()
+  await databaseService.bulkMedDraDocuments([
     {
       code: '10070575',
       label: 'Cancer du sein à récepteurs aux oestrogènes positifs',
@@ -407,9 +407,9 @@ async function setup() {
       label: 'Cancer du sein HER2 positif',
     },
   ])
-  await elasticsearchService.createPolicies()
-  await elasticsearchService.createAnIndex(elasticsearchIndexMapping)
-  await elasticsearchService.bulkDocuments([
+  await databaseService.createPolicies()
+  await databaseService.createAnIndex(elasticsearchIndexMapping)
+  await databaseService.bulkDocuments([
     ResearchStudyModelFactory.create(researchStudy1),
     ResearchStudyModelFactory.create(researchStudy2),
     ResearchStudyModelFactory.create(researchStudy3),
@@ -418,7 +418,7 @@ async function setup() {
     ResearchStudyModelFactory.create(researchStudy6),
   ])
 
-  const esResearchStudyRepository = new EsResearchStudyRepository(elasticsearchService, configService)
+  const esResearchStudyRepository = new EsResearchStudyRepository(databaseService, configService)
 
-  return { elasticsearchService, esResearchStudyRepository, numberOfResourcesByPage }
+  return { databaseService, esResearchStudyRepository, numberOfResourcesByPage }
 }

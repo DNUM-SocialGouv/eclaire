@@ -38,27 +38,27 @@ describe('etl | IngestPipelineDm', () => {
     it('should load in bulk a collection of research study documents', async () => {
       // given
       const riphDmDtos = [RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm()]
-      const { elasticsearchService, ingestPipelineDm } = setup()
+      const { databaseService, ingestPipelineDm } = setup()
       const documents = ingestPipelineDm.transform(riphDmDtos)
-      vi.spyOn(elasticsearchService, 'bulkDocuments').mockResolvedValueOnce()
+      vi.spyOn(databaseService, 'bulkDocuments').mockResolvedValueOnce()
 
       // when
       await ingestPipelineDm.load(documents)
 
       // then
-      expect(elasticsearchService.bulkDocuments).toHaveBeenCalledWith(documents)
+      expect(databaseService.bulkDocuments).toHaveBeenCalledWith(documents)
     })
   })
 })
 
 function setup() {
   const {
-    elasticsearchService,
+    databaseService,
     logger,
     readerService,
   } = setupDependencies()
 
-  const ingestPipelineDm = new IngestPipelineDmDmdiv(logger, elasticsearchService, readerService)
+  const ingestPipelineDm = new IngestPipelineDmDmdiv(logger, databaseService, readerService)
 
-  return { elasticsearchService, ingestPipelineDm, readerService }
+  return { databaseService, ingestPipelineDm, readerService }
 }

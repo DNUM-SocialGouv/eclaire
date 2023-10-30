@@ -4,21 +4,21 @@ import { setupDependencies } from '../../../shared/test/helpers/elasticsearchHel
 describe('elasticsearch location repository', () => {
   it('should retrieve one location', async () => {
     // GIVEN
-    const { elasticsearchService, esLocationRepository } = setup()
-    vi.spyOn(elasticsearchService, 'findReferenceContent').mockResolvedValueOnce({})
+    const { databaseService, esLocationRepository } = setup()
+    vi.spyOn(databaseService, 'findReferenceContent').mockResolvedValueOnce({})
 
     // WHEN
     await esLocationRepository.find('0-ctis-site')
 
     // THEN
-    expect(elasticsearchService.findReferenceContent).toHaveBeenCalledWith('0-ctis-site', 'locations')
+    expect(databaseService.findReferenceContent).toHaveBeenCalledWith('0-ctis-site', 'locations')
   })
 })
 
 function setup() {
-  const { elasticsearchService } = setupDependencies()
+  const { databaseService } = setupDependencies()
 
-  const esLocationRepository = new EsLocationRepository(elasticsearchService)
+  const esLocationRepository = new EsLocationRepository(databaseService)
 
-  return { elasticsearchService, esLocationRepository }
+  return { databaseService, esLocationRepository }
 }

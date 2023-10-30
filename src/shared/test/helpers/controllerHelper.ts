@@ -22,13 +22,13 @@ export async function getHttpServer() {
   const app = moduleFixture.createNestApplication<NestExpressApplication>()
   await app.init()
 
-  const elasticsearchService = app.get<ElasticsearchService>(ElasticsearchService)
-  await elasticsearchService.deletePipelines()
-  await elasticsearchService.deletePolicies()
+  const databaseService = app.get<ElasticsearchService>(ElasticsearchService)
+  await databaseService.deletePipelines()
+  await databaseService.deletePolicies()
 
-  await elasticsearchService.deleteMedDraIndex()
-  await elasticsearchService.createMedDraIndex()
-  await elasticsearchService.bulkMedDraDocuments([
+  await databaseService.deleteMedDraIndex()
+  await databaseService.createMedDraIndex()
+  await databaseService.bulkMedDraDocuments([
     {
       code: '10070575',
       label: 'Cancer du sein à récepteurs aux oestrogènes positifs',
@@ -38,14 +38,14 @@ export async function getHttpServer() {
       label: 'Cancer du sein HER2 positif',
     },
   ])
-  await elasticsearchService.createPolicies()
+  await databaseService.createPolicies()
 
-  await elasticsearchService.deleteAnIndex()
-  await elasticsearchService.createAnIndex(elasticsearchIndexMapping)
+  await databaseService.deleteAnIndex()
+  await databaseService.createAnIndex(elasticsearchIndexMapping)
   const eclaireDto1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: CONTROLLER_DOCUMENT_ID }))
   const eclaireDto2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.emptyCtis())
 
-  await elasticsearchService.bulkDocuments([
+  await databaseService.bulkDocuments([
     ResearchStudyModelFactory.create(eclaireDto1),
     ResearchStudyModelFactory.create(eclaireDto2),
   ])

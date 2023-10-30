@@ -11,7 +11,7 @@ export abstract class IngestPipeline {
 
   constructor(
     protected readonly logger: LoggerService,
-    private readonly elasticsearchService: ElasticsearchService,
+    private readonly databaseService: ElasticsearchService,
     private readonly readerService: S3Service
   ) {}
 
@@ -26,7 +26,7 @@ export abstract class IngestPipeline {
   }
 
   async load(documents: ResearchStudyModel[]): Promise<void> {
-    await this.elasticsearchService.bulkDocuments<ResearchStudyModel>(documents)
+    await this.databaseService.bulkDocuments<ResearchStudyModel>(documents)
   }
 }
 

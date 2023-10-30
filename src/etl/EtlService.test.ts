@@ -66,7 +66,7 @@ describe('extract transform load service', () => {
   describe('when import is performed', () => {
     it('should find data for each clinical trials type (CTIS, DM, JARDE)', async () => {
       // GIVEN
-      const { elasticsearchService, etlService, medDraFile, readerService } = await setup()
+      const { databaseService, etlService, medDraFile, readerService } = await setup()
       vi.spyOn(readerService, 'read')
         .mockResolvedValueOnce([RiphDtoTestFactory.ctis()])
         .mockResolvedValueOnce([RiphDtoTestFactory.dm()])
@@ -83,9 +83,9 @@ describe('extract transform load service', () => {
       expect(readerService.read).toHaveBeenNthCalledWith(2, 'export_eclaire_dm-dmdiv.json')
       expect(readerService.read).toHaveBeenNthCalledWith(3, 'export_eclaire_jarde.json')
 
-      const ctisResearchStudy = await elasticsearchService.findOneDocument(RiphDtoTestFactory.ctis().numero_ctis)
-      const dmResearchStudy = await elasticsearchService.findOneDocument(RiphDtoTestFactory.dm().numero_national)
-      const jardeResearchStudy = await elasticsearchService.findOneDocument(RiphDtoTestFactory.jarde().numero_national)
+      const ctisResearchStudy = await databaseService.findOneDocument(RiphDtoTestFactory.ctis().numero_ctis)
+      const dmResearchStudy = await databaseService.findOneDocument(RiphDtoTestFactory.dm().numero_national)
+      const jardeResearchStudy = await databaseService.findOneDocument(RiphDtoTestFactory.jarde().numero_national)
 
       expect(ctisResearchStudy).not.toBeNull()
       expect(dmResearchStudy).not.toBeNull()
@@ -132,25 +132,25 @@ describe('extract transform load service', () => {
   describe('when import medDra data', () => {
     it('should find MedDra codes and labels', async () => {
       // GIVEN
-      const { elasticsearchService, etlService, medDraFile } = await setup()
+      const { databaseService, etlService, medDraFile } = await setup()
       vi.spyOn(fs, 'readFileSync').mockReturnValueOnce(medDraFile)
-      vi.spyOn(elasticsearchService, 'createMedDraIndex').mockResolvedValueOnce()
-      vi.spyOn(elasticsearchService, 'deleteMedDraIndex').mockResolvedValueOnce()
+      vi.spyOn(databaseService, 'createMedDraIndex').mockResolvedValueOnce()
+      vi.spyOn(databaseService, 'deleteMedDraIndex').mockResolvedValueOnce()
 
       // WHEN
       await etlService.medDraImport()
 
       // THEN
-      expect(elasticsearchService.createMedDraIndex).toHaveBeenCalledWith()
-      expect(elasticsearchService.deleteMedDraIndex).toHaveBeenCalledWith()
+      expect(databaseService.createMedDraIndex).toHaveBeenCalledWith()
+      expect(databaseService.deleteMedDraIndex).toHaveBeenCalledWith()
 
-      const medDraCode1 = await elasticsearchService.findMedDraDocument('10000001')
+      const medDraCode1 = await databaseService.findMedDraDocument('10000001')
       expect(medDraCode1).toStrictEqual({
         code: '10000001',
         label: 'Pneumopathie due à la ventilation',
       })
 
-      const medDraCode2 = await elasticsearchService.findMedDraDocument('10000002')
+      const medDraCode2 = await databaseService.findMedDraDocument('10000002')
       expect(medDraCode2).toStrictEqual({
         code: '10000002',
         label: 'Déficience en 11-bêta-hydroxylase',
@@ -276,18 +276,18 @@ describe('extract transform load service', () => {
 async function setup() {
   const {
     client,
-    elasticsearchService,
+    databaseService,
     logger,
     readerService,
   } = setupDependencies()
-  await elasticsearchService.deletePipelines()
-  await elasticsearchService.deletePolicies()
-  await elasticsearchService.deleteMedDraIndex()
-  await elasticsearchService.deleteAnIndex()
+  await databaseService.deletePipelines()
+  await databaseService.deletePolicies()
+  await databaseService.deleteMedDraIndex()
+  await databaseService.deleteAnIndex()
 
-  const etlService = new EtlService(logger, elasticsearchService, readerService)
+  const etlService = new EtlService(logger, databaseService, readerService)
 
   const medDraFile = '10000001$Pneumopathie due à la ventilation$10081988$$$$$$$N$$\n10000002$Déficience en 11-bêta-hydroxylase$10000002$$$$$$$Y$$'
 
-  return { client, elasticsearchService, etlService, medDraFile, readerService }
+  return { client, databaseService, etlService, medDraFile, readerService }
 }
