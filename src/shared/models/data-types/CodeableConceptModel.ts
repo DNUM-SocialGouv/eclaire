@@ -1,10 +1,10 @@
 import { CodeableConcept, Coding } from 'fhir/r4'
 
 import { CodingModel } from './CodingModel'
+import { MedDra } from '../../../etl/dto/EclaireDto'
 import { ModelUtils } from '../eclaire/ModelUtils'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 import { LabelType } from '../special-purpose-data-types/ExtensionModel'
-import { MedDra } from 'src/etl/dto/EclaireDto'
 
 export class CodeableConceptModel implements CodeableConcept {
   private constructor(

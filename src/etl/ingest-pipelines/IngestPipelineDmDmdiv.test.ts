@@ -1,8 +1,8 @@
 import { IngestPipelineDmDmdiv } from './IngestPipelineDmDmdiv'
 import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { setupDependencies } from '../../shared/test/helpers/elasticsearchHelper'
+import { RiphDtoTestFactory } from '../../shared/test/helpers/RiphDtoTestFactory'
 import { RiphDmDto } from '../dto/RiphDmDto'
-import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('etl | IngestPipelineDm', () => {
   describe('extract', () => {

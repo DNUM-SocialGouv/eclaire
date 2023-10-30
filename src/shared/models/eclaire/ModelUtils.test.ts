@@ -1,6 +1,6 @@
 import { ModelUtils } from './ModelUtils'
+import { RiphDtoTestFactory } from '../../../shared/test/helpers/RiphDtoTestFactory'
 import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
-import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('shared | models | custom | ModelUtils', () => {
   afterEach(() => {

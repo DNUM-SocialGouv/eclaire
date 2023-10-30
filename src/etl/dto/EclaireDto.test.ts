@@ -1,5 +1,5 @@
 import { EclaireDto } from './EclaireDto'
-import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
+import { RiphDtoTestFactory } from '../../shared/test/helpers/RiphDtoTestFactory'
 
 describe('etl | dto | EclaireDto', () => {
   it('should return a properly mapped eclaire dto when a riph ctis dto is given', () => {

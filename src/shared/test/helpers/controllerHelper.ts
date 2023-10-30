@@ -6,8 +6,8 @@ import { RiphDtoTestFactory } from './RiphDtoTestFactory'
 import { AppModule } from '../../../AppModule'
 import { EclaireDto } from '../../../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../../etl/factory/ResearchStudyModelFactory'
+import { elasticsearchIndexMapping } from '../../../shared/elasticsearch/elasticsearchIndexMapping'
 import { ElasticsearchService } from '../../elasticsearch/ElasticsearchService'
-import { elasticsearchIndexMapping } from 'src/shared/elasticsearch/elasticsearchIndexMapping'
 
 export const CONTROLLER_DOCUMENT_ID = '2022-500014-26-00'
 

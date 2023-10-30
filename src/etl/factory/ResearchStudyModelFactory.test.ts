@@ -1,6 +1,6 @@
 import { ResearchStudyModelFactory } from './ResearchStudyModelFactory'
+import { RiphDtoTestFactory } from '../../shared/test/helpers/RiphDtoTestFactory'
 import { EclaireDto } from '../dto/EclaireDto'
-import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('research study model factory', () => {
   afterEach(() => {

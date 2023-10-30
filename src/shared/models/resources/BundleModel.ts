@@ -1,7 +1,7 @@
 import { Bundle, BundleEntry, BundleLink, FhirResource } from 'fhir/r4'
 
+import { SearchResponse, SearchResponseHits } from '../../../shared/elasticsearch/ElasticsearchService'
 import { BundleEntryModel } from '../backbone-elements/BundleEntryModel'
-import { SearchResponse, SearchResponseHits } from 'src/shared/elasticsearch/ElasticsearchService'
 
 export class BundleModel {
   static create(resources: SearchResponse['hits'], links: BundleLink[], total: number, domainName: string): Bundle {

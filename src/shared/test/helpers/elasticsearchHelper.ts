@@ -1,10 +1,10 @@
 import { Client } from '@elastic/elasticsearch'
 import { ConfigService } from '@nestjs/config'
 
+import { S3Service } from '../../../etl/s3/S3Service'
 import { ElasticsearchConfig } from '../../elasticsearch/ElasticsearchConfig'
 import { ElasticsearchService } from '../../elasticsearch/ElasticsearchService'
 import { LoggerService } from '../../logger/LoggerService'
-import { S3Service } from 'src/etl/s3/S3Service'
 
 export function setupDependencies() {
   vi.stubEnv('SCALINGO_ELASTICSEARCH_URL', 'http://localhost:9201')

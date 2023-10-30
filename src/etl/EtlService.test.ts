@@ -4,7 +4,7 @@ import fs from 'fs'
 
 import { EtlService } from './EtlService'
 import { setupDependencies } from '../shared/test/helpers/elasticsearchHelper'
-import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
+import { RiphDtoTestFactory } from '../shared/test/helpers/RiphDtoTestFactory'
 
 describe('extract transform load service', () => {
   describe('when index is created', () => {

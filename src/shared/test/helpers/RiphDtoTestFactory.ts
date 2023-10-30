@@ -1,6 +1,6 @@
-import { RiphCtisDto } from 'src/etl/dto/RiphCtisDto'
-import { RiphDmDto } from 'src/etl/dto/RiphDmDto'
-import { RiphJardeDto } from 'src/etl/dto/RiphJardeDto'
+import { RiphCtisDto } from '../../../etl/dto/RiphCtisDto'
+import { RiphDmDto } from '../../../etl/dto/RiphDmDto'
+import { RiphJardeDto } from '../../../etl/dto/RiphJardeDto'
 
 export class RiphDtoTestFactory {
   static ctis(override?: Partial<RiphCtisDto>): RiphCtisDto {

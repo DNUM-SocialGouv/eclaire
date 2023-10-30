@@ -2,11 +2,11 @@ import { EsResearchStudyRepository } from './EsResearchStudyRepository'
 import { EclaireDto } from '../../../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../../etl/factory/ResearchStudyModelFactory'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
+import { elasticsearchIndexMapping } from '../../../shared/elasticsearch/elasticsearchIndexMapping'
+import { ElasticsearchService, SearchResponse } from '../../../shared/elasticsearch/ElasticsearchService'
 import { setupDependencies } from '../../../shared/test/helpers/elasticsearchHelper'
+import { RiphDtoTestFactory } from '../../../shared/test/helpers/RiphDtoTestFactory'
 import { ResearchStudyQueryParams } from '../controllers/converter/ResearchStudyQueryParams'
-import { elasticsearchIndexMapping } from 'src/shared/elasticsearch/elasticsearchIndexMapping'
-import { ElasticsearchService, SearchResponse } from 'src/shared/elasticsearch/ElasticsearchService'
-import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('elasticsearch research study repository', () => {
   let dependencies: {

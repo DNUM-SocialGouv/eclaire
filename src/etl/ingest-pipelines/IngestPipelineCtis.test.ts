@@ -1,8 +1,8 @@
 import { IngestPipelineCtis } from './IngestPipelineCtis'
 import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { setupDependencies } from '../../shared/test/helpers/elasticsearchHelper'
+import { RiphDtoTestFactory } from '../../shared/test/helpers/RiphDtoTestFactory'
 import { RiphCtisDto } from '../dto/RiphCtisDto'
-import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('etl | IngestPipelineCtis', () => {
   describe('extract', () => {

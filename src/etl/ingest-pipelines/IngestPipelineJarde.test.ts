@@ -1,8 +1,8 @@
 import { IngestPipelineJarde } from './IngestPipelineJarde'
 import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { setupDependencies } from '../../shared/test/helpers/elasticsearchHelper'
+import { RiphDtoTestFactory } from '../../shared/test/helpers/RiphDtoTestFactory'
 import { RiphJardeDto } from '../dto/RiphJardeDto'
-import { RiphDtoTestFactory } from 'src/shared/test/helpers/RiphDtoTestFactory'
 
 describe('etl | IngestPipelineJarde', () => {
   describe('extract', () => {

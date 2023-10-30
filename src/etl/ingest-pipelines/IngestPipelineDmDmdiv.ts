@@ -1,8 +1,8 @@
 import { IngestPipeline } from './IngestPipeline'
+import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { EclaireDto } from '../dto/EclaireDto'
 import { RiphDmDto } from '../dto/RiphDmDto'
 import { ResearchStudyModelFactory } from '../factory/ResearchStudyModelFactory'
-import { ResearchStudyModel } from 'src/shared/models/domain-resources/ResearchStudyModel'
 
 export class IngestPipelineDmDmdiv extends IngestPipeline {
   readonly type = 'dm-dmdiv'

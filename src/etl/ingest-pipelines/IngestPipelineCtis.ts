@@ -1,8 +1,8 @@
 import { IngestPipeline } from './IngestPipeline'
+import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { EclaireDto } from '../dto/EclaireDto'
 import { RiphCtisDto } from '../dto/RiphCtisDto'
 import { ResearchStudyModelFactory } from '../factory/ResearchStudyModelFactory'
-import { ResearchStudyModel } from 'src/shared/models/domain-resources/ResearchStudyModel'
 
 export class IngestPipelineCtis extends IngestPipeline {
   readonly type = 'ctis'
