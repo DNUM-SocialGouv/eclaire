@@ -5,5 +5,5 @@ import { ResearchStudyQueryParams } from '../../controllers/converter/ResearchSt
 
 export interface ResearchStudyRepository {
   findOne(id: string): Promise<ResearchStudy>
-  search(elasticsearchBody: ElasticsearchBodyType, queryParams: ResearchStudyQueryParams[]): Promise<Bundle>
+  search(elasticsearchBody: ElasticsearchBodyType, queryParams: ResearchStudyQueryParams[], withReferenceContents: boolean): Promise<Bundle>
 }

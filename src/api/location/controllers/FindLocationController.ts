@@ -1,15 +1,15 @@
-import { Controller, Get, Header, Param, Res } from '@nestjs/common'
+import { Controller, Get, Header, Inject, Param, Res } from '@nestjs/common'
 import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 import { Location } from 'fhir/r4'
 
 import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
-import { EsLocationRepository } from '../gateways/EsLocationRepository'
+import { LocationRepository } from '../application/contracts/LocationRepository'
 
 @ApiTags('Location')
 @Controller('R4/Location')
 export class FindLocationController {
-  constructor(private readonly locationRepository: EsLocationRepository) {}
+  constructor(@Inject('LocationRepository') private readonly locationRepository: LocationRepository) {}
 
   @ApiOperation({ summary: 'Récupère un site depuis son identifiant unique.' })
   @ApiOkResponse({ description: 'Un site a été trouvée' })

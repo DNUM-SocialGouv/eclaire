@@ -1,10 +1,8 @@
-import { Injectable } from '@nestjs/common'
 import { Organization } from 'fhir/r4'
 
 import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
 import { OrganizationRepository } from '../application/contracts/OrganizationRepository'
 
-@Injectable()
 export class EsOrganizationRepository implements OrganizationRepository {
   constructor(
     private readonly databaseService: ElasticsearchService

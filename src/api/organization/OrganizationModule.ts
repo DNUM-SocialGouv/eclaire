@@ -1,13 +1,22 @@
 import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
 
+import { OrganizationRepository } from './application/contracts/OrganizationRepository'
 import { FindOrganizationController } from './controllers/FindOrganizationController'
 import { EsOrganizationRepository } from './gateways/EsOrganizationRepository'
 import { ElasticsearchModule } from '../../shared/elasticsearch/ElasticsearchModule'
+import { ElasticsearchService } from '../../shared/elasticsearch/ElasticsearchService'
 
 @Module({
   controllers: [FindOrganizationController],
-  imports: [ConfigModule, ElasticsearchModule],
-  providers: [EsOrganizationRepository],
+  imports: [ElasticsearchModule],
+  providers: [
+    {
+      inject: [ElasticsearchService],
+      provide: 'OrganizationRepository',
+      useFactory: (databasechService: ElasticsearchService): OrganizationRepository => {
+        return new EsOrganizationRepository(databasechService)
+      },
+    },
+  ],
 })
 export class OrganizationModule {}

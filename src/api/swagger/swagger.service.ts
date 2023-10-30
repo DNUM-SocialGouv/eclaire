@@ -1,8 +1,6 @@
-import { Injectable } from '@nestjs/common'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
-@Injectable()
 export class SwaggerService {
   create(app: NestExpressApplication) {
     const builder = new DocumentBuilder()

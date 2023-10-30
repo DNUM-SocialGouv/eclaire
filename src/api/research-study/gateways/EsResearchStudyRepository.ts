@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { Bundle, BundleLink, ResearchStudy } from 'fhir/r4'
 
@@ -8,7 +7,6 @@ import { BundleModel } from '../../../shared/models/resources/BundleModel'
 import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
 import { ResearchStudyQueryParams } from '../controllers/converter/ResearchStudyQueryParams'
 
-@Injectable()
 export class EsResearchStudyRepository implements ResearchStudyRepository {
   private readonly domainName: string
   private readonly numberOfResourcesByPage: number

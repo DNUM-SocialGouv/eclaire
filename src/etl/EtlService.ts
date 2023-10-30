@@ -1,5 +1,4 @@
 import { errors } from '@elastic/elasticsearch'
-import { Injectable } from '@nestjs/common'
 import fs from 'fs'
 
 import { IngestPipeline } from './ingest-pipelines/IngestPipeline'
@@ -11,20 +10,19 @@ import { elasticsearchIndexMapping } from '../shared/elasticsearch/elasticsearch
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
 
-@Injectable()
 export class EtlService {
   constructor(
-    private readonly logger: LoggerService,
-    private readonly elasticsearchService: ElasticsearchService,
+    private readonly loggerService: LoggerService,
+    private readonly databaseService: ElasticsearchService,
     private readonly readerService: S3Service
   ) {}
 
   async createIndex(): Promise<void> {
-    this.logger.info('-- Début de la création de l’index ECLAIRE dans Elasticsearch.')
+    this.loggerService.info('-- Début de la création de l’index ECLAIRE dans Elasticsearch.')
 
     try {
-      await this.elasticsearchService.createAnIndex(elasticsearchIndexMapping)
-      this.logger.info('-- Fin de la création de l’index ECLAIRE dans Elasticsearch.')
+      await this.databaseService.createAnIndex(elasticsearchIndexMapping)
+      this.loggerService.info('-- Fin de la création de l’index ECLAIRE dans Elasticsearch.')
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -35,11 +33,11 @@ export class EtlService {
   }
 
   async deleteIndex(): Promise<void> {
-    this.logger.info('-- Début de la destruction de l’index ECLAIRE dans Elasticsearch.')
+    this.loggerService.info('-- Début de la destruction de l’index ECLAIRE dans Elasticsearch.')
 
     try {
-      await this.elasticsearchService.deleteAnIndex()
-      this.logger.info('-- Fin de la destruction de l’index ECLAIRE dans Elasticsearch.')
+      await this.databaseService.deleteAnIndex()
+      this.loggerService.info('-- Fin de la destruction de l’index ECLAIRE dans Elasticsearch.')
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -50,12 +48,12 @@ export class EtlService {
   }
 
   async import(): Promise<void> {
-    this.logger.info('-- Début de l’import des essais cliniques du RIPH.')
+    this.loggerService.info('-- Début de l’import des essais cliniques du RIPH.')
 
     const ingestPipelines: IngestPipeline[] = [
-      new IngestPipelineCtis(this.logger, this.elasticsearchService, this.readerService),
-      new IngestPipelineDmDmdiv(this.logger, this.elasticsearchService, this.readerService),
-      new IngestPipelineJarde(this.logger, this.elasticsearchService, this.readerService),
+      new IngestPipelineCtis(this.loggerService, this.databaseService, this.readerService),
+      new IngestPipelineDmDmdiv(this.loggerService, this.databaseService, this.readerService),
+      new IngestPipelineJarde(this.loggerService, this.databaseService, this.readerService),
     ]
 
     for (const ingestPipeline of ingestPipelines) {
@@ -76,11 +74,11 @@ export class EtlService {
       }
     }
 
-    this.logger.info('-- Fin de l’import des essais cliniques du RIPH.')
+    this.loggerService.info('-- Fin de l’import des essais cliniques du RIPH.')
   }
 
   async medDraImport(): Promise<void> {
-    this.logger.info('-- Début de l’import des données de MedDra.')
+    this.loggerService.info('-- Début de l’import des données de MedDra.')
 
     const medDraRawData = fs.readFileSync('meddra-utf8.asc', 'utf8')
     const medDraCodeAndLabel = medDraRawData
@@ -95,10 +93,10 @@ export class EtlService {
       })
 
     try {
-      await this.elasticsearchService.deleteMedDraIndex()
-      await this.elasticsearchService.createMedDraIndex()
-      await this.elasticsearchService.bulkMedDraDocuments(medDraCodeAndLabel)
-      await this.elasticsearchService.createPolicies()
+      await this.databaseService.deleteMedDraIndex()
+      await this.databaseService.createMedDraIndex()
+      await this.databaseService.bulkMedDraDocuments(medDraCodeAndLabel)
+      await this.databaseService.createPolicies()
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -107,15 +105,15 @@ export class EtlService {
       throw error
     }
 
-    this.logger.info('-- Fin de l’import des données de MedDra.')
+    this.loggerService.info('-- Fin de l’import des données de MedDra.')
   }
 
   async createPolicies(): Promise<void> {
-    this.logger.info('-- Début de la création des polices dans Elasticsearch.')
+    this.loggerService.info('-- Début de la création des polices dans Elasticsearch.')
 
     try {
-      await this.elasticsearchService.createPolicies()
-      this.logger.info('-- Fin de la création des polices dans Elasticsearch.')
+      await this.databaseService.createPolicies()
+      this.loggerService.info('-- Fin de la création des polices dans Elasticsearch.')
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -126,11 +124,11 @@ export class EtlService {
   }
 
   async deletePolicies(): Promise<void> {
-    this.logger.info('-- Début de la destruction des polices dans Elasticsearch.')
+    this.loggerService.info('-- Début de la destruction des polices dans Elasticsearch.')
 
     try {
-      await this.elasticsearchService.deletePolicies()
-      this.logger.info('-- Fin de la destruction des polices dans Elasticsearch.')
+      await this.databaseService.deletePolicies()
+      this.loggerService.info('-- Fin de la destruction des polices dans Elasticsearch.')
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -141,11 +139,11 @@ export class EtlService {
   }
 
   async deletePipelines(): Promise<void> {
-    this.logger.info('-- Début de la destruction des pipelines dans Elasticsearch.')
+    this.loggerService.info('-- Début de la destruction des pipelines dans Elasticsearch.')
 
     try {
-      await this.elasticsearchService.deletePipelines()
-      this.logger.info('-- Fin de la destruction des pipelines dans Elasticsearch.')
+      await this.databaseService.deletePipelines()
+      this.loggerService.info('-- Fin de la destruction des pipelines dans Elasticsearch.')
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access

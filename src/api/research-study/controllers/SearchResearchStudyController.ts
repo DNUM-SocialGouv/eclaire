@@ -1,5 +1,5 @@
 import { errors } from '@elastic/elasticsearch'
-import { Controller, Get, Header, Query, Res } from '@nestjs/common'
+import { Controller, Get, Header, Inject, Query, Res } from '@nestjs/common'
 import { ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 import { Bundle, BundleEntry, Group, Location, OperationOutcome, Organization } from 'fhir/r4'
@@ -10,12 +10,12 @@ import { ResearchStudyQueryModel } from './ResearchStudyQueryModel'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { BundleEntryModel } from '../../../shared/models/backbone-elements/BundleEntryModel'
 import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
-import { EsResearchStudyRepository } from '../gateways/EsResearchStudyRepository'
+import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
 
 @ApiTags('Research study')
 @Controller('R4/ResearchStudy')
 export class SearchResearchStudyController {
-  constructor(private readonly researchStudyRepository: EsResearchStudyRepository) {}
+  constructor(@Inject('ResearchStudyRepository') private readonly researchStudyRepository: ResearchStudyRepository) {}
 
   @ApiOperation({
     description: 'Seuls les paramètres ci-dessous sont disponibles pour le moment.<br>Les autres seront développés au besoin dans une démarche itérative.<br>Documentation FHIR sur <a href="https://hl7.org/fhir/R4/search.html">les filtres de recherche</a>.',

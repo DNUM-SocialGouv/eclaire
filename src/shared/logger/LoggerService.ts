@@ -1,7 +1,4 @@
 /* eslint-disable no-console */
-import { Injectable } from '@nestjs/common'
-
-@Injectable()
 export class LoggerService {
   info(message: string) {
     console.info(`[ECLAIRE] ${message}`)

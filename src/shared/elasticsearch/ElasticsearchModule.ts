@@ -1,5 +1,6 @@
 import { Client } from '@elastic/elasticsearch'
 import { Module } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 
 import { ElasticsearchConfig } from './ElasticsearchConfig'
 import { ElasticsearchService } from './ElasticsearchService'
@@ -7,15 +8,22 @@ import { ElasticsearchService } from './ElasticsearchService'
 @Module({
   exports: [ElasticsearchService],
   providers: [
-    ElasticsearchConfig,
     {
-      inject: [ElasticsearchConfig],
-      provide: Client,
-      useFactory: (elasticsearchConfig: ElasticsearchConfig): Client => {
-        return new Client(elasticsearchConfig.getClientOptions())
+      inject: [ConfigService],
+      provide: ElasticsearchConfig,
+      useFactory: (configService: ConfigService): ElasticsearchConfig => {
+        return new ElasticsearchConfig(configService)
       },
     },
-    ElasticsearchService,
+    {
+      inject: [ElasticsearchConfig],
+      provide: ElasticsearchService,
+      useFactory: (elasticsearchConfig: ElasticsearchConfig): ElasticsearchService => {
+        const client = new Client(elasticsearchConfig.getClientOptions())
+
+        return new ElasticsearchService(client)
+      },
+    },
   ],
 })
 export class ElasticsearchModule {}

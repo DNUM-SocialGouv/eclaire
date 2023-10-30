@@ -1,8 +1,6 @@
 import { ClientOptions } from '@elastic/elasticsearch'
-import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
-@Injectable()
 export class ElasticsearchConfig {
   constructor(private readonly configService: ConfigService) {}
 

@@ -1,16 +1,16 @@
 import { errors } from '@elastic/elasticsearch'
-import { Controller, Get, Header, Param, Res } from '@nestjs/common'
+import { Controller, Get, Header, Inject, Param, Res } from '@nestjs/common'
 import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 import { ResearchStudy } from 'fhir/r4'
 
 import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
-import { EsResearchStudyRepository } from '../gateways/EsResearchStudyRepository'
+import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
 
 @ApiTags('Research study')
 @Controller('R4/ResearchStudy')
 export class GetOneResearchStudyController {
-  constructor(private readonly researchStudyRepository: EsResearchStudyRepository) {}
+  constructor(@Inject('ResearchStudyRepository') private readonly researchStudyRepository: ResearchStudyRepository) {}
 
   @ApiOperation({ summary: 'Récupère un essai clinique depuis son identifiant unique.' })
   @ApiOkResponse({ description: 'Un essai clinique a été trouvé' })

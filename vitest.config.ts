@@ -10,6 +10,7 @@ export default defineConfig({
         'src/api/sentry',
         'src/api/swagger',
         'src/shared/logger',
+        'src/shared/test',
       ],
       provider: 'istanbul',
       skipFull: true,

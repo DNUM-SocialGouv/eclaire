@@ -1,15 +1,15 @@
-import { Controller, Get, Header, Param, Res } from '@nestjs/common'
+import { Controller, Get, Header, Inject, Param, Res } from '@nestjs/common'
 import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 import { Group } from 'fhir/r4'
 
 import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
-import { EsGroupRepository } from '../gateways/EsGroupRepository'
+import { GroupRepository } from '../application/contracts/GroupRepository'
 
 @ApiTags('Group')
 @Controller('R4/Group')
 export class FindGroupController {
-  constructor(private readonly groupRepository: EsGroupRepository) {}
+  constructor(@Inject('GroupRepository') private readonly groupRepository: GroupRepository) {}
 
   @ApiOperation({ summary: "Récupère les modalités d'un groupe d'inscription depuis son identifiant unique." })
   @ApiOkResponse({ description: "Un groupe d'inscription a été trouvé." })

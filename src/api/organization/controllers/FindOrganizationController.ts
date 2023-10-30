@@ -1,15 +1,15 @@
-import { Controller, Get, Header, Param, Res } from '@nestjs/common'
+import { Controller, Get, Header, Inject, Param, Res } from '@nestjs/common'
 import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 import { Organization } from 'fhir/r4'
 
 import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
-import { EsOrganizationRepository } from '../gateways/EsOrganizationRepository'
+import { OrganizationRepository } from '../application/contracts/OrganizationRepository'
 
 @ApiTags('Organization')
 @Controller('R4/Organization')
 export class FindOrganizationController {
-  constructor(private readonly organizationRepository: EsOrganizationRepository) {}
+  constructor(@Inject('OrganizationRepository') private readonly organizationRepository: OrganizationRepository) {}
 
   @ApiOperation({ summary: 'Récupère une organisation depuis son identifiant unique.' })
   @ApiOkResponse({ description: 'Une organisation a été trouvée' })

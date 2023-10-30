@@ -1,8 +1,6 @@
 import { ApiResponse, Client, RequestParams } from '@elastic/elasticsearch'
 import { RequestBody } from '@elastic/elasticsearch/lib/Transport'
-import { Injectable } from '@nestjs/common'
 
-@Injectable()
 export class ElasticsearchService {
   private readonly index = 'eclaire'
   private readonly type = '_doc'
