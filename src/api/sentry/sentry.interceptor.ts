@@ -1,15 +1,15 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor, NotFoundException } from '@nestjs/common'
 import * as Sentry from '@sentry/minimal'
-import { tap } from 'rxjs/operators'
+import { catchError, throwError } from 'rxjs'
 
 @Injectable()
 export class SentryInterceptor implements NestInterceptor {
   intercept(_: ExecutionContext, next: CallHandler) {
     return next.handle().pipe(
-      tap(null, (exception) => {
-        if (exception instanceof NotFoundException) return
+      catchError((exception) => {
+        if (exception instanceof NotFoundException) return undefined
 
-        Sentry.captureException(exception)
+        return throwError(() => Sentry.captureException(exception))
       })
     )
   }
