@@ -76,6 +76,38 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       expect(result[0].title).toBe('blah-blah-blah-traduction')
       expect(result[1].title).toBe('blah-blah-blah-traduction')
     })
+
+    it('should translate the therapeutic area', () => {
+      // given
+      const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
+      const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(researchStudy1)]
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, null)
+
+      // when
+      const translationResult: ResearchStudy[] = translationPipeline.transform(documents)
+
+      // then
+      const result = translationResult[0].extension.find((value) => {
+        return value.url.includes('eclaire-therapeutic-area')
+      })
+      expect(result.valueString).toBe('traduction du domaine thérapeutique')
+    })
+
+    it('should translate the disease condition', () => {
+      // given
+      const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
+      const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(researchStudy1)]
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, null)
+
+      // when
+      const translationResult: ResearchStudy[] = translationPipeline.transform(documents)
+
+      // then
+      const result = translationResult[0].condition.find((value) => {
+        return value.text === 'diseaseCondition'
+      })
+      expect(result.coding[0].display).toBe('traduction de la pathologie maladie rare')
+    })
   })
 
   describe('#load', () => {

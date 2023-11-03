@@ -1,4 +1,4 @@
-import { Bundle, BundleEntry, ResearchStudy } from 'fhir/r4'
+import { Bundle, BundleEntry, CodeableConcept, Extension, ResearchStudy } from 'fhir/r4'
 
 import { FhirQueryParams } from '../../api/research-study/controllers/FhirQueryParams'
 import { SearchResearchStudyController } from '../../api/research-study/controllers/SearchResearchStudyController'
@@ -27,6 +27,14 @@ export class TranslationPipeline {
   transform(researchStudies: ResearchStudy[]): ResearchStudy[] {
     researchStudies.forEach((researchStudy: ResearchStudy) => {
       researchStudy.title = 'blah-blah-blah-traduction'
+
+      researchStudy.extension.find((value: Extension) => {
+        return value.url.includes('eclaire-therapeutic-area')
+      }).valueString = 'traduction du domaine thérapeutique'
+
+      researchStudy.condition.find((value: CodeableConcept) => {
+        return value.text === 'diseaseCondition'
+      }).coding[0].display = 'traduction de la pathologie maladie rare'
     })
     return researchStudies
   }
