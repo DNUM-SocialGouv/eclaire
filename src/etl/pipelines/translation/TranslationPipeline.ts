@@ -1,8 +1,8 @@
 import { Bundle, BundleEntry, CodeableConcept, Extension, ResearchStudy } from 'fhir/r4'
 
-import { FhirQueryParams } from '../../api/research-study/controllers/FhirQueryParams'
-import { SearchResearchStudyController } from '../../api/research-study/controllers/SearchResearchStudyController'
-import { ElasticsearchService } from '../../shared/elasticsearch/ElasticsearchService'
+import { FhirQueryParams } from '../../../api/research-study/controllers/FhirQueryParams'
+import { SearchResearchStudyController } from '../../../api/research-study/controllers/SearchResearchStudyController'
+import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
 
 export class TranslationPipeline {
   constructor(

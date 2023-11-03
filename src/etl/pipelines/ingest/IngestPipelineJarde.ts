@@ -1,8 +1,8 @@
 import { IngestPipeline } from './IngestPipeline'
-import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
-import { EclaireDto } from '../dto/EclaireDto'
-import { RiphJardeDto } from '../dto/RiphJardeDto'
-import { ResearchStudyModelFactory } from '../factory/ResearchStudyModelFactory'
+import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
+import { EclaireDto } from '../../dto/EclaireDto'
+import { RiphJardeDto } from '../../dto/RiphJardeDto'
+import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFactory'
 
 export class IngestPipelineJarde extends IngestPipeline {
   readonly type = 'jarde'

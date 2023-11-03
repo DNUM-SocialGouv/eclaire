@@ -1,14 +1,14 @@
 import { ResearchStudy } from 'fhir/r4'
 
 import { TranslationPipeline } from './TranslationPipeline'
-import { SearchResearchStudyController } from '../../api/research-study/controllers/SearchResearchStudyController'
-import { EsResearchStudyRepository } from '../../api/research-study/gateways/EsResearchStudyRepository'
-import { elasticsearchIndexMapping } from '../../shared/elasticsearch/elasticsearchIndexMapping'
-import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
-import { setupDependencies } from '../../shared/test/helpers/elasticsearchHelper'
-import { RiphDtoTestFactory } from '../../shared/test/helpers/RiphDtoTestFactory'
-import { EclaireDto } from '../dto/EclaireDto'
-import { ResearchStudyModelFactory } from '../factory/ResearchStudyModelFactory'
+import { SearchResearchStudyController } from '../../../api/research-study/controllers/SearchResearchStudyController'
+import { EsResearchStudyRepository } from '../../../api/research-study/gateways/EsResearchStudyRepository'
+import { elasticsearchIndexMapping } from '../../../shared/elasticsearch/elasticsearchIndexMapping'
+import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
+import { setupDependencies } from '../../../shared/test/helpers/elasticsearchHelper'
+import { RiphDtoTestFactory } from '../../../shared/test/helpers/RiphDtoTestFactory'
+import { EclaireDto } from '../../dto/EclaireDto'
+import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFactory'
 
 describe('etl | Pipelines | TranslationPipeline', () => {
   afterEach(() => {
