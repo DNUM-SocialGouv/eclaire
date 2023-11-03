@@ -20,7 +20,7 @@ export class FhirQueryParams {
     _include: string
 
   @ApiProperty({
-    description: 'e.g. : (`eq` | `ne` | `lt` | `le` | `gt`)`2019-10-18`',
+    description: 'e.g. : (`eq` | `ne` | `lt` | `le` | `gt` | `ge`)`2019-10-18`',
     required: false,
   })
     _lastUpdated: string

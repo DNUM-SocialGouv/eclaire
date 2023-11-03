@@ -82,6 +82,7 @@ function buildLastUpdated(searchBody: ElasticsearchBodyBuilder, value: string) {
         buildRange(searchBody, 'meta.lastUpdated', date, ['gt'])
         break
 
+      case 'ge':
       default:
         buildRange(searchBody, 'meta.lastUpdated', date, ['gte'])
         break
