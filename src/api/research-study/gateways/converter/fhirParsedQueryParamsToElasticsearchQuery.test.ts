@@ -161,7 +161,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { query_string: { query: 'elastic AND (lucene OR solr)' } },
+        query: { bool: { must: [{ query_string: { query: 'elastic AND (lucene OR solr)' } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -176,7 +176,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { query_string: { query: 'elastic AND (lucene OR solr)' } },
+        query: { bool: { must: [{ query_string: { query: 'elastic AND (lucene OR solr)' } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })

@@ -25,18 +25,37 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       await translationPipeline.extract()
 
       // then
-      expect(controller.generateBundle).toHaveBeenCalledWith({ _count: '1000', _text: 'REG536' })
+      expect(controller.generateBundle).toHaveBeenCalledWith({
+        _count: '1000',
+        _lastUpdated: 'gt2000-01-01',
+        _text: 'REG536',
+      })
     })
 
     it('should get CTIS data from the repository', async () => {
       // given
-      const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
-      const researchStudy2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId2' }))
-      const researchStudy3: EclaireDto = EclaireDto.fromJarde(RiphDtoTestFactory.jarde())
+      const ctisDto1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({
+        dates_avis_favorable_ms_mns: null,
+        historique: '2023-04-06:Terminée',
+        numero_ctis: 'fakeId1',
+      }))
+      const ctisDto2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({
+        dates_avis_favorable_ms_mns: null,
+        historique: '2023-01-09:En cours',
+        numero_ctis: 'fakeId2',
+      }))
+      const ctisDtoOutdated: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({
+        dates_avis_favorable_ms_mns: null,
+        historique: '1999-04-04:Terminée',
+      }))
+
+      const jardeDto: EclaireDto = EclaireDto.fromJarde(RiphDtoTestFactory.jarde())
+
       const documents: ResearchStudyModel[] = [
-        ResearchStudyModelFactory.create(researchStudy1),
-        ResearchStudyModelFactory.create(researchStudy2),
-        ResearchStudyModelFactory.create(researchStudy3),
+        ResearchStudyModelFactory.create(ctisDto1),
+        ResearchStudyModelFactory.create(ctisDto2),
+        ResearchStudyModelFactory.create(ctisDtoOutdated),
+        ResearchStudyModelFactory.create(jardeDto),
       ]
 
       const {

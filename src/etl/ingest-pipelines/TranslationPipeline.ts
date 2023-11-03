@@ -17,7 +17,13 @@ export class TranslationPipeline {
   }
 
   async extract(): Promise<ResearchStudy[]> {
-    const query: FhirQueryParams = { _count: '1000', _text: 'REG536' } as FhirQueryParams
+    const currentDate = '2000-01-01'
+
+    const query: FhirQueryParams = {
+      _count: '1000',
+      _lastUpdated: `gt${currentDate}`,
+      _text: 'REG536',
+    } as FhirQueryParams
     const fhirResourceBundle: Bundle = await this.controller.generateBundle(query)
     return fhirResourceBundle.entry.map((fhirResource: BundleEntry) => {
       return fhirResource.resource as ResearchStudy
