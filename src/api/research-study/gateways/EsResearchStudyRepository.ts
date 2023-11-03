@@ -26,10 +26,6 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return await this.databaseService.findOneDocument(id) as ResearchStudy
   }
 
-  async update(researchStudies: ResearchStudy[]): Promise<void> {
-    await this.databaseService.bulkDocuments(researchStudies)
-  }
-
   async search(fhirParsedQueryParams: FhirParsedQueryParams[]): Promise<Bundle> {
     const elasticsearchBody: ElasticsearchBodyType = fhirParsedQueryParamsToElasticsearchQuery(
       fhirParsedQueryParams,

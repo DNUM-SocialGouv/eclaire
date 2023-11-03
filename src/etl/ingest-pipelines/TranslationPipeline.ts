@@ -2,11 +2,11 @@ import { Bundle, BundleEntry, CodeableConcept, Extension, ResearchStudy } from '
 
 import { FhirQueryParams } from '../../api/research-study/controllers/FhirQueryParams'
 import { SearchResearchStudyController } from '../../api/research-study/controllers/SearchResearchStudyController'
-import { EsResearchStudyRepository } from '../../api/research-study/gateways/EsResearchStudyRepository'
+import { ElasticsearchService } from '../../shared/elasticsearch/ElasticsearchService'
 
 export class TranslationPipeline {
   constructor(
-    private readonly repository: EsResearchStudyRepository,
+    private readonly databaseService: ElasticsearchService,
     private readonly controller: SearchResearchStudyController
   ) {}
 
@@ -17,14 +17,18 @@ export class TranslationPipeline {
   }
 
   async extract(): Promise<ResearchStudy[]> {
-    const currentDate = '2000-01-01'
+    const date: Date = new Date()
+    const yesterdayDate = date.getDate() - 1
+    date.setDate(yesterdayDate)
 
-    const query: FhirQueryParams = {
+    const formattedYesterdayDate = date.toISOString().split('T')[0]
+
+    const everyCtisResearchStudySinceYesterdayQuery: FhirQueryParams = {
       _count: '1000',
-      _lastUpdated: `gt${currentDate}`,
+      _lastUpdated: `gt${formattedYesterdayDate}`,
       _text: 'REG536',
     } as FhirQueryParams
-    const fhirResourceBundle: Bundle = await this.controller.generateBundle(query)
+    const fhirResourceBundle: Bundle = await this.controller.generateBundle(everyCtisResearchStudySinceYesterdayQuery)
     return fhirResourceBundle.entry.map((fhirResource: BundleEntry) => {
       return fhirResource.resource as ResearchStudy
     })
@@ -46,6 +50,6 @@ export class TranslationPipeline {
   }
 
   async load(researchStudies: ResearchStudy[]): Promise<void> {
-    await this.repository.update(researchStudies)
+    await this.databaseService.bulkDocuments(researchStudies)
   }
 }

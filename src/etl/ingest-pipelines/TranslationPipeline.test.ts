@@ -1,5 +1,4 @@
 import { ResearchStudy } from 'fhir/r4'
-import { expect } from 'vitest'
 
 import { TranslationPipeline } from './TranslationPipeline'
 import { SearchResearchStudyController } from '../../api/research-study/controllers/SearchResearchStudyController'
@@ -12,11 +11,18 @@ import { EclaireDto } from '../dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../factory/ResearchStudyModelFactory'
 
 describe('etl | Pipelines | TranslationPipeline', () => {
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
   describe('#extract', () => {
-    it('should call the source to get data', async () => {
+    it('should call the source to get data from yesterday', async () => {
       // given
       const { esResearchStudyRepository } = await setup()
       const controller: SearchResearchStudyController = new SearchResearchStudyController(esResearchStudyRepository)
+
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2022-10-07'))
 
       vi.spyOn(controller, 'generateBundle')
       const translationPipeline: TranslationPipeline = new TranslationPipeline(null, controller)
@@ -27,7 +33,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       // then
       expect(controller.generateBundle).toHaveBeenCalledWith({
         _count: '1000',
-        _lastUpdated: 'gt2000-01-01',
+        _lastUpdated: 'gt2022-10-06',
         _text: 'REG536',
       })
     })
@@ -66,6 +72,9 @@ describe('etl | Pipelines | TranslationPipeline', () => {
 
       const controller: SearchResearchStudyController = new SearchResearchStudyController(esResearchStudyRepository)
       const translationPipeline: TranslationPipeline = new TranslationPipeline(null, controller)
+
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2022-10-07'))
 
       // when
       const result: ResearchStudy[] = await translationPipeline.extract()
@@ -134,12 +143,9 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       // given
       const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
       const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(researchStudy1)]
-      const {
-        databaseService,
-        esResearchStudyRepository,
-      } = await setup()
+      const { databaseService } = await setup()
       vi.spyOn(databaseService, 'bulkDocuments').mockResolvedValueOnce()
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(esResearchStudyRepository, null)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService, null)
 
       // when
       await translationPipeline.load(documents)
@@ -152,14 +158,35 @@ describe('etl | Pipelines | TranslationPipeline', () => {
   describe('#execute', () => {
     it('should get data, do a translation and load the translated data into the repository', async () => {
       // given
-      const eclaireDtoCtis1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'ctis1', titre: 'english ctis title' }))
-      const eclaireDtoCtis2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'ctis2', titre: 'another english ctis title' }))
+      const eclaireDtoCtis1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({
+        dates_avis_favorable_ms_mns: null,
+        historique: '2023-04-06:Terminée',
+        numero_ctis: 'ctis1',
+        titre: 'english ctis title',
+      }))
+      const eclaireDtoCtis2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({
+        dates_avis_favorable_ms_mns: null,
+        historique: '2023-01-02:Terminée',
+        numero_ctis: 'ctis2',
+        titre: 'another english ctis title',
+      }))
 
       const jardeTitreRecherche = 'titre jarde en français'
-      const eclaireDtoJarde: EclaireDto = EclaireDto.fromJarde(RiphDtoTestFactory.jarde({ numero_national: 'jarde', titre_recherche: jardeTitreRecherche }))
+      const eclaireDtoJarde: EclaireDto = EclaireDto.fromJarde(RiphDtoTestFactory.jarde({
+        dates_avis_favorable_ms_mns: null,
+        historique: '2023-04-06:Terminée',
+        numero_national: 'jarde',
+        titre_recherche: jardeTitreRecherche,
+      }))
 
       const dmTitreRecherche = 'titre dm en français'
-      const eclaireDtoDm: EclaireDto = EclaireDto.fromDm(RiphDtoTestFactory.dm({ numero_national: 'dm', titre_recherche: dmTitreRecherche }))
+      const eclaireDtoDm: EclaireDto = EclaireDto.fromDm(RiphDtoTestFactory.dm({
+        dates_avis_favorable_ms_mns: null,
+        historique: '2023-04-06:Terminée',
+        numero_national: 'dm',
+        titre_recherche: dmTitreRecherche,
+      }))
+
       const documents: ResearchStudyModel[] = [
         ResearchStudyModelFactory.create(eclaireDtoCtis1),
         ResearchStudyModelFactory.create(eclaireDtoCtis2),
@@ -171,7 +198,10 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       await databaseService.bulkDocuments(documents)
 
       const controller: SearchResearchStudyController = new SearchResearchStudyController(esResearchStudyRepository)
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(esResearchStudyRepository, controller)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService, controller)
+
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2022-10-07'))
 
       // when
       await translationPipeline.execute()
@@ -217,9 +247,8 @@ async function setup() {
 
   vi.stubEnv('ECLAIRE_URL', 'http://localhost:3000/')
   vi.stubEnv('NUMBER_OF_RESOURCES_BY_PAGE', '2')
-  const numberOfResourcesByPage = Number(process.env['NUMBER_OF_RESOURCES_BY_PAGE'])
 
   const esResearchStudyRepository: EsResearchStudyRepository = new EsResearchStudyRepository(databaseService, configService)
 
-  return { databaseService, esResearchStudyRepository, numberOfResourcesByPage }
+  return { databaseService, esResearchStudyRepository }
 }
