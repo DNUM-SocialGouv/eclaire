@@ -1,11 +1,16 @@
 import { errors } from '@elastic/elasticsearch'
+import { ConfigService } from '@nestjs/config'
+import * as console from 'console'
 import fs from 'fs'
 
 import { IngestPipeline } from './pipelines/ingest/IngestPipeline'
 import { IngestPipelineCtis } from './pipelines/ingest/IngestPipelineCtis'
 import { IngestPipelineDmDmdiv } from './pipelines/ingest/IngestPipelineDmDmdiv'
 import { IngestPipelineJarde } from './pipelines/ingest/IngestPipelineJarde'
+import { TranslationPipeline } from './pipelines/translation/TranslationPipeline'
 import { S3Service } from './s3/S3Service'
+import { SearchResearchStudyController } from '../api/research-study/controllers/SearchResearchStudyController'
+import { EsResearchStudyRepository } from '../api/research-study/gateways/EsResearchStudyRepository'
 import { elasticsearchIndexMapping } from '../shared/elasticsearch/elasticsearchIndexMapping'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
@@ -151,5 +156,25 @@ export class EtlService {
       }
       throw error
     }
+  }
+
+  async translate(): Promise<void> {
+    this.loggerService.info('-- Début de la traduction des essais cliniques CTIS.')
+
+    try {
+      const configService: ConfigService = new ConfigService()
+      const repository: EsResearchStudyRepository = new EsResearchStudyRepository(this.databaseService, configService)
+      const controller: SearchResearchStudyController = new SearchResearchStudyController(repository)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(this.databaseService, controller)
+      await translationPipeline.execute()
+    } catch (error) {
+      if (error instanceof errors.ResponseError) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        throw new Error(error.meta.body.error.reason as string)
+      }
+      throw error
+    }
+
+    this.loggerService.info('-- Fin de la traduction des essais cliniques CTIS.')
   }
 }

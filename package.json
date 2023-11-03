@@ -23,6 +23,7 @@
     "etl:import": "ts-node src/etl/console.ts import",
     "etl:meddra-import": "ts-node src/etl/console.ts meddra-import",
     "etl:reset-index": "ts-node src/etl/console.ts reset-index",
+    "etl:translate": "ts-node src/etl/console.ts translate",
     "lint": "eslint 'src/**/*.ts' --max-warnings=0",
     "prepare": "husky install",
     "start": "node dist/src/main",
