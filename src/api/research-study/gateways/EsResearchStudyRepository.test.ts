@@ -1,7 +1,8 @@
+import { Bundle } from 'fhir/r4'
+
 import { EsResearchStudyRepository } from './EsResearchStudyRepository'
 import { EclaireDto } from '../../../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../../etl/factory/ResearchStudyModelFactory'
-import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { elasticsearchIndexMapping } from '../../../shared/elasticsearch/elasticsearchIndexMapping'
 import { ElasticsearchService, SearchResponse } from '../../../shared/elasticsearch/ElasticsearchService'
 import { setupDependencies } from '../../../shared/test/helpers/elasticsearchHelper'
@@ -36,14 +37,9 @@ describe('elasticsearch research study repository', () => {
     it('should find research studies', async () => {
       // GIVEN
       const queryParams: ResearchStudyQueryParams[] = []
-      const elasticsearchBody: ElasticsearchBodyType = {
-        from: 0,
-        query: { bool: { must: [] } },
-        size: dependencies.numberOfResourcesByPage,
-      }
 
       // WHEN
-      const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams)
+      const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
 
       // THEN
       expect(response.entry).toHaveLength(2)
@@ -55,14 +51,9 @@ describe('elasticsearch research study repository', () => {
     it('should find research studies with related ressources', async () => {
       // GIVEN
       const queryParams: ResearchStudyQueryParams[] = [{ name: '_include', value: '*' }]
-      const elasticsearchBody: ElasticsearchBodyType = {
-        from: 0,
-        query: { bool: { must: [] } },
-        size: dependencies.numberOfResourcesByPage,
-      }
 
       // WHEN
-      const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams)
+      const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
 
       // THEN
       expect(response.entry).toHaveLength(11)
@@ -74,19 +65,13 @@ describe('elasticsearch research study repository', () => {
     describe('below 10 000 results', () => {
       it('should send a URL for the self and next page for the first page', async () => {
         // GIVEN
-        const queryParams = [
+        const queryParams: ResearchStudyQueryParams[] = [
           { name: '_lastUpdated', value: 'gt2020-01-01' },
           { name: '_sort', value: 'meta.lastUpdated' },
         ]
-        const firstPage = dependencies.numberOfResourcesByPage * 0
-        const elasticsearchBody: ElasticsearchBodyType = {
-          from: firstPage,
-          query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01' } } }] } },
-          size: dependencies.numberOfResourcesByPage,
-        }
 
         // WHEN
-        const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams)
+        const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
 
         // THEN
         expect(response.link).toStrictEqual([
@@ -103,20 +88,14 @@ describe('elasticsearch research study repository', () => {
 
       it('should send a URL for the self and next page for the second page', async () => {
         // GIVEN
-        const queryParams = [
+        const queryParams: ResearchStudyQueryParams[] = [
           { name: '_lastUpdated', value: 'gt2020-01-01' },
           { name: '_sort', value: 'meta.lastUpdated' },
           { name: '_getpagesoffset', value: '2' },
         ]
-        const secondPage = dependencies.numberOfResourcesByPage
-        const elasticsearchBody: ElasticsearchBodyType = {
-          from: secondPage,
-          query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01' } } }] } },
-          size: dependencies.numberOfResourcesByPage,
-        }
 
         // WHEN
-        const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams)
+        const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
 
         // THEN
         expect(response.link).toStrictEqual([
@@ -133,20 +112,14 @@ describe('elasticsearch research study repository', () => {
 
       it('should not send a URL for the next page when it is the final page', async () => {
         // GIVEN
-        const queryParams = [
+        const queryParams: ResearchStudyQueryParams[] = [
           { name: '_lastUpdated', value: 'gt2020-01-01' },
           { name: '_sort', value: 'meta.lastUpdated' },
           { name: '_getpagesoffset', value: '4' },
         ]
-        const finalPage = dependencies.numberOfResourcesByPage * 2
-        const elasticsearchBody: ElasticsearchBodyType = {
-          from: finalPage,
-          query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2020-01-01' } } }] } },
-          size: dependencies.numberOfResourcesByPage,
-        }
 
         // WHEN
-        const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams)
+        const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
 
         // THEN
         expect(response.total).toBe(6)
@@ -160,19 +133,13 @@ describe('elasticsearch research study repository', () => {
 
       it('should not send a URL for the next page when no result', async () => {
         // GIVEN
-        const queryParams = [
+        const queryParams: ResearchStudyQueryParams[] = [
           { name: '_lastUpdated', value: 'gt3020-01-01' },
           { name: '_sort', value: 'meta.lastUpdated' },
         ]
-        const firstPage = dependencies.numberOfResourcesByPage * 0
-        const elasticsearchBody: ElasticsearchBodyType = {
-          from: firstPage,
-          query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '3020-01-01' } } }] } },
-          size: dependencies.numberOfResourcesByPage,
-        }
 
         // WHEN
-        const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams)
+        const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
 
         // THEN
         expect(response.total).toBe(0)
@@ -186,16 +153,10 @@ describe('elasticsearch research study repository', () => {
 
       it('should not send a URL for the next page when the result number is inferior to the number of resources by page', async () => {
         // GIVEN
-        const queryParams = [{ name: 'identifier', value: 'fakeId1' }]
-        const firstPage = dependencies.numberOfResourcesByPage * 0
-        const elasticsearchBody: ElasticsearchBodyType = {
-          from: firstPage,
-          query: { bool: { must: [{ match: { _id: 'fakeId1' } }] } },
-          size: dependencies.numberOfResourcesByPage,
-        }
+        const queryParams: ResearchStudyQueryParams[] = [{ name: 'identifier', value: 'fakeId1' }]
 
         // WHEN
-        const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams)
+        const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
 
         // THEN
         expect(response.total).toBe(1)
@@ -214,17 +175,11 @@ describe('elasticsearch research study repository', () => {
       describe('with a sort', () => {
         it('should send a URL for the self and next page for the first page', async () => {
           // GIVEN
-          const queryParams = [
+          const queryParams: ResearchStudyQueryParams[] = [
             { name: '_lastUpdated', value: 'gt2020-01-01' },
             { name: '_sort', value: 'meta.lastUpdated' },
           ]
-          const firstPage = dependencies.numberOfResourcesByPage * 0
-          const elasticsearchBody: ElasticsearchBodyType = {
-            from: firstPage,
-            query: { bool: { must: [] } },
-            size: dependencies.numberOfResourcesByPage,
-            sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
-          }
+
           vi.spyOn(dependencies.databaseService, 'search').mockResolvedValueOnce({
             hits: [
               {
@@ -240,7 +195,7 @@ describe('elasticsearch research study repository', () => {
           })
 
           // WHEN
-          const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams)
+          const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
 
           // THEN
           expect(response.link).toStrictEqual([
@@ -257,19 +212,12 @@ describe('elasticsearch research study repository', () => {
 
         it('should send a URL for the self and next page for the second page', async () => {
           // GIVEN
-          const queryParams = [
+          const queryParams: ResearchStudyQueryParams[] = [
             { name: '_lastUpdated', value: 'gt2020-01-01' },
             { name: '_sort', value: 'meta.lastUpdated' },
             { name: 'search_after', value: '1636107200000,2022-500014-26-00' },
           ]
-          const secondPage = dependencies.numberOfResourcesByPage
-          const elasticsearchBody: ElasticsearchBodyType = {
-            from: secondPage,
-            query: { bool: { must: [] } },
-            search_after: ['1636107200000'],
-            size: dependencies.numberOfResourcesByPage,
-            sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
-          }
+
           vi.spyOn(dependencies.databaseService, 'search').mockResolvedValueOnce({
             hits: [
               {
@@ -285,7 +233,7 @@ describe('elasticsearch research study repository', () => {
           })
 
           // WHEN
-          const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams)
+          const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
 
           // THEN
           expect(response.link).toStrictEqual([
@@ -302,20 +250,13 @@ describe('elasticsearch research study repository', () => {
 
         it('should not send a URL for the next page when no result', async () => {
           // GIVEN
-          const queryParams = [
+          const queryParams: ResearchStudyQueryParams[] = [
             { name: '_lastUpdated', value: 'gt3020-01-01' },
             { name: '_sort', value: 'meta.lastUpdated' },
           ]
-          const firstPage = dependencies.numberOfResourcesByPage * 0
-          const elasticsearchBody: ElasticsearchBodyType = {
-            from: firstPage,
-            query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '3020-01-01' } } }] } },
-            size: dependencies.numberOfResourcesByPage,
-            sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
-          }
 
           // WHEN
-          const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams)
+          const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
 
           // THEN
           expect(response.total).toBe(0)
@@ -332,12 +273,7 @@ describe('elasticsearch research study repository', () => {
         it('should send a URL for the next page', async () => {
           // GIVEN
           const queryParams: ResearchStudyQueryParams[] = []
-          const firstPage = dependencies.numberOfResourcesByPage * 0
-          const elasticsearchBody: ElasticsearchBodyType = {
-            from: firstPage,
-            query: { bool: { must: [] } },
-            size: dependencies.numberOfResourcesByPage,
-          }
+
           vi.spyOn(dependencies.databaseService, 'search').mockResolvedValueOnce({
             hits: [
               {
@@ -359,7 +295,7 @@ describe('elasticsearch research study repository', () => {
           })
 
           // WHEN
-          const response = await dependencies.esResearchStudyRepository.search(elasticsearchBody, queryParams)
+          const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
 
           // THEN
           expect(response.link).toStrictEqual([

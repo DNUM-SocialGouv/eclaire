@@ -5,16 +5,16 @@ import { Response } from 'express'
 import { Bundle, OperationOutcome } from 'fhir/r4'
 
 import { ResearchStudyQueryParams } from './converter/ResearchStudyQueryParams'
-import { researchStudyQueryParamsToElasticsearchQuery } from './converter/researchStudyQueryParamsToElasticsearchQuery'
 import { ResearchStudyQueryModel } from './ResearchStudyQueryModel'
-import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
 import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
 
 @ApiTags('Research study')
 @Controller('R4/ResearchStudy')
 export class SearchResearchStudyController {
-  constructor(@Inject('ResearchStudyRepository') private readonly researchStudyRepository: ResearchStudyRepository) {}
+  constructor(
+    @Inject('ResearchStudyRepository') private readonly researchStudyRepository: ResearchStudyRepository
+  ) {}
 
   @ApiOperation({
     description: 'Seuls les paramètres ci-dessous sont disponibles pour le moment.<br>Les autres seront développés au besoin dans une démarche itérative.<br>Documentation FHIR sur <a href="https://hl7.org/fhir/R4/search.html">les filtres de recherche</a>.',
@@ -26,14 +26,7 @@ export class SearchResearchStudyController {
   @Get()
   async execute(@Query() researchStudyQuery: ResearchStudyQueryModel, @Res() response: Response): Promise<void> {
     try {
-      const researchStudyQueryParams: ResearchStudyQueryParams[] = ResearchStudyQueryModel.transform(researchStudyQuery)
-
-      const elasticsearchBody: ElasticsearchBodyType = researchStudyQueryParamsToElasticsearchQuery(researchStudyQueryParams)
-
-      const fhirResourceBundle: Bundle = await this.researchStudyRepository.search(
-        elasticsearchBody,
-        researchStudyQueryParams
-      )
+      const fhirResourceBundle: Bundle = await this.generateBundle(researchStudyQuery)
 
       response.json(fhirResourceBundle)
     } catch (error) {
@@ -45,5 +38,10 @@ export class SearchResearchStudyController {
         throw error
       }
     }
+  }
+
+  async generateBundle(researchStudyQuery: ResearchStudyQueryModel): Promise<Bundle> {
+    const researchStudyQueryParams: ResearchStudyQueryParams[] = ResearchStudyQueryModel.transform(researchStudyQuery)
+    return await this.researchStudyRepository.search(researchStudyQueryParams)
   }
 }

@@ -7,6 +7,7 @@ import { BundleEntryModel } from '../../../shared/models/backbone-elements/Bundl
 import { BundleModel } from '../../../shared/models/resources/BundleModel'
 import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
 import { ResearchStudyQueryParams } from '../controllers/converter/ResearchStudyQueryParams'
+import { researchStudyQueryParamsToElasticsearchQuery } from '../controllers/converter/researchStudyQueryParamsToElasticsearchQuery'
 
 export class EsResearchStudyRepository implements ResearchStudyRepository {
   private readonly domainName: string
@@ -25,11 +26,13 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return await this.databaseService.findOneDocument(id) as ResearchStudy
   }
 
-  async search(
-    elasticsearchBody: ElasticsearchBodyType,
-    queryParams: ResearchStudyQueryParams[]
-  ): Promise<Bundle> {
-    const withReferenceContents: boolean = queryParams.some(
+  async search(researchStudyQueryParams: ResearchStudyQueryParams[]): Promise<Bundle> {
+    const elasticsearchBody: ElasticsearchBodyType = researchStudyQueryParamsToElasticsearchQuery(
+      researchStudyQueryParams,
+      this.numberOfResourcesByPage
+    )
+
+    const withReferenceContents: boolean = researchStudyQueryParams.some(
       (param: ResearchStudyQueryParams) => param.name === '_include' && param.value === '*'
     )
 
@@ -37,9 +40,9 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
 
     const links: BundleLink[] = []
     if (response.total === this.maxTotalConstraintFromElasticsearch && elasticsearchBody.sort !== undefined) {
-      this.buildSearchAfterLinks(links, response.hits, queryParams)
+      this.buildSearchAfterLinks(links, response.hits, researchStudyQueryParams)
     } else {
-      this.buildSearchLinks(links, elasticsearchBody.from, response.total, queryParams)
+      this.buildSearchLinks(links, elasticsearchBody.from, response.total, researchStudyQueryParams)
     }
 
     const fhirResourceBundle: Bundle = BundleModel.create(

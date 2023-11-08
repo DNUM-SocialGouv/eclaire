@@ -5,21 +5,13 @@ import { ElasticsearchBodyType } from '../../../../shared/elasticsearch/Elastics
 describe('research study query to elasticsearch query', () => {
   const numberOfResourcesByPageByDefault = 20
 
-  beforeEach(() => {
-    vi.stubEnv('NUMBER_OF_RESOURCES_BY_PAGE', String(numberOfResourcesByPageByDefault))
-  })
-
-  afterEach(() => {
-    vi.unstubAllEnvs()
-  })
-
   describe('should filter', () => {
     it('just by identifier', () => {
       // GIVEN
       const researchStudyQuery: ResearchStudyQueryParams[] = [{ name: 'identifier', value: 'mDog94gBYFmz7rt1cy93' }]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -34,7 +26,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: ResearchStudyQueryParams[] = [{ name: '_lastUpdated', value: '2023-04-12' }]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -49,7 +41,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: ResearchStudyQueryParams[] = [{ name: '_lastUpdated', value: 'eq2023-04-12' }]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -64,7 +56,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: ResearchStudyQueryParams[] = [{ name: '_lastUpdated', value: 'ne2023-04-12' }]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -79,7 +71,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: ResearchStudyQueryParams[] = [{ name: '_lastUpdated', value: 'lt2023-04-12' }]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -94,7 +86,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: ResearchStudyQueryParams[] = [{ name: '_lastUpdated', value: 'le2023-04-12' }]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -109,7 +101,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: ResearchStudyQueryParams[] = [{ name: '_lastUpdated', value: 'gt2023-04-12' }]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -124,7 +116,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: ResearchStudyQueryParams[] = [{ name: '_lastUpdated', value: 'ge2023-04-12' }]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -142,7 +134,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -164,7 +156,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: ResearchStudyQueryParams[] = [{ name: '_text', value: 'elastic AND (lucene OR solr)' }]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -179,7 +171,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: ResearchStudyQueryParams[] = [{ name: '_content', value: 'elastic AND (lucene OR solr)' }]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -194,7 +186,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: ResearchStudyQueryParams[] = [{ name: 'status', value: 'active' }]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -214,7 +206,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -233,7 +225,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -252,7 +244,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -277,7 +269,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -298,7 +290,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -319,7 +311,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -338,7 +330,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+      const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -362,7 +354,7 @@ describe('research study query to elasticsearch query', () => {
     ]
 
     // WHEN
-    const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery)
+    const query = researchStudyQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
     // THEN
     expect(query).toStrictEqual<ElasticsearchBodyType>({
