@@ -1,7 +1,7 @@
 import { ElasticsearchBodyBuilder, ElasticsearchBodyType, Operator } from '../../../../shared/elasticsearch/ElasticsearchBody'
 import { FhirParsedQueryParams } from '../../controllers/FhirQueryParams'
 
-export function fhirParsedQueryParamsToElasticsearchQuery(
+export function convertFhirParsedQueryParamsToElasticsearchQuery(
   fhirParsedQueryParams: FhirParsedQueryParams[],
   numberOfResourcesByPage: number
 ): ElasticsearchBodyType {

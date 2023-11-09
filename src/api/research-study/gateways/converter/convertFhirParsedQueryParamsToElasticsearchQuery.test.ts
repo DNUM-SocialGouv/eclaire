@@ -1,4 +1,4 @@
-import { fhirParsedQueryParamsToElasticsearchQuery } from './fhirParsedQueryParamsToElasticsearchQuery'
+import { convertFhirParsedQueryParamsToElasticsearchQuery } from './convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../../shared/elasticsearch/ElasticsearchBody'
 import { FhirParsedQueryParams } from '../../controllers/FhirQueryParams'
 
@@ -11,7 +11,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: FhirParsedQueryParams[] = [{ name: 'identifier', value: 'mDog94gBYFmz7rt1cy93' }]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -26,7 +26,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: FhirParsedQueryParams[] = [{ name: '_lastUpdated', value: '2023-04-12' }]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -41,7 +41,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: FhirParsedQueryParams[] = [{ name: '_lastUpdated', value: 'eq2023-04-12' }]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -56,7 +56,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: FhirParsedQueryParams[] = [{ name: '_lastUpdated', value: 'ne2023-04-12' }]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -71,7 +71,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: FhirParsedQueryParams[] = [{ name: '_lastUpdated', value: 'lt2023-04-12' }]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -86,7 +86,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: FhirParsedQueryParams[] = [{ name: '_lastUpdated', value: 'le2023-04-12' }]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -101,7 +101,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: FhirParsedQueryParams[] = [{ name: '_lastUpdated', value: 'gt2023-04-12' }]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -116,7 +116,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: FhirParsedQueryParams[] = [{ name: '_lastUpdated', value: 'ge2023-04-12' }]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -134,7 +134,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -156,7 +156,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: FhirParsedQueryParams[] = [{ name: '_text', value: 'elastic AND (lucene OR solr)' }]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -171,7 +171,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: FhirParsedQueryParams[] = [{ name: '_content', value: 'elastic AND (lucene OR solr)' }]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -186,7 +186,7 @@ describe('research study query to elasticsearch query', () => {
       const researchStudyQuery: FhirParsedQueryParams[] = [{ name: 'status', value: 'active' }]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -206,7 +206,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -225,7 +225,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -244,7 +244,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -269,7 +269,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -290,7 +290,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -311,7 +311,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -330,7 +330,7 @@ describe('research study query to elasticsearch query', () => {
       ]
 
       // WHEN
-      const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+      const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
@@ -354,7 +354,7 @@ describe('research study query to elasticsearch query', () => {
     ]
 
     // WHEN
-    const query = fhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
+    const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
 
     // THEN
     expect(query).toStrictEqual<ElasticsearchBodyType>({
