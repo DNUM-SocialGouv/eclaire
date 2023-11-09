@@ -1,7 +1,6 @@
 import { ResearchStudy } from 'fhir/r4'
 
 import { TranslationPipeline } from './TranslationPipeline'
-import { SearchResearchStudyController } from '../../../api/research-study/controllers/SearchResearchStudyController'
 import { EsResearchStudyRepository } from '../../../api/research-study/gateways/EsResearchStudyRepository'
 import { elasticsearchIndexMapping } from '../../../shared/elasticsearch/elasticsearchIndexMapping'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
@@ -18,24 +17,31 @@ describe('etl | Pipelines | TranslationPipeline', () => {
   describe('#extract', () => {
     it('should call the source to get data from yesterday', async () => {
       // given
-      const { esResearchStudyRepository } = await setup()
-      const controller: SearchResearchStudyController = new SearchResearchStudyController(esResearchStudyRepository)
+      const { databaseService } = await setup()
 
       vi.useFakeTimers()
       vi.setSystemTime(new Date('2022-10-07'))
 
-      vi.spyOn(controller, 'generateBundle')
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, controller)
+      vi.spyOn(databaseService, 'search')
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService)
 
       // when
       await translationPipeline.extract()
 
       // then
-      expect(controller.generateBundle).toHaveBeenCalledWith({
-        _count: '1000',
-        _lastUpdated: 'gt2022-10-06',
-        _text: 'REG536',
-      })
+      expect(databaseService.search).toHaveBeenCalledWith({
+        from: 0,
+        query:  {
+          bool:  {
+            must:  [
+              { range:  { 'meta.lastUpdated':  { gt: '2022-10-06' } } },
+              { query_string:  { query: 'REG536' } },
+            ],
+          },
+        },
+        size: 1000,
+      },
+      true)
     })
 
     it('should get CTIS data from the repository', async () => {
@@ -64,14 +70,10 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         ResearchStudyModelFactory.create(jardeDto),
       ]
 
-      const {
-        databaseService,
-        esResearchStudyRepository,
-      } = await setup()
+      const { databaseService } = await setup()
       await databaseService.bulkDocuments(documents)
 
-      const controller: SearchResearchStudyController = new SearchResearchStudyController(esResearchStudyRepository)
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, controller)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService)
 
       vi.useFakeTimers()
       vi.setSystemTime(new Date('2022-10-07'))
@@ -95,7 +97,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         ResearchStudyModelFactory.create(researchStudy1),
         ResearchStudyModelFactory.create(researchStudy2),
       ]
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, null)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null)
 
       // when
       const result: ResearchStudy[] = translationPipeline.transform(documents)
@@ -109,7 +111,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       // given
       const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
       const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(researchStudy1)]
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, null)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null)
 
       // when
       const translationResult: ResearchStudy[] = translationPipeline.transform(documents)
@@ -125,7 +127,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       // given
       const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
       const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(researchStudy1)]
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, null)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null)
 
       // when
       const translationResult: ResearchStudy[] = translationPipeline.transform(documents)
@@ -145,7 +147,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(researchStudy1)]
       const { databaseService } = await setup()
       vi.spyOn(databaseService, 'bulkDocuments').mockResolvedValueOnce()
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService, null)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService)
 
       // when
       await translationPipeline.load(documents)
@@ -197,8 +199,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const { esResearchStudyRepository, databaseService } = await setup()
       await databaseService.bulkDocuments(documents)
 
-      const controller: SearchResearchStudyController = new SearchResearchStudyController(esResearchStudyRepository)
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService, controller)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService)
 
       vi.useFakeTimers()
       vi.setSystemTime(new Date('2022-10-07'))

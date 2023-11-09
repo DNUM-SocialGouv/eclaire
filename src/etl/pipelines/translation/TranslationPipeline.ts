@@ -1,13 +1,13 @@
-import { Bundle, BundleEntry, CodeableConcept, Extension, ResearchStudy } from 'fhir/r4'
+import { CodeableConcept, Extension, ResearchStudy } from 'fhir/r4'
 
-import { FhirQueryParams } from '../../../api/research-study/controllers/FhirQueryParams'
-import { SearchResearchStudyController } from '../../../api/research-study/controllers/SearchResearchStudyController'
-import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
+import { FhirParsedQueryParams } from '../../../api/research-study/controllers/FhirQueryParams'
+import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../../../api/research-study/gateways/converter/convertFhirParsedQueryParamsToElasticsearchQuery'
+import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
+import { ElasticsearchService, SearchResponse, SearchResponseHits } from '../../../shared/elasticsearch/ElasticsearchService'
 
 export class TranslationPipeline {
   constructor(
-    private readonly databaseService: ElasticsearchService,
-    private readonly controller: SearchResearchStudyController
+    private readonly databaseService: ElasticsearchService
   ) {}
 
   async execute(): Promise<void> {
@@ -17,21 +17,14 @@ export class TranslationPipeline {
   }
 
   async extract(): Promise<ResearchStudy[]> {
-    const date: Date = new Date()
-    const yesterdayDate = date.getDate() - 1
-    date.setDate(yesterdayDate)
+    const requestBodyToFindEveryCtisStudiesSinceYesterday: ElasticsearchBodyType = this.buildBodyToFindEveryCtisStudiesSinceYesterday()
 
-    const formattedYesterdayDate = date.toISOString().split('T')[0]
+    const response: SearchResponse = await this.databaseService.search(
+      requestBodyToFindEveryCtisStudiesSinceYesterday,
+      true
+    )
 
-    const everyCtisResearchStudySinceYesterdayQuery: FhirQueryParams = {
-      _count: '1000',
-      _lastUpdated: `gt${formattedYesterdayDate}`,
-      _text: 'REG536',
-    } as FhirQueryParams
-    const fhirResourceBundle: Bundle = await this.controller.generateBundle(everyCtisResearchStudySinceYesterdayQuery)
-    return fhirResourceBundle.entry.map((fhirResource: BundleEntry) => {
-      return fhirResource.resource as ResearchStudy
-    })
+    return response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudy))
   }
 
   transform(researchStudies: ResearchStudy[]): ResearchStudy[] {
@@ -51,5 +44,24 @@ export class TranslationPipeline {
 
   async load(researchStudies: ResearchStudy[]): Promise<void> {
     await this.databaseService.bulkDocuments(researchStudies)
+  }
+
+  private buildBodyToFindEveryCtisStudiesSinceYesterday(): ElasticsearchBodyType {
+    const formattedYesterdayDate = this.getFormattedYesterdayDate()
+
+    const everyCtisStudiesSinceYesterdayQueryParams: FhirParsedQueryParams[] = [
+      { name: '_count', value: '1000' },
+      { name: '_lastUpdated', value: `gt${formattedYesterdayDate}` },
+      { name: '_text', value: 'REG536' },
+    ]
+
+    return convertFhirParsedQueryParamsToElasticsearchQuery(everyCtisStudiesSinceYesterdayQueryParams)
+  }
+
+  private getFormattedYesterdayDate(): string {
+    const date: Date = new Date()
+    const yesterdayDate = date.getDate() - 1
+    date.setDate(yesterdayDate)
+    return date.toISOString().split('T')[0]
   }
 }

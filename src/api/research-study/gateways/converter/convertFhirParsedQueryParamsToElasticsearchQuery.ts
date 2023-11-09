@@ -3,7 +3,7 @@ import { FhirParsedQueryParams } from '../../controllers/FhirQueryParams'
 
 export function convertFhirParsedQueryParamsToElasticsearchQuery(
   fhirParsedQueryParams: FhirParsedQueryParams[],
-  numberOfResourcesByPage: number
+  numberOfResourcesByPage?: number
 ): ElasticsearchBodyType {
   const searchBody: ElasticsearchBodyBuilder = new ElasticsearchBodyBuilder()
     .withFrom(0)

@@ -1,7 +1,7 @@
 import { ConfigService } from '@nestjs/config'
 import { Bundle, BundleEntry, BundleLink, Group, Location, Organization, ResearchStudy } from 'fhir/r4'
 
-import { fhirParsedQueryParamsToElasticsearchQuery } from './converter/fhirParsedQueryParamsToElasticsearchQuery'
+import { convertFhirParsedQueryParamsToElasticsearchQuery } from './converter/convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse } from '../../../shared/elasticsearch/ElasticsearchService'
 import { BundleEntryModel } from '../../../shared/models/backbone-elements/BundleEntryModel'
@@ -27,7 +27,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
   }
 
   async search(fhirParsedQueryParams: FhirParsedQueryParams[]): Promise<Bundle> {
-    const elasticsearchBody: ElasticsearchBodyType = fhirParsedQueryParamsToElasticsearchQuery(
+    const elasticsearchBody: ElasticsearchBodyType = convertFhirParsedQueryParamsToElasticsearchQuery(
       fhirParsedQueryParams,
       this.numberOfResourcesByPage
     )
