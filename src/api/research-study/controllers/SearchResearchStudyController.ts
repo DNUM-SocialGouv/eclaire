@@ -40,7 +40,7 @@ export class SearchResearchStudyController {
   }
 
   async generateBundle(fhirQueryParams: FhirQueryParams): Promise<Bundle> {
-    const fhirParsedQueryParams: FhirParsedQueryParams[] = FhirQueryParams.transform(fhirQueryParams)
+    const fhirParsedQueryParams: FhirParsedQueryParams[] = FhirQueryParams.parse(fhirQueryParams)
     return await this.researchStudyRepository.search(fhirParsedQueryParams)
   }
 }

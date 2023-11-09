@@ -52,7 +52,7 @@ export class FhirQueryParams {
   _getpagesoffset: string
   search_after: string
 
-  static transform(query: FhirQueryParams): FhirParsedQueryParams[] {
+  static parse(query: FhirQueryParams): FhirParsedQueryParams[] {
     return Object
       .entries(query)
       .map((key: [string, string]): FhirParsedQueryParams => {
