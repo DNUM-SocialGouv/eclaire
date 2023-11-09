@@ -29,15 +29,23 @@ export class TranslationPipeline {
 
   transform(researchStudies: ResearchStudy[]): ResearchStudy[] {
     researchStudies.forEach((researchStudy: ResearchStudy) => {
-      researchStudy.title = 'blah-blah-blah-traduction'
+      if (researchStudy.title) {
+        researchStudy.title = 'blah-blah-blah-traduction'
+      }
 
-      researchStudy.extension.find((value: Extension) => {
-        return value.url.includes('eclaire-therapeutic-area')
-      }).valueString = 'traduction du domaine thérapeutique'
+      if (researchStudy.extension) {
+        const extension: Extension = researchStudy.extension.find((value: Extension) => value.url.includes('eclaire-therapeutic-area'))
+        if (extension) {
+          extension.valueString = 'traduction du domaine thérapeutique'
+        }
+      }
 
-      researchStudy.condition.find((value: CodeableConcept) => {
-        return value.text === 'diseaseCondition'
-      }).coding[0].display = 'traduction de la pathologie maladie rare'
+      if (researchStudy.condition) {
+        const codeableConcept: CodeableConcept = researchStudy.condition.find((value: CodeableConcept) => value.text === 'diseaseCondition')
+        if (codeableConcept) {
+          codeableConcept.coding[0].display = 'traduction de la pathologie maladie rare'
+        }
+      }
     })
     return researchStudies
   }

@@ -1,4 +1,4 @@
-import { ResearchStudy } from 'fhir/r4'
+import { CodeableConcept, Extension, ResearchStudy } from 'fhir/r4'
 
 import { TranslationPipeline } from './TranslationPipeline'
 import { EsResearchStudyRepository } from '../../../api/research-study/gateways/EsResearchStudyRepository'
@@ -91,11 +91,11 @@ describe('etl | Pipelines | TranslationPipeline', () => {
   describe('#transform', () => {
     it('should translate the title', () => {
       // given
-      const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
-      const researchStudy2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId2' }))
+      const eclaireDto1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
+      const eclaireDto2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId2' }))
       const documents: ResearchStudyModel[] = [
-        ResearchStudyModelFactory.create(researchStudy1),
-        ResearchStudyModelFactory.create(researchStudy2),
+        ResearchStudyModelFactory.create(eclaireDto1),
+        ResearchStudyModelFactory.create(eclaireDto2),
       ]
       const translationPipeline: TranslationPipeline = new TranslationPipeline(null)
 
@@ -105,6 +105,19 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       // then
       expect(result[0].title).toBe('blah-blah-blah-traduction')
       expect(result[1].title).toBe('blah-blah-blah-traduction')
+    })
+
+    it('should not translate the title when there is no title', () => {
+      // given
+      const eclaireDto: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: null }))
+      const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(eclaireDto)]
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null)
+
+      // when
+      const result: ResearchStudy[] = translationPipeline.transform(documents)
+
+      // then
+      expect(result[0].title).toBeUndefined()
     })
 
     it('should translate the therapeutic area', () => {
@@ -117,10 +130,21 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const translationResult: ResearchStudy[] = translationPipeline.transform(documents)
 
       // then
-      const result = translationResult[0].extension.find((value) => {
-        return value.url.includes('eclaire-therapeutic-area')
-      })
+      const result: Extension = translationResult[0].extension.find((value) => value.url.includes('eclaire-therapeutic-area'))
       expect(result.valueString).toBe('traduction du domaine thérapeutique')
+    })
+
+    it('should not translate the therapeutic area when there is no therapeutic area', () => {
+      // given
+      const eclaireDto: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ domaine_therapeutique: null }))
+      const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(eclaireDto)]
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null)
+
+      // when
+      const translationResult: ResearchStudy[] = translationPipeline.transform(documents)
+      // then
+      const result: Extension = translationResult[0].extension.find((value) => value.url.includes('eclaire-therapeutic-area'))
+      expect(result).toBeUndefined()
     })
 
     it('should translate the disease condition', () => {
@@ -133,10 +157,21 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const translationResult: ResearchStudy[] = translationPipeline.transform(documents)
 
       // then
-      const result = translationResult[0].condition.find((value) => {
-        return value.text === 'diseaseCondition'
-      })
+      const result: CodeableConcept = translationResult[0].condition.find((value) => value.text === 'diseaseCondition')
       expect(result.coding[0].display).toBe('traduction de la pathologie maladie rare')
+    })
+
+    it('should not translate the disease condition when there is no disease condition', () => {
+      // given
+      const eclaireDto: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ pathologies_maladies_rares: null }))
+      const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(eclaireDto)]
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null)
+
+      // when
+      const translationResult: ResearchStudy[] = translationPipeline.transform(documents)
+      // then
+      const result: CodeableConcept = translationResult[0].condition.find((value) => value.text === 'diseaseCondition')
+      expect(result).toBeUndefined()
     })
   })
 
