@@ -99,7 +99,7 @@ export class ElasticsearchService {
   }
 
   async search(requestBody: RequestBody, withReferenceContents?: boolean): Promise<SearchResponse> {
-    const response = await this.client.search({
+    const response: ApiResponse = await this.client.search({
       _source_excludes: withReferenceContents ? undefined : ['referenceContents'],
       body: requestBody,
       index: this.index,
