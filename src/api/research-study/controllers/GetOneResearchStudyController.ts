@@ -5,7 +5,7 @@ import { Response } from 'express'
 import { ResearchStudy } from 'fhir/r4'
 
 import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
-import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
+import { ResearchStudyRepository } from '../application/ResearchStudyRepository'
 
 @ApiTags('Research study')
 @Controller('R4/ResearchStudy')

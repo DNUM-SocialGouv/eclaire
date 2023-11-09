@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
-import { ResearchStudyRepository } from './application/contracts/ResearchStudyRepository'
+import { ResearchStudyRepository } from './application/ResearchStudyRepository'
 import { GetOneResearchStudyController } from './controllers/GetOneResearchStudyController'
 import { SearchResearchStudyController } from './controllers/SearchResearchStudyController'
 import { EsResearchStudyRepository } from './gateways/EsResearchStudyRepository'

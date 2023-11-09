@@ -1,8 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import { ResearchStudyQueryParams } from './converter/ResearchStudyQueryParams'
-
-export class ResearchStudyQueryModel {
+export class FhirQueryParams {
   @ApiProperty({
     description: 'e.g. CTIS : `2022-500014-26-00` | DM : `2021-A01861-40` | JARDE : `2021-000304-38`',
     required: false,
@@ -54,11 +52,16 @@ export class ResearchStudyQueryModel {
   _getpagesoffset: string
   search_after: string
 
-  static transform(researchStudyQuery: ResearchStudyQueryModel): ResearchStudyQueryParams[] {
+  static transform(query: FhirQueryParams): FhirParsedQueryParams[] {
     return Object
-      .entries(researchStudyQuery)
-      .map((key: [string, string]): ResearchStudyQueryParams => {
+      .entries(query)
+      .map((key: [string, string]): FhirParsedQueryParams => {
         return { name: key[0], value: key[1] }
       })
   }
 }
+
+export type FhirParsedQueryParams = Readonly<{
+  name: string
+  value: string
+}>

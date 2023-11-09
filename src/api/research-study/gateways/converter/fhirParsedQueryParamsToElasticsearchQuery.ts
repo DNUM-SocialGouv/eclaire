@@ -1,15 +1,15 @@
-import { ResearchStudyQueryParams } from './ResearchStudyQueryParams'
 import { ElasticsearchBodyBuilder, ElasticsearchBodyType, Operator } from '../../../../shared/elasticsearch/ElasticsearchBody'
+import { FhirParsedQueryParams } from '../../controllers/FhirQueryParams'
 
-export function researchStudyQueryParamsToElasticsearchQuery(
-  researchStudyQueryParams: ResearchStudyQueryParams[],
+export function fhirParsedQueryParamsToElasticsearchQuery(
+  fhirParsedQueryParams: FhirParsedQueryParams[],
   numberOfResourcesByPage: number
 ): ElasticsearchBodyType {
   const searchBody: ElasticsearchBodyBuilder = new ElasticsearchBodyBuilder()
     .withFrom(0)
     .withSize(numberOfResourcesByPage)
 
-  for (const { name, value } of researchStudyQueryParams) {
+  for (const { name, value } of fhirParsedQueryParams) {
     if (value === '') break
 
     switch (name) {

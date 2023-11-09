@@ -7,7 +7,7 @@ import { elasticsearchIndexMapping } from '../../../shared/elasticsearch/elastic
 import { ElasticsearchService, SearchResponse } from '../../../shared/elasticsearch/ElasticsearchService'
 import { setupDependencies } from '../../../shared/test/helpers/elasticsearchHelper'
 import { RiphDtoTestFactory } from '../../../shared/test/helpers/RiphDtoTestFactory'
-import { ResearchStudyQueryParams } from '../controllers/converter/ResearchStudyQueryParams'
+import { FhirParsedQueryParams } from '../controllers/FhirQueryParams'
 
 describe('elasticsearch research study repository', () => {
   let dependencies: {
@@ -36,7 +36,7 @@ describe('elasticsearch research study repository', () => {
   describe('search research studies', () => {
     it('should find research studies', async () => {
       // GIVEN
-      const queryParams: ResearchStudyQueryParams[] = []
+      const queryParams: FhirParsedQueryParams[] = []
 
       // WHEN
       const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
@@ -50,7 +50,7 @@ describe('elasticsearch research study repository', () => {
 
     it('should find research studies with related ressources', async () => {
       // GIVEN
-      const queryParams: ResearchStudyQueryParams[] = [{ name: '_include', value: '*' }]
+      const queryParams: FhirParsedQueryParams[] = [{ name: '_include', value: '*' }]
 
       // WHEN
       const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
@@ -65,7 +65,7 @@ describe('elasticsearch research study repository', () => {
     describe('below 10 000 results', () => {
       it('should send a URL for the self and next page for the first page', async () => {
         // GIVEN
-        const queryParams: ResearchStudyQueryParams[] = [
+        const queryParams: FhirParsedQueryParams[] = [
           { name: '_lastUpdated', value: 'gt2020-01-01' },
           { name: '_sort', value: 'meta.lastUpdated' },
         ]
@@ -88,7 +88,7 @@ describe('elasticsearch research study repository', () => {
 
       it('should send a URL for the self and next page for the second page', async () => {
         // GIVEN
-        const queryParams: ResearchStudyQueryParams[] = [
+        const queryParams: FhirParsedQueryParams[] = [
           { name: '_lastUpdated', value: 'gt2020-01-01' },
           { name: '_sort', value: 'meta.lastUpdated' },
           { name: '_getpagesoffset', value: '2' },
@@ -112,7 +112,7 @@ describe('elasticsearch research study repository', () => {
 
       it('should not send a URL for the next page when it is the final page', async () => {
         // GIVEN
-        const queryParams: ResearchStudyQueryParams[] = [
+        const queryParams: FhirParsedQueryParams[] = [
           { name: '_lastUpdated', value: 'gt2020-01-01' },
           { name: '_sort', value: 'meta.lastUpdated' },
           { name: '_getpagesoffset', value: '4' },
@@ -133,7 +133,7 @@ describe('elasticsearch research study repository', () => {
 
       it('should not send a URL for the next page when no result', async () => {
         // GIVEN
-        const queryParams: ResearchStudyQueryParams[] = [
+        const queryParams: FhirParsedQueryParams[] = [
           { name: '_lastUpdated', value: 'gt3020-01-01' },
           { name: '_sort', value: 'meta.lastUpdated' },
         ]
@@ -153,7 +153,7 @@ describe('elasticsearch research study repository', () => {
 
       it('should not send a URL for the next page when the result number is inferior to the number of resources by page', async () => {
         // GIVEN
-        const queryParams: ResearchStudyQueryParams[] = [{ name: 'identifier', value: 'fakeId1' }]
+        const queryParams: FhirParsedQueryParams[] = [{ name: 'identifier', value: 'fakeId1' }]
 
         // WHEN
         const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
@@ -175,7 +175,7 @@ describe('elasticsearch research study repository', () => {
       describe('with a sort', () => {
         it('should send a URL for the self and next page for the first page', async () => {
           // GIVEN
-          const queryParams: ResearchStudyQueryParams[] = [
+          const queryParams: FhirParsedQueryParams[] = [
             { name: '_lastUpdated', value: 'gt2020-01-01' },
             { name: '_sort', value: 'meta.lastUpdated' },
           ]
@@ -212,7 +212,7 @@ describe('elasticsearch research study repository', () => {
 
         it('should send a URL for the self and next page for the second page', async () => {
           // GIVEN
-          const queryParams: ResearchStudyQueryParams[] = [
+          const queryParams: FhirParsedQueryParams[] = [
             { name: '_lastUpdated', value: 'gt2020-01-01' },
             { name: '_sort', value: 'meta.lastUpdated' },
             { name: 'search_after', value: '1636107200000,2022-500014-26-00' },
@@ -250,7 +250,7 @@ describe('elasticsearch research study repository', () => {
 
         it('should not send a URL for the next page when no result', async () => {
           // GIVEN
-          const queryParams: ResearchStudyQueryParams[] = [
+          const queryParams: FhirParsedQueryParams[] = [
             { name: '_lastUpdated', value: 'gt3020-01-01' },
             { name: '_sort', value: 'meta.lastUpdated' },
           ]
@@ -272,7 +272,7 @@ describe('elasticsearch research study repository', () => {
       describe('without a sort', () => {
         it('should send a URL for the next page', async () => {
           // GIVEN
-          const queryParams: ResearchStudyQueryParams[] = []
+          const queryParams: FhirParsedQueryParams[] = []
 
           vi.spyOn(dependencies.databaseService, 'search').mockResolvedValueOnce({
             hits: [

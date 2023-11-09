@@ -1,13 +1,13 @@
 import { ConfigService } from '@nestjs/config'
 import { Bundle, BundleEntry, BundleLink, Group, Location, Organization, ResearchStudy } from 'fhir/r4'
 
+import { fhirParsedQueryParamsToElasticsearchQuery } from './converter/fhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse } from '../../../shared/elasticsearch/ElasticsearchService'
 import { BundleEntryModel } from '../../../shared/models/backbone-elements/BundleEntryModel'
 import { BundleModel } from '../../../shared/models/resources/BundleModel'
-import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
-import { ResearchStudyQueryParams } from '../controllers/converter/ResearchStudyQueryParams'
-import { researchStudyQueryParamsToElasticsearchQuery } from '../controllers/converter/researchStudyQueryParamsToElasticsearchQuery'
+import { ResearchStudyRepository } from '../application/ResearchStudyRepository'
+import { FhirParsedQueryParams } from '../controllers/FhirQueryParams'
 
 export class EsResearchStudyRepository implements ResearchStudyRepository {
   private readonly domainName: string
@@ -26,23 +26,23 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return await this.databaseService.findOneDocument(id) as ResearchStudy
   }
 
-  async search(researchStudyQueryParams: ResearchStudyQueryParams[]): Promise<Bundle> {
-    const elasticsearchBody: ElasticsearchBodyType = researchStudyQueryParamsToElasticsearchQuery(
-      researchStudyQueryParams,
+  async search(fhirParsedQueryParams: FhirParsedQueryParams[]): Promise<Bundle> {
+    const elasticsearchBody: ElasticsearchBodyType = fhirParsedQueryParamsToElasticsearchQuery(
+      fhirParsedQueryParams,
       this.numberOfResourcesByPage
     )
 
-    const withReferenceContents: boolean = researchStudyQueryParams.some(
-      (param: ResearchStudyQueryParams) => param.name === '_include' && param.value === '*'
+    const withReferenceContents: boolean = fhirParsedQueryParams.some(
+      (param: FhirParsedQueryParams) => param.name === '_include' && param.value === '*'
     )
 
     const response: SearchResponse = await this.databaseService.search(elasticsearchBody, withReferenceContents)
 
     const links: BundleLink[] = []
     if (response.total === this.maxTotalConstraintFromElasticsearch && elasticsearchBody.sort !== undefined) {
-      this.buildSearchAfterLinks(links, response.hits, researchStudyQueryParams)
+      this.buildSearchAfterLinks(links, response.hits, fhirParsedQueryParams)
     } else {
-      this.buildSearchLinks(links, elasticsearchBody.from, response.total, researchStudyQueryParams)
+      this.buildSearchLinks(links, elasticsearchBody.from, response.total, fhirParsedQueryParams)
     }
 
     const fhirResourceBundle: Bundle = BundleModel.create(
@@ -60,11 +60,11 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return fhirResourceBundle
   }
 
-  private buildSearchLinks(links: BundleLink[], offset: number, total: number, queryParams: ResearchStudyQueryParams[]) {
+  private buildSearchLinks(links: BundleLink[], offset: number, total: number, queryParams: FhirParsedQueryParams[]) {
     const hasMoreResult = total > offset * this.numberOfResourcesByPage
     const hasMoreResultsThanResourcesPerPage = total > this.numberOfResourcesByPage
 
-    const removePagesOffsetParam = (queryParam: ResearchStudyQueryParams): boolean => queryParam.name !== '_getpagesoffset'
+    const removePagesOffsetParam = (queryParam: FhirParsedQueryParams): boolean => queryParam.name !== '_getpagesoffset'
     const nextUrl = this.buildUrl([
       ...queryParams.filter(removePagesOffsetParam),
       { name: '_getpagesoffset', value: `${offset + this.numberOfResourcesByPage}` },
@@ -80,13 +80,13 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     }
   }
 
-  private buildSearchAfterLinks(links: BundleLink[], hits: SearchResponse['hits'], queryParams: ResearchStudyQueryParams[]) {
+  private buildSearchAfterLinks(links: BundleLink[], hits: SearchResponse['hits'], queryParams: FhirParsedQueryParams[]) {
     const nextSorts = hits.map((hit): number | string => hit.sort[0]).reverse()
     const nextIds = hits.map((hit): string => hit._source.id).reverse()
 
     this.buildSelfLink(links, queryParams)
 
-    const removeSearchAfterParam = (queryParam: ResearchStudyQueryParams): boolean => queryParam.name !== 'search_after'
+    const removeSearchAfterParam = (queryParam: FhirParsedQueryParams): boolean => queryParam.name !== 'search_after'
     const nextUrl = this.buildUrl([
       ...queryParams.filter(removeSearchAfterParam),
       { name: 'search_after', value: `${nextSorts[0]},${nextIds[0]}` },
@@ -98,7 +98,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     })
   }
 
-  private buildSelfLink(links: BundleLink[], queryParams: ResearchStudyQueryParams[]) {
+  private buildSelfLink(links: BundleLink[], queryParams: FhirParsedQueryParams[]) {
     links.push(
       {
         relation: 'self',
@@ -107,7 +107,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     )
   }
 
-  private buildUrl(queryParams: ResearchStudyQueryParams[]): string {
+  private buildUrl(queryParams: FhirParsedQueryParams[]): string {
     const url: URL = new URL(this.domainName)
     url.pathname = 'R4/ResearchStudy'
 

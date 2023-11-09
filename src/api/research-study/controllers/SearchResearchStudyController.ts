@@ -4,10 +4,9 @@ import { ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagg
 import { Response } from 'express'
 import { Bundle, OperationOutcome } from 'fhir/r4'
 
-import { ResearchStudyQueryParams } from './converter/ResearchStudyQueryParams'
-import { ResearchStudyQueryModel } from './ResearchStudyQueryModel'
+import { FhirParsedQueryParams, FhirQueryParams } from './FhirQueryParams'
 import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
-import { ResearchStudyRepository } from '../application/contracts/ResearchStudyRepository'
+import { ResearchStudyRepository } from '../application/ResearchStudyRepository'
 
 @ApiTags('Research study')
 @Controller('R4/ResearchStudy')
@@ -24,9 +23,9 @@ export class SearchResearchStudyController {
   @ApiProduces('application/fhir+json')
   @Header('content-type', 'application/fhir+json')
   @Get()
-  async execute(@Query() researchStudyQuery: ResearchStudyQueryModel, @Res() response: Response): Promise<void> {
+  async execute(@Query() fhirQueryParams: FhirQueryParams, @Res() response: Response): Promise<void> {
     try {
-      const fhirResourceBundle: Bundle = await this.generateBundle(researchStudyQuery)
+      const fhirResourceBundle: Bundle = await this.generateBundle(fhirQueryParams)
 
       response.json(fhirResourceBundle)
     } catch (error) {
@@ -40,8 +39,8 @@ export class SearchResearchStudyController {
     }
   }
 
-  async generateBundle(researchStudyQuery: ResearchStudyQueryModel): Promise<Bundle> {
-    const researchStudyQueryParams: ResearchStudyQueryParams[] = ResearchStudyQueryModel.transform(researchStudyQuery)
-    return await this.researchStudyRepository.search(researchStudyQueryParams)
+  async generateBundle(fhirQueryParams: FhirQueryParams): Promise<Bundle> {
+    const fhirParsedQueryParams: FhirParsedQueryParams[] = FhirQueryParams.transform(fhirQueryParams)
+    return await this.researchStudyRepository.search(fhirParsedQueryParams)
   }
 }
