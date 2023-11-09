@@ -132,9 +132,9 @@ export class ResearchStudyModelFactory {
       enrollmentGroup,
       siteLocations,
       organizations,
-      eclaireDto.pathologies_maladies_rares,
-      eclaireDto.domaine_therapeutique,
-      eclaireDto.titre
+      ModelUtils.isNotNull(eclaireDto.pathologies_maladies_rares) ? eclaireDto.pathologies_maladies_rares : undefined,
+      ModelUtils.isNotNull(eclaireDto.domaine_therapeutique) ? eclaireDto.domaine_therapeutique : undefined,
+      ModelUtils.isNotNull(eclaireDto.titre) ? eclaireDto.titre : undefined
     )
 
     return new ResearchStudyModel(

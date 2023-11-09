@@ -2922,9 +2922,9 @@ describe('research study model factory', () => {
             },
           ],
           "originalLanguageContent": OriginalLanguageContentModel {
-            "diseaseCondition": null,
-            "therapeuticArea": null,
-            "title": null,
+            "diseaseCondition": undefined,
+            "therapeuticArea": undefined,
+            "title": undefined,
           },
         },
         "resourceType": "ResearchStudy",
