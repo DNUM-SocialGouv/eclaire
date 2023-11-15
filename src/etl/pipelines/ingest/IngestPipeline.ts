@@ -1,10 +1,10 @@
-import { ElasticsearchService } from '../../shared/elasticsearch/ElasticsearchService'
-import { LoggerService } from '../../shared/logger/LoggerService'
-import { ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
-import { RiphCtisDto } from '../dto/RiphCtisDto'
-import { RiphDmDto } from '../dto/RiphDmDto'
-import { RiphJardeDto } from '../dto/RiphJardeDto'
-import { S3Service } from '../s3/S3Service'
+import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
+import { LoggerService } from '../../../shared/logger/LoggerService'
+import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
+import { RiphCtisDto } from '../../dto/RiphCtisDto'
+import { RiphDmDto } from '../../dto/RiphDmDto'
+import { RiphJardeDto } from '../../dto/RiphJardeDto'
+import { S3Service } from '../../s3/S3Service'
 
 export abstract class IngestPipeline {
   protected abstract readonly type: string

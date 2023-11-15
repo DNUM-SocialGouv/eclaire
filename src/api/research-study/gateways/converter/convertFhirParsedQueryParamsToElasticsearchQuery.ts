@@ -1,9 +1,9 @@
 import { ElasticsearchBodyBuilder, ElasticsearchBodyType, Operator } from '../../../../shared/elasticsearch/ElasticsearchBody'
 import { FhirParsedQueryParams } from '../../controllers/FhirQueryParams'
 
-export function fhirParsedQueryParamsToElasticsearchQuery(
+export function convertFhirParsedQueryParamsToElasticsearchQuery(
   fhirParsedQueryParams: FhirParsedQueryParams[],
-  numberOfResourcesByPage: number
+  numberOfResourcesByPage?: number
 ): ElasticsearchBodyType {
   const searchBody: ElasticsearchBodyBuilder = new ElasticsearchBodyBuilder()
     .withFrom(0)
@@ -82,6 +82,7 @@ function buildLastUpdated(searchBody: ElasticsearchBodyBuilder, value: string) {
         buildRange(searchBody, 'meta.lastUpdated', date, ['gt'])
         break
 
+      case 'ge':
       default:
         buildRange(searchBody, 'meta.lastUpdated', date, ['gte'])
         break

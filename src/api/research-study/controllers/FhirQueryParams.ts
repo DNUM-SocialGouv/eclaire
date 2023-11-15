@@ -20,7 +20,7 @@ export class FhirQueryParams {
     _include: string
 
   @ApiProperty({
-    description: 'e.g. : (`eq` | `ne` | `lt` | `le` | `gt`)`2019-10-18`',
+    description: 'e.g. : (`eq` | `ne` | `lt` | `le` | `gt` | `ge`)`2019-10-18`',
     required: false,
   })
     _lastUpdated: string
@@ -52,7 +52,7 @@ export class FhirQueryParams {
   _getpagesoffset: string
   search_after: string
 
-  static transform(query: FhirQueryParams): FhirParsedQueryParams[] {
+  static parse(query: FhirQueryParams): FhirParsedQueryParams[] {
     return Object
       .entries(query)
       .map((key: [string, string]): FhirParsedQueryParams => {

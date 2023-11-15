@@ -9,10 +9,10 @@ export type ElasticsearchBodyType = {
         range?: {
           [key: string]: { gte?: string, gt?: string, lte?: string, lt?: string }
         }
+        query_string?: {
+          query: string,
+        }
       }>
-    }
-    query_string?: {
-      query: string,
     }
   }
   size: number
@@ -61,7 +61,7 @@ export class ElasticsearchBodyBuilder {
   }
 
   withText(value: string): this {
-    this.searchBody.query = { query_string: { query: value } }
+    this.searchBody.query.bool.must.push({ query_string: { query: value } })
     return this
   }
 

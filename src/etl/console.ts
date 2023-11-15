@@ -31,6 +31,9 @@ async function console(): Promise<void> {
     case 'delete-pipelines':
       await etlService.deletePipelines()
       break
+    case 'translate':
+      await etlService.translate()
+      break
     default:
       process.exit(1)
   }

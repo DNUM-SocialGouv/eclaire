@@ -75,6 +75,18 @@ yarn depcheck
 yarn bash:production
 ```
 
+## Import MedDra
+- Supprimer l'index meddra sur Elasticsearch s'il existe déjà
+- Récupérer le fichier llt.asc qui est au format `Windows-1252` 
+- Ouvrir le fichier avec un éditeur de code pour le sauvegarder avec l'encodage `UTF-8` et ainsi lire les caractères spéciaux correctement
+- Renommer le fichier en `meddra-utf8.asc`
+- Placer ce fichier à la racine du projet
+- Exécuter la ligne bash suivante
+
+```bash
+yarn etl:meddra-import
+```
+
 ## Architectural Decision Records (ADR)
 
 ### Open source (30/03/23)
