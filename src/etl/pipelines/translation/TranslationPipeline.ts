@@ -30,13 +30,13 @@ export class TranslationPipeline {
   }
 
   async transform(researchStudies: ResearchStudy[]): Promise<ResearchStudy[]> {
-    const textsToTranslate: TextsToTranslate = {
-      diseaseCondition: '',
-      therapeuticArea: '',
-      title: '',
-    }
-
     for (const researchStudy of researchStudies) {
+      const textsToTranslate: TextsToTranslate = {
+        diseaseCondition: '',
+        therapeuticArea: '',
+        title: '',
+      }
+
       let extension: Extension
       let codeableConcept: CodeableConcept
 

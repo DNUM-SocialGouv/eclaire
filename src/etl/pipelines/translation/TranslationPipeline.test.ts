@@ -91,7 +91,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
   })
 
   describe('#transform', () => {
-    it('should translate the title', async () => {
+    it('should translate the title for two documents', async () => {
       // given
       const eclaireDto1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
       const eclaireDto2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId2' }))
@@ -113,6 +113,38 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       // then
       expect(result[0].title).toBe('Titre 1 traduit en français')
       expect(result[1].title).toBe('Titre 2 traduit en français')
+    })
+
+    it('should not translate the title for a second document when that same document does not have a title', async () => {
+      // given
+      const eclaireDto1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: 'blah-blah-titre' }))
+      const eclaireDto2: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({
+        domaine_therapeutique: 'blah',
+        pathologies_maladies_rares: 'blah-blah',
+        titre: null,
+      }))
+
+      const documents: ResearchStudyModel[] = [
+        ResearchStudyModelFactory.create(eclaireDto1),
+        ResearchStudyModelFactory.create(eclaireDto2),
+      ]
+
+      const translationService: DeeplService = setupTranslationService()
+      vi.spyOn(translationService, 'execute')
+        .mockResolvedValueOnce({ diseaseCondition: '', therapeuticArea: '', title: 'Titre 1 traduit en français' })
+        .mockResolvedValueOnce({ diseaseCondition: '', therapeuticArea: '', title: '' })
+
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, translationService)
+
+      // when
+      await translationPipeline.transform(documents)
+
+      // then
+      expect(translationService.execute).toHaveBeenNthCalledWith(2, {
+        diseaseCondition: 'blah-blah',
+        therapeuticArea: 'blah',
+        title: '',
+      })
     })
 
     it('should not translate the title when there is no title', async () => {
