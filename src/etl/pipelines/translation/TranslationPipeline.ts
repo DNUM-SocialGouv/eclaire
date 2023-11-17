@@ -31,38 +31,15 @@ export class TranslationPipeline {
 
   async transform(researchStudies: ResearchStudy[]): Promise<ResearchStudy[]> {
     for (const researchStudy of researchStudies) {
-      const textsToTranslate: TextsToTranslate = {
-        diseaseCondition: '',
-        therapeuticArea: '',
-        title: '',
-      }
-
-      let extension: Extension
-      let codeableConcept: CodeableConcept
-
-      if (researchStudy.title) {
-        textsToTranslate.title = researchStudy.title
-      }
-
-      if (researchStudy.extension) {
-        extension = researchStudy.extension.find((value: Extension) => value.url.includes('eclaire-therapeutic-area'))
-        if (extension) {
-          textsToTranslate.therapeuticArea = extension.valueString
-        }
-      }
-
-      if (researchStudy.condition) {
-        codeableConcept = researchStudy.condition.find((value: CodeableConcept) => value.text === 'diseaseCondition')
-        if (codeableConcept) {
-          textsToTranslate.diseaseCondition = codeableConcept.coding[0].display
-        }
-      }
+      const {
+        textsToTranslate,
+        extensionReference,
+        codeableConceptReference,
+      } = this.extractTextsToTranslateAndReferencesToUpdate(researchStudy)
 
       const translatedTexts: TranslatedTexts = await this.translationService.execute(textsToTranslate)
 
-      if (researchStudy.title) researchStudy.title = translatedTexts.title
-      if (extension) extension.valueString = translatedTexts.therapeuticArea
-      if (codeableConcept) codeableConcept.coding[0].display = translatedTexts.diseaseCondition
+      this.addTranslationsToReferences(researchStudy, translatedTexts, extensionReference, codeableConceptReference)
     }
     return researchStudies
   }
@@ -88,5 +65,58 @@ export class TranslationPipeline {
     const yesterdayDate = date.getDate() - 1
     date.setDate(yesterdayDate)
     return date.toISOString().split('T')[0]
+  }
+
+  private extractTextsToTranslateAndReferencesToUpdate(researchStudy: ResearchStudy) {
+    const textsToTranslate: TextsToTranslate = {
+      diseaseCondition: '',
+      therapeuticArea: '',
+      title: '',
+    }
+
+    let extensionReference: Extension
+    let codeableConceptReference: CodeableConcept
+
+    if (researchStudy.title) {
+      textsToTranslate.title = researchStudy.title
+    }
+
+    if (researchStudy.extension) {
+      extensionReference = researchStudy.extension.find((value: Extension) => value.url.includes('eclaire-therapeutic-area'))
+      if (extensionReference) {
+        textsToTranslate.therapeuticArea = extensionReference.valueString
+      }
+    }
+
+    if (researchStudy.condition) {
+      codeableConceptReference = researchStudy.condition.find((value: CodeableConcept) => value.text === 'diseaseCondition')
+      if (codeableConceptReference) {
+        textsToTranslate.diseaseCondition = codeableConceptReference.coding[0].display
+      }
+    }
+    return {
+      codeableConceptReference,
+      extensionReference,
+      textsToTranslate,
+    }
+  }
+
+  private addTranslationsToReferences(
+    researchStudy: ResearchStudy,
+    translatedTexts: TranslatedTexts,
+    extension: Extension,
+    codeableConcept: CodeableConcept
+  ) {
+    if (researchStudy.title) {
+      researchStudy.title = translatedTexts.title
+    }
+
+    if (extension) {
+      extension.valueString = translatedTexts.therapeuticArea
+    }
+
+    if (codeableConcept) {
+      codeableConcept.coding[0].display = translatedTexts.diseaseCondition
+    }
   }
 }
