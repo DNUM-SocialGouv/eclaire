@@ -5,6 +5,8 @@ import fs from 'fs'
 import { EtlService } from './EtlService'
 import { setupDependencies } from '../shared/test/helpers/elasticsearchHelper'
 import { RiphDtoTestFactory } from '../shared/test/helpers/RiphDtoTestFactory'
+import { setupTranslationService } from '../shared/test/helpers/translationHelper'
+import { DeeplService } from '../shared/translation/DeeplService'
 
 describe('extract transform load service', () => {
   describe('when index is created', () => {
@@ -285,9 +287,10 @@ async function setup() {
   await databaseService.deleteMedDraIndex()
   await databaseService.deleteAnIndex()
 
-  const etlService = new EtlService(logger, databaseService, readerService)
+  const translationService: DeeplService = setupTranslationService()
+  const etlService = new EtlService(logger, databaseService, readerService, translationService)
 
   const medDraFile = '10000001$Pneumopathie due à la ventilation$10081988$$$$$$$N$$\n10000002$Déficience en 11-bêta-hydroxylase$10000002$$$$$$$Y$$'
 
-  return { client, databaseService, etlService, medDraFile, readerService }
+  return { client, databaseService, etlService, medDraFile, readerService, translationService }
 }

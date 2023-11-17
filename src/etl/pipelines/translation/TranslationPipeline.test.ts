@@ -1,4 +1,3 @@
-import { Translator } from 'deepl-node'
 import { CodeableConcept, Extension, ResearchStudy } from 'fhir/r4'
 
 import { TranslationPipeline } from './TranslationPipeline'
@@ -7,6 +6,7 @@ import { elasticsearchIndexMapping } from '../../../shared/elasticsearch/elastic
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
 import { setupDependencies } from '../../../shared/test/helpers/elasticsearchHelper'
 import { RiphDtoTestFactory } from '../../../shared/test/helpers/RiphDtoTestFactory'
+import { setupTranslationService } from '../../../shared/test/helpers/translationHelper'
 import { DeeplService } from '../../../shared/translation/DeeplService'
 import { EclaireDto } from '../../dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFactory'
@@ -100,8 +100,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         ResearchStudyModelFactory.create(eclaireDto2),
       ]
 
-      const translator: Translator = new Translator('fake-auth-key')
-      const translationService: DeeplService = new DeeplService(translator)
+      const translationService: DeeplService = setupTranslationService()
       vi.spyOn(translationService, 'execute')
         .mockResolvedValueOnce({ diseaseCondition: '', therapeuticArea: '', title: 'Titre 1 traduit en français' })
         .mockResolvedValueOnce({ diseaseCondition: '', therapeuticArea: '', title: 'Titre 2 traduit en français' })
@@ -121,8 +120,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const eclaireDto: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ titre: null }))
       const documents: ResearchStudy[] = [ResearchStudyModelFactory.create(eclaireDto)]
 
-      const translator: Translator = new Translator('fake-auth-key')
-      const translationService: DeeplService = new DeeplService(translator)
+      const translationService: DeeplService = setupTranslationService()
       vi.spyOn(translationService, 'execute')
         .mockResolvedValueOnce({ diseaseCondition: '', therapeuticArea: '', title: '' })
         .mockResolvedValueOnce({ diseaseCondition: '', therapeuticArea: '', title: '' })
@@ -141,8 +139,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
       const documents: ResearchStudy[] = [ResearchStudyModelFactory.create(researchStudy1)]
 
-      const translator: Translator = new Translator('fake-auth-key')
-      const translationService: DeeplService = new DeeplService(translator)
+      const translationService: DeeplService = setupTranslationService()
       vi.spyOn(translationService, 'execute')
         .mockResolvedValueOnce({ diseaseCondition: '', therapeuticArea: 'traduction du domaine thérapeutique', title: '' })
 
@@ -161,8 +158,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const eclaireDto: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ domaine_therapeutique: null }))
       const documents: ResearchStudy[] = [ResearchStudyModelFactory.create(eclaireDto)]
 
-      const translator: Translator = new Translator('fake-auth-key')
-      const translationService: DeeplService = new DeeplService(translator)
+      const translationService: DeeplService = setupTranslationService()
       vi.spyOn(translationService, 'execute')
         .mockResolvedValueOnce({ diseaseCondition: '', therapeuticArea: '', title: '' })
 
@@ -180,8 +176,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const researchStudy1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ numero_ctis: 'fakeId1' }))
       const documents: ResearchStudy[] = [ResearchStudyModelFactory.create(researchStudy1)]
 
-      const translator: Translator = new Translator('fake-auth-key')
-      const translationService: DeeplService = new DeeplService(translator)
+      const translationService: DeeplService = setupTranslationService()
       vi.spyOn(translationService, 'execute')
         .mockResolvedValueOnce({ diseaseCondition: 'traduction de la pathologie maladie rare', therapeuticArea: '', title: '' })
 
@@ -200,8 +195,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const eclaireDto: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({ pathologies_maladies_rares: null }))
       const documents: ResearchStudy[] = [ResearchStudyModelFactory.create(eclaireDto)]
 
-      const translator: Translator = new Translator('fake-auth-key')
-      const translationService: DeeplService = new DeeplService(translator)
+      const translationService: DeeplService = setupTranslationService()
       vi.spyOn(translationService, 'execute')
         .mockResolvedValueOnce({ diseaseCondition: '', therapeuticArea: '', title: '' })
 
@@ -274,8 +268,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const { esResearchStudyRepository, databaseService } = await setup()
       await databaseService.bulkDocuments(documents)
 
-      const translator: Translator = new Translator('fake-auth-key')
-      const translationService: DeeplService = new DeeplService(translator)
+      const translationService: DeeplService = setupTranslationService()
       vi.spyOn(translationService, 'execute')
         .mockResolvedValueOnce({ diseaseCondition: '', therapeuticArea: '', title: 'Traduction titre 1' })
         .mockResolvedValueOnce({ diseaseCondition: '', therapeuticArea: '', title: 'Traduction titre 2' })
