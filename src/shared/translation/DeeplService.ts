@@ -3,13 +3,34 @@ import { SourceLanguageCode, TargetLanguageCode, TextResult, TranslateTextOption
 export class DeeplService {
   constructor(private readonly translator: Translator) {}
 
-  async translate(texts: string[]): Promise<string[]> {
+  async execute(texts: TextsToTranslate): Promise<TranslatedTexts> {
     const sourceLang: SourceLanguageCode = null
     const targetLang: TargetLanguageCode = 'fr'
     const options: TranslateTextOptions = { formality: 'prefer_more' }
 
-    const results: TextResult[] = await this.translator.translateText(texts, sourceLang, targetLang, options)
+    const results: TextResult[] = await this.translator.translateText(
+      [
+        texts.diseaseCondition,
+        texts.therapeuticArea,
+        texts.title,
+      ],
+      sourceLang,
+      targetLang,
+      options
+    )
 
-    return results.map((result: TextResult) => result.text)
+    return {
+      diseaseCondition: results[0].text,
+      therapeuticArea: results[1].text,
+      title: results[2].text,
+    }
   }
 }
+
+export type TextsToTranslate = {
+  diseaseCondition: string,
+  therapeuticArea: string,
+  title: string,
+}
+
+export type TranslatedTexts = TextsToTranslate

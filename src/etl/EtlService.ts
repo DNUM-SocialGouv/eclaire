@@ -11,12 +11,14 @@ import { S3Service } from './s3/S3Service'
 import { elasticsearchIndexMapping } from '../shared/elasticsearch/elasticsearchIndexMapping'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
+import { DeeplService } from '../shared/translation/DeeplService'
 
 export class EtlService {
   constructor(
     private readonly loggerService: LoggerService,
     private readonly databaseService: ElasticsearchService,
-    private readonly readerService: S3Service
+    private readonly readerService: S3Service,
+    private readonly translationService: DeeplService
   ) {}
 
   async createIndex(): Promise<void> {
@@ -159,7 +161,7 @@ export class EtlService {
     this.loggerService.info('-- Début de la traduction des essais cliniques CTIS.')
 
     try {
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(this.databaseService)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(this.databaseService, this.translationService)
       await translationPipeline.execute()
     } catch (error) {
       if (error instanceof errors.ResponseError) {

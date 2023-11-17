@@ -1,6 +1,6 @@
 import { TextResult, Translator } from 'deepl-node'
 
-import { DeeplService } from './DeeplService'
+import { DeeplService, TextsToTranslate, TranslatedTexts } from './DeeplService'
 
 describe('deepl service', () => {
   it('should read the Deepl API', async () => {
@@ -9,20 +9,33 @@ describe('deepl service', () => {
     const deeplService: DeeplService = new DeeplService(translator)
 
     vi.spyOn(translator, 'translateText').mockResolvedValueOnce([
-      { detectedSourceLang: 'en', text: 'Bonjour le monde !' },
+      { detectedSourceLang: 'en', text: 'Je vais bien' },
       { detectedSourceLang: 'en', text: 'Comment allez vous ?' },
+      { detectedSourceLang: 'en', text: 'Bonjour le monde !' },
     ] as TextResult[])
 
     // WHEN
-    const result: string[] = await deeplService.translate(['Hello, world!', 'How are you?'])
+    const result: TextsToTranslate = await deeplService.execute({
+      diseaseCondition: 'I am fine',
+      therapeuticArea: 'How are you?',
+      title: 'Hello, world!',
+    })
 
     // THEN
     expect(translator.translateText).toHaveBeenCalledWith(
-      ['Hello, world!', 'How are you?'],
+      [
+        'I am fine',
+        'How are you?',
+        'Hello, world!',
+      ],
       null,
       'fr',
       { formality: 'prefer_more' }
     )
-    expect(result).toStrictEqual(['Bonjour le monde !', 'Comment allez vous ?'])
+    expect(result).toStrictEqual({
+      diseaseCondition: 'Je vais bien',
+      therapeuticArea: 'Comment allez vous ?',
+      title: 'Bonjour le monde !',
+    } as TranslatedTexts)
   })
 })

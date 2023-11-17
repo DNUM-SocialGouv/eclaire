@@ -4,15 +4,17 @@ import { FhirParsedQueryParams } from '../../../api/research-study/controllers/F
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../../../api/research-study/gateways/converter/convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse, SearchResponseHits } from '../../../shared/elasticsearch/ElasticsearchService'
+import { DeeplService, TextsToTranslate, TranslatedTexts } from '../../../shared/translation/DeeplService'
 
 export class TranslationPipeline {
   constructor(
-    private readonly databaseService: ElasticsearchService
+    private readonly databaseService: ElasticsearchService,
+    private readonly translationService: DeeplService
   ) {}
 
   async execute(): Promise<void> {
     const data: ResearchStudy[] = await this.extract()
-    const transformedResearchStudies: ResearchStudy[] = this.transform(data)
+    const transformedResearchStudies: ResearchStudy[] = await this.transform(data)
     await this.load(transformedResearchStudies)
   }
 
@@ -27,26 +29,41 @@ export class TranslationPipeline {
     return response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudy))
   }
 
-  transform(researchStudies: ResearchStudy[]): ResearchStudy[] {
-    researchStudies.forEach((researchStudy: ResearchStudy) => {
+  async transform(researchStudies: ResearchStudy[]): Promise<ResearchStudy[]> {
+    const textsToTranslate: TextsToTranslate = {
+      diseaseCondition: '',
+      therapeuticArea: '',
+      title: '',
+    }
+
+    for (const researchStudy of researchStudies) {
+      let extension: Extension
+      let codeableConcept: CodeableConcept
+
       if (researchStudy.title) {
-        researchStudy.title = 'blah-blah-blah-traduction'
+        textsToTranslate.title = researchStudy.title
       }
 
       if (researchStudy.extension) {
-        const extension: Extension = researchStudy.extension.find((value: Extension) => value.url.includes('eclaire-therapeutic-area'))
+        extension = researchStudy.extension.find((value: Extension) => value.url.includes('eclaire-therapeutic-area'))
         if (extension) {
-          extension.valueString = 'traduction du domaine thérapeutique'
+          textsToTranslate.therapeuticArea = extension.valueString
         }
       }
 
       if (researchStudy.condition) {
-        const codeableConcept: CodeableConcept = researchStudy.condition.find((value: CodeableConcept) => value.text === 'diseaseCondition')
+        codeableConcept = researchStudy.condition.find((value: CodeableConcept) => value.text === 'diseaseCondition')
         if (codeableConcept) {
-          codeableConcept.coding[0].display = 'traduction de la pathologie maladie rare'
+          textsToTranslate.diseaseCondition = codeableConcept.coding[0].display
         }
       }
-    })
+
+      const translatedTexts: TranslatedTexts = await this.translationService.execute(textsToTranslate)
+
+      if (researchStudy.title) researchStudy.title = translatedTexts.title
+      if (extension) extension.valueString = translatedTexts.therapeuticArea
+      if (codeableConcept) codeableConcept.coding[0].display = translatedTexts.diseaseCondition
+    }
     return researchStudies
   }
 
