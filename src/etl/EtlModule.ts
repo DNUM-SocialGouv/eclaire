@@ -7,20 +7,20 @@ import { ElasticsearchModule } from '../shared/elasticsearch/ElasticsearchModule
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerModule } from '../shared/logger/LoggerModule'
 import { LoggerService } from '../shared/logger/LoggerService'
-import { DeeplModule } from '../shared/translation/DeeplModule'
-import { DeeplService } from '../shared/translation/DeeplService'
+import { TranslationModule } from '../shared/translation/TranslationModule'
+import { TranslationService } from '../shared/translation/TranslationService'
 
 @Module({
-  imports: [LoggerModule, ElasticsearchModule, S3Module, DeeplModule],
+  imports: [LoggerModule, ElasticsearchModule, S3Module, TranslationModule],
   providers: [
     {
-      inject: [LoggerService, ElasticsearchService, S3Service, DeeplService],
+      inject: [LoggerService, ElasticsearchService, S3Service, TranslationService],
       provide: EtlService,
       useFactory: (
         loggerService: LoggerService,
         databaseService: ElasticsearchService,
         readerService: S3Service,
-        translationService: DeeplService
+        translationService: TranslationService
       ): EtlService => {
         return new EtlService(loggerService, databaseService, readerService, translationService)
       },

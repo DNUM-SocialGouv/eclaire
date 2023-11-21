@@ -6,7 +6,7 @@ import { EtlService } from './EtlService'
 import { setupDependencies } from '../shared/test/helpers/elasticsearchHelper'
 import { RiphDtoTestFactory } from '../shared/test/helpers/RiphDtoTestFactory'
 import { setupTranslationService } from '../shared/test/helpers/translationHelper'
-import { DeeplService } from '../shared/translation/DeeplService'
+import { TranslationService } from '../shared/translation/TranslationService'
 
 describe('extract transform load service', () => {
   describe('when index is created', () => {
@@ -274,7 +274,7 @@ describe('extract transform load service', () => {
     })
   })
 
-  describe.only('when translate is performed', () => {
+  describe('when translate is performed', () => {
     it('should not translate when the translation pipeline has failed with ResponseError', async () => {
       // GIVEN
       const { client, etlService } = await setup()
@@ -315,7 +315,7 @@ async function setup() {
   await databaseService.deleteMedDraIndex()
   await databaseService.deleteAnIndex()
 
-  const translationService: DeeplService = setupTranslationService()
+  const translationService: TranslationService = setupTranslationService()
   const etlService = new EtlService(logger, databaseService, readerService, translationService)
 
   const medDraFile = '10000001$Pneumopathie due à la ventilation$10081988$$$$$$$N$$\n10000002$Déficience en 11-bêta-hydroxylase$10000002$$$$$$$Y$$'
