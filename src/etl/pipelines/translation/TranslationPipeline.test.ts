@@ -33,11 +33,36 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       // then
       expect(databaseService.search).toHaveBeenCalledWith({
         from: 0,
-        query:  {
-          bool:  {
-            must:  [
-              { range:  { 'meta.lastUpdated':  { gte: '2022-10-06' } } },
-              { query_string:  { query: 'REG536' } },
+        query: {
+          bool: {
+            must: [
+              { range: { 'meta.lastUpdated': { gte: '2022-10-06' } } },
+              { query_string: { query: 'REG536' } },
+            ],
+          },
+        },
+        size: 1000,
+      },
+      true)
+    })
+
+    it('should call the source to get data from a date', async () => {
+      // given
+      const { databaseService } = await setup()
+      vi.spyOn(databaseService, 'search')
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService, null)
+
+      // when
+      await translationPipeline.extract('2020-10-06')
+
+      // then
+      expect(databaseService.search).toHaveBeenCalledWith({
+        from: 0,
+        query: {
+          bool: {
+            must: [
+              { range: { 'meta.lastUpdated': { gte: '2020-10-06' } } },
+              { query_string: { query: 'REG536' } },
             ],
           },
         },

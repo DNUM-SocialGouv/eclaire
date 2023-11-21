@@ -12,8 +12,8 @@ export class TranslationPipeline {
     private readonly translationService: TranslationService
   ) {}
 
-  async execute(): Promise<void> {
-    const data: ResearchStudy[] = await this.extract()
+  async execute(date?: string): Promise<void> {
+    const data: ResearchStudy[] = await this.extract(date)
 
     if (data.length > 0) {
       const transformedResearchStudies: ResearchStudy[] = await this.transform(data)
@@ -21,11 +21,17 @@ export class TranslationPipeline {
     }
   }
 
-  async extract(): Promise<ResearchStudy[]> {
-    const requestBodyToFindEveryCtisStudiesSinceYesterday: ElasticsearchBodyType = this.buildBodyToFindEveryCtisStudiesSinceYesterday()
+  async extract(date?: string): Promise<ResearchStudy[]> {
+    let requestBodyToFindEveryCtisStudiesSinceASpecificDate: ElasticsearchBodyType
+
+    if (date) {
+      requestBodyToFindEveryCtisStudiesSinceASpecificDate = this.buildBodyToFindEveryCtisStudiesSinceAGivenDate(date)
+    } else {
+      requestBodyToFindEveryCtisStudiesSinceASpecificDate = this.buildBodyToFindEveryCtisStudiesSinceYesterday()
+    }
 
     const response: SearchResponse = await this.databaseService.search(
-      requestBodyToFindEveryCtisStudiesSinceYesterday,
+      requestBodyToFindEveryCtisStudiesSinceASpecificDate,
       true
     )
 
@@ -51,23 +57,23 @@ export class TranslationPipeline {
     await this.databaseService.bulkDocuments(researchStudies)
   }
 
-  private buildBodyToFindEveryCtisStudiesSinceYesterday(): ElasticsearchBodyType {
-    const formattedYesterdayDate = this.getFormattedYesterdayDate()
-
+  private buildBodyToFindEveryCtisStudiesSinceAGivenDate(date: string): ElasticsearchBodyType {
     const everyCtisStudiesSinceYesterdayQueryParams: FhirParsedQueryParams[] = [
       { name: '_count', value: '1000' },
-      { name: '_lastUpdated', value: `ge${formattedYesterdayDate}` },
+      { name: '_lastUpdated', value: `ge${date}` },
       { name: '_text', value: 'REG536' },
     ]
 
     return convertFhirParsedQueryParamsToElasticsearchQuery(everyCtisStudiesSinceYesterdayQueryParams)
   }
 
-  private getFormattedYesterdayDate(): string {
+  private buildBodyToFindEveryCtisStudiesSinceYesterday(): ElasticsearchBodyType {
     const date: Date = new Date()
     const yesterdayDate = date.getDate() - 1
     date.setDate(yesterdayDate)
-    return date.toISOString().split('T')[0]
+    const formattedYesterdayDate = date.toISOString().split('T')[0]
+
+    return this.buildBodyToFindEveryCtisStudiesSinceAGivenDate(formattedYesterdayDate)
   }
 
   private extractTextsToTranslateAndReferencesToUpdate(researchStudy: ResearchStudy) {

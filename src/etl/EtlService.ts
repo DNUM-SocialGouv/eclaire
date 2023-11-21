@@ -157,12 +157,12 @@ export class EtlService {
     }
   }
 
-  async translate(): Promise<void> {
+  async translate(date?: string): Promise<void> {
     this.loggerService.info('-- Début de la traduction des essais cliniques CTIS.')
 
     try {
       const translationPipeline: TranslationPipeline = new TranslationPipeline(this.databaseService, this.translationService)
-      await translationPipeline.execute()
+      await translationPipeline.execute(date)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
