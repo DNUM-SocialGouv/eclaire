@@ -21,7 +21,10 @@ export class GetOneResearchStudyController {
   async execute(@Param('id') id: string, @Res() response: Response): Promise<void> {
     try {
       const document: ResearchStudy = await this.researchStudyRepository.findOne(id)
-      response.json(document)
+      response.json({
+        resourceType: document.resourceType,
+        ...document,
+      })
     } catch (error) {
       if (error instanceof errors.ResponseError && error.meta.statusCode === 404) {
         const operationOutcome = OperationOutcomeModel.create(error.message)
