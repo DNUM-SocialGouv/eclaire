@@ -1,7 +1,7 @@
-import { DeeplService } from '../../translation/DeeplService'
+import { TranslationService } from '../../translation/TranslationService'
 import { DeeplTranslator } from 'src/shared/translation/DeeplTranslator'
 
-export function setupTranslationService(): DeeplService {
+export function setupTranslationService(): TranslationService {
   const translator: DeeplTranslator = new DeeplTranslator('fake-auth-key')
-  return new DeeplService(translator)
+  return new TranslationService(translator)
 }

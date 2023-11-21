@@ -1,7 +1,7 @@
-import { DeeplTranslator, TranslationResponse } from './DeeplTranslator'
+import { TranslationResponse, Translator } from './Translator'
 
-export class DeeplService {
-  constructor(private readonly translator: DeeplTranslator) {}
+export class TranslationService {
+  constructor(private readonly translator: Translator) {}
 
   async execute(texts: TextsToTranslate): Promise<TranslatedTexts> {
     const results: TranslationResponse[] = await this.translator.translateText(

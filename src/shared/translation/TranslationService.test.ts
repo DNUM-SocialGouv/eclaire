@@ -1,11 +1,12 @@
-import { DeeplService, TextsToTranslate, TranslatedTexts } from './DeeplService'
-import { DeeplTranslator, TranslationResponse } from './DeeplTranslator'
+import { DeeplTranslator } from './DeeplTranslator'
+import { TranslationService, TextsToTranslate, TranslatedTexts } from './TranslationService'
+import { TranslationResponse } from './Translator'
 
-describe('deepl service', () => {
+describe('translation service', () => {
   it('should read the Deepl API', async () => {
     // GIVEN
     const translator: DeeplTranslator = new DeeplTranslator('fake_access_key')
-    const deeplService: DeeplService = new DeeplService(translator)
+    const translationService: TranslationService = new TranslationService(translator)
 
     vi.spyOn(translator, 'translateText').mockResolvedValueOnce([
       { detected_source_language: 'en', text: 'Je vais bien' },
@@ -14,7 +15,7 @@ describe('deepl service', () => {
     ] as TranslationResponse[])
 
     // WHEN
-    const result: TextsToTranslate = await deeplService.execute({
+    const result: TextsToTranslate = await translationService.execute({
       diseaseCondition: 'I am fine',
       therapeuticArea: 'How are you?',
       title: 'Hello, world!',

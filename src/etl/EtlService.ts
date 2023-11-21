@@ -11,14 +11,14 @@ import { S3Service } from './s3/S3Service'
 import { elasticsearchIndexMapping } from '../shared/elasticsearch/elasticsearchIndexMapping'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
-import { DeeplService } from '../shared/translation/DeeplService'
+import { TranslationService } from '../shared/translation/TranslationService'
 
 export class EtlService {
   constructor(
     private readonly loggerService: LoggerService,
     private readonly databaseService: ElasticsearchService,
     private readonly readerService: S3Service,
-    private readonly translationService: DeeplService
+    private readonly translationService: TranslationService
   ) {}
 
   async createIndex(): Promise<void> {

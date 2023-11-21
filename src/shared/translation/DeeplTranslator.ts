@@ -1,6 +1,8 @@
 import fetch, { BodyInit, HeadersInit, RequestInit, Response } from 'node-fetch'
 
-export class DeeplTranslator {
+import { TranslationResponse, TranslationsResponse, Translator } from './Translator'
+
+export class DeeplTranslator implements Translator {
   constructor(readonly authKey: string) {}
 
   async translateText(texts: string[]): Promise<TranslationResponse[]> {
@@ -26,12 +28,3 @@ export class DeeplTranslator {
     return result['translations']
   }
 }
-
-export type TranslationsResponse = Readonly<{
-  translations: TranslationResponse[]
-}>
-
-export type TranslationResponse = Readonly<{
-  detected_source_language: string
-  text: string
-}>

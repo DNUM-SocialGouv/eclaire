@@ -4,12 +4,12 @@ import { FhirParsedQueryParams } from '../../../api/research-study/controllers/F
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../../../api/research-study/gateways/converter/convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse, SearchResponseHits } from '../../../shared/elasticsearch/ElasticsearchService'
-import { DeeplService, TextsToTranslate, TranslatedTexts } from '../../../shared/translation/DeeplService'
+import { TranslationService, TextsToTranslate, TranslatedTexts } from '../../../shared/translation/TranslationService'
 
 export class TranslationPipeline {
   constructor(
     private readonly databaseService: ElasticsearchService,
-    private readonly translationService: DeeplService
+    private readonly translationService: TranslationService
   ) {}
 
   async execute(): Promise<void> {

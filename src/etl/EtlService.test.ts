@@ -6,7 +6,7 @@ import { EtlService } from './EtlService'
 import { setupDependencies } from '../shared/test/helpers/elasticsearchHelper'
 import { RiphDtoTestFactory } from '../shared/test/helpers/RiphDtoTestFactory'
 import { setupTranslationService } from '../shared/test/helpers/translationHelper'
-import { DeeplService } from '../shared/translation/DeeplService'
+import { TranslationService } from '../shared/translation/TranslationService'
 
 describe('extract transform load service', () => {
   describe('when index is created', () => {
@@ -273,6 +273,34 @@ describe('extract transform load service', () => {
       await expect(etlService.deletePipelines()).rejects.toThrow('ES pipelines delete operation has failed')
     })
   })
+
+  describe('when translate is performed', () => {
+    it('should not translate when the translation pipeline has failed with ResponseError', async () => {
+      // GIVEN
+      const { client, etlService } = await setup()
+      vi.spyOn(client, 'search').mockRejectedValueOnce(new errors.ResponseError({
+        body: { error: { reason: 'ES pipelines serach operation has failed' } },
+        headers: null,
+        meta: null,
+        statusCode: null,
+        warnings: null,
+      }))
+
+      // WHEN
+      // THEN
+      await expect(etlService.translate()).rejects.toThrow('ES pipelines serach operation has failed')
+    })
+
+    it('should not translate pipelines when the translation pipeline has failed with ElasticsearchClientError', async () => {
+      // GIVEN
+      const { client, etlService } = await setup()
+      vi.spyOn(client, 'search').mockRejectedValueOnce(new errors.ElasticsearchClientError('ES pipelines serach operation has failed'))
+
+      // WHEN
+      // THEN
+      await expect(etlService.translate()).rejects.toThrow('ES pipelines serach operation has failed')
+    })
+  })
 })
 
 async function setup() {
@@ -287,7 +315,7 @@ async function setup() {
   await databaseService.deleteMedDraIndex()
   await databaseService.deleteAnIndex()
 
-  const translationService: DeeplService = setupTranslationService()
+  const translationService: TranslationService = setupTranslationService()
   const etlService = new EtlService(logger, databaseService, readerService, translationService)
 
   const medDraFile = '10000001$Pneumopathie due à la ventilation$10081988$$$$$$$N$$\n10000002$Déficience en 11-bêta-hydroxylase$10000002$$$$$$$Y$$'
