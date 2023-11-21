@@ -11,7 +11,7 @@ import { DeeplTranslator } from './DeeplTranslator'
       inject: [ConfigService],
       provide: DeeplService,
       useFactory: (configService: ConfigService): DeeplService => {
-        const authKey = configService.get<string>('DEEPL_AUTH_KEY') || 'blah'
+        const authKey = configService.get<string>('DEEPL_AUTH_KEY')
         const translator: DeeplTranslator = new DeeplTranslator(authKey)
         return new DeeplService(translator)
       },

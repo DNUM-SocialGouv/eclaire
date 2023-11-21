@@ -273,6 +273,34 @@ describe('extract transform load service', () => {
       await expect(etlService.deletePipelines()).rejects.toThrow('ES pipelines delete operation has failed')
     })
   })
+
+  describe.only('when translate is performed', () => {
+    it('should not translate when the translation pipeline has failed with ResponseError', async () => {
+      // GIVEN
+      const { client, etlService } = await setup()
+      vi.spyOn(client, 'search').mockRejectedValueOnce(new errors.ResponseError({
+        body: { error: { reason: 'ES pipelines serach operation has failed' } },
+        headers: null,
+        meta: null,
+        statusCode: null,
+        warnings: null,
+      }))
+
+      // WHEN
+      // THEN
+      await expect(etlService.translate()).rejects.toThrow('ES pipelines serach operation has failed')
+    })
+
+    it('should not translate pipelines when the translation pipeline has failed with ElasticsearchClientError', async () => {
+      // GIVEN
+      const { client, etlService } = await setup()
+      vi.spyOn(client, 'search').mockRejectedValueOnce(new errors.ElasticsearchClientError('ES pipelines serach operation has failed'))
+
+      // WHEN
+      // THEN
+      await expect(etlService.translate()).rejects.toThrow('ES pipelines serach operation has failed')
+    })
+  })
 })
 
 async function setup() {
