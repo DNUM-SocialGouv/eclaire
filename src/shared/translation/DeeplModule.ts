@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { Translator } from 'deepl-node'
 
 import { DeeplService } from './DeeplService'
+import { DeeplTranslator } from './DeeplTranslator'
 
 @Module({
   exports: [DeeplService],
@@ -12,7 +12,7 @@ import { DeeplService } from './DeeplService'
       provide: DeeplService,
       useFactory: (configService: ConfigService): DeeplService => {
         const authKey = configService.get<string>('DEEPL_AUTH_KEY') || 'blah'
-        const translator: Translator = new Translator(authKey)
+        const translator: DeeplTranslator = new DeeplTranslator(authKey)
         return new DeeplService(translator)
       },
     },

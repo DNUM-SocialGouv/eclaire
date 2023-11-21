@@ -1,22 +1,15 @@
-import { SourceLanguageCode, TargetLanguageCode, TextResult, TranslateTextOptions, Translator } from 'deepl-node'
+import { DeeplTranslator, TranslationResponse } from './DeeplTranslator'
 
 export class DeeplService {
-  constructor(private readonly translator: Translator) {}
+  constructor(private readonly translator: DeeplTranslator) {}
 
   async execute(texts: TextsToTranslate): Promise<TranslatedTexts> {
-    const sourceLang: SourceLanguageCode = null
-    const targetLang: TargetLanguageCode = 'fr'
-    const options: TranslateTextOptions = { formality: 'prefer_more' }
-
-    const results: TextResult[] = await this.translator.translateText(
+    const results: TranslationResponse[] = await this.translator.translateText(
       [
         texts.diseaseCondition,
         texts.therapeuticArea,
         texts.title,
-      ],
-      sourceLang,
-      targetLang,
-      options
+      ]
     )
 
     return {
