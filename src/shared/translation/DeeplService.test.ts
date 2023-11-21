@@ -1,18 +1,17 @@
-import { TextResult, Translator } from 'deepl-node'
-
 import { DeeplService, TextsToTranslate, TranslatedTexts } from './DeeplService'
+import { DeeplTranslator, TranslationResponse } from './DeeplTranslator'
 
 describe('deepl service', () => {
   it('should read the Deepl API', async () => {
     // GIVEN
-    const translator: Translator = new Translator('fake_access_key')
+    const translator: DeeplTranslator = new DeeplTranslator('fake_access_key')
     const deeplService: DeeplService = new DeeplService(translator)
 
     vi.spyOn(translator, 'translateText').mockResolvedValueOnce([
-      { detectedSourceLang: 'en', text: 'Je vais bien' },
-      { detectedSourceLang: 'en', text: 'Comment allez vous ?' },
-      { detectedSourceLang: 'en', text: 'Bonjour le monde !' },
-    ] as TextResult[])
+      { detected_source_language: 'en', text: 'Je vais bien' },
+      { detected_source_language: 'en', text: 'Comment allez vous ?' },
+      { detected_source_language: 'en', text: 'Bonjour le monde !' },
+    ] as TranslationResponse[])
 
     // WHEN
     const result: TextsToTranslate = await deeplService.execute({
@@ -27,10 +26,7 @@ describe('deepl service', () => {
         'I am fine',
         'How are you?',
         'Hello, world!',
-      ],
-      null,
-      'fr',
-      { formality: 'prefer_more' }
+      ]
     )
     expect(result).toStrictEqual({
       diseaseCondition: 'Je vais bien',
