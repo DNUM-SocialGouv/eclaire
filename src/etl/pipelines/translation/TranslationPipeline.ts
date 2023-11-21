@@ -14,8 +14,11 @@ export class TranslationPipeline {
 
   async execute(): Promise<void> {
     const data: ResearchStudy[] = await this.extract()
-    const transformedResearchStudies: ResearchStudy[] = await this.transform(data)
-    await this.load(transformedResearchStudies)
+
+    if (data.length > 0) {
+      const transformedResearchStudies: ResearchStudy[] = await this.transform(data)
+      await this.load(transformedResearchStudies)
+    }
   }
 
   async extract(): Promise<ResearchStudy[]> {
@@ -53,7 +56,7 @@ export class TranslationPipeline {
 
     const everyCtisStudiesSinceYesterdayQueryParams: FhirParsedQueryParams[] = [
       { name: '_count', value: '1000' },
-      { name: '_lastUpdated', value: `gt${formattedYesterdayDate}` },
+      { name: '_lastUpdated', value: `ge${formattedYesterdayDate}` },
       { name: '_text', value: 'REG536' },
     ]
 

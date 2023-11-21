@@ -36,7 +36,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         query:  {
           bool:  {
             must:  [
-              { range:  { 'meta.lastUpdated':  { gt: '2022-10-06' } } },
+              { range:  { 'meta.lastUpdated':  { gte: '2022-10-06' } } },
               { query_string:  { query: 'REG536' } },
             ],
           },
@@ -261,6 +261,9 @@ describe('etl | Pipelines | TranslationPipeline', () => {
   describe('#execute', () => {
     it('should get data, do a translation and load the translated data into the repository', async () => {
       // given
+      const today = new Date('2023-04-07')
+      vi.useFakeTimers()
+      vi.setSystemTime(today)
       const eclaireDtoCtis1: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({
         dates_avis_favorable_ms_mns: null,
         historique: '2023-04-06:Terminée',
@@ -306,9 +309,6 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         .mockResolvedValueOnce({ diseaseCondition: '', therapeuticArea: '', title: 'Traduction titre 2' })
       const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService, translationService)
 
-      vi.useFakeTimers()
-      vi.setSystemTime(new Date('2022-10-07'))
-
       // when
       await translationPipeline.execute()
 
@@ -317,13 +317,38 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       expect(ctis1.title).toBe('Traduction titre 1')
 
       const ctis2: ResearchStudy = await esResearchStudyRepository.findOne('ctis2')
-      expect(ctis2.title).toBe('Traduction titre 2')
+      expect(ctis2.title).toBe('another english ctis title')
 
       const jarde: ResearchStudy = await esResearchStudyRepository.findOne('jarde')
       expect(jarde.title).toBe(jardeTitreRecherche)
 
       const dm: ResearchStudy = await esResearchStudyRepository.findOne('dm')
       expect(dm.title).toBe(dmTitreRecherche)
+    })
+
+    it('should not translate when there is no data', async () => {
+      // GIVEN
+      const { esResearchStudyRepository, databaseService } = await setup()
+      const today = new Date('2023-04-07')
+      vi.useFakeTimers()
+      vi.setSystemTime(today)
+      const eclaireDtoCtis: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({
+        dates_avis_favorable_ms_mns: null,
+        historique: '2022-03-09:Terminée',
+        numero_ctis: 'ctis1',
+        titre: 'english ctis title',
+      }))
+      const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(eclaireDtoCtis)]
+      await databaseService.bulkDocuments(documents)
+
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService, null)
+
+      // WHEN
+      await translationPipeline.execute()
+
+      // THEN
+      const ctis: ResearchStudy = await esResearchStudyRepository.findOne('ctis1')
+      expect(ctis.title).toBe('english ctis title')
     })
   })
 })
