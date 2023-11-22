@@ -952,11 +952,6 @@ describe('research study model factory', () => {
               "type": undefined,
             },
           ],
-          "originalLanguageContent": OriginalLanguageContentModel {
-            "diseaseCondition": "Locally-Advanced or Metastatic breast cancer (MBC)",
-            "therapeuticArea": "Diseases [C] - Neoplasms [C04]",
-            "title": "A PHASE III, RANDOMIZED, OPEN-LABEL STUDY EVALUATING THE EFFICACY AND SAFETY OF GIREDESTRANT IN COMBINATION WITH PHESGO VERSUS PHESGO AFTER INDUCTION THERAPY WITH PHESGO+TAXANE IN PATIENTS WITH PREVIOUSLY UNTREATED HER2-POSITIVE, ESTROGEN RECEPTOR-POSITIVE LOCALLY-ADVANCED OR METASTATIC BREAST CANCER",
-          },
         },
         "resourceType": "ResearchStudy",
         "site": [
@@ -973,6 +968,7 @@ describe('research study model factory', () => {
         },
         "status": "active",
         "title": "A PHASE III, RANDOMIZED, OPEN-LABEL STUDY EVALUATING THE EFFICACY AND SAFETY OF GIREDESTRANT IN COMBINATION WITH PHESGO VERSUS PHESGO AFTER INDUCTION THERAPY WITH PHESGO+TAXANE IN PATIENTS WITH PREVIOUSLY UNTREATED HER2-POSITIVE, ESTROGEN RECEPTOR-POSITIVE LOCALLY-ADVANCED OR METASTATIC BREAST CANCER",
+        "translatedContent": undefined,
       }
     `)
   })
@@ -1672,11 +1668,6 @@ describe('research study model factory', () => {
               "type": undefined,
             },
           ],
-          "originalLanguageContent": OriginalLanguageContentModel {
-            "diseaseCondition": "INDISPONIBLE",
-            "therapeuticArea": "Hépato-gastro-entérologie",
-            "title": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
-          },
         },
         "resourceType": "ResearchStudy",
         "site": undefined,
@@ -1687,6 +1678,7 @@ describe('research study model factory', () => {
         },
         "status": "administratively-completed",
         "title": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
+        "translatedContent": undefined,
       }
     `)
   })
@@ -2386,11 +2378,6 @@ describe('research study model factory', () => {
               "type": undefined,
             },
           ],
-          "originalLanguageContent": OriginalLanguageContentModel {
-            "diseaseCondition": "INDISPONIBLE",
-            "therapeuticArea": "Autres",
-            "title": "Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.",
-          },
         },
         "resourceType": "ResearchStudy",
         "site": undefined,
@@ -2401,6 +2388,7 @@ describe('research study model factory', () => {
         },
         "status": "active",
         "title": "Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.",
+        "translatedContent": undefined,
       }
     `)
   })
@@ -2921,11 +2909,6 @@ describe('research study model factory', () => {
               "type": undefined,
             },
           ],
-          "originalLanguageContent": OriginalLanguageContentModel {
-            "diseaseCondition": undefined,
-            "therapeuticArea": undefined,
-            "title": undefined,
-          },
         },
         "resourceType": "ResearchStudy",
         "site": undefined,
@@ -2936,6 +2919,7 @@ describe('research study model factory', () => {
         },
         "status": "approved",
         "title": undefined,
+        "translatedContent": undefined,
       }
     `)
   })

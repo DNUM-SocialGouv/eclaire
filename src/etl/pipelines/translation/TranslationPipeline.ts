@@ -5,6 +5,8 @@ import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../../../api/r
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse, SearchResponseHits } from '../../../shared/elasticsearch/ElasticsearchService'
 import { TranslationService, TextsToTranslate, TranslatedTexts } from '../../../shared/translation/TranslationService'
+import { ResearchStudyModel } from 'src/shared/models/domain-resources/ResearchStudyModel'
+import { TranslatedContentModel } from 'src/shared/models/eclaire/TranslatedContentModel'
 
 export class TranslationPipeline {
   constructor(
@@ -13,15 +15,15 @@ export class TranslationPipeline {
   ) {}
 
   async execute(date?: string): Promise<void> {
-    const data: ResearchStudy[] = await this.extract(date)
+    const data: ResearchStudyModel[] = await this.extract(date)
 
     if (data.length > 0) {
-      const transformedResearchStudies: ResearchStudy[] = await this.transform(data)
+      const transformedResearchStudies: ResearchStudyModel[] = await this.transform(data)
       await this.load(transformedResearchStudies)
     }
   }
 
-  async extract(date?: string): Promise<ResearchStudy[]> {
+  async extract(date?: string): Promise<ResearchStudyModel[]> {
     let requestBodyToFindEveryCtisStudiesSinceASpecificDate: ElasticsearchBodyType
 
     if (date) {
@@ -35,25 +37,26 @@ export class TranslationPipeline {
       true
     )
 
-    return response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudy))
+    return response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
   }
 
-  async transform(researchStudies: ResearchStudy[]): Promise<ResearchStudy[]> {
+  async transform(researchStudies: ResearchStudyModel[]): Promise<ResearchStudyModel[]> {
     for (const researchStudy of researchStudies) {
-      const {
-        textsToTranslate,
-        extensionReference,
-        codeableConceptReference,
-      } = this.extractTextsToTranslateAndReferencesToUpdate(researchStudy)
+      const textsToTranslate: TextsToTranslate = this.extractTextsToTranslate(researchStudy)
 
       const translatedTexts: TranslatedTexts = await this.translationService.execute(textsToTranslate)
 
-      this.addTranslationsToReferences(researchStudy, translatedTexts, extensionReference, codeableConceptReference)
+      researchStudy.translatedContent = TranslatedContentModel.create(
+        translatedTexts.diseaseCondition,
+        translatedTexts.therapeuticArea,
+        translatedTexts.title
+      )
     }
+
     return researchStudies
   }
 
-  async load(researchStudies: ResearchStudy[]): Promise<void> {
+  async load(researchStudies: ResearchStudyModel[]): Promise<void> {
     await this.databaseService.bulkDocuments(researchStudies)
   }
 
@@ -76,7 +79,7 @@ export class TranslationPipeline {
     return this.buildBodyToFindEveryCtisStudiesSinceAGivenDate(formattedYesterdayDate)
   }
 
-  private extractTextsToTranslateAndReferencesToUpdate(researchStudy: ResearchStudy) {
+  private extractTextsToTranslate(researchStudy: ResearchStudy): TextsToTranslate {
     const textsToTranslate: TextsToTranslate = {
       diseaseCondition: '',
       therapeuticArea: '',
@@ -103,29 +106,6 @@ export class TranslationPipeline {
         textsToTranslate.diseaseCondition = codeableConceptReference.coding[0].display
       }
     }
-    return {
-      codeableConceptReference,
-      extensionReference,
-      textsToTranslate,
-    }
-  }
-
-  private addTranslationsToReferences(
-    researchStudy: ResearchStudy,
-    translatedTexts: TranslatedTexts,
-    extension: Extension,
-    codeableConcept: CodeableConcept
-  ) {
-    if (researchStudy.title) {
-      researchStudy.title = translatedTexts.title
-    }
-
-    if (extension) {
-      extension.valueString = translatedTexts.therapeuticArea
-    }
-
-    if (codeableConcept) {
-      codeableConcept.coding[0].display = translatedTexts.diseaseCondition
-    }
+    return textsToTranslate
   }
 }

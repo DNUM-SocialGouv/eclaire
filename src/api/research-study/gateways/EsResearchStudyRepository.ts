@@ -1,10 +1,11 @@
 import { ConfigService } from '@nestjs/config'
-import { Bundle, BundleEntry, BundleLink, Group, Location, Organization, ResearchStudy } from 'fhir/r4'
+import { Bundle, BundleEntry, BundleLink, Group, Location, Organization } from 'fhir/r4'
 
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from './converter/convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse } from '../../../shared/elasticsearch/ElasticsearchService'
 import { BundleEntryModel } from '../../../shared/models/backbone-elements/BundleEntryModel'
+import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
 import { BundleModel } from '../../../shared/models/resources/BundleModel'
 import { ResearchStudyRepository } from '../application/ResearchStudyRepository'
 import { FhirParsedQueryParams } from '../controllers/FhirQueryParams'
@@ -22,8 +23,8 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     this.numberOfResourcesByPage = Number(this.configService.get<string>('NUMBER_OF_RESOURCES_BY_PAGE'))
   }
 
-  async findOne(id: string): Promise<ResearchStudy> {
-    return await this.databaseService.findOneDocument(id) as ResearchStudy
+  async findOne(id: string): Promise<ResearchStudyModel> {
+    return await this.databaseService.findOneDocument(id) as ResearchStudyModel
   }
 
   async search(fhirParsedQueryParams: FhirParsedQueryParams[]): Promise<Bundle> {
