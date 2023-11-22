@@ -353,7 +353,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelValue",
+                "url": "value",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -364,7 +364,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelType",
+                "url": "type",
                 "valueAddress": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -384,7 +384,7 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
             "valueAddress": undefined,
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -397,7 +397,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelValue",
+                "url": "value",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -408,7 +408,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelType",
+                "url": "type",
                 "valueAddress": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -428,7 +428,7 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
             "valueAddress": undefined,
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -1312,7 +1312,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelValue",
+                "url": "value",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -1323,7 +1323,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelType",
+                "url": "type",
                 "valueAddress": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -1343,7 +1343,7 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
             "valueAddress": undefined,
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -1356,7 +1356,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelValue",
+                "url": "value",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -1367,7 +1367,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelType",
+                "url": "type",
                 "valueAddress": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -1387,7 +1387,7 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
             "valueAddress": undefined,
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -2026,7 +2026,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelValue",
+                "url": "value",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -2037,7 +2037,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelType",
+                "url": "type",
                 "valueAddress": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -2057,7 +2057,7 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
             "valueAddress": undefined,
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -2070,7 +2070,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelValue",
+                "url": "value",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -2081,7 +2081,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelType",
+                "url": "type",
                 "valueAddress": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -2101,7 +2101,7 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
             "valueAddress": undefined,
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -2630,7 +2630,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelValue",
+                "url": "value",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -2641,7 +2641,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelType",
+                "url": "type",
                 "valueAddress": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -2661,7 +2661,7 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
             "valueAddress": undefined,
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
@@ -2674,7 +2674,7 @@ describe('research study model factory', () => {
             "extension": [
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelValue",
+                "url": "value",
                 "valueAddress": undefined,
                 "valueCodeableConcept": undefined,
                 "valueHumanName": undefined,
@@ -2685,7 +2685,7 @@ describe('research study model factory', () => {
               },
               ExtensionModel {
                 "extension": undefined,
-                "url": "labelType",
+                "url": "type",
                 "valueAddress": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
                   "coding": [
@@ -2705,7 +2705,7 @@ describe('research study model factory', () => {
                 "valueString": undefined,
               },
             ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label",
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
             "valueAddress": undefined,
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
