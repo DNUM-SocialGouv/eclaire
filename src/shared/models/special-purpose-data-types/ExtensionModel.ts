@@ -65,8 +65,8 @@ export class ExtensionModel implements Extension {
 
   static createEclaireLabel(value: string, type: LabelType): Extension {
     return new ExtensionModel(
-      [this.createEclaireLabelValue(value), this.createEclaireLabelType(type)],
-      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-label',
+      [this.createEclaireLabelR5Value(value), this.createEclaireLabelR5Type(type)],
+      'http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label',
       undefined,
       undefined,
       undefined,
@@ -77,10 +77,10 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireLabelValue(value: string): Extension {
+  static createEclaireLabelR5Value(value: string): Extension {
     return new ExtensionModel(
       undefined,
-      'labelValue',
+      'value',
       undefined,
       undefined,
       undefined,
@@ -91,10 +91,10 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireLabelType(type: LabelType): Extension {
+  static createEclaireLabelR5Type(type: LabelType): Extension {
     return new ExtensionModel(
       undefined,
-      'labelType',
+      'type',
       undefined,
       CodeableConceptModel.createLabelType(type),
       undefined,
