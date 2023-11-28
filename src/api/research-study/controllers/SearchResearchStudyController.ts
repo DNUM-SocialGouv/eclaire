@@ -25,8 +25,8 @@ export class SearchResearchStudyController {
   @Get()
   async execute(@Query() fhirQueryParams: FhirQueryParams, @Res() response: Response): Promise<void> {
     try {
-      const fhirResourceBundle: Bundle = await this.generateBundle(fhirQueryParams)
-
+      const fhirParsedQueryParams: FhirParsedQueryParams[] = FhirQueryParams.parse(fhirQueryParams)
+      const fhirResourceBundle: Bundle = await this.researchStudyRepository.search(fhirParsedQueryParams)
       response.json(fhirResourceBundle)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
@@ -37,10 +37,5 @@ export class SearchResearchStudyController {
         throw error
       }
     }
-  }
-
-  async generateBundle(fhirQueryParams: FhirQueryParams): Promise<Bundle> {
-    const fhirParsedQueryParams: FhirParsedQueryParams[] = FhirQueryParams.parse(fhirQueryParams)
-    return await this.researchStudyRepository.search(fhirParsedQueryParams)
   }
 }

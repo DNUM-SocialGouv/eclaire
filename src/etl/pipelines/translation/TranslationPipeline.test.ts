@@ -397,8 +397,8 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       ]
       documents[1].translatedContent = TranslatedContentModel.create(
         'DiseaseCondition traduite en français il y a longtemps',
-        'TherapeuticArea 2 traduite en français il y a longtemps',
-        'Titre 2 traduite en français il y a longtemps'
+        'TherapeuticArea traduite en français il y a longtemps',
+        'Titre traduit en français il y a longtemps'
       )
 
       const { esResearchStudyRepository, databaseService } = await setup()
@@ -423,24 +423,12 @@ describe('etl | Pipelines | TranslationPipeline', () => {
 
       // then
       const ctis1: ResearchStudyModel = await esResearchStudyRepository.findOne('ctis1')
-      expect(ctis1.title).toBe('english ctis title')
-      expect(ctis1.translatedContent).toMatchInlineSnapshot(`
-        {
-          "diseaseCondition": "DiseaseCondition 1 traduit en français",
-          "therapeuticArea": "TherapeuticArea 1 traduit en français",
-          "title": "Titre 1 traduit en français",
-        }
-      `)
+      expect(ctis1.title).toBe('Titre 1 traduit en français')
+      expect(ctis1.translatedContent).toBeUndefined()
 
       const ctis2: ResearchStudyModel = await esResearchStudyRepository.findOne('ctis2')
-      expect(ctis2.title).toBe('another english ctis title')
-      expect(ctis2.translatedContent).toMatchInlineSnapshot(`
-        {
-          "diseaseCondition": "DiseaseCondition traduite en français il y a longtemps",
-          "therapeuticArea": "TherapeuticArea 2 traduite en français il y a longtemps",
-          "title": "Titre 2 traduite en français il y a longtemps",
-        }
-      `)
+      expect(ctis2.title).toBe('Titre traduit en français il y a longtemps')
+      expect(ctis2.translatedContent).toBeUndefined()
 
       const jarde: ResearchStudyModel = await esResearchStudyRepository.findOne('jarde')
       expect(jarde.title).toBe(jardeTitreRecherche)

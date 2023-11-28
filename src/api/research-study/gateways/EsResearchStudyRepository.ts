@@ -1,11 +1,12 @@
 import { ConfigService } from '@nestjs/config'
-import { Bundle, BundleEntry, BundleLink, Group, Location, Organization } from 'fhir/r4'
+import { Bundle, BundleEntry, BundleLink, CodeableConcept, Extension, Group, Location, Organization } from 'fhir/r4'
 
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from './converter/convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse } from '../../../shared/elasticsearch/ElasticsearchService'
 import { BundleEntryModel } from '../../../shared/models/backbone-elements/BundleEntryModel'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
+import { TranslatedContentModel } from '../../../shared/models/eclaire/TranslatedContentModel'
 import { BundleModel } from '../../../shared/models/resources/BundleModel'
 import { ResearchStudyRepository } from '../application/ResearchStudyRepository'
 import { FhirParsedQueryParams } from '../controllers/FhirQueryParams'
@@ -24,7 +25,38 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
   }
 
   async findOne(id: string): Promise<ResearchStudyModel> {
-    return await this.databaseService.findOneDocument(id) as ResearchStudyModel
+    const document: ResearchStudyModel = await this.databaseService.findOneDocument(id) as ResearchStudyModel
+    return this.applyTranslationsToResearchStudyModel(document)
+  }
+
+  private applyTranslationsToResearchStudyModel(document: ResearchStudyModel): ResearchStudyModel {
+    const translatedContent: TranslatedContentModel = document.translatedContent
+
+    if (translatedContent === undefined) {
+      return document
+    }
+
+    const extensionToTranslate: Extension = document.extension
+      .find((value: Extension) => value.url.includes('eclaire-therapeutic-area'))
+
+    if (extensionToTranslate && translatedContent.therapeuticArea) {
+      extensionToTranslate.valueString = translatedContent.therapeuticArea
+    }
+
+    const diseaseConditionToTranslate: CodeableConcept = document.condition
+      .find((value: CodeableConcept) => value.text === 'diseaseCondition')
+
+    if (diseaseConditionToTranslate && translatedContent.diseaseCondition) {
+      diseaseConditionToTranslate.coding[0].display = translatedContent.diseaseCondition
+    }
+
+    delete document.translatedContent
+
+    return {
+      resourceType: document.resourceType,
+      ...document,
+      title: translatedContent.title,
+    } as ResearchStudyModel
   }
 
   async search(fhirParsedQueryParams: FhirParsedQueryParams[]): Promise<Bundle> {
