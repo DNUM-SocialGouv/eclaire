@@ -4,9 +4,9 @@ import { FhirParsedQueryParams } from '../../../api/research-study/controllers/F
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../../../api/research-study/gateways/converter/convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse, SearchResponseHits } from '../../../shared/elasticsearch/ElasticsearchService'
+import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
+import { TranslatedContentModel } from '../../../shared/models/eclaire/TranslatedContentModel'
 import { TranslationService, TextsToTranslate, TranslatedTexts } from '../../../shared/translation/TranslationService'
-import { ResearchStudyModel } from 'src/shared/models/domain-resources/ResearchStudyModel'
-import { TranslatedContentModel } from 'src/shared/models/eclaire/TranslatedContentModel'
 
 export class TranslationPipeline {
   constructor(
