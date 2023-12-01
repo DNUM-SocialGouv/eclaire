@@ -3,7 +3,7 @@ import { Bundle, BundleEntry, BundleLink, CodeableConcept, Extension, Group, Loc
 
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from './converter/convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
-import { ElasticsearchService, SearchResponse } from '../../../shared/elasticsearch/ElasticsearchService'
+import { ElasticsearchService, SearchResponse, SearchResponseHits } from '../../../shared/elasticsearch/ElasticsearchService'
 import { BundleEntryModel } from '../../../shared/models/backbone-elements/BundleEntryModel'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
 import { TranslatedContentModel } from '../../../shared/models/eclaire/TranslatedContentModel'
@@ -36,18 +36,27 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
       return document
     }
 
-    const extensionToTranslate: Extension = document.extension
-      .find((value: Extension) => value.url.includes('eclaire-therapeutic-area'))
+    if (document.extension) {
+      const extensionToTranslate: Extension = document.extension
+        .find((value: Extension) => value.url.includes('eclaire-therapeutic-area'))
 
-    if (extensionToTranslate && translatedContent.therapeuticArea) {
-      extensionToTranslate.valueString = translatedContent.therapeuticArea
+      if (extensionToTranslate && translatedContent.therapeuticArea) {
+        extensionToTranslate.valueString = translatedContent.therapeuticArea
+      }
     }
 
-    const diseaseConditionToTranslate: CodeableConcept = document.condition
-      .find((value: CodeableConcept) => value.text === 'diseaseCondition')
+    if (document.condition) {
+      const diseaseConditionToTranslate: CodeableConcept = document.condition
+        .find((value: CodeableConcept) => value.text === 'diseaseCondition')
 
-    if (diseaseConditionToTranslate && translatedContent.diseaseCondition) {
-      diseaseConditionToTranslate.coding[0].display = translatedContent.diseaseCondition
+      if (diseaseConditionToTranslate && translatedContent.diseaseCondition) {
+        diseaseConditionToTranslate.coding[0].display = translatedContent.diseaseCondition
+      }
+    }
+
+    let title: string = document.title
+    if (document.title) {
+      title = translatedContent.title
     }
 
     delete document.translatedContent
@@ -55,7 +64,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return {
       resourceType: document.resourceType,
       ...document,
-      title: translatedContent.title,
+      title,
     } as ResearchStudyModel
   }
 
@@ -77,8 +86,15 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
       this.buildSearchLinks(links, elasticsearchBody.from, response.total, fhirParsedQueryParams)
     }
 
+    const translatedResponse = response.hits.map((hit: SearchResponseHits) => {
+      return {
+        ...hit,
+        _source: this.applyTranslationsToResearchStudyModel(hit._source as unknown as ResearchStudyModel) as unknown as Record<string, string>,
+      }
+    })
+
     const fhirResourceBundle: Bundle = BundleModel.create(
-      response.hits,
+      translatedResponse,
       links,
       response.total,
       this.configService.get('ECLAIRE_URL')

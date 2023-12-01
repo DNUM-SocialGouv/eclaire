@@ -6,8 +6,12 @@ import { RiphDtoTestFactory } from './RiphDtoTestFactory'
 import { AppModule } from '../../../AppModule'
 import { EclaireDto } from '../../../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../../etl/factory/ResearchStudyModelFactory'
-import { elasticsearchIndexMapping } from '../../../shared/elasticsearch/elasticsearchIndexMapping'
+import { TranslationPipeline } from '../../../etl/pipelines/translation/TranslationPipeline'
+import { elasticsearchIndexMapping } from '../../elasticsearch/elasticsearchIndexMapping'
 import { ElasticsearchService } from '../../elasticsearch/ElasticsearchService'
+import { LocalTranslator } from '../../translation/LocalTranslator'
+import { TranslationService } from '../../translation/TranslationService'
+import { Translator } from '../../translation/Translator'
 
 export const CONTROLLER_DOCUMENT_ID = '2022-500014-26-00'
 
@@ -49,6 +53,11 @@ export async function getHttpServer() {
     ResearchStudyModelFactory.create(eclaireDto1),
     ResearchStudyModelFactory.create(eclaireDto2),
   ])
+
+  const translator: Translator = new LocalTranslator()
+  const translationService: TranslationService = new TranslationService(translator)
+  const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService, translationService)
+  await translationPipeline.execute('1990-01-01')
 
   return app.getHttpServer()
 }
