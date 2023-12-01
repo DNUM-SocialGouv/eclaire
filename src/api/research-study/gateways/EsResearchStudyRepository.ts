@@ -54,9 +54,14 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
       }
     }
 
-    let title: string = document.title
+    let title: string
+
     if (document.title) {
-      title = translatedContent.title
+      title = document.title
+
+      if (title && translatedContent.title) {
+        title = translatedContent.title
+      }
     }
 
     delete document.translatedContent
