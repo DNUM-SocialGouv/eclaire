@@ -9,10 +9,12 @@ import {
 } from 'fhir/r4'
 
 import { ReferenceContentsModel } from '../eclaire/ReferenceContentsModel'
+import { TranslatedContentModel } from '../eclaire/TranslatedContentModel'
 
 export class ResearchStudyModel implements ResearchStudy {
   readonly resourceType: 'ResearchStudy'
   readonly status: ResearchStudyStatus
+  translatedContent?: TranslatedContentModel = undefined
 
   constructor(
     readonly category: CodeableConcept[] | undefined,

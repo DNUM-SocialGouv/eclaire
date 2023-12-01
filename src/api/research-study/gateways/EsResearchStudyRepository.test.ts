@@ -354,7 +354,7 @@ async function setup() {
     ResearchStudyModelFactory.create(researchStudy6),
   ])
 
-  const esResearchStudyRepository = new EsResearchStudyRepository(databaseService, configService)
+  const esResearchStudyRepository: EsResearchStudyRepository = new EsResearchStudyRepository(databaseService, configService)
 
   return { databaseService, esResearchStudyRepository, numberOfResourcesByPage }
 }

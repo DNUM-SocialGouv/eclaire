@@ -131,10 +131,7 @@ export class ResearchStudyModelFactory {
     const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(
       enrollmentGroup,
       siteLocations,
-      organizations,
-      ModelUtils.isNotNull(eclaireDto.pathologies_maladies_rares) ? eclaireDto.pathologies_maladies_rares : undefined,
-      ModelUtils.isNotNull(eclaireDto.domaine_therapeutique) ? eclaireDto.domaine_therapeutique : undefined,
-      ModelUtils.isNotNull(eclaireDto.titre) ? eclaireDto.titre : undefined
+      organizations
     )
 
     return new ResearchStudyModel(

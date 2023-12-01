@@ -1,10 +1,12 @@
 import { ConfigService } from '@nestjs/config'
-import { Bundle, BundleEntry, BundleLink, Group, Location, Organization, ResearchStudy } from 'fhir/r4'
+import { Bundle, BundleEntry, BundleLink, CodeableConcept, Extension, Group, Location, Organization } from 'fhir/r4'
 
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from './converter/convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
-import { ElasticsearchService, SearchResponse } from '../../../shared/elasticsearch/ElasticsearchService'
+import { ElasticsearchService, SearchResponse, SearchResponseHits } from '../../../shared/elasticsearch/ElasticsearchService'
 import { BundleEntryModel } from '../../../shared/models/backbone-elements/BundleEntryModel'
+import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
+import { TranslatedContentModel } from '../../../shared/models/eclaire/TranslatedContentModel'
 import { BundleModel } from '../../../shared/models/resources/BundleModel'
 import { ResearchStudyRepository } from '../application/ResearchStudyRepository'
 import { FhirParsedQueryParams } from '../controllers/FhirQueryParams'
@@ -22,8 +24,53 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     this.numberOfResourcesByPage = Number(this.configService.get<string>('NUMBER_OF_RESOURCES_BY_PAGE'))
   }
 
-  async findOne(id: string): Promise<ResearchStudy> {
-    return await this.databaseService.findOneDocument(id) as ResearchStudy
+  async findOne(id: string): Promise<ResearchStudyModel> {
+    const document: ResearchStudyModel = await this.databaseService.findOneDocument(id) as ResearchStudyModel
+    return this.applyTranslationsToResearchStudyModel(document)
+  }
+
+  private applyTranslationsToResearchStudyModel(document: ResearchStudyModel): ResearchStudyModel {
+    const translatedContent: TranslatedContentModel = document.translatedContent
+
+    if (translatedContent === undefined) {
+      return document
+    }
+
+    if (document.extension) {
+      const extensionToTranslate: Extension = document.extension
+        .find((value: Extension) => value.url.includes('eclaire-therapeutic-area'))
+
+      if (extensionToTranslate && translatedContent.therapeuticArea) {
+        extensionToTranslate.valueString = translatedContent.therapeuticArea
+      }
+    }
+
+    if (document.condition) {
+      const diseaseConditionToTranslate: CodeableConcept = document.condition
+        .find((value: CodeableConcept) => value.text === 'diseaseCondition')
+
+      if (diseaseConditionToTranslate && translatedContent.diseaseCondition) {
+        diseaseConditionToTranslate.coding[0].display = translatedContent.diseaseCondition
+      }
+    }
+
+    let title: string
+
+    if (document.title) {
+      title = document.title
+
+      if (title && translatedContent.title) {
+        title = translatedContent.title
+      }
+    }
+
+    delete document.translatedContent
+
+    return {
+      resourceType: document.resourceType,
+      ...document,
+      title,
+    } as ResearchStudyModel
   }
 
   async search(fhirParsedQueryParams: FhirParsedQueryParams[]): Promise<Bundle> {
@@ -44,8 +91,15 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
       this.buildSearchLinks(links, elasticsearchBody.from, response.total, fhirParsedQueryParams)
     }
 
+    const translatedResponse = response.hits.map((hit: SearchResponseHits) => {
+      return {
+        ...hit,
+        _source: this.applyTranslationsToResearchStudyModel(hit._source as unknown as ResearchStudyModel) as unknown as Record<string, string>,
+      }
+    })
+
     const fhirResourceBundle: Bundle = BundleModel.create(
-      response.hits,
+      translatedResponse,
       links,
       response.total,
       this.configService.get('ECLAIRE_URL')

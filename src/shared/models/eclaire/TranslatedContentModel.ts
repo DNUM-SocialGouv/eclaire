@@ -1,4 +1,4 @@
-export class OriginalLanguageContentModel {
+export class TranslatedContentModel {
   private constructor(
     readonly diseaseCondition: string | undefined,
     readonly therapeuticArea: string | undefined,
@@ -9,8 +9,8 @@ export class OriginalLanguageContentModel {
     diseaseCondition: string,
     therapeuticArea: string,
     title: string
-  ): OriginalLanguageContentModel {
-    return new OriginalLanguageContentModel(
+  ): TranslatedContentModel {
+    return new TranslatedContentModel(
       diseaseCondition,
       therapeuticArea,
       title
