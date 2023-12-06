@@ -22,6 +22,11 @@ export class ResearchStudyModelFactory {
     const { eclaireSecondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(eclaireDto)
     const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto)
 
+    const mostRecentDate = ModelUtils.getMostRecentIsoDate(
+      ModelUtils.undefinedIfNull(eclaireDto.historique),
+      ModelUtils.undefinedIfNull(eclaireDto.dates_avis_favorable_ms_mns)
+    )
+
     const category: CodeableConcept[] = []
     category.push(CodeableConceptModel.createRegulationCode(eclaireDto.reglementation_code))
     if (ModelUtils.isNotNull(eclaireDto.precision_reglementation)) {
@@ -100,7 +105,7 @@ export class ResearchStudyModelFactory {
     if (ModelUtils.isNotNull(eclaireDto.date_debut_recrutement)) {
       extensions.push(ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement))
     }
-    extensions.push(ExtensionModel.createEclaireReviewDate(eclaireDto.historique, eclaireDto.dates_avis_favorable_ms_mns))
+    extensions.push(ExtensionModel.createEclaireReviewDate(mostRecentDate))
 
     const id = eclaireDto.numero_secondaire
     const identifier: Identifier[] = [
@@ -108,10 +113,7 @@ export class ResearchStudyModelFactory {
       secondaryAssignerIdentifier,
     ]
     const location = ModelUtils.isNotNull(eclaireDto.pays_concernes) ? CodeableConceptModel.createLocations(eclaireDto.pays_concernes) : undefined
-    const meta: Meta = MetaModel.create(
-      eclaireDto.historique,
-      eclaireDto.dates_avis_favorable_ms_mns
-    )
+    const meta: Meta = MetaModel.create(mostRecentDate)
     const phase: CodeableConcept = CodeableConceptModel.createResearchStudyPhase(eclaireDto.phase_recherche)
 
     const status = eclaireDto.etat as RiphStatus
