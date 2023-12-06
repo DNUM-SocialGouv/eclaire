@@ -32,7 +32,9 @@ export class EclaireDto {
     readonly date_debut_recrutement: string,
     readonly historique: string,
     readonly dates_avis_favorable_ms_mns: string,
-    readonly pays_concernes: string[]
+    readonly pays_concernes: string[],
+    readonly date_soumission: string,
+    readonly date_theorique_maximale_autorisation_cpp: string
   ) {}
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
@@ -90,7 +92,9 @@ export class EclaireDto {
       riphCtisDto.date_debut_recrutement !== null ? new Date(riphCtisDto.date_debut_recrutement).toISOString() : null,
       riphCtisDto.historique,
       riphCtisDto.dates_avis_favorable_ms_mns,
-      riphCtisDto.pays_concernes?.split(', ') || null
+      riphCtisDto.pays_concernes?.split(', ') || null,
+      null,
+      new Date('2023-03-15').toISOString().split('T')[0] // Date de mise en production de la gestion des historiques côté SIRIPH
     )
   }
 
@@ -128,13 +132,21 @@ export class EclaireDto {
       null,
       riphDmDto.historique,
       riphDmDto.dates_avis_favorable_ms_mns,
-      null
+      null,
+      riphDmDto.date_soumission,
+      this.getMaxTheoreticalValidationDate(riphDmDto.date_soumission, 106)
     )
+  }
+
+  private static getMaxTheoreticalValidationDate(date_soumission: string, maximalValidationDelayFromCpp: number): string {
+    const date = new Date(date_soumission)
+    const submissionDateAddedToMaximalValidationDelay: number = date.getDate() + maximalValidationDelayFromCpp
+    date.setDate(submissionDateAddedToMaximalValidationDelay)
+    return date.toISOString().split('T')[0]
   }
 
   static fromJarde(riphJardeDto: RiphJardeDto): EclaireDto {
     const phaseRecherche: Phase = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'Phase I' : 'N/A'
-
     return new EclaireDto(
       riphJardeDto.reglementation_code,
       riphJardeDto.qualification_recherche,
@@ -168,7 +180,9 @@ export class EclaireDto {
       null,
       riphJardeDto.historique,
       riphJardeDto.dates_avis_favorable_ms_mns,
-      null
+      null,
+      riphJardeDto.date_soumission,
+      this.getMaxTheoreticalValidationDate(riphJardeDto.date_soumission, 109)
     )
   }
 }

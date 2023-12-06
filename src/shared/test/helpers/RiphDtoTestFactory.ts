@@ -110,6 +110,7 @@ export class RiphDtoTestFactory {
       qualification: 'IC-Cas 4.2',
       historique: '2023-04-06:Terminée',
       dates_avis_favorable_ms_mns: '21.01155.000011-MS01:2021-11-09, 21.01155.000011-MS02:2022-03-09, 21.01155.000011-MS03:2022-10-04, 21.01155.000011-MS04.1:2022-11-29',
+      date_soumission: '2023-01-12',
       ...override,
     }
   }
@@ -135,6 +136,7 @@ export class RiphDtoTestFactory {
       historique: '2023-04-04:En cours',
       dates_avis_favorable_ms_mns: '20.00002.210204-MS02:2021-07-29, 20.00002.210204-MS03:2021-10-26, 20.00002.210204-MS04:2023-01-26',
       competences: 'Essai de phase précoce, Oncologie, Thérapie cellulaire et génique',
+      date_soumission: '2023-01-12',
       ...override,
     }
   }
