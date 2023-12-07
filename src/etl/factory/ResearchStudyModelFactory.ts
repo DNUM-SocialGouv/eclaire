@@ -24,7 +24,8 @@ export class ResearchStudyModelFactory {
 
     const mostRecentDate = ModelUtils.getMostRecentIsoDate(
       ModelUtils.undefinedIfNull(eclaireDto.historique),
-      ModelUtils.undefinedIfNull(eclaireDto.dates_avis_favorable_ms_mns)
+      ModelUtils.undefinedIfNull(eclaireDto.dates_avis_favorable_ms_mns),
+      eclaireDto.date_theorique_maximale_autorisation_cpp
     )
 
     const category: CodeableConcept[] = []

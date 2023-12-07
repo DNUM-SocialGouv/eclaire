@@ -2394,8 +2394,6 @@ describe('research study model factory', () => {
   })
 
   it('should build a research study model, when null fields is given', () => {
-    vi.useFakeTimers()
-    vi.setSystemTime(new Date(2022, 0, 1))
     expect(ResearchStudyModelFactory.create(EclaireDto.fromCtis(RiphDtoTestFactory.emptyCtis()))).toMatchInlineSnapshot(`
       ResearchStudyModel {
         "category": [
@@ -2708,7 +2706,7 @@ describe('research study model factory', () => {
             "valueAddress": undefined,
             "valueCodeableConcept": undefined,
             "valueHumanName": undefined,
-            "valueInstant": "2021-12-31T23:00:00.000Z",
+            "valueInstant": "2023-03-15T00:00:00.000Z",
             "valuePeriod": undefined,
             "valueReference": undefined,
             "valueString": undefined,
@@ -2737,7 +2735,7 @@ describe('research study model factory', () => {
         ],
         "location": undefined,
         "meta": MetaModel {
-          "lastUpdated": "2021-12-31T23:00:00.000Z",
+          "lastUpdated": "2023-03-15T00:00:00.000Z",
           "profile": [
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],

@@ -54,8 +54,8 @@ export class ModelUtils {
     }
   }
 
-  static getMostRecentIsoDate(datesOfHistory: string, datesOfApproval: string): string {
-    if (datesOfHistory === undefined && datesOfApproval === undefined) return new Date().toISOString()
+  static getMostRecentIsoDate(datesOfHistory: string, datesOfApproval: string, theoreticalDateOfApproval: string): string {
+    if (datesOfHistory === undefined && datesOfApproval === undefined) return new Date(theoreticalDateOfApproval).toISOString()
 
     const dates: string[] = []
     if (datesOfHistory !== undefined) {

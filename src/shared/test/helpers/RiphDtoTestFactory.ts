@@ -111,6 +111,7 @@ export class RiphDtoTestFactory {
       historique: '2023-04-06:Terminée',
       dates_avis_favorable_ms_mns: '21.01155.000011-MS01:2021-11-09, 21.01155.000011-MS02:2022-03-09, 21.01155.000011-MS03:2022-10-04, 21.01155.000011-MS04.1:2022-11-29',
       date_soumission: '2023-01-12',
+
       ...override,
     }
   }
