@@ -33,7 +33,6 @@ export class EclaireDto {
     readonly historique: string,
     readonly dates_avis_favorable_ms_mns: string,
     readonly pays_concernes: string[],
-    readonly date_soumission: string,
     readonly date_theorique_maximale_autorisation_cpp: string
   ) {}
 
@@ -93,7 +92,6 @@ export class EclaireDto {
       riphCtisDto.historique,
       riphCtisDto.dates_avis_favorable_ms_mns,
       riphCtisDto.pays_concernes?.split(', ') || null,
-      null,
       new Date('2023-03-15').toISOString().split('T')[0] // Date de mise en production de la gestion des historiques côté SIRIPH
     )
   }
@@ -133,8 +131,7 @@ export class EclaireDto {
       riphDmDto.historique,
       riphDmDto.dates_avis_favorable_ms_mns,
       null,
-      riphDmDto.date_soumission,
-      this.getMaxTheoreticalValidationDate(riphDmDto.date_soumission, 106)
+      this.getMaxTheoreticalValidationDate(riphDmDto.date_soumission, 102)
     )
   }
 
@@ -181,7 +178,6 @@ export class EclaireDto {
       riphJardeDto.historique,
       riphJardeDto.dates_avis_favorable_ms_mns,
       null,
-      riphJardeDto.date_soumission,
       this.getMaxTheoreticalValidationDate(riphJardeDto.date_soumission, 109)
     )
   }
