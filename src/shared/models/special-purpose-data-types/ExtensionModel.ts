@@ -5,7 +5,6 @@ import { AddressModel } from '../data-types/AddressModel'
 import { CodeableConceptModel } from '../data-types/CodeableConceptModel'
 import { HumanNameModel } from '../data-types/HumanNameModel'
 import { PeriodModel } from '../data-types/PeriodModel'
-import { ModelUtils } from '../eclaire/ModelUtils'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 
 export class ExtensionModel implements Extension {
@@ -133,17 +132,14 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireReviewDate(history: string, approvalDate: string): Extension {
-    const emptyHistoryDateIfNull = ModelUtils.undefinedIfNull(history)
-    const emptyApprovalDateIfNull = ModelUtils.undefinedIfNull(approvalDate)
-
+  static createEclaireReviewDate(mostRecentDate: string): Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date',
       undefined,
       undefined,
       undefined,
-      ModelUtils.getMostRecentIsoDate(emptyHistoryDateIfNull, emptyApprovalDateIfNull),
+      mostRecentDate,
       undefined,
       undefined,
       undefined

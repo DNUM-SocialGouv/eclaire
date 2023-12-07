@@ -18,6 +18,7 @@ export class RiphJardeDto {
     readonly qualification_recherche: string,
     readonly historique: string,
     readonly dates_avis_favorable_ms_mns: string,
-    readonly competences: string
+    readonly competences: string,
+    readonly date_soumission: string
   ) {}
 }
