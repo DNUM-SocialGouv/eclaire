@@ -8,6 +8,7 @@ import {
   ResearchStudy,
 } from 'fhir/r4'
 
+import { OriginalContentsToEnhanceModel } from '../eclaire/OriginalContentsToEnhanceModel'
 import { ReferenceContentsModel } from '../eclaire/ReferenceContentsModel'
 import { TranslatedContentModel } from '../eclaire/TranslatedContentModel'
 
@@ -28,6 +29,7 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly location: CodeableConcept[] | undefined,
     readonly meta: Meta | undefined,
     readonly phase: CodeableConcept | undefined,
+    readonly originalContentsToEnhance: OriginalContentsToEnhanceModel | undefined,
     readonly referenceContents: ReferenceContentsModel,
     readonly site: Reference[] | undefined,
     readonly sponsor: Reference | undefined,

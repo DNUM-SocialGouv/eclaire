@@ -46,28 +46,6 @@ describe('research study model factory', () => {
             ],
             "text": "diseaseCondition",
           },
-          CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": "10070575",
-                "display": "N/A",
-                "system": "http://terminology.hl7.org/CodeSystem/mdr",
-                "version": "2.0.1",
-              },
-            ],
-            "text": "medDRACondition",
-          },
-          CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": "10065430",
-                "display": "N/A",
-                "system": "http://terminology.hl7.org/CodeSystem/mdr",
-                "version": "2.0.1",
-              },
-            ],
-            "text": "medDRACondition",
-          },
         ],
         "contact": [
           ContactDetailModel {
@@ -580,6 +558,12 @@ describe('research study model factory', () => {
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
         },
+        "originalContentsToEnhance": OriginalContentsToEnhanceModel {
+          "meddraCodes": [
+            "10070575",
+            "10065430",
+          ],
+        },
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -1012,17 +996,6 @@ describe('research study model factory', () => {
             ],
             "text": "diseaseCondition",
           },
-          CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": "INDISPONIBLE",
-                "display": "N/A",
-                "system": "http://terminology.hl7.org/CodeSystem/mdr",
-                "version": "2.0.1",
-              },
-            ],
-            "text": "medDRACondition",
-          },
         ],
         "contact": [
           ContactDetailModel {
@@ -1432,6 +1405,7 @@ describe('research study model factory', () => {
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
         },
+        "originalContentsToEnhance": undefined,
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -1721,17 +1695,6 @@ describe('research study model factory', () => {
               },
             ],
             "text": "diseaseCondition",
-          },
-          CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": "INDISPONIBLE",
-                "display": "N/A",
-                "system": "http://terminology.hl7.org/CodeSystem/mdr",
-                "version": "2.0.1",
-              },
-            ],
-            "text": "medDRACondition",
           },
         ],
         "contact": [
@@ -2142,6 +2105,7 @@ describe('research study model factory', () => {
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
         },
+        "originalContentsToEnhance": undefined,
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -2740,6 +2704,7 @@ describe('research study model factory', () => {
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
         },
+        "originalContentsToEnhance": undefined,
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {

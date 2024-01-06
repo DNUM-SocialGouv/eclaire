@@ -7,6 +7,7 @@ import { LocationModel } from '../../shared/models/domain-resources/LocationMode
 import { OrganizationModel } from '../../shared/models/domain-resources/OrganizationModel'
 import { RiphStatus, ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { ModelUtils } from '../../shared/models/eclaire/ModelUtils'
+import { OriginalContentsToEnhanceModel } from '../../shared/models/eclaire/OriginalContentsToEnhanceModel'
 import { ReferenceContentsModel } from '../../shared/models/eclaire/ReferenceContentsModel'
 import { ContactDetailModel } from '../../shared/models/metadata-types/ContactDetailModel'
 import { ExtensionModel } from '../../shared/models/special-purpose-data-types/ExtensionModel'
@@ -38,8 +39,10 @@ export class ResearchStudyModelFactory {
     if (ModelUtils.isNotNull(eclaireDto.pathologies_maladies_rares)) {
       condition.push(CodeableConceptModel.createDiseaseSlice(eclaireDto.pathologies_maladies_rares))
     }
+
+    let originalContentToEnhance: OriginalContentsToEnhanceModel
     if (ModelUtils.isNotNull(eclaireDto.informations_meddra)) {
-      condition.push(...CodeableConceptModel.createMedDraSlice(eclaireDto.informations_meddra))
+      originalContentToEnhance = OriginalContentsToEnhanceModel.create(eclaireDto.informations_meddra)
     }
 
     const contact: ContactDetail[] = []
@@ -149,6 +152,7 @@ export class ResearchStudyModelFactory {
       location,
       meta,
       phase,
+      originalContentToEnhance,
       referenceContents,
       site.length === 0 ? undefined : site,
       sponsor,

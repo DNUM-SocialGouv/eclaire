@@ -93,7 +93,6 @@ export class ElasticsearchService {
     await this.client.bulk({
       body: this.buildBody(documents),
       index: this.index,
-      pipeline: this.updateMedDraLabels,
       refresh: true,
     } satisfies RequestParams.Bulk)
   }

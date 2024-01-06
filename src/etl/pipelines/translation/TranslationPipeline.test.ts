@@ -324,16 +324,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       // when
       const translationResult: ResearchStudyModel[] = await translationPipeline.transform(documents)
       // then
-      const result: CodeableConcept = translationResult[0].condition.find((value) => value.text === 'diseaseCondition')
-      expect(result).toBeUndefined()
-      expect(translationResult[0].translatedContent).toMatchInlineSnapshot(`
-        TranslatedContentModel {
-          "diseaseCondition": "",
-          "therapeuticArea": "",
-          "title": "",
-        }
-      `)
-
+      expect(translationResult[0].condition).toBeUndefined()
     })
   })
 
