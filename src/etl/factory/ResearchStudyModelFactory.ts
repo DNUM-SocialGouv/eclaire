@@ -41,7 +41,7 @@ export class ResearchStudyModelFactory {
     }
 
     let originalContentToEnhance: OriginalContentsToEnhanceModel
-    if (ModelUtils.isNotNull(eclaireDto.informations_meddra)) {
+    if (ModelUtils.isNotNull(eclaireDto.informations_meddra) && eclaireDto.informations_meddra[0] !== '') {
       originalContentToEnhance = OriginalContentsToEnhanceModel.create(eclaireDto.informations_meddra)
     }
 
