@@ -1,12 +1,17 @@
 import { errors } from '@elastic/elasticsearch'
 import { TransportRequestCallback } from '@elastic/elasticsearch/lib/Transport'
 import fs from 'fs'
+import { afterEach } from 'vitest'
 
 import { EtlService } from './EtlService'
+import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../api/research-study/gateways/converter/convertFhirParsedQueryParamsToElasticsearchQuery'
+import { ElasticsearchBodyType } from '../shared/elasticsearch/ElasticsearchBody'
+import { SearchResponse } from '../shared/elasticsearch/ElasticsearchService'
 import { setupDependencies } from '../shared/test/helpers/elasticsearchHelper'
 import { RiphDtoTestFactory } from '../shared/test/helpers/RiphDtoTestFactory'
-import { setupTranslationService } from '../shared/test/helpers/translationHelper'
+import { LocalTranslator } from '../shared/translation/LocalTranslator'
 import { TranslationService } from '../shared/translation/TranslationService'
+import { Translator } from '../shared/translation/Translator'
 
 describe('extract transform load service', () => {
   describe('when index is created', () => {
@@ -329,6 +334,84 @@ describe('extract transform load service', () => {
       await expect(etlService.updateMeddraLabels()).rejects.toThrow('ES pipelines serach operation has failed')
     })
   })
+
+  describe('when daily update is performed', () => {
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+
+    it('should import every clinical trials, translate them and update their meddra labels', async () => {
+      // GIVEN
+      const { databaseService, etlService, readerService } = await setup()
+      vi.spyOn(readerService, 'read')
+        .mockResolvedValueOnce([RiphDtoTestFactory.ctis()])
+        .mockResolvedValueOnce([RiphDtoTestFactory.dm()])
+        .mockResolvedValueOnce([RiphDtoTestFactory.jarde()])
+      await etlService.createIndex()
+      await databaseService.createMedDraIndex()
+      await databaseService.bulkMedDraDocuments([
+        {
+          code: '10070575',
+          label: 'Cancer du sein à récepteurs aux oestrogènes positifs',
+        },
+        {
+          code: '10065430',
+          label: 'Cancer du sein HER2 positif',
+        },
+      ])
+      await databaseService.createPolicies()
+
+      // WHEN
+      await etlService.dailyUpdate('1970-01-01')
+
+      // THEN
+      const query: ElasticsearchBodyType = convertFhirParsedQueryParamsToElasticsearchQuery([{ name: '_count', value: '1000' }])
+      const result: SearchResponse = await databaseService.search(query)
+
+      await expect(result).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdate.snap.json')
+    })
+
+    it('should import clinical trials from yesterday, translate them and update their meddra labels', async () => {
+      // GIVEN
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2024-01-07').toISOString())
+
+      const { databaseService, etlService, readerService } = await setup()
+      vi.spyOn(readerService, 'read')
+        .mockResolvedValueOnce([
+          RiphDtoTestFactory.ctis(),
+          RiphDtoTestFactory.ctis({
+            dates_avis_favorable_ms_mns: '22.00800.000094-SM-1:2022-11-07, 22.00800.000094-SM-2:2024-01-06',
+            historique: '2024-01-06: En cours',
+            numero_ctis: '2024-500014-26-99',
+          }),
+        ])
+        .mockResolvedValueOnce([RiphDtoTestFactory.dm()])
+        .mockResolvedValueOnce([RiphDtoTestFactory.jarde()])
+      await etlService.createIndex()
+      await databaseService.createMedDraIndex()
+      await databaseService.bulkMedDraDocuments([
+        {
+          code: '10070575',
+          label: 'Cancer du sein à récepteurs aux oestrogènes positifs',
+        },
+        {
+          code: '10065430',
+          label: 'Cancer du sein HER2 positif',
+        },
+      ])
+      await databaseService.createPolicies()
+
+      // WHEN
+      await etlService.dailyUpdate()
+
+      // THEN
+      const query: ElasticsearchBodyType = convertFhirParsedQueryParamsToElasticsearchQuery([{ name: '_count', value: '1000' }])
+      const result: SearchResponse = await databaseService.search(query)
+
+      await expect(result).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdateSinceYesterday.snap.json')
+    })
+  })
 })
 
 async function setup() {
@@ -343,7 +426,9 @@ async function setup() {
   await databaseService.deleteMedDraIndex()
   await databaseService.deleteAnIndex()
 
-  const translationService: TranslationService = setupTranslationService()
+  const translator: Translator = new LocalTranslator()
+  const translationService: TranslationService = new TranslationService(translator)
+
   const etlService = new EtlService(logger, databaseService, readerService, translationService)
 
   const medDraFile = '10000001$Pneumopathie due à la ventilation$10081988$$$$$$$N$$\n10000002$Déficience en 11-bêta-hydroxylase$10000002$$$$$$$Y$$'

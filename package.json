@@ -18,6 +18,8 @@
     "dev": "nest start --watch",
     "etl:create-index": "ts-node src/etl/console.ts create-index",
     "etl:create-policies": "ts-node src/etl/console.ts create-policies",
+    "etl:daily-update:everything": "ts-node src/etl/console.ts daily-update 1970-01-01",
+    "etl:daily-update:yesterday": "ts-node src/etl/console.ts daily-update",
     "etl:delete-pipelines": "ts-node src/etl/console.ts delete-pipelines",
     "etl:delete-policies": "ts-node src/etl/console.ts delete-policies",
     "etl:import": "ts-node src/etl/console.ts import",

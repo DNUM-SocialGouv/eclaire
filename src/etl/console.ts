@@ -6,7 +6,7 @@ import { AppModule } from '../AppModule'
 async function console(): Promise<void> {
   const application = await NestFactory.createApplicationContext(AppModule)
   const command = process.argv[2]
-  const date = process.argv[3]
+  const startingDate = process.argv[3]
   const etlService = application.get(EtlService)
 
   switch (command) {
@@ -33,10 +33,13 @@ async function console(): Promise<void> {
       await etlService.deletePipelines()
       break
     case 'translate':
-      await etlService.translate(date)
+      await etlService.translate(startingDate)
       break
     case 'update-meddra-labels':
-      await etlService.updateMeddraLabels(date)
+      await etlService.updateMeddraLabels(startingDate)
+      break
+    case 'daily-update':
+      await etlService.dailyUpdate(startingDate)
       break
     default:
       process.exit(1)
