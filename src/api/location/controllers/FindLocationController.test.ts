@@ -15,7 +15,7 @@ describe('#FindLocationController - e2e', async () => {
     // THEN
     expect(response.statusCode).toBe(200)
     expect(response.get('content-type')).toBe('application/fhir+json; charset=utf-8')
-    expect(response.text).toMatchInlineSnapshot('"{"identifier":[{"use":"official","value":"2022-500014-26-00-0-site"}],"address":{"city":"Lille","line":["Avenue Eugene Avinee","Gastroenterology Hepatology and Nutrition Unit Paediatric clinic, Child Unit"],"use":"work","type":"physical"},"name":"Donnée non disponible","telecom":[{"extension":[{"valueHumanName":{"given":["Madeleine"],"prefix":["Dr."],"use":"official","family":"Aumar"},"url":"https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name"}],"use":"work"}],"id":"2022-500014-26-00-0-site","resourceType":"Location"}"')
+    expect(response.text).toMatchInlineSnapshot('"{"id":"2022-500014-26-00-0-site","address":{"city":"Lille","line":["Avenue Eugene Avinee","Gastroenterology Hepatology and Nutrition Unit Paediatric clinic, Child Unit"],"type":"physical","use":"work"},"identifier":[{"use":"official","value":"2022-500014-26-00-0-site"}],"name":"Donnée non disponible","telecom":[{"extension":[{"url":"https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name","valueHumanName":{"family":"Aumar","given":["Madeleine"],"prefix":["Dr."],"use":"official"}}],"use":"work"}],"resourceType":"Location"}"')
   })
 
   it('should retrieve none', async () => {

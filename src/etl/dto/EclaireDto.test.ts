@@ -17,14 +17,8 @@ describe('etl | dto | EclaireDto', () => {
         "groupes_sujet": "Données non disponible",
         "historique": "2023-03-16:En cours",
         "informations_meddra": [
-          {
-            "code": "10070575",
-            "label": "N/A",
-          },
-          {
-            "code": "10065430",
-            "label": "N/A",
-          },
+          "10070575",
+          "10065430",
         ],
         "numero_secondaire": "2022-500014-26-00",
         "organisme_adresse": "Grenzacherstrasse 124",
@@ -89,12 +83,7 @@ describe('etl | dto | EclaireDto', () => {
         "etat": "TERMINEE_ANTICIPEE",
         "groupes_sujet": "INDISPONIBLE",
         "historique": "2023-04-06:Terminée",
-        "informations_meddra": [
-          {
-            "code": "INDISPONIBLE",
-            "label": "N/A",
-          },
-        ],
+        "informations_meddra": null,
         "numero_secondaire": "2021-A01563-38",
         "organisme_adresse": "15 Boulevard du Général Leclerc",
         "organisme_code_postal": "59100",
@@ -130,12 +119,7 @@ describe('etl | dto | EclaireDto', () => {
         "etat": "EN_COURS",
         "groupes_sujet": "INDISPONIBLE",
         "historique": "2023-04-04:En cours",
-        "informations_meddra": [
-          {
-            "code": "INDISPONIBLE",
-            "label": "N/A",
-          },
-        ],
+        "informations_meddra": null,
         "numero_secondaire": "2021-A01022-39",
         "organisme_adresse": "LAMIH - Campus du Mont-Houy",
         "organisme_code_postal": "59313",

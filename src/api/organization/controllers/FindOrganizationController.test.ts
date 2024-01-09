@@ -15,7 +15,7 @@ describe('#FindOrganizationController - e2e', async () => {
     // THEN
     expect(response.statusCode).toBe(200)
     expect(response.get('content-type')).toBe('application/fhir+json; charset=utf-8')
-    expect(response.text).toMatchInlineSnapshot('"{"name":"Clinical Trials Information System","telecom":[{"system":"url","use":"work","value":"https://euclinicaltrials.eu/"}],"id":"ctis","resourceType":"Organization"}"')
+    expect(response.text).toMatchInlineSnapshot('"{"id":"ctis","name":"Clinical Trials Information System","telecom":[{"system":"url","use":"work","value":"https://euclinicaltrials.eu/"}],"resourceType":"Organization"}"')
   })
 
   it('should retrieve none', async () => {

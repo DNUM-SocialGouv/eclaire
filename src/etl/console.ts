@@ -35,6 +35,9 @@ async function console(): Promise<void> {
     case 'translate':
       await etlService.translate(date)
       break
+    case 'update-meddra-labels':
+      await etlService.updateMeddraLabels(date)
+      break
     default:
       process.exit(1)
   }

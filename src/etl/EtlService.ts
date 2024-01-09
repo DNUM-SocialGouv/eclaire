@@ -6,6 +6,7 @@ import { IngestPipeline } from './pipelines/ingest/IngestPipeline'
 import { IngestPipelineCtis } from './pipelines/ingest/IngestPipelineCtis'
 import { IngestPipelineDmDmdiv } from './pipelines/ingest/IngestPipelineDmDmdiv'
 import { IngestPipelineJarde } from './pipelines/ingest/IngestPipelineJarde'
+import { MedDraPipeline } from './pipelines/translation/MedDraPipeline'
 import { TranslationPipeline } from './pipelines/translation/TranslationPipeline'
 import { S3Service } from './s3/S3Service'
 import { elasticsearchIndexMapping } from '../shared/elasticsearch/elasticsearchIndexMapping'
@@ -172,5 +173,22 @@ export class EtlService {
     }
 
     this.loggerService.info('-- Fin de la traduction des essais cliniques CTIS.')
+  }
+
+  async updateMeddraLabels(date?: string): Promise<void> {
+    this.loggerService.info('-- Début de la mise à jour des labels Meddra pour les essais cliniques CTIS.')
+
+    try {
+      const medDraPipeline: MedDraPipeline = new MedDraPipeline(this.databaseService)
+      await medDraPipeline.execute(date)
+    } catch (error) {
+      if (error instanceof errors.ResponseError) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        throw new Error(error.meta.body.error.reason as string)
+      }
+      throw error
+    }
+
+    this.loggerService.info('-- Fin de la mise à jour des labels Meddra pour les essais cliniques CTIS.')
   }
 }

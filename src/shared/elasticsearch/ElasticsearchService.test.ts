@@ -118,7 +118,6 @@ describe('elasticsearch service', () => {
         fakeDocument2,
       ],
       index: 'eclaire',
-      pipeline: 'update-meddra-labels',
       refresh: true,
     })
   })

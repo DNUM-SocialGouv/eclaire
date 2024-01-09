@@ -26,7 +26,9 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
 
   async findOne(id: string): Promise<ResearchStudyModel> {
     const document: ResearchStudyModel = await this.databaseService.findOneDocument(id) as ResearchStudyModel
-    return this.applyTranslationsToResearchStudyModel(document)
+    const translatedResearchStudyModel: ResearchStudyModel = this.applyTranslationsToResearchStudyModel(document)
+    delete translatedResearchStudyModel.originalContentsToEnhance
+    return translatedResearchStudyModel
   }
 
   private applyTranslationsToResearchStudyModel(document: ResearchStudyModel): ResearchStudyModel {
@@ -92,9 +94,11 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     }
 
     const translatedResponse = response.hits.map((hit: SearchResponseHits) => {
+      const translatedResearchStudyModel: ResearchStudyModel = this.applyTranslationsToResearchStudyModel(hit._source as unknown as ResearchStudyModel)
+      delete translatedResearchStudyModel.originalContentsToEnhance
       return {
         ...hit,
-        _source: this.applyTranslationsToResearchStudyModel(hit._source as unknown as ResearchStudyModel) as unknown as Record<string, string>,
+        _source: translatedResearchStudyModel as unknown as Record<string, string>,
       }
     })
 

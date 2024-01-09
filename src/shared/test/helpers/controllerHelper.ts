@@ -6,6 +6,7 @@ import { RiphDtoTestFactory } from './RiphDtoTestFactory'
 import { AppModule } from '../../../AppModule'
 import { EclaireDto } from '../../../etl/dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../../etl/factory/ResearchStudyModelFactory'
+import { MedDraPipeline } from '../../../etl/pipelines/translation/MedDraPipeline'
 import { TranslationPipeline } from '../../../etl/pipelines/translation/TranslationPipeline'
 import { elasticsearchIndexMapping } from '../../elasticsearch/elasticsearchIndexMapping'
 import { ElasticsearchService } from '../../elasticsearch/ElasticsearchService'
@@ -58,6 +59,9 @@ export async function getHttpServer() {
   const translationService: TranslationService = new TranslationService(translator)
   const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService, translationService)
   await translationPipeline.execute('1990-01-01')
+
+  const medDraPipeline: MedDraPipeline = new MedDraPipeline(databaseService)
+  await medDraPipeline.execute('1990-01-01')
 
   return app.getHttpServer()
 }

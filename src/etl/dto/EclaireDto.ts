@@ -23,7 +23,7 @@ export class EclaireDto {
     readonly phase_recherche: Phase,
     readonly domaine_therapeutique: string,
     readonly pathologies_maladies_rares: string,
-    readonly informations_meddra: MedDra[],
+    readonly informations_meddra: string[],
     readonly taille_etude: number,
     readonly tranches_age: string[],
     readonly sexe: string[],
@@ -76,13 +76,7 @@ export class EclaireDto {
       phaseRecherche || 'N/A',
       riphCtisDto.domaine_therapeutique,
       riphCtisDto.pathologies_maladies_rares,
-      riphCtisDto.informations_meddra?.split(', ')
-        .map((code: string): MedDra => {
-          return {
-            code,
-            label: 'N/A',
-          }
-        }) || null,
+      riphCtisDto.informations_meddra?.split(', ').map((code: string) => code) || null,
       riphCtisDto.taille_etude,
       riphCtisDto.tranches_age?.split(', ') || null,
       riphCtisDto.sexe?.split(',') || ['unknown'],
@@ -116,12 +110,7 @@ export class EclaireDto {
       'N/A',
       riphDmDto.domaine_therapeutique,
       ModelUtils.UNAVAILABLE,
-      [
-        {
-          code: ModelUtils.UNAVAILABLE,
-          label: 'N/A',
-        },
-      ],
+      null,
       riphDmDto.taille_etude,
       null,
       null,
@@ -163,12 +152,7 @@ export class EclaireDto {
       phaseRecherche,
       riphJardeDto.domaine_therapeutique,
       ModelUtils.UNAVAILABLE,
-      [
-        {
-          code: ModelUtils.UNAVAILABLE,
-          label: 'N/A',
-        },
-      ],
+      null,
       riphJardeDto.taille_etude,
       null,
       null,
