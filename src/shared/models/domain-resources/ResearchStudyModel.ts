@@ -16,6 +16,7 @@ export class ResearchStudyModel implements ResearchStudy {
   readonly resourceType: 'ResearchStudy'
   readonly status: ResearchStudyStatus
   translatedContent?: TranslatedContentModel = undefined
+  originalContentsToEnhance: OriginalContentsToEnhanceModel | undefined
 
   constructor(
     readonly category: CodeableConcept[] | undefined,
@@ -29,13 +30,14 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly location: CodeableConcept[] | undefined,
     readonly meta: Meta | undefined,
     readonly phase: CodeableConcept | undefined,
-    readonly originalContentsToEnhance: OriginalContentsToEnhanceModel | undefined,
+    originalContentsToEnhance: OriginalContentsToEnhanceModel | undefined,
     readonly referenceContents: ReferenceContentsModel,
     readonly site: Reference[] | undefined,
     readonly sponsor: Reference | undefined,
     riphStatus: RiphStatus,
     readonly title: string | undefined
   ) {
+    this.originalContentsToEnhance = originalContentsToEnhance
     this.resourceType = 'ResearchStudy'
     this.status = this.convertToResearchStudyStatus(riphStatus)
   }
