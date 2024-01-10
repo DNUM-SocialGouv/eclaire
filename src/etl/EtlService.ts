@@ -52,11 +52,19 @@ export class EtlService {
     }
   }
 
-  async import(): Promise<void> {
+  async dailyUpdate(startingDate?: string): Promise<void> {
+    this.loggerService.info('-- Début de la mise à jour quotidienne des essais cliniques du RIPH.')
+    await this.import(startingDate)
+    await this.translate(startingDate)
+    await this.updateMeddraLabels(startingDate)
+    this.loggerService.info('-- Fin de la mise à jour quotidienne des essais cliniques du RIPH.')
+  }
+
+  async import(startingDate?: string): Promise<void> {
     this.loggerService.info('-- Début de l’import des essais cliniques du RIPH.')
 
     const ingestPipelines: IngestPipeline[] = [
-      new IngestPipelineCtis(this.loggerService, this.databaseService, this.readerService),
+      new IngestPipelineCtis(this.loggerService, this.databaseService, this.readerService, startingDate),
       new IngestPipelineDmDmdiv(this.loggerService, this.databaseService, this.readerService),
       new IngestPipelineJarde(this.loggerService, this.databaseService, this.readerService),
     ]
@@ -158,12 +166,12 @@ export class EtlService {
     }
   }
 
-  async translate(date?: string): Promise<void> {
+  async translate(startingDate?: string): Promise<void> {
     this.loggerService.info('-- Début de la traduction des essais cliniques CTIS.')
 
     try {
       const translationPipeline: TranslationPipeline = new TranslationPipeline(this.databaseService, this.translationService)
-      await translationPipeline.execute(date)
+      await translationPipeline.execute(startingDate)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -175,12 +183,12 @@ export class EtlService {
     this.loggerService.info('-- Fin de la traduction des essais cliniques CTIS.')
   }
 
-  async updateMeddraLabels(date?: string): Promise<void> {
+  async updateMeddraLabels(startingDate?: string): Promise<void> {
     this.loggerService.info('-- Début de la mise à jour des labels Meddra pour les essais cliniques CTIS.')
 
     try {
       const medDraPipeline: MedDraPipeline = new MedDraPipeline(this.databaseService)
-      await medDraPipeline.execute(date)
+      await medDraPipeline.execute(startingDate)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access

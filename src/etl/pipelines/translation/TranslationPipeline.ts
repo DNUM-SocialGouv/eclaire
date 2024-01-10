@@ -5,6 +5,7 @@ import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../../../api/r
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse, SearchResponseHits } from '../../../shared/elasticsearch/ElasticsearchService'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
+import { ModelUtils } from '../../../shared/models/eclaire/ModelUtils'
 import { TranslatedContentModel } from '../../../shared/models/eclaire/TranslatedContentModel'
 import { TranslationService, TextsToTranslate, TranslatedTexts } from '../../../shared/translation/TranslationService'
 
@@ -23,11 +24,11 @@ export class TranslationPipeline {
     }
   }
 
-  async extract(date?: string): Promise<ResearchStudyModel[]> {
+  async extract(startingDate?: string): Promise<ResearchStudyModel[]> {
     let requestBodyToFindEveryCtisStudiesSinceASpecificDate: ElasticsearchBodyType
 
-    if (date) {
-      requestBodyToFindEveryCtisStudiesSinceASpecificDate = this.buildBodyToFindEveryCtisStudiesSinceAGivenDate(date)
+    if (startingDate) {
+      requestBodyToFindEveryCtisStudiesSinceASpecificDate = this.buildBodyToFindEveryCtisStudiesSinceAGivenDate(startingDate)
     } else {
       requestBodyToFindEveryCtisStudiesSinceASpecificDate = this.buildBodyToFindEveryCtisStudiesSinceYesterday()
     }
@@ -71,11 +72,7 @@ export class TranslationPipeline {
   }
 
   private buildBodyToFindEveryCtisStudiesSinceYesterday(): ElasticsearchBodyType {
-    const date: Date = new Date()
-    const yesterdayDate = date.getDate() - 1
-    date.setDate(yesterdayDate)
-    const formattedYesterdayDate = date.toISOString().split('T')[0]
-
+    const formattedYesterdayDate = ModelUtils.getDateOfYesterdayInIsoFormatAndWithoutTime()
     return this.buildBodyToFindEveryCtisStudiesSinceAGivenDate(formattedYesterdayDate)
   }
 

@@ -21,11 +21,11 @@ export class MedDraPipeline {
     }
   }
 
-  async extract(date?: string): Promise<ResearchStudyModel[]> {
+  async extract(startingDate?: string): Promise<ResearchStudyModel[]> {
     let requestBodyToFindEveryCtisStudiesSinceASpecificDate: ElasticsearchBodyType
 
-    if (date) {
-      requestBodyToFindEveryCtisStudiesSinceASpecificDate = this.buildBodyToFindEveryCtisStudiesSinceAGivenDate(date)
+    if (startingDate) {
+      requestBodyToFindEveryCtisStudiesSinceASpecificDate = this.buildBodyToFindEveryCtisStudiesSinceAGivenDate(startingDate)
     } else {
       requestBodyToFindEveryCtisStudiesSinceASpecificDate = this.buildBodyToFindEveryCtisStudiesSinceYesterday()
     }
@@ -69,11 +69,7 @@ export class MedDraPipeline {
   }
 
   private buildBodyToFindEveryCtisStudiesSinceYesterday(): ElasticsearchBodyType {
-    const date: Date = new Date()
-    const yesterdayDate = date.getDate() - 1
-    date.setDate(yesterdayDate)
-    const formattedYesterdayDate = date.toISOString().split('T')[0]
-
+    const formattedYesterdayDate: string = ModelUtils.getDateOfYesterdayInIsoFormatAndWithoutTime()
     return this.buildBodyToFindEveryCtisStudiesSinceAGivenDate(formattedYesterdayDate)
   }
 }

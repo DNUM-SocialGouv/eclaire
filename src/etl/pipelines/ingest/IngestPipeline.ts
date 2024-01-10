@@ -1,6 +1,7 @@
 import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../../../shared/logger/LoggerService'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
+import { ModelUtils } from '../../../shared/models/eclaire/ModelUtils'
 import { RiphCtisDto } from '../../dto/RiphCtisDto'
 import { RiphDmDto } from '../../dto/RiphDmDto'
 import { RiphJardeDto } from '../../dto/RiphJardeDto'
@@ -8,12 +9,20 @@ import { S3Service } from '../../s3/S3Service'
 
 export abstract class IngestPipeline {
   protected abstract readonly type: string
+  protected readonly startingDate: string
 
   constructor(
     protected readonly logger: LoggerService,
     private readonly databaseService: ElasticsearchService,
-    private readonly readerService: S3Service
-  ) {}
+    private readonly readerService: S3Service,
+    startingDate?: string
+  ) {
+    if (startingDate) {
+      this.startingDate = ModelUtils.convertDateToIsoFormatWithoutTime(new Date(startingDate))
+    } else {
+      this.startingDate = ModelUtils.getDateOfYesterdayInIsoFormatAndWithoutTime()
+    }
+  }
 
   abstract execute(): Promise<void>
   abstract transform(riphDtos: RiphDto[]): ResearchStudyModel[]
@@ -26,7 +35,9 @@ export abstract class IngestPipeline {
   }
 
   async load(documents: ResearchStudyModel[]): Promise<void> {
-    await this.databaseService.bulkDocuments<ResearchStudyModel>(documents)
+    if (documents.length > 0) {
+      await this.databaseService.bulkDocuments<ResearchStudyModel>(documents)
+    }
   }
 }
 

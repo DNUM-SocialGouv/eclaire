@@ -1,7 +1,7 @@
 {
   "jobs": [
     {
-      "command": "0 4 * * * node dist/src/etl/console.js import && node dist/src/etl/console.js translate && node dist/src/etl/console.js update-meddra-labels",
+      "command": "0 4 * * * node dist/src/etl/console.js daily-update",
       "size": "S"
     }
   ]

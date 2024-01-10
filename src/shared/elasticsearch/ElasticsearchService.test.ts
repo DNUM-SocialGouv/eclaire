@@ -18,42 +18,6 @@ describe('elasticsearch service', () => {
       body: { mappings: fakeMapping },
       index: 'eclaire',
     })
-    expect(fakeClient.ingest.putPipeline).toHaveBeenCalledWith({
-      body: {
-        processors: [
-          {
-            foreach : {
-              field : 'condition',
-              ignore_missing: true,
-              processor : {
-                enrich: {
-                  description: 'Add MedDra label in french',
-                  field: '_ingest._value.coding.0.code',
-                  ignore_missing: true,
-                  policy_name: 'update-meddra-labels',
-                  target_field: '_ingest._value.coding.0.display',
-                },
-              },
-            },
-          },
-          {
-            foreach : {
-              field : 'condition',
-              ignore_missing: true,
-              processor : {
-                set: {
-                  field: '_ingest._value.coding.0.display',
-                  ignore_empty_value: true,
-                  value: '{{_ingest._value.coding.0.display.label}}',
-                },
-              },
-            },
-          },
-        ],
-        version: 1,
-      },
-      id: 'update-meddra-labels',
-    })
   })
 
   it('should delete an index', async () => {

@@ -13,43 +13,6 @@ export class ElasticsearchService {
       body: { mappings },
       index: this.index,
     } satisfies RequestParams.IndicesCreate)
-
-    await this.client.ingest.putPipeline({
-      body: {
-        processors: [
-          {
-            foreach : {
-              field : 'condition',
-              ignore_missing: true,
-              processor : {
-                enrich: {
-                  description: 'Add MedDra label in french',
-                  field: '_ingest._value.coding.0.code',
-                  ignore_missing: true,
-                  policy_name: this.updateMedDraLabels,
-                  target_field: '_ingest._value.coding.0.display',
-                },
-              },
-            },
-          },
-          {
-            foreach : {
-              field : 'condition',
-              ignore_missing: true,
-              processor : {
-                set: {
-                  field: '_ingest._value.coding.0.display',
-                  ignore_empty_value: true,
-                  value: '{{_ingest._value.coding.0.display.label}}',
-                },
-              },
-            },
-          },
-        ],
-        version: 1,
-      },
-      id: this.updateMedDraLabels,
-    } satisfies RequestParams.IngestPutPipeline)
   }
 
   async deleteAnIndex(): Promise<void> {
