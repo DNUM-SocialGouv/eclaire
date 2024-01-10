@@ -14,7 +14,7 @@ async function console(): Promise<void> {
       await etlService.createIndex()
       break
     case 'import':
-      await etlService.import()
+      await etlService.import(startingDate)
       break
     case 'reset-index':
       await etlService.deleteIndex()

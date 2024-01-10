@@ -1,7 +1,7 @@
 import { errors } from '@elastic/elasticsearch'
 import { TransportRequestCallback } from '@elastic/elasticsearch/lib/Transport'
 import fs from 'fs'
-import { afterEach } from 'vitest'
+import { afterEach, beforeEach } from 'vitest'
 
 import { EtlService } from './EtlService'
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../api/research-study/gateways/converter/convertFhirParsedQueryParamsToElasticsearchQuery'
@@ -71,6 +71,15 @@ describe('extract transform load service', () => {
   })
 
   describe('when import is performed', () => {
+    beforeEach(() => {
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2023-03-17'))
+    })
+
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+
     it('should find data for each clinical trials type (CTIS, DM, JARDE)', async () => {
       // GIVEN
       const { databaseService, etlService, medDraFile, readerService } = await setup()
@@ -374,7 +383,7 @@ describe('extract transform load service', () => {
     it('should import clinical trials from yesterday, translate them and update their meddra labels', async () => {
       // GIVEN
       vi.useFakeTimers()
-      vi.setSystemTime(new Date('2024-01-07').toISOString())
+      vi.setSystemTime(new Date('2024-01-07'))
 
       const { databaseService, etlService, readerService } = await setup()
       vi.spyOn(readerService, 'read')
@@ -410,6 +419,54 @@ describe('extract transform load service', () => {
       const result: SearchResponse = await databaseService.search(query)
 
       await expect(result).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdateSinceYesterday.snap.json')
+    })
+
+    it('should import clinical trials from yesterday, translate them and update their meddra labels and preserve clinical trials from the past', async () => {
+      // GIVEN
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2024-01-07'))
+      const { databaseService, etlService, readerService } = await setup()
+
+      vi.spyOn(readerService, 'read')
+        .mockResolvedValueOnce([RiphDtoTestFactory.ctis()])
+        .mockResolvedValueOnce([RiphDtoTestFactory.dm()])
+        .mockResolvedValueOnce([RiphDtoTestFactory.jarde()])
+
+      await etlService.createIndex()
+      await databaseService.createMedDraIndex()
+      await databaseService.bulkMedDraDocuments([
+        {
+          code: '10070575',
+          label: 'Cancer du sein à récepteurs aux oestrogènes positifs',
+        },
+        {
+          code: '10065430',
+          label: 'Cancer du sein HER2 positif',
+        },
+      ])
+      await databaseService.createPolicies()
+
+      // WHEN
+      await etlService.dailyUpdate('1970-01-01')
+
+      vi.spyOn(readerService, 'read')
+        .mockResolvedValueOnce([
+          RiphDtoTestFactory.ctis({
+            dates_avis_favorable_ms_mns: '22.00800.000094-SM-1:2022-11-07, 22.00800.000094-SM-2:2024-01-06',
+            historique: '2024-01-06: En cours',
+            numero_ctis: '2024-500014-26-99',
+          }),
+        ])
+        .mockResolvedValueOnce([RiphDtoTestFactory.dm()])
+        .mockResolvedValueOnce([RiphDtoTestFactory.jarde()])
+
+      await etlService.dailyUpdate()
+
+      // THEN
+      const query: ElasticsearchBodyType = convertFhirParsedQueryParamsToElasticsearchQuery([{ name: '_count', value: '1000' }])
+      const result: SearchResponse = await databaseService.search(query)
+
+      await expect(result).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdateOverTime.snap.json')
     })
   })
 })

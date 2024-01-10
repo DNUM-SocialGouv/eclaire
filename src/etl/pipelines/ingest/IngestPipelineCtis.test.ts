@@ -1,3 +1,5 @@
+import { afterEach } from 'vitest'
+
 import { IngestPipelineCtis } from './IngestPipelineCtis'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
 import { setupDependencies } from '../../../shared/test/helpers/elasticsearchHelper'
@@ -21,8 +23,14 @@ describe('etl | IngestPipelineCtis', () => {
   })
 
   describe('transform', () => {
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+
     it('should transform array of raw data into a collection of research study documents', () => {
       // given
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2022-10-07'))
       const riphCtisDtos = [RiphDtoTestFactory.ctis()]
       const { ingestPipelineCtis } = setup()
 
@@ -58,7 +66,7 @@ function setup() {
     readerService,
   } = setupDependencies()
 
-  const ingestPipelineCtis = new IngestPipelineCtis(logger, databaseService, readerService)
+  const ingestPipelineCtis = new IngestPipelineCtis(logger, databaseService, readerService, '1970-01-01')
 
   return { databaseService, ingestPipelineCtis, readerService }
 }

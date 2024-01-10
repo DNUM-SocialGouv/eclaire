@@ -17,6 +17,10 @@ export class IngestPipelineCtis extends IngestPipeline {
     return riphCtisDtos.map((riphCtisDto: RiphCtisDto): ResearchStudyModel => {
       const eclaireDto: EclaireDto = EclaireDto.fromCtis(riphCtisDto)
       return ResearchStudyModelFactory.create(eclaireDto)
+    }).filter((researchStudyModel: ResearchStudyModel) => {
+      const startingDate: Date = new Date(this.startingDate)
+      const lastUpdated: Date = new Date(researchStudyModel.meta.lastUpdated)
+      return lastUpdated >= startingDate
     })
   }
 }

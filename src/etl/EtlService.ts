@@ -54,17 +54,17 @@ export class EtlService {
 
   async dailyUpdate(startingDate?: string): Promise<void> {
     this.loggerService.info('-- Début de la mise à jour quotidienne des essais cliniques du RIPH.')
-    await this.import()
+    await this.import(startingDate)
     await this.translate(startingDate)
     await this.updateMeddraLabels(startingDate)
     this.loggerService.info('-- Fin de la mise à jour quotidienne des essais cliniques du RIPH.')
   }
 
-  async import(): Promise<void> {
+  async import(startingDate?: string): Promise<void> {
     this.loggerService.info('-- Début de l’import des essais cliniques du RIPH.')
 
     const ingestPipelines: IngestPipeline[] = [
-      new IngestPipelineCtis(this.loggerService, this.databaseService, this.readerService),
+      new IngestPipelineCtis(this.loggerService, this.databaseService, this.readerService, startingDate),
       new IngestPipelineDmDmdiv(this.loggerService, this.databaseService, this.readerService),
       new IngestPipelineJarde(this.loggerService, this.databaseService, this.readerService),
     ]

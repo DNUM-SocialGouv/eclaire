@@ -78,6 +78,17 @@ export class ModelUtils {
     return mostRecentDate.toISOString()
   }
 
+  static getDateOfYesterdayInIsoFormatAndWithoutTime(): string {
+    const date: Date = new Date()
+    const yesterdayDate = date.getDate() - 1
+    date.setDate(yesterdayDate)
+    return this.convertDateToIsoFormatWithoutTime(date)
+  }
+
+  static convertDateToIsoFormatWithoutTime(date: Date): string {
+    return date.toISOString().split('T')[0]
+  }
+
   private static sortBy = (valueA: string, valueB: string) => {
     return valueB < valueA ? -1 : 1
   }
