@@ -421,6 +421,47 @@ describe('extract transform load service', () => {
       await expect(result).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdateSinceYesterday.snap.json')
     })
 
+    it('should not import CTIS clinical trials, translate them and update their meddra labels when there is no new ones', async () => {
+      // GIVEN
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2024-01-08'))
+
+      const { databaseService, etlService, readerService } = await setup()
+      vi.spyOn(readerService, 'read')
+        .mockResolvedValueOnce([
+          RiphDtoTestFactory.ctis(),
+          RiphDtoTestFactory.ctis({
+            dates_avis_favorable_ms_mns: '22.00800.000094-SM-1:2022-11-07, 22.00800.000094-SM-2:2024-01-06',
+            historique: '2024-01-06: En cours',
+            numero_ctis: '2024-500014-26-99',
+          }),
+        ])
+        .mockResolvedValueOnce([RiphDtoTestFactory.dm()])
+        .mockResolvedValueOnce([RiphDtoTestFactory.jarde()])
+      await etlService.createIndex()
+      await databaseService.createMedDraIndex()
+      await databaseService.bulkMedDraDocuments([
+        {
+          code: '10070575',
+          label: 'Cancer du sein à récepteurs aux oestrogènes positifs',
+        },
+        {
+          code: '10065430',
+          label: 'Cancer du sein HER2 positif',
+        },
+      ])
+      await databaseService.createPolicies()
+
+      // WHEN
+      await etlService.dailyUpdate()
+
+      // THEN
+      const query: ElasticsearchBodyType = convertFhirParsedQueryParamsToElasticsearchQuery([{ name: '_count', value: '1000' }])
+      const result: SearchResponse = await databaseService.search(query)
+
+      await expect(result).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdateWithoutNewOnes.snap.json')
+    })
+
     it('should import clinical trials from yesterday, translate them and update their meddra labels and preserve clinical trials from the past', async () => {
       // GIVEN
       vi.useFakeTimers()

@@ -35,7 +35,9 @@ export abstract class IngestPipeline {
   }
 
   async load(documents: ResearchStudyModel[]): Promise<void> {
-    await this.databaseService.bulkDocuments<ResearchStudyModel>(documents)
+    if (documents.length > 0) {
+      await this.databaseService.bulkDocuments<ResearchStudyModel>(documents)
+    }
   }
 }
 
