@@ -9,27 +9,24 @@ import { LabelType } from '../special-purpose-data-types/ExtensionModel'
 export class CodeableConceptModel implements CodeableConcept {
   private constructor(
     readonly coding: Coding[] | undefined,
-    readonly text: string | undefined
+    readonly text?: string | undefined
   ) {}
 
   static createResearchStudyPhase(researchStudyPhase: string): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createResearchStudyPhase(researchStudyPhase)],
-      'Research Study Phase'
+      [CodingModel.createResearchStudyPhase(researchStudyPhase)]
     )
   }
 
   static createRegulationCode(regulationCode: string): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createRegulationCode(regulationCode)],
-      'Regulation Code'
+      [CodingModel.createRegulationCode(regulationCode)]
     )
   }
 
   static createReglementationPrecision(reglementationPrecision: string): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createReglementationPrecision(reglementationPrecision)],
-      'Reglementation Precision'
+      [CodingModel.createReglementationPrecision(reglementationPrecision)]
     )
   }
 
@@ -53,73 +50,63 @@ export class CodeableConceptModel implements CodeableConcept {
 
   static createGenders(genders: string[]): CodeableConcept {
     return new CodeableConceptModel(
-      genders.map((gender): Coding => CodingModel.createGender(gender)),
-      'Genders'
+      genders.map((gender): Coding => CodingModel.createGender(gender))
     )
   }
 
   static createResearchStudyGroupCategory(researchStudyGroupCategory: string): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createResearchStudyGroupCategory(researchStudyGroupCategory)],
-      'Research Study Group Category'
+      [CodingModel.createResearchStudyGroupCategory(researchStudyGroupCategory)]
     )
   }
 
   static createStudyPopulation(studyPopulation: string[]): CodeableConcept {
     return new CodeableConceptModel(
-      studyPopulation.map((parsedStudyPopulation): Coding => CodingModel.createStudyPopulation(parsedStudyPopulation)),
-      'Study Population'
+      studyPopulation.map((parsedStudyPopulation): Coding => CodingModel.createStudyPopulation(parsedStudyPopulation))
     )
   }
 
   static createInclusion(studyInclusion: string): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createInclusion(studyInclusion)],
-      'Study Inclusion Criteria'
+      [CodingModel.createInclusion(studyInclusion)]
     )
   }
 
   static createExclusion(studyExclusion: string): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createExclusion(studyExclusion)],
-      'Study Exclusion Criteria'
+      [CodingModel.createExclusion(studyExclusion)]
     )
   }
 
   static createOrganizationContactPurpose(): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createOrganizationContactPurpose()],
-      'Organization Contact Purpose'
+      [CodingModel.createOrganizationContactPurpose()]
     )
   }
 
   static createClinicalResearchSponsor(): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createOrganizationSponsorType()],
-      'Organization Sponsor Type'
+      [CodingModel.createOrganizationSponsorType()]
     )
   }
 
   static createContactType(contactType: ContactType): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createContactType(contactType)],
-      'Contact Type'
+      [CodingModel.createContactType(contactType)]
     )
   }
 
   static createLocations(countriesCode: string[]): CodeableConcept[] {
     return countriesCode.map((countryCode): CodeableConcept => {
       return new CodeableConceptModel(
-        [CodingModel.createLocation(countryCode)],
-        'Countries of recruitment'
+        [CodingModel.createLocation(countryCode)]
       )
     })
   }
 
   static createLabelType(labelType: LabelType): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createLabelType(labelType)],
-      'Label Type'
+      [CodingModel.createLabelType(labelType)]
     )
   }
 }

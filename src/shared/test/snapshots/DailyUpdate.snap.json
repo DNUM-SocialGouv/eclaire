@@ -15,7 +15,6 @@
                 "version": "0.2.0",
               },
             ],
-            "text": "Regulation Code",
           },
           {
             "coding": [
@@ -26,7 +25,6 @@
                 "version": "0.2.0",
               },
             ],
-            "text": "Reglementation Precision",
           },
         ],
         "condition": [
@@ -123,7 +121,6 @@
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
                 },
               },
             ],
@@ -180,7 +177,6 @@
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
                 },
               },
             ],
@@ -236,7 +232,6 @@
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
                 },
               },
             ],
@@ -259,7 +254,6 @@
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
                 },
               },
             ],
@@ -305,7 +299,6 @@
               "version": "4.0.1",
             },
           ],
-          "text": "Research Study Phase",
         },
         "resourceType": "ResearchStudy",
         "sponsor": {
@@ -333,7 +326,6 @@
                 "version": "0.2.0",
               },
             ],
-            "text": "Regulation Code",
           },
           {
             "coding": [
@@ -344,7 +336,6 @@
                 "version": "0.2.0",
               },
             ],
-            "text": "Reglementation Precision",
           },
         ],
         "condition": [
@@ -441,7 +432,6 @@
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
                 },
               },
             ],
@@ -498,7 +488,6 @@
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
                 },
               },
             ],
@@ -554,7 +543,6 @@
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
                 },
               },
             ],
@@ -577,7 +565,6 @@
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
                 },
               },
             ],
@@ -623,7 +610,6 @@
               "version": "4.0.1",
             },
           ],
-          "text": "Research Study Phase",
         },
         "resourceType": "ResearchStudy",
         "sponsor": {
@@ -651,7 +637,6 @@
                 "version": "0.2.0",
               },
             ],
-            "text": "Regulation Code",
           },
           {
             "coding": [
@@ -662,7 +647,6 @@
                 "version": "0.2.0",
               },
             ],
-            "text": "Reglementation Precision",
           },
         ],
         "condition": [
@@ -781,7 +765,6 @@
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
                 },
               },
             ],
@@ -838,7 +821,6 @@
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
                 },
               },
             ],
@@ -894,7 +876,6 @@
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
                 },
               },
             ],
@@ -917,7 +898,6 @@
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
                 },
               },
             ],
@@ -964,7 +944,6 @@
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
           },
           {
             "coding": [
@@ -975,7 +954,6 @@
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
           },
           {
             "coding": [
@@ -986,7 +964,6 @@
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
           },
           {
             "coding": [
@@ -997,7 +974,6 @@
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
           },
           {
             "coding": [
@@ -1008,7 +984,6 @@
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
           },
           {
             "coding": [
@@ -1019,7 +994,6 @@
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
           },
           {
             "coding": [
@@ -1030,7 +1004,6 @@
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
           },
           {
             "coding": [
@@ -1041,7 +1014,6 @@
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
           },
         ],
         "meta": {
@@ -1065,7 +1037,6 @@
               "version": "4.0.1",
             },
           ],
-          "text": "Research Study Phase",
         },
         "resourceType": "ResearchStudy",
         "site": [
