@@ -1,6 +1,6 @@
 import { CodeableConcept, Coding } from 'fhir/r4'
 
-import { CodingModel } from './CodingModel'
+import { CodingModel, EclaireGroupCharacteristicKindVsReferenceCode } from './CodingModel'
 import { MedDra } from '../../../etl/dto/EclaireDto'
 import { ModelUtils } from '../eclaire/ModelUtils'
 import { ContactType } from '../metadata-types/ContactDetailModel'
@@ -107,6 +107,12 @@ export class CodeableConceptModel implements CodeableConcept {
   static createLabelType(labelType: LabelType): CodeableConcept {
     return new CodeableConceptModel(
       [CodingModel.createLabelType(labelType)]
+    )
+  }
+
+  static createGroupCharacteristicKindVs(referenceCode: EclaireGroupCharacteristicKindVsReferenceCode): CodeableConceptModel {
+    return new CodeableConceptModel(
+      [CodingModel.createGroupCharacteristicKindVs(referenceCode)]
     )
   }
 }

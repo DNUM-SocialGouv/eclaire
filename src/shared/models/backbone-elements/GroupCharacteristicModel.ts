@@ -16,7 +16,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createGender(genders: string[]): GroupCharacteristic {
     return new GroupCharacteristicModel(
-      undefined,
+      CodeableConceptModel.createGroupCharacteristicKindVs('grp-gender'),
       false,
       undefined,
       CodeableConceptModel.createGenders(genders),
@@ -28,7 +28,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createAgeRange(ageRange: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
-      undefined,
+      CodeableConceptModel.createGroupCharacteristicKindVs('grp-age'),
       false,
       undefined,
       undefined,
@@ -40,7 +40,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createResearchStudyGroupCategory(researchStudyGroupCategory: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
-      undefined,
+      CodeableConceptModel.createGroupCharacteristicKindVs('grp-category'),
       false,
       undefined,
       CodeableConceptModel.createResearchStudyGroupCategory(researchStudyGroupCategory),
@@ -52,7 +52,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createStudyPopulation(studyPopulation: string[]): GroupCharacteristic {
     return new GroupCharacteristicModel(
-      undefined,
+      CodeableConceptModel.createGroupCharacteristicKindVs('grp-studypop'),
       false,
       undefined,
       CodeableConceptModel.createStudyPopulation(studyPopulation),
@@ -64,7 +64,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createInclusion(studyInclusion: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
-      undefined,
+      CodeableConceptModel.createGroupCharacteristicKindVs('grp-other'),
       false,
       undefined,
       CodeableConceptModel.createInclusion(studyInclusion),
@@ -76,7 +76,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
 
   static createExclusion(studyExclusion: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
-      undefined,
+      CodeableConceptModel.createGroupCharacteristicKindVs('grp-other'),
       true,
       undefined,
       CodeableConceptModel.createExclusion(studyExclusion),

@@ -2,6 +2,7 @@ import { Coding } from 'fhir/r4'
 
 import { administrativeGenderCodeSystem } from '../code-systems/administrativeGenderCodeSystem'
 import { countryCodeSystem } from '../code-systems/countryCodeSystem'
+import { eclaireGroupCharacteristicKindVs } from '../code-systems/eclaireGroupCharacteristicKindVs'
 import { eclaireReglementationPrecisionCodeSystem } from '../code-systems/eclaireReglementationPrecisionCodeSystem'
 import { eclaireRegulationCodeCodeSystem } from '../code-systems/eclaireRegulationCodeCodeSystem'
 import { eclaireStudyPhaseCodeSystem } from '../code-systems/eclaireStudyPhaseCodeSystem'
@@ -223,4 +224,19 @@ export class CodingModel implements Coding {
       eclaireStudyTitleTypeCodeSystem.version
     )
   }
+
+  static createGroupCharacteristicKindVs(referenceCode: EclaireGroupCharacteristicKindVsReferenceCode): CodingModel {
+    const groupCharacteristicKind = eclaireGroupCharacteristicKindVs.concept.find(
+      (reference) => reference.code === referenceCode
+    )
+
+    return new CodingModel(
+      groupCharacteristicKind.code,
+      groupCharacteristicKind.display,
+      eclaireGroupCharacteristicKindVs.url,
+      eclaireGroupCharacteristicKindVs.version
+    )
+  }
 }
+
+export type EclaireGroupCharacteristicKindVsReferenceCode = 'grp-gender' | 'grp-studypop' | 'grp-category' | 'grp-age' | 'grp-other'

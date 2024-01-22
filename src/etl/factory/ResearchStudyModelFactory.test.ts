@@ -580,7 +580,17 @@ describe('research study model factory', () => {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-gender",
+                      "display": "Gender (Genre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -605,7 +615,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-age",
+                      "display": "Age (Age)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
@@ -620,7 +640,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-age",
+                      "display": "Age (Age)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
@@ -638,7 +668,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-category",
+                      "display": "Research Study Group Category (Catégorie du groupe d'étude)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -657,7 +697,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-studypop",
+                      "display": "Study Population (Population de l'étude)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -682,7 +732,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -701,7 +761,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": true,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1422,7 +1492,17 @@ describe('research study model factory', () => {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-category",
+                      "display": "Research Study Group Category (Catégorie du groupe d'étude)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1441,7 +1521,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1460,7 +1550,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": true,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2122,7 +2222,17 @@ describe('research study model factory', () => {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-category",
+                      "display": "Research Study Group Category (Catégorie du groupe d'étude)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2141,7 +2251,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2160,7 +2280,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": true,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2721,7 +2851,17 @@ describe('research study model factory', () => {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-gender",
+                      "display": "Gender (Genre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2740,7 +2880,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2759,7 +2909,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": true,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
