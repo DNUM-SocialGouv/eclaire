@@ -184,9 +184,7 @@ export class ResearchStudyModelFactory {
       eclaireDto.tranches_age,
       eclaireDto.taille_etude,
       eclaireDto.groupes_sujet,
-      eclaireDto.population_recrutement,
-      ModelUtils.UNAVAILABLE,
-      ModelUtils.UNAVAILABLE
+      eclaireDto.population_recrutement
     )
 
     return { enrollment, enrollmentGroup }

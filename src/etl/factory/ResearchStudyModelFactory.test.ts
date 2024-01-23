@@ -20,7 +20,7 @@ describe('research study model factory', () => {
                 "version": "0.2.0",
               },
             ],
-            "text": "Regulation Code",
+            "text": undefined,
           },
           CodeableConceptModel {
             "coding": [
@@ -31,7 +31,7 @@ describe('research study model factory', () => {
                 "version": "0.2.0",
               },
             ],
-            "text": "Reglementation Precision",
+            "text": undefined,
           },
         ],
         "condition": [
@@ -179,7 +179,7 @@ describe('research study model factory', () => {
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -267,7 +267,7 @@ describe('research study model factory', () => {
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -353,7 +353,7 @@ describe('research study model factory', () => {
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -397,7 +397,7 @@ describe('research study model factory', () => {
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -472,7 +472,7 @@ describe('research study model factory', () => {
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
+            "text": undefined,
           },
           CodeableConceptModel {
             "coding": [
@@ -483,7 +483,7 @@ describe('research study model factory', () => {
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
+            "text": undefined,
           },
           CodeableConceptModel {
             "coding": [
@@ -494,7 +494,7 @@ describe('research study model factory', () => {
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
+            "text": undefined,
           },
           CodeableConceptModel {
             "coding": [
@@ -505,7 +505,7 @@ describe('research study model factory', () => {
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
+            "text": undefined,
           },
           CodeableConceptModel {
             "coding": [
@@ -516,7 +516,7 @@ describe('research study model factory', () => {
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
+            "text": undefined,
           },
           CodeableConceptModel {
             "coding": [
@@ -527,7 +527,7 @@ describe('research study model factory', () => {
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
+            "text": undefined,
           },
           CodeableConceptModel {
             "coding": [
@@ -538,7 +538,7 @@ describe('research study model factory', () => {
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
+            "text": undefined,
           },
           CodeableConceptModel {
             "coding": [
@@ -549,7 +549,7 @@ describe('research study model factory', () => {
                 "version": "4.0.1",
               },
             ],
-            "text": "Countries of recruitment",
+            "text": undefined,
           },
         ],
         "meta": MetaModel {
@@ -573,14 +573,24 @@ describe('research study model factory', () => {
               "version": "4.0.1",
             },
           ],
-          "text": "Research Study Phase",
+          "text": undefined,
         },
         "referenceContents": ReferenceContentsModel {
           "enrollmentGroup": GroupModel {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-gender",
+                      "display": "Gender (Genre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -598,14 +608,24 @@ describe('research study model factory', () => {
                       "version": "5.0.0",
                     },
                   ],
-                  "text": "Genders",
+                  "text": undefined,
                 },
                 "valueQuantity": undefined,
                 "valueRange": undefined,
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-age",
+                      "display": "Age (Age)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
@@ -620,7 +640,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-age",
+                      "display": "Age (Age)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": undefined,
@@ -638,7 +668,17 @@ describe('research study model factory', () => {
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-category",
+                      "display": "Research Study Group Category (Catégorie du groupe d'étude)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -650,14 +690,24 @@ describe('research study model factory', () => {
                       "version": undefined,
                     },
                   ],
-                  "text": "Research Study Group Category",
+                  "text": undefined,
                 },
                 "valueQuantity": undefined,
                 "valueRange": undefined,
                 "valueReference": undefined,
               },
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-studypop",
+                      "display": "Study Population (Population de l'étude)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -675,45 +725,7 @@ describe('research study model factory', () => {
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Study Population",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Inclusion Criteria",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": true,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Exclusion Criteria",
+                  "text": undefined,
                 },
                 "valueQuantity": undefined,
                 "valueRange": undefined,
@@ -812,7 +824,7 @@ describe('research study model factory', () => {
                         "version": "4.0.1",
                       },
                     ],
-                    "text": "Organization Contact Purpose",
+                    "text": undefined,
                   },
                   "telecom": [
                     ContactPointModel {
@@ -845,7 +857,7 @@ describe('research study model factory', () => {
                       "version": "4.0.1",
                     },
                   ],
-                  "text": "Organization Sponsor Type",
+                  "text": undefined,
                 },
               ],
             },
@@ -881,7 +893,7 @@ describe('research study model factory', () => {
                         "version": "4.0.1",
                       },
                     ],
-                    "text": "Organization Contact Purpose",
+                    "text": undefined,
                   },
                   "telecom": [
                     ContactPointModel {
@@ -914,7 +926,7 @@ describe('research study model factory', () => {
                       "version": "4.0.1",
                     },
                   ],
-                  "text": "Organization Sponsor Type",
+                  "text": undefined,
                 },
               ],
             },
@@ -970,7 +982,7 @@ describe('research study model factory', () => {
                 "version": "0.2.0",
               },
             ],
-            "text": "Regulation Code",
+            "text": undefined,
           },
           CodeableConceptModel {
             "coding": [
@@ -981,7 +993,7 @@ describe('research study model factory', () => {
                 "version": "0.2.0",
               },
             ],
-            "text": "Reglementation Precision",
+            "text": undefined,
           },
         ],
         "condition": [
@@ -1129,7 +1141,7 @@ describe('research study model factory', () => {
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -1217,7 +1229,7 @@ describe('research study model factory', () => {
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -1303,7 +1315,7 @@ describe('research study model factory', () => {
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -1347,7 +1359,7 @@ describe('research study model factory', () => {
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -1415,14 +1427,24 @@ describe('research study model factory', () => {
               "version": "4.0.1",
             },
           ],
-          "text": "Research Study Phase",
+          "text": undefined,
         },
         "referenceContents": ReferenceContentsModel {
           "enrollmentGroup": GroupModel {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-category",
+                      "display": "Research Study Group Category (Catégorie du groupe d'étude)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -1434,45 +1456,7 @@ describe('research study model factory', () => {
                       "version": undefined,
                     },
                   ],
-                  "text": "Research Study Group Category",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Inclusion Criteria",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": true,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Exclusion Criteria",
+                  "text": undefined,
                 },
                 "valueQuantity": undefined,
                 "valueRange": undefined,
@@ -1518,7 +1502,7 @@ describe('research study model factory', () => {
                         "version": "4.0.1",
                       },
                     ],
-                    "text": "Organization Contact Purpose",
+                    "text": undefined,
                   },
                   "telecom": [
                     ContactPointModel {
@@ -1551,7 +1535,7 @@ describe('research study model factory', () => {
                       "version": "4.0.1",
                     },
                   ],
-                  "text": "Organization Sponsor Type",
+                  "text": undefined,
                 },
               ],
             },
@@ -1587,7 +1571,7 @@ describe('research study model factory', () => {
                         "version": "4.0.1",
                       },
                     ],
-                    "text": "Organization Contact Purpose",
+                    "text": undefined,
                   },
                   "telecom": [
                     ContactPointModel {
@@ -1620,7 +1604,7 @@ describe('research study model factory', () => {
                       "version": "4.0.1",
                     },
                   ],
-                  "text": "Organization Sponsor Type",
+                  "text": undefined,
                 },
               ],
             },
@@ -1670,7 +1654,7 @@ describe('research study model factory', () => {
                 "version": "0.2.0",
               },
             ],
-            "text": "Regulation Code",
+            "text": undefined,
           },
           CodeableConceptModel {
             "coding": [
@@ -1681,7 +1665,7 @@ describe('research study model factory', () => {
                 "version": "0.2.0",
               },
             ],
-            "text": "Reglementation Precision",
+            "text": undefined,
           },
         ],
         "condition": [
@@ -1829,7 +1813,7 @@ describe('research study model factory', () => {
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -1917,7 +1901,7 @@ describe('research study model factory', () => {
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -2003,7 +1987,7 @@ describe('research study model factory', () => {
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -2047,7 +2031,7 @@ describe('research study model factory', () => {
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -2115,14 +2099,24 @@ describe('research study model factory', () => {
               "version": "4.0.1",
             },
           ],
-          "text": "Research Study Phase",
+          "text": undefined,
         },
         "referenceContents": ReferenceContentsModel {
           "enrollmentGroup": GroupModel {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-category",
+                      "display": "Research Study Group Category (Catégorie du groupe d'étude)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2134,45 +2128,7 @@ describe('research study model factory', () => {
                       "version": undefined,
                     },
                   ],
-                  "text": "Research Study Group Category",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Inclusion Criteria",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": true,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Exclusion Criteria",
+                  "text": undefined,
                 },
                 "valueQuantity": undefined,
                 "valueRange": undefined,
@@ -2218,7 +2174,7 @@ describe('research study model factory', () => {
                         "version": "4.0.1",
                       },
                     ],
-                    "text": "Organization Contact Purpose",
+                    "text": undefined,
                   },
                   "telecom": [
                     ContactPointModel {
@@ -2251,7 +2207,7 @@ describe('research study model factory', () => {
                       "version": "4.0.1",
                     },
                   ],
-                  "text": "Organization Sponsor Type",
+                  "text": undefined,
                 },
               ],
             },
@@ -2287,7 +2243,7 @@ describe('research study model factory', () => {
                         "version": "4.0.1",
                       },
                     ],
-                    "text": "Organization Contact Purpose",
+                    "text": undefined,
                   },
                   "telecom": [
                     ContactPointModel {
@@ -2320,7 +2276,7 @@ describe('research study model factory', () => {
                       "version": "4.0.1",
                     },
                   ],
-                  "text": "Organization Sponsor Type",
+                  "text": undefined,
                 },
               ],
             },
@@ -2370,7 +2326,7 @@ describe('research study model factory', () => {
                 "version": "0.2.0",
               },
             ],
-            "text": "Regulation Code",
+            "text": undefined,
           },
         ],
         "condition": undefined,
@@ -2439,7 +2395,7 @@ describe('research study model factory', () => {
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -2527,7 +2483,7 @@ describe('research study model factory', () => {
                       "version": "0.1.0",
                     },
                   ],
-                  "text": "Contact Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -2602,7 +2558,7 @@ describe('research study model factory', () => {
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -2646,7 +2602,7 @@ describe('research study model factory', () => {
                       "version": "0.2.0",
                     },
                   ],
-                  "text": "Label Type",
+                  "text": undefined,
                 },
                 "valueHumanName": undefined,
                 "valueInstant": undefined,
@@ -2714,14 +2670,24 @@ describe('research study model factory', () => {
               "version": "4.0.1",
             },
           ],
-          "text": "Research Study Phase",
+          "text": undefined,
         },
         "referenceContents": ReferenceContentsModel {
           "enrollmentGroup": GroupModel {
             "actual": true,
             "characteristic": [
               GroupCharacteristicModel {
-                "code": undefined,
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-gender",
+                      "display": "Gender (Genre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "text": undefined,
+                },
                 "exclude": false,
                 "valueBoolean": undefined,
                 "valueCodeableConcept": CodeableConceptModel {
@@ -2733,45 +2699,7 @@ describe('research study model factory', () => {
                       "version": "5.0.0",
                     },
                   ],
-                  "text": "Genders",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": false,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Inclusion Criteria",
-                },
-                "valueQuantity": undefined,
-                "valueRange": undefined,
-                "valueReference": undefined,
-              },
-              GroupCharacteristicModel {
-                "code": undefined,
-                "exclude": true,
-                "valueBoolean": undefined,
-                "valueCodeableConcept": CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
-                    },
-                  ],
-                  "text": "Study Exclusion Criteria",
+                  "text": undefined,
                 },
                 "valueQuantity": undefined,
                 "valueRange": undefined,
@@ -2817,7 +2745,7 @@ describe('research study model factory', () => {
                         "version": "4.0.1",
                       },
                     ],
-                    "text": "Organization Contact Purpose",
+                    "text": undefined,
                   },
                   "telecom": [
                     ContactPointModel {
@@ -2850,7 +2778,7 @@ describe('research study model factory', () => {
                       "version": "4.0.1",
                     },
                   ],
-                  "text": "Organization Sponsor Type",
+                  "text": undefined,
                 },
               ],
             },

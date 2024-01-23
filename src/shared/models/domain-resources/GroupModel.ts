@@ -27,9 +27,7 @@ export class GroupModel implements Group {
     ageRanges: string[],
     studySize: number,
     researchStudyGroupCategory: string,
-    studyPopulation: string[],
-    studyInclusion: string,
-    studyExclusion: string
+    studyPopulation: string[]
   ): Group {
     let parsedAgeRanges: GroupCharacteristic[] = []
     const characteristic: GroupCharacteristic[] = []
@@ -46,12 +44,6 @@ export class GroupModel implements Group {
     }
     if (ModelUtils.isNotNull(studyPopulation)) {
       characteristic.push(GroupCharacteristicModel.createStudyPopulation(studyPopulation))
-    }
-    if (ModelUtils.isNotNull(studyInclusion)) {
-      characteristic.push(GroupCharacteristicModel.createInclusion(studyInclusion))
-    }
-    if (ModelUtils.isNotNull(studyExclusion)) {
-      characteristic.push(GroupCharacteristicModel.createExclusion(studyExclusion))
     }
 
     return new GroupModel(

@@ -1,4 +1,4 @@
-import { CodingModel } from './CodingModel'
+import { CodingModel, EclaireGroupCharacteristicKindVsReferenceCode } from './CodingModel'
 
 describe('shared | models | CodingModel', () => {
   describe('#createResearchStudyPhase', () => {
@@ -99,6 +99,23 @@ describe('shared | models | CodingModel', () => {
       // THEN
       expect(studyPopulation.code).toBe(code)
       expect(studyPopulation.display).toBe(rawStudyPopulation)
+    })
+  })
+
+  describe('#createGroupCharacteristicKindVs', () => {
+    it.each([
+      ['Gender (Genre)', 'grp-gender'],
+      ["Study Population (Population de l'étude)", 'grp-studypop'],
+      ["Research Study Group Category (Catégorie du groupe d'étude)", 'grp-category'],
+      ['Age (Age)', 'grp-age'],
+      ['Other (Autre)', 'grp-other'],
+    ])('should create a properly formatted model when %s is given', (display, code) => {
+      // WHEN
+      const groupCharacteristicKindVs: CodingModel = CodingModel.createGroupCharacteristicKindVs(code as EclaireGroupCharacteristicKindVsReferenceCode)
+
+      // THEN
+      expect(groupCharacteristicKindVs.code).toBe(code)
+      expect(groupCharacteristicKindVs.display).toBe(display)
     })
   })
 })
