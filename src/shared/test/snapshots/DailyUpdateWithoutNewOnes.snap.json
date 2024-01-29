@@ -224,6 +224,9 @@
               "display": "Reference to primary assigner",
               "type": "Organization",
             },
+            "period": {
+              "start": "INDISPONIBLE",
+            },
             "use": "official",
             "value": "INDISPONIBLE",
           },
@@ -232,6 +235,9 @@
               "display": "Reference to secondary assigner",
               "reference": "Organization/ansm",
               "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
             },
             "use": "secondary",
             "value": "2021-A01563-38",
@@ -494,6 +500,9 @@
               "display": "Reference to primary assigner",
               "type": "Organization",
             },
+            "period": {
+              "start": "INDISPONIBLE",
+            },
             "use": "official",
             "value": "INDISPONIBLE",
           },
@@ -502,6 +511,9 @@
               "display": "Reference to secondary assigner",
               "reference": "Organization/ansm",
               "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
             },
             "use": "secondary",
             "value": "2021-A01022-39",

@@ -115,7 +115,7 @@ export class ResearchStudyModelFactory {
 
     const id = eclaireDto.numero_secondaire
     const identifier: Identifier[] = [
-      IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
+      IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE),
       secondaryAssignerIdentifier,
     ]
     const location = ModelUtils.isNotNull(eclaireDto.pays_concernes) ? CodeableConceptModel.createLocations(eclaireDto.pays_concernes) : undefined
@@ -174,7 +174,7 @@ export class ResearchStudyModelFactory {
     secondaryAssignerOrganization: Organization
   } {
     const assigner: AssignerForSecondaryIdentifier = ModelUtils.identifyAssigner(eclaireDto.reglementation_code, eclaireDto.precision_reglementation)
-    const secondaryAssignerIdentifier: Identifier = IdentifierModel.createSecondarySlice(eclaireDto.numero_secondaire, assigner)
+    const secondaryAssignerIdentifier: Identifier = IdentifierModel.createSecondarySlice(eclaireDto.numero_secondaire, assigner, ModelUtils.UNAVAILABLE)
     const secondaryAssignerOrganization: Organization = OrganizationModel.createSecondaryAssigner(assigner)
 
     return { secondaryAssignerIdentifier, secondaryAssignerOrganization }

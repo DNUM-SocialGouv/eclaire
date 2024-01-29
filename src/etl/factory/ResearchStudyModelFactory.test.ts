@@ -449,6 +449,10 @@ describe('research study model factory', () => {
               "reference": undefined,
               "type": "Organization",
             },
+            "period": PeriodModel {
+              "end": undefined,
+              "start": "INDISPONIBLE",
+            },
             "use": "official",
             "value": "INDISPONIBLE",
           },
@@ -457,6 +461,10 @@ describe('research study model factory', () => {
               "display": "Reference to secondary assigner",
               "reference": "Organization/ctis",
               "type": "Organization",
+            },
+            "period": PeriodModel {
+              "end": undefined,
+              "start": "INDISPONIBLE",
             },
             "use": "secondary",
             "value": "2022-500014-26-00",
@@ -775,6 +783,7 @@ describe('research study model factory', () => {
               "identifier": [
                 IdentifierModel {
                   "assigner": undefined,
+                  "period": undefined,
                   "use": "official",
                   "value": "2022-500014-26-00-0-site",
                 },
@@ -1358,6 +1367,10 @@ describe('research study model factory', () => {
               "reference": undefined,
               "type": "Organization",
             },
+            "period": PeriodModel {
+              "end": undefined,
+              "start": "INDISPONIBLE",
+            },
             "use": "official",
             "value": "INDISPONIBLE",
           },
@@ -1366,6 +1379,10 @@ describe('research study model factory', () => {
               "display": "Reference to secondary assigner",
               "reference": "Organization/ansm",
               "type": "Organization",
+            },
+            "period": PeriodModel {
+              "end": undefined,
+              "start": "INDISPONIBLE",
             },
             "use": "secondary",
             "value": "2021-A01563-38",
@@ -1906,6 +1923,10 @@ describe('research study model factory', () => {
               "reference": undefined,
               "type": "Organization",
             },
+            "period": PeriodModel {
+              "end": undefined,
+              "start": "INDISPONIBLE",
+            },
             "use": "official",
             "value": "INDISPONIBLE",
           },
@@ -1914,6 +1935,10 @@ describe('research study model factory', () => {
               "display": "Reference to secondary assigner",
               "reference": "Organization/ansm",
               "type": "Organization",
+            },
+            "period": PeriodModel {
+              "end": undefined,
+              "start": "INDISPONIBLE",
             },
             "use": "secondary",
             "value": "2021-A01022-39",
@@ -2425,6 +2450,10 @@ describe('research study model factory', () => {
               "reference": undefined,
               "type": "Organization",
             },
+            "period": PeriodModel {
+              "end": undefined,
+              "start": "INDISPONIBLE",
+            },
             "use": "official",
             "value": "INDISPONIBLE",
           },
@@ -2433,6 +2462,10 @@ describe('research study model factory', () => {
               "display": "Reference to secondary assigner",
               "reference": "Organization/ctis",
               "type": "Organization",
+            },
+            "period": PeriodModel {
+              "end": undefined,
+              "start": "INDISPONIBLE",
             },
             "use": "secondary",
             "value": "2022-500299-71-00",

@@ -19,4 +19,11 @@ export class PeriodModel implements Period {
       undefined
     )
   }
+
+  static createRegistrationInPrimaryRegistry(registrationDateInPrimaryRegistry: string): Period {
+    return new PeriodModel(
+      undefined,
+      registrationDateInPrimaryRegistry
+    )
+  }
 }
