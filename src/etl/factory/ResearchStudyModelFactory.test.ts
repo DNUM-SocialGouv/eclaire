@@ -970,6 +970,9 @@ describe('research study model factory', () => {
             },
           ],
         },
+        "relatedArtifact": [
+          undefined,
+        ],
         "resourceType": "ResearchStudy",
         "site": [
           ReferenceModel {
@@ -1517,6 +1520,9 @@ describe('research study model factory', () => {
             },
           ],
         },
+        "relatedArtifact": [
+          undefined,
+        ],
         "resourceType": "ResearchStudy",
         "site": undefined,
         "sponsor": ReferenceModel {
@@ -2058,6 +2064,9 @@ describe('research study model factory', () => {
             },
           ],
         },
+        "relatedArtifact": [
+          undefined,
+        ],
         "resourceType": "ResearchStudy",
         "site": undefined,
         "sponsor": ReferenceModel {
@@ -2570,6 +2579,9 @@ describe('research study model factory', () => {
             },
           ],
         },
+        "relatedArtifact": [
+          undefined,
+        ],
         "resourceType": "ResearchStudy",
         "site": undefined,
         "sponsor": ReferenceModel {

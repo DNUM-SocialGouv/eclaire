@@ -253,6 +253,9 @@
             },
           ],
         },
+        "relatedArtifact": [
+          null,
+        ],
         "resourceType": "ResearchStudy",
         "sponsor": {
           "display": "Reference to primary sponsor",
@@ -517,6 +520,9 @@
             },
           ],
         },
+        "relatedArtifact": [
+          null,
+        ],
         "resourceType": "ResearchStudy",
         "sponsor": {
           "display": "Reference to primary sponsor",
@@ -940,6 +946,9 @@
             },
           ],
         },
+        "relatedArtifact": [
+          null,
+        ],
         "resourceType": "ResearchStudy",
         "site": [
           {
