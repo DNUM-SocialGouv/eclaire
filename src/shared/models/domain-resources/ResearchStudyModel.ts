@@ -29,17 +29,17 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly identifier: Identifier[] | undefined,
     readonly location: CodeableConcept[] | undefined,
     readonly meta: Meta | undefined,
-    readonly phase: CodeableConcept | undefined,
     originalContentsToEnhance: OriginalContentsToEnhanceModel | undefined,
+    readonly phase: CodeableConcept | undefined,
     readonly referenceContents: ReferenceContentsModel,
     readonly site: Reference[] | undefined,
     readonly sponsor: Reference | undefined,
-    riphStatus: RiphStatus,
+    status: RiphStatus,
     readonly title: string | undefined
   ) {
     this.originalContentsToEnhance = originalContentsToEnhance
     this.resourceType = 'ResearchStudy'
-    this.status = this.convertToResearchStudyStatus(riphStatus)
+    this.status = this.convertToResearchStudyStatus(status)
   }
 
   private convertToResearchStudyStatus(riphStatus: RiphStatus): ResearchStudyStatus {
