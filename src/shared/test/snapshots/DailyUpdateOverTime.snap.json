@@ -287,6 +287,10 @@
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueInstant": "2023-04-12T00:00:00.000Z",
           },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
+            "valueMarkdown": "INDISPONIBLE",
+          },
         ],
         "id": "2022-500014-26-00",
         "identifier": [
@@ -663,6 +667,10 @@
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueInstant": "2023-04-06T00:00:00.000Z",
           },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
+            "valueMarkdown": "INDISPONIBLE",
+          },
         ],
         "id": "2021-A01563-38",
         "identifier": [
@@ -938,6 +946,10 @@
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueInstant": "2023-04-04T00:00:00.000Z",
+          },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
+            "valueMarkdown": "INDISPONIBLE",
           },
         ],
         "id": "2021-A01022-39",
@@ -1285,6 +1297,10 @@
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueInstant": "2024-01-06T00:00:00.000Z",
+          },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
+            "valueMarkdown": "INDISPONIBLE",
           },
         ],
         "id": "2024-500014-26-99",

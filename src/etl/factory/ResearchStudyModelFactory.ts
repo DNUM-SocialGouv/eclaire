@@ -112,6 +112,7 @@ export class ResearchStudyModelFactory {
       extensions.push(ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement))
     }
     extensions.push(ExtensionModel.createEclaireReviewDate(mostRecentDate))
+    extensions.push(ExtensionModel.createEclaireDescriptionSummary(ModelUtils.UNAVAILABLE))
 
     const id = eclaireDto.numero_secondaire
     const identifier: Identifier[] = [

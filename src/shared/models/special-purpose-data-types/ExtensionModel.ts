@@ -15,6 +15,7 @@ export class ExtensionModel implements Extension {
     readonly valueCodeableConcept: CodeableConcept | undefined,
     readonly valueHumanName: HumanName | undefined,
     readonly valueInstant: string | undefined,
+    readonly valueMarkdown: string | undefined,
     readonly valuePeriod: Period | undefined,
     readonly valueReference: Reference | undefined,
     readonly valueString: string | undefined
@@ -24,6 +25,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor',
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -44,6 +46,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       therapeuticArea
     )
   }
@@ -58,6 +61,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       undefined
     )
   }
@@ -66,6 +70,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       [this.createEclaireLabelR5Value(value), this.createEclaireLabelR5Type(type)],
       'http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label',
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -86,6 +91,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       value
     )
   }
@@ -100,6 +106,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       undefined
     )
   }
@@ -108,6 +115,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period',
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -128,6 +136,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       undefined
     )
   }
@@ -140,6 +149,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       mostRecentDate,
+      undefined,
       undefined,
       undefined,
       undefined
@@ -156,6 +166,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       undefined
     )
   }
@@ -165,6 +176,7 @@ export class ExtensionModel implements Extension {
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address',
       AddressModel.create([address], city, zip, country),
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -184,7 +196,23 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       affiliation
+    )
+  }
+
+  static createEclaireDescriptionSummary(descriptionSummaryInMarkdown: string): Extension {
+    return new ExtensionModel(
+      undefined,
+      'https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      descriptionSummaryInMarkdown,
+      undefined,
+      undefined,
+      undefined
     )
   }
 }
