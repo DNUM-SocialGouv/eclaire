@@ -402,6 +402,9 @@
             "10065430",
           ],
         },
+        "period": {
+          "end": "INDISPONIBLE",
+        },
         "phase": {
           "coding": [
             {
@@ -681,6 +684,9 @@
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
         },
+        "period": {
+          "end": "INDISPONIBLE",
+        },
         "phase": {
           "coding": [
             {
@@ -947,6 +953,9 @@
           "profile": [
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
+        },
+        "period": {
+          "end": "INDISPONIBLE",
         },
         "phase": {
           "coding": [
@@ -1373,6 +1382,9 @@
             "10070575",
             "10065430",
           ],
+        },
+        "period": {
+          "end": "INDISPONIBLE",
         },
         "phase": {
           "coding": [

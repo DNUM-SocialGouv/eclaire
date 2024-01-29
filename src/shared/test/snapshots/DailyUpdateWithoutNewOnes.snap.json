@@ -243,6 +243,9 @@
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
         },
+        "period": {
+          "end": "INDISPONIBLE",
+        },
         "phase": {
           "coding": [
             {
@@ -509,6 +512,9 @@
           "profile": [
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
+        },
+        "period": {
+          "end": "INDISPONIBLE",
         },
         "phase": {
           "coding": [

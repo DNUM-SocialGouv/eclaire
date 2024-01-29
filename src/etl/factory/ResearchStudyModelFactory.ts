@@ -1,7 +1,8 @@
-import { CodeableConcept, ContactDetail, Extension, Group, Identifier, Location, Meta, Organization, Reference, RelatedArtifact } from 'fhir/r4'
+import { CodeableConcept, ContactDetail, Extension, Group, Identifier, Location, Meta, Organization, Period, Reference, RelatedArtifact } from 'fhir/r4'
 
 import { CodeableConceptModel } from '../../shared/models/data-types/CodeableConceptModel'
 import { IdentifierModel } from '../../shared/models/data-types/IdentifierModel'
+import { PeriodModel } from '../../shared/models/data-types/PeriodModel'
 import { RelatedArtifactModel } from '../../shared/models/data-types/RelatedArtifactModel'
 import { GroupModel } from '../../shared/models/domain-resources/GroupModel'
 import { LocationModel } from '../../shared/models/domain-resources/LocationModel'
@@ -143,6 +144,8 @@ export class ResearchStudyModelFactory {
 
     const relatedArtifacts: RelatedArtifact[] = [RelatedArtifactModel.create(ModelUtils.UNAVAILABLE)]
 
+    const period: Period = PeriodModel.createCompletionDate(ModelUtils.UNAVAILABLE)
+
     return new ResearchStudyModel(
       category,
       condition.length === 0 ? undefined : condition,
@@ -155,6 +158,7 @@ export class ResearchStudyModelFactory {
       location,
       meta,
       originalContentToEnhance,
+      period,
       phase,
       referenceContents,
       relatedArtifacts,

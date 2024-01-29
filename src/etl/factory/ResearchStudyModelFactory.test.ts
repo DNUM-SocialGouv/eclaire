@@ -572,6 +572,10 @@ describe('research study model factory', () => {
             "10065430",
           ],
         },
+        "period": PeriodModel {
+          "end": "INDISPONIBLE",
+          "start": undefined,
+        },
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -1375,6 +1379,10 @@ describe('research study model factory', () => {
           ],
         },
         "originalContentsToEnhance": undefined,
+        "period": PeriodModel {
+          "end": "INDISPONIBLE",
+          "start": undefined,
+        },
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -1919,6 +1927,10 @@ describe('research study model factory', () => {
           ],
         },
         "originalContentsToEnhance": undefined,
+        "period": PeriodModel {
+          "end": "INDISPONIBLE",
+          "start": undefined,
+        },
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
@@ -2434,6 +2446,10 @@ describe('research study model factory', () => {
           ],
         },
         "originalContentsToEnhance": undefined,
+        "period": PeriodModel {
+          "end": "INDISPONIBLE",
+          "start": undefined,
+        },
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {

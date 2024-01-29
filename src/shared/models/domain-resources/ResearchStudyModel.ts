@@ -3,7 +3,7 @@ import {
   ContactDetail,
   Extension,
   Identifier,
-  Meta,
+  Meta, Period,
   Reference, RelatedArtifact,
   ResearchStudy,
 } from 'fhir/r4'
@@ -30,6 +30,7 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly location: CodeableConcept[] | undefined,
     readonly meta: Meta | undefined,
     originalContentsToEnhance: OriginalContentsToEnhanceModel | undefined,
+    readonly period: Period | undefined,
     readonly phase: CodeableConcept | undefined,
     readonly referenceContents: ReferenceContentsModel,
     readonly relatedArtifact: RelatedArtifact[] | undefined,
