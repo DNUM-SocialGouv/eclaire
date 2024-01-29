@@ -4,7 +4,7 @@ import {
   Extension,
   Identifier,
   Meta,
-  Reference,
+  Reference, RelatedArtifact,
   ResearchStudy,
 } from 'fhir/r4'
 
@@ -32,6 +32,7 @@ export class ResearchStudyModel implements ResearchStudy {
     originalContentsToEnhance: OriginalContentsToEnhanceModel | undefined,
     readonly phase: CodeableConcept | undefined,
     readonly referenceContents: ReferenceContentsModel,
+    readonly relatedArtifact: RelatedArtifact[] | undefined,
     readonly site: Reference[] | undefined,
     readonly sponsor: Reference | undefined,
     status: RiphStatus,
