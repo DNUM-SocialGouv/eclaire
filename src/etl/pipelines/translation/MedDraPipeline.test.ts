@@ -143,7 +143,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
                 "version": "2.0.1",
               },
             ],
-            "text": "medDRACondition",
+            "text": undefined,
           },
           CodeableConceptModel {
             "coding": [
@@ -154,7 +154,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
                 "version": "2.0.1",
               },
             ],
-            "text": "medDRACondition",
+            "text": undefined,
           },
         ]
       `)
@@ -188,7 +188,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
                 "version": "2.0.1",
               },
             ],
-            "text": "medDRACondition",
+            "text": undefined,
           },
         ]
       `)
@@ -295,7 +295,6 @@ describe('etl | Pipelines | MedDraPipeline', () => {
                 "version": "2.0.1",
               },
             ],
-            "text": "medDRACondition",
           },
           {
             "coding": [
@@ -306,7 +305,6 @@ describe('etl | Pipelines | MedDraPipeline', () => {
                 "version": "2.0.1",
               },
             ],
-            "text": "medDRACondition",
           },
         ]
       `)

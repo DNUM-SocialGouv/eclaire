@@ -42,8 +42,7 @@ export class CodeableConceptModel implements CodeableConcept {
   static createMedDraSlice(medDraInformation: MedDra[]): CodeableConcept[] {
     return medDraInformation.map((medDra): CodeableConcept => {
       return new CodeableConceptModel(
-        [CodingModel.createMedDra(medDra.code, medDra.label)],
-        'medDRACondition'
+        [CodingModel.createMedDra(medDra.code, medDra.label)]
       )
     })
   }

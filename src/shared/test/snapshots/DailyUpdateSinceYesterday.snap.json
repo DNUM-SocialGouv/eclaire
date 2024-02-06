@@ -652,7 +652,6 @@
                 "version": "2.0.1",
               },
             ],
-            "text": "medDRACondition",
           },
           {
             "coding": [
@@ -663,7 +662,6 @@
                 "version": "2.0.1",
               },
             ],
-            "text": "medDRACondition",
           },
         ],
         "contact": [
