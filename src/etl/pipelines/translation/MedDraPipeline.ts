@@ -46,7 +46,7 @@ export class MedDraPipeline {
         ) as MedDra[]
 
         if (ModelUtils.isNotNull(meddraDocuments)) {
-          researchStudy.condition.push(...CodeableConceptModel.createMedDraSlice(meddraDocuments))
+          researchStudy.condition.push(...CodeableConceptModel.createMedDraSlice(researchStudy.id, meddraDocuments))
         }
       }
     }

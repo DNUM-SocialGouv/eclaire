@@ -29,6 +29,7 @@
         ],
         "condition": [
           {
+            "id": "disease-condition-2021-A01563-38",
             "text": "INDISPONIBLE",
           },
         ],
@@ -335,6 +336,7 @@
         ],
         "condition": [
           {
+            "id": "disease-condition-2021-A01022-39",
             "text": "INDISPONIBLE",
           },
         ],
@@ -641,6 +643,7 @@
         ],
         "condition": [
           {
+            "id": "disease-condition-2024-500014-26-99",
             "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
           {
@@ -652,6 +655,7 @@
                 "version": "2.0.1",
               },
             ],
+            "id": "meddra-condition-2024-500014-26-99-10070575",
           },
           {
             "coding": [
@@ -662,6 +666,7 @@
                 "version": "2.0.1",
               },
             ],
+            "id": "meddra-condition-2024-500014-26-99-10065430",
           },
         ],
         "contact": [
