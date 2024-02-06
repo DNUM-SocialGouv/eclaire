@@ -29,12 +29,7 @@
         ],
         "condition": [
           {
-            "coding": [
-              {
-                "display": "INDISPONIBLE",
-              },
-            ],
-            "text": "diseaseCondition",
+            "text": "INDISPONIBLE",
           },
         ],
         "contact": [
@@ -340,12 +335,7 @@
         ],
         "condition": [
           {
-            "coding": [
-              {
-                "display": "INDISPONIBLE",
-              },
-            ],
-            "text": "diseaseCondition",
+            "text": "INDISPONIBLE",
           },
         ],
         "contact": [
@@ -651,12 +641,7 @@
         ],
         "condition": [
           {
-            "coding": [
-              {
-                "display": "Locally-Advanced or Metastatic breast cancer (MBC)",
-              },
-            ],
-            "text": "diseaseCondition",
+            "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
           {
             "coding": [

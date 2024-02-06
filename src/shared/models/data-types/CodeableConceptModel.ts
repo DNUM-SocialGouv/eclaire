@@ -34,8 +34,8 @@ export class CodeableConceptModel implements CodeableConcept {
     const emptyDiseaseIfNull = ModelUtils.undefinedIfNull(disease)
 
     return new CodeableConceptModel(
-      [CodingModel.createDisease(emptyDiseaseIfNull)],
-      'diseaseCondition'
+      undefined,
+      emptyDiseaseIfNull
     )
   }
 

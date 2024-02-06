@@ -212,19 +212,19 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       // then
       const title1: string = result[0].title
       const therapeuticArea1: Extension = result[0].extension.find((value) => value.url.includes('eclaire-therapeutic-area'))
-      const diseaseCondition1: CodeableConcept = result[0].condition.find((value) => value.text === 'diseaseCondition')
+      const diseaseCondition1: CodeableConcept = result[0].condition.find((value) => value.coding === undefined)
 
       const title2: string = result[1].title
       const therapeuticArea2: Extension = result[1].extension.find((value) => value.url.includes('eclaire-therapeutic-area'))
-      const diseaseCondition2: CodeableConcept = result[1].condition.find((value) => value.text === 'diseaseCondition')
+      const diseaseCondition2: CodeableConcept = result[1].condition.find((value) => value.coding === undefined)
 
       expect(title1).toBe('Title 1')
       expect(therapeuticArea1.valueString).toBe('TherapeuticArea 1')
-      expect(diseaseCondition1.coding[0].display).toBe('DiseaseCondition 1')
+      expect(diseaseCondition1.text).toBe('DiseaseCondition 1')
 
       expect(title2).toBe('Title 2')
       expect(therapeuticArea2.valueString).toBe('TherapeuticArea 2')
-      expect(diseaseCondition2.coding[0].display).toBe('DiseaseCondition 2')
+      expect(diseaseCondition2.text).toBe('DiseaseCondition 2')
     })
 
     it('should not translate the title for a second document when that same document does not have a title', async () => {

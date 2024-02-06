@@ -131,15 +131,8 @@ describe('etl | Pipelines | MedDraPipeline', () => {
       expect(result[0].condition).toMatchInlineSnapshot(`
         [
           CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": undefined,
-                "display": "Locally-Advanced or Metastatic breast cancer (MBC)",
-                "system": undefined,
-                "version": undefined,
-              },
-            ],
-            "text": "diseaseCondition",
+            "coding": undefined,
+            "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
           CodeableConceptModel {
             "coding": [
@@ -183,15 +176,8 @@ describe('etl | Pipelines | MedDraPipeline', () => {
       expect(result[0].condition).toMatchInlineSnapshot(`
         [
           CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": undefined,
-                "display": "Locally-Advanced or Metastatic breast cancer (MBC)",
-                "system": undefined,
-                "version": undefined,
-              },
-            ],
-            "text": "diseaseCondition",
+            "coding": undefined,
+            "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
           CodeableConceptModel {
             "coding": [
@@ -224,15 +210,8 @@ describe('etl | Pipelines | MedDraPipeline', () => {
       expect(result[0].condition).toMatchInlineSnapshot(`
         [
           CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": undefined,
-                "display": "INDISPONIBLE",
-                "system": undefined,
-                "version": undefined,
-              },
-            ],
-            "text": "diseaseCondition",
+            "coding": undefined,
+            "text": "INDISPONIBLE",
           },
         ]
       `)
@@ -305,12 +284,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
       expect(ctis1.condition).toMatchInlineSnapshot(`
         [
           {
-            "coding": [
-              {
-                "display": "Locally-Advanced or Metastatic breast cancer (MBC)",
-              },
-            ],
-            "text": "diseaseCondition",
+            "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
           {
             "coding": [
@@ -341,12 +315,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
       expect(ctis2.condition).toMatchInlineSnapshot(`
         [
           {
-            "coding": [
-              {
-                "display": "Locally-Advanced or Metastatic breast cancer (MBC)",
-              },
-            ],
-            "text": "diseaseCondition",
+            "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
         ]
       `)
@@ -355,12 +324,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
       expect(dm.condition).toMatchInlineSnapshot(`
         [
           {
-            "coding": [
-              {
-                "display": "INDISPONIBLE",
-              },
-            ],
-            "text": "diseaseCondition",
+            "text": "INDISPONIBLE",
           },
         ]
       `)
@@ -369,12 +333,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
       expect(jarde.condition).toMatchInlineSnapshot(`
         [
           {
-            "coding": [
-              {
-                "display": "INDISPONIBLE",
-              },
-            ],
-            "text": "diseaseCondition",
+            "text": "INDISPONIBLE",
           },
         ]
       `)

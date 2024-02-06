@@ -98,11 +98,15 @@ export class TranslationPipeline {
     }
 
     if (researchStudy.condition) {
-      codeableConceptReference = researchStudy.condition.find((value: CodeableConcept) => value.text === 'diseaseCondition')
+      codeableConceptReference = researchStudy.condition.find((value: CodeableConcept) => this.isDiseaseCondition(value))
       if (codeableConceptReference) {
-        textsToTranslate.diseaseCondition = codeableConceptReference.coding[0].display
+        textsToTranslate.diseaseCondition = codeableConceptReference.text
       }
     }
     return textsToTranslate
+  }
+
+  private isDiseaseCondition(value: CodeableConcept) {
+    return value.coding === undefined
   }
 }

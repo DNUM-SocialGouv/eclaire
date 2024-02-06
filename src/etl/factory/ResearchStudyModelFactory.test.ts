@@ -36,15 +36,8 @@ describe('research study model factory', () => {
         ],
         "condition": [
           CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": undefined,
-                "display": "Locally-Advanced or Metastatic breast cancer (MBC)",
-                "system": undefined,
-                "version": undefined,
-              },
-            ],
-            "text": "diseaseCondition",
+            "coding": undefined,
+            "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
         ],
         "contact": [
@@ -998,15 +991,8 @@ describe('research study model factory', () => {
         ],
         "condition": [
           CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": undefined,
-                "display": "INDISPONIBLE",
-                "system": undefined,
-                "version": undefined,
-              },
-            ],
-            "text": "diseaseCondition",
+            "coding": undefined,
+            "text": "INDISPONIBLE",
           },
         ],
         "contact": [
@@ -1670,15 +1656,8 @@ describe('research study model factory', () => {
         ],
         "condition": [
           CodeableConceptModel {
-            "coding": [
-              CodingModel {
-                "code": undefined,
-                "display": "INDISPONIBLE",
-                "system": undefined,
-                "version": undefined,
-              },
-            ],
-            "text": "diseaseCondition",
+            "coding": undefined,
+            "text": "INDISPONIBLE",
           },
         ],
         "contact": [
