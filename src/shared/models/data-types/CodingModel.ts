@@ -71,15 +71,6 @@ export class CodingModel implements Coding {
     }
   }
 
-  static createDisease(disease: string): Coding {
-    return new CodingModel(
-      undefined,
-      disease,
-      undefined,
-      undefined
-    )
-  }
-
   static createMedDra(code: string, label: string): Coding {
     return new CodingModel(
       code,

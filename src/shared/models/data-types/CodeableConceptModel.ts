@@ -8,111 +8,142 @@ import { LabelType } from '../special-purpose-data-types/ExtensionModel'
 
 export class CodeableConceptModel implements CodeableConcept {
   private constructor(
+    readonly id: string | undefined,
     readonly coding: Coding[] | undefined,
-    readonly text?: string | undefined
+    readonly text: string | undefined
   ) {}
 
   static createResearchStudyPhase(researchStudyPhase: string): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createResearchStudyPhase(researchStudyPhase)]
+      undefined,
+      [CodingModel.createResearchStudyPhase(researchStudyPhase)],
+      undefined
     )
   }
 
   static createRegulationCode(regulationCode: string): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createRegulationCode(regulationCode)]
+      undefined,
+      [CodingModel.createRegulationCode(regulationCode)],
+      undefined
     )
   }
 
   static createReglementationPrecision(reglementationPrecision: string): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createReglementationPrecision(reglementationPrecision)]
+      undefined,
+      [CodingModel.createReglementationPrecision(reglementationPrecision)],
+      undefined
     )
   }
 
-  static createDiseaseSlice(disease: string): CodeableConcept {
+  static createDiseaseSlice(id: string, disease: string): CodeableConcept {
     const emptyDiseaseIfNull = ModelUtils.undefinedIfNull(disease)
 
     return new CodeableConceptModel(
-      [CodingModel.createDisease(emptyDiseaseIfNull)],
-      'diseaseCondition'
+      'disease-condition-' + id,
+      undefined,
+      emptyDiseaseIfNull
     )
   }
 
-  static createMedDraSlice(medDraInformation: MedDra[]): CodeableConcept[] {
+  static createMedDraSlice(id: string, medDraInformation: MedDra[]): CodeableConcept[] {
     return medDraInformation.map((medDra): CodeableConcept => {
       return new CodeableConceptModel(
+        'meddra-condition-' + id + '-' + medDra.code,
         [CodingModel.createMedDra(medDra.code, medDra.label)],
-        'medDRACondition'
+        undefined
       )
     })
   }
 
   static createGenders(genders: string[]): CodeableConcept {
     return new CodeableConceptModel(
-      genders.map((gender): Coding => CodingModel.createGender(gender))
+      undefined,
+      genders.map((gender): Coding => CodingModel.createGender(gender)),
+      undefined
     )
   }
 
   static createResearchStudyGroupCategory(researchStudyGroupCategory: string): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createResearchStudyGroupCategory(researchStudyGroupCategory)]
+      undefined,
+      [CodingModel.createResearchStudyGroupCategory(researchStudyGroupCategory)],
+      undefined
     )
   }
 
   static createStudyPopulation(studyPopulation: string[]): CodeableConcept {
     return new CodeableConceptModel(
-      studyPopulation.map((parsedStudyPopulation): Coding => CodingModel.createStudyPopulation(parsedStudyPopulation))
+      undefined,
+      studyPopulation.map((parsedStudyPopulation): Coding => CodingModel.createStudyPopulation(parsedStudyPopulation)),
+      undefined
     )
   }
 
   static createInclusion(studyInclusion: string): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createInclusion(studyInclusion)]
+      undefined,
+      [CodingModel.createInclusion(studyInclusion)],
+      undefined
     )
   }
 
   static createExclusion(studyExclusion: string): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createExclusion(studyExclusion)]
+      undefined,
+      [CodingModel.createExclusion(studyExclusion)],
+      undefined
     )
   }
 
   static createOrganizationContactPurpose(): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createOrganizationContactPurpose()]
+      undefined,
+      [CodingModel.createOrganizationContactPurpose()],
+      undefined
     )
   }
 
   static createClinicalResearchSponsor(): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createOrganizationSponsorType()]
+      undefined,
+      [CodingModel.createOrganizationSponsorType()],
+      undefined
     )
   }
 
   static createContactType(contactType: ContactType): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createContactType(contactType)]
+      undefined,
+      [CodingModel.createContactType(contactType)],
+      undefined
     )
   }
 
   static createLocations(countriesCode: string[]): CodeableConcept[] {
     return countriesCode.map((countryCode): CodeableConcept => {
       return new CodeableConceptModel(
-        [CodingModel.createLocation(countryCode)]
+        undefined,
+        [CodingModel.createLocation(countryCode)],
+        undefined
       )
     })
   }
 
   static createLabelType(labelType: LabelType): CodeableConcept {
     return new CodeableConceptModel(
-      [CodingModel.createLabelType(labelType)]
+      undefined,
+      [CodingModel.createLabelType(labelType)],
+      undefined
     )
   }
 
   static createGroupCharacteristicKindVs(referenceCode: EclaireGroupCharacteristicKindVsReferenceCode): CodeableConceptModel {
     return new CodeableConceptModel(
-      [CodingModel.createGroupCharacteristicKindVs(referenceCode)]
+      undefined,
+      [CodingModel.createGroupCharacteristicKindVs(referenceCode)],
+      undefined
     )
   }
 }

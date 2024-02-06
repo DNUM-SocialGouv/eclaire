@@ -49,10 +49,10 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
 
     if (document.condition) {
       const diseaseConditionToTranslate: CodeableConcept = document.condition
-        .find((value: CodeableConcept) => value.text === 'diseaseCondition')
+        .find((value: CodeableConcept) => value.coding === undefined)
 
       if (diseaseConditionToTranslate && translatedContent.diseaseCondition) {
-        diseaseConditionToTranslate.coding[0].display = translatedContent.diseaseCondition
+        diseaseConditionToTranslate.text = translatedContent.diseaseCondition
       }
     }
 

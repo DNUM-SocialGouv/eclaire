@@ -29,12 +29,8 @@
         ],
         "condition": [
           {
-            "coding": [
-              {
-                "display": "INDISPONIBLE",
-              },
-            ],
-            "text": "diseaseCondition",
+            "id": "disease-condition-2021-A01563-38",
+            "text": "INDISPONIBLE",
           },
         ],
         "contact": [
@@ -340,12 +336,8 @@
         ],
         "condition": [
           {
-            "coding": [
-              {
-                "display": "INDISPONIBLE",
-              },
-            ],
-            "text": "diseaseCondition",
+            "id": "disease-condition-2021-A01022-39",
+            "text": "INDISPONIBLE",
           },
         ],
         "contact": [

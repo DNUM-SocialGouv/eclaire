@@ -29,12 +29,8 @@
         ],
         "condition": [
           {
-            "coding": [
-              {
-                "display": "Locally-Advanced or Metastatic breast cancer (MBC)",
-              },
-            ],
-            "text": "diseaseCondition",
+            "id": "disease-condition-2022-500014-26-00",
+            "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
           {
             "coding": [
@@ -45,7 +41,7 @@
                 "version": "2.0.1",
               },
             ],
-            "text": "medDRACondition",
+            "id": "meddra-condition-2022-500014-26-00-10070575",
           },
           {
             "coding": [
@@ -56,7 +52,7 @@
                 "version": "2.0.1",
               },
             ],
-            "text": "medDRACondition",
+            "id": "meddra-condition-2022-500014-26-00-10065430",
           },
         ],
         "contact": [
@@ -468,12 +464,8 @@
         ],
         "condition": [
           {
-            "coding": [
-              {
-                "display": "INDISPONIBLE",
-              },
-            ],
-            "text": "diseaseCondition",
+            "id": "disease-condition-2021-A01563-38",
+            "text": "INDISPONIBLE",
           },
         ],
         "contact": [
@@ -779,12 +771,8 @@
         ],
         "condition": [
           {
-            "coding": [
-              {
-                "display": "INDISPONIBLE",
-              },
-            ],
-            "text": "diseaseCondition",
+            "id": "disease-condition-2021-A01022-39",
+            "text": "INDISPONIBLE",
           },
         ],
         "contact": [
@@ -1090,12 +1078,8 @@
         ],
         "condition": [
           {
-            "coding": [
-              {
-                "display": "Locally-Advanced or Metastatic breast cancer (MBC)",
-              },
-            ],
-            "text": "diseaseCondition",
+            "id": "disease-condition-2024-500014-26-99",
+            "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
           {
             "coding": [
@@ -1106,7 +1090,7 @@
                 "version": "2.0.1",
               },
             ],
-            "text": "medDRACondition",
+            "id": "meddra-condition-2024-500014-26-99-10070575",
           },
           {
             "coding": [
@@ -1117,7 +1101,7 @@
                 "version": "2.0.1",
               },
             ],
-            "text": "medDRACondition",
+            "id": "meddra-condition-2024-500014-26-99-10065430",
           },
         ],
         "contact": [

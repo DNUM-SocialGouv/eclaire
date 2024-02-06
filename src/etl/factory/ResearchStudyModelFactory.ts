@@ -37,7 +37,7 @@ export class ResearchStudyModelFactory {
 
     const condition: CodeableConcept[] = []
     if (ModelUtils.isNotNull(eclaireDto.pathologies_maladies_rares)) {
-      condition.push(CodeableConceptModel.createDiseaseSlice(eclaireDto.pathologies_maladies_rares))
+      condition.push(CodeableConceptModel.createDiseaseSlice(eclaireDto.numero_secondaire, eclaireDto.pathologies_maladies_rares))
     }
 
     let originalContentToEnhance: OriginalContentsToEnhanceModel
