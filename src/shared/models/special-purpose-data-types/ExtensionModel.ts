@@ -1,4 +1,4 @@
-import { Address, CodeableConcept, Extension, HumanName, Period, Reference } from 'fhir/r4'
+import { Address, CodeableConcept, Duration, Extension, HumanName, Period, Reference } from 'fhir/r4'
 
 import { ReferenceModel } from './ReferenceModel'
 import { AddressModel } from '../data-types/AddressModel'
@@ -6,6 +6,7 @@ import { CodeableConceptModel } from '../data-types/CodeableConceptModel'
 import { HumanNameModel } from '../data-types/HumanNameModel'
 import { PeriodModel } from '../data-types/PeriodModel'
 import { ContactType } from '../metadata-types/ContactDetailModel'
+import { DurationModel } from '../quantity/DurationModel'
 
 export class ExtensionModel implements Extension {
   private constructor(
@@ -13,6 +14,7 @@ export class ExtensionModel implements Extension {
     readonly url: string,
     readonly valueAddress: Address | undefined,
     readonly valueCodeableConcept: CodeableConcept | undefined,
+    readonly valueDuration: Duration | undefined,
     readonly valueHumanName: HumanName | undefined,
     readonly valueInstant: string | undefined,
     readonly valueMarkdown: string | undefined,
@@ -25,6 +27,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor',
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -47,6 +50,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       therapeuticArea
     )
   }
@@ -62,6 +66,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       undefined
     )
   }
@@ -70,6 +75,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       [this.createEclaireLabelR5Value(value), this.createEclaireLabelR5Type(type)],
       'http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label',
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -92,6 +98,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       value
     )
   }
@@ -102,6 +109,7 @@ export class ExtensionModel implements Extension {
       'type',
       undefined,
       CodeableConceptModel.createLabelType(type),
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -120,6 +128,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       PeriodModel.createRecruitmentPeriod(recruitmentDate),
       undefined,
       undefined
@@ -130,6 +139,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-site-contact-name',
+      undefined,
       undefined,
       undefined,
       HumanNameModel.create(firstname, undefined, name, title),
@@ -148,6 +158,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       mostRecentDate,
       undefined,
       undefined,
@@ -160,6 +171,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name',
+      undefined,
       undefined,
       undefined,
       HumanNameModel.create(firstname, middleName, name, undefined),
@@ -182,6 +194,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       undefined
     )
   }
@@ -190,6 +203,7 @@ export class ExtensionModel implements Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation',
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -209,6 +223,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
+      undefined,
       descriptionSummaryInMarkdown,
       undefined,
       undefined,
@@ -224,10 +239,43 @@ export class ExtensionModel implements Extension {
       type,
       undefined,
       undefined,
+      undefined,
       markdownDescription,
       undefined,
       reference,
       name
+    )
+  }
+
+  static createEclaireParticipationDuration(duration: number): Extension {
+    return new ExtensionModel(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      DurationModel.create(duration),
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createEclaireTreatment(treatment: string): Extension {
+    return new ExtensionModel(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
     )
   }
 }

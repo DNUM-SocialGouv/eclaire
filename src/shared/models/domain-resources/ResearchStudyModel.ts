@@ -5,7 +5,7 @@ import {
   Identifier,
   Meta, Period,
   Reference, RelatedArtifact,
-  ResearchStudy,
+  ResearchStudy, ResearchStudyArm,
 } from 'fhir/r4'
 
 import { OriginalContentsToEnhanceModel } from '../eclaire/OriginalContentsToEnhanceModel'
@@ -19,6 +19,7 @@ export class ResearchStudyModel implements ResearchStudy {
   originalContentsToEnhance: OriginalContentsToEnhanceModel | undefined
 
   constructor(
+    readonly arm: ResearchStudyArm[] | undefined,
     readonly category: CodeableConcept[] | undefined,
     readonly condition: CodeableConcept[] | undefined,
     readonly contact: ContactDetail[] | undefined,

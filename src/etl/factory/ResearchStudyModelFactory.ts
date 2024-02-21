@@ -1,5 +1,19 @@
-import { CodeableConcept, ContactDetail, Extension, Group, Identifier, Location, Meta, Organization, Period, Reference, RelatedArtifact } from 'fhir/r4'
+import {
+  CodeableConcept,
+  ContactDetail,
+  Extension,
+  Group,
+  Identifier,
+  Location,
+  Meta,
+  Organization,
+  Period,
+  Reference,
+  RelatedArtifact,
+  ResearchStudyArm,
+} from 'fhir/r4'
 
+import { ResearchStudyArmModel } from '../../shared/models/backbone-elements/ResearchStudyArmModel'
 import { CodeableConceptModel } from '../../shared/models/data-types/CodeableConceptModel'
 import { IdentifierModel } from '../../shared/models/data-types/IdentifierModel'
 import { PeriodModel } from '../../shared/models/data-types/PeriodModel'
@@ -153,7 +167,16 @@ export class ResearchStudyModelFactory {
 
     const period: Period = PeriodModel.createCompletionDate(ModelUtils.UNAVAILABLE)
 
+    const arm: ResearchStudyArm[] = ResearchStudyArmModel.create(
+      ModelUtils.UNAVAILABLE,
+      null,
+      ModelUtils.UNAVAILABLE,
+      null,
+      ModelUtils.UNAVAILABLE
+    )
+
     return new ResearchStudyModel(
+      arm,
       category,
       condition.length === 0 ? undefined : condition,
       contact,

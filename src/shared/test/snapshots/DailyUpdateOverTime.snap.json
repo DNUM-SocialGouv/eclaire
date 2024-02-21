@@ -5,6 +5,18 @@
       "_index": "eclaire",
       "_score": 1,
       "_source": {
+        "arm": {
+          "description": "INDISPONIBLE",
+          "extension": [
+            {
+              "valueDuration": {
+                "value": "INDISPONIBLE",
+              },
+            },
+          ],
+          "name": "INDISPONIBLE",
+          "type": "INDISPONIBLE",
+        },
         "category": [
           {
             "coding": [
@@ -463,6 +475,18 @@
       "_index": "eclaire",
       "_score": 1,
       "_source": {
+        "arm": {
+          "description": "INDISPONIBLE",
+          "extension": [
+            {
+              "valueDuration": {
+                "value": "INDISPONIBLE",
+              },
+            },
+          ],
+          "name": "INDISPONIBLE",
+          "type": "INDISPONIBLE",
+        },
         "category": [
           {
             "coding": [
@@ -750,6 +774,18 @@
       "_index": "eclaire",
       "_score": 1,
       "_source": {
+        "arm": {
+          "description": "INDISPONIBLE",
+          "extension": [
+            {
+              "valueDuration": {
+                "value": "INDISPONIBLE",
+              },
+            },
+          ],
+          "name": "INDISPONIBLE",
+          "type": "INDISPONIBLE",
+        },
         "category": [
           {
             "coding": [
@@ -1037,6 +1073,18 @@
       "_index": "eclaire",
       "_score": 1,
       "_source": {
+        "arm": {
+          "description": "INDISPONIBLE",
+          "extension": [
+            {
+              "valueDuration": {
+                "value": "INDISPONIBLE",
+              },
+            },
+          ],
+          "name": "INDISPONIBLE",
+          "type": "INDISPONIBLE",
+        },
         "category": [
           {
             "coding": [
