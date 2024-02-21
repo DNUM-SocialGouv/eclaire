@@ -220,6 +220,13 @@
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
             "valueMarkdown": "INDISPONIBLE",
           },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
+            "valueCodeableConcept": null,
+            "valueMarkdown": "INDISPONIBLE",
+            "valueReference": null,
+            "valueString": "INDISPONIBLE",
+          },
         ],
         "id": "2021-A01563-38",
         "identifier": [
@@ -499,6 +506,13 @@
           {
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
             "valueMarkdown": "INDISPONIBLE",
+          },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
+            "valueCodeableConcept": null,
+            "valueMarkdown": "INDISPONIBLE",
+            "valueReference": null,
+            "valueString": "INDISPONIBLE",
           },
         ],
         "id": "2021-A01022-39",
@@ -850,6 +864,13 @@
           {
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
             "valueMarkdown": "INDISPONIBLE",
+          },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
+            "valueCodeableConcept": null,
+            "valueMarkdown": "INDISPONIBLE",
+            "valueReference": null,
+            "valueString": "INDISPONIBLE",
           },
         ],
         "id": "2024-500014-26-99",

@@ -215,6 +215,21 @@ export class ExtensionModel implements Extension {
       undefined
     )
   }
+
+  static createEclaireOutcomeMeasure(name: string, type: CodeableConcept, markdownDescription: string, reference: Reference): Extension {
+    return new ExtensionModel(
+      undefined,
+      'https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure',
+      undefined,
+      type,
+      undefined,
+      undefined,
+      markdownDescription,
+      undefined,
+      reference,
+      name
+    )
+  }
 }
 
 export type LabelType = 'primary' | 'official' | 'plain-language' | 'subtitle' | 'short-title' | 'acronym' | 'earlier-title' | 'language' | 'auto-translated' | 'human-use' | 'machine-use'

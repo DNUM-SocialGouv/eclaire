@@ -113,6 +113,12 @@ export class ResearchStudyModelFactory {
     }
     extensions.push(ExtensionModel.createEclaireReviewDate(mostRecentDate))
     extensions.push(ExtensionModel.createEclaireDescriptionSummary(ModelUtils.UNAVAILABLE))
+    extensions.push(ExtensionModel.createEclaireOutcomeMeasure(
+      ModelUtils.UNAVAILABLE,
+      null,
+      ModelUtils.UNAVAILABLE,
+      null
+    ))
 
     const id = eclaireDto.numero_secondaire
     const identifier: Identifier[] = [
