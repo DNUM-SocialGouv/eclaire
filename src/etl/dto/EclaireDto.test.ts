@@ -72,10 +72,10 @@ describe('etl | dto | EclaireDto', () => {
   it('should return a properly mapped eclaire dto when a riph dm dto is given', () => {
     expect(EclaireDto.fromDm(RiphDtoTestFactory.dm())).toMatchInlineSnapshot(`
       EclaireDto {
-        "contact_courriel": "cdp_scs@soladis.fr",
-        "contact_nom": "D'HONDT",
-        "contact_prenom": "Olivier",
-        "contact_telephone": "INDISPONIBLE",
+        "contact_courriel": null,
+        "contact_nom": null,
+        "contact_prenom": null,
+        "contact_telephone": null,
         "date_debut_recrutement": null,
         "date_theorique_maximale_autorisation_cpp": "2023-04-23",
         "dates_avis_favorable_ms_mns": "21.01155.000011-MS01:2021-11-09, 21.01155.000011-MS02:2022-03-09, 21.01155.000011-MS03:2022-10-04, 21.01155.000011-MS04.1:2022-11-29",
@@ -108,10 +108,10 @@ describe('etl | dto | EclaireDto', () => {
   it('should return a properly mapped eclaire dto when a riph jarde dto is given', () => {
     expect(EclaireDto.fromJarde(RiphDtoTestFactory.jarde())).toMatchInlineSnapshot(`
       EclaireDto {
-        "contact_courriel": "christophe.gillet@uphf.fr",
-        "contact_nom": "GILLET",
-        "contact_prenom": "Christophe",
-        "contact_telephone": "INDISPONIBLE",
+        "contact_courriel": null,
+        "contact_nom": null,
+        "contact_prenom": null,
+        "contact_telephone": null,
         "date_debut_recrutement": null,
         "date_theorique_maximale_autorisation_cpp": "2023-04-30",
         "dates_avis_favorable_ms_mns": "20.00002.210204-MS02:2021-07-29, 20.00002.210204-MS03:2021-10-26, 20.00002.210204-MS04:2023-01-26",

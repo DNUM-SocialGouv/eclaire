@@ -474,49 +474,6 @@
               {
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueHumanName": {
-                  "family": "D'HONDT",
-                  "given": [
-                    "Olivier",
-                  ],
-                  "use": "official",
-                },
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
-                "valueAddress": {
-                  "city": "INDISPONIBLE",
-                  "country": "INDISPONIBLE",
-                  "line": [
-                    "INDISPONIBLE",
-                  ],
-                  "postalCode": "INDISPONIBLE",
-                  "type": "physical",
-                  "use": "work",
-                },
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
-                "valueString": "INDISPONIBLE",
-              },
-            ],
-            "telecom": [
-              {
-                "system": "phone",
-                "use": "work",
-                "value": "INDISPONIBLE",
-              },
-              {
-                "system": "email",
-                "use": "work",
-                "value": "cdp_scs@soladis.fr",
-              },
-            ],
-          },
-          {
-            "extension": [
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
-                "valueHumanName": {
                   "family": "INDISPONIBLE",
                   "given": [
                     "INDISPONIBLE",
@@ -776,49 +733,6 @@
           },
         ],
         "contact": [
-          {
-            "extension": [
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
-                "valueHumanName": {
-                  "family": "GILLET",
-                  "given": [
-                    "Christophe",
-                  ],
-                  "use": "official",
-                },
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
-                "valueAddress": {
-                  "city": "INDISPONIBLE",
-                  "country": "INDISPONIBLE",
-                  "line": [
-                    "INDISPONIBLE",
-                  ],
-                  "postalCode": "INDISPONIBLE",
-                  "type": "physical",
-                  "use": "work",
-                },
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
-                "valueString": "INDISPONIBLE",
-              },
-            ],
-            "telecom": [
-              {
-                "system": "phone",
-                "use": "work",
-                "value": "INDISPONIBLE",
-              },
-              {
-                "system": "email",
-                "use": "work",
-                "value": "christophe.gillet@uphf.fr",
-              },
-            ],
-          },
           {
             "extension": [
               {
