@@ -172,7 +172,7 @@ export class ResearchStudyModelFactory {
       null,
       ModelUtils.UNAVAILABLE,
       null,
-      ModelUtils.UNAVAILABLE
+      undefined
     )
 
     return new ResearchStudyModel(

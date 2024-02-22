@@ -5,18 +5,21 @@
       "_index": "eclaire",
       "_score": 1,
       "_source": {
-        "arm": {
-          "description": "INDISPONIBLE",
-          "extension": [
-            {
-              "valueDuration": {
-                "value": "INDISPONIBLE",
+        "arm": [
+          {
+            "description": "INDISPONIBLE",
+            "extension": [
+              {
+                "url": "not-existing-yet",
+                "valueDuration": {
+                  "value": null,
+                },
               },
-            },
-          ],
-          "name": "INDISPONIBLE",
-          "type": "INDISPONIBLE",
-        },
+            ],
+            "name": "INDISPONIBLE",
+            "type": null,
+          },
+        ],
         "category": [
           {
             "coding": [
@@ -304,18 +307,21 @@
       "_index": "eclaire",
       "_score": 1,
       "_source": {
-        "arm": {
-          "description": "INDISPONIBLE",
-          "extension": [
-            {
-              "valueDuration": {
-                "value": "INDISPONIBLE",
+        "arm": [
+          {
+            "description": "INDISPONIBLE",
+            "extension": [
+              {
+                "url": "not-existing-yet",
+                "valueDuration": {
+                  "value": null,
+                },
               },
-            },
-          ],
-          "name": "INDISPONIBLE",
-          "type": "INDISPONIBLE",
-        },
+            ],
+            "name": "INDISPONIBLE",
+            "type": null,
+          },
+        ],
         "category": [
           {
             "coding": [

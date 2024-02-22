@@ -10,32 +10,34 @@ describe('research study model factory', () => {
   it('should build a research study model, when a RIPH CTIS object with all fields filled is given', () => {
     expect(ResearchStudyModelFactory.create(EclaireDto.fromCtis(RiphDtoTestFactory.ctis()))).toMatchInlineSnapshot(`
       ResearchStudyModel {
-        "arm": ResearchStudyArmModel {
-          "description": "INDISPONIBLE",
-          "extension": [
-            ExtensionModel {
-              "extension": undefined,
-              "url": undefined,
-              "valueAddress": undefined,
-              "valueCodeableConcept": undefined,
-              "valueDuration": DurationModel {
-                "code": undefined,
-                "comparator": undefined,
-                "system": undefined,
-                "unit": undefined,
-                "value": "INDISPONIBLE",
+        "arm": [
+          ResearchStudyArmModel {
+            "description": "INDISPONIBLE",
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": "not-existing-yet",
+                "valueAddress": undefined,
+                "valueCodeableConcept": undefined,
+                "valueDuration": DurationModel {
+                  "code": undefined,
+                  "comparator": undefined,
+                  "system": undefined,
+                  "unit": undefined,
+                  "value": null,
+                },
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valueMarkdown": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
               },
-              "valueHumanName": undefined,
-              "valueInstant": undefined,
-              "valueMarkdown": undefined,
-              "valuePeriod": undefined,
-              "valueReference": undefined,
-              "valueString": undefined,
-            },
-          ],
-          "name": "INDISPONIBLE",
-          "type": "INDISPONIBLE",
-        },
+            ],
+            "name": "INDISPONIBLE",
+            "type": null,
+          },
+        ],
         "category": [
           CodeableConceptModel {
             "coding": [
@@ -1105,32 +1107,34 @@ describe('research study model factory', () => {
   it('should build a research study model, when a RIPH DM object with all fields filled is given', () => {
     expect(ResearchStudyModelFactory.create(EclaireDto.fromDm(RiphDtoTestFactory.dm()))).toMatchInlineSnapshot(`
       ResearchStudyModel {
-        "arm": ResearchStudyArmModel {
-          "description": "INDISPONIBLE",
-          "extension": [
-            ExtensionModel {
-              "extension": undefined,
-              "url": undefined,
-              "valueAddress": undefined,
-              "valueCodeableConcept": undefined,
-              "valueDuration": DurationModel {
-                "code": undefined,
-                "comparator": undefined,
-                "system": undefined,
-                "unit": undefined,
-                "value": "INDISPONIBLE",
+        "arm": [
+          ResearchStudyArmModel {
+            "description": "INDISPONIBLE",
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": "not-existing-yet",
+                "valueAddress": undefined,
+                "valueCodeableConcept": undefined,
+                "valueDuration": DurationModel {
+                  "code": undefined,
+                  "comparator": undefined,
+                  "system": undefined,
+                  "unit": undefined,
+                  "value": null,
+                },
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valueMarkdown": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
               },
-              "valueHumanName": undefined,
-              "valueInstant": undefined,
-              "valueMarkdown": undefined,
-              "valuePeriod": undefined,
-              "valueReference": undefined,
-              "valueString": undefined,
-            },
-          ],
-          "name": "INDISPONIBLE",
-          "type": "INDISPONIBLE",
-        },
+            ],
+            "name": "INDISPONIBLE",
+            "type": null,
+          },
+        ],
         "category": [
           CodeableConceptModel {
             "coding": [
@@ -1747,32 +1751,34 @@ describe('research study model factory', () => {
   it('should build a research study model, when a RIPH Jarde object with all fields filled is given', () => {
     expect(ResearchStudyModelFactory.create(EclaireDto.fromJarde(RiphDtoTestFactory.jarde()))).toMatchInlineSnapshot(`
       ResearchStudyModel {
-        "arm": ResearchStudyArmModel {
-          "description": "INDISPONIBLE",
-          "extension": [
-            ExtensionModel {
-              "extension": undefined,
-              "url": undefined,
-              "valueAddress": undefined,
-              "valueCodeableConcept": undefined,
-              "valueDuration": DurationModel {
-                "code": undefined,
-                "comparator": undefined,
-                "system": undefined,
-                "unit": undefined,
-                "value": "INDISPONIBLE",
+        "arm": [
+          ResearchStudyArmModel {
+            "description": "INDISPONIBLE",
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": "not-existing-yet",
+                "valueAddress": undefined,
+                "valueCodeableConcept": undefined,
+                "valueDuration": DurationModel {
+                  "code": undefined,
+                  "comparator": undefined,
+                  "system": undefined,
+                  "unit": undefined,
+                  "value": null,
+                },
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valueMarkdown": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
               },
-              "valueHumanName": undefined,
-              "valueInstant": undefined,
-              "valueMarkdown": undefined,
-              "valuePeriod": undefined,
-              "valueReference": undefined,
-              "valueString": undefined,
-            },
-          ],
-          "name": "INDISPONIBLE",
-          "type": "INDISPONIBLE",
-        },
+            ],
+            "name": "INDISPONIBLE",
+            "type": null,
+          },
+        ],
         "category": [
           CodeableConceptModel {
             "coding": [
@@ -2389,32 +2395,34 @@ describe('research study model factory', () => {
   it('should build a research study model, when null fields is given', () => {
     expect(ResearchStudyModelFactory.create(EclaireDto.fromCtis(RiphDtoTestFactory.emptyCtis()))).toMatchInlineSnapshot(`
       ResearchStudyModel {
-        "arm": ResearchStudyArmModel {
-          "description": "INDISPONIBLE",
-          "extension": [
-            ExtensionModel {
-              "extension": undefined,
-              "url": undefined,
-              "valueAddress": undefined,
-              "valueCodeableConcept": undefined,
-              "valueDuration": DurationModel {
-                "code": undefined,
-                "comparator": undefined,
-                "system": undefined,
-                "unit": undefined,
-                "value": "INDISPONIBLE",
+        "arm": [
+          ResearchStudyArmModel {
+            "description": "INDISPONIBLE",
+            "extension": [
+              ExtensionModel {
+                "extension": undefined,
+                "url": "not-existing-yet",
+                "valueAddress": undefined,
+                "valueCodeableConcept": undefined,
+                "valueDuration": DurationModel {
+                  "code": undefined,
+                  "comparator": undefined,
+                  "system": undefined,
+                  "unit": undefined,
+                  "value": null,
+                },
+                "valueHumanName": undefined,
+                "valueInstant": undefined,
+                "valueMarkdown": undefined,
+                "valuePeriod": undefined,
+                "valueReference": undefined,
+                "valueString": undefined,
               },
-              "valueHumanName": undefined,
-              "valueInstant": undefined,
-              "valueMarkdown": undefined,
-              "valuePeriod": undefined,
-              "valueReference": undefined,
-              "valueString": undefined,
-            },
-          ],
-          "name": "INDISPONIBLE",
-          "type": "INDISPONIBLE",
-        },
+            ],
+            "name": "INDISPONIBLE",
+            "type": null,
+          },
+        ],
         "category": [
           CodeableConceptModel {
             "coding": [

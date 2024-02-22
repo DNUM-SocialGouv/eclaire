@@ -11,10 +11,15 @@ export class ResearchStudyArmModel implements ResearchStudyArm {
     readonly extension: Extension[] | undefined
   ) {
   }
-  static create(name: string, type: CodeableConcept, description: string, duration: number, treatment: string): ResearchStudyArmModel[] {
+  static create(name: string, type: CodeableConcept, description: string, duration: number, treatments: string[]): ResearchStudyArmModel[] {
     const extensions: Extension[] = []
     extensions.push(ExtensionModel.createEclaireParticipationDuration(duration))
-    //extensions.push(ExtensionModel.createEclaireTreatment(treatment))
+
+    if (treatments && treatments.length > 0) {
+      treatments.forEach((treatment: string) => {
+        extensions.push(ExtensionModel.createEclaireTreatment(treatment))
+      })
+    }
 
     return [
       new ResearchStudyArmModel(

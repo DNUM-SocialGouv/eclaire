@@ -250,7 +250,7 @@ export class ExtensionModel implements Extension {
   static createEclaireParticipationDuration(duration: number): Extension {
     return new ExtensionModel(
       undefined,
-      undefined,
+      'not-existing-yet',
       undefined,
       undefined,
       DurationModel.create(duration),
@@ -264,18 +264,21 @@ export class ExtensionModel implements Extension {
   }
 
   static createEclaireTreatment(treatment: string): Extension {
+    const treatmentCode: CodeableConcept = undefined
+    const keyword: string = undefined
+
     return new ExtensionModel(
       undefined,
+      'not-existing-yet',
+      undefined,
+      treatmentCode,
       undefined,
       undefined,
       undefined,
+      keyword,
       undefined,
       undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined
+      treatment
     )
   }
 }
