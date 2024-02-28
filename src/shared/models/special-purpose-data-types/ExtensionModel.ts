@@ -298,6 +298,57 @@ export class ExtensionModel implements Extension {
       undefined
     )
   }
+
+  static createEclaireArmIntervention(name: string, description: string): ExtensionModel {
+    return new ExtensionModel(
+      [
+        ExtensionModel.createEclaireArmInterventionName(name),
+        ExtensionModel.createEclaireArmInterventionDescription(description),
+      ],
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  private static createEclaireArmInterventionName(name: string): ExtensionModel {
+    return new ExtensionModel(
+      undefined,
+      'name',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      name
+    )
+  }
+
+  private static createEclaireArmInterventionDescription(description: string): ExtensionModel {
+    return new ExtensionModel(
+      undefined,
+      'description',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      description
+    )
+  }
 }
 
 export type LabelType = 'primary' | 'official' | 'plain-language' | 'subtitle' | 'short-title' | 'acronym' | 'earlier-title' | 'language' | 'auto-translated' | 'human-use' | 'machine-use'

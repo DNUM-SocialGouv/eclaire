@@ -133,6 +133,9 @@ export class ResearchStudyModelFactory {
       ModelUtils.UNAVAILABLE,
       null
     ))
+
+    extensions.push(ExtensionModel.createEclaireArmIntervention(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE))
+
     const status: RiphStatus = eclaireDto.etat as RiphStatus
     extensions.push(ExtensionModel.createEclaireRecruitmentStatus(null))
 

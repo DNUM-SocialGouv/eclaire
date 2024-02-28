@@ -314,6 +314,19 @@
             "valueString": "INDISPONIBLE",
           },
           {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": "INDISPONIBLE",
+              },
+              {
+                "url": "description",
+                "valueString": "INDISPONIBLE",
+              },
+            ],
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
+          },
+          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
             "valueCodeableConcept": {
               "coding": [
@@ -727,6 +740,19 @@
             "valueString": "INDISPONIBLE",
           },
           {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": "INDISPONIBLE",
+              },
+              {
+                "url": "description",
+                "valueString": "INDISPONIBLE",
+              },
+            ],
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
+          },
+          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
             "valueCodeableConcept": {
               "coding": [
@@ -1038,6 +1064,19 @@
             "valueMarkdown": "INDISPONIBLE",
             "valueReference": null,
             "valueString": "INDISPONIBLE",
+          },
+          {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": "INDISPONIBLE",
+              },
+              {
+                "url": "description",
+                "valueString": "INDISPONIBLE",
+              },
+            ],
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
@@ -1422,6 +1461,19 @@
             "valueMarkdown": "INDISPONIBLE",
             "valueReference": null,
             "valueString": "INDISPONIBLE",
+          },
+          {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": "INDISPONIBLE",
+              },
+              {
+                "url": "description",
+                "valueString": "INDISPONIBLE",
+              },
+            ],
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
