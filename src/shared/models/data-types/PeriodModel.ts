@@ -12,4 +12,18 @@ export class PeriodModel implements Period {
       start
     )
   }
+
+  static createCompletionDate(completionDate: string): Period {
+    return new PeriodModel(
+      completionDate,
+      undefined
+    )
+  }
+
+  static createRegistrationInPrimaryRegistry(registrationDateInPrimaryRegistry: string): Period {
+    return new PeriodModel(
+      undefined,
+      registrationDateInPrimaryRegistry
+    )
+  }
 }

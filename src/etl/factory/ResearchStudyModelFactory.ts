@@ -1,7 +1,23 @@
-import { CodeableConcept, ContactDetail, Extension, Group, Identifier, Location, Meta, Organization, Reference } from 'fhir/r4'
+import {
+  CodeableConcept,
+  ContactDetail,
+  Extension,
+  Group,
+  Identifier,
+  Location,
+  Meta,
+  Organization,
+  Period,
+  Reference,
+  RelatedArtifact,
+  ResearchStudyArm,
+} from 'fhir/r4'
 
+import { ResearchStudyArmModel } from '../../shared/models/backbone-elements/ResearchStudyArmModel'
 import { CodeableConceptModel } from '../../shared/models/data-types/CodeableConceptModel'
 import { IdentifierModel } from '../../shared/models/data-types/IdentifierModel'
+import { PeriodModel } from '../../shared/models/data-types/PeriodModel'
+import { RelatedArtifactModel } from '../../shared/models/data-types/RelatedArtifactModel'
 import { GroupModel } from '../../shared/models/domain-resources/GroupModel'
 import { LocationModel } from '../../shared/models/domain-resources/LocationModel'
 import { OrganizationModel } from '../../shared/models/domain-resources/OrganizationModel'
@@ -110,17 +126,28 @@ export class ResearchStudyModelFactory {
       extensions.push(ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement))
     }
     extensions.push(ExtensionModel.createEclaireReviewDate(mostRecentDate))
+    extensions.push(ExtensionModel.createEclaireDescriptionSummary(ModelUtils.UNAVAILABLE))
+    extensions.push(ExtensionModel.createEclaireOutcomeMeasure(
+      ModelUtils.UNAVAILABLE,
+      null,
+      ModelUtils.UNAVAILABLE,
+      null
+    ))
+
+    extensions.push(ExtensionModel.createEclaireArmIntervention(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE))
+
+    const status: RiphStatus = eclaireDto.etat as RiphStatus
+    extensions.push(ExtensionModel.createEclaireRecruitmentStatus(null))
 
     const id = eclaireDto.numero_secondaire
     const identifier: Identifier[] = [
-      IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE),
+      IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE),
       secondaryAssignerIdentifier,
     ]
     const location = ModelUtils.isNotNull(eclaireDto.pays_concernes) ? CodeableConceptModel.createLocations(eclaireDto.pays_concernes) : undefined
     const meta: Meta = MetaModel.create(mostRecentDate)
     const phase: CodeableConcept = CodeableConceptModel.createResearchStudyPhase(eclaireDto.phase_recherche)
 
-    const status = eclaireDto.etat as RiphStatus
     const title = ModelUtils.isNotNull(eclaireDto.titre) ? eclaireDto.titre : undefined
 
     const organizations: Organization[] = []
@@ -140,7 +167,22 @@ export class ResearchStudyModelFactory {
       organizations
     )
 
+    const relatedArtifacts: RelatedArtifact[] = [RelatedArtifactModel.create(ModelUtils.UNAVAILABLE)]
+
+    const period: Period = PeriodModel.createCompletionDate(ModelUtils.UNAVAILABLE)
+
+    const arm: ResearchStudyArm[] = ResearchStudyArmModel.create(
+      ModelUtils.UNAVAILABLE,
+      null,
+      ModelUtils.UNAVAILABLE,
+      null,
+      undefined
+    )
+
+    const primaryPurposeType: CodeableConcept = undefined
+
     return new ResearchStudyModel(
+      arm,
       category,
       condition.length === 0 ? undefined : condition,
       contact,
@@ -151,9 +193,12 @@ export class ResearchStudyModelFactory {
       identifier,
       location,
       meta,
-      phase,
       originalContentToEnhance,
+      period,
+      phase,
+      primaryPurposeType,
       referenceContents,
+      relatedArtifacts,
       site.length === 0 ? undefined : site,
       sponsor,
       status,
@@ -166,7 +211,7 @@ export class ResearchStudyModelFactory {
     secondaryAssignerOrganization: Organization
   } {
     const assigner: AssignerForSecondaryIdentifier = ModelUtils.identifyAssigner(eclaireDto.reglementation_code, eclaireDto.precision_reglementation)
-    const secondaryAssignerIdentifier: Identifier = IdentifierModel.createSecondarySlice(eclaireDto.numero_secondaire, assigner)
+    const secondaryAssignerIdentifier: Identifier = IdentifierModel.createSecondarySlice(eclaireDto.numero_secondaire, assigner, ModelUtils.UNAVAILABLE)
     const secondaryAssignerOrganization: Organization = OrganizationModel.createSecondaryAssigner(assigner)
 
     return { secondaryAssignerIdentifier, secondaryAssignerOrganization }

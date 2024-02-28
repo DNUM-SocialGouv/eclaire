@@ -1,5 +1,6 @@
-import { Identifier, Reference } from 'fhir/r4'
+import { Identifier, Period, Reference } from 'fhir/r4'
 
+import { PeriodModel } from './PeriodModel'
 import {
   AssignerForSecondaryIdentifier,
   ReferenceModel,
@@ -8,6 +9,7 @@ import {
 export class IdentifierModel implements Identifier {
   private constructor(
     readonly assigner: Reference | undefined,
+    readonly period: Period | undefined,
     readonly use:
       | 'usual'
       | 'official'
@@ -18,9 +20,10 @@ export class IdentifierModel implements Identifier {
     readonly value: string | undefined
   ) {}
 
-  static createPrimarySlice(number: string): Identifier {
+  static createPrimarySlice(number: string, registrationDateInPrimaryRegistry: string): Identifier {
     return new IdentifierModel(
       ReferenceModel.createAssignerForPrimaryIdentifier(),
+      PeriodModel.createRegistrationInPrimaryRegistry(registrationDateInPrimaryRegistry),
       'official',
       number
     )
@@ -28,10 +31,12 @@ export class IdentifierModel implements Identifier {
 
   static createSecondarySlice(
     ctisOrNationalNumber: string,
-    assigner: AssignerForSecondaryIdentifier
+    assigner: AssignerForSecondaryIdentifier,
+    registrationDateInPrimaryRegistry: string
   ): Identifier {
     return new IdentifierModel(
       ReferenceModel.createAssignerForSecondaryIdentifier(assigner),
+      PeriodModel.createRegistrationInPrimaryRegistry(registrationDateInPrimaryRegistry),
       'secondary',
       ctisOrNationalNumber
     )
@@ -39,6 +44,7 @@ export class IdentifierModel implements Identifier {
 
   static createLocation(id: string): IdentifierModel {
     return new IdentifierModel(
+      undefined,
       undefined,
       'official',
       id

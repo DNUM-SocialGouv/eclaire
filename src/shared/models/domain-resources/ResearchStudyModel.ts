@@ -3,9 +3,9 @@ import {
   ContactDetail,
   Extension,
   Identifier,
-  Meta,
-  Reference,
-  ResearchStudy,
+  Meta, Period,
+  Reference, RelatedArtifact,
+  ResearchStudy, ResearchStudyArm,
 } from 'fhir/r4'
 
 import { OriginalContentsToEnhanceModel } from '../eclaire/OriginalContentsToEnhanceModel'
@@ -19,6 +19,7 @@ export class ResearchStudyModel implements ResearchStudy {
   originalContentsToEnhance: OriginalContentsToEnhanceModel | undefined
 
   constructor(
+    readonly arm: ResearchStudyArm[] | undefined,
     readonly category: CodeableConcept[] | undefined,
     readonly condition: CodeableConcept[] | undefined,
     readonly contact: ContactDetail[] | undefined,
@@ -29,17 +30,20 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly identifier: Identifier[] | undefined,
     readonly location: CodeableConcept[] | undefined,
     readonly meta: Meta | undefined,
-    readonly phase: CodeableConcept | undefined,
     originalContentsToEnhance: OriginalContentsToEnhanceModel | undefined,
+    readonly period: Period | undefined,
+    readonly phase: CodeableConcept | undefined,
+    readonly primaryPurposeType: CodeableConcept | undefined,
     readonly referenceContents: ReferenceContentsModel,
+    readonly relatedArtifact: RelatedArtifact[] | undefined,
     readonly site: Reference[] | undefined,
     readonly sponsor: Reference | undefined,
-    riphStatus: RiphStatus,
+    status: RiphStatus,
     readonly title: string | undefined
   ) {
     this.originalContentsToEnhance = originalContentsToEnhance
     this.resourceType = 'ResearchStudy'
-    this.status = this.convertToResearchStudyStatus(riphStatus)
+    this.status = this.convertToResearchStudyStatus(status)
   }
 
   private convertToResearchStudyStatus(riphStatus: RiphStatus): ResearchStudyStatus {

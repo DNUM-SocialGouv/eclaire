@@ -5,6 +5,21 @@
       "_index": "eclaire",
       "_score": 1,
       "_source": {
+        "arm": [
+          {
+            "description": "INDISPONIBLE",
+            "extension": [
+              {
+                "url": "not-existing-yet",
+                "valueDuration": {
+                  "value": null,
+                },
+              },
+            ],
+            "name": "INDISPONIBLE",
+            "type": null,
+          },
+        ],
         "category": [
           {
             "coding": [
@@ -287,6 +302,41 @@
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueInstant": "2023-04-12T00:00:00.000Z",
           },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
+            "valueMarkdown": "INDISPONIBLE",
+          },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
+            "valueCodeableConcept": null,
+            "valueMarkdown": "INDISPONIBLE",
+            "valueReference": null,
+            "valueString": "INDISPONIBLE",
+          },
+          {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": "INDISPONIBLE",
+              },
+              {
+                "url": "description",
+                "valueString": "INDISPONIBLE",
+              },
+            ],
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
+          },
+          {
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                  "version": "0.2.1",
+                },
+              ],
+            },
+          },
         ],
         "id": "2022-500014-26-00",
         "identifier": [
@@ -294,6 +344,9 @@
             "assigner": {
               "display": "Reference to primary assigner",
               "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
             },
             "use": "official",
             "value": "INDISPONIBLE",
@@ -303,6 +356,9 @@
               "display": "Reference to secondary assigner",
               "reference": "Organization/ctis",
               "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
             },
             "use": "secondary",
             "value": "2022-500014-26-00",
@@ -402,6 +458,9 @@
             "10065430",
           ],
         },
+        "period": {
+          "end": "INDISPONIBLE",
+        },
         "phase": {
           "coding": [
             {
@@ -412,6 +471,9 @@
             },
           ],
         },
+        "relatedArtifact": [
+          null,
+        ],
         "resourceType": "ResearchStudy",
         "site": [
           {
@@ -440,6 +502,21 @@
       "_index": "eclaire",
       "_score": 1,
       "_source": {
+        "arm": [
+          {
+            "description": "INDISPONIBLE",
+            "extension": [
+              {
+                "url": "not-existing-yet",
+                "valueDuration": {
+                  "value": null,
+                },
+              },
+            ],
+            "name": "INDISPONIBLE",
+            "type": null,
+          },
+        ],
         "category": [
           {
             "coding": [
@@ -651,6 +728,41 @@
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueInstant": "2023-04-06T00:00:00.000Z",
           },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
+            "valueMarkdown": "INDISPONIBLE",
+          },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
+            "valueCodeableConcept": null,
+            "valueMarkdown": "INDISPONIBLE",
+            "valueReference": null,
+            "valueString": "INDISPONIBLE",
+          },
+          {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": "INDISPONIBLE",
+              },
+              {
+                "url": "description",
+                "valueString": "INDISPONIBLE",
+              },
+            ],
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
+          },
+          {
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                  "version": "0.2.1",
+                },
+              ],
+            },
+          },
         ],
         "id": "2021-A01563-38",
         "identifier": [
@@ -658,6 +770,9 @@
             "assigner": {
               "display": "Reference to primary assigner",
               "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
             },
             "use": "official",
             "value": "INDISPONIBLE",
@@ -667,6 +782,9 @@
               "display": "Reference to secondary assigner",
               "reference": "Organization/ansm",
               "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
             },
             "use": "secondary",
             "value": "2021-A01563-38",
@@ -678,6 +796,9 @@
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
         },
+        "period": {
+          "end": "INDISPONIBLE",
+        },
         "phase": {
           "coding": [
             {
@@ -688,6 +809,9 @@
             },
           ],
         },
+        "relatedArtifact": [
+          null,
+        ],
         "resourceType": "ResearchStudy",
         "sponsor": {
           "display": "Reference to primary sponsor",
@@ -704,6 +828,21 @@
       "_index": "eclaire",
       "_score": 1,
       "_source": {
+        "arm": [
+          {
+            "description": "INDISPONIBLE",
+            "extension": [
+              {
+                "url": "not-existing-yet",
+                "valueDuration": {
+                  "value": null,
+                },
+              },
+            ],
+            "name": "INDISPONIBLE",
+            "type": null,
+          },
+        ],
         "category": [
           {
             "coding": [
@@ -915,6 +1054,41 @@
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueInstant": "2023-04-04T00:00:00.000Z",
           },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
+            "valueMarkdown": "INDISPONIBLE",
+          },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
+            "valueCodeableConcept": null,
+            "valueMarkdown": "INDISPONIBLE",
+            "valueReference": null,
+            "valueString": "INDISPONIBLE",
+          },
+          {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": "INDISPONIBLE",
+              },
+              {
+                "url": "description",
+                "valueString": "INDISPONIBLE",
+              },
+            ],
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
+          },
+          {
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                  "version": "0.2.1",
+                },
+              ],
+            },
+          },
         ],
         "id": "2021-A01022-39",
         "identifier": [
@@ -922,6 +1096,9 @@
             "assigner": {
               "display": "Reference to primary assigner",
               "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
             },
             "use": "official",
             "value": "INDISPONIBLE",
@@ -931,6 +1108,9 @@
               "display": "Reference to secondary assigner",
               "reference": "Organization/ansm",
               "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
             },
             "use": "secondary",
             "value": "2021-A01022-39",
@@ -942,6 +1122,9 @@
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
         },
+        "period": {
+          "end": "INDISPONIBLE",
+        },
         "phase": {
           "coding": [
             {
@@ -952,6 +1135,9 @@
             },
           ],
         },
+        "relatedArtifact": [
+          null,
+        ],
         "resourceType": "ResearchStudy",
         "sponsor": {
           "display": "Reference to primary sponsor",
@@ -968,6 +1154,21 @@
       "_index": "eclaire",
       "_score": 1,
       "_source": {
+        "arm": [
+          {
+            "description": "INDISPONIBLE",
+            "extension": [
+              {
+                "url": "not-existing-yet",
+                "valueDuration": {
+                  "value": null,
+                },
+              },
+            ],
+            "name": "INDISPONIBLE",
+            "type": null,
+          },
+        ],
         "category": [
           {
             "coding": [
@@ -1250,6 +1451,41 @@
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueInstant": "2024-01-06T00:00:00.000Z",
           },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
+            "valueMarkdown": "INDISPONIBLE",
+          },
+          {
+            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
+            "valueCodeableConcept": null,
+            "valueMarkdown": "INDISPONIBLE",
+            "valueReference": null,
+            "valueString": "INDISPONIBLE",
+          },
+          {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": "INDISPONIBLE",
+              },
+              {
+                "url": "description",
+                "valueString": "INDISPONIBLE",
+              },
+            ],
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
+          },
+          {
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                  "version": "0.2.1",
+                },
+              ],
+            },
+          },
         ],
         "id": "2024-500014-26-99",
         "identifier": [
@@ -1257,6 +1493,9 @@
             "assigner": {
               "display": "Reference to primary assigner",
               "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
             },
             "use": "official",
             "value": "INDISPONIBLE",
@@ -1266,6 +1505,9 @@
               "display": "Reference to secondary assigner",
               "reference": "Organization/ctis",
               "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
             },
             "use": "secondary",
             "value": "2024-500014-26-99",
@@ -1365,6 +1607,9 @@
             "10065430",
           ],
         },
+        "period": {
+          "end": "INDISPONIBLE",
+        },
         "phase": {
           "coding": [
             {
@@ -1375,6 +1620,9 @@
             },
           ],
         },
+        "relatedArtifact": [
+          null,
+        ],
         "resourceType": "ResearchStudy",
         "site": [
           {
