@@ -716,6 +716,7 @@ describe('research study model factory', () => {
           "id": undefined,
           "text": undefined,
         },
+        "primaryPurposeType": undefined,
         "referenceContents": ReferenceContentsModel {
           "enrollmentGroup": GroupModel {
             "actual": true,
@@ -1646,6 +1647,7 @@ describe('research study model factory', () => {
           "id": undefined,
           "text": undefined,
         },
+        "primaryPurposeType": undefined,
         "referenceContents": ReferenceContentsModel {
           "enrollmentGroup": GroupModel {
             "actual": true,
@@ -2314,6 +2316,7 @@ describe('research study model factory', () => {
           "id": undefined,
           "text": undefined,
         },
+        "primaryPurposeType": undefined,
         "referenceContents": ReferenceContentsModel {
           "enrollmentGroup": GroupModel {
             "actual": true,
@@ -2951,6 +2954,7 @@ describe('research study model factory', () => {
           "id": undefined,
           "text": undefined,
         },
+        "primaryPurposeType": undefined,
         "referenceContents": ReferenceContentsModel {
           "enrollmentGroup": GroupModel {
             "actual": true,

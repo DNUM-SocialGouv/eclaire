@@ -176,6 +176,8 @@ export class ResearchStudyModelFactory {
       undefined
     )
 
+    const primaryPurposeType: CodeableConcept = undefined
+
     return new ResearchStudyModel(
       arm,
       category,
@@ -191,6 +193,7 @@ export class ResearchStudyModelFactory {
       originalContentToEnhance,
       period,
       phase,
+      primaryPurposeType,
       referenceContents,
       relatedArtifacts,
       site.length === 0 ? undefined : site,

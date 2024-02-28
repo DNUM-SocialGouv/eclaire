@@ -33,6 +33,7 @@ export class ResearchStudyModel implements ResearchStudy {
     originalContentsToEnhance: OriginalContentsToEnhanceModel | undefined,
     readonly period: Period | undefined,
     readonly phase: CodeableConcept | undefined,
+    readonly primaryPurposeType: CodeableConcept | undefined,
     readonly referenceContents: ReferenceContentsModel,
     readonly relatedArtifact: RelatedArtifact[] | undefined,
     readonly site: Reference[] | undefined,
