@@ -133,6 +133,8 @@ export class ResearchStudyModelFactory {
       ModelUtils.UNAVAILABLE,
       null
     ))
+    const status: RiphStatus = eclaireDto.etat as RiphStatus
+    extensions.push(ExtensionModel.createEclaireRecruitmentStatus(null))
 
     const id = eclaireDto.numero_secondaire
     const identifier: Identifier[] = [
@@ -143,7 +145,6 @@ export class ResearchStudyModelFactory {
     const meta: Meta = MetaModel.create(mostRecentDate)
     const phase: CodeableConcept = CodeableConceptModel.createResearchStudyPhase(eclaireDto.phase_recherche)
 
-    const status = eclaireDto.etat as RiphStatus
     const title = ModelUtils.isNotNull(eclaireDto.titre) ? eclaireDto.titre : undefined
 
     const organizations: Organization[] = []

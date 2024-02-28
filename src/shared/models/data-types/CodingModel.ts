@@ -5,12 +5,14 @@ import { countryCodeSystem } from '../code-systems/countryCodeSystem'
 import { eclaireGroupCharacteristicKindVs } from '../code-systems/eclaireGroupCharacteristicKindVs'
 import { eclaireReglementationPrecisionCodeSystem } from '../code-systems/eclaireReglementationPrecisionCodeSystem'
 import { eclaireRegulationCodeCodeSystem } from '../code-systems/eclaireRegulationCodeCodeSystem'
+import { eclaireStatusRecruitmentCodeSystem } from '../code-systems/eclaireStatusRecruitmentCodeSystem'
 import { eclaireStudyPhaseCodeSystem } from '../code-systems/eclaireStudyPhaseCodeSystem'
 import { eclaireStudyPopulationCodeSystem } from '../code-systems/eclaireStudyPopulationCodeSystem'
 import { eclaireStudyTitleTypeCodeSystem } from '../code-systems/eclaireStudyTitleTypeCodeSystem'
 import { eclaireTypeContactCodeSystem } from '../code-systems/eclaireTypeContactCodeSystem'
 import { medDraCodeSystem } from '../code-systems/medDraCodeSystem'
 import { researchStudyPhaseCodeSystem } from '../code-systems/researchStudyPhaseCodeSystem'
+import { RiphStatus } from '../domain-resources/ResearchStudyModel'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 import { LabelType } from '../special-purpose-data-types/ExtensionModel'
 
@@ -224,6 +226,19 @@ export class CodingModel implements Coding {
     return new CodingModel(
       groupCharacteristicKind.code,
       groupCharacteristicKind.display,
+      eclaireGroupCharacteristicKindVs.url,
+      eclaireGroupCharacteristicKindVs.version
+    )
+  }
+
+  static createRecruitmentStatus(status: RiphStatus): CodingModel {
+    const recruitmentStatus = eclaireStatusRecruitmentCodeSystem.concept.find(
+      (reference) => reference.code === status
+    )
+
+    return new CodingModel(
+      recruitmentStatus?.code,
+      recruitmentStatus?.display,
       eclaireGroupCharacteristicKindVs.url,
       eclaireGroupCharacteristicKindVs.version
     )

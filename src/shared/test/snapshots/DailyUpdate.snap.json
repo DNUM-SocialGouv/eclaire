@@ -242,6 +242,17 @@
             "valueReference": null,
             "valueString": "INDISPONIBLE",
           },
+          {
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                  "version": "0.2.1",
+                },
+              ],
+            },
+          },
         ],
         "id": "2021-A01563-38",
         "identifier": [
@@ -543,6 +554,17 @@
             "valueMarkdown": "INDISPONIBLE",
             "valueReference": null,
             "valueString": "INDISPONIBLE",
+          },
+          {
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                  "version": "0.2.1",
+                },
+              ],
+            },
           },
         ],
         "id": "2021-A01022-39",
@@ -916,6 +938,17 @@
             "valueMarkdown": "INDISPONIBLE",
             "valueReference": null,
             "valueString": "INDISPONIBLE",
+          },
+          {
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                  "version": "0.2.1",
+                },
+              ],
+            },
           },
         ],
         "id": "2022-500014-26-00",
