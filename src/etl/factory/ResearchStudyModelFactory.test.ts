@@ -1774,6 +1774,75 @@ describe('research study model factory', () => {
             OrganizationModel {
               "address": [
                 AddressModel {
+                  "city": "Roubaix",
+                  "country": "France",
+                  "line": [
+                    "15 Boulevard du Général Leclerc",
+                  ],
+                  "postalCode": "59100",
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "contact": [
+                OrganizationContactModel {
+                  "name": HumanNameModel {
+                    "family": undefined,
+                    "given": [],
+                    "prefix": undefined,
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "id": undefined,
+                    "text": undefined,
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": undefined,
+                    },
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": undefined,
+                    },
+                  ],
+                },
+              ],
+              "id": "2021-A01563-38-primary-sponsor",
+              "identifier": undefined,
+              "name": "Soladis Clinical Studies",
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+              ],
+            },
+            OrganizationModel {
+              "address": [
+                AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
                   "line": [
@@ -2483,6 +2552,75 @@ describe('research study model factory', () => {
             OrganizationModel {
               "address": [
                 AddressModel {
+                  "city": "Valenciennes",
+                  "country": "France",
+                  "line": [
+                    "LAMIH - Campus du Mont-Houy",
+                  ],
+                  "postalCode": "59313",
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "contact": [
+                OrganizationContactModel {
+                  "name": HumanNameModel {
+                    "family": undefined,
+                    "given": [],
+                    "prefix": undefined,
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "id": undefined,
+                    "text": undefined,
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": undefined,
+                    },
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": undefined,
+                    },
+                  ],
+                },
+              ],
+              "id": "2021-A01022-39-primary-sponsor",
+              "identifier": undefined,
+              "name": "Université Polytechnique Hauts-de-France",
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+              ],
+            },
+            OrganizationModel {
+              "address": [
+                AddressModel {
                   "city": "INDISPONIBLE",
                   "country": "INDISPONIBLE",
                   "line": [
@@ -3158,6 +3296,75 @@ describe('research study model factory', () => {
           },
           "locations": undefined,
           "organizations": [
+            OrganizationModel {
+              "address": [
+                AddressModel {
+                  "city": undefined,
+                  "country": undefined,
+                  "line": [
+                    undefined,
+                  ],
+                  "postalCode": undefined,
+                  "type": "physical",
+                  "use": "work",
+                },
+              ],
+              "contact": [
+                OrganizationContactModel {
+                  "name": HumanNameModel {
+                    "family": undefined,
+                    "given": [],
+                    "prefix": undefined,
+                    "use": "official",
+                  },
+                  "purpose": CodeableConceptModel {
+                    "coding": [
+                      CodingModel {
+                        "code": "ADMIN",
+                        "display": "Administrative",
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "version": "4.0.1",
+                      },
+                    ],
+                    "id": undefined,
+                    "text": undefined,
+                  },
+                  "telecom": [
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "phone",
+                      "use": "work",
+                      "value": undefined,
+                    },
+                    ContactPointModel {
+                      "extension": undefined,
+                      "system": "email",
+                      "use": "work",
+                      "value": undefined,
+                    },
+                  ],
+                },
+              ],
+              "id": "2022-500299-71-00-primary-sponsor",
+              "identifier": undefined,
+              "name": undefined,
+              "resourceType": "Organization",
+              "telecom": undefined,
+              "type": [
+                CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "crs",
+                      "display": "Clinical Research Sponsor",
+                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                      "version": "4.0.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+              ],
+            },
             OrganizationModel {
               "address": [
                 AddressModel {

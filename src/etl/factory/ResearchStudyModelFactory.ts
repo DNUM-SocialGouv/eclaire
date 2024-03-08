@@ -241,31 +241,19 @@ export class ResearchStudyModelFactory {
   } {
     const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(eclaireDto.numero_secondaire)
     const sponsor: Reference = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
-    let primarySponsorOrganization: Organization = null
-    if (
-      ModelUtils.isNotNull(eclaireDto.organisme_nom) &&
-      ModelUtils.isNotNull(eclaireDto.organisme_adresse) &&
-      ModelUtils.isNotNull(eclaireDto.organisme_ville) &&
-      ModelUtils.isNotNull(eclaireDto.organisme_code_postal) &&
-      ModelUtils.isNotNull(eclaireDto.organisme_pays) &&
-      ModelUtils.isNotNull(eclaireDto.contact_prenom) &&
-      ModelUtils.isNotNull(eclaireDto.contact_nom) &&
-      ModelUtils.isNotNull(eclaireDto.contact_telephone) &&
-      ModelUtils.isNotNull(eclaireDto.contact_courriel)
-    ) {
-      primarySponsorOrganization = OrganizationModel.createSponsor(
-        primarySponsorOrganizationId,
-        eclaireDto.organisme_nom,
-        eclaireDto.organisme_adresse,
-        eclaireDto.organisme_ville,
-        eclaireDto.organisme_code_postal,
-        eclaireDto.organisme_pays,
-        eclaireDto.contact_prenom,
-        eclaireDto.contact_nom,
-        eclaireDto.contact_telephone,
-        eclaireDto.contact_courriel
-      )
-    }
+
+    const primarySponsorOrganization: Organization = OrganizationModel.createSponsor(
+      primarySponsorOrganizationId,
+      eclaireDto.organisme_nom,
+      eclaireDto.organisme_adresse,
+      eclaireDto.organisme_ville,
+      eclaireDto.organisme_code_postal,
+      eclaireDto.organisme_pays,
+      eclaireDto.contact_prenom,
+      eclaireDto.contact_nom,
+      eclaireDto.contact_telephone,
+      eclaireDto.contact_courriel
+    )
 
     return { primarySponsorOrganization, sponsor }
   }
