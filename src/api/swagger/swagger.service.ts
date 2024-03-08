@@ -18,6 +18,13 @@ export class SwaggerService {
         <ul>
         <li>Une valeur <b>"INDISPONIBLE"</b> signifie que nous n’avons pas encore la donnée et qu’elle arrivera par la suite ;</li>
         <li>Les données sont mises à jour toutes les nuits à 6 heures du matin.</li>
+      </ul>
+      <p>Quick start:</p>
+      <ul>
+        <li>Déplier la section "/R4/ResearchStudy"</li>
+        <li>Cliquer sur "Try it out"</li>
+        <li>Utiliser les champs pour filtrer. On peut, par exemple, utiliser les champs "_text" ou "_content" avec les mots clef "CTIS", "JARDE", "DM", etc.</li>
+        <li>Cliquer sur "Exécuter" pour voir le résultat au format JSON</li>
       </ul>`)
       .setExternalDoc('Notre documentation FHIR est disponible via notre guide d’implémentation (R4).', 'https://interop.esante.gouv.fr/ig/fhir/eclaire/index.html')
       .setVersion('0.1')
