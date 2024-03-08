@@ -41,6 +41,11 @@ async function console(): Promise<void> {
     case 'daily-update':
       await etlService.dailyUpdate(startingDate)
       break
+    case 'hard-index-migration':
+      await etlService.deleteIndex()
+      await etlService.createIndex()
+      await etlService.dailyUpdate('1970-01-01')
+      break
     default:
       process.exit(1)
   }
