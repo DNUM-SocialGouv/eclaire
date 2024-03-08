@@ -43,9 +43,10 @@ export class ModelUtils {
     switch (regulationCode) {
       case REGULATION_CODES.CTIS:
         return AssignerForPrimaryIdentifier.CTIS
+      case REGULATION_CODES.JARDE:
+        return AssignerForPrimaryIdentifier.ANSM
       case REGULATION_CODES.DM:
       case REGULATION_CODES.DMDIV:
-      case REGULATION_CODES.JARDE:
         return qualification === 'Catégorie 1'
           ? AssignerForPrimaryIdentifier.EUDRACT
           : AssignerForPrimaryIdentifier.ANSM

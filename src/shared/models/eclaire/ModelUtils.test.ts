@@ -12,8 +12,15 @@ describe('shared | models | custom | ModelUtils', () => {
     it.each([
       { assigner: AssignerForPrimaryIdentifier.CTIS, qualification: undefined, regulationCode: 'REG536' },
       { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: undefined, regulationCode: 'REG745' },
+      { assigner: AssignerForPrimaryIdentifier.EUDRACT, qualification: 'Catégorie 1', regulationCode: 'REG745' },
+      { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: 'Catégorie 2', regulationCode: 'REG745' },
+      { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: 'Catégorie 3', regulationCode: 'REG745' },
       { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: undefined, regulationCode: 'REG746' },
-      { assigner: AssignerForPrimaryIdentifier.EUDRACT, qualification: 'Catégorie 1', regulationCode: 'JARDE' },
+      { assigner: AssignerForPrimaryIdentifier.EUDRACT, qualification: 'Catégorie 1', regulationCode: 'REG746' },
+      { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: 'Catégorie 2', regulationCode: 'REG746' },
+      { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: 'Catégorie 3', regulationCode: 'REG746' },
+      { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: undefined, regulationCode: 'JARDE' },
+      { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: 'Catégorie 1', regulationCode: 'JARDE' },
       { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: 'Catégorie 2', regulationCode: 'JARDE' },
       { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: 'Catégorie 3', regulationCode: 'JARDE' },
     ])('should create an identifier assigned by $assigner', ({
