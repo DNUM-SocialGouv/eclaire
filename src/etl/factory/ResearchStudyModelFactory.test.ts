@@ -606,19 +606,6 @@ describe('research study model factory', () => {
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "Reference to primary assigner",
-              "reference": undefined,
-              "type": "Organization",
-            },
-            "period": PeriodModel {
-              "end": undefined,
-              "start": "INDISPONIBLE",
-            },
-            "use": "official",
-            "value": "INDISPONIBLE",
-          },
-          IdentifierModel {
-            "assigner": ReferenceModel {
-              "display": "Reference to secondary assigner",
               "reference": "Organization/ctis",
               "type": "Organization",
             },
@@ -626,8 +613,21 @@ describe('research study model factory', () => {
               "end": undefined,
               "start": "INDISPONIBLE",
             },
-            "use": "secondary",
+            "use": "official",
             "value": "2022-500014-26-00",
+          },
+          IdentifierModel {
+            "assigner": ReferenceModel {
+              "display": "Reference to secondary assigner",
+              "reference": undefined,
+              "type": "Organization",
+            },
+            "period": PeriodModel {
+              "end": undefined,
+              "start": "INDISPONIBLE",
+            },
+            "use": "secondary",
+            "value": "INDISPONIBLE",
           },
         ],
         "location": [
@@ -1679,19 +1679,6 @@ describe('research study model factory', () => {
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "Reference to primary assigner",
-              "reference": undefined,
-              "type": "Organization",
-            },
-            "period": PeriodModel {
-              "end": undefined,
-              "start": "INDISPONIBLE",
-            },
-            "use": "official",
-            "value": "INDISPONIBLE",
-          },
-          IdentifierModel {
-            "assigner": ReferenceModel {
-              "display": "Reference to secondary assigner",
               "reference": "Organization/ansm",
               "type": "Organization",
             },
@@ -1699,8 +1686,21 @@ describe('research study model factory', () => {
               "end": undefined,
               "start": "INDISPONIBLE",
             },
-            "use": "secondary",
+            "use": "official",
             "value": "2021-A01563-38",
+          },
+          IdentifierModel {
+            "assigner": ReferenceModel {
+              "display": "Reference to secondary assigner",
+              "reference": undefined,
+              "type": "Organization",
+            },
+            "period": PeriodModel {
+              "end": undefined,
+              "start": "INDISPONIBLE",
+            },
+            "use": "secondary",
+            "value": "INDISPONIBLE",
           },
         ],
         "location": undefined,
@@ -2457,19 +2457,6 @@ describe('research study model factory', () => {
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "Reference to primary assigner",
-              "reference": undefined,
-              "type": "Organization",
-            },
-            "period": PeriodModel {
-              "end": undefined,
-              "start": "INDISPONIBLE",
-            },
-            "use": "official",
-            "value": "INDISPONIBLE",
-          },
-          IdentifierModel {
-            "assigner": ReferenceModel {
-              "display": "Reference to secondary assigner",
               "reference": "Organization/ansm",
               "type": "Organization",
             },
@@ -2477,8 +2464,21 @@ describe('research study model factory', () => {
               "end": undefined,
               "start": "INDISPONIBLE",
             },
-            "use": "secondary",
+            "use": "official",
             "value": "2021-A01022-39",
+          },
+          IdentifierModel {
+            "assigner": ReferenceModel {
+              "display": "Reference to secondary assigner",
+              "reference": undefined,
+              "type": "Organization",
+            },
+            "period": PeriodModel {
+              "end": undefined,
+              "start": "INDISPONIBLE",
+            },
+            "use": "secondary",
+            "value": "INDISPONIBLE",
           },
         ],
         "location": undefined,
@@ -3204,19 +3204,6 @@ describe('research study model factory', () => {
           IdentifierModel {
             "assigner": ReferenceModel {
               "display": "Reference to primary assigner",
-              "reference": undefined,
-              "type": "Organization",
-            },
-            "period": PeriodModel {
-              "end": undefined,
-              "start": "INDISPONIBLE",
-            },
-            "use": "official",
-            "value": "INDISPONIBLE",
-          },
-          IdentifierModel {
-            "assigner": ReferenceModel {
-              "display": "Reference to secondary assigner",
               "reference": "Organization/ctis",
               "type": "Organization",
             },
@@ -3224,8 +3211,21 @@ describe('research study model factory', () => {
               "end": undefined,
               "start": "INDISPONIBLE",
             },
-            "use": "secondary",
+            "use": "official",
             "value": "2022-500299-71-00",
+          },
+          IdentifierModel {
+            "assigner": ReferenceModel {
+              "display": "Reference to secondary assigner",
+              "reference": undefined,
+              "type": "Organization",
+            },
+            "period": PeriodModel {
+              "end": undefined,
+              "start": "INDISPONIBLE",
+            },
+            "use": "secondary",
+            "value": "INDISPONIBLE",
           },
         ],
         "location": undefined,

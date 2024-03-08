@@ -28,12 +28,12 @@ import { ReferenceContentsModel } from '../../shared/models/eclaire/ReferenceCon
 import { ContactDetailModel } from '../../shared/models/metadata-types/ContactDetailModel'
 import { ExtensionModel } from '../../shared/models/special-purpose-data-types/ExtensionModel'
 import { MetaModel } from '../../shared/models/special-purpose-data-types/MetaModel'
-import { AssignerForSecondaryIdentifier, ReferenceModel } from '../../shared/models/special-purpose-data-types/ReferenceModel'
+import { AssignerForPrimaryIdentifier, ReferenceModel } from '../../shared/models/special-purpose-data-types/ReferenceModel'
 import { EclaireDto } from '../dto/EclaireDto'
 
 export class ResearchStudyModelFactory {
   static create(eclaireDto: EclaireDto): ResearchStudyModel {
-    const { secondaryAssignerIdentifier, secondaryAssignerOrganization } = this.createAssigner(eclaireDto)
+    const { primaryAssignerIdentifier, primaryAssignerOrganization } = this.createPrimaryAssigner(eclaireDto)
     const { enrollment, enrollmentGroup } = this.createEnrollmentContent(eclaireDto)
     const { sponsor, primarySponsorOrganization } = this.createPrimarySponsor(eclaireDto)
     const { eclaireSecondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(eclaireDto)
@@ -53,7 +53,7 @@ export class ResearchStudyModelFactory {
 
     const condition: CodeableConcept[] = []
     if (ModelUtils.isNotNull(eclaireDto.pathologies_maladies_rares)) {
-      condition.push(CodeableConceptModel.createDiseaseSlice(eclaireDto.numero_secondaire, eclaireDto.pathologies_maladies_rares))
+      condition.push(CodeableConceptModel.createDiseaseSlice(eclaireDto.numero_primaire, eclaireDto.pathologies_maladies_rares))
     }
 
     let originalContentToEnhance: OriginalContentsToEnhanceModel
@@ -139,10 +139,10 @@ export class ResearchStudyModelFactory {
     const status: RiphStatus = eclaireDto.etat as RiphStatus
     extensions.push(ExtensionModel.createEclaireRecruitmentStatus(null))
 
-    const id = eclaireDto.numero_secondaire
+    const id = eclaireDto.numero_primaire
     const identifier: Identifier[] = [
-      IdentifierModel.createPrimarySlice(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE),
-      secondaryAssignerIdentifier,
+      primaryAssignerIdentifier,
+      IdentifierModel.createSecondarySlice(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE),
     ]
     const location = ModelUtils.isNotNull(eclaireDto.pays_concernes) ? CodeableConceptModel.createLocations(eclaireDto.pays_concernes) : undefined
     const meta: Meta = MetaModel.create(mostRecentDate)
@@ -157,8 +157,8 @@ export class ResearchStudyModelFactory {
     if (ModelUtils.isNotNull(secondarySponsorOrganization)) {
       organizations.push(secondarySponsorOrganization)
     }
-    if (ModelUtils.isNotNull(secondaryAssignerOrganization)) {
-      organizations.push(secondaryAssignerOrganization)
+    if (ModelUtils.isNotNull(primaryAssignerOrganization)) {
+      organizations.push(primaryAssignerOrganization)
     }
 
     const referenceContents: ReferenceContentsModel = ReferenceContentsModel.create(
@@ -206,22 +206,22 @@ export class ResearchStudyModelFactory {
     )
   }
 
-  private static createAssigner(eclaireDto: EclaireDto): {
-    secondaryAssignerIdentifier: Identifier;
-    secondaryAssignerOrganization: Organization
+  private static createPrimaryAssigner(eclaireDto: EclaireDto): {
+    primaryAssignerIdentifier: Identifier;
+    primaryAssignerOrganization: Organization
   } {
-    const assigner: AssignerForSecondaryIdentifier = ModelUtils.identifyAssigner(eclaireDto.reglementation_code, eclaireDto.precision_reglementation)
-    const secondaryAssignerIdentifier: Identifier = IdentifierModel.createSecondarySlice(eclaireDto.numero_secondaire, assigner, ModelUtils.UNAVAILABLE)
-    const secondaryAssignerOrganization: Organization = OrganizationModel.createSecondaryAssigner(assigner)
+    const assigner: AssignerForPrimaryIdentifier = ModelUtils.identifyAssigner(eclaireDto.reglementation_code, eclaireDto.precision_reglementation)
+    const primaryAssignerIdentifier: Identifier = IdentifierModel.createPrimarySlice(eclaireDto.numero_primaire, assigner, ModelUtils.UNAVAILABLE)
+    const primaryAssignerOrganization: Organization = OrganizationModel.createPrimaryAssigner(assigner)
 
-    return { secondaryAssignerIdentifier, secondaryAssignerOrganization }
+    return { primaryAssignerIdentifier, primaryAssignerOrganization }
   }
 
   private static createEnrollmentContent(eclaireDto: EclaireDto): {
     enrollmentGroup: Group;
     enrollment: Reference[]
   } {
-    const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(eclaireDto.numero_secondaire)
+    const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(eclaireDto.numero_primaire)
     const enrollment: Reference[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
     const enrollmentGroup: Group = GroupModel.createStudyCharacteristics(
       enrollmentGroupId,
@@ -239,7 +239,7 @@ export class ResearchStudyModelFactory {
     primarySponsorOrganization: Organization;
     sponsor: Reference
   } {
-    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(eclaireDto.numero_secondaire)
+    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(eclaireDto.numero_primaire)
     const sponsor: Reference = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
 
     const primarySponsorOrganization: Organization = OrganizationModel.createSponsor(
@@ -262,7 +262,7 @@ export class ResearchStudyModelFactory {
     eclaireSecondarySponsor: Extension;
     secondarySponsorOrganization: Organization
   } {
-    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(eclaireDto.numero_secondaire)
+    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(eclaireDto.numero_primaire)
     const secondarySponsorOrganization: Organization = OrganizationModel.createSponsor(
       secondarySponsorOrganizationId,
       ModelUtils.UNAVAILABLE,
@@ -299,7 +299,7 @@ export class ResearchStudyModelFactory {
         ModelUtils.isNotNull(siteDto.service) &&
         ModelUtils.isNotNull(siteDto.titre)
       ) {
-        const siteId = ModelUtils.generateSiteId(eclaireDto.numero_secondaire + '-' + siteDtoIndex.toString())
+        const siteId = ModelUtils.generateSiteId(eclaireDto.numero_primaire + '-' + siteDtoIndex.toString())
         site.push(ReferenceModel.createSite(siteId))
 
         siteLocations.push(LocationModel.create(

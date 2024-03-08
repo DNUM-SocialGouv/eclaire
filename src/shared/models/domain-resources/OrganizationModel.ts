@@ -12,7 +12,7 @@ import { AddressModel } from '../data-types/AddressModel'
 import { CodeableConceptModel } from '../data-types/CodeableConceptModel'
 import { ContactPointModel } from '../data-types/ContactPointModel'
 import { ModelUtils } from '../eclaire/ModelUtils'
-import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
+import { AssignerForPrimaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
 
 export class OrganizationModel implements Organization {
   readonly resourceType: 'Organization'
@@ -76,20 +76,20 @@ export class OrganizationModel implements Organization {
     )
   }
 
-  static createSecondaryAssigner(assignerForSecondaryIdentifier: AssignerForSecondaryIdentifier): Organization {
+  static createPrimaryAssigner(assignerForPrimaryIdentifier: AssignerForPrimaryIdentifier): Organization {
     let name: string = undefined
     let url: string = undefined
 
-    switch (assignerForSecondaryIdentifier) {
-      case AssignerForSecondaryIdentifier.ANSM:
+    switch (assignerForPrimaryIdentifier) {
+      case AssignerForPrimaryIdentifier.ANSM:
         name = 'Agence nationale de sécurité du médicament et des produits de santé'
         url = 'https://ansm.sante.fr'
         break
-      case AssignerForSecondaryIdentifier.CTIS:
+      case AssignerForPrimaryIdentifier.CTIS:
         name = 'Clinical Trials Information System'
         url = 'https://euclinicaltrials.eu/'
         break
-      case AssignerForSecondaryIdentifier.EUDRACT:
+      case AssignerForPrimaryIdentifier.EUDRACT:
         name = 'European Union Drug Regulating Authorities Clinical Trials Database'
         url = 'https://eudract.ema.europa.eu/'
         break
@@ -99,7 +99,7 @@ export class OrganizationModel implements Organization {
     return new OrganizationModel(
       undefined,
       undefined,
-      assignerForSecondaryIdentifier,
+      assignerForPrimaryIdentifier,
       undefined,
       name,
       [ContactPointModel.createUrl(url)],

@@ -1,4 +1,4 @@
-import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
+import { AssignerForPrimaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
 
 export class ModelUtils {
   static UNAVAILABLE = 'INDISPONIBLE'
@@ -32,7 +32,7 @@ export class ModelUtils {
     return `${value}-${suffix}`
   }
 
-  static identifyAssigner(regulationCode: string, qualification?: string): AssignerForSecondaryIdentifier {
+  static identifyAssigner(regulationCode: string, qualification?: string): AssignerForPrimaryIdentifier {
     enum REGULATION_CODES {
       CTIS = 'REG536',
       DM = 'REG745',
@@ -42,13 +42,13 @@ export class ModelUtils {
 
     switch (regulationCode) {
       case REGULATION_CODES.CTIS:
-        return AssignerForSecondaryIdentifier.CTIS
+        return AssignerForPrimaryIdentifier.CTIS
       case REGULATION_CODES.DM:
       case REGULATION_CODES.DMDIV:
       case REGULATION_CODES.JARDE:
         return qualification === 'Catégorie 1'
-          ? AssignerForSecondaryIdentifier.EUDRACT
-          : AssignerForSecondaryIdentifier.ANSM
+          ? AssignerForPrimaryIdentifier.EUDRACT
+          : AssignerForPrimaryIdentifier.ANSM
       default:
         throw new Error('A regulation is always given. So, the assigner cannot be unknown')
     }

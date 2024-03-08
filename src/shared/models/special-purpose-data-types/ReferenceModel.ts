@@ -16,20 +16,20 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createAssignerForPrimaryIdentifier(): Reference {
+  static createAssignerForPrimaryIdentifier(assigner: AssignerForPrimaryIdentifier): Reference {
+    const type = 'Organization'
     return new ReferenceModel(
       'Reference to primary assigner',
-      undefined,
-      'Organization'
+      this.generateRelativeUrlReference(assigner, type),
+      type
     )
   }
 
-  static createAssignerForSecondaryIdentifier(assigner: AssignerForSecondaryIdentifier): Reference {
-    const type = 'Organization'
+  static createAssignerForSecondaryIdentifier(): Reference {
     return new ReferenceModel(
       'Reference to secondary assigner',
-      this.generateRelativeUrlReference(assigner, type),
-      type
+      undefined,
+      'Organization'
     )
   }
 
@@ -65,7 +65,7 @@ export class ReferenceModel implements Reference {
   }
 }
 
-export enum AssignerForSecondaryIdentifier {
+export enum AssignerForPrimaryIdentifier {
   ANSM = 'ansm',
   CTIS = 'ctis',
   EUDRACT = 'eudract'

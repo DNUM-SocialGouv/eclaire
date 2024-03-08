@@ -18,7 +18,7 @@ export class EclaireDto {
     readonly contact_telephone: string,
     readonly contact_courriel: string,
     readonly sites: Site[],
-    readonly numero_secondaire: string,
+    readonly numero_primaire: string,
     readonly titre: string,
     readonly phase_recherche: Phase,
     readonly domaine_therapeutique: string,

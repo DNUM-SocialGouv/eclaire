@@ -1,7 +1,7 @@
 import { ModelUtils } from './ModelUtils'
 import { EclaireDto } from '../../../etl/dto/EclaireDto'
 import { RiphDtoTestFactory } from '../../test/helpers/RiphDtoTestFactory'
-import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
+import { AssignerForPrimaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
 
 describe('shared | models | custom | ModelUtils', () => {
   afterEach(() => {
@@ -10,12 +10,12 @@ describe('shared | models | custom | ModelUtils', () => {
 
   describe('#identifyAssigner', () => {
     it.each([
-      { assigner: AssignerForSecondaryIdentifier.CTIS, qualification: undefined, regulationCode: 'REG536' },
-      { assigner: AssignerForSecondaryIdentifier.ANSM, qualification: undefined, regulationCode: 'REG745' },
-      { assigner: AssignerForSecondaryIdentifier.ANSM, qualification: undefined, regulationCode: 'REG746' },
-      { assigner: AssignerForSecondaryIdentifier.EUDRACT, qualification: 'Catégorie 1', regulationCode: 'JARDE' },
-      { assigner: AssignerForSecondaryIdentifier.ANSM, qualification: 'Catégorie 2', regulationCode: 'JARDE' },
-      { assigner: AssignerForSecondaryIdentifier.ANSM, qualification: 'Catégorie 3', regulationCode: 'JARDE' },
+      { assigner: AssignerForPrimaryIdentifier.CTIS, qualification: undefined, regulationCode: 'REG536' },
+      { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: undefined, regulationCode: 'REG745' },
+      { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: undefined, regulationCode: 'REG746' },
+      { assigner: AssignerForPrimaryIdentifier.EUDRACT, qualification: 'Catégorie 1', regulationCode: 'JARDE' },
+      { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: 'Catégorie 2', regulationCode: 'JARDE' },
+      { assigner: AssignerForPrimaryIdentifier.ANSM, qualification: 'Catégorie 3', regulationCode: 'JARDE' },
     ])('should create an identifier assigned by $assigner', ({
       assigner,
       qualification,

@@ -1,11 +1,11 @@
 import { OrganizationModel } from './OrganizationModel'
-import { AssignerForSecondaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
+import { AssignerForPrimaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
 
 describe('shared | models | OrganizationModel', () => {
   describe('#createSecondaryAssigner', () => {
     it('should create a properly formatted model when ANSM assigner is given', () => {
       // WHEN
-      const organization = OrganizationModel.createSecondaryAssigner(AssignerForSecondaryIdentifier.ANSM)
+      const organization = OrganizationModel.createPrimaryAssigner(AssignerForPrimaryIdentifier.ANSM)
 
       // THEN
       expect(organization.id).toBe('ansm')
@@ -15,7 +15,7 @@ describe('shared | models | OrganizationModel', () => {
 
     it('should create a properly formatted model when CTIS assigner is given', () => {
       // WHEN
-      const organization = OrganizationModel.createSecondaryAssigner(AssignerForSecondaryIdentifier.CTIS)
+      const organization = OrganizationModel.createPrimaryAssigner(AssignerForPrimaryIdentifier.CTIS)
 
       // THEN
       expect(organization.id).toBe('ctis')
@@ -25,7 +25,7 @@ describe('shared | models | OrganizationModel', () => {
 
     it('should create a properly formatted model when EUDRACT assigner is given', () => {
       // WHEN
-      const organization = OrganizationModel.createSecondaryAssigner(AssignerForSecondaryIdentifier.EUDRACT)
+      const organization = OrganizationModel.createPrimaryAssigner(AssignerForPrimaryIdentifier.EUDRACT)
 
       // THEN
       expect(organization.id).toBe('eudract')

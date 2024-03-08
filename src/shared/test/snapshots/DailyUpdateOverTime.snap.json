@@ -343,25 +343,25 @@
           {
             "assigner": {
               "display": "Reference to primary assigner",
-              "type": "Organization",
-            },
-            "period": {
-              "start": "INDISPONIBLE",
-            },
-            "use": "official",
-            "value": "INDISPONIBLE",
-          },
-          {
-            "assigner": {
-              "display": "Reference to secondary assigner",
               "reference": "Organization/ctis",
               "type": "Organization",
             },
             "period": {
               "start": "INDISPONIBLE",
             },
-            "use": "secondary",
+            "use": "official",
             "value": "2022-500014-26-00",
+          },
+          {
+            "assigner": {
+              "display": "Reference to secondary assigner",
+              "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
+            },
+            "use": "secondary",
+            "value": "INDISPONIBLE",
           },
         ],
         "location": [
@@ -769,25 +769,25 @@
           {
             "assigner": {
               "display": "Reference to primary assigner",
-              "type": "Organization",
-            },
-            "period": {
-              "start": "INDISPONIBLE",
-            },
-            "use": "official",
-            "value": "INDISPONIBLE",
-          },
-          {
-            "assigner": {
-              "display": "Reference to secondary assigner",
               "reference": "Organization/ansm",
               "type": "Organization",
             },
             "period": {
               "start": "INDISPONIBLE",
             },
-            "use": "secondary",
+            "use": "official",
             "value": "2021-A01563-38",
+          },
+          {
+            "assigner": {
+              "display": "Reference to secondary assigner",
+              "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
+            },
+            "use": "secondary",
+            "value": "INDISPONIBLE",
           },
         ],
         "meta": {
@@ -1095,25 +1095,25 @@
           {
             "assigner": {
               "display": "Reference to primary assigner",
-              "type": "Organization",
-            },
-            "period": {
-              "start": "INDISPONIBLE",
-            },
-            "use": "official",
-            "value": "INDISPONIBLE",
-          },
-          {
-            "assigner": {
-              "display": "Reference to secondary assigner",
               "reference": "Organization/ansm",
               "type": "Organization",
             },
             "period": {
               "start": "INDISPONIBLE",
             },
-            "use": "secondary",
+            "use": "official",
             "value": "2021-A01022-39",
+          },
+          {
+            "assigner": {
+              "display": "Reference to secondary assigner",
+              "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
+            },
+            "use": "secondary",
+            "value": "INDISPONIBLE",
           },
         ],
         "meta": {
@@ -1492,25 +1492,25 @@
           {
             "assigner": {
               "display": "Reference to primary assigner",
-              "type": "Organization",
-            },
-            "period": {
-              "start": "INDISPONIBLE",
-            },
-            "use": "official",
-            "value": "INDISPONIBLE",
-          },
-          {
-            "assigner": {
-              "display": "Reference to secondary assigner",
               "reference": "Organization/ctis",
               "type": "Organization",
             },
             "period": {
               "start": "INDISPONIBLE",
             },
-            "use": "secondary",
+            "use": "official",
             "value": "2024-500014-26-99",
+          },
+          {
+            "assigner": {
+              "display": "Reference to secondary assigner",
+              "type": "Organization",
+            },
+            "period": {
+              "start": "INDISPONIBLE",
+            },
+            "use": "secondary",
+            "value": "INDISPONIBLE",
           },
         ],
         "location": [
