@@ -6,6 +6,8 @@ import { eclaireGroupCharacteristicKindVs } from '../code-systems/eclaireGroupCh
 import { eclaireReglementationPrecisionCodeSystem } from '../code-systems/eclaireReglementationPrecisionCodeSystem'
 import { eclaireRegulationCodeCodeSystem } from '../code-systems/eclaireRegulationCodeCodeSystem'
 import { eclaireStatusRecruitmentCodeSystem } from '../code-systems/eclaireStatusRecruitmentCodeSystem'
+import { eclaireStudyPartyOrganizationTypeCodeSystem } from '../code-systems/eclaireStudyPartyOrganizationTypeCodeSystem'
+import { eclaireStudyPartyRoleVsCodeSystem } from '../code-systems/eclaireStudyPartyRoleVsCodeSystem'
 import { eclaireStudyPhaseCodeSystem } from '../code-systems/eclaireStudyPhaseCodeSystem'
 import { eclaireStudyPopulationCodeSystem } from '../code-systems/eclaireStudyPopulationCodeSystem'
 import { eclaireStudyTitleTypeCodeSystem } from '../code-systems/eclaireStudyTitleTypeCodeSystem'
@@ -241,6 +243,32 @@ export class CodingModel implements Coding {
       recruitmentStatus?.display,
       eclaireGroupCharacteristicKindVs.url,
       eclaireGroupCharacteristicKindVs.version
+    )
+  }
+
+  static createEclaireAssociatedPartyR5Role(role: string) {
+    const partyRole = eclaireStudyPartyRoleVsCodeSystem.concept.find(
+      (reference) => reference.code === role
+    )
+
+    return new CodingModel(
+      partyRole?.code,
+      partyRole?.display,
+      eclaireStudyPartyRoleVsCodeSystem.url,
+      eclaireStudyPartyRoleVsCodeSystem.version
+    )
+  }
+
+  static createEclaireAssociatedPartyR5Classifier(classifier: string) {
+    const studyPartyOrganizationType = eclaireStudyPartyOrganizationTypeCodeSystem.concept.find(
+      (reference) => reference.code === classifier
+    )
+
+    return new CodingModel(
+      studyPartyOrganizationType?.code,
+      studyPartyOrganizationType?.display,
+      eclaireStudyPartyOrganizationTypeCodeSystem.url,
+      eclaireStudyPartyOrganizationTypeCodeSystem.version
     )
   }
 }

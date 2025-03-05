@@ -26,4 +26,11 @@ export class PeriodModel implements Period {
       registrationDateInPrimaryRegistry
     )
   }
+
+  static createEclaireAssociatedPartyR5Period(period: string) {
+    return new PeriodModel(
+      undefined,
+      period
+    )
+  }
 }

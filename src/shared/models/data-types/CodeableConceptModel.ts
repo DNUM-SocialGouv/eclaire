@@ -155,4 +155,20 @@ export class CodeableConceptModel implements CodeableConcept {
       undefined
     )
   }
+
+  static createEclaireAssociatedPartyR5Role(role: string) {
+    return new CodeableConceptModel(
+      undefined,
+      [CodingModel.createEclaireAssociatedPartyR5Role(role)],
+      undefined
+    )
+  }
+
+  static createEclaireAssociatedPartyR5Classifier(classifier: string) {
+    return new CodeableConceptModel(
+      undefined,
+      [CodingModel.createEclaireAssociatedPartyR5Classifier(classifier)],
+      undefined
+    )
+  }
 }

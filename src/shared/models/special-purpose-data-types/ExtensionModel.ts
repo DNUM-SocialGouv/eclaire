@@ -24,6 +24,28 @@ export class ExtensionModel implements Extension {
     readonly valueString: string | undefined
   ) {}
 
+  static createEclaireAssociatedPartyR5(name: string, role: string, period: string, classifier: string, partyId: string, partyType: string): Extension {
+    return new ExtensionModel(
+      [
+        this.createEclaireAssociatedPartyR5Name(name),
+        this.createEclaireAssociatedPartyR5Role(role),
+        this.createEclaireAssociatedPartyR5Period(period),
+        this.createEclaireAssociatedPartyR5Classifier(classifier),
+        this.createEclaireAssociatedPartyR5Party(partyId, partyType),
+      ],
+      'http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
   static createEclaireSecondarySponsor(secondarySponsorId: string): Extension {
     return new ExtensionModel(
       undefined,
@@ -347,6 +369,86 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       description
+    )
+  }
+
+  private static createEclaireAssociatedPartyR5Name(name: string): Extension {
+    return new ExtensionModel(
+      undefined,
+      'name',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      name
+    )
+  }
+
+  private static createEclaireAssociatedPartyR5Role(role: string): Extension {
+    return new ExtensionModel(
+      undefined,
+      'role',
+      undefined,
+      CodeableConceptModel.createEclaireAssociatedPartyR5Role(role),
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  private static createEclaireAssociatedPartyR5Period(period: string) {
+    return new ExtensionModel(
+      undefined,
+      'period',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      PeriodModel.createEclaireAssociatedPartyR5Period(period),
+      undefined,
+      undefined
+    )
+  }
+
+  private static createEclaireAssociatedPartyR5Classifier(classifier: string) {
+    return new ExtensionModel(
+      undefined,
+      'classifier',
+      undefined,
+      CodeableConceptModel.createEclaireAssociatedPartyR5Classifier(classifier),
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  private static createEclaireAssociatedPartyR5Party(id: string, type: string) {
+    return new ExtensionModel(
+      undefined,
+      'party',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      ReferenceModel.createEclaireAssociatedPartyR5Party(id, type),
+      undefined
     )
   }
 }
