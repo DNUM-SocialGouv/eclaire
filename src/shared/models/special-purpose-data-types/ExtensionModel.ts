@@ -24,6 +24,22 @@ export class ExtensionModel implements Extension {
     readonly valueString: string | undefined
   ) {}
 
+  static createEclaireApprovalDate(instant: string) {
+    return new ExtensionModel(
+      undefined,
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-approval-date',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      instant,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
   static createEclaireAssociatedPartyR5(name: string, role: string, period: string, classifier: string, partyId: string, partyType: string): Extension {
     return new ExtensionModel(
       [
