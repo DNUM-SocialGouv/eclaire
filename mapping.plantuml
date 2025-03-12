@@ -1,0 +1,140 @@
+@startuml mapping
+
+scale 1200 width
+
+map "ContactDetail" as Contact #back:AliceBlue;header:LightSkyBlue;line:blue {
+    Nom => name :  string [0..1] 
+    Télécommunication => telecom :  ContactPoint [0..*]  
+    Type => <&plus> ECLAIREContacType :  CodeableConcept [0..1] \n ("Public"/"Scientific")
+    Adresse => <&plus> ECLAIREContactAddress : Address [0..1]
+    Affiliation => <&plus> ECLAIREContactAffiliation : string [0..1]
+    Nom => <&plus> ECLAIREContactName : HumanName [0..1]
+}
+
+map "HumanName" as slice_name #back:AliceBlue;header:LightSkyBlue;line:blue {
+    Nom de famille (Last name) => family : string [0..1]
+    Prénom (First name) \n Deuxième prénom (Middle name) => given : string [0..*]
+}
+
+map "<&layers> Slice identifier" as slice_identifier #back:AliceBlue;header:LightSkyBlue;line:blue {
+    Identifiant principal => idPrimary [0..1]
+    Identifiant secondaire => idSecondary [0..*]
+}
+
+map "<&layers> Slice condition" as slice_condition #back:AliceBlue;header:LightSkyBlue;line:blue {
+    Code MedDRA => medDRACondition [0..*]
+    Pathologie => diseaseCondition [0..*]
+}
+
+map "<&plus> ECLAIRELabel" as label #back:AliceBlue;header:LightSkyBlue;line:blue {
+    Type => labelType : CodeableConcept [0..1]
+    Valeur => labelValue : string [0..1]
+}
+
+map "Group" as Group #back:TECHNOLOGY;header:LightGreen {
+    Identifiant* => identifier : Identifier [0..*] 
+    Type de groupe* => type : code [1..1] = "Person" 
+    Groupe actif* => actual : boolean [1..1] = "True"
+    Effectif à recruter => quantity : unsignedInt [0..1] 
+    Critères \n Age \n Genre \n Groupe de sujet => \n characteristic : BackboneElement [0..*] 
+}
+
+map "Characteristic" as Characteristic #back:TECHNOLOGY;header:LightGreen {
+    Type  => code : CodeableConcept [1..1] 
+    Valeur => value[x] : [1..1] 
+    Exclusion => exclude : boolean [1..1] 
+}
+
+map "Organization" as Organization #back:BUSINESS;header:Gold {
+    Identifiant* => identifier : Identifier [0..*] 
+    Nom => name : string [0..1] 
+    Adresse => address : Address [0..*] 
+    Contact => contact : BackboneElement [0..*] 
+}
+
+map "Location" as Location #back:MistyRose;header:Violet {
+    Identifiant* => identifier : Identifier [0..*] 
+    Nom => name : string [0..1] 
+    Adresse => address : Address [0..1] 
+    Contact => telecom : ContactPoint [0..*]
+}
+
+map "Telecom" as Telecom #back:MistyRose;header:Violet {
+    Système  => system : code [0..1] 
+    Valeur => value : string [0..1] 
+    Nom => <&plus> ECLAIRESiteContactName : HumanName [0..1] 
+}
+
+map "<&plus> ECLAIREoutcomeMeasureR5" as OM #back:AliceBlue;header:LightSkyBlue;line:blue {
+    Nom => name : string [0..1] 
+    Type => type : CodeableConcept [0..1] 
+    Description => description : markdown [0..1]
+    Référence => reference : Reference(EvidenceVariable) [0..1]
+}
+
+map arm #back:AliceBlue;header:LightSkyBlue;line:blue {
+    Nom => name :  string [1..1] 
+    Type => type :  CodeableConcept [0..1] 
+    Description => description :  string [0..1]
+    Intervention => <&plus> ECLAIREArmIntervention [0..*]
+}
+
+map "EssaiClinique : ResearchStudy" as RS #back:AliceBlue;header:LightSkyBlue;line:blue {
+    Identifiant (Primary and Secondary Identifying Numbers) => <&layers> identifier : Identifier [0..*]
+    Date d'inscription au registre principal (Date of registration in primary registry) => identifier[idPrimary].period.start : dateTime [0..1]  
+    Date de révision technique => meta.lastUpdated : instant [0..1]  
+    Date de révision fonctionnelle => <&plus> ECLAIREReviewDate : instant [0..1] 
+    Nom de l'essai (Scientifique title) => title : string [0..1] 
+    Autres noms de l'essai (Public title) => <&plus> R5 ECLAIRELabel : Extension R5 ResearchStudy.label [0..*] 
+    Statut de l'essai => status : code [1..1]
+    Statut du recrutement => <&plus> ECLAIRERecruitmentStatus : CodeableConcept [0..1]
+    Phase de l'essai (Study type : phase) => phase : CodeableConcept [0..1] 
+    Type d'essai (Study type : type of study) => category : CodeableConcept [0..*] 
+    Sujet concerné (Health Condition(s) or Problem(s) Studied) => <&layers> condition : CodeableConcept [0..*] (MeDRA) 
+    Domaine thérapeutique* => <&plus> ECLAIRETherapeuticArea : string [0..1] 
+    Résumé de l'essai => description : markdown [0..1] 
+    Texte bref décrivant l'essai (Brief summary) => <&plus> R5 ECLAIREDescriptionSummary : Extension R5 ResearchStudy.descriptionSummary [0..1]
+    Objectif principal (Primary Purpose) => primaryPurposeType : CodeableConcept [0..1]
+    Période prévisionnelle de recrutement => <&plus> ECLAIRERecruitmentPeriod : period [0..1]  
+    Date prévisionnelle de fin de l'essai (Completion date) => period.end : dateTime [0..1]
+    Contact (Contact for public / scientific queries) => contact : ContactDetail [0..*] 
+    Participants (Key Inclusion and Exclusion Criteria, Sample size) => enrollment : Reference(Group) [0..*] 
+    Lieux => site : Reference(Location) [0..*] 
+    Pays de recrutement (Countries of Recruitment) => location : CodeableConcept [0..*]
+    Promoteur principal (Primary sponsor) => <&plus> ECLAIREassociatedPartyR5 : Extension R5 ResearchStudy.associatedParty [0..*] 
+    Promoteur secondaire (Secondary Sponsor(s)) => <&plus> ECLAIREassociatedPartyR5  : Extension R5 ResearchStudy.associatedParty [0..*]  
+    Source de financement (Source(s) of Monetary or Material Support) => <&plus> ECLAIREassociatedPartyR5  : Extension R5 ResearchStudy.associatedParty [0..*]
+    Comité éthique (Ethics Review Board) => <&plus> ECLAIREassociatedPartyR5  : Extension R5 ResearchStudy.associatedParty [0..*]
+    Date d'approbation du comité éthique => <&plus> ECLAIREApprovalDate : instant [0..1] 
+    Publications et résumé des résultats (Publications about the study and Summary results) => relatedArtifact : RelatedArtifact [0..*]
+    Conséquences principales (Primary outcomes) et secondaires (Secondary outcomes)  => <&plus> ECLAIREoutcomeMeasureR5 : Extension R5 ResearchStudy.outcomeMeasure [0..*] 
+    Cohorte => arm : BackboneElement [0..*]
+}
+
+
+RS *-[#Violet,dashed,thickness=4]-> Location
+RS *-[#LightGreen,dashed,thickness=4]-> Group 
+RS *-[#Gold,dashed,thickness=4]-> Organization
+
+slice_identifier -[#lightBlue,thickness=2] RS
+RS -[#lightBlue,thickness=2] slice_condition
+Contact --[#lightBlue,thickness=2] RS
+label --[#lightBlue,thickness=2] RS
+slice_name --[#lightBlue,thickness=2] Contact
+OM --[#lightBlue,thickness=2] RS
+arm --[#lightBlue,thickness=2] RS
+
+Group -[hidden] Organization
+
+Group::Critères --[#LightGreen,thickness=2]> Characteristic
+Location::Contact --[#Violet,thickness=2]> Telecom
+
+
+legend top left
+  <&layers> : slice
+  <&plus> : extension
+  ~* : pas d'équivalence Santé.fr ni WHO
+  <:warning:> : en discussion
+endlegend
+
+@enduml
