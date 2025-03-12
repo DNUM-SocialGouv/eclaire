@@ -1,5 +1,15 @@
 # API Eclaire - Plateforme nationale des essais cliniques - Ministère de la santé
 
+## Pré-requis
+- Avoir `podman` installé (https://podman.io/)
+- Installer `corepack`, l'activer puis gérer `yarn`
+```bash 
+npm install -g corepack
+corepack enable
+yarn set version stable
+yarn
+```
+
 ## Installation
 
 ```bash
@@ -15,6 +25,12 @@ Vous trouverez toutes ces commandes dans le fichier package.json.
 
 ### Lancer l'application pour développer
 
+Nécessite d'avoir lancé les containers et d'avoir chargé des informations
+```bash
+yarn start:db
+yarn hard-index-migration
+```
+
 ```bash
 yarn dev
 ```
@@ -28,6 +44,11 @@ yarn build && yarn start
 ```
 
 ### Lancer les tests
+
+Nécessite d'avoir lancé les containers 
+```bash
+yarn start:db
+```
 
 ```bash
 yarn test
@@ -86,6 +107,10 @@ yarn bash:production
 ```bash
 yarn etl:meddra-import
 ```
+
+## Guide d'implémentation et données implémentées
+- Le guide officiel est disponible sur https://interop.esante.gouv.fr/ig/fhir/eclaire/
+- Les données implémentées sont marquées par une coche sur l'image [mapping.png](mapping.png)
 
 ## Architectural Decision Records (ADR)
 
