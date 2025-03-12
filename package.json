@@ -8,7 +8,7 @@
   "engines": {
     "node": "18.16"
   },
-  "packageManager": "yarn@4.6.0",
+  "packageManager": "yarn@4.7.0",
   "scripts": {
     "amibroken": "yarn dedupe --check && yarn typecheck && yarn lint && yarn test",
     "bash:production": "scalingo -a eclaire-api run bash",
