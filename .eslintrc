@@ -85,6 +85,7 @@
       }
     ],
     "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-unsafe-enum-comparison": "off",
     "unused-imports/no-unused-imports": "error"
   },
   "settings": {
