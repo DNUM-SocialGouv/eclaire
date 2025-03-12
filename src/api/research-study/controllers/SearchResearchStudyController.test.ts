@@ -81,6 +81,6 @@ describe('#SearchResearchStudyController - e2e', async () => {
 
     // THEN
     expect(response.statusCode).toBe(404)
-    expect(response.text).toBe('{"issue":[{"code":"processing","diagnostics":"Response Error","severity":"error"}],"resourceType":"OperationOutcome"}')
+    expect(response.text).toMatchInlineSnapshot('"{"issue":[{"code":"processing","diagnostics":"{\\"_index\\":\\"eclaire\\",\\"_type\\":\\"_doc\\",\\"_id\\":\\"999999\\",\\"found\\":false}","severity":"error"}],"resourceType":"OperationOutcome"}"')
   })
 })
