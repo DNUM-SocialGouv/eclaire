@@ -2,6 +2,7 @@ import { errors } from '@elastic/elasticsearch'
 import * as console from 'console'
 import fs from 'fs'
 
+import { JsonFileReaderService } from './json-file-reader/JsonFileReaderService'
 import { IngestPipeline } from './pipelines/ingest/IngestPipeline'
 import { IngestPipelineCtis } from './pipelines/ingest/IngestPipelineCtis'
 import { IngestPipelineDmDmdiv } from './pipelines/ingest/IngestPipelineDmDmdiv'
@@ -18,7 +19,7 @@ export class EtlService {
   constructor(
     private readonly loggerService: LoggerService,
     private readonly databaseService: ElasticsearchService,
-    private readonly readerService: S3Service,
+    private readonly readerService: S3Service | JsonFileReaderService,
     private readonly translationService: TranslationService
   ) {}
 

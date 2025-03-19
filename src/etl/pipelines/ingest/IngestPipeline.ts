@@ -5,6 +5,7 @@ import { ModelUtils } from '../../../shared/models/eclaire/ModelUtils'
 import { RiphCtisDto } from '../../dto/RiphCtisDto'
 import { RiphDmDto } from '../../dto/RiphDmDto'
 import { RiphJardeDto } from '../../dto/RiphJardeDto'
+import { JsonFileReaderService } from '../../json-file-reader/JsonFileReaderService'
 import { S3Service } from '../../s3/S3Service'
 
 export abstract class IngestPipeline {
@@ -14,7 +15,7 @@ export abstract class IngestPipeline {
   constructor(
     protected readonly logger: LoggerService,
     private readonly databaseService: ElasticsearchService,
-    private readonly readerService: S3Service,
+    private readonly readerService: S3Service | JsonFileReaderService,
     startingDate?: string
   ) {
     if (startingDate) {
