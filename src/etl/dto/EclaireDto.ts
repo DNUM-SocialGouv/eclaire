@@ -33,7 +33,31 @@ export class EclaireDto {
     readonly historique: string,
     readonly dates_avis_favorable_ms_mns: string,
     readonly pays_concernes: string[],
-    readonly date_theorique_maximale_autorisation_cpp: string
+    readonly date_theorique_maximale_autorisation_cpp: string,
+    readonly portee_recherche: string,
+    readonly description_urgence: string,
+    readonly date_fin_etude: string,
+    readonly contact_public_nom: string,
+    readonly contact_public_prenom: string,
+    readonly contact_public_courriel: string,
+    readonly contact_public_telephone: string,
+    readonly criteres_eligibilite: Critere[],
+    readonly criteres_jugement: Critere[],
+    readonly publication_eclaire: string,
+    readonly numero_nct: string,
+    readonly numero_isrctn: string,
+    readonly numero_utn: string,
+    readonly numero_libre: string,
+    readonly objectifs: string,
+    readonly resume: string,
+    readonly duree_participation: string,
+    readonly participants_sexe: string,
+    readonly participants_tranches_age: string,
+    readonly participants_groupe_sujets: string,
+    readonly participants_population_vulnerable: string,
+    readonly statut_recrutement: string,
+    readonly date_fin_recrutement: string,
+    readonly sites_investigateurs: Site[]
   ) {}
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
@@ -86,7 +110,41 @@ export class EclaireDto {
       riphCtisDto.historique,
       riphCtisDto.dates_avis_favorable_ms_mns,
       riphCtisDto.pays_concernes?.split(', ') || null,
-      new Date('2023-03-15').toISOString().split('T')[0] // Date de mise en production de la gestion des historiques côté SIRIPH
+      new Date('2023-03-15').toISOString().split('T')[0], // Date de mise en production de la gestion des historiques côté SIRIPH
+      riphCtisDto.portee_recherche,
+      riphCtisDto.description_urgence,
+      riphCtisDto.date_fin_etude,
+      riphCtisDto.contact_public_nom,
+      riphCtisDto.contact_public_prenom,
+      riphCtisDto.contact_public_courriel,
+      riphCtisDto.contact_public_telephone,
+      riphCtisDto.criteres_eligibilite,
+      riphCtisDto.criteres_jugement,
+      riphCtisDto.publication_eclaire,
+      riphCtisDto.numero_nct,
+      riphCtisDto.numero_isrctn,
+      riphCtisDto.numero_utn,
+      riphCtisDto.numero_libre,
+      riphCtisDto.objectifs,
+      riphCtisDto.resume,
+      riphCtisDto.duree_participation,
+      riphCtisDto.participants_sexe,
+      riphCtisDto.participants_tranches_age,
+      riphCtisDto.participants_groupe_sujets,
+      riphCtisDto.participants_population_vulnerable,
+      riphCtisDto.statut_recrutement,
+      riphCtisDto.date_fin_recrutement,
+      riphCtisDto.sites_investigateurs.map((site) => {
+        return {
+          adresse: site.adresse,
+          nom: site.nom,
+          organisme: site.organisme,
+          prenom: site.prenom,
+          service: site.service,
+          titre: site.titre_investigateur,
+          ville: site.ville,
+        }
+      })
     )
   }
 
@@ -120,7 +178,41 @@ export class EclaireDto {
       riphDmDto.historique,
       riphDmDto.dates_avis_favorable_ms_mns,
       null,
-      this.getMaxTheoreticalValidationDate(riphDmDto.date_soumission, 102)
+      this.getMaxTheoreticalValidationDate(riphDmDto.date_soumission, 102),
+      null,
+      null,
+      null,
+      riphDmDto.contact_public_nom,
+      riphDmDto.contact_public_prenom,
+      riphDmDto.contact_public_courriel,
+      riphDmDto.contact_public_telephone,
+      riphDmDto.criteres_eligibilite,
+      riphDmDto.criteres_jugement,
+      riphDmDto.publication_eclaire,
+      riphDmDto.numero_nct,
+      riphDmDto.numero_isrctn,
+      riphDmDto.numero_utn,
+      riphDmDto.numero_libre,
+      riphDmDto.objectifs,
+      riphDmDto.resume,
+      riphDmDto.duree_participation,
+      riphDmDto.participants_sexe,
+      riphDmDto.participants_tranches_age,
+      riphDmDto.participants_groupe_sujets,
+      riphDmDto.participants_population_vulnerable,
+      riphDmDto.statut_recrutement,
+      riphDmDto.date_fin_recrutement,
+      riphDmDto.sites_investigateurs.map((site) => {
+        return {
+          adresse: site.adresse,
+          nom: site.nom,
+          organisme: site.organisme,
+          prenom: site.prenom,
+          service: site.service,
+          titre: site.titre_investigateur,
+          ville: site.ville,
+        }
+      })
     )
   }
 
@@ -162,7 +254,41 @@ export class EclaireDto {
       riphJardeDto.historique,
       riphJardeDto.dates_avis_favorable_ms_mns,
       null,
-      this.getMaxTheoreticalValidationDate(riphJardeDto.date_soumission, 109)
+      this.getMaxTheoreticalValidationDate(riphJardeDto.date_soumission, 109),
+      null,
+      null,
+      null,
+      riphJardeDto.contact_public_nom,
+      riphJardeDto.contact_public_prenom,
+      riphJardeDto.contact_public_courriel,
+      riphJardeDto.contact_public_telephone,
+      riphJardeDto.criteres_eligibilite,
+      riphJardeDto.criteres_jugement,
+      riphJardeDto.publication_eclaire,
+      riphJardeDto.numero_nct,
+      riphJardeDto.numero_isrctn,
+      riphJardeDto.numero_utn,
+      riphJardeDto.numero_libre,
+      riphJardeDto.objectifs,
+      riphJardeDto.resume,
+      riphJardeDto.duree_participation,
+      riphJardeDto.participants_sexe,
+      riphJardeDto.participants_tranches_age,
+      riphJardeDto.participants_groupe_sujets,
+      riphJardeDto.participants_population_vulnerable,
+      riphJardeDto.statut_recrutement,
+      riphJardeDto.date_fin_recrutement,
+      riphJardeDto.sites_investigateurs.map((site) => {
+        return {
+          adresse: site.adresse,
+          nom: site.nom,
+          organisme: site.organisme,
+          prenom: site.prenom,
+          service: site.service,
+          titre: site.titre_investigateur,
+          ville: site.ville,
+        }
+      })
     )
   }
 }
@@ -177,6 +303,14 @@ class Site {
     readonly prenom: string,
     readonly service: string
   ) {}
+}
+
+class Critere {
+  private constructor(
+    readonly titre: string,
+    readonly type: string
+  ) {
+  }
 }
 
 type Phase = 'Phase I' | 'Phase I/Phase II' | 'Phase II' | 'Phase II/Phase III' | 'Phase III' | 'Phase III/Phase IV' | 'Phase IV' | 'N/A'
