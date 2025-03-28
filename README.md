@@ -184,7 +184,7 @@ yarn etl:meddra-import
 
 ### Liste des Post-Mortems du projet
 
-- [2025-01-07](https://drive.google.com/file/d/13-fTuGjkv682KgZia1NK2nXWnFOvMBlf/view?usp=drive_link) - 
+- **2025-01-07** (transmis par mail aux équipes ministérielles) - 
   Le moteur de recherche Elasticsearch était en saturation mémoire suite à l'échec de l'installation de plugins sur Scalingo.  
   Les difficultés rencontrées par le moteur de recherche généraient des erreurs applicatives et renvoyaient des
   codes erreurs techniques aux clients.
