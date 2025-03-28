@@ -23,9 +23,13 @@ export class IngestPipelineJarde extends IngestPipeline {
     const removeRapatrieeCtis = (jarde: RiphJardeDto): boolean => jarde.etat !== 'RAPATRIEE_CTIS'
     const riphJardeDtosWithoutRapatrieeCtis = riphJardeDtos.filter(removeRapatrieeCtis)
 
-    return riphJardeDtosWithoutRapatrieeCtis.map((riphJardeDto: RiphJardeDto): ResearchStudyModel => {
+    const researchStudyModels: ResearchStudyModel[] = []
+    for (const riphJardeDto of riphJardeDtosWithoutRapatrieeCtis) {
       const eclaireDto: EclaireDto = EclaireDto.fromJarde(riphJardeDto)
-      return ResearchStudyModelFactory.create(eclaireDto)
-    })
+      if (eclaireDto) {
+        researchStudyModels.push(ResearchStudyModelFactory.create(eclaireDto))
+      }
+    }
+    return researchStudyModels
   }
 }

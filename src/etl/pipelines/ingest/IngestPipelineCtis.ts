@@ -14,10 +14,16 @@ export class IngestPipelineCtis extends IngestPipeline {
   }
 
   transform(riphCtisDtos: RiphCtisDto[]): ResearchStudyModel[] {
-    return riphCtisDtos.map((riphCtisDto: RiphCtisDto): ResearchStudyModel => {
+    const researchStudyModels: ResearchStudyModel[] = []
+    for (const riphCtisDto of riphCtisDtos) {
       const eclaireDto: EclaireDto = EclaireDto.fromCtis(riphCtisDto)
-      return ResearchStudyModelFactory.create(eclaireDto)
-    }).filter((researchStudyModel: ResearchStudyModel) => {
+
+      if (eclaireDto) {
+        researchStudyModels.push(ResearchStudyModelFactory.create(eclaireDto))
+      }
+    }
+
+    return researchStudyModels.filter((researchStudyModel: ResearchStudyModel) => {
       const startingDate: Date = new Date(this.startingDate)
       const lastUpdated: Date = new Date(researchStudyModel.meta.lastUpdated)
       return lastUpdated >= startingDate

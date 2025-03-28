@@ -61,6 +61,10 @@ export class EclaireDto {
   ) {}
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
+    if (riphCtisDto.publication_eclaire !== 'autorisé') {
+      return null
+    }
+
     const sites = riphCtisDto.sites.map((site): Site => new Site(
       site.organisme,
       site.adresse,
@@ -149,6 +153,9 @@ export class EclaireDto {
   }
 
   static fromDm(riphDmDto: RiphDmDto): EclaireDto {
+    if (riphDmDto.publication_eclaire !== 'autorisé') {
+      return null
+    }
     return new EclaireDto(
       riphDmDto.reglementation_code,
       riphDmDto.qualification,
@@ -224,6 +231,9 @@ export class EclaireDto {
   }
 
   static fromJarde(riphJardeDto: RiphJardeDto): EclaireDto {
+    if (riphJardeDto.publication_eclaire !== 'autorisé') {
+      return null
+    }
     const phaseRecherche: Phase = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'Phase I' : 'N/A'
     return new EclaireDto(
       riphJardeDto.reglementation_code,

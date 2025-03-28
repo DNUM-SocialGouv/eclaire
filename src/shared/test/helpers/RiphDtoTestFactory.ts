@@ -150,7 +150,7 @@ export class RiphDtoTestFactory {
           type: null,
         },
       ],
-      publication_eclaire: null,
+      publication_eclaire: 'autorisé',
       numero_nct: null,
       numero_isrctn: null,
       numero_utn: null,

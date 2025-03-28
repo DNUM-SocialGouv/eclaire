@@ -302,6 +302,27 @@ describe('etl | IngestPipelineDm', () => {
       // then
       expect(result[0]).toBeInstanceOf(ResearchStudyModel)
     })
+
+    it('should transform array of raw data into a collection of research study documents with only authorized documents', () => {
+      // given
+      const riphDmDtos = [
+        RiphDtoTestFactory.dm({ titre_recherche: 'TITRE 1' }),
+        RiphDtoTestFactory.dm({
+          publication_eclaire: 'non autorisé',
+          titre_recherche: 'TITRE 2',
+        }),
+        RiphDtoTestFactory.dm({ titre_recherche: 'TITRE 3' }),
+      ]
+      const { ingestPipelineDm } = setup()
+
+      // when
+      const result = ingestPipelineDm.transform(riphDmDtos)
+
+      // then
+      expect(result).toHaveLength(2)
+      expect(result[0].title).toBe('TITRE 1')
+      expect(result[1].title).toBe('TITRE 3')
+    })
   })
 
   describe('load', () => {

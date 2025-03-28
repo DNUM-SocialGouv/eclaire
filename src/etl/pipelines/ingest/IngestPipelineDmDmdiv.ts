@@ -14,9 +14,13 @@ export class IngestPipelineDmDmdiv extends IngestPipeline {
   }
 
   transform(riphDmDtos: RiphDmDto[]): ResearchStudyModel[] {
-    return riphDmDtos.map((riphDmDto: RiphDmDto): ResearchStudyModel => {
+    const result: ResearchStudyModel[] = []
+    for (const riphDmDto of riphDmDtos) {
       const eclaireDto: EclaireDto = EclaireDto.fromDm(riphDmDto)
-      return ResearchStudyModelFactory.create(eclaireDto)
-    })
+      if (eclaireDto) {
+        result.push(ResearchStudyModelFactory.create(eclaireDto))
+      }
+    }
+    return result
   }
 }

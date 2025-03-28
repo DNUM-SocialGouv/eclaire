@@ -193,6 +193,10 @@ describe('etl | dto | EclaireDto', () => {
     `)
   })
 
+  it('should not return an eclaire dto when dm publication is not authorised', () => {
+    expect(EclaireDto.fromDm(RiphDtoTestFactory.dm({ publication_eclaire: 'non autorisé' }))).toBeNull()
+  })
+
   it('should return a properly mapped eclaire dto when a riph jarde dto is given', () => {
     expect(EclaireDto.fromJarde(RiphDtoTestFactory.jarde())).toMatchInlineSnapshot(`
       EclaireDto {
@@ -271,5 +275,9 @@ describe('etl | dto | EclaireDto', () => {
         "tranches_age": null,
       }
     `)
+  })
+
+  it('should not return an eclaire dto when jarde publication is not authorised', () => {
+    expect(EclaireDto.fromJarde(RiphDtoTestFactory.jarde({ publication_eclaire: 'non autorisé' }))).toBeNull()
   })
 })

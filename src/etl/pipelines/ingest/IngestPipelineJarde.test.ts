@@ -306,6 +306,24 @@ describe('etl | IngestPipelineJarde', () => {
       expect(result[0]).toBeInstanceOf(ResearchStudyModel)
     })
 
+    it('should transform array of raw data into a collection of research study documents with only authorized documents', () => {
+      // given
+      const riphJardeDtos = [
+        RiphDtoTestFactory.jarde({ titre_recherche: 'TITRE 1' }),
+        RiphDtoTestFactory.jarde({ publication_eclaire: 'non autorisé', titre_recherche: 'TITRE 2' }),
+        RiphDtoTestFactory.jarde({ titre_recherche: 'TITRE 3' }),
+      ]
+      const { ingestPipelineJarde } = setup()
+
+      // when
+      const result = ingestPipelineJarde.transform(riphJardeDtos)
+
+      // then
+      expect(result).toHaveLength(2)
+      expect(result[0].title).toBe('TITRE 1')
+      expect(result[1].title).toBe('TITRE 3')
+    })
+
     it('should not find "RAPATRIEE_CTIS" because it is a duplicate', () => {
       // GIVEN
       const riphJardeDtoWithApprovedAndFromCtisStatuses = [

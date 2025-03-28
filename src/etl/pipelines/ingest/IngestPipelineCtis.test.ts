@@ -297,6 +297,26 @@ describe('etl | IngestPipelineCtis', () => {
     })
   })
 
+  it('should transform array of raw data into a collection of research study documents  with only authorized documents', () => {
+    // given
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2022-10-07'))
+    const riphCtisDtos = [
+      RiphDtoTestFactory.ctis({ titre: 'TITRE 1' }),
+      RiphDtoTestFactory.ctis({ publication_eclaire: 'non autorisé', titre: 'TITRE 2' }),
+      RiphDtoTestFactory.ctis({ titre: 'TITRE 3' }),
+    ]
+    const { ingestPipelineCtis } = setup()
+
+    // when
+    const result = ingestPipelineCtis.transform(riphCtisDtos)
+
+    // then
+    expect(result).toHaveLength(2)
+    expect(result[0].title).toBe('TITRE 1')
+    expect(result[1].title).toBe('TITRE 3')
+  })
+
   describe('load', () => {
     it('should load in bulk a collection of research study documents', async () => {
       // given
