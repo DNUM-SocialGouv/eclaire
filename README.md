@@ -179,3 +179,90 @@ yarn etl:meddra-import
 - Facile et rapide d'implémentation
 - Evite de faire trop d'appel à leur API
 - Par contre, il faut mettre cette liste à jour tous les semestres
+
+## Post-Mortems
+
+### Liste des Post-Mortems du projet
+
+- **2025-01-07** (transmis par mail aux équipes ministérielles) - 
+  Le moteur de recherche Elasticsearch était en saturation mémoire suite à l'échec de l'installation de plugins sur Scalingo.  
+  Les difficultés rencontrées par le moteur de recherche généraient des erreurs applicatives et renvoyaient des
+  codes erreurs techniques aux clients.
+
+### Puis-je écrire un Post-Mortem et comment contribuer ?
+
+N'importe quel acteur ayant participé à l'analyse d'un événement inhabituel, peut rédiger un Post-Mortem.
+
+Le modèle est disponible dans la documentation du projet : [20XX-XX-XX - template post-mortem à copier.md](documentation/post-mortem/20XX-XX-XX%20-%20template%20post-mortem%20à%20copier.md).  
+Copiez alors le fichier en le nommant avec :
+- La date à laquelle l'événement a été remonté
+- Une courte explication compréhensible de l'événement
+
+### Pourquoi et quand écrire un Post-Mortem ?
+
+Les principaux objectifs de la rédaction d’un Post-Mortem sont :
+- de s’assurer que l’incident est documenté,
+- que toutes les causes sous-jacentes sont bien comprises,
+- que des mesures préventives efficaces sont mises en place pour réduire la probabilité ou l’impact d’une récidive. 
+
+On s’attend à ce qu’il y ait des Post-Mortems après tout événement indésirable important.   
+Le processus Post-Mortem présente un coût inhérent en termes de temps ou d’efforts, nous choisissons donc délibérément quand en écrire un.  
+Les déclencheurs habituels sont les suivants :
+- Temps d’arrêt ou dégradation visible par l’utilisateur au-delà d’un certain seuil,
+- Perte de données quelle qu’en soit la nature,
+- Intervention d'un ou plusieurs ingénieurs sur appel (remise à zéro, réacheminement du trafic, etc.),
+- Un délai de résolution supérieur à un certain seuil,
+- Une défaillance de la surveillance (qui implique généralement la découverte manuelle d’un incident).
+
+Rédiger un Post-Mortem n’est pas une punition, c’est une occasion d’apprendre pour toute l’entreprise.  
+Le Post-Mortem doit se concentrer sur l’identification des causes de l’incident sans accuser un individu ou une équipe 
+d’avoir eu un comportement mauvais ou inapproprié.  
+C'est un principe essentiel de la **culture SRE**. 
+
+### Comment éditer un Post-mortem au format PDF ?
+
+#### Installations pré-requises
+
+La suite des informations est spécifique au système de gestion de paquets **dpkg** présent dans certaines distributions 
+**Linux** (Debian/Ubuntu).  
+Il convient de les adapter à votre environnement de travail.
+
+Installer les packages suivants :
+1. texlive-latex-base 
+2. texlive-fonts-recommended `#OPTIONNEL`
+3. texlive-fonts-extra `#OPTIONNEL`
+4. pandoc
+5. wkhtmltopdf
+
+#### Procédure d'édition Post-mortem PDF
+
+Pour palier a des limitations d'affichage en passant directement du format markdown au format PDF avec `pandoc`, 
+on exécute les étapes intermédiaires suivantes :
+
+1. Ouvrir un Terminal et se placer dans votre répertoire [documentation/post-mortem](documentation/post-mortem) du projet en local,   
+2. Convertir la version markdown d'origine en version HTML via la librairie `pandoc` avec la commande suivante :  
+   ```
+   pandoc '<Remplacer par le nom du fichier post-mortem>.md' -o 'Post-mortem-intermédiaire-format-web.html' --standalone
+   ```
+3. Éditer le fichier `Post-mortem-intermédiaire-format-web.html` pour supprimer le paramètre CSS suivant :
+   ```html
+   <head>
+     ...
+     <style>
+       body {
+         ...
+         max-width: 36em; /* LIGNE A SUPPRIMER */
+         ...
+       }
+     </style>
+   </head>
+   ```
+4. Convertir le format HTML en fichier PDF via la librairie `wkhtmltopdf`.
+   ```
+   wkhtmltopdf --enable-local-file-access --orientation Landscape 'Post-mortem-intermédiaire-format-web.html' '<Remplacer par le nom du fichier post-mortem>.pdf'
+   ```
+   Voici à quoi servent les options présentes :
+   - `--enable-local-file-access` autorise l'accès aux images présentes sur votre disque pour les intégrer dans le fichier PDF,
+   - `--orientation Landscape` oriente les pages du document PDF au format Paysage pour faciliter la lecture.
+5. Le fichier `<Remplacer par le nom du fichier post-mortem>.pdf` est maintenant disponible dans votre répertoire local 
+   [documentation/post-mortem](documentation/post-mortem) du projet.
