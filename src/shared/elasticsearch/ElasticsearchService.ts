@@ -150,7 +150,7 @@ export class ElasticsearchService {
   }
 
   async bulkMedDraDocuments<T>(documents: T[]): Promise<void> {
-    const chunkSize = 5000
+    const chunkSize = 1000
 
     for (let i = 0; i < documents.length; i += chunkSize) {
       const chunk = documents.slice(i, i + chunkSize)

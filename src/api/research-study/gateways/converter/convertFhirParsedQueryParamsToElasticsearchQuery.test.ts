@@ -300,9 +300,9 @@ describe('research study query to elasticsearch query', () => {
       })
     })
 
-    it('with a count limit to 5000', () => {
+    it('with a count limit to 1000', () => {
       // GIVEN
-      const numberOfResourcesByPage = 5001
+      const numberOfResourcesByPage = 1001
       const offset = numberOfResourcesByPage * 9
       const researchStudyQuery: FhirParsedQueryParams[] = [
         { name: '_count', value: String(numberOfResourcesByPage) },

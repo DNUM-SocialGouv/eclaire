@@ -63,11 +63,11 @@ yarn start:db
 ```bash
 yarn test
 
-yarn test:e2e
-
 yarn test:coverage
 
-yarn test:mutation
+yarn test:mutation:api
+
+yarn test:mutation:etl
 ```
 
 ### Lancer le linter
