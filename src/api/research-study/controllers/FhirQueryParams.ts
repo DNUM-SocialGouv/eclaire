@@ -44,10 +44,12 @@ export class FhirQueryParams {
     _content: string
 
   @ApiProperty({
-    description: 'De `1` à `5 000`, valeur par défaut `20` si vide',
+    description: 'De `1` à `1000`, valeur par défaut `20` si vide',
+    maximum: 1000,
+    minimum: 1,
     required: false,
   })
-    _count: string
+    _count: number
 
   _getpagesoffset: string
   search_after: string
