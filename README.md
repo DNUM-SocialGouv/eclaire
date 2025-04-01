@@ -166,7 +166,16 @@ yarn etl:meddra-import
 - Très répandu
 - La DNUM nous fourni un compte par défaut
 - Notification rapide dès qu'il y a une erreur en production
-- Erreur très détailler pour mieux la corriger
+- Erreur très détaillée pour mieux la corriger
+
+### Rate Limiting applicatif (31/03/25)
+
+- Limite du taux de requêtes (rate limiting) côté applicatif pour ne pas saturer le CPU en cas d'attaque ou de pic de 
+  charge par les utilisateurs
+- Utilisation de la librairie Throttler sous Nest.JS
+- Les services SaaS sous-jacents de l'infrastructure ne sont pas configurables sur l'hébergeur Scalingo :
+    - OpenResty : reverse proxy des containers web (paramétrage du Limit Request Rate)
+    - Elasticsearch : moteur de recherche (paramétrage du nombre de thread du pool de search)
 
 ### Gestion des variables d'environnement
 

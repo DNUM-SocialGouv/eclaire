@@ -1,5 +1,12 @@
 import { Controller, Get, Header, Inject, Param, Res } from '@nestjs/common'
-import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiProduces,
+  ApiTags,
+  ApiTooManyRequestsResponse,
+} from '@nestjs/swagger'
 import { Response } from 'express'
 import { Group } from 'fhir/r4'
 
@@ -11,9 +18,10 @@ import { GroupRepository } from '../application/contracts/GroupRepository'
 export class FindGroupController {
   constructor(@Inject('GroupRepository') private readonly groupRepository: GroupRepository) {}
 
-  @ApiOperation({ summary: "Récupère les modalités d'un groupe d'inscription depuis son identifiant unique." })
-  @ApiOkResponse({ description: "Un groupe d'inscription a été trouvé." })
-  @ApiNotFoundResponse({ description: "Aucun groupe d'inscription n’a été trouvé." })
+  @ApiOperation({ summary: 'Récupère les modalités d’un groupe d’inscription depuis son identifiant unique.' })
+  @ApiOkResponse({ description: 'Un groupe d’inscription a été trouvé.' })
+  @ApiNotFoundResponse({ description: 'Aucun groupe d’inscription n’a été trouvé.' })
+  @ApiTooManyRequestsResponse({ description: 'Trop de requêtes simultanées. Réessayez plus tard.' })
   @ApiProduces('application/fhir+json')
   @Header('content-type', 'application/fhir+json')
   @Get(':id')

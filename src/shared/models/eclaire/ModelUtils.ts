@@ -12,6 +12,10 @@ export class ModelUtils {
     return value !== null
   }
 
+  static isNotDefinedOrFalse(value: unknown): boolean {
+    return value === undefined || value === null || value === false
+  }
+
   static generateEnrollmentGroupId(value: string): string {
     return this.generateIdWithSuffix(value, 'enrollment-group')
   }

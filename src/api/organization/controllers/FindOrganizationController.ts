@@ -1,5 +1,12 @@
 import { Controller, Get, Header, Inject, Param, Res } from '@nestjs/common'
-import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiProduces,
+  ApiTags,
+  ApiTooManyRequestsResponse,
+} from '@nestjs/swagger'
 import { Response } from 'express'
 import { Organization } from 'fhir/r4'
 
@@ -14,6 +21,7 @@ export class FindOrganizationController {
   @ApiOperation({ summary: 'Récupère une organisation depuis son identifiant unique.' })
   @ApiOkResponse({ description: 'Une organisation a été trouvée' })
   @ApiNotFoundResponse({ description: 'Aucune organisation n’a été trouvée' })
+  @ApiTooManyRequestsResponse({ description: 'Trop de requêtes simultanées. Réessayez plus tard.' })
   @ApiProduces('application/fhir+json')
   @Header('content-type', 'application/fhir+json')
   @Get(':id')

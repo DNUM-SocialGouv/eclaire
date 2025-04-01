@@ -96,4 +96,50 @@ describe('shared | models | custom | ModelUtils', () => {
       expect(mostRecentIsoDate).toBe('2023-01-02T00:00:00.000Z')
     })
   })
+
+  describe('#isNotDefinedOrFalse', () => {
+    it('should return true when variable is undefined', () => {
+      // given
+      const variable: boolean = undefined
+
+      // when
+      const isNotDefinedOrFalse = ModelUtils.isNotDefinedOrFalse(variable)
+
+      // then
+      expect(isNotDefinedOrFalse).toBeTruthy()
+    })
+
+    it('should return true when variable is null', () => {
+      // given
+      const variable: boolean = null
+
+      // when
+      const isNotDefinedOrFalse = ModelUtils.isNotDefinedOrFalse(variable)
+
+      // then
+      expect(isNotDefinedOrFalse).toBeTruthy()
+    })
+
+    it('should return true when variable is valuated to false', () => {
+      // given
+      const variable: boolean = false
+
+      // when
+      const isNotDefinedOrFalse = ModelUtils.isNotDefinedOrFalse(variable)
+
+      // then
+      expect(isNotDefinedOrFalse).toBeTruthy()
+    })
+
+    it('should return false when variable is valuated to true', () => {
+      // given
+      const variable: boolean = true
+
+      // when
+      const isNotDefinedOrFalse = ModelUtils.isNotDefinedOrFalse(variable)
+
+      // then
+      expect(isNotDefinedOrFalse).toBeFalsy()
+    })
+  })
 })

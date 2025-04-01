@@ -1,6 +1,13 @@
 import { errors } from '@elastic/elasticsearch'
 import { Controller, Get, Header, Inject, Param, Res } from '@nestjs/common'
-import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiProduces,
+  ApiTags,
+  ApiTooManyRequestsResponse,
+} from '@nestjs/swagger'
 import { Response } from 'express'
 import { OperationOutcome } from 'fhir/r4'
 
@@ -16,6 +23,7 @@ export class GetOneResearchStudyController {
   @ApiOperation({ summary: 'Récupère un essai clinique depuis son identifiant unique.' })
   @ApiOkResponse({ description: 'Un essai clinique a été trouvé' })
   @ApiNotFoundResponse({ description: 'Aucun essai clinique n’a été trouvé' })
+  @ApiTooManyRequestsResponse({ description: 'Trop de requêtes simultanées. Réessayez plus tard.' })
   @ApiProduces('application/fhir+json')
   @Header('content-type', 'application/fhir+json')
   @Get(':id')
