@@ -1,6 +1,9 @@
 import { ConfigModule } from '@nestjs/config'
+import { APP_GUARD } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { Test } from '@nestjs/testing'
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
+import { Server } from 'http'
 
 import { RiphDtoTestFactory } from './RiphDtoTestFactory'
 import { AppModule } from '../../../AppModule'
@@ -16,15 +19,17 @@ import { Translator } from '../../translation/Translator'
 
 export const CONTROLLER_DOCUMENT_ID = '2022-500014-26-00'
 
-export async function getHttpServer() {
+export async function getHttpServer(isApiRateLimitEnabled: boolean = false): Promise<Server> {
   const moduleFixture = await Test.createTestingModule({
     imports: [
       ConfigModule.forRoot({ envFilePath: ['.env.end2end.test'] }),
+      isApiRateLimitEnabled ? getThrottlerModule() : null,
       AppModule,
-    ],
+    ].filter(Boolean), // Remove `null` if isApiRateLimitEnabled is disabled
+    providers: [isApiRateLimitEnabled ? getThrottlerGuard() : null].filter(Boolean), // Remove `null` if isApiRateLimitEnabled is disabled
   }).compile()
 
-  const app = moduleFixture.createNestApplication<NestExpressApplication>()
+  const app: NestExpressApplication = moduleFixture.createNestApplication<NestExpressApplication>()
   await app.init()
 
   const databaseService = app.get<ElasticsearchService>(ElasticsearchService)
@@ -64,4 +69,22 @@ export async function getHttpServer() {
   await medDraPipeline.execute('1990-01-01')
 
   return app.getHttpServer()
+}
+
+function getThrottlerModule() {
+  return ThrottlerModule.forRoot({
+    throttlers: [
+      {
+        limit: parseInt(process.env['API_RATE_LIMIT_MAX_CALLS']),
+        ttl: parseInt(process.env['API_RATE_LIMIT_DURATION_IN_MS']),
+      },
+    ],
+  })
+}
+
+function getThrottlerGuard() {
+  return {
+    provide: APP_GUARD,
+    useClass: ThrottlerGuard,
+  }
 }

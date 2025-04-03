@@ -1,5 +1,12 @@
 import { Controller, Get, Header, Inject, Param, Res } from '@nestjs/common'
-import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger'
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiProduces,
+  ApiTags,
+  ApiTooManyRequestsResponse,
+} from '@nestjs/swagger'
 import { Response } from 'express'
 import { Location } from 'fhir/r4'
 
@@ -14,6 +21,7 @@ export class FindLocationController {
   @ApiOperation({ summary: 'Récupère un site depuis son identifiant unique.' })
   @ApiOkResponse({ description: 'Un site a été trouvée' })
   @ApiNotFoundResponse({ description: 'Aucun site n’a été trouvée' })
+  @ApiTooManyRequestsResponse({ description: 'Trop de requêtes simultanées. Réessayez plus tard.' })
   @ApiProduces('application/fhir+json')
   @Header('content-type', 'application/fhir+json')
   @Get(':id')

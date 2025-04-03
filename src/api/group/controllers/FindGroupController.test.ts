@@ -1,11 +1,20 @@
+import Server from 'http'
 import supertest from 'supertest'
 
 import { getHttpServer } from '../../../shared/test/helpers/controllerHelper'
 
 const BASE_URL = '/R4/Group/'
 
-describe('#FindGroupController - e2e', async () => {
-  const app = await getHttpServer()
+describe('#FindGroupController - e2e', () => {
+  let app: Server.Server<typeof Server.IncomingMessage, typeof Server.ServerResponse>
+
+  beforeEach(async () => {
+    app = await getHttpServer()
+  })
+
+  afterAll(() => {
+    app.close()
+  })
 
   it('should retrieve one group', async () => {
     // WHEN

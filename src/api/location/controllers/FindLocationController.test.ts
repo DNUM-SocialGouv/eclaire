@@ -1,11 +1,20 @@
+import Server from 'http'
 import supertest from 'supertest'
 
 import { CONTROLLER_DOCUMENT_ID, getHttpServer } from '../../../shared/test/helpers/controllerHelper'
 
 const BASE_URL = '/R4/Location/'
 
-describe('#FindLocationController - e2e', async () => {
-  const app = await getHttpServer()
+describe('#FindLocationController - e2e', () => {
+  let app: Server.Server<typeof Server.IncomingMessage, typeof Server.ServerResponse>
+
+  beforeEach(async () => {
+    app = await getHttpServer()
+  })
+
+  afterAll(() => {
+    app.close()
+  })
 
   it('should retrieve one location', async () => {
     // WHEN
