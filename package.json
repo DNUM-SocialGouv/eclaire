@@ -53,7 +53,7 @@
     "@nestjs/swagger": "^7.4.2",
     "@nestjs/throttler": "^6.4.0",
     "@sentry/minimal": "^6.19.7",
-    "@sentry/node": "^7.120.3",
+    "@sentry/node": "^9.11.0",
     "@sentry/tracing": "^7.120.3",
     "@types/fhir": "^0.0.41",
     "express": "^4.21.2",
