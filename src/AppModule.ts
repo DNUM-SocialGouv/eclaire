@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { APP_GUARD } from '@nestjs/core'
+import { APP_FILTER, APP_GUARD } from '@nestjs/core'
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup'
 
 import { AppController } from './api/AppController'
 import { GroupModule } from './api/group/GroupModule'
 import { LocationModule } from './api/location/LocationModule'
 import { OrganizationModule } from './api/organization/OrganizationModule'
 import { ResearchStudyModule } from './api/research-study/ResearchStudyModule'
-import { SentryModule } from './api/sentry/sentry.module'
 import { SwaggerModule } from './api/swagger/swagger.module'
 import { EtlModule } from './etl/EtlModule'
 import { ElasticsearchModule } from './shared/elasticsearch/ElasticsearchModule'
@@ -31,10 +32,16 @@ import { ModelUtils } from './shared/models/eclaire/ModelUtils'
     OrganizationModule,
     LocationModule,
     ResearchStudyModule,
-    SentryModule,
+    SentryModule.forRoot(),
     SwaggerModule,
   ].filter(Boolean), // Remove `null` if API_RATE_LIMIT_ENABLED is disabled
-  providers: [ModelUtils.isNotDefinedOrFalse(process.env['API_RATE_LIMIT']) ? null : getThrottlerGuard()].filter(Boolean), // Remove `null` if API_RATE_LIMIT_ENABLED is disabled
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: SentryGlobalFilter,
+    },
+    ModelUtils.isNotDefinedOrFalse(process.env['API_RATE_LIMIT']) ? null : getThrottlerGuard(),
+  ].filter(Boolean), // Remove `null` if API_RATE_LIMIT_ENABLED is disabled
 })
 export class AppModule {}
 

@@ -4,6 +4,8 @@ import { NestExpressApplication } from '@nestjs/platform-express'
 import { SwaggerService } from './api/swagger/swagger.service'
 import { AppModule } from './AppModule'
 
+import './api/sentry/instrument'
+
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
 
