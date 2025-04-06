@@ -222,7 +222,7 @@
             ],
           },
         ],
-        "description": "INDISPONIBLE",
+        "description": null,
         "enrollment": [
           {
             "display": "Reference to group detailing study characteristics",
@@ -466,6 +466,9 @@
             },
           ],
         },
+        "primaryPurposeType": {
+          "text": null,
+        },
         "relatedArtifact": [
           null,
         ],
@@ -643,7 +646,7 @@
             ],
           },
         ],
-        "description": "INDISPONIBLE",
+        "description": null,
         "enrollment": [
           {
             "display": "Reference to group detailing study characteristics",
@@ -792,6 +795,9 @@
               "version": "4.0.1",
             },
           ],
+        },
+        "primaryPurposeType": {
+          "text": null,
         },
         "relatedArtifact": [
           null,
@@ -958,7 +964,7 @@
             ],
           },
         ],
-        "description": "INDISPONIBLE",
+        "description": null,
         "enrollment": [
           {
             "display": "Reference to group detailing study characteristics",
@@ -1107,6 +1113,9 @@
               "version": "4.0.1",
             },
           ],
+        },
+        "primaryPurposeType": {
+          "text": null,
         },
         "relatedArtifact": [
           null,
@@ -1344,7 +1353,7 @@
             ],
           },
         ],
-        "description": "INDISPONIBLE",
+        "description": null,
         "enrollment": [
           {
             "display": "Reference to group detailing study characteristics",
@@ -1587,6 +1596,9 @@
               "version": "4.0.1",
             },
           ],
+        },
+        "primaryPurposeType": {
+          "text": null,
         },
         "relatedArtifact": [
           null,

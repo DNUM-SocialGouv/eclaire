@@ -171,4 +171,12 @@ export class CodeableConceptModel implements CodeableConcept {
       undefined
     )
   }
+
+  static createPrimaryPurposeType(objectifs: string) {
+    return new CodeableConceptModel(
+      undefined,
+      undefined,
+      objectifs
+    )
+  }
 }

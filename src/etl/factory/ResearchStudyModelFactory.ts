@@ -113,7 +113,7 @@ export class ResearchStudyModelFactory {
       )
     )
 
-    const description = ModelUtils.UNAVAILABLE
+    const description = eclaireDto.resume
 
     const extensions: Extension[] = []
     extensions.push(eclaireSecondarySponsor)
@@ -179,7 +179,7 @@ export class ResearchStudyModelFactory {
       undefined
     )
 
-    const primaryPurposeType: CodeableConcept = undefined
+    const primaryPurposeType: CodeableConcept = CodeableConceptModel.createPrimaryPurposeType(eclaireDto.objectifs)
 
     return new ResearchStudyModel(
       arm,

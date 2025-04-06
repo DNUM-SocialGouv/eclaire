@@ -338,7 +338,7 @@ describe('research study model factory', () => {
             ],
           },
         ],
-        "description": "INDISPONIBLE",
+        "description": null,
         "enrollment": [
           ReferenceModel {
             "display": "Reference to group detailing study characteristics",
@@ -754,7 +754,11 @@ describe('research study model factory', () => {
           "id": undefined,
           "text": undefined,
         },
-        "primaryPurposeType": undefined,
+        "primaryPurposeType": CodeableConceptModel {
+          "coding": undefined,
+          "id": undefined,
+          "text": null,
+        },
         "referenceContents": ReferenceContentsModel {
           "enrollmentGroup": GroupModel {
             "actual": true,
@@ -1419,7 +1423,7 @@ describe('research study model factory', () => {
             ],
           },
         ],
-        "description": "INDISPONIBLE",
+        "description": null,
         "enrollment": [
           ReferenceModel {
             "display": "Reference to group detailing study characteristics",
@@ -1717,7 +1721,11 @@ describe('research study model factory', () => {
           "id": undefined,
           "text": undefined,
         },
-        "primaryPurposeType": undefined,
+        "primaryPurposeType": CodeableConceptModel {
+          "coding": undefined,
+          "id": undefined,
+          "text": null,
+        },
         "referenceContents": ReferenceContentsModel {
           "enrollmentGroup": GroupModel {
             "actual": true,
@@ -2220,7 +2228,7 @@ describe('research study model factory', () => {
             ],
           },
         ],
-        "description": "INDISPONIBLE",
+        "description": null,
         "enrollment": [
           ReferenceModel {
             "display": "Reference to group detailing study characteristics",
@@ -2518,7 +2526,11 @@ describe('research study model factory', () => {
           "id": undefined,
           "text": undefined,
         },
-        "primaryPurposeType": undefined,
+        "primaryPurposeType": CodeableConceptModel {
+          "coding": undefined,
+          "id": undefined,
+          "text": null,
+        },
         "referenceContents": ReferenceContentsModel {
           "enrollmentGroup": GroupModel {
             "actual": true,
@@ -3009,7 +3021,7 @@ describe('research study model factory', () => {
             ],
           },
         ],
-        "description": "INDISPONIBLE",
+        "description": null,
         "enrollment": [
           ReferenceModel {
             "display": "Reference to group detailing study characteristics",
@@ -3294,7 +3306,11 @@ describe('research study model factory', () => {
           "id": undefined,
           "text": undefined,
         },
-        "primaryPurposeType": undefined,
+        "primaryPurposeType": CodeableConceptModel {
+          "coding": undefined,
+          "id": undefined,
+          "text": null,
+        },
         "referenceContents": ReferenceContentsModel {
           "enrollmentGroup": GroupModel {
             "actual": true,
