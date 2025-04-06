@@ -300,14 +300,38 @@
           },
           {
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
-            "valueMarkdown": "INDISPONIBLE",
+            "valueMarkdown": null,
           },
           {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": null,
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "primary",
+                      "display": "Primary",
+                      "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
+                      "version": "0.1.0",
+                    },
+                  ],
+                  "text": null,
+                },
+              },
+              {
+                "url": "description",
+                "valueMarkdown": null,
+              },
+              {
+                "url": "reference",
+                "valueReference": null,
+              },
+            ],
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
-            "valueCodeableConcept": null,
-            "valueMarkdown": "INDISPONIBLE",
-            "valueReference": null,
-            "valueString": "INDISPONIBLE",
           },
           {
             "extension": [
@@ -468,6 +492,14 @@
           ],
         },
         "primaryPurposeType": {
+          "coding": [
+            {
+              "code": "primary",
+              "display": "Primary",
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
+              "version": "0.1.0",
+            },
+          ],
           "text": null,
         },
         "relatedArtifact": [
@@ -725,14 +757,38 @@
           },
           {
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
-            "valueMarkdown": "INDISPONIBLE",
+            "valueMarkdown": null,
           },
           {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": null,
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "primary",
+                      "display": "Primary",
+                      "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
+                      "version": "0.1.0",
+                    },
+                  ],
+                  "text": null,
+                },
+              },
+              {
+                "url": "description",
+                "valueMarkdown": null,
+              },
+              {
+                "url": "reference",
+                "valueReference": null,
+              },
+            ],
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
-            "valueCodeableConcept": null,
-            "valueMarkdown": "INDISPONIBLE",
-            "valueReference": null,
-            "valueString": "INDISPONIBLE",
           },
           {
             "extension": [
@@ -805,6 +861,14 @@
           ],
         },
         "primaryPurposeType": {
+          "coding": [
+            {
+              "code": "primary",
+              "display": "Primary",
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
+              "version": "0.1.0",
+            },
+          ],
           "text": null,
         },
         "relatedArtifact": [
@@ -1050,14 +1114,38 @@
           },
           {
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
-            "valueMarkdown": "INDISPONIBLE",
+            "valueMarkdown": null,
           },
           {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": null,
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "primary",
+                      "display": "Primary",
+                      "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
+                      "version": "0.1.0",
+                    },
+                  ],
+                  "text": null,
+                },
+              },
+              {
+                "url": "description",
+                "valueMarkdown": null,
+              },
+              {
+                "url": "reference",
+                "valueReference": null,
+              },
+            ],
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
-            "valueCodeableConcept": null,
-            "valueMarkdown": "INDISPONIBLE",
-            "valueReference": null,
-            "valueString": "INDISPONIBLE",
           },
           {
             "extension": [
@@ -1130,6 +1218,14 @@
           ],
         },
         "primaryPurposeType": {
+          "coding": [
+            {
+              "code": "primary",
+              "display": "Primary",
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
+              "version": "0.1.0",
+            },
+          ],
           "text": null,
         },
         "relatedArtifact": [
@@ -1446,14 +1542,38 @@
           },
           {
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
-            "valueMarkdown": "INDISPONIBLE",
+            "valueMarkdown": null,
           },
           {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": null,
+              },
+              {
+                "url": "type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "primary",
+                      "display": "Primary",
+                      "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
+                      "version": "0.1.0",
+                    },
+                  ],
+                  "text": null,
+                },
+              },
+              {
+                "url": "description",
+                "valueMarkdown": null,
+              },
+              {
+                "url": "reference",
+                "valueReference": null,
+              },
+            ],
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
-            "valueCodeableConcept": null,
-            "valueMarkdown": "INDISPONIBLE",
-            "valueReference": null,
-            "valueString": "INDISPONIBLE",
           },
           {
             "extension": [
@@ -1614,6 +1734,14 @@
           ],
         },
         "primaryPurposeType": {
+          "coding": [
+            {
+              "code": "primary",
+              "display": "Primary",
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
+              "version": "0.1.0",
+            },
+          ],
           "text": null,
         },
         "relatedArtifact": [

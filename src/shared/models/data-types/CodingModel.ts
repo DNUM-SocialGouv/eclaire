@@ -270,6 +270,15 @@ export class CodingModel implements Coding {
       eclaireStudyPartyOrganizationTypeCodeSystem.version
     )
   }
+
+  static createEclairePrimaryPurposeType() {
+    return new CodingModel(
+      'primary',
+      'Primary',
+      'http://terminology.hl7.org/CodeSystem/research-study-objective-type',
+      '0.1.0'
+    )
+  }
 }
 
 export type EclaireGroupCharacteristicKindVsReferenceCode = 'grp-gender' | 'grp-studypop' | 'grp-category' | 'grp-age' | 'grp-other'

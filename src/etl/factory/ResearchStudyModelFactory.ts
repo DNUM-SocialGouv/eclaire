@@ -124,11 +124,14 @@ export class ResearchStudyModelFactory {
     extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'))
     extensions.push(ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement, eclaireDto.date_fin_recrutement))
     extensions.push(ExtensionModel.createEclaireReviewDate(mostRecentDate))
-    extensions.push(ExtensionModel.createEclaireDescriptionSummary(ModelUtils.UNAVAILABLE))
+
+    extensions.push(ExtensionModel.createEclaireDescriptionSummary(eclaireDto.resume))
+
+    const primaryPurposeType: CodeableConcept = CodeableConceptModel.createPrimaryPurposeType(eclaireDto.objectifs)
     extensions.push(ExtensionModel.createEclaireOutcomeMeasure(
-      ModelUtils.UNAVAILABLE,
       null,
-      ModelUtils.UNAVAILABLE,
+      primaryPurposeType,
+      eclaireDto.objectifs,
       null
     ))
 
@@ -176,8 +179,6 @@ export class ResearchStudyModelFactory {
       null,
       undefined
     )
-
-    const primaryPurposeType: CodeableConcept = CodeableConceptModel.createPrimaryPurposeType(eclaireDto.objectifs)
 
     return new ResearchStudyModel(
       arm,

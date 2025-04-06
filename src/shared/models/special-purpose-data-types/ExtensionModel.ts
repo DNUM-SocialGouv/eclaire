@@ -271,17 +271,22 @@ export class ExtensionModel implements Extension {
 
   static createEclaireOutcomeMeasure(name: string, type: CodeableConcept, markdownDescription: string, reference: Reference): Extension {
     return new ExtensionModel(
-      undefined,
+      [
+        this.createEclaireOutcomeMeasureName(name),
+        this.createEclaireOutcomeMeasureType(type),
+        this.createEclaireOutcomeMeasureDescription(markdownDescription),
+        this.createEclaireOutcomeMeasureReference(reference),
+      ],
       'https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure',
       undefined,
-      type,
       undefined,
       undefined,
       undefined,
-      markdownDescription,
       undefined,
-      reference,
-      name
+      undefined,
+      undefined,
+      undefined,
+      undefined
     )
   }
 
@@ -463,6 +468,70 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       ReferenceModel.createEclaireAssociatedPartyR5Party(id, type),
+      undefined
+    )
+  }
+
+  private static createEclaireOutcomeMeasureName(name: string) {
+    return new ExtensionModel(
+      undefined,
+      'name',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      name
+    )
+  }
+
+  private static createEclaireOutcomeMeasureType(type: CodeableConcept) {
+    return new ExtensionModel(
+      undefined,
+      'type',
+      undefined,
+      type,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  private static createEclaireOutcomeMeasureDescription(markdownDescription: string) {
+    return new ExtensionModel(
+      undefined,
+      'description',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      markdownDescription,
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  private static createEclaireOutcomeMeasureReference(reference: Reference) {
+    return new ExtensionModel(
+      undefined,
+      'reference',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      reference,
       undefined
     )
   }
