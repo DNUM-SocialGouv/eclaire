@@ -122,9 +122,7 @@ export class ResearchStudyModelFactory {
     }
     extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'))
     extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'))
-    if (ModelUtils.isNotNull(eclaireDto.date_debut_recrutement)) {
-      extensions.push(ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement))
-    }
+    extensions.push(ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement, eclaireDto.date_fin_recrutement))
     extensions.push(ExtensionModel.createEclaireReviewDate(mostRecentDate))
     extensions.push(ExtensionModel.createEclaireDescriptionSummary(ModelUtils.UNAVAILABLE))
     extensions.push(ExtensionModel.createEclaireOutcomeMeasure(

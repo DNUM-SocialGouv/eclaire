@@ -157,7 +157,7 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireRecruitmentPeriod(recruitmentDate: string): Extension {
+  static createEclaireRecruitmentPeriod(start: string, end: string): Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period',
@@ -167,7 +167,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
-      PeriodModel.createRecruitmentPeriod(recruitmentDate),
+      PeriodModel.createRecruitmentPeriod(start, end),
       undefined,
       undefined
     )

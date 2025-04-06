@@ -6,9 +6,9 @@ export class PeriodModel implements Period {
     readonly start: string | undefined
   ) {}
 
-  static createRecruitmentPeriod(start: string): Period {
+  static createRecruitmentPeriod(start: string, end: string): Period {
     return new PeriodModel(
-      undefined,
+      end,
       start
     )
   }
