@@ -104,10 +104,7 @@
               {
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueHumanName": {
-                  "family": "INDISPONIBLE",
-                  "given": [
-                    "INDISPONIBLE",
-                  ],
+                  "given": [],
                   "use": "official",
                 },
               },
@@ -146,12 +143,10 @@
               {
                 "system": "phone",
                 "use": "work",
-                "value": "INDISPONIBLE",
               },
               {
                 "system": "email",
                 "use": "work",
-                "value": "INDISPONIBLE",
               },
             ],
           },
@@ -424,10 +419,7 @@
               {
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueHumanName": {
-                  "family": "INDISPONIBLE",
-                  "given": [
-                    "INDISPONIBLE",
-                  ],
+                  "given": [],
                   "use": "official",
                 },
               },
@@ -466,12 +458,10 @@
               {
                 "system": "phone",
                 "use": "work",
-                "value": "INDISPONIBLE",
               },
               {
                 "system": "email",
                 "use": "work",
-                "value": "INDISPONIBLE",
               },
             ],
           },
@@ -815,10 +805,7 @@
               {
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueHumanName": {
-                  "family": "INDISPONIBLE",
-                  "given": [
-                    "INDISPONIBLE",
-                  ],
+                  "given": [],
                   "use": "official",
                 },
               },
@@ -857,12 +844,10 @@
               {
                 "system": "phone",
                 "use": "work",
-                "value": "INDISPONIBLE",
               },
               {
                 "system": "email",
                 "use": "work",
-                "value": "INDISPONIBLE",
               },
             ],
           },

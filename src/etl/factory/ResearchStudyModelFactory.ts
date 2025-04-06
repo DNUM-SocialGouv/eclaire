@@ -99,11 +99,11 @@ export class ResearchStudyModelFactory {
     )
     contact.push(
       ContactDetailModel.create(
-        ModelUtils.UNAVAILABLE,
+        eclaireDto.contact_public.prenom,
         null,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
+        eclaireDto.contact_public.nom,
+        eclaireDto.contact_public.telephone,
+        eclaireDto.contact_public.courriel,
         'Public',
         ModelUtils.UNAVAILABLE,
         ModelUtils.UNAVAILABLE,
