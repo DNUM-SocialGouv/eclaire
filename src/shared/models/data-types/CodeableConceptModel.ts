@@ -2,7 +2,6 @@ import { CodeableConcept, Coding } from 'fhir/r4'
 
 import { CodingModel, EclaireGroupCharacteristicKindVsReferenceCode } from './CodingModel'
 import { MedDra } from '../../../etl/dto/EclaireDto'
-import { RiphStatus } from '../domain-resources/ResearchStudyModel'
 import { ModelUtils } from '../eclaire/ModelUtils'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 import { LabelType } from '../special-purpose-data-types/ExtensionModel'
@@ -148,7 +147,7 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createRecruitmentStatus(status: RiphStatus): CodeableConceptModel {
+  static createRecruitmentStatus(status: string): CodeableConceptModel {
     return new CodeableConceptModel(
       undefined,
       [CodingModel.createRecruitmentStatus(status)],

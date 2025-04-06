@@ -137,7 +137,7 @@ export class ResearchStudyModelFactory {
     extensions.push(ExtensionModel.createEclaireArmIntervention(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE))
 
     const status: RiphStatus = eclaireDto.etat as RiphStatus
-    extensions.push(ExtensionModel.createEclaireRecruitmentStatus(null))
+    extensions.push(ExtensionModel.createEclaireRecruitmentStatus(eclaireDto.statut_recrutement))
 
     const id = eclaireDto.numero_primaire
     const identifier: Identifier[] = [

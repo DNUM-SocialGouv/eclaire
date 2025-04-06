@@ -5,7 +5,6 @@ import { AddressModel } from '../data-types/AddressModel'
 import { CodeableConceptModel } from '../data-types/CodeableConceptModel'
 import { HumanNameModel } from '../data-types/HumanNameModel'
 import { PeriodModel } from '../data-types/PeriodModel'
-import { RiphStatus } from '../domain-resources/ResearchStudyModel'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 import { DurationModel } from '../quantity/DurationModel'
 
@@ -321,7 +320,7 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireRecruitmentStatus(status: RiphStatus): Extension {
+  static createEclaireRecruitmentStatus(status: string): Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status',

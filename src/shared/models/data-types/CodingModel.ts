@@ -14,7 +14,6 @@ import { eclaireStudyTitleTypeCodeSystem } from '../code-systems/eclaireStudyTit
 import { eclaireTypeContactCodeSystem } from '../code-systems/eclaireTypeContactCodeSystem'
 import { medDraCodeSystem } from '../code-systems/medDraCodeSystem'
 import { researchStudyPhaseCodeSystem } from '../code-systems/researchStudyPhaseCodeSystem'
-import { RiphStatus } from '../domain-resources/ResearchStudyModel'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 import { LabelType } from '../special-purpose-data-types/ExtensionModel'
 
@@ -233,7 +232,7 @@ export class CodingModel implements Coding {
     )
   }
 
-  static createRecruitmentStatus(status: RiphStatus): CodingModel {
+  static createRecruitmentStatus(status: string): CodingModel {
     const recruitmentStatus = eclaireStatusRecruitmentCodeSystem.concept.find(
       (reference) => reference.code === status
     )
