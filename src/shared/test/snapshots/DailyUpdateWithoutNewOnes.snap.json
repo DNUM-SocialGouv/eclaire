@@ -42,12 +42,6 @@
             ],
           },
         ],
-        "condition": [
-          {
-            "id": "disease-condition-2021-A01563-38",
-            "text": "INDISPONIBLE",
-          },
-        ],
         "contact": [
           {
             "extension": [
@@ -366,12 +360,6 @@
                 "version": "0.2.0",
               },
             ],
-          },
-        ],
-        "condition": [
-          {
-            "id": "disease-condition-2021-A01022-39",
-            "text": "INDISPONIBLE",
           },
         ],
         "contact": [

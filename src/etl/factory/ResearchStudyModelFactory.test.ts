@@ -1226,13 +1226,7 @@ describe('research study model factory', () => {
             "text": undefined,
           },
         ],
-        "condition": [
-          CodeableConceptModel {
-            "coding": undefined,
-            "id": "disease-condition-2021-A01563-38",
-            "text": "INDISPONIBLE",
-          },
-        ],
+        "condition": undefined,
         "contact": [
           ContactDetailModel {
             "extension": [
@@ -1736,8 +1730,39 @@ describe('research study model factory', () => {
                 "code": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": "grp-category",
-                      "display": "Research Study Group Category (Catégorie du groupe d'étude)",
+                      "code": "grp-gender",
+                      "display": "Gender (Genre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "unknown",
+                      "display": "Unknown",
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "version": "5.0.0",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-studypop",
+                      "display": "Study Population (Population de l'étude)",
                       "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
                       "version": "0.2.1",
                     },
@@ -1751,9 +1776,9 @@ describe('research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
+                      "display": undefined,
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-population-code-system",
+                      "version": "0.2.0",
                     },
                   ],
                   "id": undefined,
@@ -2004,13 +2029,7 @@ describe('research study model factory', () => {
             "text": undefined,
           },
         ],
-        "condition": [
-          CodeableConceptModel {
-            "coding": undefined,
-            "id": "disease-condition-2021-A01022-39",
-            "text": "INDISPONIBLE",
-          },
-        ],
+        "condition": undefined,
         "contact": [
           ContactDetailModel {
             "extension": [
@@ -2514,8 +2533,39 @@ describe('research study model factory', () => {
                 "code": CodeableConceptModel {
                   "coding": [
                     CodingModel {
-                      "code": "grp-category",
-                      "display": "Research Study Group Category (Catégorie du groupe d'étude)",
+                      "code": "grp-gender",
+                      "display": "Gender (Genre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "unknown",
+                      "display": "Unknown",
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "version": "5.0.0",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-studypop",
+                      "display": "Study Population (Population de l'étude)",
                       "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
                       "version": "0.2.1",
                     },
@@ -2529,9 +2579,9 @@ describe('research study model factory', () => {
                   "coding": [
                     CodingModel {
                       "code": undefined,
-                      "display": "INDISPONIBLE",
-                      "system": undefined,
-                      "version": undefined,
+                      "display": undefined,
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-population-code-system",
+                      "version": "0.2.0",
                     },
                   ],
                   "id": undefined,

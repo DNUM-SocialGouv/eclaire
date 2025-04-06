@@ -112,8 +112,8 @@ export class CodingModel implements Coding {
     )
 
     return new CodingModel(
-      matchingStudyPopulation.code,
-      matchingStudyPopulation.display,
+      matchingStudyPopulation?.code,
+      matchingStudyPopulation?.display,
       eclaireStudyPopulationCodeSystem.url,
       eclaireStudyPopulationCodeSystem.version
     )

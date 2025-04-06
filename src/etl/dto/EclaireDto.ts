@@ -1,7 +1,6 @@
 import { RiphCtisDto } from './RiphCtisDto'
 import { RiphDmDto } from './RiphDmDto'
 import { RiphJardeDto } from './RiphJardeDto'
-import { ModelUtils } from '../../shared/models/eclaire/ModelUtils'
 
 export class EclaireDto {
   private constructor(
@@ -34,30 +33,13 @@ export class EclaireDto {
     readonly dates_avis_favorable_ms_mns: string,
     readonly pays_concernes: string[],
     readonly date_theorique_maximale_autorisation_cpp: string,
-    readonly portee_recherche: string,
-    readonly description_urgence: string,
-    readonly date_fin_etude: string,
-    readonly contact_public_nom: string,
-    readonly contact_public_prenom: string,
-    readonly contact_public_courriel: string,
-    readonly contact_public_telephone: string,
+    readonly contact_public: Contact,
     readonly criteres_eligibilite: Critere[],
     readonly criteres_jugement: Critere[],
-    readonly publication_eclaire: string,
-    readonly numero_nct: string,
-    readonly numero_isrctn: string,
-    readonly numero_utn: string,
-    readonly numero_libre: string,
     readonly objectifs: string,
     readonly resume: string,
-    readonly duree_participation: string,
-    readonly participants_sexe: string,
-    readonly participants_tranches_age: string,
-    readonly participants_groupe_sujets: string,
-    readonly participants_population_vulnerable: string,
     readonly statut_recrutement: string,
-    readonly date_fin_recrutement: string,
-    readonly sites_investigateurs: Site[]
+    readonly date_fin_recrutement: string
   ) {}
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
@@ -115,40 +97,18 @@ export class EclaireDto {
       riphCtisDto.dates_avis_favorable_ms_mns,
       riphCtisDto.pays_concernes?.split(', ') || null,
       new Date('2023-03-15').toISOString().split('T')[0], // Date de mise en production de la gestion des historiques côté SIRIPH
-      riphCtisDto.portee_recherche,
-      riphCtisDto.description_urgence,
-      riphCtisDto.date_fin_etude,
-      riphCtisDto.contact_public_nom,
-      riphCtisDto.contact_public_prenom,
-      riphCtisDto.contact_public_courriel,
-      riphCtisDto.contact_public_telephone,
+      new Contact(
+        riphCtisDto.contact_public_nom,
+        riphCtisDto.contact_public_prenom,
+        riphCtisDto.contact_public_courriel,
+        riphCtisDto.contact_public_telephone
+      ),
       riphCtisDto.criteres_eligibilite,
       riphCtisDto.criteres_jugement,
-      riphCtisDto.publication_eclaire,
-      riphCtisDto.numero_nct,
-      riphCtisDto.numero_isrctn,
-      riphCtisDto.numero_utn,
-      riphCtisDto.numero_libre,
       riphCtisDto.objectifs,
       riphCtisDto.resume,
-      riphCtisDto.duree_participation,
-      riphCtisDto.participants_sexe,
-      riphCtisDto.participants_tranches_age,
-      riphCtisDto.participants_groupe_sujets,
-      riphCtisDto.participants_population_vulnerable,
       riphCtisDto.statut_recrutement,
-      riphCtisDto.date_fin_recrutement,
-      riphCtisDto.sites_investigateurs.map((site) => {
-        return {
-          adresse: site.adresse,
-          nom: site.nom,
-          organisme: site.organisme,
-          prenom: site.prenom,
-          service: site.service,
-          titre: site.titre_investigateur,
-          ville: site.ville,
-        }
-      })
+      riphCtisDto.date_fin_recrutement
     )
   }
 
@@ -169,57 +129,43 @@ export class EclaireDto {
       null,
       null,
       null,
-      ModelUtils.EMPTY_ARRAY_IN_SOURCE,
+      riphDmDto.sites_investigateurs.map((site_investigateur) => new Site(
+        site_investigateur.organisme,
+        site_investigateur.adresse,
+        site_investigateur.ville,
+        site_investigateur.titre_investigateur,
+        site_investigateur.nom,
+        site_investigateur.prenom,
+        site_investigateur.service
+      )),
       riphDmDto.numero_national,
       riphDmDto.titre_recherche,
       'N/A',
       riphDmDto.domaine_therapeutique,
-      ModelUtils.UNAVAILABLE,
+      null,
       null,
       riphDmDto.taille_etude,
-      null,
-      null,
-      ModelUtils.UNAVAILABLE,
-      null,
-      null,
+      riphDmDto.participants_tranches_age?.split(', ') || null,
+      riphDmDto.participants_sexe?.split(',') || ['unknown'],
+      riphDmDto.participants_groupe_sujets,
+      [riphDmDto.participants_population_vulnerable],
+      riphDmDto.date_debut_recrutement !== null ? new Date(riphDmDto.date_debut_recrutement).toISOString() : null,
       riphDmDto.historique,
       riphDmDto.dates_avis_favorable_ms_mns,
       null,
       this.getMaxTheoreticalValidationDate(riphDmDto.date_soumission, 102),
-      null,
-      null,
-      null,
-      riphDmDto.contact_public_nom,
-      riphDmDto.contact_public_prenom,
-      riphDmDto.contact_public_courriel,
-      riphDmDto.contact_public_telephone,
+      new Contact(
+        riphDmDto.contact_public_nom,
+        riphDmDto.contact_public_prenom,
+        riphDmDto.contact_public_courriel,
+        riphDmDto.contact_public_telephone
+      ),
       riphDmDto.criteres_eligibilite,
       riphDmDto.criteres_jugement,
-      riphDmDto.publication_eclaire,
-      riphDmDto.numero_nct,
-      riphDmDto.numero_isrctn,
-      riphDmDto.numero_utn,
-      riphDmDto.numero_libre,
       riphDmDto.objectifs,
       riphDmDto.resume,
-      riphDmDto.duree_participation,
-      riphDmDto.participants_sexe,
-      riphDmDto.participants_tranches_age,
-      riphDmDto.participants_groupe_sujets,
-      riphDmDto.participants_population_vulnerable,
       riphDmDto.statut_recrutement,
-      riphDmDto.date_fin_recrutement,
-      riphDmDto.sites_investigateurs.map((site) => {
-        return {
-          adresse: site.adresse,
-          nom: site.nom,
-          organisme: site.organisme,
-          prenom: site.prenom,
-          service: site.service,
-          titre: site.titre_investigateur,
-          ville: site.ville,
-        }
-      })
+      riphDmDto.date_fin_recrutement
     )
   }
 
@@ -248,59 +194,54 @@ export class EclaireDto {
       null,
       null,
       null,
-      ModelUtils.EMPTY_ARRAY_IN_SOURCE,
+      riphJardeDto.sites_investigateurs.map((site_investigateur) => new Site(
+        site_investigateur.organisme,
+        site_investigateur.adresse,
+        site_investigateur.ville,
+        site_investigateur.titre_investigateur,
+        site_investigateur.nom,
+        site_investigateur.prenom,
+        site_investigateur.service
+      )),
       riphJardeDto.numero_national,
       riphJardeDto.titre_recherche,
       phaseRecherche,
       riphJardeDto.domaine_therapeutique,
-      ModelUtils.UNAVAILABLE,
+      null,
       null,
       riphJardeDto.taille_etude,
-      null,
-      null,
-      ModelUtils.UNAVAILABLE,
-      null,
-      null,
+      riphJardeDto.participants_tranches_age?.split(', ') || null,
+      riphJardeDto.participants_sexe?.split(',') || ['unknown'],
+      riphJardeDto.participants_groupe_sujets,
+      [riphJardeDto.participants_population_vulnerable],
+      riphJardeDto.date_debut_recrutement !== null ? new Date(riphJardeDto.date_debut_recrutement).toISOString() : null,
       riphJardeDto.historique,
       riphJardeDto.dates_avis_favorable_ms_mns,
       null,
       this.getMaxTheoreticalValidationDate(riphJardeDto.date_soumission, 109),
-      null,
-      null,
-      null,
-      riphJardeDto.contact_public_nom,
-      riphJardeDto.contact_public_prenom,
-      riphJardeDto.contact_public_courriel,
-      riphJardeDto.contact_public_telephone,
+      new Contact(
+        riphJardeDto.contact_public_nom,
+        riphJardeDto.contact_public_prenom,
+        riphJardeDto.contact_public_courriel,
+        riphJardeDto.contact_public_telephone
+      ),
       riphJardeDto.criteres_eligibilite,
       riphJardeDto.criteres_jugement,
-      riphJardeDto.publication_eclaire,
-      riphJardeDto.numero_nct,
-      riphJardeDto.numero_isrctn,
-      riphJardeDto.numero_utn,
-      riphJardeDto.numero_libre,
       riphJardeDto.objectifs,
       riphJardeDto.resume,
-      riphJardeDto.duree_participation,
-      riphJardeDto.participants_sexe,
-      riphJardeDto.participants_tranches_age,
-      riphJardeDto.participants_groupe_sujets,
-      riphJardeDto.participants_population_vulnerable,
       riphJardeDto.statut_recrutement,
-      riphJardeDto.date_fin_recrutement,
-      riphJardeDto.sites_investigateurs.map((site) => {
-        return {
-          adresse: site.adresse,
-          nom: site.nom,
-          organisme: site.organisme,
-          prenom: site.prenom,
-          service: site.service,
-          titre: site.titre_investigateur,
-          ville: site.ville,
-        }
-      })
+      riphJardeDto.date_fin_recrutement
     )
   }
+}
+
+class Contact {
+  constructor(
+    readonly nom: string,
+    readonly prenom: string,
+    readonly courriel: string,
+    readonly telephone: string
+  ) {}
 }
 
 class Site {
@@ -319,8 +260,7 @@ class Critere {
   private constructor(
     readonly titre: string,
     readonly type: string
-  ) {
-  }
+  ) {}
 }
 
 type Phase = 'Phase I' | 'Phase I/Phase II' | 'Phase II' | 'Phase II/Phase III' | 'Phase III' | 'Phase III/Phase IV' | 'Phase IV' | 'N/A'

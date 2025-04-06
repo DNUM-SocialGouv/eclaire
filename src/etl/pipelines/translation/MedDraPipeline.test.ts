@@ -212,15 +212,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
       const result: ResearchStudyModel[] = await medDraPipeline.transform(documents)
 
       // then
-      expect(result[0].condition).toMatchInlineSnapshot(`
-        [
-          CodeableConceptModel {
-            "coding": undefined,
-            "id": "disease-condition-2021-A01022-39",
-            "text": "INDISPONIBLE",
-          },
-        ]
-      `)
+      expect(result[0].condition).toMatchInlineSnapshot('undefined')
     })
   })
 
@@ -329,24 +321,10 @@ describe('etl | Pipelines | MedDraPipeline', () => {
       `)
 
       const dm: ResearchStudyModel = await esResearchStudyRepository.findOne('dm')
-      expect(dm.condition).toMatchInlineSnapshot(`
-        [
-          {
-            "id": "disease-condition-dm",
-            "text": "INDISPONIBLE",
-          },
-        ]
-      `)
+      expect(dm.condition).toMatchInlineSnapshot('undefined')
 
       const jarde: ResearchStudyModel = await esResearchStudyRepository.findOne('jarde')
-      expect(jarde.condition).toMatchInlineSnapshot(`
-        [
-          {
-            "id": "disease-condition-jarde",
-            "text": "INDISPONIBLE",
-          },
-        ]
-      `)
+      expect(jarde.condition).toMatchInlineSnapshot('undefined')
     })
   })
 })
