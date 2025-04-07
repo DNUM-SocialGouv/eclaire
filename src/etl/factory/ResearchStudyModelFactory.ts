@@ -137,6 +137,14 @@ export class ResearchStudyModelFactory {
 
     extensions.push(ExtensionModel.createEclaireArmIntervention(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE))
 
+    extensions.push(ExtensionModel.createEclaireAssociatedPartyR5(
+      primarySponsorOrganization.name,
+      'lead-sponsor',
+      null,
+      null,
+      sponsor
+    ))
+
     const status: RiphStatus = eclaireDto.etat as RiphStatus
     extensions.push(ExtensionModel.createEclaireRecruitmentStatus(eclaireDto.statut_recrutement))
 

@@ -347,6 +347,53 @@
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
           },
           {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": "F. Hoffmann-La Roche AG",
+              },
+              {
+                "url": "role",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "lead-sponsor",
+                      "display": "lead-sponsor",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-role-code-system",
+                      "version": "0.3.0",
+                    },
+                  ],
+                },
+              },
+              {
+                "url": "period",
+                "valuePeriod": {
+                  "start": null,
+                },
+              },
+              {
+                "url": "classifier",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-organization-type-code-system",
+                      "version": "0.3.0",
+                    },
+                  ],
+                },
+              },
+              {
+                "url": "party",
+                "valueReference": {
+                  "display": "Reference to primary sponsor",
+                  "reference": "Organization/2022-500014-26-00-primary-sponsor",
+                  "type": "Organization",
+                },
+              },
+            ],
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty",
+          },
+          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
             "valueCodeableConcept": {
               "coding": [
@@ -804,6 +851,53 @@
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
           },
           {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": "Soladis Clinical Studies",
+              },
+              {
+                "url": "role",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "lead-sponsor",
+                      "display": "lead-sponsor",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-role-code-system",
+                      "version": "0.3.0",
+                    },
+                  ],
+                },
+              },
+              {
+                "url": "period",
+                "valuePeriod": {
+                  "start": null,
+                },
+              },
+              {
+                "url": "classifier",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-organization-type-code-system",
+                      "version": "0.3.0",
+                    },
+                  ],
+                },
+              },
+              {
+                "url": "party",
+                "valueReference": {
+                  "display": "Reference to primary sponsor",
+                  "reference": "Organization/2021-A01563-38-primary-sponsor",
+                  "type": "Organization",
+                },
+              },
+            ],
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty",
+          },
+          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
             "valueCodeableConcept": {
               "coding": [
@@ -1159,6 +1253,53 @@
               },
             ],
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
+          },
+          {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": "Université Polytechnique Hauts-de-France",
+              },
+              {
+                "url": "role",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "lead-sponsor",
+                      "display": "lead-sponsor",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-role-code-system",
+                      "version": "0.3.0",
+                    },
+                  ],
+                },
+              },
+              {
+                "url": "period",
+                "valuePeriod": {
+                  "start": null,
+                },
+              },
+              {
+                "url": "classifier",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-organization-type-code-system",
+                      "version": "0.3.0",
+                    },
+                  ],
+                },
+              },
+              {
+                "url": "party",
+                "valueReference": {
+                  "display": "Reference to primary sponsor",
+                  "reference": "Organization/2021-A01022-39-primary-sponsor",
+                  "type": "Organization",
+                },
+              },
+            ],
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty",
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
@@ -1587,6 +1728,53 @@
               },
             ],
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
+          },
+          {
+            "extension": [
+              {
+                "url": "name",
+                "valueString": "F. Hoffmann-La Roche AG",
+              },
+              {
+                "url": "role",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "lead-sponsor",
+                      "display": "lead-sponsor",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-role-code-system",
+                      "version": "0.3.0",
+                    },
+                  ],
+                },
+              },
+              {
+                "url": "period",
+                "valuePeriod": {
+                  "start": null,
+                },
+              },
+              {
+                "url": "classifier",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-organization-type-code-system",
+                      "version": "0.3.0",
+                    },
+                  ],
+                },
+              },
+              {
+                "url": "party",
+                "valueReference": {
+                  "display": "Reference to primary sponsor",
+                  "reference": "Organization/2024-500014-26-99-primary-sponsor",
+                  "type": "Organization",
+                },
+              },
+            ],
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty",
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",

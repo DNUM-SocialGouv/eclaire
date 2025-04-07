@@ -39,14 +39,14 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireAssociatedPartyR5(name: string, role: string, period: string, classifier: string, partyId: string, partyType: string): Extension {
+  static createEclaireAssociatedPartyR5(name: string, role: string, period: string, classifier: string, party: Reference): Extension {
     return new ExtensionModel(
       [
         this.createEclaireAssociatedPartyR5Name(name),
         this.createEclaireAssociatedPartyR5Role(role),
         this.createEclaireAssociatedPartyR5Period(period),
         this.createEclaireAssociatedPartyR5Classifier(classifier),
-        this.createEclaireAssociatedPartyR5Party(partyId, partyType),
+        this.createEclaireAssociatedPartyR5Party(party),
       ],
       'http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty',
       undefined,
@@ -456,7 +456,7 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  private static createEclaireAssociatedPartyR5Party(id: string, type: string) {
+  private static createEclaireAssociatedPartyR5Party(reference: Reference) {
     return new ExtensionModel(
       undefined,
       'party',
@@ -467,7 +467,7 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
-      ReferenceModel.createEclaireAssociatedPartyR5Party(id, type),
+      reference,
       undefined
     )
   }

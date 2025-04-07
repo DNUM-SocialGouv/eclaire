@@ -60,14 +60,6 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createEclaireAssociatedPartyR5Party(id: string, type: string): Reference {
-    return new ReferenceModel(
-      'Reference to associated party',
-      this.generateRelativeUrlReference(id, type),
-      type
-    )
-  }
-
   private static generateRelativeUrlReference(id: string, type: string): string {
     return `${type}/${id}`
   }
