@@ -34,11 +34,27 @@ describe('etl | IngestPipelineCtis', () => {
                 "titre": null,
                 "type": null,
               },
+              {
+                "titre": "TEST INCLUSION",
+                "type": "INCLUSION",
+              },
+              {
+                "titre": "TEST EXCLUSION",
+                "type": "EXCLUSION",
+              },
             ],
             "criteres_jugement": [
               {
                 "titre": null,
                 "type": null,
+              },
+              {
+                "titre": "TEST PRINCIPAL",
+                "type": "PRINCIPAL",
+              },
+              {
+                "titre": "TEST SECONDAIRE",
+                "type": "SECONDAIRE",
               },
             ],
             "date_debut_recrutement": "2022-06-30",
@@ -118,11 +134,27 @@ describe('etl | IngestPipelineCtis', () => {
                 "titre": null,
                 "type": null,
               },
+              {
+                "titre": "TEST INCLUSION",
+                "type": "INCLUSION",
+              },
+              {
+                "titre": "TEST EXCLUSION",
+                "type": "EXCLUSION",
+              },
             ],
             "criteres_jugement": [
               {
                 "titre": null,
                 "type": null,
+              },
+              {
+                "titre": "TEST PRINCIPAL",
+                "type": "PRINCIPAL",
+              },
+              {
+                "titre": "TEST SECONDAIRE",
+                "type": "SECONDAIRE",
               },
             ],
             "date_debut_recrutement": "2022-06-30",
@@ -202,11 +234,27 @@ describe('etl | IngestPipelineCtis', () => {
                 "titre": null,
                 "type": null,
               },
+              {
+                "titre": "TEST INCLUSION",
+                "type": "INCLUSION",
+              },
+              {
+                "titre": "TEST EXCLUSION",
+                "type": "EXCLUSION",
+              },
             ],
             "criteres_jugement": [
               {
                 "titre": null,
                 "type": null,
+              },
+              {
+                "titre": "TEST PRINCIPAL",
+                "type": "PRINCIPAL",
+              },
+              {
+                "titre": "TEST SECONDAIRE",
+                "type": "SECONDAIRE",
               },
             ],
             "date_debut_recrutement": "2022-06-30",

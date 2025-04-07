@@ -55,11 +55,27 @@ export class RiphDtoTestFactory {
           titre: null,
           type: null,
         },
+        {
+          titre: 'TEST INCLUSION',
+          type: 'INCLUSION',
+        },
+        {
+          titre: 'TEST EXCLUSION',
+          type: 'EXCLUSION',
+        },
       ],
       criteres_jugement: [
         {
           titre: null,
           type: null,
+        },
+        {
+          titre: 'TEST PRINCIPAL',
+          type: 'PRINCIPAL',
+        },
+        {
+          titre: 'TEST SECONDAIRE',
+          type: 'SECONDAIRE',
         },
       ],
       publication_eclaire: 'autorisé',
@@ -143,11 +159,27 @@ export class RiphDtoTestFactory {
           titre: null,
           type: null,
         },
+        {
+          titre: 'TEST INCLUSION',
+          type: 'INCLUSION',
+        },
+        {
+          titre: 'TEST EXCLUSION',
+          type: 'EXCLUSION',
+        },
       ],
       criteres_jugement: [
         {
           titre: null,
           type: null,
+        },
+        {
+          titre: 'TEST PRINCIPAL',
+          type: 'PRINCIPAL',
+        },
+        {
+          titre: 'TEST SECONDAIRE',
+          type: 'SECONDAIRE',
         },
       ],
       publication_eclaire: 'autorisé',
@@ -234,11 +266,27 @@ export class RiphDtoTestFactory {
           titre: null,
           type: null,
         },
+        {
+          titre: 'TEST INCLUSION',
+          type: 'INCLUSION',
+        },
+        {
+          titre: 'TEST EXCLUSION',
+          type: 'EXCLUSION',
+        },
       ],
       criteres_jugement: [
         {
           titre: null,
           type: null,
+        },
+        {
+          titre: 'TEST PRINCIPAL',
+          type: 'PRINCIPAL',
+        },
+        {
+          titre: 'TEST SECONDAIRE',
+          type: 'SECONDAIRE',
         },
       ],
       publication_eclaire: 'autorisé',

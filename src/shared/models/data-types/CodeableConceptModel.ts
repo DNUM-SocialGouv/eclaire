@@ -178,4 +178,20 @@ export class CodeableConceptModel implements CodeableConcept {
       objectifs
     )
   }
+
+  static createPrincipal(value: string) {
+    return new CodeableConceptModel(
+      undefined,
+      [CodingModel.createPrincipal(value)],
+      undefined
+    )
+  }
+
+  static createSecondary(value: string) {
+    return new CodeableConceptModel(
+      undefined,
+      [CodingModel.createSecondary(value)],
+      undefined
+    )
+  }
 }

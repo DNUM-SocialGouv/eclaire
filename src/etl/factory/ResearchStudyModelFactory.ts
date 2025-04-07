@@ -228,7 +228,9 @@ export class ResearchStudyModelFactory {
       eclaireDto.tranches_age,
       eclaireDto.taille_etude,
       eclaireDto.groupes_sujet,
-      eclaireDto.population_recrutement
+      eclaireDto.population_recrutement,
+      eclaireDto.criteres_eligibilite,
+      eclaireDto.criteres_jugement
     )
 
     return { enrollment, enrollmentGroup }

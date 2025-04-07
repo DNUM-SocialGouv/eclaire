@@ -85,4 +85,28 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
       undefined
     )
   }
+
+  static createPrincipal(value: string) {
+    return new GroupCharacteristicModel(
+      CodeableConceptModel.createGroupCharacteristicKindVs('grp-other'),
+      false,
+      undefined,
+      CodeableConceptModel.createPrincipal(value),
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
+  static createSecondary(value: string) {
+    return new GroupCharacteristicModel(
+      CodeableConceptModel.createGroupCharacteristicKindVs('grp-other'),
+      false,
+      undefined,
+      CodeableConceptModel.createSecondary(value),
+      undefined,
+      undefined,
+      undefined
+    )
+  }
 }

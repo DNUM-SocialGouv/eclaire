@@ -20,11 +20,27 @@ describe('etl | dto | EclaireDto', () => {
             "titre": null,
             "type": null,
           },
+          {
+            "titre": "TEST INCLUSION",
+            "type": "INCLUSION",
+          },
+          {
+            "titre": "TEST EXCLUSION",
+            "type": "EXCLUSION",
+          },
         ],
         "criteres_jugement": [
           {
             "titre": null,
             "type": null,
+          },
+          {
+            "titre": "TEST PRINCIPAL",
+            "type": "PRINCIPAL",
+          },
+          {
+            "titre": "TEST SECONDAIRE",
+            "type": "SECONDAIRE",
           },
         ],
         "date_debut_recrutement": "2022-06-30T00:00:00.000Z",
@@ -109,11 +125,27 @@ describe('etl | dto | EclaireDto', () => {
             "titre": null,
             "type": null,
           },
+          {
+            "titre": "TEST INCLUSION",
+            "type": "INCLUSION",
+          },
+          {
+            "titre": "TEST EXCLUSION",
+            "type": "EXCLUSION",
+          },
         ],
         "criteres_jugement": [
           {
             "titre": null,
             "type": null,
+          },
+          {
+            "titre": "TEST PRINCIPAL",
+            "type": "PRINCIPAL",
+          },
+          {
+            "titre": "TEST SECONDAIRE",
+            "type": "SECONDAIRE",
           },
         ],
         "date_debut_recrutement": null,

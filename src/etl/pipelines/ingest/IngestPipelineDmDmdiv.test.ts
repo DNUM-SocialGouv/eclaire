@@ -29,11 +29,27 @@ describe('etl | IngestPipelineDm', () => {
                 "titre": null,
                 "type": null,
               },
+              {
+                "titre": "TEST INCLUSION",
+                "type": "INCLUSION",
+              },
+              {
+                "titre": "TEST EXCLUSION",
+                "type": "EXCLUSION",
+              },
             ],
             "criteres_jugement": [
               {
                 "titre": null,
                 "type": null,
+              },
+              {
+                "titre": "TEST PRINCIPAL",
+                "type": "PRINCIPAL",
+              },
+              {
+                "titre": "TEST SECONDAIRE",
+                "type": "SECONDAIRE",
               },
             ],
             "date_creation_etude": null,
@@ -118,11 +134,27 @@ describe('etl | IngestPipelineDm', () => {
                 "titre": null,
                 "type": null,
               },
+              {
+                "titre": "TEST INCLUSION",
+                "type": "INCLUSION",
+              },
+              {
+                "titre": "TEST EXCLUSION",
+                "type": "EXCLUSION",
+              },
             ],
             "criteres_jugement": [
               {
                 "titre": null,
                 "type": null,
+              },
+              {
+                "titre": "TEST PRINCIPAL",
+                "type": "PRINCIPAL",
+              },
+              {
+                "titre": "TEST SECONDAIRE",
+                "type": "SECONDAIRE",
               },
             ],
             "date_creation_etude": null,
@@ -207,11 +239,27 @@ describe('etl | IngestPipelineDm', () => {
                 "titre": null,
                 "type": null,
               },
+              {
+                "titre": "TEST INCLUSION",
+                "type": "INCLUSION",
+              },
+              {
+                "titre": "TEST EXCLUSION",
+                "type": "EXCLUSION",
+              },
             ],
             "criteres_jugement": [
               {
                 "titre": null,
                 "type": null,
+              },
+              {
+                "titre": "TEST PRINCIPAL",
+                "type": "PRINCIPAL",
+              },
+              {
+                "titre": "TEST SECONDAIRE",
+                "type": "SECONDAIRE",
               },
             ],
             "date_creation_etude": null,

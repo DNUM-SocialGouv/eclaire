@@ -994,6 +994,130 @@ describe('research study model factory', () => {
                 "valueRange": undefined,
                 "valueReference": undefined,
               },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "TEST INCLUSION",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": true,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "TEST EXCLUSION",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "TEST PRINCIPAL",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "TEST SECONDAIRE",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
             ],
             "id": "2022-500014-26-00-enrollment-group",
             "quantity": 21,
@@ -1941,6 +2065,130 @@ describe('research study model factory', () => {
                       "display": undefined,
                       "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-population-code-system",
                       "version": "0.2.0",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "TEST INCLUSION",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": true,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "TEST EXCLUSION",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "TEST PRINCIPAL",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "TEST SECONDAIRE",
+                      "system": undefined,
+                      "version": undefined,
                     },
                   ],
                   "id": undefined,
@@ -3669,6 +3917,130 @@ describe('research study model factory', () => {
                       "display": "Unknown",
                       "system": "http://hl7.org/fhir/administrative-gender",
                       "version": "5.0.0",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "TEST INCLUSION",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": true,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "TEST EXCLUSION",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "TEST PRINCIPAL",
+                      "system": undefined,
+                      "version": undefined,
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "valueQuantity": undefined,
+                "valueRange": undefined,
+                "valueReference": undefined,
+              },
+              GroupCharacteristicModel {
+                "code": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": "grp-other",
+                      "display": "Other (Autre)",
+                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
+                      "version": "0.2.1",
+                    },
+                  ],
+                  "id": undefined,
+                  "text": undefined,
+                },
+                "exclude": false,
+                "valueBoolean": undefined,
+                "valueCodeableConcept": CodeableConceptModel {
+                  "coding": [
+                    CodingModel {
+                      "code": undefined,
+                      "display": "TEST SECONDAIRE",
+                      "system": undefined,
+                      "version": undefined,
                     },
                   ],
                   "id": undefined,

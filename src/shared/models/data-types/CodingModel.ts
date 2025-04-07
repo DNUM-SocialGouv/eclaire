@@ -279,6 +279,24 @@ export class CodingModel implements Coding {
       '0.1.0'
     )
   }
+
+  static createPrincipal(value: string) {
+    return new CodingModel(
+      undefined,
+      value,
+      undefined,
+      undefined
+    )
+  }
+
+  static createSecondary(value: string) {
+    return new CodingModel(
+      undefined,
+      value,
+      undefined,
+      undefined
+    )
+  }
 }
 
 export type EclaireGroupCharacteristicKindVsReferenceCode = 'grp-gender' | 'grp-studypop' | 'grp-category' | 'grp-age' | 'grp-other'

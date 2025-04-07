@@ -256,7 +256,7 @@ class Site {
   ) {}
 }
 
-class Critere {
+export class Critere {
   private constructor(
     readonly titre: string,
     readonly type: string
