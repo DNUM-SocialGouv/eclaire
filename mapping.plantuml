@@ -5,10 +5,10 @@ scale 1200 width
 map "ContactDetail" as Contact #back:AliceBlue;header:LightSkyBlue;line:blue {
     <&check> Nom => name :  string [0..1]
     <&check> Télécommunication => telecom :  ContactPoint [0..*]
-    <&check> Type => <&plus> ECLAIREContacType :  CodeableConcept [0..1] \n ("Public"/"Scientific")
-    Adresse => <&plus> ECLAIREContactAddress : Address [0..1]
-    Affiliation => <&plus> ECLAIREContactAffiliation : string [0..1]
-    Nom => <&plus> ECLAIREContactName : HumanName [0..1]
+    <&check> Type => <&plus> ECLAIREContacType :  CodeableConcept [0..1] \n (<&check> "Public"/"Scientific")
+    <&check> Adresse => <&plus> ECLAIREContactAddress : Address [0..1]
+    <&check> Affiliation => <&plus> ECLAIREContactAffiliation : string [0..1]
+    <&check> Nom => <&plus> ECLAIREContactName : HumanName [0..1]
 }
 
 map "HumanName" as slice_name #back:AliceBlue;header:LightSkyBlue;line:blue {
@@ -36,7 +36,7 @@ map "Group" as Group #back:TECHNOLOGY;header:LightGreen {
     <&check> Type de groupe* => type : code [1..1] = "Person"
     <&check> Groupe actif* => actual : boolean [1..1] = "True"
     <&check> Effectif à recruter => quantity : unsignedInt [0..1]
-    <&check> Critères \n Age \n Genre \n Groupe de sujet => \n characteristic : BackboneElement [0..*]
+    <&check> Critères \n<&check> Age \n<&check> Genre \n<&check> Groupe de sujet => \n characteristic : BackboneElement [0..*]
 }
 
 map "Characteristic" as Characteristic #back:TECHNOLOGY;header:LightGreen {
@@ -80,28 +80,28 @@ map arm #back:AliceBlue;header:LightSkyBlue;line:blue {
 }
 
 map "EssaiClinique : ResearchStudy" as RS #back:AliceBlue;header:LightSkyBlue;line:blue {
-    Identifiant (Primary and Secondary Identifying Numbers) => <&layers> identifier : Identifier [0..*]
-    Date d'inscription au registre principal (Date of registration in primary registry) => identifier[idPrimary].period.start : dateTime [0..1]  
+    <&check> Identifiant (Primary and Secondary Identifying Numbers) => <&layers> identifier : Identifier [0..*]
+    <&check> Date d'inscription au registre principal (Date of registration in primary registry) => identifier[idPrimary].period.start : dateTime [0..1]
     <&check> Date de révision technique => meta.lastUpdated : instant [0..1]
     <&check> Date de révision fonctionnelle => <&plus> ECLAIREReviewDate : instant [0..1]
     <&check> Nom de l'essai (Scientifique title) => title : string [0..1]
     Autres noms de l'essai (Public title) => <&plus> R5 ECLAIRELabel : Extension R5 ResearchStudy.label [0..*] 
     <&check> Statut de l'essai => status : code [1..1]
-    Statut du recrutement => <&plus> ECLAIRERecruitmentStatus : CodeableConcept [0..1]
+    <&check> Statut du recrutement => <&plus> ECLAIRERecruitmentStatus : CodeableConcept [0..1]
     <&check> Phase de l'essai (Study type : phase) => phase : CodeableConcept [0..1]
     <&check> Type d'essai (Study type : type of study) => category : CodeableConcept [0..*]
     <&check> Sujet concerné (Health Condition(s) or Problem(s) Studied) => <&layers> condition : CodeableConcept [0..*] (MeDRA)
     <&check> Domaine thérapeutique* => <&plus> ECLAIRETherapeuticArea : string [0..1]
-    Résumé de l'essai => description : markdown [0..1] 
-    Texte bref décrivant l'essai (Brief summary) => <&plus> R5 ECLAIREDescriptionSummary : Extension R5 ResearchStudy.descriptionSummary [0..1]
-    Objectif principal (Primary Purpose) => primaryPurposeType : CodeableConcept [0..1]
+    <&check> Résumé de l'essai => description : markdown [0..1]
+    <&check> Texte bref décrivant l'essai (Brief summary) => <&plus> R5 ECLAIREDescriptionSummary : Extension R5 ResearchStudy.descriptionSummary [0..1]
+    <&check> Objectif principal (Primary Purpose) => primaryPurposeType : CodeableConcept [0..1]
     <&check> Période prévisionnelle de recrutement => <&plus> ECLAIRERecruitmentPeriod : period [0..1]
-    Date prévisionnelle de fin de l'essai (Completion date) => period.end : dateTime [0..1]
-    Contact (Contact for public / scientific queries) => contact : ContactDetail [0..*] 
+    <&check> Date prévisionnelle de fin de l'essai (Completion date) => period.end : dateTime [0..1]
+    <&check> Contact (Contact for public / scientific queries) => contact : ContactDetail [0..*]
     <&check> Participants (Key Inclusion and Exclusion Criteria, Sample size) => enrollment : Reference(Group) [0..*]
     <&check> Lieux => site : Reference(Location) [0..*]
     <&check> Pays de recrutement (Countries of Recruitment) => location : CodeableConcept [0..*]
-    Promoteur principal (Primary sponsor) => <&plus> ECLAIREassociatedPartyR5 : Extension R5 ResearchStudy.associatedParty [0..*] 
+    <&check> Promoteur principal (Primary sponsor) => <&plus> ECLAIREassociatedPartyR5 : Extension R5 ResearchStudy.associatedParty [0..*]
     Promoteur secondaire (Secondary Sponsor(s)) => <&plus> ECLAIREassociatedPartyR5  : Extension R5 ResearchStudy.associatedParty [0..*]  
     Source de financement (Source(s) of Monetary or Material Support) => <&plus> ECLAIREassociatedPartyR5  : Extension R5 ResearchStudy.associatedParty [0..*]
     Comité éthique (Ethics Review Board) => <&plus> ECLAIREassociatedPartyR5  : Extension R5 ResearchStudy.associatedParty [0..*]
