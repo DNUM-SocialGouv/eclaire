@@ -89,8 +89,8 @@ export class CodingModel implements Coding {
     )
 
     return new CodingModel(
-      matchingGender.code,
-      matchingGender.display,
+      matchingGender?.code,
+      matchingGender?.display,
       administrativeGenderCodeSystem.url,
       administrativeGenderCodeSystem.version
     )
