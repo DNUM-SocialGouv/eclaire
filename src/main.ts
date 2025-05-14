@@ -9,6 +9,8 @@ import './api/sentry/instrument'
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
 
+  app.enableCors({ methods: ['GET'], origin: 'https://www.data.gouv.fr' })
+
   app.disable('x-powered-by')
 
   app.get(SwaggerService).create(app)
