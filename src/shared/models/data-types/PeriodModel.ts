@@ -1,5 +1,7 @@
 import { Period } from 'fhir/r4'
 
+import { ModelUtils } from '../eclaire/ModelUtils'
+
 export class PeriodModel implements Period {
   private constructor(
     readonly end: string | undefined,
@@ -21,6 +23,10 @@ export class PeriodModel implements Period {
   }
 
   static createRegistrationInPrimaryRegistry(registrationDateInPrimaryRegistry: string): Period {
+    if (registrationDateInPrimaryRegistry === ModelUtils.UNAVAILABLE) {
+      return undefined
+    }
+
     return new PeriodModel(
       undefined,
       registrationDateInPrimaryRegistry
