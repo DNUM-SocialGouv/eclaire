@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+
 import {
   CodeableConcept,
   ContactDetail,
@@ -7,17 +9,11 @@ import {
   Location,
   Meta,
   Organization,
-  Period,
   Reference,
-  RelatedArtifact,
-  ResearchStudyArm,
 } from 'fhir/r4'
 
-import { ResearchStudyArmModel } from '../../shared/models/backbone-elements/ResearchStudyArmModel'
 import { CodeableConceptModel } from '../../shared/models/data-types/CodeableConceptModel'
 import { IdentifierModel } from '../../shared/models/data-types/IdentifierModel'
-import { PeriodModel } from '../../shared/models/data-types/PeriodModel'
-import { RelatedArtifactModel } from '../../shared/models/data-types/RelatedArtifactModel'
 import { GroupModel } from '../../shared/models/domain-resources/GroupModel'
 import { LocationModel } from '../../shared/models/domain-resources/LocationModel'
 import { OrganizationModel } from '../../shared/models/domain-resources/OrganizationModel'
@@ -84,21 +80,7 @@ export class ResearchStudyModelFactory {
         ModelUtils.UNAVAILABLE
       ))
     }
-    contact.push(
-      ContactDetailModel.create(
-        ModelUtils.UNAVAILABLE,
-        null,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        'Scientific',
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE
-      )
-    )
+
     contact.push(
       ContactDetailModel.create(
         eclaireDto.contact_public.prenom,
@@ -121,11 +103,8 @@ export class ResearchStudyModelFactory {
     if (ModelUtils.isNotNull(eclaireDto.domaine_therapeutique)) {
       extensions.push(ExtensionModel.createEclaireTherapeuticArea(eclaireDto.domaine_therapeutique))
     }
-    extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'))
-    extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'))
     extensions.push(ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement, eclaireDto.date_fin_recrutement))
     extensions.push(ExtensionModel.createEclaireReviewDate(mostRecentDate))
-
     extensions.push(ExtensionModel.createEclaireDescriptionSummary(eclaireDto.resume))
 
     const primaryPurposeType: CodeableConcept = CodeableConceptModel.createPrimaryPurposeType(eclaireDto.objectifs)
@@ -136,7 +115,38 @@ export class ResearchStudyModelFactory {
       null
     ))
 
+    /* TODO - Remplir quand les données seront disponibles
+    contact.push(
+      ContactDetailModel.create(
+        ModelUtils.UNAVAILABLE,
+        null,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        'Scientific',
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE,
+        ModelUtils.UNAVAILABLE
+      )
+    )
+    extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'acronym'))
+    extensions.push(ExtensionModel.createEclaireLabel(ModelUtils.UNAVAILABLE, 'human-use'))
     extensions.push(ExtensionModel.createEclaireArmIntervention(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE))
+    const relatedArtifacts: RelatedArtifact[] = [RelatedArtifactModel.create(ModelUtils.UNAVAILABLE)]
+    const period: Period = PeriodModel.createCompletionDate(ModelUtils.UNAVAILABLE)
+    const arm: ResearchStudyArm[] = ResearchStudyArmModel.create(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+     */
+    const arm = undefined
+    const relatedArtifacts = undefined
+    const period = undefined
 
     extensions.push(ExtensionModel.createEclaireAssociatedPartyR5(
       eclaireDto.organisme_nom,
@@ -152,7 +162,9 @@ export class ResearchStudyModelFactory {
     const id = eclaireDto.numero_primaire
     const identifier: Identifier[] = [
       primaryAssignerIdentifier,
+      /* TODO - Remplir quand les données seront disponibles
       IdentifierModel.createSecondarySlice(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE),
+       */
     ]
     const location = ModelUtils.isNotNull(eclaireDto.pays_concernes) ? CodeableConceptModel.createLocations(eclaireDto.pays_concernes) : undefined
     const meta: Meta = MetaModel.create(mostRecentDate)
@@ -169,18 +181,6 @@ export class ResearchStudyModelFactory {
       enrollmentGroup,
       siteLocations,
       organizations
-    )
-
-    const relatedArtifacts: RelatedArtifact[] = [RelatedArtifactModel.create(ModelUtils.UNAVAILABLE)]
-
-    const period: Period = PeriodModel.createCompletionDate(ModelUtils.UNAVAILABLE)
-
-    const arm: ResearchStudyArm[] = ResearchStudyArmModel.create(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined
     )
 
     return new ResearchStudyModel(

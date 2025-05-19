@@ -33,62 +33,6 @@
               {
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueHumanName": {
-                  "family": "INDISPONIBLE",
-                  "given": [
-                    "INDISPONIBLE",
-                  ],
-                  "use": "official",
-                },
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
-                "valueAddress": {
-                  "city": "INDISPONIBLE",
-                  "country": "INDISPONIBLE",
-                  "line": [
-                    "INDISPONIBLE",
-                  ],
-                  "postalCode": "INDISPONIBLE",
-                  "type": "physical",
-                  "use": "work",
-                },
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
-                "valueString": "INDISPONIBLE",
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "SCI",
-                      "display": "Scientifique / Scientific",
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-            ],
-            "telecom": [
-              {
-                "system": "phone",
-                "use": "work",
-                "value": "INDISPONIBLE",
-              },
-              {
-                "system": "email",
-                "use": "work",
-                "value": "INDISPONIBLE",
-              },
-            ],
-          },
-          {
-            "extension": [
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
-                "valueHumanName": {
                   "given": [],
                   "use": "official",
                 },
@@ -150,50 +94,6 @@
             "valueString": "Hépato-gastro-entérologie",
           },
           {
-            "extension": [
-              {
-                "url": "value",
-                "valueString": "INDISPONIBLE",
-              },
-              {
-                "url": "type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "human-use",
-                      "display": "Human use",
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-title-type-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-            ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html",
-          },
-          {
-            "extension": [
-              {
-                "url": "value",
-                "valueString": "INDISPONIBLE",
-              },
-              {
-                "url": "type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "acronym",
-                      "display": "Acronym",
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-title-type-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-            ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html",
-          },
-          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
             "valuePeriod": {},
           },
@@ -235,19 +135,6 @@
               },
             ],
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
-          },
-          {
-            "extension": [
-              {
-                "url": "name",
-                "valueString": "INDISPONIBLE",
-              },
-              {
-                "url": "description",
-                "valueString": "INDISPONIBLE",
-              },
-            ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
           },
           {
             "extension": [
@@ -317,23 +204,12 @@
             "use": "official",
             "value": "2021-A01563-38",
           },
-          {
-            "assigner": {
-              "display": "Reference to secondary assigner",
-              "type": "Organization",
-            },
-            "use": "secondary",
-            "value": "INDISPONIBLE",
-          },
         ],
         "meta": {
           "lastUpdated": "2023-04-06T00:00:00.000Z",
           "profile": [
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
-        },
-        "period": {
-          "end": "INDISPONIBLE",
         },
         "phase": {
           "coding": [
@@ -356,9 +232,6 @@
           ],
           "text": null,
         },
-        "relatedArtifact": [
-          null,
-        ],
         "resourceType": "ResearchStudy",
         "status": "administratively-completed",
         "title": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
@@ -393,62 +266,6 @@
           },
         ],
         "contact": [
-          {
-            "extension": [
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
-                "valueHumanName": {
-                  "family": "INDISPONIBLE",
-                  "given": [
-                    "INDISPONIBLE",
-                  ],
-                  "use": "official",
-                },
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
-                "valueAddress": {
-                  "city": "INDISPONIBLE",
-                  "country": "INDISPONIBLE",
-                  "line": [
-                    "INDISPONIBLE",
-                  ],
-                  "postalCode": "INDISPONIBLE",
-                  "type": "physical",
-                  "use": "work",
-                },
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
-                "valueString": "INDISPONIBLE",
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "SCI",
-                      "display": "Scientifique / Scientific",
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-            ],
-            "telecom": [
-              {
-                "system": "phone",
-                "use": "work",
-                "value": "INDISPONIBLE",
-              },
-              {
-                "system": "email",
-                "use": "work",
-                "value": "INDISPONIBLE",
-              },
-            ],
-          },
           {
             "extension": [
               {
@@ -515,50 +332,6 @@
             "valueString": "Autres",
           },
           {
-            "extension": [
-              {
-                "url": "value",
-                "valueString": "INDISPONIBLE",
-              },
-              {
-                "url": "type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "human-use",
-                      "display": "Human use",
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-title-type-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-            ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html",
-          },
-          {
-            "extension": [
-              {
-                "url": "value",
-                "valueString": "INDISPONIBLE",
-              },
-              {
-                "url": "type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "acronym",
-                      "display": "Acronym",
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-title-type-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-            ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html",
-          },
-          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
             "valuePeriod": {},
           },
@@ -600,19 +373,6 @@
               },
             ],
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
-          },
-          {
-            "extension": [
-              {
-                "url": "name",
-                "valueString": "INDISPONIBLE",
-              },
-              {
-                "url": "description",
-                "valueString": "INDISPONIBLE",
-              },
-            ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
           },
           {
             "extension": [
@@ -682,23 +442,12 @@
             "use": "official",
             "value": "2021-A01022-39",
           },
-          {
-            "assigner": {
-              "display": "Reference to secondary assigner",
-              "type": "Organization",
-            },
-            "use": "secondary",
-            "value": "INDISPONIBLE",
-          },
         ],
         "meta": {
           "lastUpdated": "2023-04-04T00:00:00.000Z",
           "profile": [
             "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-researchstudy",
           ],
-        },
-        "period": {
-          "end": "INDISPONIBLE",
         },
         "phase": {
           "coding": [
@@ -721,9 +470,6 @@
           ],
           "text": null,
         },
-        "relatedArtifact": [
-          null,
-        ],
         "resourceType": "ResearchStudy",
         "status": "active",
         "title": "Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.",
@@ -834,62 +580,6 @@
               {
                 "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
                 "valueHumanName": {
-                  "family": "INDISPONIBLE",
-                  "given": [
-                    "INDISPONIBLE",
-                  ],
-                  "use": "official",
-                },
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address",
-                "valueAddress": {
-                  "city": "INDISPONIBLE",
-                  "country": "INDISPONIBLE",
-                  "line": [
-                    "INDISPONIBLE",
-                  ],
-                  "postalCode": "INDISPONIBLE",
-                  "type": "physical",
-                  "use": "work",
-                },
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-affiliation",
-                "valueString": "INDISPONIBLE",
-              },
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "SCI",
-                      "display": "Scientifique / Scientific",
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-type-contact-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-            ],
-            "telecom": [
-              {
-                "system": "phone",
-                "use": "work",
-                "value": "INDISPONIBLE",
-              },
-              {
-                "system": "email",
-                "use": "work",
-                "value": "INDISPONIBLE",
-              },
-            ],
-          },
-          {
-            "extension": [
-              {
-                "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-name",
-                "valueHumanName": {
                   "given": [],
                   "use": "official",
                 },
@@ -951,50 +641,6 @@
             "valueString": "Diseases [C] - Neoplasms [C04]",
           },
           {
-            "extension": [
-              {
-                "url": "value",
-                "valueString": "INDISPONIBLE",
-              },
-              {
-                "url": "type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "human-use",
-                      "display": "Human use",
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-title-type-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-            ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html",
-          },
-          {
-            "extension": [
-              {
-                "url": "value",
-                "valueString": "INDISPONIBLE",
-              },
-              {
-                "url": "type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "acronym",
-                      "display": "Acronym",
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-title-type-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-            ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html",
-          },
-          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
             "valuePeriod": {
               "start": "2022-06-30T00:00:00.000Z",
@@ -1038,19 +684,6 @@
               },
             ],
             "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
-          },
-          {
-            "extension": [
-              {
-                "url": "name",
-                "valueString": "INDISPONIBLE",
-              },
-              {
-                "url": "description",
-                "valueString": "INDISPONIBLE",
-              },
-            ],
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-arm-intervention",
           },
           {
             "extension": [
@@ -1119,14 +752,6 @@
             },
             "use": "official",
             "value": "2024-500014-26-99",
-          },
-          {
-            "assigner": {
-              "display": "Reference to secondary assigner",
-              "type": "Organization",
-            },
-            "use": "secondary",
-            "value": "INDISPONIBLE",
           },
         ],
         "location": [
@@ -1223,9 +848,6 @@
             "10065430",
           ],
         },
-        "period": {
-          "end": "INDISPONIBLE",
-        },
         "phase": {
           "coding": [
             {
@@ -1247,9 +869,6 @@
           ],
           "text": null,
         },
-        "relatedArtifact": [
-          null,
-        ],
         "resourceType": "ResearchStudy",
         "site": [
           {
