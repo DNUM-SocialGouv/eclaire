@@ -8,7 +8,7 @@ import { eclaireRegulationCodeCodeSystem } from '../code-systems/eclaireRegulati
 import { eclaireStatusRecruitmentCodeSystem } from '../code-systems/eclaireStatusRecruitmentCodeSystem'
 import { eclaireStudyPartyOrganizationTypeCodeSystem } from '../code-systems/eclaireStudyPartyOrganizationTypeCodeSystem'
 import { eclaireStudyPartyRoleVsCodeSystem } from '../code-systems/eclaireStudyPartyRoleVsCodeSystem'
-import { eclaireStudyPhaseCodeSystem } from '../code-systems/eclaireStudyPhaseCodeSystem'
+import { eclaireStudyPhaseSourceCodeSystem } from '../code-systems/eclaireStudyPhaseSourceCodeSystem'
 import { eclaireStudyPopulationCodeSystem } from '../code-systems/eclaireStudyPopulationCodeSystem'
 import { eclaireStudyTitleTypeCodeSystem } from '../code-systems/eclaireStudyTitleTypeCodeSystem'
 import { eclaireTypeContactCodeSystem } from '../code-systems/eclaireTypeContactCodeSystem'
@@ -38,39 +38,43 @@ export class CodingModel implements Coding {
 
   private static findPhaseInCodeSystems(phase: string): { code: string; display: string; version: string; url: string } {
     let index: number
-    const codeSystemToUse = phase === 'Phase III/Phase IV' ? eclaireStudyPhaseCodeSystem : researchStudyPhaseCodeSystem
 
     switch (phase) {
       case 'Phase I':
-        index = 2
-        break
-      case 'Phase I/Phase II':
         index = 3
         break
-      case 'Phase II':
-        index = 4
-        break
-      case 'Phase II/Phase III':
-        index = 5
-        break
-      case 'Phase III':
+      case 'Phase I/Phase II':
         index = 6
         break
-      case 'Phase IV':
+      case 'Phase II':
         index = 7
         break
+      case 'Phase II/Phase III':
+        index = 8
+        break
+      case 'Phase III':
+        index = 9
+        break
+      case 'Phase IV':
+        index = 10
+        break
       case 'Phase III/Phase IV':
-        index = 0
+        index = 11
         break
       default:
-        index = 0
+        return {
+          code: researchStudyPhaseCodeSystem.concept[0].code,
+          display: researchStudyPhaseCodeSystem.concept[0].display,
+          url: researchStudyPhaseCodeSystem.url,
+          version: researchStudyPhaseCodeSystem.version,
+        }
     }
 
     return {
-      code: codeSystemToUse.concept[index].code,
-      display: codeSystemToUse.concept[index].display,
-      url: codeSystemToUse.url,
-      version: codeSystemToUse.version,
+      code: eclaireStudyPhaseSourceCodeSystem.concept[index].code,
+      display: eclaireStudyPhaseSourceCodeSystem.concept[index].display,
+      url: eclaireStudyPhaseSourceCodeSystem.url,
+      version: eclaireStudyPhaseSourceCodeSystem.version,
     }
   }
 

@@ -6,11 +6,11 @@ export const eclaireStudyPopulationCodeSystem = {
     div : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>This case-sensitive code system <code>https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-population-code-system</code> defines the following codes:</p><table class=\"codes\"><tr><td style=\"white-space:nowrap\"><b>Code</b></td><td><b>Display</b></td></tr><tr><td style=\"white-space:nowrap\">incap-pop<a name=\"eclaire-study-population-code-system-incap-pop\"> </a></td><td>Incapacitated population (Population en situation de handicap)</td></tr><tr><td style=\"white-space:nowrap\">minors<a name=\"eclaire-study-population-code-system-minors\"> </a></td><td>Minors (Mineurs)</td></tr><tr><td style=\"white-space:nowrap\">nursing<a name=\"eclaire-study-population-code-system-nursing\"> </a></td><td>Nursing women (Femmes allaitant)</td></tr><tr><td style=\"white-space:nowrap\">other<a name=\"eclaire-study-population-code-system-other\"> </a></td><td>Other (Autres)</td></tr><tr><td style=\"white-space:nowrap\">pregnant<a name=\"eclaire-study-population-code-system-pregnant\"> </a></td><td>Pregnant women (Femmes enceintes)</td></tr><tr><td style=\"white-space:nowrap\">emergency-situation<a name=\"eclaire-study-population-code-system-emergency-situation\"> </a></td><td>Subjects in emergency situation (Sujets en situation d'urgence)</td></tr><tr><td style=\"white-space:nowrap\">incap-consent<a name=\"eclaire-study-population-code-system-incap-consent\"> </a></td><td>Subjects incapable of giving consent personally (Sujets incapables de donner leur consentement personnel)</td></tr><tr><td style=\"white-space:nowrap\">no-using-contraception<a name=\"eclaire-study-population-code-system-no-using-contraception\"> </a></td><td>Women of child bearing potential not using contraception (Femmes en âge de procréer n'utilisant pas de contraception)</td></tr><tr><td style=\"white-space:nowrap\">using-contraception<a name=\"eclaire-study-population-code-system-using-contraception\"> </a></td><td>Women of child bearing potential using contraception (Femmes en âge de procréer utilisant une méthode de contraception)</td></tr></table></div>",
   },
   url : 'https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-population-code-system',
-  version : '0.2.0',
+  version : '0.3.0',
   name : 'EclaireStudyPopulationCS',
   title : "Codes pour caractériser la population de l'étude",
   status : 'draft',
-  date : '2023-10-20T11:56:25+00:00',
+  date : '2024-02-26T13:35:44+00:00',
   publisher : 'ANS',
   contact : [
     {

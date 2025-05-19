@@ -3,13 +3,13 @@ import { CodingModel, EclaireGroupCharacteristicKindVsReferenceCode } from './Co
 describe('shared | models | CodingModel', () => {
   describe('#createResearchStudyPhase', () => {
     it.each([
-      ['Phase I', 'phase-1', 'Phase 1'],
-      ['Phase I/Phase II', 'phase-1-phase-2', 'Phase 1/Phase 2'],
-      ['Phase II', 'phase-2', 'Phase 2'],
-      ['Phase II/Phase III', 'phase-2-phase-3', 'Phase 2/Phase 3'],
-      ['Phase III', 'phase-3', 'Phase 3'],
-      ['Phase III/Phase IV', 'phase-3-phase-4', 'Phase III and phase IV (Integrated)'],
-      ['Phase IV', 'phase-4', 'Phase 4'],
+      ['Phase I', 'phase-I-other', 'Human Pharmacology (Phase I) -  Other'],
+      ['Phase I/Phase II', 'phase-I-II-other', 'Phase I and Phase II (Integrated) - Other'],
+      ['Phase II', 'phase-II', 'Therapeutic exploratory (Phase II)'],
+      ['Phase II/Phase III', 'phase-II-III', 'Phase II and Phase III (Integrated)'],
+      ['Phase III', 'phase-III', 'Therapeutic confirmatory  (Phase III)'],
+      ['Phase III/Phase IV', 'phase-III-IV', 'Phase III and phase IV (Integrated)'],
+      ['Phase IV', 'phase-IV', 'Therapeutic use (Phase IV)'],
       [null, 'n-a', 'N/A'],
     ])('should create a properly formatted model when %s is given', (rawPhase, code, display) => {
       // WHEN
