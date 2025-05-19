@@ -1,6 +1,5 @@
 import { Address, CodeableConcept, Duration, Extension, HumanName, Period, Reference } from 'fhir/r4'
 
-import { ReferenceModel } from './ReferenceModel'
 import { AddressModel } from '../data-types/AddressModel'
 import { CodeableConceptModel } from '../data-types/CodeableConceptModel'
 import { HumanNameModel } from '../data-types/HumanNameModel'
@@ -57,22 +56,6 @@ export class ExtensionModel implements Extension {
       undefined,
       undefined,
       undefined,
-      undefined
-    )
-  }
-
-  static createEclaireSecondarySponsor(secondarySponsorId: string): Extension {
-    return new ExtensionModel(
-      undefined,
-      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor',
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      ReferenceModel.createSecondarySponsor(secondarySponsorId),
       undefined
     )
   }

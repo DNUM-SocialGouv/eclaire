@@ -7,11 +7,7 @@ import {
   OrganizationContact,
 } from 'fhir/r4'
 
-import { OrganizationContactModel } from '../backbone-elements/OrganizationContactModel'
-import { AddressModel } from '../data-types/AddressModel'
-import { CodeableConceptModel } from '../data-types/CodeableConceptModel'
 import { ContactPointModel } from '../data-types/ContactPointModel'
-import { ModelUtils } from '../eclaire/ModelUtils'
 import { AssignerForPrimaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
 
 export class OrganizationModel implements Organization {
@@ -27,53 +23,6 @@ export class OrganizationModel implements Organization {
     readonly type: CodeableConcept[] | undefined
   ) {
     this.resourceType = 'Organization'
-  }
-
-  static createSponsor(
-    sponsorOrganizationId: string,
-    sponsorName: string,
-    sponsorAddress: string,
-    sponsorCity: string,
-    sponsorPostalCode: string,
-    sponsorCountry: string,
-    contactFirstname: string,
-    contactName: string,
-    contactPhone: string,
-    contactMail: string
-  ): Organization {
-    const emptyIfNullSponsorName = ModelUtils.undefinedIfNull(sponsorName)
-    const emptyIfNullSponsorAddress = ModelUtils.undefinedIfNull(sponsorAddress)
-    const emptyIfNullSponsorCity = ModelUtils.undefinedIfNull(sponsorCity)
-    const emptyIfNullSponsorPostalCode = ModelUtils.undefinedIfNull(sponsorPostalCode)
-    const emptyIfNullSponsorCountry = ModelUtils.undefinedIfNull(sponsorCountry)
-    const emptyIfNullContactFirstname = ModelUtils.undefinedIfNull(contactFirstname)
-    const emptyIfNullContactName = ModelUtils.undefinedIfNull(contactName)
-    const emptyIfNullContactPhone = ModelUtils.undefinedIfNull(contactPhone)
-    const emptyIfNullContactMail = ModelUtils.undefinedIfNull(contactMail)
-
-    return new OrganizationModel(
-      [
-        AddressModel.create(
-          [emptyIfNullSponsorAddress],
-          emptyIfNullSponsorCity,
-          emptyIfNullSponsorPostalCode,
-          emptyIfNullSponsorCountry
-        ),
-      ],
-      [
-        OrganizationContactModel.create(
-          emptyIfNullContactFirstname,
-          emptyIfNullContactName,
-          emptyIfNullContactPhone,
-          emptyIfNullContactMail
-        ),
-      ],
-      sponsorOrganizationId,
-      undefined,
-      emptyIfNullSponsorName,
-      undefined,
-      [CodeableConceptModel.createClinicalResearchSponsor()]
-    )
   }
 
   static createPrimaryAssigner(assignerForPrimaryIdentifier: AssignerForPrimaryIdentifier): Organization {

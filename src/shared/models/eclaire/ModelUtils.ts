@@ -24,10 +24,6 @@ export class ModelUtils {
     return this.generateIdWithSuffix(value, 'primary-sponsor')
   }
 
-  static generateSecondarySponsorOrganizationId(value: string): string {
-    return this.generateIdWithSuffix(value, 'secondary-sponsor')
-  }
-
   static generateSiteId(value: string): string {
     return this.generateIdWithSuffix(value, 'site')
   }

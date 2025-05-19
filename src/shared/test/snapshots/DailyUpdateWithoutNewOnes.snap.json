@@ -161,14 +161,6 @@
         ],
         "extension": [
           {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
-            "valueReference": {
-              "display": "Reference to secondary sponsor",
-              "reference": "Organization/2021-A01563-38-secondary-sponsor",
-              "type": "Organization",
-            },
-          },
-          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueString": "Hépato-gastro-entérologie",
           },
@@ -394,11 +386,6 @@
           null,
         ],
         "resourceType": "ResearchStudy",
-        "sponsor": {
-          "display": "Reference to primary sponsor",
-          "reference": "Organization/2021-A01563-38-primary-sponsor",
-          "type": "Organization",
-        },
         "status": "administratively-completed",
         "title": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
       },
@@ -564,14 +551,6 @@
           },
         ],
         "extension": [
-          {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
-            "valueReference": {
-              "display": "Reference to secondary sponsor",
-              "reference": "Organization/2021-A01022-39-secondary-sponsor",
-              "type": "Organization",
-            },
-          },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueString": "Autres",
@@ -798,11 +777,6 @@
           null,
         ],
         "resourceType": "ResearchStudy",
-        "sponsor": {
-          "display": "Reference to primary sponsor",
-          "reference": "Organization/2021-A01022-39-primary-sponsor",
-          "type": "Organization",
-        },
         "status": "active",
         "title": "Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.",
       },

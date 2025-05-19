@@ -21,22 +21,24 @@ import { RelatedArtifactModel } from '../../shared/models/data-types/RelatedArti
 import { GroupModel } from '../../shared/models/domain-resources/GroupModel'
 import { LocationModel } from '../../shared/models/domain-resources/LocationModel'
 import { OrganizationModel } from '../../shared/models/domain-resources/OrganizationModel'
-import { RiphStatus, ResearchStudyModel } from '../../shared/models/domain-resources/ResearchStudyModel'
+import { ResearchStudyModel, RiphStatus } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { ModelUtils } from '../../shared/models/eclaire/ModelUtils'
 import { OriginalContentsToEnhanceModel } from '../../shared/models/eclaire/OriginalContentsToEnhanceModel'
 import { ReferenceContentsModel } from '../../shared/models/eclaire/ReferenceContentsModel'
 import { ContactDetailModel } from '../../shared/models/metadata-types/ContactDetailModel'
 import { ExtensionModel } from '../../shared/models/special-purpose-data-types/ExtensionModel'
 import { MetaModel } from '../../shared/models/special-purpose-data-types/MetaModel'
-import { AssignerForPrimaryIdentifier, ReferenceModel } from '../../shared/models/special-purpose-data-types/ReferenceModel'
+import {
+  AssignerForPrimaryIdentifier,
+  ReferenceModel,
+} from '../../shared/models/special-purpose-data-types/ReferenceModel'
 import { EclaireDto } from '../dto/EclaireDto'
 
 export class ResearchStudyModelFactory {
   static create(eclaireDto: EclaireDto): ResearchStudyModel {
     const { primaryAssignerIdentifier, primaryAssignerOrganization } = this.createPrimaryAssigner(eclaireDto)
     const { enrollment, enrollmentGroup } = this.createEnrollmentContent(eclaireDto)
-    const { sponsor, primarySponsorOrganization } = this.createPrimarySponsor(eclaireDto)
-    const { eclaireSecondarySponsor, secondarySponsorOrganization } = this.createSecondarySponsor(eclaireDto)
+    const sponsor = this.createSponsor(eclaireDto)
     const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto)
 
     const mostRecentDate = ModelUtils.getMostRecentIsoDate(
@@ -116,7 +118,6 @@ export class ResearchStudyModelFactory {
     const description = eclaireDto.resume
 
     const extensions: Extension[] = []
-    extensions.push(eclaireSecondarySponsor)
     if (ModelUtils.isNotNull(eclaireDto.domaine_therapeutique)) {
       extensions.push(ExtensionModel.createEclaireTherapeuticArea(eclaireDto.domaine_therapeutique))
     }
@@ -138,7 +139,7 @@ export class ResearchStudyModelFactory {
     extensions.push(ExtensionModel.createEclaireArmIntervention(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE))
 
     extensions.push(ExtensionModel.createEclaireAssociatedPartyR5(
-      primarySponsorOrganization.name,
+      eclaireDto.organisme_nom,
       'lead-sponsor',
       null,
       null,
@@ -160,12 +161,6 @@ export class ResearchStudyModelFactory {
     const title = ModelUtils.isNotNull(eclaireDto.titre) ? eclaireDto.titre : undefined
 
     const organizations: Organization[] = []
-    if (ModelUtils.isNotNull(primarySponsorOrganization)) {
-      organizations.push(primarySponsorOrganization)
-    }
-    if (ModelUtils.isNotNull(secondarySponsorOrganization)) {
-      organizations.push(secondarySponsorOrganization)
-    }
     if (ModelUtils.isNotNull(primaryAssignerOrganization)) {
       organizations.push(primaryAssignerOrganization)
     }
@@ -207,7 +202,6 @@ export class ResearchStudyModelFactory {
       referenceContents,
       relatedArtifacts,
       site.length === 0 ? undefined : site,
-      sponsor,
       status,
       title
     )
@@ -244,49 +238,9 @@ export class ResearchStudyModelFactory {
     return { enrollment, enrollmentGroup }
   }
 
-  private static createPrimarySponsor(eclaireDto: EclaireDto): {
-    primarySponsorOrganization: Organization;
-    sponsor: Reference
-  } {
+  private static createSponsor(eclaireDto: EclaireDto): Reference {
     const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(eclaireDto.numero_primaire)
-    const sponsor: Reference = ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
-
-    const primarySponsorOrganization: Organization = OrganizationModel.createSponsor(
-      primarySponsorOrganizationId,
-      eclaireDto.organisme_nom,
-      eclaireDto.organisme_adresse,
-      eclaireDto.organisme_ville,
-      eclaireDto.organisme_code_postal,
-      eclaireDto.organisme_pays,
-      eclaireDto.contact_prenom,
-      eclaireDto.contact_nom,
-      eclaireDto.contact_telephone,
-      eclaireDto.contact_courriel
-    )
-
-    return { primarySponsorOrganization, sponsor }
-  }
-
-  private static createSecondarySponsor(eclaireDto: EclaireDto): {
-    eclaireSecondarySponsor: Extension;
-    secondarySponsorOrganization: Organization
-  } {
-    const secondarySponsorOrganizationId = ModelUtils.generateSecondarySponsorOrganizationId(eclaireDto.numero_primaire)
-    const secondarySponsorOrganization: Organization = OrganizationModel.createSponsor(
-      secondarySponsorOrganizationId,
-      ModelUtils.UNAVAILABLE,
-      ModelUtils.UNAVAILABLE,
-      ModelUtils.UNAVAILABLE,
-      ModelUtils.UNAVAILABLE,
-      ModelUtils.UNAVAILABLE,
-      ModelUtils.UNAVAILABLE,
-      ModelUtils.UNAVAILABLE,
-      ModelUtils.UNAVAILABLE,
-      ModelUtils.UNAVAILABLE
-    )
-    const eclaireSecondarySponsor: Extension = ExtensionModel.createEclaireSecondarySponsor(secondarySponsorOrganizationId)
-
-    return { eclaireSecondarySponsor, secondarySponsorOrganization }
+    return ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
   }
 
   private static createSitesAndSiteLocations(eclaireDto: EclaireDto): {

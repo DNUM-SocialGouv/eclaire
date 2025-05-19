@@ -349,23 +349,6 @@ describe('research study model factory', () => {
         "extension": [
           ExtensionModel {
             "extension": undefined,
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
-            "valueAddress": undefined,
-            "valueCodeableConcept": undefined,
-            "valueDuration": undefined,
-            "valueHumanName": undefined,
-            "valueInstant": undefined,
-            "valueMarkdown": undefined,
-            "valuePeriod": undefined,
-            "valueReference": ReferenceModel {
-              "display": "Reference to secondary sponsor",
-              "reference": "Organization/2022-500014-26-00-secondary-sponsor",
-              "type": "Organization",
-            },
-            "valueString": undefined,
-          },
-          ExtensionModel {
-            "extension": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueAddress": undefined,
             "valueCodeableConcept": undefined,
@@ -1291,148 +1274,6 @@ describe('research study model factory', () => {
           ],
           "organizations": [
             OrganizationModel {
-              "address": [
-                AddressModel {
-                  "city": "Basel Town",
-                  "country": "Switzerland",
-                  "line": [
-                    "Grenzacherstrasse 124",
-                  ],
-                  "postalCode": "4058",
-                  "type": "physical",
-                  "use": "work",
-                },
-              ],
-              "contact": [
-                OrganizationContactModel {
-                  "name": HumanNameModel {
-                    "family": "Trial Information Support Line-TISL, Switzerland",
-                    "given": [
-                      "Head of EU",
-                    ],
-                    "prefix": undefined,
-                    "use": "official",
-                  },
-                  "purpose": CodeableConceptModel {
-                    "coding": [
-                      CodingModel {
-                        "code": "ADMIN",
-                        "display": "Administrative",
-                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "version": "4.0.1",
-                      },
-                    ],
-                    "id": undefined,
-                    "text": undefined,
-                  },
-                  "telecom": [
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "phone",
-                      "use": "work",
-                      "value": "0041616881111",
-                    },
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "email",
-                      "use": "work",
-                      "value": "global.rochegenentechtrials@roche.com",
-                    },
-                  ],
-                },
-              ],
-              "id": "2022-500014-26-00-primary-sponsor",
-              "identifier": undefined,
-              "name": "F. Hoffmann-La Roche AG",
-              "resourceType": "Organization",
-              "telecom": undefined,
-              "type": [
-                CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "crs",
-                      "display": "Clinical Research Sponsor",
-                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": undefined,
-                },
-              ],
-            },
-            OrganizationModel {
-              "address": [
-                AddressModel {
-                  "city": "INDISPONIBLE",
-                  "country": "INDISPONIBLE",
-                  "line": [
-                    "INDISPONIBLE",
-                  ],
-                  "postalCode": "INDISPONIBLE",
-                  "type": "physical",
-                  "use": "work",
-                },
-              ],
-              "contact": [
-                OrganizationContactModel {
-                  "name": HumanNameModel {
-                    "family": "INDISPONIBLE",
-                    "given": [
-                      "INDISPONIBLE",
-                    ],
-                    "prefix": undefined,
-                    "use": "official",
-                  },
-                  "purpose": CodeableConceptModel {
-                    "coding": [
-                      CodingModel {
-                        "code": "ADMIN",
-                        "display": "Administrative",
-                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "version": "4.0.1",
-                      },
-                    ],
-                    "id": undefined,
-                    "text": undefined,
-                  },
-                  "telecom": [
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "phone",
-                      "use": "work",
-                      "value": "INDISPONIBLE",
-                    },
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "email",
-                      "use": "work",
-                      "value": "INDISPONIBLE",
-                    },
-                  ],
-                },
-              ],
-              "id": "2022-500014-26-00-secondary-sponsor",
-              "identifier": undefined,
-              "name": "INDISPONIBLE",
-              "resourceType": "Organization",
-              "telecom": undefined,
-              "type": [
-                CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "crs",
-                      "display": "Clinical Research Sponsor",
-                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": undefined,
-                },
-              ],
-            },
-            OrganizationModel {
               "address": undefined,
               "contact": undefined,
               "id": "ctis",
@@ -1462,11 +1303,6 @@ describe('research study model factory', () => {
             "type": "Location",
           },
         ],
-        "sponsor": ReferenceModel {
-          "display": "Reference to primary sponsor",
-          "reference": "Organization/2022-500014-26-00-primary-sponsor",
-          "type": "Organization",
-        },
         "status": "active",
         "title": "A PHASE III, RANDOMIZED, OPEN-LABEL STUDY EVALUATING THE EFFICACY AND SAFETY OF GIREDESTRANT IN COMBINATION WITH PHESGO VERSUS PHESGO AFTER INDUCTION THERAPY WITH PHESGO+TAXANE IN PATIENTS WITH PREVIOUSLY UNTREATED HER2-POSITIVE, ESTROGEN RECEPTOR-POSITIVE LOCALLY-ADVANCED OR METASTATIC BREAST CANCER",
         "translatedContent": undefined,
@@ -1735,23 +1571,6 @@ describe('research study model factory', () => {
           },
         ],
         "extension": [
-          ExtensionModel {
-            "extension": undefined,
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
-            "valueAddress": undefined,
-            "valueCodeableConcept": undefined,
-            "valueDuration": undefined,
-            "valueHumanName": undefined,
-            "valueInstant": undefined,
-            "valueMarkdown": undefined,
-            "valuePeriod": undefined,
-            "valueReference": ReferenceModel {
-              "display": "Reference to secondary sponsor",
-              "reference": "Organization/2021-A01563-38-secondary-sponsor",
-              "type": "Organization",
-            },
-            "valueString": undefined,
-          },
           ExtensionModel {
             "extension": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
@@ -2423,146 +2242,6 @@ describe('research study model factory', () => {
           "locations": undefined,
           "organizations": [
             OrganizationModel {
-              "address": [
-                AddressModel {
-                  "city": "Roubaix",
-                  "country": "France",
-                  "line": [
-                    "15 Boulevard du Général Leclerc",
-                  ],
-                  "postalCode": "59100",
-                  "type": "physical",
-                  "use": "work",
-                },
-              ],
-              "contact": [
-                OrganizationContactModel {
-                  "name": HumanNameModel {
-                    "family": undefined,
-                    "given": [],
-                    "prefix": undefined,
-                    "use": "official",
-                  },
-                  "purpose": CodeableConceptModel {
-                    "coding": [
-                      CodingModel {
-                        "code": "ADMIN",
-                        "display": "Administrative",
-                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "version": "4.0.1",
-                      },
-                    ],
-                    "id": undefined,
-                    "text": undefined,
-                  },
-                  "telecom": [
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "phone",
-                      "use": "work",
-                      "value": undefined,
-                    },
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "email",
-                      "use": "work",
-                      "value": undefined,
-                    },
-                  ],
-                },
-              ],
-              "id": "2021-A01563-38-primary-sponsor",
-              "identifier": undefined,
-              "name": "Soladis Clinical Studies",
-              "resourceType": "Organization",
-              "telecom": undefined,
-              "type": [
-                CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "crs",
-                      "display": "Clinical Research Sponsor",
-                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": undefined,
-                },
-              ],
-            },
-            OrganizationModel {
-              "address": [
-                AddressModel {
-                  "city": "INDISPONIBLE",
-                  "country": "INDISPONIBLE",
-                  "line": [
-                    "INDISPONIBLE",
-                  ],
-                  "postalCode": "INDISPONIBLE",
-                  "type": "physical",
-                  "use": "work",
-                },
-              ],
-              "contact": [
-                OrganizationContactModel {
-                  "name": HumanNameModel {
-                    "family": "INDISPONIBLE",
-                    "given": [
-                      "INDISPONIBLE",
-                    ],
-                    "prefix": undefined,
-                    "use": "official",
-                  },
-                  "purpose": CodeableConceptModel {
-                    "coding": [
-                      CodingModel {
-                        "code": "ADMIN",
-                        "display": "Administrative",
-                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "version": "4.0.1",
-                      },
-                    ],
-                    "id": undefined,
-                    "text": undefined,
-                  },
-                  "telecom": [
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "phone",
-                      "use": "work",
-                      "value": "INDISPONIBLE",
-                    },
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "email",
-                      "use": "work",
-                      "value": "INDISPONIBLE",
-                    },
-                  ],
-                },
-              ],
-              "id": "2021-A01563-38-secondary-sponsor",
-              "identifier": undefined,
-              "name": "INDISPONIBLE",
-              "resourceType": "Organization",
-              "telecom": undefined,
-              "type": [
-                CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "crs",
-                      "display": "Clinical Research Sponsor",
-                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": undefined,
-                },
-              ],
-            },
-            OrganizationModel {
               "address": undefined,
               "contact": undefined,
               "id": "ansm",
@@ -2586,11 +2265,6 @@ describe('research study model factory', () => {
         ],
         "resourceType": "ResearchStudy",
         "site": undefined,
-        "sponsor": ReferenceModel {
-          "display": "Reference to primary sponsor",
-          "reference": "Organization/2021-A01563-38-primary-sponsor",
-          "type": "Organization",
-        },
         "status": "administratively-completed",
         "title": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
         "translatedContent": undefined,
@@ -2859,23 +2533,6 @@ describe('research study model factory', () => {
           },
         ],
         "extension": [
-          ExtensionModel {
-            "extension": undefined,
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
-            "valueAddress": undefined,
-            "valueCodeableConcept": undefined,
-            "valueDuration": undefined,
-            "valueHumanName": undefined,
-            "valueInstant": undefined,
-            "valueMarkdown": undefined,
-            "valuePeriod": undefined,
-            "valueReference": ReferenceModel {
-              "display": "Reference to secondary sponsor",
-              "reference": "Organization/2021-A01022-39-secondary-sponsor",
-              "type": "Organization",
-            },
-            "valueString": undefined,
-          },
           ExtensionModel {
             "extension": undefined,
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
@@ -3423,146 +3080,6 @@ describe('research study model factory', () => {
           "locations": undefined,
           "organizations": [
             OrganizationModel {
-              "address": [
-                AddressModel {
-                  "city": "Valenciennes",
-                  "country": "France",
-                  "line": [
-                    "LAMIH - Campus du Mont-Houy",
-                  ],
-                  "postalCode": "59313",
-                  "type": "physical",
-                  "use": "work",
-                },
-              ],
-              "contact": [
-                OrganizationContactModel {
-                  "name": HumanNameModel {
-                    "family": undefined,
-                    "given": [],
-                    "prefix": undefined,
-                    "use": "official",
-                  },
-                  "purpose": CodeableConceptModel {
-                    "coding": [
-                      CodingModel {
-                        "code": "ADMIN",
-                        "display": "Administrative",
-                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "version": "4.0.1",
-                      },
-                    ],
-                    "id": undefined,
-                    "text": undefined,
-                  },
-                  "telecom": [
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "phone",
-                      "use": "work",
-                      "value": undefined,
-                    },
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "email",
-                      "use": "work",
-                      "value": undefined,
-                    },
-                  ],
-                },
-              ],
-              "id": "2021-A01022-39-primary-sponsor",
-              "identifier": undefined,
-              "name": "Université Polytechnique Hauts-de-France",
-              "resourceType": "Organization",
-              "telecom": undefined,
-              "type": [
-                CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "crs",
-                      "display": "Clinical Research Sponsor",
-                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": undefined,
-                },
-              ],
-            },
-            OrganizationModel {
-              "address": [
-                AddressModel {
-                  "city": "INDISPONIBLE",
-                  "country": "INDISPONIBLE",
-                  "line": [
-                    "INDISPONIBLE",
-                  ],
-                  "postalCode": "INDISPONIBLE",
-                  "type": "physical",
-                  "use": "work",
-                },
-              ],
-              "contact": [
-                OrganizationContactModel {
-                  "name": HumanNameModel {
-                    "family": "INDISPONIBLE",
-                    "given": [
-                      "INDISPONIBLE",
-                    ],
-                    "prefix": undefined,
-                    "use": "official",
-                  },
-                  "purpose": CodeableConceptModel {
-                    "coding": [
-                      CodingModel {
-                        "code": "ADMIN",
-                        "display": "Administrative",
-                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "version": "4.0.1",
-                      },
-                    ],
-                    "id": undefined,
-                    "text": undefined,
-                  },
-                  "telecom": [
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "phone",
-                      "use": "work",
-                      "value": "INDISPONIBLE",
-                    },
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "email",
-                      "use": "work",
-                      "value": "INDISPONIBLE",
-                    },
-                  ],
-                },
-              ],
-              "id": "2021-A01022-39-secondary-sponsor",
-              "identifier": undefined,
-              "name": "INDISPONIBLE",
-              "resourceType": "Organization",
-              "telecom": undefined,
-              "type": [
-                CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "crs",
-                      "display": "Clinical Research Sponsor",
-                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": undefined,
-                },
-              ],
-            },
-            OrganizationModel {
               "address": undefined,
               "contact": undefined,
               "id": "ansm",
@@ -3586,11 +3103,6 @@ describe('research study model factory', () => {
         ],
         "resourceType": "ResearchStudy",
         "site": undefined,
-        "sponsor": ReferenceModel {
-          "display": "Reference to primary sponsor",
-          "reference": "Organization/2021-A01022-39-primary-sponsor",
-          "type": "Organization",
-        },
         "status": "active",
         "title": "Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.",
         "translatedContent": undefined,
@@ -3847,23 +3359,6 @@ describe('research study model factory', () => {
           },
         ],
         "extension": [
-          ExtensionModel {
-            "extension": undefined,
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
-            "valueAddress": undefined,
-            "valueCodeableConcept": undefined,
-            "valueDuration": undefined,
-            "valueHumanName": undefined,
-            "valueInstant": undefined,
-            "valueMarkdown": undefined,
-            "valuePeriod": undefined,
-            "valueReference": ReferenceModel {
-              "display": "Reference to secondary sponsor",
-              "reference": "Organization/2022-500299-71-00-secondary-sponsor",
-              "type": "Organization",
-            },
-            "valueString": undefined,
-          },
           ExtensionModel {
             "extension": [
               ExtensionModel {
@@ -4138,7 +3633,7 @@ describe('research study model factory', () => {
                 "valueMarkdown": undefined,
                 "valuePeriod": undefined,
                 "valueReference": undefined,
-                "valueString": undefined,
+                "valueString": null,
               },
               ExtensionModel {
                 "extension": undefined,
@@ -4491,146 +3986,6 @@ describe('research study model factory', () => {
           "locations": undefined,
           "organizations": [
             OrganizationModel {
-              "address": [
-                AddressModel {
-                  "city": undefined,
-                  "country": undefined,
-                  "line": [
-                    undefined,
-                  ],
-                  "postalCode": undefined,
-                  "type": "physical",
-                  "use": "work",
-                },
-              ],
-              "contact": [
-                OrganizationContactModel {
-                  "name": HumanNameModel {
-                    "family": undefined,
-                    "given": [],
-                    "prefix": undefined,
-                    "use": "official",
-                  },
-                  "purpose": CodeableConceptModel {
-                    "coding": [
-                      CodingModel {
-                        "code": "ADMIN",
-                        "display": "Administrative",
-                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "version": "4.0.1",
-                      },
-                    ],
-                    "id": undefined,
-                    "text": undefined,
-                  },
-                  "telecom": [
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "phone",
-                      "use": "work",
-                      "value": undefined,
-                    },
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "email",
-                      "use": "work",
-                      "value": undefined,
-                    },
-                  ],
-                },
-              ],
-              "id": "2022-500299-71-00-primary-sponsor",
-              "identifier": undefined,
-              "name": undefined,
-              "resourceType": "Organization",
-              "telecom": undefined,
-              "type": [
-                CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "crs",
-                      "display": "Clinical Research Sponsor",
-                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": undefined,
-                },
-              ],
-            },
-            OrganizationModel {
-              "address": [
-                AddressModel {
-                  "city": "INDISPONIBLE",
-                  "country": "INDISPONIBLE",
-                  "line": [
-                    "INDISPONIBLE",
-                  ],
-                  "postalCode": "INDISPONIBLE",
-                  "type": "physical",
-                  "use": "work",
-                },
-              ],
-              "contact": [
-                OrganizationContactModel {
-                  "name": HumanNameModel {
-                    "family": "INDISPONIBLE",
-                    "given": [
-                      "INDISPONIBLE",
-                    ],
-                    "prefix": undefined,
-                    "use": "official",
-                  },
-                  "purpose": CodeableConceptModel {
-                    "coding": [
-                      CodingModel {
-                        "code": "ADMIN",
-                        "display": "Administrative",
-                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
-                        "version": "4.0.1",
-                      },
-                    ],
-                    "id": undefined,
-                    "text": undefined,
-                  },
-                  "telecom": [
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "phone",
-                      "use": "work",
-                      "value": "INDISPONIBLE",
-                    },
-                    ContactPointModel {
-                      "extension": undefined,
-                      "system": "email",
-                      "use": "work",
-                      "value": "INDISPONIBLE",
-                    },
-                  ],
-                },
-              ],
-              "id": "2022-500299-71-00-secondary-sponsor",
-              "identifier": undefined,
-              "name": "INDISPONIBLE",
-              "resourceType": "Organization",
-              "telecom": undefined,
-              "type": [
-                CodeableConceptModel {
-                  "coding": [
-                    CodingModel {
-                      "code": "crs",
-                      "display": "Clinical Research Sponsor",
-                      "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                      "version": "4.0.1",
-                    },
-                  ],
-                  "id": undefined,
-                  "text": undefined,
-                },
-              ],
-            },
-            OrganizationModel {
               "address": undefined,
               "contact": undefined,
               "id": "ctis",
@@ -4654,11 +4009,6 @@ describe('research study model factory', () => {
         ],
         "resourceType": "ResearchStudy",
         "site": undefined,
-        "sponsor": ReferenceModel {
-          "display": "Reference to primary sponsor",
-          "reference": "Organization/2022-500299-71-00-primary-sponsor",
-          "type": "Organization",
-        },
         "status": "approved",
         "title": undefined,
         "translatedContent": undefined,

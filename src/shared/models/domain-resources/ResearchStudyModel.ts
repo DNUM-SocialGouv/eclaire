@@ -37,7 +37,6 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly referenceContents: ReferenceContentsModel,
     readonly relatedArtifact: RelatedArtifact[] | undefined,
     readonly site: Reference[] | undefined,
-    readonly sponsor: Reference | undefined,
     status: RiphStatus,
     readonly title: string | undefined
   ) {

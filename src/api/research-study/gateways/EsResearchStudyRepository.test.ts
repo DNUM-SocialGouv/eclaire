@@ -57,7 +57,7 @@ describe('elasticsearch research study repository', () => {
       const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
 
       // THEN
-      expect(response.entry).toHaveLength(11)
+      expect(response.entry).toHaveLength(7)
       expect(response.resourceType).toBe('Bundle')
       expect(response.total).toStrictEqual(6)
       expect(response.type).toBe('searchset')

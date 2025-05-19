@@ -232,14 +232,6 @@
         ],
         "extension": [
           {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
-            "valueReference": {
-              "display": "Reference to secondary sponsor",
-              "reference": "Organization/2022-500014-26-00-secondary-sponsor",
-              "type": "Organization",
-            },
-          },
-          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueString": "Diseases [C] - Neoplasms [C04]",
           },
@@ -560,11 +552,6 @@
             "type": "Location",
           },
         ],
-        "sponsor": {
-          "display": "Reference to primary sponsor",
-          "reference": "Organization/2022-500014-26-00-primary-sponsor",
-          "type": "Organization",
-        },
         "status": "active",
         "title": "A PHASE III, RANDOMIZED, OPEN-LABEL STUDY EVALUATING THE EFFICACY AND SAFETY OF GIREDESTRANT IN COMBINATION WITH PHESGO VERSUS PHESGO AFTER INDUCTION THERAPY WITH PHESGO+TAXANE IN PATIENTS WITH PREVIOUSLY UNTREATED HER2-POSITIVE, ESTROGEN RECEPTOR-POSITIVE LOCALLY-ADVANCED OR METASTATIC BREAST CANCER",
         "translatedContent": {
@@ -735,14 +722,6 @@
           },
         ],
         "extension": [
-          {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
-            "valueReference": {
-              "display": "Reference to secondary sponsor",
-              "reference": "Organization/2021-A01563-38-secondary-sponsor",
-              "type": "Organization",
-            },
-          },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueString": "Hépato-gastro-entérologie",
@@ -969,11 +948,6 @@
           null,
         ],
         "resourceType": "ResearchStudy",
-        "sponsor": {
-          "display": "Reference to primary sponsor",
-          "reference": "Organization/2021-A01563-38-primary-sponsor",
-          "type": "Organization",
-        },
         "status": "administratively-completed",
         "title": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
       },
@@ -1139,14 +1113,6 @@
           },
         ],
         "extension": [
-          {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
-            "valueReference": {
-              "display": "Reference to secondary sponsor",
-              "reference": "Organization/2021-A01022-39-secondary-sponsor",
-              "type": "Organization",
-            },
-          },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueString": "Autres",
@@ -1373,11 +1339,6 @@
           null,
         ],
         "resourceType": "ResearchStudy",
-        "sponsor": {
-          "display": "Reference to primary sponsor",
-          "reference": "Organization/2021-A01022-39-primary-sponsor",
-          "type": "Organization",
-        },
         "status": "active",
         "title": "Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.",
       },
@@ -1614,14 +1575,6 @@
           },
         ],
         "extension": [
-          {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-secondary-sponsor",
-            "valueReference": {
-              "display": "Reference to secondary sponsor",
-              "reference": "Organization/2024-500014-26-99-secondary-sponsor",
-              "type": "Organization",
-            },
-          },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueString": "Diseases [C] - Neoplasms [C04]",
@@ -1943,11 +1896,6 @@
             "type": "Location",
           },
         ],
-        "sponsor": {
-          "display": "Reference to primary sponsor",
-          "reference": "Organization/2024-500014-26-99-primary-sponsor",
-          "type": "Organization",
-        },
         "status": "active",
         "title": "A PHASE III, RANDOMIZED, OPEN-LABEL STUDY EVALUATING THE EFFICACY AND SAFETY OF GIREDESTRANT IN COMBINATION WITH PHESGO VERSUS PHESGO AFTER INDUCTION THERAPY WITH PHESGO+TAXANE IN PATIENTS WITH PREVIOUSLY UNTREATED HER2-POSITIVE, ESTROGEN RECEPTOR-POSITIVE LOCALLY-ADVANCED OR METASTATIC BREAST CANCER",
         "translatedContent": {

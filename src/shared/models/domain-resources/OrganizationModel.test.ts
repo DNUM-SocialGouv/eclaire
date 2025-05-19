@@ -2,7 +2,7 @@ import { OrganizationModel } from './OrganizationModel'
 import { AssignerForPrimaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
 
 describe('shared | models | OrganizationModel', () => {
-  describe('#createSecondaryAssigner', () => {
+  describe('#createPrimaryAssigner', () => {
     it('should create a properly formatted model when ANSM assigner is given', () => {
       // WHEN
       const organization = OrganizationModel.createPrimaryAssigner(AssignerForPrimaryIdentifier.ANSM)
