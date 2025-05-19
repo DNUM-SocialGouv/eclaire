@@ -216,7 +216,7 @@
                 },
               },
             ],
-            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty",
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-associated-party-r5.html",
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
@@ -503,7 +503,7 @@
                 },
               },
             ],
-            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty",
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-associated-party-r5.html",
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
@@ -690,7 +690,7 @@
                 },
               },
             ],
-            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty",
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-associated-party-r5.html",
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
@@ -954,7 +954,7 @@
                 },
               },
             ],
-            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty",
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-associated-party-r5.html",
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",

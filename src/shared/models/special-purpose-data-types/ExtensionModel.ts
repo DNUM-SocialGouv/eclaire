@@ -47,7 +47,7 @@ export class ExtensionModel implements Extension {
         this.createEclaireAssociatedPartyR5Classifier(classifier),
         this.createEclaireAssociatedPartyR5Party(party),
       ],
-      'http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty',
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-associated-party-r5.html',
       undefined,
       undefined,
       undefined,
@@ -239,7 +239,7 @@ export class ExtensionModel implements Extension {
   static createEclaireDescriptionSummary(descriptionSummaryInMarkdown: string): Extension {
     return new ExtensionModel(
       undefined,
-      'https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary',
+      'https://hl7.org/fhir/R4/researchstudy-definitions.html#ResearchStudy.descriptionSummary',
       undefined,
       undefined,
       undefined,
@@ -260,7 +260,7 @@ export class ExtensionModel implements Extension {
         this.createEclaireOutcomeMeasureDescription(markdownDescription),
         this.createEclaireOutcomeMeasureReference(reference),
       ],
-      'https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure',
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-outcome-measure-r5.html',
       undefined,
       undefined,
       undefined,
