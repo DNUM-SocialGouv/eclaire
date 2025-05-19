@@ -176,10 +176,10 @@ export class ResearchStudyModelFactory {
     const period: Period = PeriodModel.createCompletionDate(ModelUtils.UNAVAILABLE)
 
     const arm: ResearchStudyArm[] = ResearchStudyArmModel.create(
-      ModelUtils.UNAVAILABLE,
-      null,
-      ModelUtils.UNAVAILABLE,
-      null,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
       undefined
     )
 
