@@ -95,7 +95,7 @@ export class ExtensionModel implements Extension {
   static createEclaireLabel(value: string, type: LabelType): Extension {
     return new ExtensionModel(
       [this.createEclaireLabelR5Value(value), this.createEclaireLabelR5Type(type)],
-      'http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label',
+      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html',
       undefined,
       undefined,
       undefined,

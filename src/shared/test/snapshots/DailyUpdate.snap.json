@@ -169,7 +169,7 @@
                 },
               },
             ],
-            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html",
           },
           {
             "extension": [
@@ -191,7 +191,7 @@
                 },
               },
             ],
-            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html",
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
@@ -534,7 +534,7 @@
                 },
               },
             ],
-            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html",
           },
           {
             "extension": [
@@ -556,7 +556,7 @@
                 },
               },
             ],
-            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html",
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
@@ -970,7 +970,7 @@
                 },
               },
             ],
-            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html",
           },
           {
             "extension": [
@@ -992,7 +992,7 @@
                 },
               },
             ],
-            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.label",
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-label-r5.html",
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
