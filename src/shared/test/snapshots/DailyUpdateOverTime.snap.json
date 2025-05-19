@@ -151,7 +151,6 @@
             ],
           },
         ],
-        "description": null,
         "enrollment": [
           {
             "display": "Reference to group detailing study characteristics",
@@ -161,6 +160,10 @@
         ],
         "extension": [
           {
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
+            "valueInstant": "2023-04-12T00:00:00.000Z",
+          },
+          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueString": "Diseases [C] - Neoplasms [C04]",
           },
@@ -169,45 +172,6 @@
             "valuePeriod": {
               "start": "2022-06-30T00:00:00.000Z",
             },
-          },
-          {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
-            "valueInstant": "2023-04-12T00:00:00.000Z",
-          },
-          {
-            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
-            "valueMarkdown": null,
-          },
-          {
-            "extension": [
-              {
-                "url": "name",
-                "valueString": null,
-              },
-              {
-                "url": "type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "primary",
-                      "display": "Primary",
-                      "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
-                      "version": "0.1.0",
-                    },
-                  ],
-                  "text": null,
-                },
-              },
-              {
-                "url": "description",
-                "valueMarkdown": null,
-              },
-              {
-                "url": "reference",
-                "valueReference": null,
-              },
-            ],
-            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
           },
           {
             "extension": [
@@ -382,17 +346,6 @@
             },
           ],
         },
-        "primaryPurposeType": {
-          "coding": [
-            {
-              "code": "primary",
-              "display": "Primary",
-              "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
-              "version": "0.1.0",
-            },
-          ],
-          "text": null,
-        },
         "resourceType": "ResearchStudy",
         "site": [
           {
@@ -491,7 +444,6 @@
             ],
           },
         ],
-        "description": null,
         "enrollment": [
           {
             "display": "Reference to group detailing study characteristics",
@@ -501,51 +453,12 @@
         ],
         "extension": [
           {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
-            "valueString": "Hépato-gastro-entérologie",
-          },
-          {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
-            "valuePeriod": {},
-          },
-          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueInstant": "2023-04-06T00:00:00.000Z",
           },
           {
-            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
-            "valueMarkdown": null,
-          },
-          {
-            "extension": [
-              {
-                "url": "name",
-                "valueString": null,
-              },
-              {
-                "url": "type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "primary",
-                      "display": "Primary",
-                      "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
-                      "version": "0.1.0",
-                    },
-                  ],
-                  "text": null,
-                },
-              },
-              {
-                "url": "description",
-                "valueMarkdown": null,
-              },
-              {
-                "url": "reference",
-                "valueReference": null,
-              },
-            ],
-            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
+            "valueString": "Hépato-gastro-entérologie",
           },
           {
             "extension": [
@@ -631,17 +544,6 @@
               "version": "4.0.1",
             },
           ],
-        },
-        "primaryPurposeType": {
-          "coding": [
-            {
-              "code": "primary",
-              "display": "Primary",
-              "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
-              "version": "0.1.0",
-            },
-          ],
-          "text": null,
         },
         "resourceType": "ResearchStudy",
         "status": "administratively-completed",
@@ -729,7 +631,6 @@
             ],
           },
         ],
-        "description": null,
         "enrollment": [
           {
             "display": "Reference to group detailing study characteristics",
@@ -739,51 +640,12 @@
         ],
         "extension": [
           {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
-            "valueString": "Autres",
-          },
-          {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
-            "valuePeriod": {},
-          },
-          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
             "valueInstant": "2023-04-04T00:00:00.000Z",
           },
           {
-            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
-            "valueMarkdown": null,
-          },
-          {
-            "extension": [
-              {
-                "url": "name",
-                "valueString": null,
-              },
-              {
-                "url": "type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "primary",
-                      "display": "Primary",
-                      "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
-                      "version": "0.1.0",
-                    },
-                  ],
-                  "text": null,
-                },
-              },
-              {
-                "url": "description",
-                "valueMarkdown": null,
-              },
-              {
-                "url": "reference",
-                "valueReference": null,
-              },
-            ],
-            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
+            "valueString": "Autres",
           },
           {
             "extension": [
@@ -869,17 +731,6 @@
               "version": "0.3.0",
             },
           ],
-        },
-        "primaryPurposeType": {
-          "coding": [
-            {
-              "code": "primary",
-              "display": "Primary",
-              "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
-              "version": "0.1.0",
-            },
-          ],
-          "text": null,
         },
         "resourceType": "ResearchStudy",
         "status": "active",
@@ -1038,7 +889,6 @@
             ],
           },
         ],
-        "description": null,
         "enrollment": [
           {
             "display": "Reference to group detailing study characteristics",
@@ -1048,6 +898,10 @@
         ],
         "extension": [
           {
+            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
+            "valueInstant": "2024-01-06T00:00:00.000Z",
+          },
+          {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-therapeutic-area",
             "valueString": "Diseases [C] - Neoplasms [C04]",
           },
@@ -1056,45 +910,6 @@
             "valuePeriod": {
               "start": "2022-06-30T00:00:00.000Z",
             },
-          },
-          {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
-            "valueInstant": "2024-01-06T00:00:00.000Z",
-          },
-          {
-            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.descriptionSummary",
-            "valueMarkdown": null,
-          },
-          {
-            "extension": [
-              {
-                "url": "name",
-                "valueString": null,
-              },
-              {
-                "url": "type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "primary",
-                      "display": "Primary",
-                      "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
-                      "version": "0.1.0",
-                    },
-                  ],
-                  "text": null,
-                },
-              },
-              {
-                "url": "description",
-                "valueMarkdown": null,
-              },
-              {
-                "url": "reference",
-                "valueReference": null,
-              },
-            ],
-            "url": "https://hl7.org/fhir/R5/researchstudy-definitions.html#ResearchStudy.outcomeMeasure",
           },
           {
             "extension": [
@@ -1268,17 +1083,6 @@
               "version": "0.3.0",
             },
           ],
-        },
-        "primaryPurposeType": {
-          "coding": [
-            {
-              "code": "primary",
-              "display": "Primary",
-              "system": "http://terminology.hl7.org/CodeSystem/research-study-objective-type",
-              "version": "0.1.0",
-            },
-          ],
-          "text": null,
         },
         "resourceType": "ResearchStudy",
         "site": [

@@ -32,9 +32,9 @@ import { EclaireDto } from '../dto/EclaireDto'
 
 export class ResearchStudyModelFactory {
   static create(eclaireDto: EclaireDto): ResearchStudyModel {
+    const extensions: Extension[] = []
     const { primaryAssignerIdentifier, primaryAssignerOrganization } = this.createPrimaryAssigner(eclaireDto)
     const { enrollment, enrollmentGroup } = this.createEnrollmentContent(eclaireDto)
-    const sponsor = this.createSponsor(eclaireDto)
     const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto)
 
     const mostRecentDate = ModelUtils.getMostRecentIsoDate(
@@ -42,6 +42,12 @@ export class ResearchStudyModelFactory {
       ModelUtils.undefinedIfNull(eclaireDto.dates_avis_favorable_ms_mns),
       eclaireDto.date_theorique_maximale_autorisation_cpp
     )
+
+    let meta: Meta = undefined
+    if (ModelUtils.isNotNull(mostRecentDate)) {
+      meta = MetaModel.create(mostRecentDate)
+      extensions.push(ExtensionModel.createEclaireReviewDate(mostRecentDate))
+    }
 
     const category: CodeableConcept[] = []
     category.push(CodeableConceptModel.createRegulationCode(eclaireDto.reglementation_code))
@@ -97,23 +103,32 @@ export class ResearchStudyModelFactory {
       )
     )
 
-    const description = eclaireDto.resume
+    const description = ModelUtils.undefinedIfNull(eclaireDto.resume)
 
-    const extensions: Extension[] = []
     if (ModelUtils.isNotNull(eclaireDto.domaine_therapeutique)) {
       extensions.push(ExtensionModel.createEclaireTherapeuticArea(eclaireDto.domaine_therapeutique))
     }
-    extensions.push(ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement, eclaireDto.date_fin_recrutement))
-    extensions.push(ExtensionModel.createEclaireReviewDate(mostRecentDate))
-    extensions.push(ExtensionModel.createEclaireDescriptionSummary(eclaireDto.resume))
 
-    const primaryPurposeType: CodeableConcept = CodeableConceptModel.createPrimaryPurposeType(eclaireDto.objectifs)
-    extensions.push(ExtensionModel.createEclaireOutcomeMeasure(
-      null,
-      primaryPurposeType,
-      eclaireDto.objectifs,
-      null
-    ))
+    if (ModelUtils.isNotNull(eclaireDto.date_debut_recrutement) || ModelUtils.isNotNull(eclaireDto.date_fin_recrutement)) {
+      extensions.push(ExtensionModel.createEclaireRecruitmentPeriod(eclaireDto.date_debut_recrutement, eclaireDto.date_fin_recrutement))
+    }
+
+    if (ModelUtils.isNotNull(eclaireDto.resume)) {
+      extensions.push(ExtensionModel.createEclaireDescriptionSummary(eclaireDto.resume))
+    }
+
+    let primaryPurposeType: CodeableConcept
+    if (ModelUtils.isNotNull(eclaireDto.objectifs)) {
+      primaryPurposeType = CodeableConceptModel.createPrimaryPurposeType(eclaireDto.objectifs)
+      extensions.push(ExtensionModel.createEclaireOutcomeMeasure(
+        null,
+        primaryPurposeType,
+        eclaireDto.objectifs,
+        null
+      ))
+    } else {
+      primaryPurposeType = undefined
+    }
 
     /* TODO - Remplir quand les données seront disponibles
     contact.push(
@@ -148,26 +163,38 @@ export class ResearchStudyModelFactory {
     const relatedArtifacts = undefined
     const period = undefined
 
-    extensions.push(ExtensionModel.createEclaireAssociatedPartyR5(
-      eclaireDto.organisme_nom,
-      'lead-sponsor',
-      null,
-      null,
-      sponsor
-    ))
+    const sponsor = ModelUtils.isNotNull(eclaireDto.numero_primaire)
+      ? this.createSponsor(eclaireDto.numero_primaire)
+      : undefined
 
-    const status: RiphStatus = eclaireDto.etat as RiphStatus
-    extensions.push(ExtensionModel.createEclaireRecruitmentStatus(eclaireDto.statut_recrutement))
+    if (ModelUtils.isNotNull(eclaireDto.organisme_nom) && sponsor !== undefined) {
+      extensions.push(ExtensionModel.createEclaireAssociatedPartyR5(
+        eclaireDto.organisme_nom,
+        'lead-sponsor',
+        undefined,
+        undefined,
+        sponsor
+      ))
+    }
 
-    const id = eclaireDto.numero_primaire
+    const status: RiphStatus = ModelUtils.isNotNull(eclaireDto.etat) ? eclaireDto.etat as RiphStatus : undefined
+
+    if (ModelUtils.isNotNull(eclaireDto.statut_recrutement)) {
+      extensions.push(ExtensionModel.createEclaireRecruitmentStatus(eclaireDto.statut_recrutement))
+    }
+
+    const id = ModelUtils.undefinedIfNull(eclaireDto.numero_primaire)
+
     const identifier: Identifier[] = [
       primaryAssignerIdentifier,
       /* TODO - Remplir quand les données seront disponibles
       IdentifierModel.createSecondarySlice(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE),
        */
     ]
-    const location = ModelUtils.isNotNull(eclaireDto.pays_concernes) ? CodeableConceptModel.createLocations(eclaireDto.pays_concernes) : undefined
-    const meta: Meta = MetaModel.create(mostRecentDate)
+    const location = ModelUtils.isNotNull(eclaireDto.pays_concernes)
+      ? CodeableConceptModel.createLocations(eclaireDto.pays_concernes)
+      : undefined
+
     const phase: CodeableConcept = CodeableConceptModel.createResearchStudyPhase(eclaireDto.phase_recherche)
 
     const title = ModelUtils.isNotNull(eclaireDto.titre) ? eclaireDto.titre : undefined
@@ -238,8 +265,8 @@ export class ResearchStudyModelFactory {
     return { enrollment, enrollmentGroup }
   }
 
-  private static createSponsor(eclaireDto: EclaireDto): Reference {
-    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(eclaireDto.numero_primaire)
+  private static createSponsor(numeroPrimaire: string): Reference {
+    const primarySponsorOrganizationId = ModelUtils.generatePrimarySponsorOrganizationId(numeroPrimaire)
     return ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
   }
 
