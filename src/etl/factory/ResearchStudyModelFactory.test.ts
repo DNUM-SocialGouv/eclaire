@@ -472,7 +472,7 @@ describe('research study model factory', () => {
             "valueInstant": undefined,
             "valueMarkdown": undefined,
             "valuePeriod": PeriodModel {
-              "end": null,
+              "end": undefined,
               "start": "2022-06-30T00:00:00.000Z",
             },
             "valueReference": undefined,
@@ -671,7 +671,7 @@ describe('research study model factory', () => {
                 "valueMarkdown": undefined,
                 "valuePeriod": PeriodModel {
                   "end": undefined,
-                  "start": null,
+                  "start": undefined,
                 },
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -1690,8 +1690,8 @@ describe('research study model factory', () => {
             "valueInstant": undefined,
             "valueMarkdown": undefined,
             "valuePeriod": PeriodModel {
-              "end": null,
-              "start": null,
+              "end": undefined,
+              "start": undefined,
             },
             "valueReference": undefined,
             "valueString": undefined,
@@ -1889,7 +1889,7 @@ describe('research study model factory', () => {
                 "valueMarkdown": undefined,
                 "valuePeriod": PeriodModel {
                   "end": undefined,
-                  "start": null,
+                  "start": undefined,
                 },
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -2646,8 +2646,8 @@ describe('research study model factory', () => {
             "valueInstant": undefined,
             "valueMarkdown": undefined,
             "valuePeriod": PeriodModel {
-              "end": null,
-              "start": null,
+              "end": undefined,
+              "start": undefined,
             },
             "valueReference": undefined,
             "valueString": undefined,
@@ -2845,7 +2845,7 @@ describe('research study model factory', () => {
                 "valueMarkdown": undefined,
                 "valuePeriod": PeriodModel {
                   "end": undefined,
-                  "start": null,
+                  "start": undefined,
                 },
                 "valueReference": undefined,
                 "valueString": undefined,
@@ -3453,8 +3453,8 @@ describe('research study model factory', () => {
             "valueInstant": undefined,
             "valueMarkdown": undefined,
             "valuePeriod": PeriodModel {
-              "end": null,
-              "start": null,
+              "end": undefined,
+              "start": undefined,
             },
             "valueReference": undefined,
             "valueString": undefined,
@@ -3652,7 +3652,7 @@ describe('research study model factory', () => {
                 "valueMarkdown": undefined,
                 "valuePeriod": PeriodModel {
                   "end": undefined,
-                  "start": null,
+                  "start": undefined,
                 },
                 "valueReference": undefined,
                 "valueString": undefined,

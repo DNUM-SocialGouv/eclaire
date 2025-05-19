@@ -10,14 +10,14 @@ export class PeriodModel implements Period {
 
   static createRecruitmentPeriod(start: string, end: string): Period {
     return new PeriodModel(
-      end,
-      start
+      ModelUtils.undefinedIfNull(end),
+      ModelUtils.undefinedIfNull(start)
     )
   }
 
   static createCompletionDate(completionDate: string): Period {
     return new PeriodModel(
-      completionDate,
+      ModelUtils.undefinedIfNull(completionDate),
       undefined
     )
   }
@@ -29,14 +29,14 @@ export class PeriodModel implements Period {
 
     return new PeriodModel(
       undefined,
-      registrationDateInPrimaryRegistry
+      ModelUtils.undefinedIfNull(registrationDateInPrimaryRegistry)
     )
   }
 
   static createEclaireAssociatedPartyR5Period(period: string) {
     return new PeriodModel(
       undefined,
-      period
+      ModelUtils.undefinedIfNull(period)
     )
   }
 }

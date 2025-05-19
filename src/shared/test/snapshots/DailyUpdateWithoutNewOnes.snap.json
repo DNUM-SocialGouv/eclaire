@@ -210,10 +210,7 @@
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
-            "valuePeriod": {
-              "end": null,
-              "start": null,
-            },
+            "valuePeriod": {},
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
@@ -288,9 +285,7 @@
               },
               {
                 "url": "period",
-                "valuePeriod": {
-                  "start": null,
-                },
+                "valuePeriod": {},
               },
               {
                 "url": "classifier",
@@ -595,10 +590,7 @@
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
-            "valuePeriod": {
-              "end": null,
-              "start": null,
-            },
+            "valuePeriod": {},
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
@@ -673,9 +665,7 @@
               },
               {
                 "url": "period",
-                "valuePeriod": {
-                  "start": null,
-                },
+                "valuePeriod": {},
               },
               {
                 "url": "classifier",

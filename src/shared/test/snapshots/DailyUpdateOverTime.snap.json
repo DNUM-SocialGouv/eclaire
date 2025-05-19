@@ -282,7 +282,6 @@
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
             "valuePeriod": {
-              "end": null,
               "start": "2022-06-30T00:00:00.000Z",
             },
           },
@@ -359,9 +358,7 @@
               },
               {
                 "url": "period",
-                "valuePeriod": {
-                  "start": null,
-                },
+                "valuePeriod": {},
               },
               {
                 "url": "classifier",
@@ -766,10 +763,7 @@
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
-            "valuePeriod": {
-              "end": null,
-              "start": null,
-            },
+            "valuePeriod": {},
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
@@ -844,9 +838,7 @@
               },
               {
                 "url": "period",
-                "valuePeriod": {
-                  "start": null,
-                },
+                "valuePeriod": {},
               },
               {
                 "url": "classifier",
@@ -1151,10 +1143,7 @@
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
-            "valuePeriod": {
-              "end": null,
-              "start": null,
-            },
+            "valuePeriod": {},
           },
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-review-date",
@@ -1229,9 +1218,7 @@
               },
               {
                 "url": "period",
-                "valuePeriod": {
-                  "start": null,
-                },
+                "valuePeriod": {},
               },
               {
                 "url": "classifier",
@@ -1608,7 +1595,6 @@
           {
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-period",
             "valuePeriod": {
-              "end": null,
               "start": "2022-06-30T00:00:00.000Z",
             },
           },
@@ -1685,9 +1671,7 @@
               },
               {
                 "url": "period",
-                "valuePeriod": {
-                  "start": null,
-                },
+                "valuePeriod": {},
               },
               {
                 "url": "classifier",
