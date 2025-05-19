@@ -1,4 +1,4 @@
-export const countryCodeSystem = {
+export const countryCodeValueSet = {
   resourceType : 'ValueSet',
   id : 'iso3166-1-2',
   meta : {

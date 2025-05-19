@@ -1,7 +1,7 @@
 import { Coding } from 'fhir/r4'
 
 import { administrativeGenderCodeSystem } from '../code-systems/administrativeGenderCodeSystem'
-import { countryCodeSystem } from '../code-systems/countryCodeSystem'
+import { countryCodeValueSet } from '../code-systems/countryCodeValueSet'
 import { eclaireGroupCharacteristicKindVs } from '../code-systems/eclaireGroupCharacteristicKindVs'
 import { eclaireReglementationPrecisionCodeSystem } from '../code-systems/eclaireReglementationPrecisionCodeSystem'
 import { eclaireRegulationCodeCodeSystem } from '../code-systems/eclaireRegulationCodeCodeSystem'
@@ -198,15 +198,15 @@ export class CodingModel implements Coding {
   }
 
   static createLocation(countryCode: string): Coding {
-    const country = countryCodeSystem.compose.include[0].concept.find(
+    const country = countryCodeValueSet.compose.include[0].concept.find(
       (country): boolean => country.code === countryCode
     )
 
     return new CodingModel(
       countryCode,
       country.display,
-      countryCodeSystem.compose.include[0].system,
-      countryCodeSystem.version
+      countryCodeValueSet.compose.include[0].system,
+      countryCodeValueSet.version
     )
   }
 
