@@ -193,21 +193,6 @@
                 },
               },
               {
-                "url": "period",
-                "valuePeriod": {},
-              },
-              {
-                "url": "classifier",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-organization-type-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-              {
                 "url": "party",
                 "valueReference": {
                   "display": "Reference to primary sponsor",
@@ -480,21 +465,6 @@
                 },
               },
               {
-                "url": "period",
-                "valuePeriod": {},
-              },
-              {
-                "url": "classifier",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-organization-type-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-              {
                 "url": "party",
                 "valueReference": {
                   "display": "Reference to primary sponsor",
@@ -661,21 +631,6 @@
                       "code": "lead-sponsor",
                       "display": "lead-sponsor",
                       "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-role-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-              {
-                "url": "period",
-                "valuePeriod": {},
-              },
-              {
-                "url": "classifier",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-organization-type-code-system",
                       "version": "0.3.0",
                     },
                   ],
@@ -925,21 +880,6 @@
                       "code": "lead-sponsor",
                       "display": "lead-sponsor",
                       "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-role-code-system",
-                      "version": "0.3.0",
-                    },
-                  ],
-                },
-              },
-              {
-                "url": "period",
-                "valuePeriod": {},
-              },
-              {
-                "url": "classifier",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-party-organization-type-code-system",
                       "version": "0.3.0",
                     },
                   ],

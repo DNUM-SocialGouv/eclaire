@@ -39,14 +39,34 @@ export class ExtensionModel implements Extension {
   }
 
   static createEclaireAssociatedPartyR5(name: string, role: string, period: string, classifier: string, party: Reference): Extension {
+    const extensions: Extension[] = []
+
+    if (name !== undefined) {
+      extensions.push(this.createEclaireAssociatedPartyR5Name(name))
+    }
+
+    if (role !== undefined) {
+      extensions.push(this.createEclaireAssociatedPartyR5Role(role))
+    }
+
+    if (period !== undefined) {
+      extensions.push(this.createEclaireAssociatedPartyR5Period(period))
+    }
+
+    if (classifier !== undefined) {
+      extensions.push(this.createEclaireAssociatedPartyR5Classifier(classifier))
+    }
+
+    if (party !== undefined) {
+      extensions.push(this.createEclaireAssociatedPartyR5Party(party))
+    }
+
+    if (extensions.length === 0) {
+      return undefined
+    }
+
     return new ExtensionModel(
-      [
-        this.createEclaireAssociatedPartyR5Name(name),
-        this.createEclaireAssociatedPartyR5Role(role),
-        this.createEclaireAssociatedPartyR5Period(period),
-        this.createEclaireAssociatedPartyR5Classifier(classifier),
-        this.createEclaireAssociatedPartyR5Party(party),
-      ],
+      extensions,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-associated-party-r5.html',
       undefined,
       undefined,
