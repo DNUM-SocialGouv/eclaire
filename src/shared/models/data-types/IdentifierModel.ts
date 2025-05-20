@@ -25,9 +25,13 @@ export class IdentifierModel implements Identifier {
     assigner: AssignerForPrimaryIdentifier,
     registrationDateInPrimaryRegistry: string
   ): Identifier {
+    const period = (registrationDateInPrimaryRegistry !== undefined)
+      ? PeriodModel.createRegistrationInPrimaryRegistry(registrationDateInPrimaryRegistry)
+      : undefined
+
     return new IdentifierModel(
       ReferenceModel.createAssignerForPrimaryIdentifier(assigner),
-      PeriodModel.createRegistrationInPrimaryRegistry(registrationDateInPrimaryRegistry),
+      period,
       'official',
       ctisOrNationalNumber
     )

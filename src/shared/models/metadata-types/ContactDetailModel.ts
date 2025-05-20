@@ -34,8 +34,13 @@ export class ContactDetailModel implements ContactDetail {
     const extensions: Extension[] = []
 
     extensions.push(ExtensionModel.createEclaireContactName(emptyFirstNameIfNull, emptyMiddleNameIfNull, emptyLastnameIfNull))
-    extensions.push(ExtensionModel.createEclaireContactAddress(address, city, country, zip))
-    extensions.push(ExtensionModel.createEclaireContactAffiliation(affiliation))
+
+    ExtensionModel.createEclaireContactAddress(address, city, country, zip)
+    ExtensionModel.createEclaireContactAffiliation(affiliation)
+
+    /* TODO - Décommenter quand address, city, country, zip et affiliation seront disponibles
+      extensions.push(eclaireContactAddress, eclaireContactAffiliation)
+     */
 
     if (contactType) {
       extensions.push(ExtensionModel.createEclaireContactType(contactType))

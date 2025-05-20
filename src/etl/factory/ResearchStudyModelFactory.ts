@@ -74,32 +74,32 @@ export class ResearchStudyModelFactory {
     ) {
       contact.push(ContactDetailModel.create(
         eclaireDto.contact_prenom,
-        null,
+        undefined,
         eclaireDto.contact_nom,
         eclaireDto.contact_telephone,
         eclaireDto.contact_courriel,
         undefined,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
       ))
     }
 
     contact.push(
       ContactDetailModel.create(
         eclaireDto.contact_public.prenom,
-        null,
+        undefined,
         eclaireDto.contact_public.nom,
         eclaireDto.contact_public.telephone,
         eclaireDto.contact_public.courriel,
         'Public',
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE,
-        ModelUtils.UNAVAILABLE
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
       )
     )
 
@@ -239,7 +239,7 @@ export class ResearchStudyModelFactory {
     primaryAssignerOrganization: Organization
   } {
     const assigner: AssignerForPrimaryIdentifier = ModelUtils.identifyAssigner(eclaireDto.reglementation_code, eclaireDto.precision_reglementation)
-    const primaryAssignerIdentifier: Identifier = IdentifierModel.createPrimarySlice(eclaireDto.numero_primaire, assigner, ModelUtils.UNAVAILABLE)
+    const primaryAssignerIdentifier: Identifier = IdentifierModel.createPrimarySlice(eclaireDto.numero_primaire, assigner, undefined)
     const primaryAssignerOrganization: Organization = OrganizationModel.createPrimaryAssigner(assigner)
 
     return { primaryAssignerIdentifier, primaryAssignerOrganization }

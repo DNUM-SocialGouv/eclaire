@@ -329,6 +329,10 @@ export class ExtensionModel implements Extension {
   }
 
   static createEclaireRecruitmentStatus(status: string): Extension {
+    if (status === undefined) {
+      return undefined
+    }
+
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status',
