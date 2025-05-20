@@ -109,17 +109,6 @@
             ],
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-associated-party-r5.html",
           },
-          {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
-            "valueCodeableConcept": {
-              "coding": [
-                {
-                  "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
-                  "version": "0.3.0",
-                },
-              ],
-            },
-          },
         ],
         "id": "2021-A01563-38",
         "identifier": [
@@ -263,17 +252,6 @@
               },
             ],
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-associated-party-r5.html",
-          },
-          {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
-            "valueCodeableConcept": {
-              "coding": [
-                {
-                  "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
-                  "version": "0.3.0",
-                },
-              ],
-            },
           },
         ],
         "id": "2021-A01022-39",
@@ -478,17 +456,6 @@
               },
             ],
             "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-associated-party-r5.html",
-          },
-          {
-            "url": "https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status",
-            "valueCodeableConcept": {
-              "coding": [
-                {
-                  "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-group-characteristic-kind-code-system",
-                  "version": "0.3.0",
-                },
-              ],
-            },
           },
         ],
         "id": "2024-500014-26-99",

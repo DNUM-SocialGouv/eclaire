@@ -333,11 +333,17 @@ export class ExtensionModel implements Extension {
       return undefined
     }
 
+    const valueCodeableConcept = CodeableConceptModel.createRecruitmentStatus(status)
+
+    if (valueCodeableConcept.coding[0].code === undefined) {
+      return undefined
+    }
+
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-recruitment-status',
       undefined,
-      CodeableConceptModel.createRecruitmentStatus(status),
+      valueCodeableConcept,
       undefined,
       undefined,
       undefined,

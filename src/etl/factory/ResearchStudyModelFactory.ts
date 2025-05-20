@@ -180,7 +180,10 @@ export class ResearchStudyModelFactory {
     const status: RiphStatus = ModelUtils.isNotNull(eclaireDto.etat) ? eclaireDto.etat as RiphStatus : undefined
 
     if (ModelUtils.isNotNull(eclaireDto.statut_recrutement)) {
-      extensions.push(ExtensionModel.createEclaireRecruitmentStatus(eclaireDto.statut_recrutement))
+      const eclaireRecruitmentStatus = ExtensionModel.createEclaireRecruitmentStatus(eclaireDto.statut_recrutement)
+      if (eclaireRecruitmentStatus) {
+        extensions.push(eclaireRecruitmentStatus)
+      }
     }
 
     const id = ModelUtils.undefinedIfNull(eclaireDto.numero_primaire)
