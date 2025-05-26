@@ -67,7 +67,7 @@ export class ExtensionModel implements Extension {
 
     return new ExtensionModel(
       extensions,
-      'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition-eclaire-associated-party-r5.html',
+      'http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty',
       undefined,
       undefined,
       undefined,
