@@ -3,7 +3,7 @@ import {
   ContactDetail,
   Extension,
   Identifier,
-  Meta, Period,
+  Meta, Narrative, Period,
   Reference, RelatedArtifact,
   ResearchStudy, ResearchStudyArm,
 } from 'fhir/r4'
@@ -38,7 +38,8 @@ export class ResearchStudyModel implements ResearchStudy {
     readonly relatedArtifact: RelatedArtifact[] | undefined,
     readonly site: Reference[] | undefined,
     status: RiphStatus,
-    readonly title: string | undefined
+    readonly title: string | undefined,
+    readonly text: Narrative
   ) {
     this.originalContentsToEnhance = originalContentsToEnhance
     this.resourceType = 'ResearchStudy'

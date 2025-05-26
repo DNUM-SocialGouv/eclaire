@@ -16,6 +16,7 @@ import { CodeableConceptModel } from '../../shared/models/data-types/CodeableCon
 import { IdentifierModel } from '../../shared/models/data-types/IdentifierModel'
 import { GroupModel } from '../../shared/models/domain-resources/GroupModel'
 import { LocationModel } from '../../shared/models/domain-resources/LocationModel'
+import { NarrativeModel } from '../../shared/models/domain-resources/NarrativeModel'
 import { OrganizationModel } from '../../shared/models/domain-resources/OrganizationModel'
 import { ResearchStudyModel, RiphStatus } from '../../shared/models/domain-resources/ResearchStudyModel'
 import { ModelUtils } from '../../shared/models/eclaire/ModelUtils'
@@ -213,6 +214,8 @@ export class ResearchStudyModelFactory {
       organizations
     )
 
+    const text = NarrativeModel.create(eclaireDto, 'extensions')
+
     return new ResearchStudyModel(
       arm,
       category,
@@ -233,7 +236,8 @@ export class ResearchStudyModelFactory {
       relatedArtifacts,
       site.length === 0 ? undefined : site,
       status,
-      title
+      title,
+      text
     )
   }
 

@@ -16,29 +16,29 @@ describe('etl | dto | EclaireDto', () => {
         },
         "contact_telephone": "0041616881111",
         "criteres_eligibilite": [
-          {
+          Critere {
             "titre": null,
             "type": null,
           },
-          {
+          Critere {
             "titre": "TEST INCLUSION",
             "type": "INCLUSION",
           },
-          {
+          Critere {
             "titre": "TEST EXCLUSION",
             "type": "EXCLUSION",
           },
         ],
         "criteres_jugement": [
-          {
+          Critere {
             "titre": null,
             "type": null,
           },
-          {
+          Critere {
             "titre": "TEST PRINCIPAL",
             "type": "PRINCIPAL",
           },
-          {
+          Critere {
             "titre": "TEST SECONDAIRE",
             "type": "SECONDAIRE",
           },
@@ -121,29 +121,29 @@ describe('etl | dto | EclaireDto', () => {
         },
         "contact_telephone": null,
         "criteres_eligibilite": [
-          {
+          Critere {
             "titre": null,
             "type": null,
           },
-          {
+          Critere {
             "titre": "TEST INCLUSION",
             "type": "INCLUSION",
           },
-          {
+          Critere {
             "titre": "TEST EXCLUSION",
             "type": "EXCLUSION",
           },
         ],
         "criteres_jugement": [
-          {
+          Critere {
             "titre": null,
             "type": null,
           },
-          {
+          Critere {
             "titre": "TEST PRINCIPAL",
             "type": "PRINCIPAL",
           },
-          {
+          Critere {
             "titre": "TEST SECONDAIRE",
             "type": "SECONDAIRE",
           },
@@ -213,13 +213,13 @@ describe('etl | dto | EclaireDto', () => {
         },
         "contact_telephone": null,
         "criteres_eligibilite": [
-          {
+          Critere {
             "titre": null,
             "type": null,
           },
         ],
         "criteres_jugement": [
-          {
+          Critere {
             "titre": null,
             "type": null,
           },

@@ -103,8 +103,8 @@ export class EclaireDto {
         riphCtisDto.contact_public_courriel,
         riphCtisDto.contact_public_telephone
       ),
-      riphCtisDto.criteres_eligibilite,
-      riphCtisDto.criteres_jugement,
+      riphCtisDto.criteres_eligibilite.map((criteria) => new Critere(criteria.titre, criteria.type)),
+      riphCtisDto.criteres_jugement.map((criteria) => new Critere(criteria.titre, criteria.type)),
       riphCtisDto.objectifs,
       riphCtisDto.resume,
       riphCtisDto.statut_recrutement,
@@ -160,8 +160,8 @@ export class EclaireDto {
         riphDmDto.contact_public_courriel,
         riphDmDto.contact_public_telephone
       ),
-      riphDmDto.criteres_eligibilite,
-      riphDmDto.criteres_jugement,
+      riphDmDto.criteres_eligibilite.map((criteria) => new Critere(criteria.titre, criteria.type)),
+      riphDmDto.criteres_jugement.map((criteria) => new Critere(criteria.titre, criteria.type)),
       riphDmDto.objectifs,
       riphDmDto.resume,
       riphDmDto.statut_recrutement,
@@ -225,13 +225,20 @@ export class EclaireDto {
         riphJardeDto.contact_public_courriel,
         riphJardeDto.contact_public_telephone
       ),
-      riphJardeDto.criteres_eligibilite,
-      riphJardeDto.criteres_jugement,
+      riphJardeDto.criteres_eligibilite.map((criteria) => new Critere(criteria.titre, criteria.type)),
+      riphJardeDto.criteres_jugement.map((criteria) => new Critere(criteria.titre, criteria.type)),
       riphJardeDto.objectifs,
       riphJardeDto.resume,
       riphJardeDto.statut_recrutement,
       riphJardeDto.date_fin_recrutement
     )
+  }
+
+  toHtml(): string {
+    const sites = this.sites?.map((site: Site) => site.toString()).toString()
+    const criteresEligibilite = this.criteres_eligibilite?.map((crit: Critere) => crit.toString()).toString()
+    const criteresJugement = this.criteres_jugement?.map((crit: Critere) => crit.toString()).toString()
+    return `<h2>Données reçues avant modélisation FHIR</h2><ul><li> reglementation_code: ${this.reglementation_code} </li><li> precision_reglementation: ${this.precision_reglementation} </li><li> etat: ${this.etat} </li><li> organisme_nom: ${this.organisme_nom} </li><li> organisme_adresse: ${this.organisme_adresse} </li><li> organisme_code_postal: ${this.organisme_code_postal} </li><li> organisme_pays: ${this.organisme_pays} </li><li> organisme_ville: ${this.organisme_ville} </li><li> contact_nom: ${this.contact_nom} </li><li> contact_prenom: ${this.contact_prenom} </li><li> contact_telephone: ${this.contact_telephone} </li><li> contact_courriel: ${this.contact_courriel} </li><li> sites: ${sites} </li><li> numero_primaire: ${this.numero_primaire} </li><li> titre: ${this.titre} </li><li> phase_recherche: ${this.phase_recherche} </li><li> domaine_therapeutique: ${this.domaine_therapeutique} </li><li> pathologies_maladies_rares: ${this.pathologies_maladies_rares} </li><li> informations_meddra: ${this.informations_meddra?.toString()} </li><li> taille_etude: ${this.taille_etude} </li><li> tranches_age: ${this.tranches_age?.toString()} </li><li> sexe: ${this.sexe?.toString()} </li><li> groupes_sujet: ${this.groupes_sujet} </li><li> population_recrutement: ${this.population_recrutement?.toString()} </li><li> date_debut_recrutement: ${this.date_debut_recrutement} </li><li> historique: ${this.historique} </li><li> dates_avis_favorable_ms_mns: ${this.dates_avis_favorable_ms_mns} </li><li> pays_concernes: ${this.pays_concernes?.toString()} </li><li> date_theorique_maximale_autorisation_cpp: ${this.date_theorique_maximale_autorisation_cpp} </li><li> contact_public: ${this.contact_public?.toString()} </li><li> criteres_eligibilite: ${criteresEligibilite} </li><li> criteres_jugement: ${criteresJugement} </li><li> objectifs: ${this.objectifs} </li><li> resume: ${this.resume} </li><li> statut_recrutement: ${this.statut_recrutement} </li><li> date_fin_recrutement: ${this.date_fin_recrutement} </li></ul>`
   }
 }
 
@@ -242,6 +249,10 @@ class Contact {
     readonly courriel: string,
     readonly telephone: string
   ) {}
+
+  toString() {
+    return `Nom: ${this.nom} - Prenom: ${this.prenom} Courriel: ${this.courriel} Tel: ${this.telephone}`
+  }
 }
 
 class Site {
@@ -254,13 +265,21 @@ class Site {
     readonly prenom: string,
     readonly service: string
   ) {}
+
+  toString() {
+    return `Organisme: ${this.organisme} - Adresse: ${this.adresse} - Ville: ${this.ville} - Titre: ${this.titre} - Nom: ${this.nom} - Prenom: ${this.prenom} - Service: ${this.service}`
+  }
 }
 
 export class Critere {
-  private constructor(
+  constructor(
     readonly titre: string,
     readonly type: string
   ) {}
+
+  toString() {
+    return `Titre: ${this.titre} - Type: ${this.type}`
+  }
 }
 
 type Phase = 'Phase I' | 'Phase I/Phase II' | 'Phase II' | 'Phase II/Phase III' | 'Phase III' | 'Phase III/Phase IV' | 'Phase IV' | 'N/A'
