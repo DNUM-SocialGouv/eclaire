@@ -8,7 +8,6 @@ import { eclaireRegulationCodeCodeSystem } from '../code-systems/eclaireRegulati
 import { eclaireStatusRecruitmentCodeSystem } from '../code-systems/eclaireStatusRecruitmentCodeSystem'
 import { eclaireStudyPartyOrganizationTypeCodeSystem } from '../code-systems/eclaireStudyPartyOrganizationTypeCodeSystem'
 import { eclaireStudyPartyRoleVsCodeSystem } from '../code-systems/eclaireStudyPartyRoleVsCodeSystem'
-import { eclaireStudyPhaseSourceCodeSystem } from '../code-systems/eclaireStudyPhaseSourceCodeSystem'
 import { eclaireStudyPopulationCodeSystem } from '../code-systems/eclaireStudyPopulationCodeSystem'
 import { eclaireStudyTitleTypeCodeSystem } from '../code-systems/eclaireStudyTitleTypeCodeSystem'
 import { eclaireTypeContactCodeSystem } from '../code-systems/eclaireTypeContactCodeSystem'
@@ -41,40 +40,36 @@ export class CodingModel implements Coding {
 
     switch (phase) {
       case 'Phase I':
-        index = 3
+        index = 2
         break
       case 'Phase I/Phase II':
-        index = 6
+        index = 3
         break
       case 'Phase II':
-        index = 7
+        index = 4
         break
       case 'Phase II/Phase III':
-        index = 8
+        index = 5
         break
       case 'Phase III':
-        index = 9
+        index = 6
         break
       case 'Phase IV':
-        index = 10
+        index = 7
         break
       case 'Phase III/Phase IV':
-        index = 11
+        index = 6
         break
       default:
-        return {
-          code: researchStudyPhaseCodeSystem.concept[0].code,
-          display: researchStudyPhaseCodeSystem.concept[0].display,
-          url: researchStudyPhaseCodeSystem.url,
-          version: researchStudyPhaseCodeSystem.version,
-        }
+        index = 0
+        break
     }
 
     return {
-      code: eclaireStudyPhaseSourceCodeSystem.concept[index].code,
-      display: eclaireStudyPhaseSourceCodeSystem.concept[index].display,
-      url: eclaireStudyPhaseSourceCodeSystem.url,
-      version: eclaireStudyPhaseSourceCodeSystem.version,
+      code: researchStudyPhaseCodeSystem.concept[index].code,
+      display: researchStudyPhaseCodeSystem.concept[index].display,
+      url: researchStudyPhaseCodeSystem.url,
+      version: researchStudyPhaseCodeSystem.version,
     }
   }
 

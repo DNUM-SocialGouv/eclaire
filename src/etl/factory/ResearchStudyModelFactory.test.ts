@@ -391,10 +391,10 @@ describe('research study model factory', () => {
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
-              "code": "phase-III",
-              "display": "Therapeutic confirmatory  (Phase III)",
-              "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-phase-source-code-system",
-              "version": "0.3.0",
+              "code": "phase-3",
+              "display": "Phase 3",
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
+              "version": "1.0.0",
             },
           ],
           "id": undefined,
@@ -1013,7 +1013,7 @@ describe('research study model factory', () => {
               "code": "n-a",
               "display": "N/A",
               "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
-              "version": "4.0.1",
+              "version": "1.0.0",
             },
           ],
           "id": undefined,
@@ -1469,10 +1469,10 @@ describe('research study model factory', () => {
         "phase": CodeableConceptModel {
           "coding": [
             CodingModel {
-              "code": "phase-I-other",
-              "display": "Human Pharmacology (Phase I) -  Other",
-              "system": "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-study-phase-source-code-system",
-              "version": "0.3.0",
+              "code": "phase-1",
+              "display": "Phase 1",
+              "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
+              "version": "1.0.0",
             },
           ],
           "id": undefined,
@@ -1714,7 +1714,7 @@ describe('research study model factory', () => {
               "code": "n-a",
               "display": "N/A",
               "system": "http://terminology.hl7.org/CodeSystem/research-study-phase",
-              "version": "4.0.1",
+              "version": "1.0.0",
             },
           ],
           "id": undefined,
