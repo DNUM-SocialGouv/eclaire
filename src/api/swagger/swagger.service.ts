@@ -27,7 +27,7 @@ export class SwaggerService {
         <li>Cliquer sur "Exécuter" pour voir le résultat au format JSON</li>
       </ul>`)
       .setExternalDoc('Notre documentation FHIR est disponible via notre guide d’implémentation (R4).', 'https://interop.esante.gouv.fr/ig/fhir/eclaire/index.html')
-      .setVersion('0.1')
+      .setVersion('0.3.0')
       .build()
     const document = SwaggerModule.createDocument(app, builder)
     SwaggerModule.setup('api', app, document, { swaggerOptions: { tagsSorter: 'alpha' } })
