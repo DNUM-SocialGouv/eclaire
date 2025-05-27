@@ -59,13 +59,13 @@ export class MedDraPipeline {
   }
 
   private buildBodyToFindEveryCtisStudiesSinceAGivenDate(date: string): ElasticsearchBodyType {
-    const everyCtisStudiesSinceYesterdayQueryParams: FhirParsedQueryParams[] = [
-      { name: '_count', value: '1000' },
+    const ctisStudiesQueryParams: FhirParsedQueryParams[] = [
+      { name: '_count', value: '5000' },
       { name: '_lastUpdated', value: `ge${date}` },
       { name: '_text', value: 'REG536' },
     ]
 
-    return convertFhirParsedQueryParamsToElasticsearchQuery(everyCtisStudiesSinceYesterdayQueryParams)
+    return convertFhirParsedQueryParamsToElasticsearchQuery(ctisStudiesQueryParams)
   }
 
   private buildBodyToFindEveryCtisStudiesSinceYesterday(): ElasticsearchBodyType {

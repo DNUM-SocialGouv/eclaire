@@ -40,7 +40,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
             ],
           },
         },
-        size: 1000,
+        size: 5000,
       },
       true)
     })
@@ -65,7 +65,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
             ],
           },
         },
-        size: 1000,
+        size: 5000,
       },
       true)
     })
