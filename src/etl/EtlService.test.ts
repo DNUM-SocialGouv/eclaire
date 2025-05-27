@@ -519,6 +519,8 @@ async function setup() {
     logger,
     readerService,
   } = setupDependencies()
+  vi.stubEnv('CHUNK_SIZE', '100')
+
   await databaseService.deletePipelines()
   await databaseService.deletePolicies()
   await databaseService.deleteMedDraIndex()

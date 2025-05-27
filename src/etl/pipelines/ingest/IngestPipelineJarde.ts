@@ -9,13 +9,13 @@ export class IngestPipelineJarde extends IngestPipeline {
 
   async execute(): Promise<void> {
     const riphJardeDtos: RiphJardeDto[] = await super.extract<RiphJardeDto>()
-    const researchStudyDocuments: ResearchStudyModel[] = this.transform(riphJardeDtos)
 
-    const chunkSize = 200
-    for (let i = 0; i < researchStudyDocuments.length; i += chunkSize) {
-      this.logger.info(`---- Chunk JARDE: ${i} / ${researchStudyDocuments.length} elasticsearch documents`)
-      const chunk = researchStudyDocuments.slice(i, i + chunkSize)
-      await super.load(chunk)
+    const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
+    for (let i = 0; i < riphJardeDtos.length; i += chunkSize) {
+      this.logger.info(`---- Chunk JARDE: ${i} / ${riphJardeDtos.length} elasticsearch documents`)
+      const chunk = riphJardeDtos.slice(i, i + chunkSize)
+      const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
+      await super.load(researchStudyDocuments)
     }
   }
 
