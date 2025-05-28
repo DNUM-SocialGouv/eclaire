@@ -16,8 +16,12 @@ export class MedDraPipeline {
     const data: ResearchStudyModel[] = await this.extract(date)
 
     if (data.length > 0) {
-      const transformedResearchStudies: ResearchStudyModel[] = await this.transform(data)
-      await this.load(transformedResearchStudies)
+      const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
+      for (let i = 0; i < data.length; i += chunkSize) {
+        const chunk = data.slice(i, i + chunkSize)
+        const transformedResearchStudies: ResearchStudyModel[] = await this.transform(chunk)
+        await this.load(transformedResearchStudies)
+      }
     }
   }
 

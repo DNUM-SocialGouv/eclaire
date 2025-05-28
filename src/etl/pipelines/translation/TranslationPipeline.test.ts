@@ -482,6 +482,7 @@ async function setup() {
 
   vi.stubEnv('ECLAIRE_URL', 'http://localhost:3000/')
   vi.stubEnv('NUMBER_OF_RESOURCES_BY_PAGE', '2')
+  vi.stubEnv('CHUNK_SIZE', '100')
 
   const esResearchStudyRepository: EsResearchStudyRepository = new EsResearchStudyRepository(databaseService, configService)
 
