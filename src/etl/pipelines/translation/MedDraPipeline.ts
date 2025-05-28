@@ -2,6 +2,7 @@ import { FhirParsedQueryParams } from '../../../api/research-study/controllers/F
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../../../api/research-study/gateways/converter/convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse, SearchResponseHits } from '../../../shared/elasticsearch/ElasticsearchService'
+import { LoggerService } from '../../../shared/logger/LoggerService'
 import { CodeableConceptModel } from '../../../shared/models/data-types/CodeableConceptModel'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
 import { ModelUtils } from '../../../shared/models/eclaire/ModelUtils'
@@ -9,7 +10,8 @@ import { MedDra } from '../../dto/EclaireDto'
 
 export class MedDraPipeline {
   constructor(
-    private readonly databaseService: ElasticsearchService
+    private readonly databaseService: ElasticsearchService,
+    protected readonly logger?: LoggerService
   ) {}
 
   async execute(date?: string): Promise<void> {
@@ -19,6 +21,7 @@ export class MedDraPipeline {
       const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
       for (let i = 0; i < data.length; i += chunkSize) {
         const chunk = data.slice(i, i + chunkSize)
+        this.logger?.info(`---- Chunk MedDra: ${i} / ${data.length} elasticsearch documents`)
         const transformedResearchStudies: ResearchStudyModel[] = await this.transform(chunk)
         await this.load(transformedResearchStudies)
       }

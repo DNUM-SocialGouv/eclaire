@@ -171,7 +171,7 @@ export class EtlService {
     this.loggerService.info('-- Début de la traduction des essais cliniques CTIS.')
 
     try {
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(this.databaseService, this.translationService)
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(this.databaseService, this.translationService, this.loggerService)
       await translationPipeline.execute(startingDate)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
@@ -188,7 +188,7 @@ export class EtlService {
     this.loggerService.info('-- Début de la mise à jour des labels Meddra pour les essais cliniques CTIS.')
 
     try {
-      const medDraPipeline: MedDraPipeline = new MedDraPipeline(this.databaseService)
+      const medDraPipeline: MedDraPipeline = new MedDraPipeline(this.databaseService, this.loggerService)
       await medDraPipeline.execute(startingDate)
     } catch (error) {
       if (error instanceof errors.ResponseError) {

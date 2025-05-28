@@ -4,6 +4,7 @@ import { FhirParsedQueryParams } from '../../../api/research-study/controllers/F
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../../../api/research-study/gateways/converter/convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
 import { ElasticsearchService, SearchResponse, SearchResponseHits } from '../../../shared/elasticsearch/ElasticsearchService'
+import { LoggerService } from '../../../shared/logger/LoggerService'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
 import { ModelUtils } from '../../../shared/models/eclaire/ModelUtils'
 import { TranslatedContentModel } from '../../../shared/models/eclaire/TranslatedContentModel'
@@ -12,7 +13,8 @@ import { TranslationService, TextsToTranslate, TranslatedTexts } from '../../../
 export class TranslationPipeline {
   constructor(
     private readonly databaseService: ElasticsearchService,
-    private readonly translationService: TranslationService
+    private readonly translationService: TranslationService,
+    protected readonly logger?: LoggerService
   ) {}
 
   async execute(date?: string): Promise<void> {
@@ -22,6 +24,7 @@ export class TranslationPipeline {
       const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
       for (let i = 0; i < data.length; i += chunkSize) {
         const chunk = data.slice(i, i + chunkSize)
+        this.logger?.info(`---- Chunk Translation: ${i} / ${data.length} elasticsearch documents`)
         const transformedResearchStudies: ResearchStudyModel[] = await this.transform(chunk)
         await this.load(transformedResearchStudies)
       }
