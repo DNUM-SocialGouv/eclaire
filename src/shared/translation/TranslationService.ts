@@ -12,6 +12,14 @@ export class TranslationService {
       ]
     )
 
+    if (results.length <= 0) {
+      return {
+        diseaseCondition: '',
+        therapeuticArea: '',
+        title: '',
+      }
+    }
+
     return {
       diseaseCondition: results[0].text,
       therapeuticArea: results[1].text,
