@@ -12,7 +12,7 @@ export class TranslationService {
       ]
     )
 
-    if (results.length <= 0) {
+    if (results === undefined || results.length <= 0) {
       return {
         diseaseCondition: '',
         therapeuticArea: '',
