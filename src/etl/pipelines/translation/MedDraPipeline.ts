@@ -48,16 +48,10 @@ export class MedDraPipeline {
   async transform(researchStudies: ResearchStudyModel[]): Promise<ResearchStudyModel[]> {
     for (const researchStudy of researchStudies) {
       if (researchStudy.originalContentsToEnhance?.meddraCodes && researchStudy.originalContentsToEnhance.meddraCodes.length > 0) {
-        const maxChunkSize = 25
+        const meddraDocuments: MedDra[] = await this.databaseService.findMedDraDocuments(
+          researchStudy.originalContentsToEnhance.meddraCodes.filter((code: string) => code !== '')
+        ) as MedDra[]
 
-        let chunk: string[]
-        if (researchStudy.originalContentsToEnhance.meddraCodes.length > maxChunkSize) {
-          chunk = researchStudy.originalContentsToEnhance.meddraCodes.slice(0, maxChunkSize)
-        } else {
-          chunk = researchStudy.originalContentsToEnhance.meddraCodes
-        }
-
-        const meddraDocuments: MedDra[] = await this.databaseService.findMedDraDocuments(chunk) as MedDra[]
         if (ModelUtils.isNotNull(meddraDocuments)) {
           researchStudy.condition.push(...CodeableConceptModel.createMedDraSlice(researchStudy.id, meddraDocuments))
         }
