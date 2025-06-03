@@ -26,6 +26,7 @@ export class GroupModel implements Group {
     enrollmentGroupId: string,
     genders: string[],
     ageRanges: string[],
+    ResearchScope: string,
     studySize: number,
     researchStudyGroupCategory: string,
     studyPopulation: string[],
@@ -46,6 +47,10 @@ export class GroupModel implements Group {
     }
     if (ModelUtils.isNotNull(studyPopulation)) {
       characteristic.push(GroupCharacteristicModel.createStudyPopulation(studyPopulation))
+    }
+    // For test
+    if (ModelUtils.isNotNull(ResearchScope)) {
+      characteristic.push(GroupCharacteristicModel.createResearchStudyScope(ResearchScope))
     }
 
     if (eligibilityCriteria && eligibilityCriteria.length > 0) {

@@ -262,6 +262,7 @@ export class ResearchStudyModelFactory {
       enrollmentGroupId,
       eclaireDto.sexe,
       eclaireDto.tranches_age,
+      eclaireDto.portee_recherche,
       eclaireDto.taille_etude,
       eclaireDto.groupes_sujet,
       eclaireDto.population_recrutement,

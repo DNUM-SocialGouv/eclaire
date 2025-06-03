@@ -50,6 +50,18 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
+  static createResearchStudyScope(ResearchScope: string): GroupCharacteristic {
+    return new GroupCharacteristicModel(
+      CodeableConceptModel.createGroupCharacteristicKindVs('grp-other'),
+      false,
+      undefined,
+      CodeableConceptModel.createResearchStudyGroupCategory(ResearchScope),
+      undefined,
+      undefined,
+      undefined
+    )
+  }
+
   static createStudyPopulation(studyPopulation: string[]): GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicKindVs('grp-studypop'),
