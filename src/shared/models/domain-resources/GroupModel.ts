@@ -49,7 +49,9 @@ export class GroupModel implements Group {
       characteristic.push(GroupCharacteristicModel.createStudyPopulation(studyPopulation))
     }
     // For test
+    
     if (ModelUtils.isNotNull(ResearchScope)) {
+      //console.log('ResearchScope ///////// ', ResearchScope, enrollmentGroupId)
       characteristic.push(GroupCharacteristicModel.createResearchStudyScope(ResearchScope))
     }
 
