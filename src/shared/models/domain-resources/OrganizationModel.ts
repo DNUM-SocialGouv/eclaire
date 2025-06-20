@@ -9,6 +9,7 @@ import {
 
 import { ContactPointModel } from '../data-types/ContactPointModel'
 import { AssignerForPrimaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
+import { NarrativeModel } from './NarrativeModel'
 
 export class OrganizationModel implements Organization {
   readonly resourceType: 'Organization'
@@ -20,12 +21,13 @@ export class OrganizationModel implements Organization {
     readonly identifier: Identifier[] | undefined,
     readonly name: string | undefined,
     readonly telecom: ContactPoint[] | undefined,
-    readonly type: CodeableConcept[] | undefined
+    readonly type: CodeableConcept[] | undefined,
+    readonly text: NarrativeModel
   ) {
     this.resourceType = 'Organization'
   }
 
-  static createPrimaryAssigner(assignerForPrimaryIdentifier: AssignerForPrimaryIdentifier): Organization {
+  static createPrimaryAssigner(assignerForPrimaryIdentifier: AssignerForPrimaryIdentifier, text: NarrativeModel): Organization {
     let name: string = undefined
     let url: string = undefined
 
@@ -52,7 +54,8 @@ export class OrganizationModel implements Organization {
       undefined,
       name,
       [ContactPointModel.createUrl(url)],
-      undefined
+      undefined,
+      text
     )
   }
 }

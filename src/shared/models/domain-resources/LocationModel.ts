@@ -3,6 +3,7 @@ import { Address, ContactPoint, Identifier, Location } from 'fhir/r4'
 import { AddressModel } from '../data-types/AddressModel'
 import { ContactPointModel } from '../data-types/ContactPointModel'
 import { IdentifierModel } from '../data-types/IdentifierModel'
+import { NarrativeModel } from './NarrativeModel'
 
 export class LocationModel implements Location {
   readonly resourceType: 'Location'
@@ -12,7 +13,8 @@ export class LocationModel implements Location {
     readonly address: Address | undefined,
     readonly identifier: Identifier[] | undefined,
     readonly name: string | undefined,
-    readonly telecom: ContactPoint[] | undefined
+    readonly telecom: ContactPoint[] | undefined,
+    readonly text: NarrativeModel
   ) {
     this.resourceType = 'Location'
   }
@@ -25,7 +27,8 @@ export class LocationModel implements Location {
     name: string,
     organism: string,
     service: string,
-    title: string
+    title: string,
+    text: NarrativeModel
   ): Location {
     const lines: string[] = [address, service]
 
@@ -34,7 +37,8 @@ export class LocationModel implements Location {
       AddressModel.create(lines, city, undefined, undefined),
       [IdentifierModel.createLocation(id)],
       organism,
-      [ContactPointModel.createSiteContactName(firstname, name, title)]
+      [ContactPointModel.createSiteContactName(firstname, name, title)],
+      text
     )
   }
 }

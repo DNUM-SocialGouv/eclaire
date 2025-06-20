@@ -33,10 +33,11 @@ import { EclaireDto } from '../dto/EclaireDto'
 
 export class ResearchStudyModelFactory {
   static create(eclaireDto: EclaireDto): ResearchStudyModel {
-    const extensions: Extension[] = []
-    const { primaryAssignerIdentifier, primaryAssignerOrganization } = this.createPrimaryAssigner(eclaireDto)
-    const { enrollment, enrollmentGroup } = this.createEnrollmentContent(eclaireDto)
-    const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto)
+    const extensions: Extension[] = [];
+    const text = NarrativeModel.create(eclaireDto, 'extensions');
+    const { primaryAssignerIdentifier, primaryAssignerOrganization } = this.createPrimaryAssigner(eclaireDto, text)
+    const { enrollment, enrollmentGroup } = this.createEnrollmentContent(eclaireDto, text)
+    const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto, text)
 
     const mostRecentDate = ModelUtils.getMostRecentIsoDate(
       ModelUtils.undefinedIfNull(eclaireDto.historique),
@@ -214,8 +215,6 @@ export class ResearchStudyModelFactory {
       organizations
     )
 
-    const text = NarrativeModel.create(eclaireDto, 'extensions')
-
     return new ResearchStudyModel(
       arm,
       category,
@@ -241,18 +240,18 @@ export class ResearchStudyModelFactory {
     )
   }
 
-  private static createPrimaryAssigner(eclaireDto: EclaireDto): {
+  private static createPrimaryAssigner(eclaireDto: EclaireDto, text: NarrativeModel): {
     primaryAssignerIdentifier: Identifier;
     primaryAssignerOrganization: Organization
   } {
     const assigner: AssignerForPrimaryIdentifier = ModelUtils.identifyAssigner(eclaireDto.reglementation_code, eclaireDto.precision_reglementation)
     const primaryAssignerIdentifier: Identifier = IdentifierModel.createPrimarySlice(eclaireDto.numero_primaire, assigner, undefined)
-    const primaryAssignerOrganization: Organization = OrganizationModel.createPrimaryAssigner(assigner)
+    const primaryAssignerOrganization: Organization = OrganizationModel.createPrimaryAssigner(assigner, text)
 
     return { primaryAssignerIdentifier, primaryAssignerOrganization }
   }
 
-  private static createEnrollmentContent(eclaireDto: EclaireDto): {
+  private static createEnrollmentContent(eclaireDto: EclaireDto, text: NarrativeModel): {
     enrollmentGroup: Group;
     enrollment: Reference[]
   } {
@@ -266,7 +265,8 @@ export class ResearchStudyModelFactory {
       eclaireDto.groupes_sujet,
       eclaireDto.population_recrutement,
       eclaireDto.criteres_eligibilite,
-      eclaireDto.criteres_jugement
+      eclaireDto.criteres_jugement,
+      text
     )
 
     return { enrollment, enrollmentGroup }
@@ -277,7 +277,7 @@ export class ResearchStudyModelFactory {
     return ReferenceModel.createPrimarySponsor(primarySponsorOrganizationId)
   }
 
-  private static createSitesAndSiteLocations(eclaireDto: EclaireDto): {
+  private static createSitesAndSiteLocations(eclaireDto: EclaireDto, text: NarrativeModel): {
     site: Reference[];
     siteLocations: Location[]
   } {
@@ -307,7 +307,8 @@ export class ResearchStudyModelFactory {
           ModelUtils.undefinedIfNull(siteDto.nom),
           ModelUtils.undefinedIfNull(siteDto.organisme),
           ModelUtils.undefinedIfNull(siteDto.service),
-          ModelUtils.undefinedIfNull(siteDto.titre)
+          ModelUtils.undefinedIfNull(siteDto.titre),
+          text
         ))
       }
     }
