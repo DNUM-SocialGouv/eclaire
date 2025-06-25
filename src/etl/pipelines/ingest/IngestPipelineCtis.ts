@@ -8,7 +8,7 @@ export class IngestPipelineCtis extends IngestPipeline {
   readonly type = 'ctis'
 
   async execute(): Promise<void> {
-    let riphCtisDtos: RiphCtisDto[] = await super.extract<RiphCtisDto>()
+    const riphCtisDtos: RiphCtisDto[] = await super.extract<RiphCtisDto>()
     const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
     for (let i = 0; i < riphCtisDtos.length; i += chunkSize) {
       this.logger.info(`---- Chunk CTIS: ${i} / ${riphCtisDtos.length} elasticsearch documents`)

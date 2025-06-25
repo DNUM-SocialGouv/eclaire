@@ -23,7 +23,7 @@ export class ContactDetailModel implements ContactDetail {
     city: string,
     country: string,
     zip: string,
-    affiliation: string,
+    affiliation: string
   ): ContactDetail {
     const emptyFirstNameIfNull = ModelUtils.undefinedIfNull(firstname)
     const emptyMiddleNameIfNull = ModelUtils.undefinedIfNull(middleName)
@@ -38,7 +38,7 @@ export class ContactDetailModel implements ContactDetail {
     const contactAdress = ModelUtils.undefinedIfNull(address)
     const contactCity = ModelUtils.undefinedIfNull(city)
     const contactCountry = ModelUtils.undefinedIfNull(country)
-    const contactZip = ModelUtils.undefinedIfNull(zip);
+    const contactZip = ModelUtils.undefinedIfNull(zip)
     if (contactAdress || contactCity || contactCountry || contactZip) {
       extensions.push(ExtensionModel.createEclaireContactAddress(address, city, country, zip))
     }

@@ -33,8 +33,8 @@ import { EclaireDto } from '../dto/EclaireDto'
 
 export class ResearchStudyModelFactory {
   static create(eclaireDto: EclaireDto): ResearchStudyModel {
-    const extensions: Extension[] = [];
-    const text = NarrativeModel.create(eclaireDto, 'extensions');
+    const extensions: Extension[] = []
+    const text = NarrativeModel.create(eclaireDto, 'extensions')
     const { primaryAssignerIdentifier, primaryAssignerOrganization } = this.createPrimaryAssigner(eclaireDto, text)
     const { enrollment, enrollmentGroup } = this.createEnrollmentContent(eclaireDto, text)
     const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto, text)
@@ -74,10 +74,10 @@ export class ResearchStudyModelFactory {
       ModelUtils.isNotNull(eclaireDto.contact_telephone) ||
       ModelUtils.isNotNull(eclaireDto.contact_courriel)
     ) {
-      const contact_prenom = ModelUtils.isNotNull(eclaireDto.contact_prenom) ? eclaireDto.contact_prenom : undefined;
-      const contact_nom = ModelUtils.isNotNull(eclaireDto.contact_nom) ? eclaireDto.contact_nom : undefined;
-      const contact_telephone = ModelUtils.isNotNull(eclaireDto.contact_telephone) ? eclaireDto.contact_telephone : undefined;
-      const contact_courriel = ModelUtils.isNotNull(eclaireDto.contact_courriel) ? eclaireDto.contact_courriel : undefined;
+      const contact_prenom = ModelUtils.isNotNull(eclaireDto.contact_prenom) ? eclaireDto.contact_prenom : undefined
+      const contact_nom = ModelUtils.isNotNull(eclaireDto.contact_nom) ? eclaireDto.contact_nom : undefined
+      const contact_telephone = ModelUtils.isNotNull(eclaireDto.contact_telephone) ? eclaireDto.contact_telephone : undefined
+      const contact_courriel = ModelUtils.isNotNull(eclaireDto.contact_courriel) ? eclaireDto.contact_courriel : undefined
 
       contact.push(ContactDetailModel.create(
         contact_prenom,
@@ -90,7 +90,7 @@ export class ResearchStudyModelFactory {
         eclaireDto.organisme_pays,
         eclaireDto.organisme_ville,
         eclaireDto.organisme_code_postal,
-        undefined,
+        undefined
       ))
     }
 

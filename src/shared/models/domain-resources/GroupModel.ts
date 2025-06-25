@@ -1,9 +1,9 @@
 import { Group, GroupCharacteristic } from 'fhir/r4'
 
+import { NarrativeModel } from './NarrativeModel'
 import { Critere } from '../../../etl/dto/EclaireDto'
 import { GroupCharacteristicModel } from '../backbone-elements/GroupCharacteristicModel'
 import { ModelUtils } from '../eclaire/ModelUtils'
-import { NarrativeModel } from './NarrativeModel'
 
 export class GroupModel implements Group {
   readonly resourceType: 'Group'
@@ -19,7 +19,7 @@ export class GroupModel implements Group {
       | 'device'
       | 'medication'
       | 'substance',
-    readonly text: { div: string, status: "extensions" | "generated" | "additional" | "empty" },
+    readonly text: { div: string, status: 'extensions' | 'generated' | 'additional' | 'empty' }
   ) {
     this.resourceType = 'Group'
   }
@@ -33,9 +33,9 @@ export class GroupModel implements Group {
     studyPopulation: string[],
     eligibilityCriteria: Critere[],
     judgementCriteria: Critere[],
-    text: NarrativeModel,
+    text: NarrativeModel
   ): Group {
-    const characteristic: GroupCharacteristic[] = [];    
+    const characteristic: GroupCharacteristic[] = []
 
     if (ModelUtils.isNotNull(genders)) {
       characteristic.push(GroupCharacteristicModel.createGender(genders))

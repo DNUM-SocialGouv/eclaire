@@ -7,9 +7,9 @@ import {
   OrganizationContact,
 } from 'fhir/r4'
 
+import { NarrativeModel } from './NarrativeModel'
 import { ContactPointModel } from '../data-types/ContactPointModel'
 import { AssignerForPrimaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
-import { NarrativeModel } from './NarrativeModel'
 
 export class OrganizationModel implements Organization {
   readonly resourceType: 'Organization'
