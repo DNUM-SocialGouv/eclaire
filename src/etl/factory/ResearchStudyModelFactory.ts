@@ -69,23 +69,28 @@ export class ResearchStudyModelFactory {
 
     const contact: ContactDetail[] = []
     if (
-      ModelUtils.isNotNull(eclaireDto.contact_prenom) &&
-      ModelUtils.isNotNull(eclaireDto.contact_nom) &&
-      ModelUtils.isNotNull(eclaireDto.contact_telephone) &&
+      ModelUtils.isNotNull(eclaireDto.contact_prenom) ||
+      ModelUtils.isNotNull(eclaireDto.contact_nom) ||
+      ModelUtils.isNotNull(eclaireDto.contact_telephone) ||
       ModelUtils.isNotNull(eclaireDto.contact_courriel)
     ) {
+      const contact_prenom = ModelUtils.isNotNull(eclaireDto.contact_prenom) ? eclaireDto.contact_prenom : undefined;
+      const contact_nom = ModelUtils.isNotNull(eclaireDto.contact_nom) ? eclaireDto.contact_nom : undefined;
+      const contact_telephone = ModelUtils.isNotNull(eclaireDto.contact_telephone) ? eclaireDto.contact_telephone : undefined;
+      const contact_courriel = ModelUtils.isNotNull(eclaireDto.contact_courriel) ? eclaireDto.contact_courriel : undefined;
+
       contact.push(ContactDetailModel.create(
-        eclaireDto.contact_prenom,
+        contact_prenom,
         undefined,
-        eclaireDto.contact_nom,
-        eclaireDto.contact_telephone,
-        eclaireDto.contact_courriel,
+        contact_nom,
+        contact_telephone,
+        contact_courriel,
         undefined,
+        eclaireDto.organisme_adresse,
+        eclaireDto.organisme_pays,
+        eclaireDto.organisme_ville,
+        eclaireDto.organisme_code_postal,
         undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
       ))
     }
 

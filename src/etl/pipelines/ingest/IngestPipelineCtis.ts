@@ -9,13 +9,6 @@ export class IngestPipelineCtis extends IngestPipeline {
 
   async execute(): Promise<void> {
     let riphCtisDtos: RiphCtisDto[] = await super.extract<RiphCtisDto>()
-
-    /* const item = riphCtisDtos.find((obj: any) => obj.numero_ctis === "2025-501315-25-00");    
-    riphCtisDtos = riphCtisDtos.map(obj =>
-      obj.numero_ctis === "2025-501315-25-00" ? { ...obj, intervention_faible: "Yes" } : obj
-    );
-    console.log("docs ctis ////", item) */
-
     const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
     for (let i = 0; i < riphCtisDtos.length; i += chunkSize) {
       this.logger.info(`---- Chunk CTIS: ${i} / ${riphCtisDtos.length} elasticsearch documents`)

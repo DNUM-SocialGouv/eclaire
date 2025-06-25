@@ -46,7 +46,7 @@ export const eclaireStatusRecruitmentCodeSystem = {
     },
     {
       code : 'completed-recruiting',
-      display : 'Terminé / completed ',
+      display : 'Terminé / completed',
       definition : 'Recrutement terminé',
     },
   ],

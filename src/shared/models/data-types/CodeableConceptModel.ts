@@ -148,9 +148,10 @@ export class CodeableConceptModel implements CodeableConcept {
   }
 
   static createRecruitmentStatus(status: string): CodeableConceptModel {
+    const statusRecru = status && (status.toUpperCase() === "RECRUTEMENT EN ATTENTE" || status.toUpperCase() === "RECRUTEMENT OUVERT") ? "recruiting" : status && status.toUpperCase() === "RECRUTEMENT FERMÉ" ? "completed-recruiting" : status;
     return new CodeableConceptModel(
       undefined,
-      [CodingModel.createRecruitmentStatus(status)],
+      [CodingModel.createRecruitmentStatus(statusRecru)],
       undefined
     )
   }

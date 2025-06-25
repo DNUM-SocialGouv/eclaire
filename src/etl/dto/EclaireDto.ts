@@ -40,7 +40,7 @@ export class EclaireDto {
     readonly resume: string,
     readonly statut_recrutement: string,
     readonly date_fin_recrutement: string
-  ) {}
+  ) { }
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
     if (riphCtisDto.publication_eclaire !== 'autorisé') {
@@ -125,10 +125,10 @@ export class EclaireDto {
       riphDmDto.deposant_code_postal,
       riphDmDto.deposant_pays,
       riphDmDto.deposant_ville,
+      riphDmDto.deposant_nom,
+      riphDmDto.deposant_prenom,
       null,
-      null,
-      null,
-      null,
+      riphDmDto.deposant_courriel,
       riphDmDto.sites_investigateurs.map((site_investigateur) => new Site(
         site_investigateur.organisme,
         site_investigateur.adresse,
@@ -190,10 +190,10 @@ export class EclaireDto {
       riphJardeDto.deposant_code_postal,
       riphJardeDto.deposant_pays,
       riphJardeDto.deposant_ville,
+      riphJardeDto.deposant_nom,
+      riphJardeDto.deposant_prenom,
       null,
-      null,
-      null,
-      null,
+      riphJardeDto.deposant_courriel,
       riphJardeDto.sites_investigateurs.map((site_investigateur) => new Site(
         site_investigateur.organisme,
         site_investigateur.adresse,
@@ -248,7 +248,7 @@ class Contact {
     readonly prenom: string,
     readonly courriel: string,
     readonly telephone: string
-  ) {}
+  ) { }
 
   toString() {
     return `Nom: ${this.nom} - Prenom: ${this.prenom} Courriel: ${this.courriel} Tel: ${this.telephone}`
@@ -264,7 +264,7 @@ class Site {
     readonly nom: string,
     readonly prenom: string,
     readonly service: string
-  ) {}
+  ) { }
 
   toString() {
     return `Organisme: ${this.organisme} - Adresse: ${this.adresse} - Ville: ${this.ville} - Titre: ${this.titre} - Nom: ${this.nom} - Prenom: ${this.prenom} - Service: ${this.service}`
@@ -275,7 +275,7 @@ export class Critere {
   constructor(
     readonly titre: string,
     readonly type: string
-  ) {}
+  ) { }
 
   toString() {
     return `Titre: ${this.titre} - Type: ${this.type}`

@@ -9,10 +9,6 @@ export class IngestPipelineJarde extends IngestPipeline {
 
   async execute(): Promise<void> {
     const riphJardeDtos: RiphJardeDto[] = await super.extract<RiphJardeDto>()
-
-    const findResult = riphJardeDtos.find((obj: any) => obj.numero_national === "2022-002226-70"); // 2024-JA1108-99 8753-385746-41  8753-385746-43
-    console.log("docs jrade ////", findResult)
-    
     const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
     for (let i = 0; i < riphJardeDtos.length; i += chunkSize) {
       this.logger.info(`---- Chunk JARDE: ${i} / ${riphJardeDtos.length} elasticsearch documents`)
