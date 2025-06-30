@@ -1,6 +1,9 @@
 import { EclaireDto } from './EclaireDto'
 import { RiphDtoTestFactory } from '../../shared/test/helpers/RiphDtoTestFactory'
 
+const SNAPSHOT_PATH_DM = '../../../shared/test/snapshots/EclaireDtoDM.snap.json'
+const SNAPSHOT_PATH_JARDE = '../../../shared/test/snapshots/EclaireDtoJARDE.snap.json'
+
 describe('etl | dto | EclaireDto', () => {
   it('should return a properly mapped eclaire dto when a riph ctis dto is given', () => {
     expect(EclaireDto.fromCtis(RiphDtoTestFactory.ctis())).toMatchInlineSnapshot(`
@@ -107,168 +110,16 @@ describe('etl | dto | EclaireDto', () => {
     `)
   })
 
-  it('should return a properly mapped eclaire dto when a riph dm dto is given', () => {
-    expect(EclaireDto.fromDm(RiphDtoTestFactory.dm())).toMatchInlineSnapshot(`
-      EclaireDto {
-        "contact_courriel": null,
-        "contact_nom": null,
-        "contact_prenom": null,
-        "contact_public": Contact {
-          "courriel": null,
-          "nom": null,
-          "prenom": null,
-          "telephone": null,
-        },
-        "contact_telephone": null,
-        "criteres_eligibilite": [
-          Critere {
-            "titre": null,
-            "type": null,
-          },
-          Critere {
-            "titre": "TEST INCLUSION",
-            "type": "INCLUSION",
-          },
-          Critere {
-            "titre": "TEST EXCLUSION",
-            "type": "EXCLUSION",
-          },
-        ],
-        "criteres_jugement": [
-          Critere {
-            "titre": null,
-            "type": null,
-          },
-          Critere {
-            "titre": "TEST PRINCIPAL",
-            "type": "PRINCIPAL",
-          },
-          Critere {
-            "titre": "TEST SECONDAIRE",
-            "type": "SECONDAIRE",
-          },
-        ],
-        "date_debut_recrutement": null,
-        "date_fin_recrutement": null,
-        "date_theorique_maximale_autorisation_cpp": "2023-04-23",
-        "dates_avis_favorable_ms_mns": "21.01155.000011-MS01:2021-11-09, 21.01155.000011-MS02:2022-03-09, 21.01155.000011-MS03:2022-10-04, 21.01155.000011-MS04.1:2022-11-29",
-        "domaine_therapeutique": "Hépato-gastro-entérologie",
-        "etat": "TERMINEE_ANTICIPEE",
-        "groupes_sujet": null,
-        "historique": "2023-04-06:Terminée",
-        "informations_meddra": null,
-        "numero_primaire": "2021-A01563-38",
-        "objectifs": null,
-        "organisme_adresse": "15 Boulevard du Général Leclerc",
-        "organisme_code_postal": "59100",
-        "organisme_nom": "Soladis Clinical Studies",
-        "organisme_pays": "France",
-        "organisme_ville": "Roubaix",
-        "pathologies_maladies_rares": null,
-        "pays_concernes": null,
-        "phase_recherche": "N/A",
-        "population_recrutement": [
-          null,
-        ],
-        "precision_reglementation": "IC-Cas 4.2",
-        "reglementation_code": "REG745",
-        "resume": null,
-        "sexe": [
-          "unknown",
-        ],
-        "sites": [
-          Site {
-            "adresse": null,
-            "nom": null,
-            "organisme": null,
-            "prenom": null,
-            "service": null,
-            "titre": null,
-            "ville": null,
-          },
-        ],
-        "statut_recrutement": "Recrutement en attente",
-        "taille_etude": 96,
-        "titre": "ÉVALUATION DU DISPOSITIF MEDICAL ENDOTRAP POUR LA PROTECTION DU PERSONNEL DU BLOC OPERATOIRE CONTRE LES PARTICULES MICROBIENNES PENDANT L'ENDOSCOPIE DIGESTIVE HAUTE ",
-        "tranches_age": null,
-      }
-    `)
+  it('should return a properly mapped eclaire dto when a riph dm dto is given', async() => {
+    await expect(JSON.stringify(EclaireDto.fromDm(RiphDtoTestFactory.dm()))).toMatchFileSnapshot(SNAPSHOT_PATH_DM)
   })
 
   it('should not return an eclaire dto when dm publication is not authorised', () => {
     expect(EclaireDto.fromDm(RiphDtoTestFactory.dm({ publication_eclaire: 'non autorisé' }))).toBeNull()
   })
 
-  it('should return a properly mapped eclaire dto when a riph jarde dto is given', () => {
-    expect(EclaireDto.fromJarde(RiphDtoTestFactory.jarde())).toMatchInlineSnapshot(`
-      EclaireDto {
-        "contact_courriel": null,
-        "contact_nom": null,
-        "contact_prenom": null,
-        "contact_public": Contact {
-          "courriel": null,
-          "nom": null,
-          "prenom": null,
-          "telephone": null,
-        },
-        "contact_telephone": null,
-        "criteres_eligibilite": [
-          Critere {
-            "titre": null,
-            "type": null,
-          },
-        ],
-        "criteres_jugement": [
-          Critere {
-            "titre": null,
-            "type": null,
-          },
-        ],
-        "date_debut_recrutement": null,
-        "date_fin_recrutement": null,
-        "date_theorique_maximale_autorisation_cpp": "2023-04-30",
-        "dates_avis_favorable_ms_mns": "20.00002.210204-MS02:2021-07-29, 20.00002.210204-MS03:2021-10-26, 20.00002.210204-MS04:2023-01-26",
-        "domaine_therapeutique": "Autres",
-        "etat": "EN_COURS",
-        "groupes_sujet": null,
-        "historique": "2023-04-04:En cours",
-        "informations_meddra": null,
-        "numero_primaire": "2021-A01022-39",
-        "objectifs": null,
-        "organisme_adresse": "LAMIH - Campus du Mont-Houy",
-        "organisme_code_postal": "59313",
-        "organisme_nom": "Université Polytechnique Hauts-de-France",
-        "organisme_pays": "France",
-        "organisme_ville": "Valenciennes",
-        "pathologies_maladies_rares": null,
-        "pays_concernes": null,
-        "phase_recherche": "Phase I",
-        "population_recrutement": [
-          null,
-        ],
-        "precision_reglementation": "Catégorie 3",
-        "reglementation_code": "JARDE",
-        "resume": null,
-        "sexe": [
-          "unknown",
-        ],
-        "sites": [
-          Site {
-            "adresse": null,
-            "nom": null,
-            "organisme": null,
-            "prenom": null,
-            "service": null,
-            "titre": null,
-            "ville": null,
-          },
-        ],
-        "statut_recrutement": "Recrutement en attente",
-        "taille_etude": 23,
-        "titre": "Détermination des paramètres biomécaniques et fonctionnels de la locomotion des enfants en fonction des conditions de chaussage.",
-        "tranches_age": null,
-      }
-    `)
+  it('should return a properly mapped eclaire dto when a riph jarde dto is given', async() => {
+    await expect(JSON.stringify(EclaireDto.fromJarde(RiphDtoTestFactory.jarde()))).toMatchFileSnapshot(SNAPSHOT_PATH_JARDE)
   })
 
   it('should not return an eclaire dto when jarde publication is not authorised', () => {

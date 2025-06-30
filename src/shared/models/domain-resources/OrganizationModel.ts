@@ -22,12 +22,12 @@ export class OrganizationModel implements Organization {
     readonly name: string | undefined,
     readonly telecom: ContactPoint[] | undefined,
     readonly type: CodeableConcept[] | undefined,
-    readonly text: NarrativeModel
+    readonly text: NarrativeModel | undefined
   ) {
     this.resourceType = 'Organization'
   }
 
-  static createPrimaryAssigner(assignerForPrimaryIdentifier: AssignerForPrimaryIdentifier, text: NarrativeModel): Organization {
+  static createPrimaryAssigner(assignerForPrimaryIdentifier: AssignerForPrimaryIdentifier, text: NarrativeModel | undefined): Organization {
     let name: string = undefined
     let url: string = undefined
 

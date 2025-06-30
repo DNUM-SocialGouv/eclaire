@@ -377,7 +377,7 @@ describe('extract transform load service', () => {
       const query: ElasticsearchBodyType = convertFhirParsedQueryParamsToElasticsearchQuery([{ name: '_count', value: '1000' }])
       const result: SearchResponse = await databaseService.search(query)
 
-      await expect(result).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdate.snap.json')
+      await expect(JSON.stringify(result)).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdate.snap.json')
     })
 
     it('should import clinical trials from yesterday, translate them and update their meddra labels', async () => {
@@ -418,7 +418,7 @@ describe('extract transform load service', () => {
       const query: ElasticsearchBodyType = convertFhirParsedQueryParamsToElasticsearchQuery([{ name: '_count', value: '1000' }])
       const result: SearchResponse = await databaseService.search(query)
 
-      await expect(result).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdateSinceYesterday.snap.json')
+      await expect(JSON.stringify(result)).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdateSinceYesterday.snap.json')
     })
 
     it('should not import CTIS clinical trials, translate them and update their meddra labels when there is no new ones', async () => {
@@ -459,7 +459,7 @@ describe('extract transform load service', () => {
       const query: ElasticsearchBodyType = convertFhirParsedQueryParamsToElasticsearchQuery([{ name: '_count', value: '1000' }])
       const result: SearchResponse = await databaseService.search(query)
 
-      await expect(result).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdateWithoutNewOnes.snap.json')
+      await expect(JSON.stringify(result)).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdateWithoutNewOnes.snap.json')
     })
 
     it('should import clinical trials from yesterday, translate them and update their meddra labels and preserve clinical trials from the past', async () => {
@@ -507,7 +507,7 @@ describe('extract transform load service', () => {
       const query: ElasticsearchBodyType = convertFhirParsedQueryParamsToElasticsearchQuery([{ name: '_count', value: '1000' }])
       const result: SearchResponse = await databaseService.search(query)
 
-      await expect(result).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdateOverTime.snap.json')
+      await expect(JSON.stringify(result)).toMatchFileSnapshot('../shared/test/snapshots/DailyUpdateOverTime.snap.json')
     })
   })
 })
