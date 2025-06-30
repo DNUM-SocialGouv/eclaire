@@ -22,7 +22,7 @@ export class CodingModel implements Coding {
     readonly display: string | undefined,
     readonly system: string | undefined,
     readonly version: string | undefined
-  ) {}
+  ) { }
 
   static createResearchStudyPhase(phase: string): Coding {
     const { code, display, url, version } = this.findPhaseInCodeSystems(phase)
@@ -239,8 +239,8 @@ export class CodingModel implements Coding {
     return new CodingModel(
       recruitmentStatus?.code,
       recruitmentStatus?.display,
-      eclaireGroupCharacteristicKindVs.url,
-      eclaireGroupCharacteristicKindVs.version
+      eclaireStatusRecruitmentCodeSystem.url,
+      eclaireStatusRecruitmentCodeSystem.version
     )
   }
 

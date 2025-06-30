@@ -3,6 +3,7 @@ import supertest from 'supertest'
 
 import { getHttpServer } from '../../../shared/test/helpers/controllerHelper'
 
+const SNAPSHOT_PATH = '../../../shared/test/snapshots/FindOrganization.snap.json'
 const BASE_URL = '/R4/Organization/'
 
 describe('#FindOrganizationController - e2e', () => {
@@ -24,7 +25,7 @@ describe('#FindOrganizationController - e2e', () => {
     // THEN
     expect(response.statusCode).toBe(200)
     expect(response.get('content-type')).toBe('application/fhir+json; charset=utf-8')
-    expect(response.text).toMatchInlineSnapshot('"{"id":"ctis","name":"Clinical Trials Information System","telecom":[{"system":"url","use":"work","value":"https://euclinicaltrials.eu/"}],"resourceType":"Organization"}"')
+    await expect(response.text).toMatchFileSnapshot(SNAPSHOT_PATH)
   })
 
   it('should retrieve none', async () => {

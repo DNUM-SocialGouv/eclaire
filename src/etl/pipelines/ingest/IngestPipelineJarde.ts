@@ -9,7 +9,6 @@ export class IngestPipelineJarde extends IngestPipeline {
 
   async execute(): Promise<void> {
     const riphJardeDtos: RiphJardeDto[] = await super.extract<RiphJardeDto>()
-
     const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
     for (let i = 0; i < riphJardeDtos.length; i += chunkSize) {
       this.logger.info(`---- Chunk JARDE: ${i} / ${riphJardeDtos.length} elasticsearch documents`)

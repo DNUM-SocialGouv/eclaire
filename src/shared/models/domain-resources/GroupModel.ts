@@ -1,5 +1,6 @@
 import { Group, GroupCharacteristic } from 'fhir/r4'
 
+import { NarrativeModel } from './NarrativeModel'
 import { Critere } from '../../../etl/dto/EclaireDto'
 import { GroupCharacteristicModel } from '../backbone-elements/GroupCharacteristicModel'
 import { ModelUtils } from '../eclaire/ModelUtils'
@@ -17,7 +18,8 @@ export class GroupModel implements Group {
       | 'practitioner'
       | 'device'
       | 'medication'
-      | 'substance'
+      | 'substance',
+    readonly text: { div: string, status: 'extensions' | 'generated' | 'additional' | 'empty' }
   ) {
     this.resourceType = 'Group'
   }
@@ -30,7 +32,8 @@ export class GroupModel implements Group {
     researchStudyGroupCategory: string,
     studyPopulation: string[],
     eligibilityCriteria: Critere[],
-    judgementCriteria: Critere[]
+    judgementCriteria: Critere[],
+    text: NarrativeModel
   ): Group {
     const characteristic: GroupCharacteristic[] = []
 
@@ -77,7 +80,8 @@ export class GroupModel implements Group {
       characteristic.length === 0 ? undefined : characteristic,
       enrollmentGroupId,
       ModelUtils.isNotNull(studySize) ? studySize : undefined,
-      'person'
+      'person',
+      text
     )
   }
 }

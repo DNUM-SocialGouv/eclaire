@@ -9,7 +9,6 @@ export class IngestPipelineDmDmdiv extends IngestPipeline {
 
   async execute(): Promise<void> {
     const riphDmDtos: RiphDmDto[] = await super.extract<RiphDmDto>()
-
     const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
     for (let i = 0; i < riphDmDtos.length; i += chunkSize) {
       this.logger.info(`---- Chunk DM-DM/DIV: ${i} / ${riphDmDtos.length} elasticsearch documents`)
