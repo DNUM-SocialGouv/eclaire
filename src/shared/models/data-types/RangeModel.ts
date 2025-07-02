@@ -6,7 +6,7 @@ export class RangeModel implements Range {
   private constructor(
     readonly high: Quantity | undefined,
     readonly low: Quantity | undefined
-  ) {}
+  ) { }
 
   static createAgeRange(ageRange: string): Range {
     let low: number
@@ -15,21 +15,21 @@ export class RangeModel implements Range {
     let highUnit: string
 
     switch (ageRange) {
-      case '0-17 years':
+      case '0-17':
         low = 0
         lowUnit = 'years'
         high = 17
         highUnit = 'years'
         break
 
-      case '18-64 years':
+      case '18-64':
         low = 18
         lowUnit = 'years'
         high = 64
         highUnit = 'years'
         break
 
-      case '65+ years':
+      case '65+':
         low = 65
         lowUnit = 'years'
         high = undefined
