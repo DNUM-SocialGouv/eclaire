@@ -40,10 +40,26 @@ export class GroupModel implements Group {
     if (ModelUtils.isNotNull(genders)) {
       characteristic.push(GroupCharacteristicModel.createGender(genders))
     }
+
     if (ModelUtils.isNotNull(ageRanges)) {
-      const parsedAgeRanges: GroupCharacteristic[] = ageRanges.map((ageRange): GroupCharacteristic => GroupCharacteristicModel.createAgeRange(ageRange))
-      characteristic.push(...parsedAgeRanges)
+      const ageRangesCodes = [
+        ...new Set(
+          ageRanges.map((value) => {
+            if (value.toLowerCase().trim() === 'in utero') return '0-17'
+            if (value.includes('0-17')) return '0-17'
+            if (value.includes('18-64')) return '18-64'
+            if (value.includes('65+')) return '65+'
+            return null
+          }).filter(Boolean) // Remove nulls
+        ),
+      ]
+
+      if (ModelUtils.isNotNull(ageRangesCodes)) {
+        const parsedAgeRanges: GroupCharacteristic[] = ageRangesCodes.map((ageRange): GroupCharacteristic => GroupCharacteristicModel.createAgeRange(ageRange))
+        characteristic.push(...parsedAgeRanges)
+      }
     }
+
     if (ModelUtils.isNotNull(researchStudyGroupCategory)) {
       characteristic.push(GroupCharacteristicModel.createResearchStudyGroupCategory(researchStudyGroupCategory))
     }

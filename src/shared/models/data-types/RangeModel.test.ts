@@ -2,9 +2,9 @@ import { RangeModel } from './RangeModel'
 
 describe('shared | models | RangeModel', () => {
   describe('#createAgeRange', () => {
-    it('should create a properly formatted model when "0-17 years" is given', () => {
+    it('should create a properly formatted model when "0-17" years is given', () => {
       // WHEN
-      const range = RangeModel.createAgeRange('0-17 years')
+      const range = RangeModel.createAgeRange('0-17')
 
       // THEN
       expect(range.high.unit).toBe('years')
@@ -13,9 +13,9 @@ describe('shared | models | RangeModel', () => {
       expect(range.low.value).toBe(0)
     })
 
-    it('should create a properly formatted model when "18-64 years" is given', () => {
+    it('should create a properly formatted model when "18-64" years is given', () => {
       // WHEN
-      const range = RangeModel.createAgeRange('18-64 years')
+      const range = RangeModel.createAgeRange('18-64')
 
       // THEN
       expect(range.high.unit).toBe('years')
@@ -24,9 +24,9 @@ describe('shared | models | RangeModel', () => {
       expect(range.low.value).toBe(18)
     })
 
-    it('should create a properly formatted model when "65+ years" is given', () => {
+    it('should create a properly formatted model when "65+" years is given', () => {
       // WHEN
-      const range = RangeModel.createAgeRange('65+ years')
+      const range = RangeModel.createAgeRange('65+')
 
       // THEN
       expect(range.high).toBeUndefined()

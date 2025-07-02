@@ -83,8 +83,11 @@ export class CodingModel implements Coding {
   }
 
   static createGender(gender: string): Coding {
+    // convert gendre homme/femme to Male/Female to be the same value of gender systeme code
+    const codeGender = gender && gender.toLowerCase().trim() === 'homme' ? 'male' : gender && gender.toLowerCase().trim() === 'femme' ? 'female' : gender.toLowerCase().trim()
+
     const matchingGender = administrativeGenderCodeSystem.concept.find(
-      (genderReference): boolean => genderReference.code === gender.toLowerCase()
+      (genderReference): boolean => genderReference.code === codeGender
     )
 
     return new CodingModel(
