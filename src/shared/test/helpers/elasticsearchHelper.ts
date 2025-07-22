@@ -1,5 +1,5 @@
-import { Client } from '@elastic/elasticsearch'
 import { ConfigService } from '@nestjs/config'
+import { Client } from '@opensearch-project/opensearch'
 
 import { S3Service } from '../../../etl/s3/S3Service'
 import { ElasticsearchConfig } from '../../elasticsearch/ElasticsearchConfig'
@@ -7,7 +7,7 @@ import { ElasticsearchService } from '../../elasticsearch/ElasticsearchService'
 import { LoggerService } from '../../logger/LoggerService'
 
 export function setupDependencies() {
-  vi.stubEnv('SCALINGO_ELASTICSEARCH_URL', 'http://localhost:9201')
+  vi.stubEnv('SCALINGO_OPENSEARCH_URL', 'http://localhost:9202')
 
   const configService = new ConfigService()
   const elasticsearchConfig = new ElasticsearchConfig(configService)

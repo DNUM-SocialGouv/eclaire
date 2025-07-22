@@ -21,6 +21,10 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "unused-imports", "import"],
   "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-argument": "off",
     "array-bracket-newline": ["error", { "multiline": true }],
     "array-bracket-spacing": ["error", "never"],
     "array-element-newline": ["error", "consistent"],

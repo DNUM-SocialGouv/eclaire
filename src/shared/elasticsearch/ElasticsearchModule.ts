@@ -1,6 +1,6 @@
-import { Client } from '@elastic/elasticsearch'
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { Client } from '@opensearch-project/opensearch'
 
 import { ElasticsearchConfig } from './ElasticsearchConfig'
 import { ElasticsearchService } from './ElasticsearchService'
