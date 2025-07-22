@@ -1764,6 +1764,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@opensearch-project/opensearch@npm:^3.5.1":
+  version: 3.5.1
+  resolution: "@opensearch-project/opensearch@npm:3.5.1::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40opensearch-project%2Fopensearch%2F-%2Fopensearch-3.5.1.tgz"
+  dependencies:
+    aws4: "npm:^1.11.0"
+    debug: "npm:^4.3.1"
+    hpagent: "npm:^1.2.0"
+    json11: "npm:^2.0.0"
+    ms: "npm:^2.1.3"
+    secure-json-parse: "npm:^2.4.0"
+  checksum: 10c0/7b8ea322e32d310a124576212720536c0941086c7dbfc6675c121fbac306bbaced56e4921692522b1115433f50d382a09435300573b4fb6dd92ebae31b90ea10
+  languageName: node
+  linkType: hard
+
 "@opentelemetry/api-logs@npm:0.57.2":
   version: 0.57.2
   resolution: "@opentelemetry/api-logs@npm:0.57.2"
@@ -4286,6 +4300,7 @@ __metadata:
     "@nestjs/swagger": "npm:^7.4.2"
     "@nestjs/testing": "npm:^10.4.17"
     "@nestjs/throttler": "npm:^6.4.0"
+    "@opensearch-project/opensearch": "npm:^3.5.1"
     "@sentry/nestjs": "npm:^9.22.0"
     "@stryker-mutator/core": "npm:^7.3.0"
     "@stryker-mutator/typescript-checker": "npm:^7.3.0"
@@ -4500,6 +4515,13 @@ __metadata:
   dependencies:
     possible-typed-array-names: "npm:^1.0.0"
   checksum: 10c0/d07226ef4f87daa01bd0fe80f8f310982e345f372926da2e5296aecc25c41cab440916bbaa4c5e1034b453af3392f67df5961124e4b586df1e99793a1374bdb2
+  languageName: node
+  linkType: hard
+
+"aws4@npm:^1.11.0":
+  version: 1.13.2
+  resolution: "aws4@npm:1.13.2::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Faws4%2F-%2Faws4-1.13.2.tgz"
+  checksum: 10c0/c993d0d186d699f685d73113733695d648ec7d4b301aba2e2a559d0cd9c1c902308cc52f4095e1396b23fddbc35113644e7f0a6a32753636306e41e3ed6f1e79
   languageName: node
   linkType: hard
 
@@ -6763,6 +6785,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hpagent@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "hpagent@npm:1.2.0::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fhpagent%2F-%2Fhpagent-1.2.0.tgz"
+  checksum: 10c0/505ef42e5e067dba701ea21e7df9fa73f6f5080e59d53680829827d34cd7040f1ecf7c3c8391abe9df4eb4682ef4a4321608836b5b70a61b88c1b3a03d77510b
+  languageName: node
+  linkType: hard
+
 "html-escaper@npm:^2.0.0":
   version: 2.0.2
   resolution: "html-escaper@npm:2.0.2"
@@ -7498,6 +7527,15 @@ __metadata:
   version: 1.0.1
   resolution: "json-stable-stringify-without-jsonify@npm:1.0.1"
   checksum: 10c0/cb168b61fd4de83e58d09aaa6425ef71001bae30d260e2c57e7d09a5fd82223e2f22a042dedaab8db23b7d9ae46854b08bb1f91675a8be11c5cffebef5fb66a5
+  languageName: node
+  linkType: hard
+
+"json11@npm:^2.0.0":
+  version: 2.0.2
+  resolution: "json11@npm:2.0.2::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fjson11%2F-%2Fjson11-2.0.2.tgz"
+  bin:
+    json11: dist/cli.mjs
+  checksum: 10c0/d9cf9183fa88f0d6a9fbdead40b834b83565e7a4f4317b9c964b02b5cff91bf66741d524a292abc200cc7e1bea2bb6331b3295c3bf8866f959761b15d0712c07
   languageName: node
   linkType: hard
 
