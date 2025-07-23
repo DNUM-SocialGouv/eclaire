@@ -82,6 +82,14 @@ async function bulkIndexWithRetry(client: OSClient, body: any[], maxRetries = 3)
   throw new Error('Should not reach here')
 }
 
+function chunkArray<T>(array: T[], chunkSize: number): T[][] {
+  const chunks: T[][] = []
+  for (let i = 0; i < array.length; i += chunkSize) {
+    chunks.push(array.slice(i, i + chunkSize))
+  }
+  return chunks
+}
+
 async function migrateIndex(index: string): Promise<void> {
   console.log(`Starting migration for index: ${index}`)
 
@@ -97,7 +105,7 @@ async function migrateIndex(index: string): Promise<void> {
     index,
     scroll: '2m',
     body: { query: { match_all: {} } },
-    size: 5000,
+    size: 500,
   })
 
   let totalMigrated = 0
@@ -112,14 +120,28 @@ async function migrateIndex(index: string): Promise<void> {
       bulkBody.push(doc._source)
     })
 
-    try {
+
+    // ⛑️ Split bulk body into smaller chunks (500 docs per batch)
+    const chunkedBatches = chunkArray(bulkBody, 500) // 500 docs = 1000 bulk lines
+
+    for (const chunk of chunkedBatches) {
+      try {
+        await bulkIndexWithRetry(osClient, chunk)
+        totalMigrated += chunk.length / 2
+        console.log(`✅ Migrated ${totalMigrated} documents...`)
+      } catch (err) {
+        console.error('❌ Error during bulk insert chunk', err)
+        throw err
+      }
+    }
+    /* try {
       await bulkIndexWithRetry(osClient, bulkBody)
       totalMigrated += result.body.hits.hits.length
       console.log(`Migrated ${totalMigrated} documents for index ${index}`)
     } catch (error) {
       console.error(`Bulk indexing failed on batch at document ${totalMigrated}`, error)
       throw error
-    }
+    } */
   }
 
   console.log(`Completed migration for index: ${index}. Total documents migrated: ${totalMigrated}`)
