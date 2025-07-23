@@ -127,7 +127,7 @@ async function migrateIndex(index: string): Promise<void> {
 
 async function migrateAll(): Promise<void> {
   try {
-    await migrateIndex('meddra')
+    //await migrateIndex('meddra')
     await migrateIndex('eclaire')
     console.log('Full migration completed for all indexes.')
   } catch (error) {
