@@ -30,6 +30,9 @@ const OS_URL = process.argv[3]
 
 if (!ES_URL || !OS_URL) {
   throw new Error('Les variables d\'environnement SCALINGO_ELASTICSEARCH_URL et SCALINGO_OPENSEARCH_URL doivent être définies')
+} else {
+  console.log('es_url ///', ES_URL)
+  console.log('os_url ///', OS_URL)
 }
 
 const esClient = new ESClient({
