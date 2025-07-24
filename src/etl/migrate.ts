@@ -30,9 +30,6 @@ const OS_URL = process.argv[3]
 
 if (!ES_URL || !OS_URL) {
   throw new Error('Les variables d\'environnement SCALINGO_ELASTICSEARCH_URL et SCALINGO_OPENSEARCH_URL doivent être définies')
-} else {
-  console.log('es_url ///', ES_URL)
-  console.log('os_url ///', OS_URL)
 }
 
 const esClient = new ESClient({
@@ -134,14 +131,6 @@ async function migrateIndex(index: string): Promise<void> {
         throw err
       }
     }
-    /* try {
-      await bulkIndexWithRetry(osClient, bulkBody)
-      totalMigrated += result.body.hits.hits.length
-      console.log(`Migrated ${totalMigrated} documents for index ${index}`)
-    } catch (error) {
-      console.error(`Bulk indexing failed on batch at document ${totalMigrated}`, error)
-      throw error
-    } */
   }
 
   console.log(`Completed migration for index: ${index}. Total documents migrated: ${totalMigrated}`)
@@ -149,7 +138,7 @@ async function migrateIndex(index: string): Promise<void> {
 
 async function migrateAll(): Promise<void> {
   try {
-    //await migrateIndex('meddra')
+    await migrateIndex('meddra')
     await migrateIndex('eclaire')
     console.log('Full migration completed for all indexes.')
   } catch (error) {
