@@ -1,1 +1,0 @@
-web: ./opensearch-tuned-entrypoint.sh
