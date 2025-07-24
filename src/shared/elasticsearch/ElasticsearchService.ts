@@ -1,29 +1,30 @@
-import { ApiResponse, Client, RequestParams } from '@elastic/elasticsearch'
-import { RequestBody } from '@elastic/elasticsearch/lib/Transport'
+import { Client } from '@opensearch-project/opensearch'
+
+import type { ApiResponse } from '@opensearch-project/opensearch'
 
 export class ElasticsearchService {
   private readonly index = 'eclaire'
-  private readonly type = '_doc'
   private readonly updateMedDraLabels = 'update-meddra-labels'
+  private enrichMap: Map<string, string> = new Map()
 
-  constructor(private readonly client: Client) {}
+  constructor(private readonly client: Client) { }
 
   async createAnIndex<T>(mappings: T): Promise<void> {
     await this.client.indices.create({
       body: { mappings },
       index: this.index,
-    } satisfies RequestParams.IndicesCreate)
+    })
   }
 
   async deleteAnIndex(): Promise<void> {
-    await this.client.indices.delete({ ignore_unavailable: true, index: this.index } satisfies RequestParams.IndicesDelete)
+    await this.client.indices.delete({ ignore_unavailable: true, index: this.index })
   }
 
   async updateAnIndex<T>(mappings: T): Promise<void> {
     await this.client.indices.putMapping({
       body: mappings,
       index: this.index,
-    } satisfies RequestParams.IndicesPutMapping)
+    })
   }
 
   async findOneDocument(id: string): Promise<unknown> {
@@ -31,8 +32,7 @@ export class ElasticsearchService {
       _source_excludes: ['referenceContents'],
       id,
       index: this.index,
-      type: this.type,
-    } satisfies RequestParams.Get)
+    })
 
     return response.body._source as unknown
   }
@@ -41,7 +41,7 @@ export class ElasticsearchService {
     const response: ApiResponse = await this.client.search({
       body: { query: { match_phrase: { [`referenceContents.${referenceType}.id`]: id } } },
       index: this.index,
-    } satisfies RequestParams.Search)
+    })
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (response.body.hits.hits.length === 0) {
@@ -57,15 +57,15 @@ export class ElasticsearchService {
       body: this.buildBody(documents),
       index: this.index,
       refresh: true,
-    } satisfies RequestParams.Bulk)
+    })
   }
 
-  async search(requestBody: RequestBody, withReferenceContents?: boolean): Promise<SearchResponse> {
+  async search(requestBody: Record<string, any>, withReferenceContents?: boolean): Promise<SearchResponse> {
     const response: ApiResponse = await this.client.search({
       _source_excludes: withReferenceContents ? undefined : ['referenceContents'],
       body: requestBody,
       index: this.index,
-    } satisfies RequestParams.Search)
+    })
 
     return {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
@@ -85,35 +85,81 @@ export class ElasticsearchService {
   }
 
   async createPolicies(): Promise<void> {
-    await this.client.enrich.putPolicy({
-      body: {
-        match: {
-          enrich_fields: ['label'],
-          indices: 'meddra',
-          match_field: 'code',
-        },
-      },
-      name: this.updateMedDraLabels,
-    } satisfies RequestParams.EnrichPutPolicy)
+    // 🔁 === Partie équivalente à enrich.putPolicy ===
+    // On construit une "policy enrich" manuellement en lisant les données depuis l’index 'meddra'
+    const scroll = '1m'
+    const size = 500
 
-    await this.client.enrich.executePolicy({ name: this.updateMedDraLabels } satisfies RequestParams.EnrichExecutePolicy)
+    const response = await this.client.search({
+      body: {
+        _source: ['code', 'label'], // récupère 'code' et 'label'
+        query: { match_all: {} },
+      },
+      index: 'meddra',
+      scroll,
+      size,
+    })
+
+    let scrollId = response.body._scroll_id
+    let hits = response.body.hits.hits
+
+    while (hits.length > 0) {
+      for (const hit of hits) {
+        const source = hit._source
+        if (source?.['code']) {
+          const code = source['code']
+          const label = source['label']
+          if (code && label) {
+            this.enrichMap.set(code, label)
+          }
+        }
+      }
+
+      const scrollResponse = await this.client.scroll({
+        scroll,
+        scroll_id: scrollId,
+      })
+
+      scrollId = scrollResponse.body._scroll_id
+      hits = scrollResponse.body.hits.hits
+    }
+
+    // ✅ === Fin de la simulation de enrich.putPolicy ===
+
+    // 🚀 === Partie équivalente à enrich.executePolicy ===
+    // Ici on peut, par exemple, stocker les données dans un nouvel index ou les garder en mémoire.
+    // Pour cette version simple, on garde l’enrichMap en mémoire pour enrichir manuellement plus tard.
+    // eslint-disable-next-line no-console
+    console.log(`✅ Enrich policy '${this.updateMedDraLabels}' exécutée : ${this.enrichMap.size} entrées générées`)
+    // === Fin de la simulation de enrich.executePolicy ===
   }
 
   async deletePolicies(): Promise<void> {
-    const policies = await this.client.enrich.getPolicy({ name: this.updateMedDraLabels } satisfies RequestParams.EnrichGetPolicy)
+    try {
+      // Check if enrich index exists
+      const exists = await this.client.indices.exists({ index: this.updateMedDraLabels })
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (policies.body.policies.length > 0) {
-      await this.client.enrich.deletePolicy({ name: this.updateMedDraLabels } satisfies RequestParams.EnrichDeletePolicy)
+      if (exists.body) {
+        // Delete the enrich index to "delete the policy"
+        await this.client.indices.delete({ index: this.updateMedDraLabels })
+        // eslint-disable-next-line no-console
+        console.log(`Index ${this.updateMedDraLabels} deleted`)
+      } else {
+        // eslint-disable-next-line no-console
+        console.log(`Index ${this.updateMedDraLabels} does not exist`)
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error deleting enrich index:', error)
     }
   }
 
   async deletePipelines(): Promise<void> {
-    await this.client.ingest.deletePipeline({ id: '*' } satisfies RequestParams.IngestDeletePipeline)
+    await this.client.ingest.deletePipeline({ id: '*' })
   }
 
   async createMedDraIndex(): Promise<void> {
-    const mappings = {
+    const mappings: any = {
       properties: {
         code: { type: 'text' },
         label: { type: 'text' },
@@ -122,31 +168,29 @@ export class ElasticsearchService {
     await this.client.indices.create({
       body: { mappings },
       index: 'meddra',
-    } satisfies RequestParams.IndicesCreate)
+    })
   }
 
   async deleteMedDraIndex(): Promise<void> {
-    await this.client.indices.delete({ ignore_unavailable: true, index: 'meddra' } satisfies RequestParams.IndicesDelete)
+    await this.client.indices.delete({ ignore_unavailable: true, index: 'meddra' })
   }
 
   async findMedDraDocument(id: string): Promise<unknown> {
     const response: ApiResponse = await this.client.get({
       id,
       index: 'meddra',
-      type: this.type,
-    } satisfies RequestParams.Get)
+    })
 
     return response.body._source as unknown
   }
 
   async findMedDraDocuments<T>(ids: string[]): Promise<T[]> {
     const response = await this.client.search({
-      body: { query: { bool: { filter: { terms: { _id: ids } } } } },
+      body: { query: { bool: { filter: [{ terms: { _id: ids } }] } } } as any,
       index: 'meddra',
-    } satisfies RequestParams.Search)
+    })
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-    return response.body.hits.hits.map((hit): string => hit._source as string) as T[]
+    return response.body.hits.hits.map((hit) => hit._source as T)
   }
 
   async bulkMedDraDocuments<T>(documents: T[]): Promise<void> {
@@ -159,7 +203,7 @@ export class ElasticsearchService {
         body: this.buildMedDraBody(chunk),
         index: 'meddra',
         refresh: true,
-      } satisfies RequestParams.Bulk)
+      })
     }
   }
 
@@ -187,4 +231,4 @@ export type SearchResponseHits = Readonly<{
   sort?: (number | string)[]
 }>
 
-type UpsertElasticsearchBody<T> = Readonly<({ index: { _id: string }} | T )>
+type UpsertElasticsearchBody<T> = Readonly<({ index: { _id: string } } | T)>

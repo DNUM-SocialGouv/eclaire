@@ -1,4 +1,3 @@
-import { errors } from '@elastic/elasticsearch'
 import { Controller, Get, Header, Inject, Param, Res } from '@nestjs/common'
 import {
   ApiNotFoundResponse,
@@ -8,6 +7,7 @@ import {
   ApiTags,
   ApiTooManyRequestsResponse,
 } from '@nestjs/swagger'
+import { errors } from '@opensearch-project/opensearch'
 import { Response } from 'express'
 import { OperationOutcome } from 'fhir/r4'
 
@@ -36,7 +36,7 @@ export class GetOneResearchStudyController {
       })
     } catch (error) {
       if (error instanceof errors.ResponseError && error.meta.statusCode === 404) {
-        const operationOutcome: OperationOutcome = OperationOutcomeModel.create(error.message)
+        const operationOutcome: OperationOutcome = OperationOutcomeModel.create(error?.meta?.body)
         response.status(404).json(operationOutcome)
       } else {
         throw error

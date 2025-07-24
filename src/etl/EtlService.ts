@@ -1,4 +1,4 @@
-import { errors } from '@elastic/elasticsearch'
+import { errors } from '@opensearch-project/opensearch'
 import * as console from 'console'
 import fs from 'fs'
 

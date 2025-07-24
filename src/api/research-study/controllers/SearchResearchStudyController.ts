@@ -1,6 +1,6 @@
-import { errors } from '@elastic/elasticsearch'
 import { Controller, Get, Header, Inject, Query, Res } from '@nestjs/common'
 import { ApiOkResponse, ApiOperation, ApiProduces, ApiTags, ApiTooManyRequestsResponse } from '@nestjs/swagger'
+import { errors } from '@opensearch-project/opensearch'
 import { Response } from 'express'
 import { Bundle, OperationOutcome } from 'fhir/r4'
 
