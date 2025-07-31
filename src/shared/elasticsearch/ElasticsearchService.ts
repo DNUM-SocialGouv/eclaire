@@ -27,6 +27,27 @@ export class ElasticsearchService {
     })
   }
 
+  async countDocuments(filters?: Record<string, string | number>): Promise<number> {
+    const mustQueries: any[] = []
+
+    if (filters) {
+      for (const [field, value] of Object.entries(filters)) {
+        mustQueries.push({ match: { [field]: value } })
+      }
+    }
+
+    const query: any = filters
+      ? { bool: { must: mustQueries } }
+      : { match_all: {} }
+
+    const response = await this.client.count({
+      body: { query },
+      index: this.index,
+    })
+
+    return response.body.count
+  }
+
   async findOneDocument(id: string): Promise<unknown> {
     const response: ApiResponse = await this.client.get({
       _source_excludes: ['referenceContents'],
