@@ -21,8 +21,7 @@ export class TranslationPipeline {
     const data: ResearchStudyModel[] = await this.extract(date)
     this.logger?.info(`---- Chunk Translation data length: ${data.length}`)
     if (data.length > 0) {
-      //const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
-      const chunkSize = 20
+      const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
       for (let i = 0; i < data.length; i += chunkSize) {
         const chunk = data.slice(i, i + chunkSize)
         this.logger?.info(`---- Chunk Translation: ${i} / ${data.length} elasticsearch documents`)
@@ -42,14 +41,26 @@ export class TranslationPipeline {
     }
 
     this.logger?.info('---- Extract data to filter ///')
-    console.log("log filter //", JSON.stringify(requestBodyToFindEveryCtisStudiesSinceASpecificDate))
-    const response: SearchResponse = await this.databaseService.search(
-      requestBodyToFindEveryCtisStudiesSinceASpecificDate,
-      true
-    )
-    this.logger?.info('---- Get all CTIS finish')
+    const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
+    let from = 0;
+    let allResults: any[] = [];
 
-    return response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
+    while (true) {
+      requestBodyToFindEveryCtisStudiesSinceASpecificDate.from = from;
+      const response: SearchResponse = await this.databaseService.search(
+        requestBodyToFindEveryCtisStudiesSinceASpecificDate,
+        true
+      );
+
+      if (!response.hits || response.hits.length === 0) break;
+
+      allResults.push(...response.hits);
+      from += chunkSize;
+    }
+
+    this.logger?.info('---- Get all CTIS finish')    
+    //return response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
+    return allResults.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
   }
 
   async transform(researchStudies: ResearchStudyModel[]): Promise<ResearchStudyModel[]> {
@@ -74,6 +85,7 @@ export class TranslationPipeline {
 
   private buildBodyToFindEveryCtisStudiesSinceAGivenDate(date: string): ElasticsearchBodyType {
     const ctisStudiesQueryParams: FhirParsedQueryParams[] = [
+      { name: '_count', value: String(process.env['CHUNK_SIZE']) },
       { name: '_lastUpdated', value: `ge${date}` },
       { name: '_text', value: 'REG536' },
     ]
