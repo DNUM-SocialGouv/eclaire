@@ -1,49 +1,4 @@
 services:
-  elasticsearch:
-    container_name: eclaire-es
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2 # Même numéro de version que Scalingo
-    environment:
-      - xpack.security.enabled=false
-      - discovery.type=single-node
-      # Pour avoir les même conditions qu'en production
-      # A augmenter si on change la taille du serveur Scalingo
-      - ES_JAVA_OPTS=-Xms192m -Xmx192m
-    networks:
-      - eclaire
-    volumes:
-      - type: volume
-        source: elastic_data
-        target: /usr/share/elasticsearch/data
-    ports:
-      - "9200:9200"
-  kibana:
-    container_name: eclaire-kb
-    image: docker.elastic.co/kibana/kibana:7.10.2
-    environment:
-      - ELASTICSEARCH_HOSTS=http://eclaire-es:9200
-    networks:
-      - eclaire
-    depends_on:
-      - elasticsearch
-    ports:
-      - "5601:5601"
-  elasticsearch_test:
-    container_name: eclaire-es_test
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2 # Même numéro de version que Scalingo
-    environment:
-      - xpack.security.enabled=false
-      - discovery.type=single-node
-      # Pour avoir les même conditions qu'en production
-      # A augmenter si on change la taille du serveur Scalingo
-      - ES_JAVA_OPTS=-Xms192m -Xmx192m
-    networks:
-      - eclaire
-    volumes:
-      - type: volume
-        source: elastic_data_test
-        target: /usr/share/elasticsearch/data
-    ports:
-      - "9201:9200"
   opensearch:
     container_name: eclaire-os
     image: opensearchproject/opensearch:2.13.0
@@ -53,7 +8,6 @@ services:
       - OPENSEARCH_INITIAL_ADMIN_PASSWORD=Ecl@ire2025
       #- DISABLE_SECURITY_PLUGIN=true   
       - OPENSEARCH_JAVA_OPTS=-Xms192m -Xmx192m
-      - reindex.remote.allowlist=elasticsearch:9200
     networks:
       - eclaire
     volumes:
@@ -78,6 +32,4 @@ networks:
   eclaire:
     driver: bridge
 volumes:
-  elastic_data:
-  elastic_data_test:
   opensearch_data:

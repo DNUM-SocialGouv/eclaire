@@ -48,11 +48,11 @@ export class ResearchStudyModel implements ResearchStudy {
 
   private convertToResearchStudyStatus(riphStatus: RiphStatus): ResearchStudyStatus {
     const fhirStatus: Record<string, ResearchStudyStatus> = {
-      ABANDONNEE: 'completed',
+      ABANDONNEE: 'withdrawn',
       ARCHIVEE: 'completed',
       A_DEMARRER: 'approved',
       EN_COURS: 'active',
-      EXPIREE: 'approved',
+      EXPIREE: 'withdrawn',
       PROROGEE: 'approved',
       SUSPENDUE: 'temporarily-closed-to-accrual',
       TERMINEE: 'completed',

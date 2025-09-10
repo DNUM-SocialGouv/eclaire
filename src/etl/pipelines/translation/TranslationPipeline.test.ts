@@ -37,6 +37,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         from: 0,
         query: {
           bool: {
+            filter: [],
             must: [
               { range: { 'meta.lastUpdated': { gte: '2022-10-06' } } },
               { query_string: { query: 'REG536' } },
@@ -62,6 +63,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         from: 0,
         query: {
           bool: {
+            filter: [],
             must: [
               { range: { 'meta.lastUpdated': { gte: '2020-10-06' } } },
               { query_string: { query: 'REG536' } },

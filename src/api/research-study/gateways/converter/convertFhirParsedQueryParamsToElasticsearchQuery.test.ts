@@ -16,7 +16,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
+        query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -31,7 +31,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ match: { 'meta.lastUpdated': '2023-04-12' } }] } },
+        query: { bool: { filter: [], must: [{ match: { 'meta.lastUpdated': '2023-04-12' } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -46,7 +46,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ match: { 'meta.lastUpdated': '2023-04-12' } }] } },
+        query: { bool: { filter: [], must: [{ match: { 'meta.lastUpdated': '2023-04-12' } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -61,7 +61,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gt: '2023-04-12', lt: '2023-04-12' } } }] } },
+        query: { bool: { filter: [], must: [{ range: { 'meta.lastUpdated': { gt: '2023-04-12', lt: '2023-04-12' } } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -76,7 +76,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ range: { 'meta.lastUpdated': { lt: '2023-04-12' } } }] } },
+        query: { bool: { filter: [], must: [{ range: { 'meta.lastUpdated': { lt: '2023-04-12' } } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -91,7 +91,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ range: { 'meta.lastUpdated': { lte: '2023-04-12' } } }] } },
+        query: { bool: { filter: [], must: [{ range: { 'meta.lastUpdated': { lte: '2023-04-12' } } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -106,7 +106,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gt: '2023-04-12' } } }] } },
+        query: { bool: { filter: [], must: [{ range: { 'meta.lastUpdated': { gt: '2023-04-12' } } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -121,7 +121,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ range: { 'meta.lastUpdated': { gte: '2023-04-12' } } }] } },
+        query: { bool: { filter: [], must: [{ range: { 'meta.lastUpdated': { gte: '2023-04-12' } } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -141,6 +141,7 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: {
           bool: {
+            filter: [],
             must: [
               { match: { 'meta.lastUpdated': '2023-04-12' } },
               { match: { _id: 'mDog94gBYFmz7rt1cy93' } },
@@ -161,7 +162,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ query_string: { query: 'elastic AND (lucene OR solr)' } }] } },
+        query: { bool: { filter: [], must: [{ query_string: { query: 'elastic AND (lucene OR solr)' } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -176,7 +177,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ query_string: { query: 'elastic AND (lucene OR solr)' } }] } },
+        query: { bool: { filter: [], must: [{ query_string: { query: 'elastic AND (lucene OR solr)' } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -191,7 +192,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ match: { status: 'active' } }] } },
+        query: { bool: { filter: [{ term: { 'status.keyword': 'active' } }], must: [] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -211,7 +212,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
+        query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPageByDefault,
         sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
       })
@@ -230,7 +231,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
+        query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPageByDefault,
         sort: [{ 'meta.lastUpdated': { order: 'desc' } }],
       })
@@ -249,7 +250,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
+        query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPageByDefault,
         sort: [
           { _id: { order: 'asc' } },
@@ -274,7 +275,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: offset,
-        query: { bool: { must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
+        query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -295,7 +296,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: offset,
-        query: { bool: { must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
+        query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPage,
       })
     })
@@ -316,7 +317,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: offset,
-        query: { bool: { must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
+        query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPageByDefault,
       })
     })
@@ -335,7 +336,7 @@ describe('research study query to elasticsearch query', () => {
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
-        query: { bool: { must: [] } },
+        query: { bool: { filter: [], must: [] } },
         search_after: ['1631232000000', '2019-A00427-50'],
         size: numberOfResourcesByPageByDefault,
         sort: [
@@ -359,7 +360,7 @@ describe('research study query to elasticsearch query', () => {
     // THEN
     expect(query).toStrictEqual<ElasticsearchBodyType>({
       from: 0,
-      query: { bool: { must: [] } },
+      query: { bool: { filter: [], must: [] } },
       size: numberOfResourcesByPageByDefault,
     })
   })

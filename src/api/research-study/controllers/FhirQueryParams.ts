@@ -8,7 +8,7 @@ export class FhirQueryParams {
     identifier: string
 
   @ApiProperty({
-    description: '`completed` | `approved` | `active` | `temporarily-closed-to-accrual` | `administratively-completed`',
+    description: '`completed` | `approved` | `active` | `temporarily-closed-to-accrual` | `administratively-completed` | `withdrawn`',
     required: false,
   })
     status: string

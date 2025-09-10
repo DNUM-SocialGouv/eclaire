@@ -45,6 +45,10 @@ export function convertFhirParsedQueryParamsToElasticsearchQuery(
       case '_include':
         break
 
+      case 'status':
+        buildTerm(searchBody, 'status.keyword', value)
+        break
+
       default:
         buildMatch(searchBody, name, value)
     }
@@ -128,4 +132,8 @@ function buildSort(searchBody: ElasticsearchBodyBuilder, value: string) {
 
 function buildMatch(searchBody: ElasticsearchBodyBuilder, name: string, value: string) {
   searchBody.withMatch(name, value)
+}
+
+function buildTerm(searchBody: ElasticsearchBodyBuilder, name: string, value: string) {
+  searchBody.withTerm(name, value)
 }

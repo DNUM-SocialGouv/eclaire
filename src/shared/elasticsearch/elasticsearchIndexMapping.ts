@@ -66,7 +66,10 @@ export const elasticsearchIndexMapping = {
       },
     },
     phase: codeableConcept,
-    status: { type: 'text' },
+    status: {
+      fields: { keyword: { type: 'keyword' } },
+      type: 'text',
+    },
     title: { type: 'text' },
   },
 }

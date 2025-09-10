@@ -13,6 +13,11 @@ export type ElasticsearchBodyType = {
           query: string,
         }
       }>
+      filter: Array<{
+        term?: {
+          [key: string]: string
+        }
+      }>
     }
   }
   size: number
@@ -30,7 +35,7 @@ export class ElasticsearchBodyBuilder {
   constructor() {
     this.searchBody = {
       from: 0,
-      query: { bool: { must: [] } },
+      query: { bool: { filter: [], must: [] } },
       size: 0,
     }
   }
@@ -67,6 +72,11 @@ export class ElasticsearchBodyBuilder {
 
   withMatch(fieldname: string, value: string): this {
     this.searchBody.query.bool.must.push({ match: { [fieldname]: value } })
+    return this
+  }
+
+  withTerm(fieldname: string, value: string): this {
+    this.searchBody.query.bool.filter.push({ term: { [fieldname]: value } })
     return this
   }
 
