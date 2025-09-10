@@ -15,13 +15,14 @@ export class TranslationPipeline {
     private readonly databaseService: ElasticsearchService,
     private readonly translationService: TranslationService,
     protected readonly logger?: LoggerService
-  ) {}
+  ) { }
 
   async execute(date?: string): Promise<void> {
     const data: ResearchStudyModel[] = await this.extract(date)
-
+    this.logger?.info(`---- Chunk Translation data length: ${data.length}`)
     if (data.length > 0) {
-      const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
+      //const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
+      const chunkSize = 20
       for (let i = 0; i < data.length; i += chunkSize) {
         const chunk = data.slice(i, i + chunkSize)
         this.logger?.info(`---- Chunk Translation: ${i} / ${data.length} elasticsearch documents`)
@@ -40,10 +41,12 @@ export class TranslationPipeline {
       requestBodyToFindEveryCtisStudiesSinceASpecificDate = this.buildBodyToFindEveryCtisStudiesSinceYesterday()
     }
 
+    this.logger?.info('---- Extartct preapre data to filter')
     const response: SearchResponse = await this.databaseService.search(
       requestBodyToFindEveryCtisStudiesSinceASpecificDate,
       true
     )
+    this.logger?.info('---- Get all CTIS finish')
 
     return response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
   }

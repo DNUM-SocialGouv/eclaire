@@ -172,6 +172,7 @@ export class EtlService {
 
     try {
       const translationPipeline: TranslationPipeline = new TranslationPipeline(this.databaseService, this.translationService, this.loggerService)
+      this.loggerService.info('-- Get translationPipeline.')
       await translationPipeline.execute(startingDate)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
