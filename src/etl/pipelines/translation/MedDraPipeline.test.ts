@@ -41,7 +41,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
             ],
           },
         },
-        size: 5000,
+        size: parseInt(process.env['CHUNK_SIZE']),
       },
       true)
     })
@@ -67,7 +67,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
             ],
           },
         },
-        size: 5000,
+        size: parseInt(process.env['CHUNK_SIZE']),
       },
       true)
     })

@@ -44,7 +44,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
             ],
           },
         },
-        size: 5000,
+        size: parseInt(process.env['CHUNK_SIZE']),
       },
       true)
     })
@@ -70,7 +70,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
             ],
           },
         },
-        size: 5000,
+        size: parseInt(process.env['CHUNK_SIZE']),
       },
       true)
     })

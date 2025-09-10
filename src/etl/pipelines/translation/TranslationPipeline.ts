@@ -42,24 +42,24 @@ export class TranslationPipeline {
 
     this.logger?.info('---- Extract data to filter ///')
     const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
-    let from = 0;
-    let allResults: any[] = [];
+    let from = 0
+    const allResults: any[] = []
 
+    // eslint-disable-next-line no-constant-condition
     while (true) {
-      requestBodyToFindEveryCtisStudiesSinceASpecificDate.from = from;
+      requestBodyToFindEveryCtisStudiesSinceASpecificDate.from = from
       const response: SearchResponse = await this.databaseService.search(
         requestBodyToFindEveryCtisStudiesSinceASpecificDate,
         true
-      );
+      )
 
-      if (!response.hits || response.hits.length === 0) break;
+      if (!response.hits || response.hits.length === 0) break
 
-      allResults.push(...response.hits);
-      from += chunkSize;
+      allResults.push(...response.hits)
+      from += chunkSize
     }
 
-    this.logger?.info('---- Get all CTIS finish')    
-    //return response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
+    this.logger?.info('---- Get all CTIS finish')
     return allResults.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
   }
 
