@@ -41,7 +41,8 @@ export class TranslationPipeline {
       requestBodyToFindEveryCtisStudiesSinceASpecificDate = this.buildBodyToFindEveryCtisStudiesSinceYesterday()
     }
 
-    this.logger?.info('---- Extartct preapre data to filter')
+    this.logger?.info('---- Extract data to filter ///')
+    console.log("log filter //", JSON.stringify(requestBodyToFindEveryCtisStudiesSinceASpecificDate))
     const response: SearchResponse = await this.databaseService.search(
       requestBodyToFindEveryCtisStudiesSinceASpecificDate,
       true
@@ -73,7 +74,6 @@ export class TranslationPipeline {
 
   private buildBodyToFindEveryCtisStudiesSinceAGivenDate(date: string): ElasticsearchBodyType {
     const ctisStudiesQueryParams: FhirParsedQueryParams[] = [
-      { name: '_count', value: '5000' },
       { name: '_lastUpdated', value: `ge${date}` },
       { name: '_text', value: 'REG536' },
     ]
