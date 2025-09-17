@@ -40,6 +40,12 @@ export abstract class IngestPipeline {
       await this.databaseService.bulkDocuments<ResearchStudyModel>(documents)
     }
   }
+
+  async delete(ids: string[]): Promise<void> {
+    if (ids.length > 0) {
+      await this.databaseService.deleteManyDocument(ids)
+    }
+  }
 }
 
 type RiphDto = RiphCtisDto | RiphDmDto | RiphJardeDto

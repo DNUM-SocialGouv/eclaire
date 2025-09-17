@@ -6,6 +6,7 @@ import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFacto
 
 export class IngestPipelineJarde extends IngestPipeline {
   readonly type = 'jarde'
+  idsToDelete = []
 
   async execute(): Promise<void> {
     const riphJardeDtos: RiphJardeDto[] = await super.extract<RiphJardeDto>()
@@ -13,8 +14,11 @@ export class IngestPipelineJarde extends IngestPipeline {
     for (let i = 0; i < riphJardeDtos.length; i += chunkSize) {
       this.logger.info(`---- Chunk JARDE: ${i} / ${riphJardeDtos.length} elasticsearch documents`)
       const chunk = riphJardeDtos.slice(i, i + chunkSize)
-      const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
-      await super.load(researchStudyDocuments)
+      this.transform(chunk)
+      //const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
+      //await super.load(researchStudyDocuments)
+      // Delete documents with status non autorisé (fermé)
+      await super.delete(this.idsToDelete)
     }
   }
 
@@ -25,8 +29,10 @@ export class IngestPipelineJarde extends IngestPipeline {
     const researchStudyModels: ResearchStudyModel[] = []
     for (const riphJardeDto of riphJardeDtosWithoutRapatrieeCtis) {
       const eclaireDto: EclaireDto = EclaireDto.fromJarde(riphJardeDto)
-      if (eclaireDto) {
+      if (eclaireDto && !eclaireDto.to_delete) {
         researchStudyModels.push(ResearchStudyModelFactory.create(eclaireDto))
+      } else {
+        this.idsToDelete.push(eclaireDto.numero_primaire)
       }
     }
     return researchStudyModels

@@ -58,6 +58,27 @@ export class ElasticsearchService {
     return response.body._source as unknown
   }
 
+  async findManyDocument(ids: string[]): Promise<unknown> {
+    const response: ApiResponse = await this.client.search({
+      body: { query: { terms: { _id: ids } } },
+      index: this.index,
+    })
+
+    return {
+      hits: response.body.hits.hits,
+      total: response.body.hits.total.value as number,
+    }
+  }
+
+  async deleteManyDocument(ids: string[]): Promise<unknown> {
+    const response: ApiResponse = await this.client.deleteByQuery({
+      body: { query: { terms: { _id: ids } } },
+      index: this.index,
+    })
+
+    return response
+  }
+
   async findReferenceContent(id: string, referenceType: 'enrollmentGroup' | 'locations' | 'organizations'): Promise<unknown> {
     const response: ApiResponse = await this.client.search({
       body: { query: { match_phrase: { [`referenceContents.${referenceType}.id`]: id } } },

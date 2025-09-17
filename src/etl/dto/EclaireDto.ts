@@ -39,14 +39,11 @@ export class EclaireDto {
     readonly objectifs: string,
     readonly resume: string,
     readonly statut_recrutement: string,
-    readonly date_fin_recrutement: string
+    readonly date_fin_recrutement: string,
+    readonly to_delete: boolean
   ) { }
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
-    if (riphCtisDto.publication_eclaire !== 'autorisé') {
-      return null
-    }
-
     const sites = riphCtisDto.sites.map((site): Site => new Site(
       site.organisme,
       site.adresse,
@@ -108,14 +105,12 @@ export class EclaireDto {
       riphCtisDto.objectifs,
       riphCtisDto.resume,
       riphCtisDto.statut_recrutement,
-      riphCtisDto.date_fin_recrutement
+      riphCtisDto.date_fin_recrutement,
+      riphCtisDto.publication_eclaire !== 'autorisé'
     )
   }
 
   static fromDm(riphDmDto: RiphDmDto): EclaireDto {
-    if (riphDmDto.publication_eclaire !== 'autorisé') {
-      return null
-    }
     return new EclaireDto(
       riphDmDto.reglementation_code,
       riphDmDto.qualification,
@@ -165,7 +160,8 @@ export class EclaireDto {
       riphDmDto.objectifs,
       riphDmDto.resume,
       riphDmDto.statut_recrutement,
-      riphDmDto.date_fin_recrutement
+      riphDmDto.date_fin_recrutement,
+      riphDmDto.publication_eclaire !== 'autorisé'
     )
   }
 
@@ -177,9 +173,6 @@ export class EclaireDto {
   }
 
   static fromJarde(riphJardeDto: RiphJardeDto): EclaireDto {
-    if (riphJardeDto.publication_eclaire !== 'autorisé') {
-      return null
-    }
     const phaseRecherche: Phase = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'Phase I' : 'N/A'
     return new EclaireDto(
       riphJardeDto.reglementation_code,
@@ -230,7 +223,8 @@ export class EclaireDto {
       riphJardeDto.objectifs,
       riphJardeDto.resume,
       riphJardeDto.statut_recrutement,
-      riphJardeDto.date_fin_recrutement
+      riphJardeDto.date_fin_recrutement,
+      riphJardeDto.publication_eclaire !== 'autorisé'
     )
   }
 

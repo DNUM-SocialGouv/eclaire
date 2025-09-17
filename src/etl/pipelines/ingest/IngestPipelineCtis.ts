@@ -6,6 +6,7 @@ import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFacto
 
 export class IngestPipelineCtis extends IngestPipeline {
   readonly type = 'ctis'
+  idsToDelete = []
 
   async execute(): Promise<void> {
     const riphCtisDtos: RiphCtisDto[] = await super.extract<RiphCtisDto>()
@@ -13,8 +14,11 @@ export class IngestPipelineCtis extends IngestPipeline {
     for (let i = 0; i < riphCtisDtos.length; i += chunkSize) {
       this.logger.info(`---- Chunk CTIS: ${i} / ${riphCtisDtos.length} elasticsearch documents`)
       const chunk = riphCtisDtos.slice(i, i + chunkSize)
-      const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
-      await super.load(researchStudyDocuments)
+      this.transform(chunk)
+      //const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
+      //await super.load(researchStudyDocuments)
+      // Delete documents with status non autorisé (fermé)
+      await super.delete(this.idsToDelete)
     }
   }
 
@@ -22,9 +26,10 @@ export class IngestPipelineCtis extends IngestPipeline {
     const researchStudyModels: ResearchStudyModel[] = []
     for (const riphCtisDto of riphCtisDtos) {
       const eclaireDto: EclaireDto = EclaireDto.fromCtis(riphCtisDto)
-
-      if (eclaireDto) {
+      if (eclaireDto && !eclaireDto.to_delete) {
         researchStudyModels.push(ResearchStudyModelFactory.create(eclaireDto))
+      } else {
+        this.idsToDelete.push(eclaireDto.numero_primaire)
       }
     }
 

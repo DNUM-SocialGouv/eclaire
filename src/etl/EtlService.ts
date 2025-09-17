@@ -56,8 +56,8 @@ export class EtlService {
   async dailyUpdate(startingDate?: string): Promise<void> {
     this.loggerService.info('-- Début de la mise à jour quotidienne des essais cliniques du RIPH.')
     await this.import(startingDate)
-    await this.translate(startingDate)
-    await this.updateMeddraLabels(startingDate)
+    //await this.translate(startingDate)
+    //await this.updateMeddraLabels(startingDate)
     this.loggerService.info('-- Fin de la mise à jour quotidienne des essais cliniques du RIPH.')
   }
 

@@ -102,6 +102,7 @@ describe('etl | dto | EclaireDto', () => {
         "statut_recrutement": "Recrutement en attente",
         "taille_etude": 21,
         "titre": "A PHASE III, RANDOMIZED, OPEN-LABEL STUDY EVALUATING THE EFFICACY AND SAFETY OF GIREDESTRANT IN COMBINATION WITH PHESGO VERSUS PHESGO AFTER INDUCTION THERAPY WITH PHESGO+TAXANE IN PATIENTS WITH PREVIOUSLY UNTREATED HER2-POSITIVE, ESTROGEN RECEPTOR-POSITIVE LOCALLY-ADVANCED OR METASTATIC BREAST CANCER",
+        "to_delete": false,
         "tranches_age": [
           "65+ years",
           "18-64 years",
@@ -114,15 +115,15 @@ describe('etl | dto | EclaireDto', () => {
     await expect(JSON.stringify(EclaireDto.fromDm(RiphDtoTestFactory.dm()))).toMatchFileSnapshot(SNAPSHOT_PATH_DM)
   })
 
-  it('should not return an eclaire dto when dm publication is not authorised', () => {
-    expect(EclaireDto.fromDm(RiphDtoTestFactory.dm({ publication_eclaire: 'non autorisé' }))).toBeNull()
+  it('should contain to_delete: true when dm publication is not authorised', () => {
+    expect(EclaireDto.fromDm(RiphDtoTestFactory.dm({ publication_eclaire: 'non autorisé' }))).toHaveProperty('to_delete', true)
   })
 
   it('should return a properly mapped eclaire dto when a riph jarde dto is given', async() => {
     await expect(JSON.stringify(EclaireDto.fromJarde(RiphDtoTestFactory.jarde()))).toMatchFileSnapshot(SNAPSHOT_PATH_JARDE)
   })
 
-  it('should not return an eclaire dto when jarde publication is not authorised', () => {
-    expect(EclaireDto.fromJarde(RiphDtoTestFactory.jarde({ publication_eclaire: 'non autorisé' }))).toBeNull()
+  it('should contain to_delete: true when jarde publication is not authorised', () => {
+    expect(EclaireDto.fromJarde(RiphDtoTestFactory.jarde({ publication_eclaire: 'non autorisé' }))).toHaveProperty('to_delete', true)
   })
 })
