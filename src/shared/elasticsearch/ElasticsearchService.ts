@@ -71,12 +71,23 @@ export class ElasticsearchService {
   }
 
   async deleteManyDocument(ids: string[]): Promise<unknown> {
-    const response: ApiResponse = await this.client.deleteByQuery({
-      body: { query: { terms: { _id: ids } } },
-      index: this.index,
-    })
+    try {
+      const response: ApiResponse = await this.client.deleteByQuery({
+        body: { query: { terms: { _id: ids } } },
+        index: this.index,
+      })
 
-    return response
+      if (response.body.failures?.length) {
+        // eslint-disable-next-line no-console
+        console.warn('Some documents failed to delete: ', response.body.failures)
+        return response
+      }
+      return response
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn('Delete by query failed: ', error)
+      return error
+    }
   }
 
   async findReferenceContent(id: string, referenceType: 'enrollmentGroup' | 'locations' | 'organizations'): Promise<unknown> {
