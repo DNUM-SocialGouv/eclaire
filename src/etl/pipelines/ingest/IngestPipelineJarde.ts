@@ -14,9 +14,8 @@ export class IngestPipelineJarde extends IngestPipeline {
     for (let i = 0; i < riphJardeDtos.length; i += chunkSize) {
       this.logger.info(`---- Chunk JARDE: ${i} / ${riphJardeDtos.length} elasticsearch documents`)
       const chunk = riphJardeDtos.slice(i, i + chunkSize)
-      this.transform(chunk)
-      //const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
-      //await super.load(researchStudyDocuments)
+      const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
+      await super.load(researchStudyDocuments)
       // Delete documents with status non autorisé (fermé)
       await super.delete(this.idsToDelete)
     }

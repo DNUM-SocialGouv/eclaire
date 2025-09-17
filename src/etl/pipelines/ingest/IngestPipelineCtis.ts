@@ -14,9 +14,8 @@ export class IngestPipelineCtis extends IngestPipeline {
     for (let i = 0; i < riphCtisDtos.length; i += chunkSize) {
       this.logger.info(`---- Chunk CTIS: ${i} / ${riphCtisDtos.length} elasticsearch documents`)
       const chunk = riphCtisDtos.slice(i, i + chunkSize)
-      this.transform(chunk)
-      //const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
-      //await super.load(researchStudyDocuments)
+      const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
+      await super.load(researchStudyDocuments)
       // Delete documents with status non autorisé (fermé)
       await super.delete(this.idsToDelete)
     }
