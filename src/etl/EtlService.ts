@@ -82,7 +82,7 @@ export class EtlService {
           }
 
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          throw new Error(error.meta.body.error.reason as string)
+          throw new Error(error.meta.body?.error?.reason ? error.meta.body?.error?.reason as string : error.meta.body?.error)
         }
         throw error
       }
