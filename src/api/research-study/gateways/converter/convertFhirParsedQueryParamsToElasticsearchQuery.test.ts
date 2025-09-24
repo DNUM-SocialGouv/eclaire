@@ -18,6 +18,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -33,6 +38,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [], must: [{ match: { 'meta.lastUpdated': '2023-04-12' } }] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -48,6 +58,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [], must: [{ match: { 'meta.lastUpdated': '2023-04-12' } }] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -63,6 +78,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [], must: [{ range: { 'meta.lastUpdated': { gt: '2023-04-12', lt: '2023-04-12' } } }] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -78,6 +98,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [], must: [{ range: { 'meta.lastUpdated': { lt: '2023-04-12' } } }] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -93,6 +118,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [], must: [{ range: { 'meta.lastUpdated': { lte: '2023-04-12' } } }] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -108,6 +138,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [], must: [{ range: { 'meta.lastUpdated': { gt: '2023-04-12' } } }] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -123,6 +158,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [], must: [{ range: { 'meta.lastUpdated': { gte: '2023-04-12' } } }] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -149,6 +189,11 @@ describe('research study query to elasticsearch query', () => {
           },
         },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -164,6 +209,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [], must: [{ query_string: { query: 'elastic AND (lucene OR solr)' } }] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -179,6 +229,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [], must: [{ query_string: { query: 'elastic AND (lucene OR solr)' } }] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -194,6 +249,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [{ term: { 'status.keyword': 'active' } }], must: [] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
   })
@@ -214,7 +274,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPageByDefault,
-        sort: [{ 'meta.lastUpdated': { order: 'asc' } }],
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -233,7 +297,11 @@ describe('research study query to elasticsearch query', () => {
         from: 0,
         query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPageByDefault,
-        sort: [{ 'meta.lastUpdated': { order: 'desc' } }],
+        sort: [
+          { 'meta.lastUpdated': { order: 'desc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -253,8 +321,9 @@ describe('research study query to elasticsearch query', () => {
         query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPageByDefault,
         sort: [
-          { _id: { order: 'asc' } },
           { 'meta.lastUpdated': { order: 'desc' } },
+          { _id: { order: 'asc' } },
+          { 'status.keyword': { order: 'asc' } },
         ],
       })
     })
@@ -277,6 +346,11 @@ describe('research study query to elasticsearch query', () => {
         from: offset,
         query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -298,6 +372,11 @@ describe('research study query to elasticsearch query', () => {
         from: offset,
         query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPage,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -319,6 +398,11 @@ describe('research study query to elasticsearch query', () => {
         from: offset,
         query: { bool: { filter: [], must: [{ match: { _id: 'mDog94gBYFmz7rt1cy93' } }] } },
         size: numberOfResourcesByPageByDefault,
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       })
     })
 
@@ -329,10 +413,8 @@ describe('research study query to elasticsearch query', () => {
         { name: '_sort', value: 'meta.lastUpdated,_id' },
         { name: 'search_after', value: searchAfter },
       ]
-
       // WHEN
       const query = convertFhirParsedQueryParamsToElasticsearchQuery(researchStudyQuery, numberOfResourcesByPageByDefault)
-
       // THEN
       expect(query).toStrictEqual<ElasticsearchBodyType>({
         from: 0,
@@ -340,8 +422,9 @@ describe('research study query to elasticsearch query', () => {
         search_after: ['1631232000000', '2019-A00427-50'],
         size: numberOfResourcesByPageByDefault,
         sort: [
-          { 'meta.lastUpdated': { order: 'asc' } },
           { _id: { order: 'asc' } },
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { 'status.keyword':{ order:'asc' } },
         ],
       })
     })
@@ -362,6 +445,11 @@ describe('research study query to elasticsearch query', () => {
       from: 0,
       query: { bool: { filter: [], must: [] } },
       size: numberOfResourcesByPageByDefault,
+      sort: [
+        { 'meta.lastUpdated': { order: 'asc' } },
+        { _id: { order: 'desc' } },
+        { 'status.keyword': { order: 'asc' } },
+      ],
     })
   })
 })

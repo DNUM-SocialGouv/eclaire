@@ -2,6 +2,27 @@ import { Client } from '@opensearch-project/opensearch'
 
 import type { ApiResponse } from '@opensearch-project/opensearch'
 
+type CountRequest = {
+  bool?: {
+    must: Array<{
+      match?: {
+        [key: string]: string
+      }
+      range?: {
+        [key: string]: { gte?: string, gt?: string, lte?: string, lt?: string }
+      }
+      query_string?: {
+        query: string,
+      }
+    }>
+    filter: Array<{
+      term?: {
+        [key: string]: string
+      }
+    }>
+  };
+}
+
 export class ElasticsearchService {
   private readonly index = 'eclaire'
   private readonly updateMedDraLabels = 'update-meddra-labels'
@@ -42,6 +63,16 @@ export class ElasticsearchService {
 
     const response = await this.client.count({
       body: { query },
+      index: this.index,
+    })
+
+    return response.body.count
+  }
+
+  async getCountDocuments(filters?: CountRequest): Promise<number> {
+    const response = await this.client.count({
+      // Only the `body` is `any`; the rest is fully typed
+      body: { query: filters ? filters : { match_all: {} } } as any,
       index: this.index,
     })
 

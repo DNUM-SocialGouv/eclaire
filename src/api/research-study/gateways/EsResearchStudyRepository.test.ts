@@ -74,7 +74,6 @@ describe('elasticsearch research study repository', () => {
 
         // WHEN
         const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
-
         // THEN
         expect(response.link).toStrictEqual([
           {
@@ -83,7 +82,7 @@ describe('elasticsearch research study repository', () => {
           },
           {
             relation: 'next',
-            url: 'http://localhost:3000/R4/ResearchStudy?_lastUpdated=gt2020-01-01&_sort=meta.lastUpdated&_getpagesoffset=2',
+            url: 'http://localhost:3000/R4/ResearchStudy?_lastUpdated=gt2020-01-01&_sort=meta.lastUpdated&_count=2&_getpagesoffset=2',
           },
         ])
       })
@@ -98,7 +97,6 @@ describe('elasticsearch research study repository', () => {
 
         // WHEN
         const response: Bundle = await dependencies.esResearchStudyRepository.search(queryParams)
-
         // THEN
         expect(response.link).toStrictEqual([
           {
@@ -107,7 +105,7 @@ describe('elasticsearch research study repository', () => {
           },
           {
             relation: 'next',
-            url: 'http://localhost:3000/R4/ResearchStudy?_lastUpdated=gt2020-01-01&_sort=meta.lastUpdated&_getpagesoffset=4',
+            url: 'http://localhost:3000/R4/ResearchStudy?_lastUpdated=gt2020-01-01&_sort=meta.lastUpdated&_count=2&_getpagesoffset=4',
           },
         ])
       })
@@ -145,12 +143,7 @@ describe('elasticsearch research study repository', () => {
 
         // THEN
         expect(response.total).toBe(0)
-        expect(response.link).toStrictEqual([
-          {
-            relation: 'self',
-            url: 'http://localhost:3000/R4/ResearchStudy?_lastUpdated=gt3020-01-01&_sort=meta.lastUpdated',
-          },
-        ])
+        expect(response.link).toStrictEqual([])
       })
 
       it('should not send a URL for the next page when the result number is inferior to the number of resources by page', async () => {
@@ -207,7 +200,7 @@ describe('elasticsearch research study repository', () => {
             },
             {
               relation: 'next',
-              url: 'http://localhost:3000/R4/ResearchStudy?_lastUpdated=gt2020-01-01&_sort=meta.lastUpdated&search_after=1636107200000%2C2022-500014-26-00',
+              url: 'http://localhost:3000/R4/ResearchStudy?_lastUpdated=gt2020-01-01&_sort=meta.lastUpdated&_count=2&_getpagesoffset=2',
             },
           ])
         })
@@ -245,7 +238,7 @@ describe('elasticsearch research study repository', () => {
             },
             {
               relation: 'next',
-              url: 'http://localhost:3000/R4/ResearchStudy?_lastUpdated=gt2020-01-01&_sort=meta.lastUpdated&search_after=1637107200000%2C2023-500014-26-00',
+              url: 'http://localhost:3000/R4/ResearchStudy?_lastUpdated=gt2020-01-01&_sort=meta.lastUpdated&search_after=1636107200000%2C2022-500014-26-00&_count=2&_getpagesoffset=2',
             },
           ])
         })
@@ -262,12 +255,8 @@ describe('elasticsearch research study repository', () => {
 
           // THEN
           expect(response.total).toBe(0)
-          expect(response.link).toStrictEqual([
-            {
-              relation: 'self',
-              url: 'http://localhost:3000/R4/ResearchStudy?_lastUpdated=gt3020-01-01&_sort=meta.lastUpdated',
-            },
-          ])
+
+          expect(response.link).toStrictEqual([])
         })
       })
 
@@ -307,7 +296,7 @@ describe('elasticsearch research study repository', () => {
             },
             {
               relation: 'next',
-              url: 'http://localhost:3000/R4/ResearchStudy?_getpagesoffset=2',
+              url: 'http://localhost:3000/R4/ResearchStudy?_count=2&_getpagesoffset=2',
             },
           ])
         })

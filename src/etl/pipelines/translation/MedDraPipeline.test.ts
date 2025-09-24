@@ -42,6 +42,11 @@ describe('etl | Pipelines | MedDraPipeline', () => {
           },
         },
         size: parseInt(process.env['CHUNK_SIZE']),
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       },
       true)
     })
@@ -68,6 +73,11 @@ describe('etl | Pipelines | MedDraPipeline', () => {
           },
         },
         size: parseInt(process.env['CHUNK_SIZE']),
+        sort: [
+          { 'meta.lastUpdated': { order: 'asc' } },
+          { _id: { order: 'desc' } },
+          { 'status.keyword': { order: 'asc' } },
+        ],
       },
       true)
     })
@@ -110,8 +120,8 @@ describe('etl | Pipelines | MedDraPipeline', () => {
       const result: ResearchStudy[] = await medDraPipeline.extract()
 
       // then
-      expect(result[0].id).toBe('fakeId1')
-      expect(result[1].id).toBe('fakeId2')
+      expect(result[0].id).toBe('fakeId2')
+      expect(result[1].id).toBe('fakeId1')
       expect(result).toHaveLength(2)
     })
   })

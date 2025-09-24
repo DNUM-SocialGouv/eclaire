@@ -22,7 +22,7 @@ export type ElasticsearchBodyType = {
   }
   size: number
   search_after?: string[]
-  sort?: {
+  sort: {
     [key: string]: {
       order: 'asc' | 'desc'
     }
@@ -37,6 +37,11 @@ export class ElasticsearchBodyBuilder {
       from: 0,
       query: { bool: { filter: [], must: [] } },
       size: 0,
+      sort: [
+        { 'meta.lastUpdated': { order: 'asc' } },
+        { _id: { order: 'desc' } },
+        { 'status.keyword': { order: 'asc' } },
+      ],
     }
   }
 
@@ -57,11 +62,13 @@ export class ElasticsearchBodyBuilder {
   }
 
   withSort(fieldname: string, order: 'asc' | 'desc'): this {
-    if (this.searchBody.sort === undefined) {
-      this.searchBody.sort = [{ [fieldname]: { order } }]
-    } else {
-      this.searchBody.sort.push({ [fieldname]: { order } })
+    // Vérifie s'il existe déjà un élément avec la même clé
+    const index = this.searchBody.sort.findIndex((item) => Object.keys(item)[0] === fieldname)
+    if (index !== -1) {
+      this.searchBody.sort.splice(index, 1) // Supprime l'ancien élément
     }
+    // Ajoute en première position
+    this.searchBody.sort.unshift({ [fieldname]: { order } })
     return this
   }
 

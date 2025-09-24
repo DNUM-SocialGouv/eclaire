@@ -13,14 +13,16 @@ import { FhirParsedQueryParams } from '../controllers/FhirQueryParams'
 
 export class EsResearchStudyRepository implements ResearchStudyRepository {
   private readonly domainName: string
-  private readonly numberOfResourcesByPage: number
-  private readonly maxTotalConstraintFromElasticsearch = 10_000
+  private readonly defaultNumberOfResourcesByPage: number
+  private numberOfResourcesByPage: number
+  //private readonly maxTotalConstraintFromElasticsearch = 10_000
 
   constructor(
     private readonly databaseService: ElasticsearchService,
     private readonly configService: ConfigService
   ) {
     this.domainName = this.configService.get<string>('ECLAIRE_URL')
+    this.defaultNumberOfResourcesByPage = Number(this.configService.get<string>('NUMBER_OF_RESOURCES_BY_PAGE'))
     this.numberOfResourcesByPage = Number(this.configService.get<string>('NUMBER_OF_RESOURCES_BY_PAGE'))
   }
 
@@ -76,21 +78,32 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
   }
 
   async search(fhirParsedQueryParams: FhirParsedQueryParams[]): Promise<Bundle> {
+    let queryParams = fhirParsedQueryParams
+    queryParams = queryParams.map((item) => {
+      if (item.name === '_count' && Number(item.value) > 1000) {
+        return { ...item, value: String(this.defaultNumberOfResourcesByPage) } // overwrite value with "20"
+      }
+      return item
+    })
+
     const elasticsearchBody: ElasticsearchBodyType = convertFhirParsedQueryParamsToElasticsearchQuery(
-      fhirParsedQueryParams,
+      queryParams,
       this.numberOfResourcesByPage
     )
-
-    const withReferenceContents: boolean = fhirParsedQueryParams.some(
+    this.numberOfResourcesByPage = Number(elasticsearchBody.size)
+    const withReferenceContents: boolean = queryParams.some(
       (param: FhirParsedQueryParams) => param.name === '_include' && param.value === '*'
     )
+
+    const responseTotal = await this.databaseService.getCountDocuments(elasticsearchBody.query)
     const response: SearchResponse = await this.databaseService.search(elasticsearchBody, withReferenceContents)
 
     const links: BundleLink[] = []
-    if (response.total === this.maxTotalConstraintFromElasticsearch && elasticsearchBody.sort !== undefined) {
-      this.buildSearchAfterLinks(links, response.hits, fhirParsedQueryParams)
-    } else {
-      this.buildSearchLinks(links, elasticsearchBody.from, response.total, fhirParsedQueryParams)
+    /* if (hits.length > 0 && hits.length >= this.numberOfResourcesByPage) {
+      this.buildSearchAfterLinks(links, response.hits, queryParams)
+    } */
+    if (response.hits.length > 0) {
+      this.buildSearchLinks(links, elasticsearchBody.from, responseTotal, queryParams)
     }
 
     const translatedResponse = response.hits.map((hit: SearchResponseHits) => {
@@ -105,7 +118,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     const fhirResourceBundle: Bundle = BundleModel.create(
       translatedResponse,
       links,
-      response.total,
+      responseTotal,
       this.configService.get('ECLAIRE_URL')
     )
 
@@ -118,12 +131,13 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
   }
 
   private buildSearchLinks(links: BundleLink[], offset: number, total: number, queryParams: FhirParsedQueryParams[]) {
-    const hasMoreResult = total > offset * this.numberOfResourcesByPage
+    const hasMoreResult = total > (offset + this.numberOfResourcesByPage)
     const hasMoreResultsThanResourcesPerPage = total > this.numberOfResourcesByPage
 
-    const removePagesOffsetParam = (queryParam: FhirParsedQueryParams): boolean => queryParam.name !== '_getpagesoffset'
+    const removePagesOffsetParam = (queryParam: FhirParsedQueryParams): boolean => (queryParam.name !== '_getpagesoffset' && queryParam.name !== '_count')
     const nextUrl = this.buildUrl([
       ...queryParams.filter(removePagesOffsetParam),
+      { name: '_count', value: `${this.numberOfResourcesByPage}` },
       { name: '_getpagesoffset', value: `${offset + this.numberOfResourcesByPage}` },
     ])
 
@@ -137,23 +151,23 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     }
   }
 
-  private buildSearchAfterLinks(links: BundleLink[], hits: SearchResponse['hits'], queryParams: FhirParsedQueryParams[]) {
-    const nextSorts = hits.map((hit): number | string => hit.sort[0]).reverse()
-    const nextIds = hits.map((hit): string => hit._source.id).reverse()
+  /* private buildSearchAfterLinks(links: BundleLink[], hits: SearchResponse['hits'], queryParams: FhirParsedQueryParams[]) {
+    // take the last document’s sort array
+    const lastSort = hits[hits.length - 1].sort;
 
     this.buildSelfLink(links, queryParams)
 
     const removeSearchAfterParam = (queryParam: FhirParsedQueryParams): boolean => queryParam.name !== 'search_after'
     const nextUrl = this.buildUrl([
       ...queryParams.filter(removeSearchAfterParam),
-      { name: 'search_after', value: `${nextSorts[0]},${nextIds[0]}` },
+      { name: 'search_after', value: `${lastSort}` },
     ])
 
     links.push({
       relation: 'next',
       url: nextUrl,
     })
-  }
+  } */
 
   private buildSelfLink(links: BundleLink[], queryParams: FhirParsedQueryParams[]) {
     links.push(
