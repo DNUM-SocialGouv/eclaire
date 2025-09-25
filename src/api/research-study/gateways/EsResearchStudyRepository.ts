@@ -86,6 +86,16 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
       return item
     })
 
+    // Check if "_count" exists
+    const hasCount = queryParams.some(param => param.name === "_count");
+    if (!hasCount) {
+      // Spread into a new array since original is Readonly
+      queryParams = [
+        ...queryParams,
+        { name: "_count", value: String(this.defaultNumberOfResourcesByPage) }
+      ];
+    }
+
     const elasticsearchBody: ElasticsearchBodyType = convertFhirParsedQueryParamsToElasticsearchQuery(
       queryParams,
       this.numberOfResourcesByPage
