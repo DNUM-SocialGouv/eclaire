@@ -38,7 +38,7 @@ export class ElasticsearchBodyBuilder {
       query: { bool: { filter: [], must: [] } },
       size: 0,
       sort: [
-        { 'meta.lastUpdated': { order: 'asc' } },
+        { 'meta.lastUpdated': { order: 'desc' } },
         { _id: { order: 'desc' } },
         { 'status.keyword': { order: 'asc' } },
       ],
