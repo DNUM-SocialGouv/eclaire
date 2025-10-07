@@ -40,7 +40,12 @@ export class EclaireDto {
     readonly resume: string,
     readonly statut_recrutement: string,
     readonly date_fin_recrutement: string,
-    readonly to_delete: boolean
+    readonly to_delete: boolean,
+    readonly numero_nct: string,
+    readonly numero_isrctn: string,
+    readonly numero_utn: string,
+    readonly numero_libre: string,
+    readonly duree_participation: string
   ) { }
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
@@ -106,7 +111,12 @@ export class EclaireDto {
       riphCtisDto.resume,
       riphCtisDto.statut_recrutement,
       riphCtisDto.date_fin_recrutement,
-      riphCtisDto.publication_eclaire !== 'autorisé'
+      riphCtisDto.publication_eclaire !== 'autorisé',
+      riphCtisDto.numero_nct,
+      riphCtisDto.numero_isrctn,
+      riphCtisDto.numero_utn,
+      riphCtisDto.numero_libre,
+      riphCtisDto.duree_participation
     )
   }
 
@@ -161,7 +171,12 @@ export class EclaireDto {
       riphDmDto.resume,
       riphDmDto.statut_recrutement,
       riphDmDto.date_fin_recrutement,
-      riphDmDto.publication_eclaire !== 'autorisé'
+      riphDmDto.publication_eclaire !== 'autorisé',
+      riphDmDto.numero_nct,
+      riphDmDto.numero_isrctn,
+      riphDmDto.numero_utn,
+      riphDmDto.numero_libre,
+      riphDmDto.duree_participation
     )
   }
 
@@ -224,7 +239,12 @@ export class EclaireDto {
       riphJardeDto.resume,
       riphJardeDto.statut_recrutement,
       riphJardeDto.date_fin_recrutement,
-      riphJardeDto.publication_eclaire !== 'autorisé'
+      riphJardeDto.publication_eclaire !== 'autorisé',
+      riphJardeDto.numero_nct,
+      riphJardeDto.numero_isrctn,
+      riphJardeDto.numero_utn,
+      riphJardeDto.numero_libre,
+      riphJardeDto.duree_participation
     )
   }
 

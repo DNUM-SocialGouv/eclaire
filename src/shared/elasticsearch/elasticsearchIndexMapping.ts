@@ -21,6 +21,7 @@ const reference = {
 const identifier = {
   properties: {
     assigner: reference,
+    system: { type: 'text' },
     use: { type: 'text' },
     value: { type: 'text' },
   },

@@ -35,7 +35,7 @@ export class ResearchStudyModelFactory {
   static create(eclaireDto: EclaireDto): ResearchStudyModel {
     const extensions: Extension[] = []
     const text = NarrativeModel.create(eclaireDto, 'extensions')
-    const { primaryAssignerIdentifier, primaryAssignerOrganization } = this.createPrimaryAssigner(eclaireDto, text)
+    const { assignerIdentifier, primaryAssignerIdentifier, primaryAssignerOrganization } = this.createPrimaryAssigner(eclaireDto, text)
     const { enrollment, enrollmentGroup } = this.createEnrollmentContent(eclaireDto, text)
     const { site, siteLocations } = this.createSitesAndSiteLocations(eclaireDto, text)
 
@@ -110,7 +110,8 @@ export class ResearchStudyModelFactory {
       )
     )
 
-    const description = ModelUtils.undefinedIfNull(eclaireDto.resume)
+    const valuedesc = `La durée de participation est de: ${eclaireDto.duree_participation} mois`
+    const description = ModelUtils.undefinedIfNull(eclaireDto.duree_participation ? valuedesc : eclaireDto.duree_participation)
 
     if (ModelUtils.isNotNull(eclaireDto.domaine_therapeutique)) {
       extensions.push(ExtensionModel.createEclaireTherapeuticArea(eclaireDto.domaine_therapeutique))
@@ -194,13 +195,25 @@ export class ResearchStudyModelFactory {
     }
 
     const id = ModelUtils.undefinedIfNull(eclaireDto.numero_primaire)
+    const identifier: Identifier[] = [primaryAssignerIdentifier]
 
-    const identifier: Identifier[] = [
-      primaryAssignerIdentifier,
-      /* TODO - Remplir quand les données seront disponibles
-      IdentifierModel.createSecondarySlice(ModelUtils.UNAVAILABLE, ModelUtils.UNAVAILABLE),
-       */
-    ]
+    if (eclaireDto.numero_nct) {
+      const { assignerIdentifier: numero_nct } = this.createDynamicAssigner(eclaireDto.numero_nct, assignerIdentifier, 'secondary', 'http://clinicaltrials.gov')
+      identifier.push(numero_nct)
+    }
+    if (eclaireDto.numero_isrctn) {
+      const { assignerIdentifier: numero_isrctn } = this.createDynamicAssigner(eclaireDto.numero_isrctn, assignerIdentifier, 'secondary', 'https://www.isrctn.com')
+      identifier.push(numero_isrctn)
+    }
+    if (eclaireDto.numero_utn) {
+      const { assignerIdentifier: numero_utn } = this.createDynamicAssigner(eclaireDto.numero_utn, assignerIdentifier, 'secondary', 'https://www.who.int/tools/clinical-trials-registry-platform')
+      identifier.push(numero_utn)
+    }
+    if (eclaireDto.numero_libre) {
+      const { assignerIdentifier: numero_libre } = this.createDynamicAssigner(eclaireDto.numero_libre, assignerIdentifier, 'temp', 'https://my-identifier.fr')
+      identifier.push(numero_libre)
+    }
+
     const location = ModelUtils.isNotNull(eclaireDto.pays_concernes)
       ? CodeableConceptModel.createLocations(eclaireDto.pays_concernes)
       : undefined
@@ -247,13 +260,21 @@ export class ResearchStudyModelFactory {
 
   private static createPrimaryAssigner(eclaireDto: EclaireDto, text: NarrativeModel): {
     primaryAssignerIdentifier: Identifier;
-    primaryAssignerOrganization: Organization
+    primaryAssignerOrganization: Organization;
+    assignerIdentifier: AssignerForPrimaryIdentifier
   } {
-    const assigner: AssignerForPrimaryIdentifier = ModelUtils.identifyAssigner(eclaireDto.reglementation_code, eclaireDto.precision_reglementation)
-    const primaryAssignerIdentifier: Identifier = IdentifierModel.createPrimarySlice(eclaireDto.numero_primaire, assigner, undefined)
-    const primaryAssignerOrganization: Organization = OrganizationModel.createPrimaryAssigner(assigner, text)
+    const assignerIdentifier: AssignerForPrimaryIdentifier = ModelUtils.identifyAssigner(eclaireDto.reglementation_code, eclaireDto.precision_reglementation)
+    const primaryAssignerIdentifier: Identifier = IdentifierModel.createPrimarySlice(eclaireDto.numero_primaire, assignerIdentifier)
+    const primaryAssignerOrganization: Organization = OrganizationModel.createPrimaryAssigner(assignerIdentifier, text)
 
-    return { primaryAssignerIdentifier, primaryAssignerOrganization }
+    return { assignerIdentifier, primaryAssignerIdentifier, primaryAssignerOrganization }
+  }
+
+  private static createDynamicAssigner(value: string, assigner: AssignerForPrimaryIdentifier, status: 'official' | 'usual' | 'temp' | 'secondary' | 'old', uri: string): {
+    assignerIdentifier: Identifier;
+  } {
+    const assignerIdentifier = IdentifierModel.createSecondarySlice(value, assigner, status, uri)
+    return { assignerIdentifier }
   }
 
   private static createEnrollmentContent(eclaireDto: EclaireDto, text: NarrativeModel): {

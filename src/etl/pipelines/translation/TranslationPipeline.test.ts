@@ -46,7 +46,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         },
         size: parseInt(process.env['CHUNK_SIZE']),
         sort: [
-          { 'meta.lastUpdated': { order: 'asc' } },
+          { 'meta.lastUpdated': { order: 'desc' } },
           { _id: { order: 'desc' } },
           { 'status.keyword': { order: 'asc' } },
         ],
@@ -77,7 +77,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         },
         size: parseInt(process.env['CHUNK_SIZE']),
         sort: [
-          { 'meta.lastUpdated': { order: 'asc' } },
+          { 'meta.lastUpdated': { order: 'desc' } },
           { _id: { order: 'desc' } },
           { 'status.keyword': { order: 'asc' } },
         ],
@@ -123,8 +123,8 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const result: ResearchStudy[] = await translationPipeline.extract()
 
       // then
-      expect(result[0].id).toBe('fakeId2')
-      expect(result[1].id).toBe('fakeId1')
+      expect(result[0].id).toBe('fakeId1')
+      expect(result[1].id).toBe('fakeId2')
       expect(result).toHaveLength(2)
     })
   })

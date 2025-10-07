@@ -25,11 +25,12 @@ export class ReferenceModel implements Reference {
     )
   }
 
-  static createAssignerForSecondaryIdentifier(): Reference {
+  static createAssignerForSecondaryIdentifier(assigner: AssignerForPrimaryIdentifier): Reference {
+    const type = 'Organization'
     return new ReferenceModel(
       'Reference to secondary assigner',
-      undefined,
-      'Organization'
+      this.generateRelativeUrlReference(assigner, type),
+      type
     )
   }
 

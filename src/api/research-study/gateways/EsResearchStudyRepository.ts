@@ -87,13 +87,13 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     })
 
     // Check if "_count" exists
-    const hasCount = queryParams.some(param => param.name === "_count");
+    const hasCount = queryParams.some((param) => param.name === '_count')
     if (!hasCount) {
       // Spread into a new array since original is Readonly
       queryParams = [
         ...queryParams,
-        { name: "_count", value: String(this.defaultNumberOfResourcesByPage) }
-      ];
+        { name: '_count', value: String(this.defaultNumberOfResourcesByPage) },
+      ]
     }
 
     const elasticsearchBody: ElasticsearchBodyType = convertFhirParsedQueryParamsToElasticsearchQuery(
@@ -109,9 +109,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     const response: SearchResponse = await this.databaseService.search(elasticsearchBody, withReferenceContents)
 
     const links: BundleLink[] = []
-    /* if (hits.length > 0 && hits.length >= this.numberOfResourcesByPage) {
-      this.buildSearchAfterLinks(links, response.hits, queryParams)
-    } */
+
     if (response.hits.length > 0) {
       this.buildSearchLinks(links, elasticsearchBody.from, responseTotal, queryParams)
     }
