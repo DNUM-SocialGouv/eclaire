@@ -86,7 +86,7 @@ export class ResearchStudyModelFactory {
         contact_telephone,
         contact_courriel,
         undefined,
-        eclaireDto.organisme_adresse,
+        ModelUtils.decodeHtmlString(eclaireDto.organisme_adresse),
         eclaireDto.organisme_pays,
         eclaireDto.organisme_ville,
         eclaireDto.organisme_code_postal,
@@ -220,7 +220,7 @@ export class ResearchStudyModelFactory {
 
     const phase: CodeableConcept = CodeableConceptModel.createResearchStudyPhase(eclaireDto.phase_recherche)
 
-    const title = ModelUtils.isNotNull(eclaireDto.titre) ? eclaireDto.titre : undefined
+    const title = ModelUtils.isNotNull(eclaireDto.titre) ? ModelUtils.decodeHtmlString(eclaireDto.titre) : undefined
 
     const organizations: Organization[] = []
     if (ModelUtils.isNotNull(primaryAssignerOrganization)) {

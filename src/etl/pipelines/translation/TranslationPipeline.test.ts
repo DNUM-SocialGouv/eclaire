@@ -38,10 +38,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         query: {
           bool: {
             filter: [],
-            must: [
-              { range: { 'meta.lastUpdated': { gte: '2022-10-06' } } },
-              { query_string: { query: 'REG536' } },
-            ],
+            must: [{ range: { 'meta.lastUpdated': { gte: '2022-10-06' } } }],
           },
         },
         size: parseInt(process.env['CHUNK_SIZE']),
@@ -69,10 +66,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         query: {
           bool: {
             filter: [],
-            must: [
-              { range: { 'meta.lastUpdated': { gte: '2020-10-06' } } },
-              { query_string: { query: 'REG536' } },
-            ],
+            must: [{ range: { 'meta.lastUpdated': { gte: '2020-10-06' } } }],
           },
         },
         size: parseInt(process.env['CHUNK_SIZE']),
@@ -124,8 +118,8 @@ describe('etl | Pipelines | TranslationPipeline', () => {
 
       // then
       expect(result[0].id).toBe('fakeId1')
-      expect(result[1].id).toBe('fakeId2')
-      expect(result).toHaveLength(2)
+      expect(result[2].id).toBe('fakeId2')
+      expect(result).toHaveLength(3)
     })
   })
 
@@ -410,6 +404,16 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const translationService: TranslationService = setupTranslationService()
       vi.spyOn(translationService, 'execute')
         .mockResolvedValueOnce({
+          diseaseCondition: '',
+          therapeuticArea: '',
+          title: jardeTitreRecherche,
+        })
+        .mockResolvedValueOnce({
+          diseaseCondition: '',
+          therapeuticArea: '',
+          title: dmTitreRecherche,
+        })
+        .mockResolvedValueOnce({
           diseaseCondition: 'DiseaseCondition 1 traduit en français',
           therapeuticArea: 'TherapeuticArea 1 traduit en français',
           title: 'Titre 1 traduit en français',
@@ -419,6 +423,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
           therapeuticArea: 'TherapeuticArea 2 traduit en français',
           title: 'Titre 2 traduit en français',
         })
+
       const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService, translationService)
 
       // when

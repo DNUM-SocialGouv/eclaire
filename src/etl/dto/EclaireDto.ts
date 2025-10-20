@@ -1,6 +1,7 @@
 import { RiphCtisDto } from './RiphCtisDto'
 import { RiphDmDto } from './RiphDmDto'
 import { RiphJardeDto } from './RiphJardeDto'
+import { ModelUtils } from '../../shared/models/eclaire/ModelUtils'
 
 export class EclaireDto {
   private constructor(
@@ -50,13 +51,13 @@ export class EclaireDto {
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
     const sites = riphCtisDto.sites.map((site): Site => new Site(
-      site.organisme,
-      site.adresse,
-      site.ville,
-      site.titre,
-      site.nom,
-      site.prenom,
-      site.service
+      ModelUtils.decodeHtmlString(site.organisme),
+      ModelUtils.decodeHtmlString(site.adresse),
+      ModelUtils.decodeHtmlString(site.ville),
+      ModelUtils.decodeHtmlString(site.titre),
+      ModelUtils.decodeHtmlString(site.nom),
+      ModelUtils.decodeHtmlString(site.prenom),
+      ModelUtils.decodeHtmlString(site.service)
     ))
 
     const listePhaseRecherche: Phase[] = riphCtisDto.phase_recherche?.match(/Phase (IV|III|II|I)/g) as Phase[]
@@ -135,13 +136,13 @@ export class EclaireDto {
       null,
       riphDmDto.deposant_courriel,
       riphDmDto.sites_investigateurs.map((site_investigateur) => new Site(
-        site_investigateur.organisme,
-        site_investigateur.adresse,
-        site_investigateur.ville,
-        site_investigateur.titre_investigateur,
-        site_investigateur.nom,
-        site_investigateur.prenom,
-        site_investigateur.service
+        ModelUtils.decodeHtmlString(site_investigateur.organisme),
+        ModelUtils.decodeHtmlString(site_investigateur.adresse),
+        ModelUtils.decodeHtmlString(site_investigateur.ville),
+        ModelUtils.decodeHtmlString(site_investigateur.titre_investigateur),
+        ModelUtils.decodeHtmlString(site_investigateur.nom),
+        ModelUtils.decodeHtmlString(site_investigateur.prenom),
+        ModelUtils.decodeHtmlString(site_investigateur.service)
       )),
       riphDmDto.numero_national,
       riphDmDto.titre_recherche,
@@ -203,13 +204,13 @@ export class EclaireDto {
       null,
       riphJardeDto.deposant_courriel,
       riphJardeDto.sites_investigateurs.map((site_investigateur) => new Site(
-        site_investigateur.organisme,
-        site_investigateur.adresse,
-        site_investigateur.ville,
-        site_investigateur.titre_investigateur,
-        site_investigateur.nom,
-        site_investigateur.prenom,
-        site_investigateur.service
+        ModelUtils.decodeHtmlString(site_investigateur.organisme),
+        ModelUtils.decodeHtmlString(site_investigateur.adresse),
+        ModelUtils.decodeHtmlString(site_investigateur.ville),
+        ModelUtils.decodeHtmlString(site_investigateur.titre_investigateur),
+        ModelUtils.decodeHtmlString(site_investigateur.nom),
+        ModelUtils.decodeHtmlString(site_investigateur.prenom),
+        ModelUtils.decodeHtmlString(site_investigateur.service)
       )),
       riphJardeDto.numero_national,
       riphJardeDto.titre_recherche,

@@ -17,7 +17,7 @@ export class IngestPipelineCtis extends IngestPipeline {
       const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
       await super.load(researchStudyDocuments)
       // Delete documents with status non autorisé (fermé)
-      await super.delete(this.idsToDelete)
+      await super.delete(this.idsToDelete.filter((v) => v !== null))
     }
   }
 
@@ -25,7 +25,7 @@ export class IngestPipelineCtis extends IngestPipeline {
     const researchStudyModels: ResearchStudyModel[] = []
     for (const riphCtisDto of riphCtisDtos) {
       const eclaireDto: EclaireDto = EclaireDto.fromCtis(riphCtisDto)
-      if (eclaireDto && !eclaireDto.to_delete) {
+      if (eclaireDto && eclaireDto.numero_primaire && !eclaireDto.to_delete) {
         researchStudyModels.push(ResearchStudyModelFactory.create(eclaireDto))
       } else {
         this.idsToDelete.push(eclaireDto.numero_primaire)

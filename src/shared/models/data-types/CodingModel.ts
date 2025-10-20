@@ -99,9 +99,10 @@ export class CodingModel implements Coding {
   }
 
   static createResearchStudyGroupCategory(researchStudyGroupCategory: string): Coding {
+    const groupes_sujet = researchStudyGroupCategory && researchStudyGroupCategory.toLowerCase().trim() !== 'données non disponible' ? researchStudyGroupCategory : ''
     return new CodingModel(
       undefined,
-      researchStudyGroupCategory,
+      groupes_sujet,
       undefined,
       undefined
     )

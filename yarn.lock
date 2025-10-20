@@ -3307,6 +3307,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/he@npm:^1":
+  version: 1.2.3
+  resolution: "@types/he@npm:1.2.3::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40types%2Fhe%2F-%2Fhe-1.2.3.tgz"
+  checksum: 10c0/562e4ec00e31e3d464e79e6da4b8a5c21999d38ceca6a8facaa96e89c2d646f410bb58bb81f48a7472aeb4655ce40d27b7d77e5a4fa5a2d9caa0f3037caab5b7
+  languageName: node
+  linkType: hard
+
 "@types/http-errors@npm:*":
   version: 2.0.4
   resolution: "@types/http-errors@npm:2.0.4"
@@ -4308,6 +4315,7 @@ __metadata:
     "@swc/core": "npm:^1.11.29"
     "@types/express": "npm:^4.17.22"
     "@types/fhir": "npm:^0.0.41"
+    "@types/he": "npm:^1"
     "@types/node": "npm:18.19.103"
     "@types/node-fetch": "npm:^2.6.12"
     "@types/supertest": "npm:^2.0.16"
@@ -4322,6 +4330,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:^4.1.4"
     eslint-plugin-vitest: "npm:^0.2.8"
     express: "npm:^4.21.2"
+    he: "npm:^1.2.0"
     husky: "npm:^8.0.3"
     node-fetch: "npm:2.7.0"
     reflect-metadata: "npm:^0.2.2"
@@ -6759,6 +6768,15 @@ __metadata:
   dependencies:
     function-bind: "npm:^1.1.2"
   checksum: 10c0/3769d434703b8ac66b209a4cca0737519925bbdb61dd887f93a16372b14694c63ff4e797686d87c90f08168e81082248b9b028bad60d4da9e0d1148766f56eb9
+  languageName: node
+  linkType: hard
+
+"he@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "he@npm:1.2.0::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fhe%2F-%2Fhe-1.2.0.tgz"
+  bin:
+    he: bin/he
+  checksum: 10c0/a27d478befe3c8192f006cdd0639a66798979dfa6e2125c6ac582a19a5ebfec62ad83e8382e6036170d873f46e4536a7e795bf8b95bf7c247f4cc0825ccc8c17
   languageName: node
   linkType: hard
 

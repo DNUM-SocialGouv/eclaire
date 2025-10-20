@@ -1,8 +1,23 @@
+import { decode } from 'he'
+
 import { AssignerForPrimaryIdentifier } from '../special-purpose-data-types/ReferenceModel'
 
 export class ModelUtils {
   static UNAVAILABLE = 'INDISPONIBLE'
   static EMPTY_ARRAY_IN_SOURCE: Array<never> = []
+
+  static decodeHtmlString(text: string = ''): string {
+    if (typeof text !== 'string') return text
+
+    let decoded = decode(text.trim())
+
+    // If it still contains HTML entities, decode again
+    if (/&[#A-Za-z0-9]+;/.test(decoded)) {
+      decoded = decode(decoded)
+    }
+
+    return decoded
+  }
 
   static undefinedIfNull(value: string): string {
     return value ?? undefined

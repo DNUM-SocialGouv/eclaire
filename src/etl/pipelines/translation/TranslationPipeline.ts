@@ -59,7 +59,7 @@ export class TranslationPipeline {
       from += chunkSize
     }
 
-    this.logger?.info('---- Get all CTIS finish')
+    this.logger?.info('---- Get all CTIS/DM-DIV/JARDE finish')
     return allResults.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
   }
 
@@ -87,7 +87,6 @@ export class TranslationPipeline {
     const ctisStudiesQueryParams: FhirParsedQueryParams[] = [
       { name: '_count', value: String(process.env['CHUNK_SIZE']) },
       { name: '_lastUpdated', value: `ge${date}` },
-      { name: '_text', value: 'REG536' },
     ]
 
     return convertFhirParsedQueryParamsToElasticsearchQuery(ctisStudiesQueryParams)
