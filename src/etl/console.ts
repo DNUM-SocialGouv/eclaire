@@ -46,6 +46,11 @@ async function console(): Promise<void> {
       await etlService.createIndex()
       await etlService.dailyUpdate('1970-01-01')
       break
+    case 'hard-import-migration':
+      await etlService.deleteIndex()
+      await etlService.createIndex()
+      await etlService.importData('1970-01-01')
+      break 
     default:
       process.exit(1)
   }
