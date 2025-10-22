@@ -18,20 +18,10 @@ export class TranslationPipeline {
   ) { }
 
   async execute(date?: string): Promise<void> {
-    const data: ResearchStudyModel[] = await this.extract(date)
-    this.logger?.info(`---- Chunk Translation data length: ${data.length}`)
-    if (data.length > 0) {
-      const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
-      for (let i = 0; i < data.length; i += chunkSize) {
-        const chunk = data.slice(i, i + chunkSize)
-        this.logger?.info(`---- Chunk Translation: ${i} / ${data.length} elasticsearch documents`)
-        const transformedResearchStudies: ResearchStudyModel[] = await this.transform(chunk)
-        await this.load(transformedResearchStudies)
-      }
-    }
+    await this.extract(date)    
   }
 
-  async extract(startingDate?: string): Promise<ResearchStudyModel[]> {
+  async extract(startingDate?: string) {
     let requestBodyToFindEveryCtisStudiesSinceASpecificDate: ElasticsearchBodyType
 
     if (startingDate) {
@@ -43,24 +33,30 @@ export class TranslationPipeline {
     this.logger?.info('---- Extract data to filter ///')
     const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
     let from = 0
-    const allResults: any[] = []
 
     // eslint-disable-next-line no-constant-condition
     while (true) {
+      this.logger?.info(`---- from value: ${from}`)
       requestBodyToFindEveryCtisStudiesSinceASpecificDate.from = from
       const response: SearchResponse = await this.databaseService.search(
         requestBodyToFindEveryCtisStudiesSinceASpecificDate,
         true
       )
 
+      this.logger?.info(`---- Received ${response.hits.length} hits`);
       if (!response.hits || response.hits.length === 0) break
 
-      allResults.push(...response.hits)
+      const res = response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
+      const transformedResearchStudies: ResearchStudyModel[] = await this.transform(res)
+      await this.load(transformedResearchStudies)
+      
       from += chunkSize
     }
-
     this.logger?.info('---- Get all CTIS/DM-DIV/JARDE finish')
-    return allResults.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
+  }
+
+  private delay(ms: number) {
+    return new Promise((res) => setTimeout(res, ms));
   }
 
   async transform(researchStudies: ResearchStudyModel[]): Promise<ResearchStudyModel[]> {
@@ -74,6 +70,7 @@ export class TranslationPipeline {
         translatedTexts.therapeuticArea,
         translatedTexts.title
       )
+      await this.delay(500); // 500ms entre chaque requête
     }
 
     return researchStudies
@@ -87,6 +84,7 @@ export class TranslationPipeline {
     const ctisStudiesQueryParams: FhirParsedQueryParams[] = [
       { name: '_count', value: String(process.env['CHUNK_SIZE']) },
       { name: '_lastUpdated', value: `ge${date}` },
+      { name: '_sort', value: `meta.lastUpdated,_id` },
     ]
 
     return convertFhirParsedQueryParamsToElasticsearchQuery(ctisStudiesQueryParams)

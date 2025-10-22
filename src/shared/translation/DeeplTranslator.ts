@@ -1,6 +1,7 @@
 import fetch, { BodyInit, HeadersInit, RequestInit, Response } from 'node-fetch'
 
 import { TranslationResponse, TranslationsResponse, Translator } from './Translator'
+import https from 'https';
 
 export class DeeplTranslator implements Translator {
   constructor(readonly authKey: string) {}
@@ -16,8 +17,9 @@ export class DeeplTranslator implements Translator {
       text: texts,
     })
     const url = 'https://api.deepl.com/v2/translate'
-
+    const agent = new https.Agent({ keepAlive: true });
     const response: Response = await fetch(url, {
+      agent,
       body,
       headers,
       method: 'POST',
