@@ -15,20 +15,10 @@ export class MedDraPipeline {
   ) {}
 
   async execute(date?: string): Promise<void> {
-    const data: ResearchStudyModel[] = await this.extract(date)
-    this.logger?.info(`---- Chunk MedDra data length: ${data.length}`)
-    if (data.length > 0) {
-      const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
-      for (let i = 0; i < data.length; i += chunkSize) {
-        const chunk = data.slice(i, i + chunkSize)
-        this.logger?.info(`---- Chunk MedDra: ${i} / ${data.length} elasticsearch documents`)
-        const transformedResearchStudies: ResearchStudyModel[] = await this.transform(chunk)
-        await this.load(transformedResearchStudies)
-      }
-    }
+    await this.extract(date)    
   }
 
-  async extract(startingDate?: string): Promise<ResearchStudyModel[]> {
+  async extract(startingDate?: string) {
     let requestBodyToFindEveryCtisStudiesSinceASpecificDate: ElasticsearchBodyType
 
     if (startingDate) {
@@ -40,10 +30,9 @@ export class MedDraPipeline {
     this.logger?.info('---- Extract data to filter MedDra ///')
     const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
     let from = 0
-    const allResults: any[] = []
-
     // eslint-disable-next-line no-constant-condition
     while (true) {
+      this.logger?.info(`---- from value: ${from}`)
       requestBodyToFindEveryCtisStudiesSinceASpecificDate.from = from
       const response: SearchResponse = await this.databaseService.search(
         requestBodyToFindEveryCtisStudiesSinceASpecificDate,
@@ -52,13 +41,12 @@ export class MedDraPipeline {
 
       if (!response.hits || response.hits.length === 0) break
 
-      allResults.push(...response.hits)
+      const res = response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
+      const transformedResearchStudies: ResearchStudyModel[] = await this.transform(res)
+      await this.load(transformedResearchStudies)
       from += chunkSize
     }
-
-    this.logger?.info('---- Get all MedDra finish')
-
-    return allResults.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
+    this.logger?.info('---- Get all MedDra finish')    
   }
 
   async transform(researchStudies: ResearchStudyModel[]): Promise<ResearchStudyModel[]> {
@@ -86,6 +74,7 @@ export class MedDraPipeline {
       { name: '_count', value: String(process.env['CHUNK_SIZE']) },
       { name: '_lastUpdated', value: `ge${date}` },
       { name: '_text', value: 'REG536' },
+      { name: '_sort', value: `meta.lastUpdated,_id` },
     ]
 
     return convertFhirParsedQueryParamsToElasticsearchQuery(ctisStudiesQueryParams)
