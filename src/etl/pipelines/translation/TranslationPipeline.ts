@@ -32,8 +32,9 @@ export class TranslationPipeline {
 
     this.logger?.info('---- Extract data to filter ///')
     const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
-    let from = 0
+    let from = parseInt(process.argv[4]) ? parseInt(process.argv[4]) : 0
 
+    console.log("from ///////", from);
     // eslint-disable-next-line no-constant-condition
     while (true) {
       this.logger?.info(`---- from value: ${from}`)
@@ -55,9 +56,9 @@ export class TranslationPipeline {
     this.logger?.info('---- Get all CTIS/DM-DIV/JARDE finish')
   }
 
-  private delay(ms: number) {
+  /* private delay(ms: number) {
     return new Promise((res) => setTimeout(res, ms));
-  }
+  } */
 
   async transform(researchStudies: ResearchStudyModel[]): Promise<ResearchStudyModel[]> {
     for (const researchStudy of researchStudies) {
@@ -70,7 +71,7 @@ export class TranslationPipeline {
         translatedTexts.therapeuticArea,
         translatedTexts.title
       )
-      await this.delay(500); // 500ms entre chaque requête
+      //await this.delay(500); // 500ms entre chaque requête
     }
 
     return researchStudies
