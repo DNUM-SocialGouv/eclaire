@@ -31,6 +31,11 @@ export class IngestPipelineDmDmdiv extends IngestPipeline {
         this.idsToDelete.push(eclaireDto.numero_primaire)
       }
     }
-    return result
+
+    return result.filter((researchStudyModel: ResearchStudyModel) => {
+      const startingDate: Date = new Date(this.startingDate)
+      const lastUpdated: Date = new Date(researchStudyModel.meta.lastUpdated)
+      return lastUpdated >= startingDate
+    })
   }
 }
