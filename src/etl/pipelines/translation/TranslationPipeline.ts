@@ -18,7 +18,7 @@ export class TranslationPipeline {
   ) { }
 
   async execute(date?: string): Promise<void> {
-    await this.extract(date)    
+    await this.extract(date)
   }
 
   async extract(startingDate?: string) {
@@ -49,24 +49,83 @@ export class TranslationPipeline {
       const res = response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
       const transformedResearchStudies: ResearchStudyModel[] = await this.transform(res)
       await this.load(transformedResearchStudies)
-      
+
       from += chunkSize
     }
     this.logger?.info('---- Get all CTIS/DM-DIV/JARDE finish')
   }
 
+
+  valuesToArray(obj: any): string[] {
+    // Extraire tous les indices présents dans les clés
+    const indices = new Set<number>();
+    Object.keys(obj).forEach(key => {
+      const match = key.match(/-(\d+)$/);
+      if (match) indices.add(Number(match[1]));
+    });
+
+    // Trier les indices pour garder l'ordre naturel
+    const sortedIndices = Array.from(indices).sort((a, b) => a - b);
+
+    // Récupérer toutes les valeurs en respectant l'ordre
+    const result: string[] = [];
+    sortedIndices.forEach(i => {
+      Object.keys(obj)
+        .filter(k => k.endsWith(`-${i}`))
+        .sort() // optionnel : garantit l’ordre des champs
+        .forEach(k => {
+          result.push(obj[k]);
+        });
+    });
+
+    return result;
+  }
+
   async transform(researchStudies: ResearchStudyModel[]): Promise<ResearchStudyModel[]> {
+    let returnedTarget = {};
+    let i = 1;
+    // 1️⃣ Build object with keys diseaseCondition-1, therapeuticArea-1, title-1, etc.
     for (const researchStudy of researchStudies) {
       const textsToTranslate: TextsToTranslate = this.extractTextsToTranslate(researchStudy)
-      const translatedTexts: TranslatedTexts = await this.translationService.execute(textsToTranslate)
-
-      researchStudy.translatedContent = TranslatedContentModel.create(
-        translatedTexts.diseaseCondition,
-        translatedTexts.therapeuticArea,
-        translatedTexts.title
-      )
+      const textsToTranslateinit = {
+        [`diseaseCondition-${i}`]: textsToTranslate.diseaseCondition,
+        [`therapeuticArea-${i}`]: textsToTranslate.therapeuticArea,
+        [`title-${i}`]: textsToTranslate.title
+      }
+      returnedTarget = Object.assign(returnedTarget, textsToTranslateinit);
+      i++
+    }
+    
+    // 2️⃣ Translate by chunks (limit 99 so translate 33 documents by request)
+    let allTranslated: Record<string, string> = {};
+    const chunkSize = 99
+    for (let j = 0; j < Object.keys(returnedTarget).length; j += chunkSize) {
+      this.logger.info(`---- Chunk translate: ${j} / ${Object.keys(returnedTarget).length} opensearch documents`)
+      const chunk = Object.fromEntries(Object.entries(returnedTarget).slice(j, j + chunkSize));
+      const arrayResult: string[] = this.valuesToArray(chunk);
+      const step = j === 0 ? 0 : j/3;
+      const translatedTexts: TranslatedTexts = await this.translationService.execute(arrayResult, step)
+      // Merge translated results into global dictionary
+      allTranslated = { ...allTranslated, ...translatedTexts };      
     }
 
+    // 3️⃣ Inject translated data back into researchStudies
+    for (let k = 0; k < researchStudies.length; k++) {
+      const index = k + 1;
+      const diseaseCondition = allTranslated[`diseaseCondition-${index}`] ?? '';
+      const therapeuticArea = allTranslated[`therapeuticArea-${index}`] ?? '';
+      const title = allTranslated[`title-${index}`] ?? '';
+
+      const translatedContent = TranslatedContentModel.create(
+        diseaseCondition,
+        therapeuticArea,
+        title
+      );
+
+      researchStudies[k].translatedContent = translatedContent;
+    }
+    
+    // 4️⃣ Return updated studies
     return researchStudies
   }
 

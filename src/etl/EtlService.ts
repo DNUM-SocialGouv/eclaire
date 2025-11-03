@@ -72,8 +72,8 @@ export class EtlService {
 
     const ingestPipelines: IngestPipeline[] = [
       new IngestPipelineCtis(this.loggerService, this.databaseService, this.readerService, startingDate),
-      new IngestPipelineDmDmdiv(this.loggerService, this.databaseService, this.readerService),
-      new IngestPipelineJarde(this.loggerService, this.databaseService, this.readerService),
+      new IngestPipelineDmDmdiv(this.loggerService, this.databaseService, this.readerService, startingDate),
+      new IngestPipelineJarde(this.loggerService, this.databaseService, this.readerService, startingDate),
     ]
 
     for (const ingestPipeline of ingestPipelines) {
