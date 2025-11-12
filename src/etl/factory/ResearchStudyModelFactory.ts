@@ -48,7 +48,6 @@ export class ResearchStudyModelFactory {
     let meta: Meta = undefined
     if (ModelUtils.isNotNull(mostRecentDate)) {
       meta = MetaModel.create(mostRecentDate)
-      extensions.push(ExtensionModel.createEclaireReviewDate(mostRecentDate))
     }
 
     const category: CodeableConcept[] = []
@@ -128,12 +127,6 @@ export class ResearchStudyModelFactory {
     let primaryPurposeType: CodeableConcept
     if (ModelUtils.isNotNull(eclaireDto.objectifs)) {
       primaryPurposeType = CodeableConceptModel.createPrimaryPurposeType(eclaireDto.objectifs)
-      extensions.push(ExtensionModel.createEclaireOutcomeMeasure(
-        null,
-        primaryPurposeType,
-        eclaireDto.objectifs,
-        null
-      ))
     } else {
       primaryPurposeType = undefined
     }

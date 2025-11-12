@@ -24,6 +24,7 @@
     "etl:delete-policies": "ts-node src/etl/console.ts delete-policies",
     "etl:import": "ts-node src/etl/console.ts import",
     "etl:hard-index-migration": "ts-node src/etl/console.ts hard-index-migration",
+    "etl:hard-import-migration": "ts-node src/etl/console.ts hard-import-migration",    
     "etl:meddra-import": "ts-node src/etl/console.ts meddra-import",
     "etl:reset-index": "ts-node src/etl/console.ts reset-index",
     "etl:translate:everything": "ts-node src/etl/console.ts translate 1970-01-01",
