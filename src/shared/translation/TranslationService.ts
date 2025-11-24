@@ -10,24 +10,24 @@ export class TranslationService {
 
     if (!results || results.length === 0) {
       return {
-        "diseaseCondition-1": '',
-        "therapeuticArea-1": '',
-        "title-1": '',
-      };
+        'diseaseCondition-1': '',
+        'therapeuticArea-1': '',
+        'title-1': '',
+      }
     }
 
-    const output: Partial<TranslatedTexts> = {};
-    const baseKeys: BaseKeys[] = ['diseaseCondition', 'therapeuticArea', 'title'];
+    const output: Partial<TranslatedTexts> = {}
+    const baseKeys: BaseKeys[] = ['diseaseCondition', 'therapeuticArea', 'title']
     // Chaque "groupe" de 3 correspond à un set complet
-    const groupCount = Math.floor(results.length / baseKeys.length);
+    const groupCount = Math.floor(results.length / baseKeys.length)
 
     for (let i = 0; i < groupCount; i++) {
       baseKeys.forEach((key, j) => {
         const resultIndex = i * baseKeys.length + j;
-        (output as any)[`${key}-${i + 1 + step}`] = results[resultIndex]?.text ?? '';
-      });
+        (output as any)[`${key}-${i + 1 + step}`] = results[resultIndex]?.text ?? ''
+      })
     }
-    return output as TranslatedTexts;
+    return output as TranslatedTexts
   }
 }
 

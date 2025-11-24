@@ -7,6 +7,6 @@ export class LocalTranslator implements Translator {
         detected_source_language: 'EN',
         text: t && t.trim().length ? `[Traduction locale] ${t}` : '',
       }))
-    );    
+    )
   }
 }

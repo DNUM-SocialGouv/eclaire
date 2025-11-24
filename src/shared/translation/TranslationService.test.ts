@@ -1,5 +1,5 @@
 import { DeeplTranslator } from './DeeplTranslator'
-import { TranslationService, TextsToTranslate, TranslatedTexts } from './TranslationService'
+import { TranslationService, TranslatedTexts } from './TranslationService'
 import { TranslationResponse } from './Translator'
 
 describe('translation service', () => {
@@ -15,11 +15,11 @@ describe('translation service', () => {
     ] as TranslationResponse[])
 
     // WHEN
-    const result: TextsToTranslate = await translationService.execute({
-      diseaseCondition: 'I am fine',
-      therapeuticArea: 'How are you?',
-      title: 'Hello, world!',
-    })
+    const result: TranslatedTexts = await translationService.execute([
+      'I am fine',
+      'How are you?',
+      'Hello, world!',
+    ], 0)
 
     // THEN
     expect(translator.translateText).toHaveBeenCalledWith(
@@ -30,9 +30,9 @@ describe('translation service', () => {
       ]
     )
     expect(result).toStrictEqual({
-      diseaseCondition: 'Je vais bien',
-      therapeuticArea: 'Comment allez vous ?',
-      title: 'Bonjour le monde !',
+      'diseaseCondition-1': 'Je vais bien',
+      'therapeuticArea-1': 'Comment allez vous ?',
+      'title-1': 'Bonjour le monde !',
     } as TranslatedTexts)
   })
 
@@ -44,20 +44,16 @@ describe('translation service', () => {
     vi.spyOn(translator, 'translateText').mockResolvedValueOnce([] as TranslationResponse[])
 
     // WHEN
-    const result: TextsToTranslate = await translationService.execute({
-      diseaseCondition: '',
-      therapeuticArea: '',
-      title: '',
-    })
+    const result: TranslatedTexts = await translationService.execute(['', '', ''], 0)
 
     // THEN
     expect(translator.translateText).toHaveBeenCalledWith(
       ['', '', '']
     )
     expect(result).toStrictEqual({
-      diseaseCondition: '',
-      therapeuticArea: '',
-      title: '',
+      'diseaseCondition-1': '',
+      'therapeuticArea-1': '',
+      'title-1': '',
     } as TranslatedTexts)
   })
 })

@@ -7,17 +7,19 @@ export class AddressModel implements Address {
     readonly line: string[] | undefined,
     readonly postalCode: string | undefined,
     readonly type: 'postal' | 'physical' | 'both' | undefined,
-    readonly use: 'home' | 'work' | 'temp' | 'old' | 'billing' | undefined
+    readonly use: 'home' | 'work' | 'temp' | 'old' | 'billing' | undefined,
+    readonly text: string | undefined
   ) {}
 
-  static create(lines: string[], city: string, postalCode: string, country: string): Address {
+  static create(lines: string[], city: string, postalCode: string, country: string, organizationName: string): Address {
     return new AddressModel(
       city,
       country,
       lines,
       postalCode,
       'physical',
-      'work'
+      'work',
+      organizationName
     )
   }
 }

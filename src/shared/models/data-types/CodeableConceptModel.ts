@@ -139,11 +139,11 @@ export class CodeableConceptModel implements CodeableConcept {
     )
   }
 
-  static createGroupCharacteristicKindVs(referenceCode: EclaireGroupCharacteristicKindVsReferenceCode): CodeableConceptModel {
+  static createGroupCharacteristicKindVs(referenceCode: EclaireGroupCharacteristicKindVsReferenceCode, text?: string ): CodeableConceptModel {
     return new CodeableConceptModel(
       undefined,
       [CodingModel.createGroupCharacteristicKindVs(referenceCode)],
-      undefined
+      text ? text : undefined
     )
   }
 

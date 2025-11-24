@@ -15,7 +15,7 @@ export class MedDraPipeline {
   ) {}
 
   async execute(date?: string): Promise<void> {
-    await this.extract(date)    
+    await this.extract(date)
   }
 
   async extract(startingDate?: string) {
@@ -30,6 +30,7 @@ export class MedDraPipeline {
     this.logger?.info('---- Extract data to filter MedDra ///')
     const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
     let from = 0
+    let allResults:ResearchStudyModel[] = []
     // eslint-disable-next-line no-constant-condition
     while (true) {
       this.logger?.info(`---- from value: ${from}`)
@@ -44,9 +45,11 @@ export class MedDraPipeline {
       const res = response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
       const transformedResearchStudies: ResearchStudyModel[] = await this.transform(res)
       await this.load(transformedResearchStudies)
+      allResults = res
       from += chunkSize
     }
-    this.logger?.info('---- Get all MedDra finish')    
+    this.logger?.info('---- Get all MedDra finish')
+    return allResults
   }
 
   async transform(researchStudies: ResearchStudyModel[]): Promise<ResearchStudyModel[]> {
@@ -74,7 +77,7 @@ export class MedDraPipeline {
       { name: '_count', value: String(process.env['CHUNK_SIZE']) },
       { name: '_lastUpdated', value: `ge${date}` },
       { name: '_text', value: 'REG536' },
-      { name: '_sort', value: `meta.lastUpdated,_id` },
+      { name: '_sort', value: 'meta.lastUpdated,_id' },
     ]
 
     return convertFhirParsedQueryParamsToElasticsearchQuery(ctisStudiesQueryParams)

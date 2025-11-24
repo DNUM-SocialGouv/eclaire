@@ -34,7 +34,7 @@ export class LocationModel implements Location {
 
     return new LocationModel(
       id,
-      AddressModel.create(lines, city, undefined, undefined),
+      AddressModel.create(lines, city, undefined, undefined, undefined),
       [IdentifierModel.createLocation(id)],
       organism,
       [ContactPointModel.createSiteContactName(firstname, name, title)],

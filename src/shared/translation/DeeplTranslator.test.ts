@@ -41,9 +41,11 @@ describe('deepl translator', () => {
       ],
     })
     const url = 'https://api.deepl.com/v2/translate'
+
     expect(fetch).toHaveBeenCalledWith(
       url,
       {
+        agent: expect.anything(),
         body,
         headers,
         method: 'POST',

@@ -8,6 +8,7 @@ export type ContactType = 'Public' | 'Scientific'
 
 export class ContactDetailModel implements ContactDetail {
   private constructor(
+    readonly name: string,
     readonly extension: Extension[] | undefined,
     readonly telecom: ContactPoint[] | undefined
   ) { }
@@ -23,7 +24,9 @@ export class ContactDetailModel implements ContactDetail {
     city: string,
     country: string,
     zip: string,
-    affiliation: string
+    affiliation: string,
+    nameTypeContact?: 'Public' | 'Sponsor' | 'Investigator',
+    organizationName?: string
   ): ContactDetail {
     const emptyFirstNameIfNull = ModelUtils.undefinedIfNull(firstname)
     const emptyMiddleNameIfNull = ModelUtils.undefinedIfNull(middleName)
@@ -40,7 +43,7 @@ export class ContactDetailModel implements ContactDetail {
     const contactCountry = ModelUtils.undefinedIfNull(country)
     const contactZip = ModelUtils.undefinedIfNull(zip)
     if (contactAdress || contactCity || contactCountry || contactZip) {
-      extensions.push(ExtensionModel.createEclaireContactAddress(address, city, country, zip))
+      extensions.push(ExtensionModel.createEclaireContactAddress(address, city, country, zip, organizationName))
     }
     ExtensionModel.createEclaireContactAffiliation(affiliation)
 
@@ -53,6 +56,7 @@ export class ContactDetailModel implements ContactDetail {
     }
 
     return new ContactDetailModel(
+      nameTypeContact,
       extensions,
       [
         ContactPointModel.createPhone(emptyPhoneIfNull),

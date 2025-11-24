@@ -340,6 +340,8 @@ describe('etl | IngestPipelineDm', () => {
 
   describe('transform', () => {
     it('should transform array of raw data into a collection of research study documents', () => {
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2022-10-07'))
       // given
       const riphDmDtos = [RiphDtoTestFactory.dm()]
       const { ingestPipelineDm } = setup()
@@ -352,6 +354,8 @@ describe('etl | IngestPipelineDm', () => {
     })
 
     it('should transform array of raw data into a collection of research study documents with only authorized documents', () => {
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2022-10-07'))
       // given
       const riphDmDtos = [
         RiphDtoTestFactory.dm({ titre_recherche: 'TITRE 1' }),
@@ -375,6 +379,8 @@ describe('etl | IngestPipelineDm', () => {
 
   describe('load', () => {
     it('should load in bulk a collection of research study documents', async () => {
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2022-10-07'))
       // given
       const riphDmDtos = [RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm(), RiphDtoTestFactory.dm()]
       const { databaseService, ingestPipelineDm } = setup()
