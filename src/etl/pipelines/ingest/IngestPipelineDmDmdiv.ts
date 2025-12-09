@@ -3,6 +3,8 @@ import { ResearchStudyModel } from '../../../shared/models/domain-resources/Rese
 import { EclaireDto } from '../../dto/EclaireDto'
 import { RiphDmDto } from '../../dto/RiphDmDto'
 import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFactory'
+import { DM_COLUMNS } from '../excel/columnsDm'
+import { ExcelSheetUpdater } from '../excel/ExcelSheetUpdater'
 
 export class IngestPipelineDmDmdiv extends IngestPipeline {
   readonly type = 'dm-dmdiv'
@@ -38,4 +40,27 @@ export class IngestPipelineDmDmdiv extends IngestPipeline {
       return lastUpdated >= startingDate
     })
   }
+
+  async import(): Promise<void> {
+    // Extraire les données
+    const data: RiphDmDto[] = await super.extract<RiphDmDto>()
+
+    // Créer l'updater Excel
+    const excelUpdater = new ExcelSheetUpdater(this.logger);
+
+    // Séparer les données selon reglementation_code
+    const dm745Data = data.filter(d => d.reglementation_code === 'REG745');
+    const dm746Data = data.filter(d => d.reglementation_code === 'REG746');
+
+    // Mettre à jour l'onglet DM (REG745)
+    if (dm745Data.length > 0) {
+        await excelUpdater.updateSheet('ETUDES DM (2017-745)', dm745Data, DM_COLUMNS);
+    }
+
+    // Mettre à jour l'onglet DM-DIV (REG746)
+    if (dm746Data.length > 0) {
+        await excelUpdater.updateSheet('ETUDES DM-DIV (2017-746)', dm746Data, DM_COLUMNS);
+    }
+  }
+
 }

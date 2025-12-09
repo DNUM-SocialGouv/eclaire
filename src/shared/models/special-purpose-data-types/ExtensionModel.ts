@@ -224,11 +224,11 @@ export class ExtensionModel implements Extension {
     )
   }
 
-  static createEclaireContactAddress(address: string, city: string, country: string, zip: string): Extension {
+  static createEclaireContactAddress(address: string, city: string, country: string, zip: string, organizationName: string): Extension {
     return new ExtensionModel(
       undefined,
       'https://interop.esante.gouv.fr/ig/fhir/eclaire/StructureDefinition/eclaire-contact-address',
-      AddressModel.create([address], city, zip, country),
+      AddressModel.create([address], city, zip, country, organizationName),
       undefined,
       undefined,
       undefined,

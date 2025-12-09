@@ -11,7 +11,8 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     readonly valueCodeableConcept: CodeableConcept | undefined,
     readonly valueQuantity: Quantity | undefined,
     readonly valueRange: Range | undefined,
-    readonly valueReference: Reference | undefined
+    readonly valueReference: Reference | undefined,
+    readonly description?: string | undefined
   ) {}
 
   static createGender(genders: string[]): GroupCharacteristic {
@@ -62,7 +63,20 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createInclusion(studyInclusion: string): GroupCharacteristic {
+  static createDocumentCriteria(studyInclusion: string, exclude: boolean, type: 'eligibility-criteria' | 'judgement-criteria'): GroupCharacteristic {
+    return new GroupCharacteristicModel(
+      CodeableConceptModel.createGroupCharacteristicKindVs('grp-other', type),
+      exclude,
+      undefined,
+      exclude ? CodeableConceptModel.createExclusion(studyInclusion) : CodeableConceptModel.createInclusion(studyInclusion),
+      undefined,
+      undefined,
+      undefined,
+      type
+    )
+  }
+
+  /* static createInclusion(studyInclusion: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicKindVs('grp-other'),
       false,
@@ -101,12 +115,12 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
   static createSecondary(value: string) {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicKindVs('grp-other'),
-      false,
+      true,
       undefined,
       CodeableConceptModel.createSecondary(value),
       undefined,
       undefined,
       undefined
     )
-  }
+  } */
 }

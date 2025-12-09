@@ -1,0 +1,13 @@
+{
+  "ActiveTargetSystem": "WSL: Ubuntu",
+  "DevContainersInfoBarHidden": true,
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\etl",
+    "\\src\\etl\\pipelines",
+    "\\src\\etl\\pipelines\\excel"
+  ],
+  "SelectedNode": "\\src\\etl\\pipelines\\excel\\columnsJarde.ts",
+  "PreviewInSolutionExplorer": false
+}

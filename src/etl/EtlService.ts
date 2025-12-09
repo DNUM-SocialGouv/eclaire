@@ -207,4 +207,24 @@ export class EtlService {
 
     this.loggerService.info('-- Fin de la mise à jour des labels Meddra pour les essais cliniques CTIS.')
   }
+
+  async importDataOnXLS(): Promise<void> {
+      this.loggerService.info('-- Début de la recuperation des données depuis le bucket S3.')
+
+      const ingestPipelines: IngestPipeline[] = [
+          new IngestPipelineCtis(this.loggerService, this.databaseService, this.readerService),
+          new IngestPipelineDmDmdiv(this.loggerService, this.databaseService, this.readerService),
+          new IngestPipelineJarde(this.loggerService, this.databaseService, this.readerService),
+      ]
+
+      for (const ingestPipeline of ingestPipelines) {
+          try {
+              await ingestPipeline.import()
+          } catch (error) {
+              throw error
+          }
+      }
+      this.loggerService.info('-- Fin de la recuperation des données depuis le bucket S3.')
+  }
+
 }

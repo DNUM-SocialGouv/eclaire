@@ -295,6 +295,8 @@ describe('etl | IngestPipelineJarde', () => {
 
   describe('transform', () => {
     it('should transform array of raw data into a collection of research study documents', () => {
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2022-10-07'))
       // given
       const riphJardeDtos = [RiphDtoTestFactory.jarde()]
       const { ingestPipelineJarde } = setup()
@@ -307,6 +309,8 @@ describe('etl | IngestPipelineJarde', () => {
     })
 
     it('should transform array of raw data into a collection of research study documents with only authorized documents', () => {
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2022-10-07'))
       // given
       const riphJardeDtos = [
         RiphDtoTestFactory.jarde({ titre_recherche: 'TITRE 1' }),
@@ -325,6 +329,8 @@ describe('etl | IngestPipelineJarde', () => {
     })
 
     it('should not find "RAPATRIEE_CTIS" because it is a duplicate', () => {
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2022-10-07'))
       // GIVEN
       const riphJardeDtoWithApprovedAndFromCtisStatuses = [
         RiphDtoTestFactory.jarde({ etat: 'A_DEMARRER' }),
@@ -343,6 +349,8 @@ describe('etl | IngestPipelineJarde', () => {
 
   describe('load', () => {
     it('should load in bulk a collection of research study documents', async () => {
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2022-10-07'))
       // given
       const riphJardeDtos = [RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde(), RiphDtoTestFactory.jarde()]
       const { databaseService, ingestPipelineJarde } = setup()

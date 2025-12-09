@@ -10,6 +10,21 @@ import { RiphDtoTestFactory } from '../../../shared/test/helpers/RiphDtoTestFact
 import { EclaireDto } from '../../dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFactory'
 
+function sortById<T extends { id?: string }>(data: T[]): T[] {
+  return data.sort((a, b) => {
+    const idA = a.id ?? ''
+    const idB = b.id ?? ''
+
+    const aIsNum = /^\d/.test(idA)
+    const bIsNum = /^\d/.test(idB)
+
+    if (aIsNum && !bIsNum) return 1
+    if (!aIsNum && bIsNum) return -1
+
+    return idA.localeCompare(idB)
+  })
+}
+
 describe('etl | Pipelines | MedDraPipeline', () => {
   afterEach(() => {
     vi.useRealTimers()
@@ -28,7 +43,6 @@ describe('etl | Pipelines | MedDraPipeline', () => {
 
       // when
       await medDraPipeline.extract()
-
       // then
       expect(databaseService.search).toHaveBeenCalledWith({
         from: 0,
@@ -43,8 +57,8 @@ describe('etl | Pipelines | MedDraPipeline', () => {
         },
         size: parseInt(process.env['CHUNK_SIZE']),
         sort: [
-          { 'meta.lastUpdated': { order: 'desc' } },
-          { _id: { order: 'desc' } },
+          { _id: { order: 'asc' } },
+          { 'meta.lastUpdated': { order: 'asc' } },
           { 'status.keyword': { order: 'asc' } },
         ],
       },
@@ -74,8 +88,8 @@ describe('etl | Pipelines | MedDraPipeline', () => {
         },
         size: parseInt(process.env['CHUNK_SIZE']),
         sort: [
-          { 'meta.lastUpdated': { order: 'desc' } },
-          { _id: { order: 'desc' } },
+          { _id: { order: 'asc' } },
+          { 'meta.lastUpdated': { order: 'asc' } },
           { 'status.keyword': { order: 'asc' } },
         ],
       },
@@ -118,7 +132,8 @@ describe('etl | Pipelines | MedDraPipeline', () => {
 
       // when
       const result: ResearchStudy[] = await medDraPipeline.extract()
-
+      // sort result by ID
+      sortById(result)
       // then
       expect(result[0].id).toBe('fakeId1')
       expect(result[1].id).toBe('fakeId2')

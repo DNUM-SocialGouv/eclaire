@@ -3,6 +3,10 @@
     {
       "command": "0 4 * * * node dist/src/etl/console.js daily-update",
       "size": "S"
+    },
+    {
+      "command": "0 6 L * * node dist/src/etl/console.js import-data-on-xls",
+      "size": "S"
     }
   ]
 }

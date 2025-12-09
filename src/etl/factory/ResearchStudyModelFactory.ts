@@ -89,7 +89,9 @@ export class ResearchStudyModelFactory {
         eclaireDto.organisme_pays,
         eclaireDto.organisme_ville,
         eclaireDto.organisme_code_postal,
-        undefined
+        undefined,
+        'Sponsor',
+        eclaireDto.organisme_nom
       ))
     }
 
@@ -105,6 +107,8 @@ export class ResearchStudyModelFactory {
         undefined,
         undefined,
         undefined,
+        undefined,
+        'Public',
         undefined
       )
     )
