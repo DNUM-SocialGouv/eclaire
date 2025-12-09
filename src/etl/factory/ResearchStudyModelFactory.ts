@@ -195,7 +195,7 @@ export class ResearchStudyModelFactory {
     const identifier: Identifier[] = [primaryAssignerIdentifier]
 
     if (eclaireDto.numero_nct) {
-      const { assignerIdentifier: numero_nct } = this.createDynamicAssigner(eclaireDto.numero_nct, assignerIdentifier, 'secondary', 'http://clinicaltrials.gov')
+      const { assignerIdentifier: numero_nct } = this.createDynamicAssigner(eclaireDto.numero_nct, assignerIdentifier, 'secondary', 'https://clinicaltrials.gov')
       identifier.push(numero_nct)
     }
     if (eclaireDto.numero_isrctn) {
