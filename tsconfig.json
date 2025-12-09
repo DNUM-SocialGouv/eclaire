@@ -31,6 +31,8 @@
     "strictNullChecks": false,
     "strict": true,
     "target": "es2022",
-    "types": ["vitest/globals"]
-  }
+    "types": [ "vitest/globals" ]
+  },
+  "include": [ "src/**/*.ts" ],
+  "exclude": [ "node_modules", "dist" ]
 }

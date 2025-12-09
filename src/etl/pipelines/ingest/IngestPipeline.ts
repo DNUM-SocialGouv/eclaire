@@ -26,6 +26,7 @@ export abstract class IngestPipeline {
   }
 
   abstract execute(): Promise<void>
+  abstract import(): Promise<void>
   abstract transform(riphDtos: RiphDto[]): ResearchStudyModel[]
 
   async extract<T>(): Promise<T[]> {

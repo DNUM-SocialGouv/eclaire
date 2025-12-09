@@ -11,6 +11,7 @@ import { LocationModule } from './api/location/LocationModule'
 import { OrganizationModule } from './api/organization/OrganizationModule'
 import { ResearchStudyModule } from './api/research-study/ResearchStudyModule'
 import { StatisticsModule } from './api/statistics/StatisticsModule'
+import { FileExportModule } from './api/file-export/FileExportModule';
 import { SwaggerModule } from './api/swagger/swagger.module'
 import { EtlModule } from './etl/EtlModule'
 import { ElasticsearchModule } from './shared/elasticsearch/ElasticsearchModule'
@@ -34,6 +35,7 @@ import { ModelUtils } from './shared/models/eclaire/ModelUtils'
     LocationModule,
     ResearchStudyModule,
     StatisticsModule,
+    FileExportModule,
     SentryModule.forRoot(),
     SwaggerModule,
   ].filter(Boolean), // Remove `null` if API_RATE_LIMIT_ENABLED is disabled

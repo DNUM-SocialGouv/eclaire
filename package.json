@@ -24,13 +24,14 @@
     "etl:delete-policies": "ts-node src/etl/console.ts delete-policies",
     "etl:import": "ts-node src/etl/console.ts import",
     "etl:hard-index-migration": "ts-node src/etl/console.ts hard-index-migration",
-    "etl:hard-import-migration": "ts-node src/etl/console.ts hard-import-migration",    
+    "etl:hard-import-migration": "ts-node src/etl/console.ts hard-import-migration",
     "etl:meddra-import": "ts-node src/etl/console.ts meddra-import",
     "etl:reset-index": "ts-node src/etl/console.ts reset-index",
     "etl:translate:everything": "ts-node src/etl/console.ts translate 1970-01-01",
     "etl:translate:yesterday": "ts-node src/etl/console.ts translate",
     "etl:update-meddra-labels:everything": "ts-node src/etl/console.ts update-meddra-labels 1970-01-01",
     "etl:update-meddra-labels:yesterday": "ts-node src/etl/console.ts update-meddra-labels",
+    "etl:import-data-on-xls": "ts-node src/etl/console.ts import-data-on-xls",
     "lint": "eslint 'src/**/*.ts' --max-warnings=0",
     "prepare": "husky install",
     "start": "node dist/src/main",
@@ -43,7 +44,8 @@
     "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
     "test:mutation:api": "npx stryker run stryker-api.conf.json",
     "test:mutation:etl": "npx stryker run stryker-etl.conf.json",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "audit:security": "node audit-nest-opensearch.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.817.0",
@@ -57,6 +59,7 @@
     "@opensearch-project/opensearch": "^3.5.1",
     "@sentry/nestjs": "^9.22.0",
     "@types/fhir": "^0.0.41",
+    "exceljs": "^4.4.0",
     "express": "^4.21.2",
     "he": "^1.2.0",
     "node-fetch": "2.7.0",
