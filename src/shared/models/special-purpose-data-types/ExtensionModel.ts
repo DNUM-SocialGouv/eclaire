@@ -67,7 +67,7 @@ export class ExtensionModel implements Extension {
 
     return new ExtensionModel(
       extensions,
-      'http://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty',
+      'https://hl7.org/fhir/5.0/StructureDefinition/extension-ResearchStudy.associatedParty',
       undefined,
       undefined,
       undefined,

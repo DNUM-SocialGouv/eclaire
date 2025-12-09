@@ -278,7 +278,7 @@ export class CodingModel implements Coding {
     return new CodingModel(
       'primary',
       'Primary',
-      'http://terminology.hl7.org/CodeSystem/research-study-objective-type',
+      'https://terminology.hl7.org/CodeSystem/research-study-objective-type',
       '0.1.0'
     )
   }
