@@ -34,7 +34,7 @@
     "etl:import-data-on-xls": "ts-node src/etl/console.ts import-data-on-xls",
     "lint": "eslint 'src/**/*.ts' --max-warnings=0",
     "prepare": "husky install",
-    "start": "node dist/src/main",
+    "start": "node dist/src/main.js",
     "start:db": "yarn stop:db && podman compose up -d",
     "start:debug": "nest start --debug --watch",
     "stop:db": "podman compose down",
@@ -44,8 +44,7 @@
     "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
     "test:mutation:api": "npx stryker run stryker-api.conf.json",
     "test:mutation:etl": "npx stryker run stryker-etl.conf.json",
-    "typecheck": "tsc",
-    "audit:security": "node audit-nest-opensearch.mjs"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.817.0",
