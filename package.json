@@ -34,7 +34,7 @@
     "etl:import-data-on-xls": "ts-node src/etl/console.ts import-data-on-xls",
     "lint": "eslint 'src/**/*.ts' --max-warnings=0",
     "prepare": "husky install",
-    "start": "node dist/src/main.js",
+    "start": "node dist/src/main",
     "start:db": "yarn stop:db && podman compose up -d",
     "start:debug": "nest start --debug --watch",
     "stop:db": "podman compose down",
