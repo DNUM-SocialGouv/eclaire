@@ -12,22 +12,22 @@ export class ExcelSheetUpdater {
     constructor(private readonly logger: LoggerService) { }
 
     // Fonction Auto-Fit des colonnes
-    private autoFitColumns(sheet: ExcelJS.Worksheet) {
-        sheet.columns.forEach(column => {
-            let maxLength = 10;
+    //private autoFitColumns(sheet: ExcelJS.Worksheet) {
+    //    sheet.columns.forEach(column => {
+    //        let maxLength = 10;
 
-            column.eachCell({ includeEmpty: true }, cell => {
-                const val = cell.value ? cell.value.toString() : "";
-                const longestLine = val
-                    .split("\n")
-                    .reduce((max, line) => Math.max(max, line.length), 0);
+    //        column.eachCell({ includeEmpty: true }, cell => {
+    //            const val = cell.value ? cell.value.toString() : "";
+    //            const longestLine = val
+    //                .split("\n")
+    //                .reduce((max, line) => Math.max(max, line.length), 0);
 
-                maxLength = Math.max(maxLength, longestLine);
-            });
+    //            maxLength = Math.max(maxLength, longestLine);
+    //        });
 
-            column.width = maxLength + 2;
-        });
-    }
+    //        column.width = maxLength + 2;
+    //    });
+    //}
 
     async updateSheet<T>(sheetName: string, data: T[], columns: Column[]) {
         const filePath = path.join(process.cwd(), 'Export_suivi_remplissage_ECLAIRE.xlsx');
@@ -45,7 +45,7 @@ export class ExcelSheetUpdater {
         const sheet = workbook.addWorksheet(sheetName);
 
         // --- 3) Ajouter les headers via sheet.columns (fixe clé & header) ---
-        sheet.columns = columns.map(c => ({ header: c.header, key: c.key }));
+        sheet.columns = columns.map(c => ({ header: c.header, key: c.key, width: 40 }));
 
         // --- 4) Formater le header (couleur & bold) ---
         const headerRow = sheet.getRow(1);
@@ -111,7 +111,7 @@ export class ExcelSheetUpdater {
         };
 
         // --- 7) Écriture par batchs pour limiter la mémoire ---
-        const BATCH_SIZE = 1000;
+        const BATCH_SIZE = 200;
         for (let start = 0; start < data.length; start += BATCH_SIZE) {
             const end = Math.min(start + BATCH_SIZE, data.length);
             const batch = data.slice(start, end);
@@ -131,7 +131,7 @@ export class ExcelSheetUpdater {
         }
 
         // Auto-fit automatique juste avant sauvegarde ---
-        this.autoFitColumns(sheet);
+        //this.autoFitColumns(sheet);
 
         // --- 8) Sauvegarde sécurisée via fichier temporaire ---
         await workbook.xlsx.writeFile(tempFilePath);
