@@ -112,7 +112,15 @@ export class ExcelSheetUpdater {
             if (origSheet.name === sheetName) return;
 
             const newSheet = workbookFinal.addWorksheet(origSheet.name);
-            newSheet.columns = origSheet.columns.map(c => ({ header: c.header, key: c.key, width: c.width || 20 }));
+            //newSheet.columns = origSheet.columns.map(c => ({ header: c.header, key: c.key, width: c.width || 20 }));
+
+            const firstRow = origSheet.getRow(1);
+            newSheet.columns =
+                origSheet.columns && origSheet.columns.length > 0 ?
+                    origSheet.columns.map(c => ({ header: c.header, key: c.key, width: c.width || 40 })) :
+                    Array.isArray(firstRow.values) ?
+                        firstRow.values.slice(1).map((v: any) => ({ header: v?.toString() || '', key: v?.toString() || '', width: 40 })) :
+                        [];
 
             origSheet.eachRow({ includeEmpty: true }, row => {
                 const rowValues: any[] = [];
