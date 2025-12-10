@@ -1,5 +1,6 @@
-import ExcelJS from 'exceljs'
-import path from 'path'
+import ExcelJS from 'exceljs';
+import path from 'path';
+import fs from 'fs';
 import { LoggerService } from '../../../shared/logger/LoggerService';
 
 interface Column {
@@ -8,50 +9,89 @@ interface Column {
 }
 
 export class ExcelSheetUpdater {
-    constructor(
-        protected readonly logger: LoggerService
-    ) { }
+    constructor(private readonly logger: LoggerService) { }
+
+    // Fonction Auto-Fit des colonnes
+    private autoFitColumns(sheet: ExcelJS.Worksheet) {
+        sheet.columns.forEach(column => {
+            let maxLength = 10;
+
+            column.eachCell({ includeEmpty: true }, cell => {
+                const val = cell.value ? cell.value.toString() : "";
+                const longestLine = val
+                    .split("\n")
+                    .reduce((max, line) => Math.max(max, line.length), 0);
+
+                maxLength = Math.max(maxLength, longestLine);
+            });
+
+            column.width = maxLength + 2;
+        });
+    }
 
     async updateSheet<T>(sheetName: string, data: T[], columns: Column[]) {
-        const filePath = path.join(process.cwd(), 'Export_suivi_remplissage_ECLAIRE.xlsx')
-        // --- Vérifier si le fichier existe ---
+        const filePath = path.join(process.cwd(), 'Export_suivi_remplissage_ECLAIRE.xlsx');
+        const tempFilePath = filePath + '.tmp';
+
         const workbook = new ExcelJS.Workbook();
         await workbook.xlsx.readFile(filePath);
+        this.logger.info(`[Excel] Reconstruction totale de l’onglet "${sheetName}"`);
 
-        const sheet = workbook.getWorksheet(sheetName);
-        if (!sheet) throw new Error(`La feuille "${sheetName}" n'existe pas`);
+        // --- 1) Supprimer l'ancien onglet (s'il existe) ---
+        const oldSheet = workbook.getWorksheet(sheetName);
+        if (oldSheet) workbook.removeWorksheet(oldSheet.id);
 
-        this.logger.info(`Mise à jour de l'onglet ${sheetName} dans : ${filePath}`)
-        // --- Supprimer anciennes lignes sauf header ---
-        const lastRow = sheet.rowCount;
-        for (let i = lastRow; i >= 2; i--) {
-            sheet.spliceRows(i, 1);
-        }
+        // --- 2) Créer un nouvel onglet propre ---
+        const sheet = workbook.addWorksheet(sheetName);
 
-        // --- Ajouter nouvelles données ---
-        for (const record of data) {
-            const rowValues = columns.map(col => {
+        // --- 3) Ajouter les headers via sheet.columns (fixe clé & header) ---
+        sheet.columns = columns.map(c => ({ header: c.header, key: c.key }));
+
+        // --- 4) Formater le header (couleur & bold) ---
+        const headerRow = sheet.getRow(1);
+        headerRow.eachCell(cell => {
+            cell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: 'FFC0E6F5' }
+            };
+            cell.font = { bold: true };
+            // Optionnel : alignement du header
+            cell.alignment = { wrapText: true, vertical: 'middle' };
+        });
+        headerRow.commit();
+
+        // --- 5) Appliquer le filtre automatique sur le header ---
+        const lastCol = columns.length || 1;
+        sheet.autoFilter = {
+            from: { row: 1, column: 1 },
+            to: { row: 1, column: lastCol }
+        };
+
+        // --- 6) Freeze la première ligne ---
+        sheet.views = [{ state: 'frozen', ySplit: 1 }];
+
+        // --- Helper pour construire une ligne à partir d'un enregistrement ---
+        const buildRow = (record: any) => {
+            return columns.map(col => {
                 const key = col.key;
 
-                // Cas spécial : sites
                 if (key.startsWith('sites.')) {
                     const field = key.split('.')[1];
-                    return (record['sites'] ?? [])
-                        .map(s => s?.[field] ?? '')
+                    return (record.sites ?? [])
+                        .map((s: any) => s?.[field] ?? '')
                         .filter(Boolean)
                         .join('\n');
                 }
 
-                // Cas pour les Jarde et DMDIV
                 if (key.startsWith('sites_investigateurs.')) {
                     const field = key.split('.')[1];
-                    return (record['sites_investigateurs'] ?? [])
-                        .map(s => s?.[field] ?? '')
+                    return (record.sites_investigateurs ?? [])
+                        .map((s: any) => s?.[field] ?? '')
                         .filter(Boolean)
                         .join('\n');
                 }
 
-                // Cas spécial : critères
                 if (key === 'criteres_eligibilite' || key === 'criteres_jugement') {
                     const arr = record[key];
                     if (!arr) return '';
@@ -66,45 +106,39 @@ export class ExcelSheetUpdater {
                         .join('\n');
                 }
 
-                // Mapping direct
                 return record[key] ?? '';
             });
+        };
 
-            const row = sheet.addRow(rowValues);
-            row.eachCell(cell => {
-                cell.alignment = { wrapText: true, vertical: 'top' };
-            });
+        // --- 7) Écriture par batchs pour limiter la mémoire ---
+        const BATCH_SIZE = 1000;
+        for (let start = 0; start < data.length; start += BATCH_SIZE) {
+            const end = Math.min(start + BATCH_SIZE, data.length);
+            const batch = data.slice(start, end);
+
+            this.logger.info(`[Excel] Batch, start: ${start} , end:  ${end}, (${batch.length} lignes)`);
+
+            for (const record of batch) {
+                const rowValues = buildRow(record);
+                const row = sheet.addRow(rowValues);
+                row.eachCell(cell => {
+                    cell.alignment = { wrapText: true, vertical: 'top' };
+                });
+            }
+
+            // Laisser l'event loop respirer pour GC
+            await new Promise(r => setImmediate(r));
         }
 
-        // --- Réactivation des filtres automatiques ---
-        sheet.autoFilter = {
-            from: { row: 1, column: 1 },
-            to: { row: 1, column: sheet.actualColumnCount }
-        }
+        // Auto-fit automatique juste avant sauvegarde ---
+        this.autoFitColumns(sheet);
 
-        // --- Appliquer background sur header sans toucher aux filtres ---
-        const headerRow = sheet.getRow(1);
-        headerRow.eachCell(cell => {
-            cell.fill = {
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor: { argb: 'FFC0E6F5' },
-            };
-            cell.font = { bold: true };
-        });
-        headerRow.commit();
+        // --- 8) Sauvegarde sécurisée via fichier temporaire ---
+        await workbook.xlsx.writeFile(tempFilePath);
 
-        // --- Freeze pane ligne 1 ---
-        sheet.views = [
-            {
-                state: 'frozen',
-                ySplit: 1,
-                activeCell: 'A2',
-            },
-        ];
+        // Remplacement atomique
+        fs.renameSync(tempFilePath, filePath);
 
-        // --- Sauvegarde ---
-        await workbook.xlsx.writeFile(filePath);
-        this.logger.info(`Onglet "${sheetName}" mis à jour avec ${data.length} lignes.`)
+        this.logger.info(`[Excel] Onglet "${sheetName}" mis à jour (${data.length} lignes).`);
     }
 }

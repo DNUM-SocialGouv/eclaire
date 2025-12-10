@@ -1,5 +1,5 @@
 export const CTIS_COLUMNS = [
-  { header: 'Numéro CTIS', key: 'numero_ctis' },
+  { header: 'NumÃ©ro CTIS', key: 'numero_ctis' },
   { header: 'Reglementation_Code', key: 'reglementation_code' },
   { header: 'publication_eclaire', key: 'publication_eclaire' },
   { header: 'Etat', key: 'etat' },
@@ -21,8 +21,8 @@ export const CTIS_COLUMNS = [
   { header: 'groupe_sujets', key: 'groupes_sujet' },
   { header: 'population_recrutement', key: 'population_recrutement' },
   { header: 'description_urgence', key: 'description_urgence' },
-  { header: "Critères d'éligibilité", key: "criteres_eligibilite" },
-  { header: "Critères de jugement", key: "criteres_jugement" },
+  { header: "CritÃ¨res d'Ã©ligibilitÃ©", key: "criteres_eligibilite" },
+  { header: "CritÃ¨res de jugement", key: "criteres_jugement" },
   { header: 'Site_organisme', key: 'sites.organisme' },
   { header: 'Site_adresse', key: 'sites.adresse' },
   { header: 'Site_ville', key: 'sites.ville' },
@@ -31,7 +31,7 @@ export const CTIS_COLUMNS = [
   { header: 'Site_nom', key: 'sites.nom' },
   { header: 'Site_prenom', key: 'sites.prenom' },
   { header: 'Site_courriel', key: 'sites.courriel' },
-  { header: 'Site_téléphone', key: 'sites.telephone' },
+  { header: 'Site_tÃ©lÃ©phone', key: 'sites.telephone' },
   { header: 'Site_service', key: 'sites.service' },
   { header: 'organisme_nom', key: 'organisme_nom' },
   { header: 'organisme_adresse', key: 'organisme_adresse' },
@@ -53,5 +53,5 @@ export const CTIS_COLUMNS = [
   { header: 'date_fin_etude', key: 'date_fin_etude' },
   { header: 'historique', key: 'historique' },
   { header: 'dates_avis_favorable_ms_mns', key: 'dates_avis_favorable_ms_mns' },
-  { header: 'pays_concernés', key: 'pays_concernes' }
+  { header: 'pays_concernÃ©s', key: 'pays_concernes' }
 ]
