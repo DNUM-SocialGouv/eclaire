@@ -50,7 +50,7 @@ async function console(): Promise<void> {
       await etlService.deleteIndex()
       await etlService.createIndex()
       await etlService.importData('1970-01-01')
-          break 
+      break
     case 'import-data-on-xls':
       await etlService.importDataOnXLS()
       break

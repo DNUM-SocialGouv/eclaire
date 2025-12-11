@@ -1,63 +1,55 @@
-import { Controller, Get, Post, Inject, Req, Res, Header, NotFoundException, ForbiddenException } from '@nestjs/common';
-import { ApiExcludeEndpoint } from '@nestjs/swagger';
-import { Response } from 'express';
-import * as fs from 'fs';
-import { FileExportRepository } from '../application/FileExportRepository';
-import { EtlService } from '../../../etl/EtlService';
+import { Controller, Get, Inject, Res, Query, ForbiddenException } from '@nestjs/common'
+import { ApiExcludeEndpoint } from '@nestjs/swagger'
+import { Response } from 'express'
+import * as fs from 'fs'
+
+import { EtlService } from '../../../etl/EtlService'
+import { FileExportRepository } from '../application/FileExportRepository'
 
 @Controller('/api/export')
 export class DownloadFileController {
-    constructor(
+  constructor(
         @Inject('FileExportRepository')
         private readonly repository: FileExportRepository,
-        private readonly etlService: EtlService, // Service pour générer le fichier
-    ) { }
+        private readonly etlService: EtlService // Service pour gï¿½nï¿½rer le fichier
+  ) { }
 
     @ApiExcludeEndpoint()
     @Get()
-    @Header('Content-Type', 'application/octet-stream')
-    async download(@Res() res: Response) {
-        const filePath = await this.repository.getExportFilePath();
-
-        if (!fs.existsSync(filePath)) {
-            throw new NotFoundException('Fichier Excel introuvable sur le serveur');
-        }
-
-        // --- Générer le nom dynamique ---
-        const today = new Date();
-        const dateString = today.toISOString().split('T')[0]; // "YYYY-MM-DD"
-        const filename = `export_eclaire_${dateString}.xlsx`;
-
-        return res.download(filePath, filename);
+  async refresh(
+        @Query('token') token: string,
+        @Res() res: Response
+  ) {
+    // --- Verifier le token ---
+    if (process.env.CRON_TOKEN && token !== process.env.CRON_TOKEN) {
+      throw new ForbiddenException('Invalid cron token')
     }
 
+    try {
+      // --- Gï¿½nï¿½ration du fichier XLS ---
+      await this.etlService.importDataOnXLS()
 
-    /**
-   * ---------------------------------------------------
-   *  ENDPOINT 2 — REFRESH (Endpoint pour Scalingo CRON)
-   * ---------------------------------------------------
-   */
-    @ApiExcludeEndpoint()
-    @Post('/refresh')
-    async refresh(@Req() req: Request, @Res() res: Response) {
-        const token = req.headers['x-cron-token'];
-        
-        if (process.env.CRON_TOKEN && token !== process.env.CRON_TOKEN) {
-            throw new ForbiddenException('Invalid cron token');
-        }
+      // --- Rï¿½cupï¿½ration du chemin vers le fichier gï¿½nï¿½rï¿½ ---
+      const filePath = await this.repository.getExportFilePath()
+      if (!fs.existsSync(filePath)) {
+        return res.status(404).json({ message: 'Fichier Excel introuvable aprï¿½s gï¿½nï¿½ration.' })
+      }
 
-        try {
-            await this.etlService.importDataOnXLS(); // Génère le fichier XLS
-            return res.status(200).json({
-                message: 'The XLS file was successfully generated.'
-            });
-        } catch (err: unknown) {
+      // --- Gï¿½nï¿½rer le nom dynamique ---
+      const today = new Date()
+      const dateString = today.toISOString().split('T')[0] // "YYYY-MM-DD"
+      const filename = `export_eclaire_${dateString}.xlsx`
+
+      // --- Tï¿½lï¿½chargement direct ---
+      return res.download(filePath, filename)
+    } catch (err: unknown) {
+      // eslint-disable-next-line
             const errorMessage = err instanceof Error ? err.message : String(err);
-            return res.status(500).json({
-                message: 'Error generating XLS file.',
-                error: errorMessage
-            });
-        }
+      return res.status(500).json({
+        error: errorMessage,
+        message: 'Erreur lors de la gï¿½nï¿½ration du fichier XLS.',
+      })
     }
+  }
 
 }

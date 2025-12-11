@@ -30,7 +30,7 @@ export abstract class IngestPipeline {
   abstract transform(riphDtos: RiphDto[]): ResearchStudyModel[]
 
   async extract<T>(typeOverride?: string): Promise<T[]> {
-    const fileType = typeOverride ?? this.type;
+    const fileType = typeOverride ?? this.type
     const fileName = `export_eclaire_${fileType}.json`
     const dto: T[] = await this.readerService.read(fileName) as T[]
     this.logger.info(`[Extract] ${dto.length} (${fileType})`)

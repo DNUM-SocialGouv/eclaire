@@ -6,8 +6,8 @@ import { JsonFileReaderService } from './json-file-reader/JsonFileReaderService'
 import { IngestPipeline } from './pipelines/ingest/IngestPipeline'
 import { IngestPipelineCtis } from './pipelines/ingest/IngestPipelineCtis'
 import { IngestPipelineDmDmdiv } from './pipelines/ingest/IngestPipelineDmDmdiv'
-import { IngestPipelineJarde } from './pipelines/ingest/IngestPipelineJarde'
 import { IngestPipelineImport } from './pipelines/ingest/IngestPipelineImport'
+import { IngestPipelineJarde } from './pipelines/ingest/IngestPipelineJarde'
 import { MedDraPipeline } from './pipelines/translation/MedDraPipeline'
 import { TranslationPipeline } from './pipelines/translation/TranslationPipeline'
 import { S3Service } from './s3/S3Service'
@@ -210,23 +210,10 @@ export class EtlService {
   }
 
   async importDataOnXLS(): Promise<void> {
-      this.loggerService.info('-- Début de la recuperation des données depuis le bucket S3.')
-      const ingestPipelines = new IngestPipelineImport(this.loggerService, this.databaseService, this.readerService);
-      await ingestPipelines.import()
-      //const ingestPipelines: IngestPipeline[] = [
-      //    new IngestPipelineCtis(this.loggerService, this.databaseService, this.readerService),
-      //    new IngestPipelineDmDmdiv(this.loggerService, this.databaseService, this.readerService),
-      //    new IngestPipelineJarde(this.loggerService, this.databaseService, this.readerService),
-      //]
-
-      //for (const ingestPipeline of ingestPipelines) {
-      //    try {
-      //        await ingestPipeline.import()
-      //    } catch (error) {
-      //        throw error
-      //    }
-      //}
-      this.loggerService.info('-- Fin de la recuperation des données depuis le bucket S3.')
+    this.loggerService.info('-- Début de la recuperation des données depuis le bucket S3.')
+    const ingestPipelines = new IngestPipelineImport(this.loggerService, this.databaseService, this.readerService)
+    await ingestPipelines.import()
+    this.loggerService.info('-- Fin de la recuperation des données depuis le bucket S3.')
   }
 
 }

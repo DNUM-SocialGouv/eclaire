@@ -3,8 +3,6 @@ import { ResearchStudyModel } from '../../../shared/models/domain-resources/Rese
 import { EclaireDto } from '../../dto/EclaireDto'
 import { RiphJardeDto } from '../../dto/RiphJardeDto'
 import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFactory'
-import { JARDE_COLUMNS } from '../excel/columnsJarde'
-import { ExcelSheetUpdater } from '../excel/ExcelSheetUpdater'
 
 export class IngestPipelineJarde extends IngestPipeline {
   readonly type = 'jarde'
@@ -36,7 +34,7 @@ export class IngestPipelineJarde extends IngestPipeline {
         this.idsToDelete.push(eclaireDto.numero_primaire)
       }
     }
-    
+
     return researchStudyModels.filter((researchStudyModel: ResearchStudyModel) => {
       const startingDate: Date = new Date(this.startingDate)
       const lastUpdated: Date = new Date(researchStudyModel.meta.lastUpdated)
@@ -45,13 +43,6 @@ export class IngestPipelineJarde extends IngestPipeline {
   }
 
   async import(): Promise<void> {
-    // Extraire les données
-    const data: RiphJardeDto[] = await super.extract<RiphJardeDto>()
-
-    // Créer l'updater Excel
-    const excelUpdater = new ExcelSheetUpdater(this.logger);
-
-    // Mettre à jour l'onglet
-    await excelUpdater.updateSheet('ETUDES JARDE', data, JARDE_COLUMNS);
+    await this.execute()
   }
 }

@@ -6,12 +6,12 @@ import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler'
 import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup'
 
 import { AppController } from './api/AppController'
+import { FileExportModule } from './api/file-export/FileExportModule'
 import { GroupModule } from './api/group/GroupModule'
 import { LocationModule } from './api/location/LocationModule'
 import { OrganizationModule } from './api/organization/OrganizationModule'
 import { ResearchStudyModule } from './api/research-study/ResearchStudyModule'
 import { StatisticsModule } from './api/statistics/StatisticsModule'
-import { FileExportModule } from './api/file-export/FileExportModule';
 import { SwaggerModule } from './api/swagger/swagger.module'
 import { EtlModule } from './etl/EtlModule'
 import { ElasticsearchModule } from './shared/elasticsearch/ElasticsearchModule'

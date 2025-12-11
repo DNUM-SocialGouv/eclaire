@@ -3,8 +3,6 @@ import { ResearchStudyModel } from '../../../shared/models/domain-resources/Rese
 import { EclaireDto } from '../../dto/EclaireDto'
 import { RiphCtisDto } from '../../dto/RiphCtisDto'
 import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFactory'
-import { CTIS_COLUMNS } from '../excel/columnsCtis'
-import { ExcelSheetUpdater } from '../excel/ExcelSheetUpdater'
 
 export class IngestPipelineCtis extends IngestPipeline {
   readonly type = 'ctis'
@@ -42,13 +40,7 @@ export class IngestPipelineCtis extends IngestPipeline {
   }
 
   async import(): Promise<void> {
-    // Extraire les données
-      const data: RiphCtisDto[] = await super.extract<RiphCtisDto>()
-
-    // Créer l'updater Excel
-    const excelUpdater = new ExcelSheetUpdater(this.logger);
-
-    // Mettre à jour l'onglet
-    await excelUpdater.updateSheet('ETUDES CTIS (2014-536)', data, CTIS_COLUMNS);
+    await this.execute()
   }
+
 }

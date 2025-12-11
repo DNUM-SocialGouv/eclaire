@@ -21,8 +21,8 @@ export const CTIS_COLUMNS = [
   { header: 'groupe_sujets', key: 'groupes_sujet' },
   { header: 'population_recrutement', key: 'population_recrutement' },
   { header: 'description_urgence', key: 'description_urgence' },
-  { header: "Critères d'éligibilité", key: "criteres_eligibilite" },
-  { header: "Critères de jugement", key: "criteres_jugement" },
+  { header: "Critères d'éligibilité", key: 'criteres_eligibilite' },
+  { header: 'Critères de jugement', key: 'criteres_jugement' },
   { header: 'Site_organisme', key: 'sites.organisme' },
   { header: 'Site_adresse', key: 'sites.adresse' },
   { header: 'Site_ville', key: 'sites.ville' },
@@ -53,5 +53,5 @@ export const CTIS_COLUMNS = [
   { header: 'date_fin_etude', key: 'date_fin_etude' },
   { header: 'historique', key: 'historique' },
   { header: 'dates_avis_favorable_ms_mns', key: 'dates_avis_favorable_ms_mns' },
-  { header: 'pays_concernés', key: 'pays_concernes' }
+  { header: 'pays_concernés', key: 'pays_concernes' },
 ]

@@ -15,6 +15,7 @@ import { TranslationModule } from '../shared/translation/TranslationModule'
 import { TranslationService } from '../shared/translation/TranslationService'
 
 @Module({
+  exports: [EtlService],
   imports: [LoggerModule, ElasticsearchModule, S3Module, JsonFileReaderModule, TranslationModule],
   providers: [
     {
@@ -33,6 +34,5 @@ import { TranslationService } from '../shared/translation/TranslationService'
       },
     },
   ],
-  exports: [EtlService],
 })
 export class EtlModule {}
