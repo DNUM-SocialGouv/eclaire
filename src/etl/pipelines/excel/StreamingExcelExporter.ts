@@ -16,8 +16,11 @@ interface SheetData<T> {
 export class StreamingExcelExporter {
 
     async exportSheets(sheets: SheetData<any>[]) {
-        const filePath = path.join(process.cwd(), "Export_suivi_remplissage_ECLAIRE.xlsx");
+        //const filePath = path.join(process.cwd(), "Export_suivi_remplissage_ECLAIRE.xlsx");
+        const filePath = path.join("/tmp", "Export_suivi_remplissage_ECLAIRE.xlsx");
         const tmpPath = filePath + ".tmp";
+
+        console.log("Writing Excel to:", filePath);
 
         // Remove tmp if exists
         if (fs.existsSync(tmpPath)) fs.unlinkSync(tmpPath);
@@ -31,6 +34,7 @@ export class StreamingExcelExporter {
         const BATCH_SIZE = 500;
 
         for (const sheetInfo of sheets) {
+            console.log(`Export for sheetname ${sheetInfo.name} ////////////`)
             const ws = wb.addWorksheet(sheetInfo.name);
 
             // --- Set columns & header ---
@@ -90,6 +94,7 @@ export class StreamingExcelExporter {
 
             // --- Write data in batches ---
             for (let i = 0; i < sheetInfo.data.length; i += BATCH_SIZE) {
+                console.log(`Export start from ${i} to ${sheetInfo.data.length}`)
                 const batch = sheetInfo.data.slice(i, i + BATCH_SIZE);
                 for (const record of batch) {
                     const rowValues = buildRow(record);
@@ -107,6 +112,6 @@ export class StreamingExcelExporter {
 
         await wb.commit();
         fs.renameSync(tmpPath, filePath);
-        console.log("Excel exported successfully with all sheets in batches!");
+        console.log("Excel exported successfully with all sheets in batches:", filePath);
     }
 }
