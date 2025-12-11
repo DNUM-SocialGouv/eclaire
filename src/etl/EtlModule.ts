@@ -33,5 +33,6 @@ import { TranslationService } from '../shared/translation/TranslationService'
       },
     },
   ],
+  exports: [EtlService],
 })
 export class EtlModule {}
