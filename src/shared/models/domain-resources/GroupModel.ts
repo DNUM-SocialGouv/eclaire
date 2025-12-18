@@ -67,29 +67,6 @@ export class GroupModel implements Group {
       characteristic.push(GroupCharacteristicModel.createStudyPopulation(studyPopulation))
     }
 
-    /* if (eligibilityCriteria && eligibilityCriteria.length > 0) {
-      eligibilityCriteria.forEach((eligibilityCriteria: Critere) => {
-        if (eligibilityCriteria.type === 'INCLUSION') {
-          characteristic.push(GroupCharacteristicModel.createInclusion(eligibilityCriteria.titre))
-        }
-
-        if (eligibilityCriteria.type === 'EXCLUSION') {
-          characteristic.push(GroupCharacteristicModel.createExclusion(eligibilityCriteria.titre))
-        }
-      })
-    }
-
-    if (judgementCriteria && judgementCriteria.length > 0) {
-      judgementCriteria.forEach((judgementCriteria: Critere) => {
-        if (judgementCriteria.type === 'PRINCIPAL') {
-          characteristic.push(GroupCharacteristicModel.createPrincipal(judgementCriteria.titre))
-        }
-
-        if (judgementCriteria.type === 'SECONDAIRE') {
-          characteristic.push(GroupCharacteristicModel.createSecondary(judgementCriteria.titre))
-        }
-      })
-    } */
     if (eligibilityCriteria && eligibilityCriteria.length > 0) {
       eligibilityCriteria.forEach((eligibilityCriteria: Critere) => {
         const exclude = eligibilityCriteria.type === 'INCLUSION' ? false : true

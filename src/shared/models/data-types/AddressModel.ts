@@ -19,7 +19,7 @@ export class AddressModel implements Address {
       postalCode,
       'physical',
       'work',
-      organizationName
+      organizationName ? undefined : undefined // To delete undefined value after confirmation
     )
   }
 }

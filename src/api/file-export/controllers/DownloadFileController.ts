@@ -26,28 +26,28 @@ export class DownloadFileController {
     }
 
     try {
-      // --- G�n�ration du fichier XLS ---
+      // --- Generating the XLS file ---
       await this.etlService.importDataOnXLS()
 
-      // --- R�cup�ration du chemin vers le fichier g�n�r� ---
+      // --- Retrieving the path to the generated file ---
       const filePath = await this.repository.getExportFilePath()
       if (!fs.existsSync(filePath)) {
-        return res.status(404).json({ message: 'Fichier Excel introuvable apr�s g�n�ration.' })
+        return res.status(404).json({ message: 'Excel file not found after generation.' })
       }
 
-      // --- G�n�rer le nom dynamique ---
+      // --- Generate the dynamic name ---
       const today = new Date()
       const dateString = today.toISOString().split('T')[0] // "YYYY-MM-DD"
       const filename = `export_eclaire_${dateString}.xlsx`
 
-      // --- T�l�chargement direct ---
+      // --- Direct download ---
       return res.download(filePath, filename)
     } catch (err: unknown) {
       // eslint-disable-next-line
             const errorMessage = err instanceof Error ? err.message : String(err);
       return res.status(500).json({
         error: errorMessage,
-        message: 'Erreur lors de la g�n�ration du fichier XLS.',
+        message: 'Error generating XLS file.',
       })
     }
   }

@@ -90,7 +90,7 @@ export class ResearchStudyModelFactory {
         eclaireDto.organisme_ville,
         eclaireDto.organisme_code_postal,
         undefined,
-        'Sponsor',
+        undefined, // to 'Sponsor' after confiramation
         eclaireDto.organisme_nom
       ))
     }
@@ -108,7 +108,7 @@ export class ResearchStudyModelFactory {
         undefined,
         undefined,
         undefined,
-        'Public',
+        undefined, // to 'Public' after confiramation
         undefined
       )
     )
