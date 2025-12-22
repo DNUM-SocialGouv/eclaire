@@ -60,7 +60,15 @@ export class MedDraPipeline {
         ) as MedDra[]
 
         if (ModelUtils.isNotNull(meddraDocuments)) {
-          researchStudy.condition.push(...CodeableConceptModel.createMedDraSlice(researchStudy.id, meddraDocuments))
+          // Remove existing meddra-condition entries to avoid duplication
+          const newConditions = researchStudy.condition.filter((c) => !c.id?.startsWith('meddra-condition-'))
+          researchStudy.condition.length = 0 // clear the array
+          researchStudy.condition.push(...newConditions) // restore filtered items
+
+          // Push new MedDRA entries
+          researchStudy.condition.push(
+            ...CodeableConceptModel.createMedDraSlice(researchStudy.id, meddraDocuments)
+          )
         }
       }
     }

@@ -10,7 +10,7 @@ export class CodeableConceptModel implements CodeableConcept {
   private constructor(
     readonly id: string | undefined,
     readonly coding: Coding[] | undefined,
-    readonly text: string | undefined
+    readonly text?: string | undefined
   ) {}
 
   static createResearchStudyPhase(researchStudyPhase: string): CodeableConcept {
@@ -49,11 +49,13 @@ export class CodeableConceptModel implements CodeableConcept {
 
   static createMedDraSlice(id: string, medDraInformation: MedDra[]): CodeableConcept[] {
     return medDraInformation.map((medDra): CodeableConcept => {
-      return new CodeableConceptModel(
-        'meddra-condition-' + id + '-' + medDra.code,
-        [CodingModel.createMedDra(medDra.code, medDra.label)],
-        undefined
-      )
+      /* eslint-disable sort-keys */
+      const obj: CodeableConcept = {
+        id: 'meddra-condition-' + id + '-' + medDra.code,
+        coding: [CodingModel.createMedDra(medDra.code, medDra.label)],
+      }
+      /* eslint-enable sort-keys */
+      return obj
     })
   }
 
@@ -148,13 +150,12 @@ export class CodeableConceptModel implements CodeableConcept {
   }
 
   static createRecruitmentStatus(status: string): CodeableConceptModel {
-    //const statusRecru = status && (status.toUpperCase() === 'RECRUTEMENT EN ATTENTE' || status.toUpperCase() === 'RECRUTEMENT OUVERT') ? 'recruiting' : status && status.toUpperCase() === 'RECRUTEMENT FERMÉ' ? 'completed-recruiting' : status
     const statusMap = {
       'RECRUTEMENT EN ATTENTE': 'upcoming',
-      'RECRUTEMENT OUVERT': 'recruiting',
       'RECRUTEMENT FERMÉ': 'completed-recruiting',
-    };
-    const statusRecru = statusMap[status.toUpperCase()] ?? status;
+      'RECRUTEMENT OUVERT': 'recruiting',
+    }
+    const statusRecru = statusMap[status.toUpperCase()] ?? status
 
     return new CodeableConceptModel(
       undefined,
