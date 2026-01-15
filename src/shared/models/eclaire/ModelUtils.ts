@@ -90,9 +90,9 @@ export class ModelUtils {
       })
     }
 
-    const sortedDates = [...dates].sort(this.sortBy);
-    const mostRecentRaw = sortedDates[0];
-    const mostRecentDate = new Date(mostRecentRaw);
+    const sortedDates = [...dates].sort(this.sortBy)
+    const mostRecentRaw = sortedDates[0]
+    const mostRecentDate = new Date(mostRecentRaw)
     // Check if date is valid
     if (isNaN(mostRecentDate.getTime())) {
       return new Date(theoreticalDateOfApproval).toISOString()

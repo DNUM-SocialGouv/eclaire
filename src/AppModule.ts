@@ -6,6 +6,7 @@ import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler'
 import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup'
 
 import { AppController } from './api/AppController'
+import { DocumentationModule } from './api/documentation/DocumentationModule'
 import { FileExportModule } from './api/file-export/FileExportModule'
 import { GroupModule } from './api/group/GroupModule'
 import { LocationModule } from './api/location/LocationModule'
@@ -36,6 +37,7 @@ import { ModelUtils } from './shared/models/eclaire/ModelUtils'
     ResearchStudyModule,
     StatisticsModule,
     FileExportModule,
+    DocumentationModule,
     SentryModule.forRoot(),
     SwaggerModule,
   ].filter(Boolean), // Remove `null` if API_RATE_LIMIT_ENABLED is disabled
