@@ -36,14 +36,14 @@ Tester le bon déploiement de l'infrastructure et le bon fonctionnement de l'app
 1. Vérifier que vous arrivez à communiquer avec la base de données Elasticsearch en local.  
 Lancer la commande : `curl -v 'http://localhost:9200/_cluster/health?pretty'`  
 La fin de la sortie attendue est la suivante :  
-![résultat de l'état du moteur de recherche Elasticsearch](documentation/images/installation-local-resultat-elasticsearch.png)
+![résultat de l'état du moteur de recherche Elasticsearch](documentation/files/installation-local-resultat-elasticsearch.png)
 2. Vérifier que vous avez accès à l'interface swagger.  
 Copier dans la barre de navigation de votre navigateur, l'URL suivante :  
 `http://localhost:3000/`
 3. Tester le service **GET - /R4/ResearchStudy** sans rentrer de paramètres.  
 Étendre l'onglet du service puis cliquer sur le bouton `Try it out` et enfin cliquer sur le bouton `Execute`.  
 La sortie attendue est la suivante :  
-![résultat du service /R4/ResearchStudy sur swagger](documentation/images/installation-local-resultat-swagger.png)
+![résultat du service /R4/ResearchStudy sur swagger](documentation/files/installation-local-resultat-swagger.png)
 
 > Cette application fonctionne avec la dernière version LTS de node.
 
@@ -120,7 +120,7 @@ yarn etl:meddra-import
 
 ## Guide d'implémentation et données implémentées
 - Le guide officiel est disponible sur https://interop.esante.gouv.fr/ig/fhir/eclaire/
-- Les données implémentées sont marquées par une coche sur l'image [mapping.png](documentation/images/mapping.png)
+- Les données implémentées sont marquées par une coche sur l'image [mapping.png](documentation/files/mapping.png)
 
 ## Architectural Decision Records (ADR)
 
