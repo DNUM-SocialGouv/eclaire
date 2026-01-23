@@ -23,8 +23,46 @@ export class ModelUtils {
     return value ?? undefined
   }
 
+  static filterEmptyAndCheck(arr: string[]): {
+    hasValue: boolean;
+    values: string[];
+  } {
+    const filtered = (arr || []).filter(
+      (item) => typeof item === 'string' && item.trim() !== 'unknown' && item.trim() !== ''
+    )
+
+    return {
+      hasValue: filtered.length > 0,
+      values: filtered,
+    }
+  }
+
+  static filterValidItems(items: {
+    titre: string | null;
+    type: string | null;
+  }[]) {
+    const filtered = items.filter(
+      (item): item is { titre: string; type: string } =>
+        typeof item.titre === 'string' &&
+        item.titre.trim() !== '' &&
+        typeof item.type === 'string' &&
+        item.type.trim() !== ''
+    )
+
+    return {
+      hasData: filtered.length > 0,
+      values: filtered,
+    }
+  }
+
   static isNotNull(value: unknown): boolean {
-    return value !== null
+    if (value === null || value === undefined) return false
+
+    if (typeof value === 'string') {
+      return value.trim() !== '' && value.trim() !== 'Données non disponible'
+    }
+
+    return true
   }
 
   static isNotDefinedOrFalse(value: unknown): boolean {

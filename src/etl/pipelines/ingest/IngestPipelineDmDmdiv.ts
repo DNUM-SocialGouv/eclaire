@@ -15,9 +15,12 @@ export class IngestPipelineDmDmdiv extends IngestPipeline {
       this.logger.info(`---- Chunk DM-DM/DIV: ${i} / ${riphDmDtos.length} elasticsearch documents`)
       const chunk = riphDmDtos.slice(i, i + chunkSize)
       const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
+      this.logger.info(`---- Chunk DM-DM/DIV: number of documents to update : ${researchStudyDocuments.length}`)
       await super.load(researchStudyDocuments)
       // Delete documents with status non autorisé (fermé)
       await super.delete(this.idsToDelete.filter((v) => v !== null))
+      this.logger.info(`////// Chunk DM-DM/DIV: number of documents to delete : ${this.idsToDelete.length}`)
+      this.idsToDelete = []
     }
   }
 

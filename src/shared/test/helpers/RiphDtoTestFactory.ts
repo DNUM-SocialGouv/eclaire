@@ -25,6 +25,7 @@ export class RiphDtoTestFactory {
           nom: 'Aumar',
           prenom: 'Madeleine',
           service: 'Gastroenterology Hepatology and Nutrition Unit Paediatric clinic, Child Unit',
+          code_postal: '59350'
         },
       ],
       numero_ctis: '2022-500014-26-00',
@@ -101,6 +102,7 @@ export class RiphDtoTestFactory {
           nom: null,
           prenom: null,
           service: null,
+          code_postal: null
         },
       ],
       ...override,
@@ -129,6 +131,7 @@ export class RiphDtoTestFactory {
           nom: null,
           prenom: null,
           service: null,
+          code_postal: null
         },
       ],
       numero_ctis: '2022-500299-71-00',
@@ -205,6 +208,7 @@ export class RiphDtoTestFactory {
           nom: null,
           prenom: null,
           service: null,
+          code_postal: null
         },
       ],
     }
@@ -313,6 +317,7 @@ export class RiphDtoTestFactory {
           nom: null,
           prenom: null,
           service: null,
+          code_postal: null
         },
       ],
       ...override,
@@ -407,6 +412,7 @@ export class RiphDtoTestFactory {
           nom: null,
           prenom: null,
           service: null,
+          code_postal: null
         },
       ],
       ...override,

@@ -79,7 +79,8 @@ export class RiphDmDto {
       readonly titre_investigateur: string,
       readonly nom: string,
       readonly prenom: string,
-      readonly service: string
+      readonly service: string,
+      readonly code_postal: string
     }[]
   ) {
   }

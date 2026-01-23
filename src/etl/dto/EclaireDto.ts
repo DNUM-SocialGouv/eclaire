@@ -57,7 +57,8 @@ export class EclaireDto {
       ModelUtils.decodeHtmlString(site.titre),
       ModelUtils.decodeHtmlString(site.nom),
       ModelUtils.decodeHtmlString(site.prenom),
-      ModelUtils.decodeHtmlString(site.service)
+      ModelUtils.decodeHtmlString(site.service),
+      ModelUtils.decodeHtmlString(site.code_postal)
     ))
 
     const listePhaseRecherche: Phase[] = riphCtisDto.phase_recherche?.match(/Phase (IV|III|II|I)/g) as Phase[]
@@ -142,7 +143,8 @@ export class EclaireDto {
         ModelUtils.decodeHtmlString(site_investigateur.titre_investigateur),
         ModelUtils.decodeHtmlString(site_investigateur.nom),
         ModelUtils.decodeHtmlString(site_investigateur.prenom),
-        ModelUtils.decodeHtmlString(site_investigateur.service)
+        ModelUtils.decodeHtmlString(site_investigateur.service),
+        ModelUtils.decodeHtmlString(site_investigateur.code_postal)
       )),
       riphDmDto.numero_national,
       riphDmDto.titre_recherche,
@@ -210,7 +212,8 @@ export class EclaireDto {
         ModelUtils.decodeHtmlString(site_investigateur.titre_investigateur),
         ModelUtils.decodeHtmlString(site_investigateur.nom),
         ModelUtils.decodeHtmlString(site_investigateur.prenom),
-        ModelUtils.decodeHtmlString(site_investigateur.service)
+        ModelUtils.decodeHtmlString(site_investigateur.service),
+        ModelUtils.decodeHtmlString(site_investigateur.code_postal)     
       )),
       riphJardeDto.numero_national,
       riphJardeDto.titre_recherche,
@@ -278,11 +281,12 @@ class Site {
     readonly titre: string,
     readonly nom: string,
     readonly prenom: string,
-    readonly service: string
+    readonly service: string,
+    readonly code_postal: string
   ) { }
 
   toString() {
-    return `Organisme: ${this.organisme} - Adresse: ${this.adresse} - Ville: ${this.ville} - Titre: ${this.titre} - Nom: ${this.nom} - Prenom: ${this.prenom} - Service: ${this.service}`
+    return `Organisme: ${this.organisme} - Adresse: ${this.adresse} - Ville: ${this.ville} - Titre: ${this.titre} - Nom: ${this.nom} - Prenom: ${this.prenom} - Service: ${this.service} - Code_postale: ${this.code_postal}`
   }
 }
 
