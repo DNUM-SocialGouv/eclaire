@@ -28,13 +28,14 @@ export class LocationModel implements Location {
     organism: string,
     service: string,
     title: string,
+    postalCode: string,
     text: NarrativeModel
   ): Location {
     const lines: string[] = [address, service]
 
     return new LocationModel(
       id,
-      AddressModel.create(lines, city, undefined, 'FR', undefined),
+      AddressModel.create(lines, city, postalCode, 'FR', undefined),
       [IdentifierModel.createLocation(id)],
       organism,
       [ContactPointModel.createSiteContactName(firstname, name, title)],

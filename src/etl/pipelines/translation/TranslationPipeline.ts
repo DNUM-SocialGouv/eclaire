@@ -36,14 +36,14 @@ export class TranslationPipeline {
     let allResults:ResearchStudyModel[] = []
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      this.logger?.info(`---- from value: ${from}`)
+      this.logger?.info(`---- Translate: from value: ${from}`)
       requestBodyToFindEveryCtisStudiesSinceASpecificDate.from = from
       const response: SearchResponse = await this.databaseService.search(
         requestBodyToFindEveryCtisStudiesSinceASpecificDate,
         true
       )
 
-      this.logger?.info(`---- Received ${response.hits.length} hits`)
+      this.logger?.info(`---- Translate: Received ${response.hits.length} hits`)
       if (!response.hits || response.hits.length === 0) break
 
       const res = response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))

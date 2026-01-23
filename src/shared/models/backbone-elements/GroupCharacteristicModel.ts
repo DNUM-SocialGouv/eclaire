@@ -6,7 +6,7 @@ import { RangeModel } from '../data-types/RangeModel'
 export class GroupCharacteristicModel implements GroupCharacteristic {
   private constructor(
     readonly code: CodeableConcept,
-    readonly exclude: boolean,
+    readonly exclude: boolean | undefined,
     readonly valueBoolean: boolean | undefined,
     readonly valueCodeableConcept: CodeableConcept | undefined,
     readonly valueQuantity: Quantity | undefined,
@@ -18,7 +18,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
   static createGender(genders: string[]): GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicKindVs('grp-gender'),
-      false,
+      undefined,
       undefined,
       CodeableConceptModel.createGenders(genders),
       undefined,
@@ -30,7 +30,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
   static createAgeRange(ageRange: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicKindVs('grp-age'),
-      false,
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -42,7 +42,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
   static createResearchStudyGroupCategory(researchStudyGroupCategory: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicKindVs('grp-category'),
-      false,
+      undefined,
       undefined,
       CodeableConceptModel.createResearchStudyGroupCategory(researchStudyGroupCategory),
       undefined,
@@ -54,7 +54,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
   static createStudyPopulation(studyPopulation: string[]): GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicKindVs('grp-studypop'),
-      false,
+      undefined,
       undefined,
       CodeableConceptModel.createStudyPopulation(studyPopulation),
       undefined,

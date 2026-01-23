@@ -37,11 +37,11 @@ export class GroupModel implements Group {
   ): Group {
     const characteristic: GroupCharacteristic[] = []
 
-    if (ModelUtils.isNotNull(genders)) {
-      characteristic.push(GroupCharacteristicModel.createGender(genders))
+    if (ModelUtils.filterEmptyAndCheck(genders).hasValue) {
+      characteristic.push(GroupCharacteristicModel.createGender(ModelUtils.filterEmptyAndCheck(genders).values))
     }
 
-    if (ModelUtils.isNotNull(ageRanges)) {
+    if (ModelUtils.filterEmptyAndCheck(ageRanges).hasValue) {
       const ageRangesCodes = [
         ...new Set(
           ageRanges.map((value) => {
@@ -63,20 +63,21 @@ export class GroupModel implements Group {
     if (ModelUtils.isNotNull(researchStudyGroupCategory)) {
       characteristic.push(GroupCharacteristicModel.createResearchStudyGroupCategory(researchStudyGroupCategory))
     }
-    if (ModelUtils.isNotNull(studyPopulation)) {
-      characteristic.push(GroupCharacteristicModel.createStudyPopulation(studyPopulation))
+
+    if (ModelUtils.filterEmptyAndCheck(studyPopulation).hasValue) {
+      characteristic.push(GroupCharacteristicModel.createStudyPopulation(ModelUtils.filterEmptyAndCheck(studyPopulation).values))
     }
 
-    if (eligibilityCriteria && eligibilityCriteria.length > 0) {
-      eligibilityCriteria.forEach((eligibilityCriteria: Critere) => {
-        const exclude = eligibilityCriteria.type === 'INCLUSION' ? false : true
-        characteristic.push(GroupCharacteristicModel.createDocumentCriteria(eligibilityCriteria.titre, exclude, 'eligibility-criteria'))
+    if (ModelUtils.filterValidItems(eligibilityCriteria).hasData) {
+      ModelUtils.filterValidItems(eligibilityCriteria).values.forEach((item: Critere) => {
+        const exclude = item.type === 'INCLUSION' ? false : true
+        characteristic.push(GroupCharacteristicModel.createDocumentCriteria(item.titre, exclude, 'eligibility-criteria'))
       })
     }
-    if (judgementCriteria && judgementCriteria.length > 0) {
-      judgementCriteria.forEach((judgementCriteria: Critere) => {
-        const exclude = judgementCriteria.type === 'PRINCIPAL' ? false : true
-        characteristic.push(GroupCharacteristicModel.createDocumentCriteria(judgementCriteria.titre, exclude, 'judgement-criteria'))
+    if (ModelUtils.filterValidItems(judgementCriteria).hasData) {
+      ModelUtils.filterValidItems(judgementCriteria).values.forEach((item: Critere) => {
+        const exclude = item.type === 'PRINCIPAL' ? false : true
+        characteristic.push(GroupCharacteristicModel.createDocumentCriteria(item.titre, exclude, 'judgement-criteria'))
       })
     }
 

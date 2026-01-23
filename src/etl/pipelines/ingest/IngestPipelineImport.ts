@@ -26,11 +26,11 @@ export class IngestPipelineImport extends IngestPipeline {
   }
 
   async import(): Promise<void> {
-    // Extraire les donn�es
+    // Extract the data
     const dataDM: RiphDmDto[] = await super.extract<RiphDmDto>()
     const ctisData: RiphCtisDto[] = await super.extract<RiphCtisDto>('ctis')
     const jardeData: RiphJardeDto[] = await super.extract<RiphJardeDto>('jarde')
-    // S�parer les donn�es selon reglementation_code
+    // Separate the data according to code regulations
     const dm745Data = dataDM.filter((d) => d.reglementation_code === 'REG745')
     const dm746Data = dataDM.filter((d) => d.reglementation_code === 'REG746')
 
