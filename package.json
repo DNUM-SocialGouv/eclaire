@@ -58,6 +58,7 @@
     "@opensearch-project/opensearch": "^3.5.1",
     "@sentry/nestjs": "^9.22.0",
     "@types/fhir": "^0.0.41",
+    "axios": "^1.13.2",
     "exceljs": "^4.4.0",
     "express": "^4.21.2",
     "he": "^1.2.0",
