@@ -73,7 +73,9 @@ class Site {
     readonly nom: string,
     readonly prenom: string,
     readonly service: string,
-    readonly code_postal: string
+    readonly code_postal: string,
+    readonly courriel: string,
+    readonly telephone: string
   ) {
   }
 }
@@ -87,7 +89,9 @@ class SiteInvestigateur {
     readonly nom: string,
     readonly prenom: string,
     readonly service: string,
-    readonly code_postal: string
+    readonly code_postal: string,
+    readonly courriel: string,
+    readonly telephone: string
   ) {
   }
 }

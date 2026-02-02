@@ -58,7 +58,9 @@ export class EclaireDto {
       ModelUtils.decodeHtmlString(site.nom),
       ModelUtils.decodeHtmlString(site.prenom),
       ModelUtils.decodeHtmlString(site.service),
-      ModelUtils.decodeHtmlString(site.code_postal)
+      ModelUtils.decodeHtmlString(site.code_postal),
+      ModelUtils.decodeHtmlString(site.courriel),
+      ModelUtils.decodeHtmlString(site.telephone)
     ))
 
     const listePhaseRecherche: Phase[] = riphCtisDto.phase_recherche?.match(/Phase (IV|III|II|I)/g) as Phase[]
@@ -144,7 +146,9 @@ export class EclaireDto {
         ModelUtils.decodeHtmlString(site_investigateur.nom),
         ModelUtils.decodeHtmlString(site_investigateur.prenom),
         ModelUtils.decodeHtmlString(site_investigateur.service),
-        ModelUtils.decodeHtmlString(site_investigateur.code_postal)
+        ModelUtils.decodeHtmlString(site_investigateur.code_postal),
+        ModelUtils.decodeHtmlString(site_investigateur.courriel),
+        ModelUtils.decodeHtmlString(site_investigateur.telephone)
       )),
       riphDmDto.numero_national,
       riphDmDto.titre_recherche,
@@ -213,7 +217,9 @@ export class EclaireDto {
         ModelUtils.decodeHtmlString(site_investigateur.nom),
         ModelUtils.decodeHtmlString(site_investigateur.prenom),
         ModelUtils.decodeHtmlString(site_investigateur.service),
-        ModelUtils.decodeHtmlString(site_investigateur.code_postal)     
+        ModelUtils.decodeHtmlString(site_investigateur.code_postal),
+        ModelUtils.decodeHtmlString(site_investigateur.courriel),
+        ModelUtils.decodeHtmlString(site_investigateur.telephone)
       )),
       riphJardeDto.numero_national,
       riphJardeDto.titre_recherche,
@@ -282,11 +288,13 @@ class Site {
     readonly nom: string,
     readonly prenom: string,
     readonly service: string,
-    readonly code_postal: string
+    readonly code_postal: string,
+    readonly courriel: string,
+    readonly telephone: string
   ) { }
 
   toString() {
-    return `Organisme: ${this.organisme} - Adresse: ${this.adresse} - Ville: ${this.ville} - Titre: ${this.titre} - Nom: ${this.nom} - Prenom: ${this.prenom} - Service: ${this.service} - Code_postale: ${this.code_postal}`
+    return `Organisme: ${this.organisme} - Adresse: ${this.adresse} - Ville: ${this.ville} - Titre: ${this.titre} - Nom: ${this.nom} - Prenom: ${this.prenom} - Service: ${this.service} - Code_postale: ${this.code_postal} - courriel: ${this.courriel} - telephone: ${this.telephone}`
   }
 }
 

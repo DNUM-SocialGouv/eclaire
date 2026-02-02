@@ -162,7 +162,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
             "id": "disease-condition-2022-500014-26-00",
             "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
-          CodeableConceptModel {
+          {
             "coding": [
               CodingModel {
                 "code": "10070575",
@@ -172,9 +172,8 @@ describe('etl | Pipelines | MedDraPipeline', () => {
               },
             ],
             "id": "meddra-condition-2022-500014-26-00-10070575",
-            "text": undefined,
           },
-          CodeableConceptModel {
+          {
             "coding": [
               CodingModel {
                 "code": "10065430",
@@ -184,7 +183,6 @@ describe('etl | Pipelines | MedDraPipeline', () => {
               },
             ],
             "id": "meddra-condition-2022-500014-26-00-10065430",
-            "text": undefined,
           },
         ]
       `)
@@ -210,7 +208,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
             "id": "disease-condition-2022-500014-26-00",
             "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
-          CodeableConceptModel {
+          {
             "coding": [
               CodingModel {
                 "code": "10070575",
@@ -220,7 +218,6 @@ describe('etl | Pipelines | MedDraPipeline', () => {
               },
             ],
             "id": "meddra-condition-2022-500014-26-00-10070575",
-            "text": undefined,
           },
         ]
       `)

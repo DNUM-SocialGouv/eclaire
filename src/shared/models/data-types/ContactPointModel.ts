@@ -16,7 +16,7 @@ export class ContactPointModel implements ContactPoint {
       | undefined,
     readonly use: 'home' | 'work' | 'temp' | 'old' | 'mobile' | undefined,
     readonly value: string | undefined
-  ) {}
+  ) { }
 
   static createPhone(phone: string): ContactPoint {
     return new ContactPointModel(
@@ -48,7 +48,7 @@ export class ContactPointModel implements ContactPoint {
   static createSiteContactName(firstname: string, name: string, title: string): ContactPoint {
     return new ContactPointModel(
       [ExtensionModel.createEclaireSiteContactName(firstname, name, title)],
-      undefined,
+      'other',
       'work',
       undefined
     )

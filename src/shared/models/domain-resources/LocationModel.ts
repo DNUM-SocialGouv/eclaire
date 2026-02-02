@@ -29,6 +29,8 @@ export class LocationModel implements Location {
     service: string,
     title: string,
     postalCode: string,
+    courriel: string,
+    telephone: string,
     text: NarrativeModel
   ): Location {
     const lines: string[] = [address, service]
@@ -38,7 +40,7 @@ export class LocationModel implements Location {
       AddressModel.create(lines, city, postalCode, 'FR', undefined),
       [IdentifierModel.createLocation(id)],
       organism,
-      [ContactPointModel.createSiteContactName(firstname, name, title)],
+      [ContactPointModel.createEmail(courriel), ContactPointModel.createPhone(telephone), ContactPointModel.createSiteContactName(firstname, name, title)],
       text
     )
   }

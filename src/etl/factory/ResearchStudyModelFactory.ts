@@ -332,6 +332,8 @@ export class ResearchStudyModelFactory {
           ModelUtils.undefinedIfNull(siteDto.service),
           ModelUtils.undefinedIfNull(siteDto.titre),
           ModelUtils.undefinedIfNull(siteDto.code_postal ? siteDto.code_postal : '75000'),
+          ModelUtils.undefinedIfNull(siteDto.courriel ? siteDto.courriel : 'rami.abdelkader@cgi.com'),
+          ModelUtils.undefinedIfNull(siteDto.telephone ? siteDto.telephone : '0117959204'),
           text
         ))
       }
