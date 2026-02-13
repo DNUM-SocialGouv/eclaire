@@ -19,17 +19,28 @@ export class ModelUtils {
     return decoded
   }
 
-  static undefinedIfNull(value: string): string {
-    return value ?? undefined
+  static undefinedIfNull(value: string | null | undefined): string | undefined {
+    return value ? value : undefined
   }
 
-  static filterEmptyAndCheck(arr: string[]): {
+  static filterEmptyAndCheck(arr: (string | boolean)[]): {
     hasValue: boolean;
     values: string[];
   } {
-    const filtered = (arr || []).filter(
-      (item) => typeof item === 'string' && item.trim() !== 'unknown' && item.trim() !== ''
-    )
+    const filtered = (arr || [])
+      .filter(
+        (item) =>
+          typeof item === 'boolean' ||
+          (typeof item === 'string' &&
+            item.trim() !== '' &&
+            item.trim() !== 'unknown')
+      )
+      .map((item) => {
+        if (typeof item === 'boolean') {
+          return 'other'
+        }
+        return item.trim()
+      })
 
     return {
       hasValue: filtered.length > 0,
@@ -55,10 +66,10 @@ export class ModelUtils {
     }
   }
 
-  static isNotNull(value: unknown): boolean {
+  static isNotNull(value: unknown, check: boolean = true): boolean {
     if (value === null || value === undefined) return false
 
-    if (typeof value === 'string') {
+    if (typeof value === 'string' && check) {
       return value.trim() !== '' && value.trim() !== 'Données non disponible'
     }
 

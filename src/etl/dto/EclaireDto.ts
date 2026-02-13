@@ -28,7 +28,7 @@ export class EclaireDto {
     readonly tranches_age: string[],
     readonly sexe: string[],
     readonly groupes_sujet: string,
-    readonly population_recrutement: string[],
+    readonly population_recrutement: (string | boolean)[],
     readonly date_debut_recrutement: string,
     readonly historique: string,
     readonly dates_avis_favorable_ms_mns: string,
@@ -50,7 +50,7 @@ export class EclaireDto {
   ) { }
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
-    const sites = riphCtisDto.sites.map((site): Site => new Site(
+    const sites = riphCtisDto.sites_investigateurs?.map((site): Site => new Site(
       ModelUtils.decodeHtmlString(site.organisme),
       ModelUtils.decodeHtmlString(site.adresse),
       ModelUtils.decodeHtmlString(site.ville),
@@ -160,7 +160,7 @@ export class EclaireDto {
       riphDmDto.participants_tranches_age?.split(', ') || null,
       riphDmDto.participants_sexe?.split(',') || ['unknown'],
       riphDmDto.participants_groupe_sujets,
-      [riphDmDto.participants_population_vulnerable],
+      [riphDmDto.participants_population_vulnerable ? riphDmDto.participants_population_vulnerable : false],
       riphDmDto.date_debut_recrutement !== null ? new Date(riphDmDto.date_debut_recrutement).toISOString() : null,
       riphDmDto.historique,
       riphDmDto.dates_avis_favorable_ms_mns,
@@ -231,7 +231,7 @@ export class EclaireDto {
       riphJardeDto.participants_tranches_age?.split(', ') || null,
       riphJardeDto.participants_sexe?.split(',') || ['unknown'],
       riphJardeDto.participants_groupe_sujets,
-      [riphJardeDto.participants_population_vulnerable],
+      [riphJardeDto.participants_population_vulnerable ? riphJardeDto.participants_population_vulnerable : false],
       riphJardeDto.date_debut_recrutement !== null ? new Date(riphJardeDto.date_debut_recrutement).toISOString() : null,
       riphJardeDto.historique,
       riphJardeDto.dates_avis_favorable_ms_mns,

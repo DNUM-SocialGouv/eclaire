@@ -78,40 +78,42 @@ export class ResearchStudyModelFactory {
       const contact_telephone = ModelUtils.isNotNull(eclaireDto.contact_telephone) ? eclaireDto.contact_telephone : undefined
       const contact_courriel = ModelUtils.isNotNull(eclaireDto.contact_courriel) ? eclaireDto.contact_courriel : undefined
 
-      contact.push(ContactDetailModel.create(
+      const contactSponsor = ContactDetailModel.create(
         contact_prenom,
         undefined,
         contact_nom,
         contact_telephone,
         contact_courriel,
-        undefined,
+        'Scientific',
         ModelUtils.decodeHtmlString(eclaireDto.organisme_adresse),
-        eclaireDto.organisme_pays,
-        eclaireDto.organisme_ville,
-        eclaireDto.organisme_code_postal,
+        ModelUtils.undefinedIfNull(eclaireDto.organisme_pays),
+        ModelUtils.undefinedIfNull(eclaireDto.organisme_ville),
+        ModelUtils.undefinedIfNull(eclaireDto.organisme_code_postal),
         undefined,
-        undefined, // to 'Sponsor' after confiramation
-        eclaireDto.organisme_nom
-      ))
+        ModelUtils.undefinedIfNull(eclaireDto.organisme_nom)
+      )
+      if (contactSponsor) {
+        contact.push(contactSponsor)
+      }
     }
 
-    contact.push(
-      ContactDetailModel.create(
-        eclaireDto.contact_public.prenom,
-        undefined,
-        eclaireDto.contact_public.nom,
-        eclaireDto.contact_public.telephone,
-        eclaireDto.contact_public.courriel,
-        'Public',
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined, // to 'Public' after confiramation
-        undefined
-      )
+    const contactPub = ContactDetailModel.create(
+      eclaireDto.contact_public.prenom,
+      undefined,
+      eclaireDto.contact_public.nom,
+      eclaireDto.contact_public.telephone,
+      eclaireDto.contact_public.courriel,
+      'Public',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
     )
+    if (contactPub) {
+      contact.push(contactPub)
+    }
 
     const valuedesc = `La durée de participation est de: ${eclaireDto.duree_participation} mois`
     const description = ModelUtils.undefinedIfNull(eclaireDto.duree_participation ? valuedesc : eclaireDto.duree_participation)
@@ -280,6 +282,8 @@ export class ResearchStudyModelFactory {
   } {
     const enrollmentGroupId = ModelUtils.generateEnrollmentGroupId(eclaireDto.numero_primaire)
     const enrollment: Reference[] = [ReferenceModel.createGroupDetailingStudyCharacteristics(enrollmentGroupId)]
+    const typeReglementation = eclaireDto.reglementation_code === 'REG536' ? 'CTIS' : 'OTHER'
+
     const enrollmentGroup: Group = GroupModel.createStudyCharacteristics(
       enrollmentGroupId,
       eclaireDto.sexe,
@@ -289,7 +293,8 @@ export class ResearchStudyModelFactory {
       eclaireDto.population_recrutement,
       eclaireDto.criteres_eligibilite,
       eclaireDto.criteres_jugement,
-      text
+      text,
+      typeReglementation
     )
 
     return { enrollment, enrollmentGroup }
@@ -310,14 +315,12 @@ export class ResearchStudyModelFactory {
     for (let siteDtoIndex = 0; siteDtoIndex < eclaireDto.sites.length; siteDtoIndex++) {
       const siteDto = eclaireDto.sites.at(siteDtoIndex)
 
+      // following the v15 evolution only the organism is required
+      /* Regarding organization names, the value “Données non disponibles”
+      may be displayed for certain older sites for which this information
+      was not required at the time of creation. */
       if (
-        ModelUtils.isNotNull(siteDto.adresse) &&
-        ModelUtils.isNotNull(siteDto.ville) &&
-        ModelUtils.isNotNull(siteDto.prenom) &&
-        ModelUtils.isNotNull(siteDto.nom) &&
-        ModelUtils.isNotNull(siteDto.organisme) &&
-        ModelUtils.isNotNull(siteDto.service) &&
-        ModelUtils.isNotNull(siteDto.titre)
+        ModelUtils.isNotNull(siteDto.organisme, false)
       ) {
         const siteId = ModelUtils.generateSiteId(eclaireDto.numero_primaire + '-' + siteDtoIndex.toString())
         site.push(ReferenceModel.createSite(siteId))
@@ -331,9 +334,9 @@ export class ResearchStudyModelFactory {
           ModelUtils.undefinedIfNull(siteDto.organisme),
           ModelUtils.undefinedIfNull(siteDto.service),
           ModelUtils.undefinedIfNull(siteDto.titre),
-          ModelUtils.undefinedIfNull(siteDto.code_postal ? siteDto.code_postal : '75000'),
-          ModelUtils.undefinedIfNull(siteDto.courriel ? siteDto.courriel : 'rami.abdelkader@cgi.com'),
-          ModelUtils.undefinedIfNull(siteDto.telephone ? siteDto.telephone : '0117959204'),
+          ModelUtils.undefinedIfNull(siteDto.code_postal),
+          ModelUtils.undefinedIfNull(siteDto.courriel),
+          ModelUtils.undefinedIfNull(siteDto.telephone),
           text
         ))
       }

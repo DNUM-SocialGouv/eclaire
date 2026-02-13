@@ -30,10 +30,11 @@ export class GroupModel implements Group {
     ageRanges: string[],
     studySize: number,
     researchStudyGroupCategory: string,
-    studyPopulation: string[],
+    studyPopulation: (string | boolean)[],
     eligibilityCriteria: Critere[],
     judgementCriteria: Critere[],
-    text: NarrativeModel
+    text: NarrativeModel,
+    typeReglementation : 'CTIS' | 'OTHER'
   ): Group {
     const characteristic: GroupCharacteristic[] = []
 
@@ -65,7 +66,9 @@ export class GroupModel implements Group {
     }
 
     if (ModelUtils.filterEmptyAndCheck(studyPopulation).hasValue) {
-      characteristic.push(GroupCharacteristicModel.createStudyPopulation(ModelUtils.filterEmptyAndCheck(studyPopulation).values))
+      const type = typeReglementation === 'CTIS' ? 'recruitment_population' : 'vulnerable_population'
+      const exclude = typeReglementation === 'OTHER' && studyPopulation[0] ? true : typeReglementation === 'OTHER' && !studyPopulation[0] ? false : undefined
+      characteristic.push(GroupCharacteristicModel.createStudyPopulation(ModelUtils.filterEmptyAndCheck(studyPopulation).values, exclude, type ))
     }
 
     if (ModelUtils.filterValidItems(eligibilityCriteria).hasData) {
@@ -74,6 +77,7 @@ export class GroupModel implements Group {
         characteristic.push(GroupCharacteristicModel.createDocumentCriteria(item.titre, exclude, 'eligibility-criteria'))
       })
     }
+
     if (ModelUtils.filterValidItems(judgementCriteria).hasData) {
       ModelUtils.filterValidItems(judgementCriteria).values.forEach((item: Critere) => {
         const exclude = item.type === 'PRINCIPAL' ? false : true

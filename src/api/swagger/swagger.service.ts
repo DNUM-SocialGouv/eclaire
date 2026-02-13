@@ -26,7 +26,7 @@ export class SwaggerService {
         <li>Utiliser les champs pour filtrer. On peut, par exemple, utiliser les champs "_text" ou "_content" avec les mots clef "CTIS", "JARDE", "DM", etc.</li>
         <li>Cliquer sur "Exécuter" pour voir le résultat au format JSON</li>
       </ul>
-      <p>Vous pouvez consulter notre documentation technique et fonctionnelle <a href="https://eclaire-api.sante.gouv.fr/documentation?filename=doc_technique.pdf" target="_blank"><abbr title="Documentation technique Eclaire">ici</abbr></a>.</p>`)
+      <p>Vous pouvez consulter notre documentation technique <a href="https://eclaire-api.sante.gouv.fr/documentation?filename=doc_technique.pdf" target="_blank"><abbr title="Documentation technique Eclaire">ici</abbr></a>.</p>`)
       .setExternalDoc('Notre documentation FHIR est disponible via notre guide d’implémentation (R4).', 'https://interop.esante.gouv.fr/ig/fhir/eclaire/index.html')
       .setVersion('0.3.0')
       .build()

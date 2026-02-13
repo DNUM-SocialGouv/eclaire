@@ -11,7 +11,7 @@ export class RiphCtisDto {
     readonly contact_prenom: string,
     readonly contact_telephone: string,
     readonly contact_courriel: string,
-    readonly sites: Site[],
+    readonly sites_investigateurs: Site[],
     readonly numero_ctis: string,
     readonly titre: string,
     readonly intervention_faible: string,
@@ -50,8 +50,7 @@ export class RiphCtisDto {
     readonly participants_groupe_sujets: string,
     readonly participants_population_vulnerable: string,
     readonly statut_recrutement: string,
-    readonly date_fin_recrutement: string,
-    readonly sites_investigateurs: SiteInvestigateur[]
+    readonly date_fin_recrutement: string
   ) {
   }
 }
@@ -70,22 +69,6 @@ class Site {
     readonly adresse: string,
     readonly ville: string,
     readonly titre: string,
-    readonly nom: string,
-    readonly prenom: string,
-    readonly service: string,
-    readonly code_postal: string,
-    readonly courriel: string,
-    readonly telephone: string
-  ) {
-  }
-}
-
-class SiteInvestigateur {
-  private constructor(
-    readonly organisme: string,
-    readonly adresse: string,
-    readonly ville: string,
-    readonly titre_investigateur: string,
     readonly nom: string,
     readonly prenom: string,
     readonly service: string,

@@ -35,12 +35,17 @@ export class LocationModel implements Location {
   ): Location {
     const lines: string[] = [address, service]
 
+    const telecomContact = []
+    if (courriel) telecomContact.push(ContactPointModel.createEmail(courriel))
+    if (telephone) telecomContact.push(ContactPointModel.createPhone(telephone))
+    if (firstname || name || title) telecomContact.push(ContactPointModel.createSiteContactName(firstname, name, title))
+
     return new LocationModel(
       id,
-      AddressModel.create(lines, city, postalCode, 'FR', undefined),
+      AddressModel.create(lines, city, postalCode, 'FR'),
       [IdentifierModel.createLocation(id)],
       organism,
-      [ContactPointModel.createEmail(courriel), ContactPointModel.createPhone(telephone), ContactPointModel.createSiteContactName(firstname, name, title)],
+      telecomContact.length ? telecomContact : undefined,
       text
     )
   }
