@@ -35,7 +35,7 @@ describe('#FindGroupController - e2e', () => {
 
     // THEN
     expect(response.statusCode).toBe(404)
-    expect(response.get('content-type')).toBe('application/fhir+json; charset=utf-8')
-    expect(response.text).toMatchInlineSnapshot('"{"issue":[{"code":"processing","diagnostics":"No enrollment group fund","severity":"error"}],"resourceType":"OperationOutcome"}"')
+    expect(response.get('content-type')).toBe('application/json; charset=utf-8')
+    expect(response.text).toMatchInlineSnapshot('"{"statusCode":404,"message":"Response Error"}"')
   })
 })

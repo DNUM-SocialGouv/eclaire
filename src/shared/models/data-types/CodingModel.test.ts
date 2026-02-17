@@ -1,3 +1,4 @@
+import { CodeableConceptModel } from './CodeableConceptModel'
 import { CodingModel, EclaireGroupCharacteristicKindVsReferenceCode } from './CodingModel'
 
 describe('shared | models | CodingModel', () => {
@@ -13,11 +14,10 @@ describe('shared | models | CodingModel', () => {
       [null, 'n-a', 'N/A'],
     ])('should create a properly formatted model when %s is given', (rawPhase, code, display) => {
       // WHEN
-      const phase = CodingModel.createResearchStudyPhase(rawPhase)
-
+      const phase = CodeableConceptModel.createResearchStudyPhase(rawPhase)
       // THEN
-      expect(phase.code).toBe(code)
-      expect(phase.display).toBe(display)
+      expect(phase.coding[0].code).toBe(code)
+      expect(phase.coding[0].display).toBe(display)
     })
   })
 

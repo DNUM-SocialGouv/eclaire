@@ -25,8 +25,8 @@ export class CodingModel implements Coding {
   ) { }
 
   static createResearchStudyPhase(phaseIndex: number): Coding {
-    const code = researchStudyPhaseCodeSystem.concept[phaseIndex].code
-    const display = researchStudyPhaseCodeSystem.concept[phaseIndex].display
+    const code = researchStudyPhaseCodeSystem.concept[phaseIndex]?.code
+    const display = researchStudyPhaseCodeSystem.concept[phaseIndex]?.display
     const url = researchStudyPhaseCodeSystem.url
     const version = researchStudyPhaseCodeSystem.version
 

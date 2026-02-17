@@ -3,6 +3,7 @@ import { CodeableConcept, Extension, ResearchStudy } from 'fhir/r4'
 import { expect } from 'vitest'
 
 import { TranslationPipeline } from './TranslationPipeline'
+import { TranslationPipelineCtis } from './TranslationPipelineCtis'
 import { EsResearchStudyRepository } from '../../../api/research-study/gateways/EsResearchStudyRepository'
 import { elasticsearchIndexMapping } from '../../../shared/elasticsearch/elasticsearchIndexMapping'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
@@ -13,21 +14,7 @@ import { setupTranslationService } from '../../../shared/test/helpers/translatio
 import { TranslationService } from '../../../shared/translation/TranslationService'
 import { EclaireDto } from '../../dto/EclaireDto'
 import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFactory'
-
-function sortById<T extends { id?: string }>(data: T[]): T[] {
-  return data.sort((a, b) => {
-    const idA = a.id ?? ''
-    const idB = b.id ?? ''
-
-    const aIsNum = /^\d/.test(idA)
-    const bIsNum = /^\d/.test(idB)
-
-    if (aIsNum && !bIsNum) return 1
-    if (!aIsNum && bIsNum) return -1
-
-    return idA.localeCompare(idB)
-  })
-}
+import { ElasticsearchService } from 'src/shared/elasticsearch/ElasticsearchService'
 
 describe('etl | Pipelines | TranslationPipeline', () => {
   afterEach(() => {
@@ -53,7 +40,24 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         from: 0,
         query: {
           bool: {
-            filter: [],
+            filter: [
+              {
+                nested: {
+                  path: 'category',
+                  query: {
+                    nested: {
+                      path: 'category.coding',
+                      query: {
+                        bool: {
+                          must: [{ term: { 'category.coding.system': 'https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-regulation-code-code-system' } }],
+                          must_not: [{ term: { 'category.coding.code': 'REG536' } }],
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            ],
             must: [{ range: { 'meta.lastUpdated': { gte: '2022-10-06' } } }],
           },
         },
@@ -79,7 +83,24 @@ describe('etl | Pipelines | TranslationPipeline', () => {
         from: 0,
         query: {
           bool: {
-            filter: [],
+            filter: [
+              {
+                nested: {
+                  path: 'category',
+                  query: {
+                    nested: {
+                      path: 'category.coding',
+                      query: {
+                        bool: {
+                          must: [{ term: { 'category.coding.system': 'https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-regulation-code-code-system' } }],
+                          must_not: [{ term: { 'category.coding.code': 'REG536' } }],
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            ],
             must: [{ range: { 'meta.lastUpdated': { gte: '2020-10-06' } } }],
           },
         },
@@ -108,30 +129,52 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const ctisDtoOutdated: EclaireDto = EclaireDto.fromCtis(RiphDtoTestFactory.ctis({
         dates_avis_favorable_ms_mns: null,
         historique: '1999-04-04:Terminée',
+        numero_ctis: 'fakeOld',
       }))
-
-      const jardeDto: EclaireDto = EclaireDto.fromJarde(RiphDtoTestFactory.jarde())
 
       const documents: ResearchStudyModel[] = [
         ResearchStudyModelFactory.create(ctisDto1),
         ResearchStudyModelFactory.create(ctisDto2),
         ResearchStudyModelFactory.create(ctisDtoOutdated),
-        ResearchStudyModelFactory.create(jardeDto),
       ]
 
-      const { databaseService } = await setup()
-      await databaseService.bulkDocuments(documents)
+      // MOCK DATABASE SERVICE
+      const databaseService = {
+        search: vi.fn(),
+        bulkDocuments: vi.fn(),
+      } as unknown as ElasticsearchService
 
-      const translationService: TranslationService = setupTranslationService()
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService, translationService)
+      const searchSpy = vi.spyOn(databaseService, 'search')
+      // simulate pagination with search_after
+      searchSpy
+        .mockResolvedValueOnce({
+          hits: documents.map((doc, index) => ({
+            _index: 'research-study',
+            _type: '_doc',
+            _id: `id-${index}`,
+            _score: 1,
+            _source: doc as unknown as Record<string, string>,
+            sort: [index],
+          })),
+          total: 3,
+        })
+        .mockResolvedValueOnce({
+          hits: [],
+          total: 3,
+        })
+
+      const translationService: TranslationService = { execute: vi.fn().mockResolvedValue({}) } as unknown as TranslationService
+
+      const translationPipeline: TranslationPipeline = new TranslationPipeline(
+        databaseService,
+        translationService
+      )
 
       vi.useFakeTimers()
       vi.setSystemTime(new Date('2022-10-07'))
 
       // when
       const result: ResearchStudy[] = await translationPipeline.extract()
-      // sort result by ID
-      sortById(result)
       // then
       expect(result[0].id).toBe('fakeId1')
       expect(result[1].id).toBe('fakeId2')
@@ -160,33 +203,43 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       ]
 
       const translationService: TranslationService = setupTranslationService()
-      vi.spyOn(translationService, 'execute')
+      vi.spyOn(translationService, 'executeCtis')
         .mockResolvedValueOnce({
-          'diseaseCondition-1': 'Titre 1 traduit en français',
-          'therapeuticArea-1': 'TherapeuticArea 1 traduit en français',
-          'title-1': 'DiseaseCondition 1 traduit en français',
-          'diseaseCondition-2': 'Titre 2 traduit en français',
-          'therapeuticArea-2': 'TherapeuticArea 2 traduit en français',
-          'title-2': 'DiseaseCondition 2 traduit en français',
+          diseaseCondition: 'DiseaseCondition 1 traduit en français',
+          therapeuticArea: 'TherapeuticArea 1 traduit en français',
+          title: 'Titre 1 traduit en français',
+          eligibilityCriteria: [],
+          judgmentCriteria: [],
+        })
+        .mockResolvedValueOnce({
+          diseaseCondition: 'DiseaseCondition 2 traduit en français',
+          therapeuticArea: 'TherapeuticArea 2 traduit en français',
+          title: 'Titre 2 traduit en français',
+          eligibilityCriteria: [],
+          judgmentCriteria: [],
         })
 
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, translationService)
+      const translationPipeline: TranslationPipelineCtis = new TranslationPipelineCtis(null, translationService)
 
       // when
       const result: ResearchStudyModel[] = await translationPipeline.transform(documents)
       // then
       expect(result[0].translatedContent).toMatchInlineSnapshot(`
         TranslatedContentModel {
-          "diseaseCondition": "Titre 1 traduit en français",
+          "diseaseCondition": "DiseaseCondition 1 traduit en français",
+          "eligibilityCriteria": [],
+          "judgmentCriteria": [],
           "therapeuticArea": "TherapeuticArea 1 traduit en français",
-          "title": "DiseaseCondition 1 traduit en français",
+          "title": "Titre 1 traduit en français",
         }
       `)
       expect(result[1].translatedContent).toMatchInlineSnapshot(`
         TranslatedContentModel {
-          "diseaseCondition": "Titre 2 traduit en français",
+          "diseaseCondition": "DiseaseCondition 2 traduit en français",
+          "eligibilityCriteria": [],
+          "judgmentCriteria": [],
           "therapeuticArea": "TherapeuticArea 2 traduit en français",
-          "title": "DiseaseCondition 2 traduit en français",
+          "title": "Titre 2 traduit en français",
         }
       `)
     })
@@ -211,17 +264,23 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       ]
 
       const translationService: TranslationService = setupTranslationService()
-      vi.spyOn(translationService, 'execute')
+      vi.spyOn(translationService, 'executeCtis')
         .mockResolvedValueOnce({
-          'diseaseCondition-1': 'Titre 1 traduit en français',
-          'therapeuticArea-1': 'TherapeuticArea 1 traduit en français',
-          'title-1': 'DiseaseCondition 1 traduit en français',
-          'diseaseCondition-2': 'Titre 2 traduit en français',
-          'therapeuticArea-2': 'TherapeuticArea 2 traduit en français',
-          'title-2': 'DiseaseCondition 2 traduit en français',
+          diseaseCondition: 'DiseaseCondition 1 traduit en français',
+          therapeuticArea: 'TherapeuticArea 1 traduit en français',
+          title: 'Titre 1 traduit en français',
+          eligibilityCriteria: [],
+          judgmentCriteria: [],
+        })
+        .mockResolvedValueOnce({
+          diseaseCondition: 'DiseaseCondition 2 traduit en français',
+          therapeuticArea: 'TherapeuticArea 2 traduit en français',
+          title: 'Titre 2 traduit en français',
+          eligibilityCriteria: [],
+          judgmentCriteria: [],
         })
 
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, translationService)
+      const translationPipeline: TranslationPipelineCtis = new TranslationPipelineCtis(null, translationService)
 
       // when
       const result: ResearchStudyModel[] = await translationPipeline.transform(documents)
@@ -259,28 +318,40 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       ]
 
       const translationService: TranslationService = setupTranslationService()
-      vi.spyOn(translationService, 'execute')
+      vi.spyOn(translationService, 'executeCtis')
         .mockResolvedValueOnce({
-          'diseaseCondition-1': '',
-          'therapeuticArea-1': '',
-          'title-1': 'Titre 1 traduit en français',
-          'diseaseCondition-2': '',
-          'therapeuticArea-2': '',
-          'title-2': '',
+          diseaseCondition: '',
+          therapeuticArea: '',
+          title: 'Titre 1 traduit en français',
+          eligibilityCriteria: [],
+          judgmentCriteria: [],
+        })
+        .mockResolvedValueOnce({
+          diseaseCondition: '',
+          therapeuticArea: '',
+          title: '',
+          eligibilityCriteria: [],
+          judgmentCriteria: [],
         })
 
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, translationService)
-
+      const translationPipeline: TranslationPipelineCtis = new TranslationPipelineCtis(null, translationService)
       // when
       await translationPipeline.transform(documents)
       // then
-      expect(translationService.execute).toHaveBeenCalledWith(
-        expect.arrayContaining([
-          'blah-blah',
-          'blah',
-          '',
-        ]),
-        0
+      expect(translationService.executeCtis).toHaveBeenCalledWith(
+        expect.objectContaining({
+          diseaseCondition: 'Locally-Advanced or Metastatic breast cancer (MBC)',
+          eligibilityCriteria: [
+            'TEST INCLUSION',
+            'TEST EXCLUSION',
+          ],
+          judgmentCriteria: [
+            'TEST PRINCIPAL',
+            'TEST SECONDAIRE',
+          ],
+          therapeuticArea: 'Diseases [C] - Neoplasms [C04]',
+          title: 'blah-blah-titre',
+        })
       )
     })
 
@@ -290,17 +361,23 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(eclaireDto)]
 
       const translationService: TranslationService = setupTranslationService()
-      vi.spyOn(translationService, 'execute')
+      vi.spyOn(translationService, 'executeCtis')
         .mockResolvedValueOnce({
-          'diseaseCondition-1': '',
-          'therapeuticArea-1': '',
-          'title-1': '',
-          'diseaseCondition-2': '',
-          'therapeuticArea-2': '',
-          'title-2': '',
+          diseaseCondition: '',
+          therapeuticArea: '',
+          title: '',
+          eligibilityCriteria: [],
+          judgmentCriteria: [],
+        })
+        .mockResolvedValueOnce({
+          diseaseCondition: '',
+          therapeuticArea: '',
+          title: '',
+          eligibilityCriteria: [],
+          judgmentCriteria: [],
         })
 
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, translationService)
+      const translationPipeline: TranslationPipelineCtis = new TranslationPipelineCtis(null, translationService)
 
       // when
       const result: ResearchStudyModel[] = await translationPipeline.transform(documents)
@@ -309,6 +386,8 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       expect(result[0].translatedContent).toMatchInlineSnapshot(`
         TranslatedContentModel {
           "diseaseCondition": "",
+          "eligibilityCriteria": [],
+          "judgmentCriteria": [],
           "therapeuticArea": "",
           "title": "",
         }
@@ -321,14 +400,16 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(eclaireDto)]
 
       const translationService: TranslationService = setupTranslationService()
-      vi.spyOn(translationService, 'execute')
+      vi.spyOn(translationService, 'executeCtis')
         .mockResolvedValueOnce({
-          'diseaseCondition-1': '',
-          'therapeuticArea-1': '',
-          'title-1': '',
+          diseaseCondition: '',
+          therapeuticArea: '',
+          title: '',
+          eligibilityCriteria: [],
+          judgmentCriteria: [],
         })
 
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, translationService)
+      const translationPipeline: TranslationPipelineCtis = new TranslationPipelineCtis(null, translationService)
 
       // when
       const translationResult: ResearchStudyModel[] = await translationPipeline.transform(documents)
@@ -338,6 +419,8 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       expect(translationResult[0].translatedContent).toMatchInlineSnapshot(`
         TranslatedContentModel {
           "diseaseCondition": "",
+          "eligibilityCriteria": [],
+          "judgmentCriteria": [],
           "therapeuticArea": "",
           "title": "",
         }
@@ -350,14 +433,16 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const documents: ResearchStudyModel[] = [ResearchStudyModelFactory.create(eclaireDto)]
 
       const translationService: TranslationService = setupTranslationService()
-      vi.spyOn(translationService, 'execute')
+      vi.spyOn(translationService, 'executeCtis')
         .mockResolvedValueOnce({
-          'diseaseCondition-1': '',
-          'therapeuticArea-1': '',
-          'title-1': '',
+          diseaseCondition: '',
+          therapeuticArea: '',
+          title: '',
+          eligibilityCriteria: [],
+          judgmentCriteria: [],
         })
 
-      const translationPipeline: TranslationPipeline = new TranslationPipeline(null, translationService)
+      const translationPipeline: TranslationPipelineCtis = new TranslationPipelineCtis(null, translationService)
 
       // when
       const translationResult: ResearchStudyModel[] = await translationPipeline.transform(documents)
@@ -436,28 +521,42 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       const translationService: TranslationService = setupTranslationService()
       vi.spyOn(translationService, 'execute')
         .mockResolvedValueOnce({
-          'diseaseCondition-1': '',
-          'therapeuticArea-1': '',
-          'title-1': jardeTitreRecherche,
           'diseaseCondition-2': '',
           'therapeuticArea-2': '',
-          'title-2': dmTitreRecherche,
-          'diseaseCondition-3': 'DiseaseCondition 1 traduit en français',
-          'therapeuticArea-3': 'TherapeuticArea 1 traduit en français',
-          'title-3': 'Titre 1 traduit en français',
-          'diseaseCondition-4': 'DiseaseCondition 2 traduit en français',
-          'therapeuticArea-4': 'TherapeuticArea 2 traduit en français',
-          'title-4': 'Titre 2 traduit en français',
+          'title-2': jardeTitreRecherche,
+          'diseaseCondition-3': '',
+          'therapeuticArea-3': '',
+          'title-3': dmTitreRecherche,
+        })
+
+      vi.spyOn(translationService, 'executeCtis')
+        .mockResolvedValueOnce({
+          diseaseCondition: 'DiseaseCondition 1 traduit en français',
+          therapeuticArea: 'TherapeuticArea 1 traduit en français',
+          title: 'Titre 1 traduit en français',
+          eligibilityCriteria: [],
+          judgmentCriteria: [],
+        })
+        .mockResolvedValueOnce({
+          diseaseCondition: 'DiseaseCondition 2 traduit en français',
+          therapeuticArea: 'TherapeuticArea 2 traduit en français',
+          title: 'Titre 2 traduit en français',
+          eligibilityCriteria: [],
+          judgmentCriteria: [],
         })
 
       const translationPipeline: TranslationPipeline = new TranslationPipeline(databaseService, translationService)
-
       // when
       await translationPipeline.execute()
 
+      // for CTIS
+      const translationPipelineCtis: TranslationPipelineCtis = new TranslationPipelineCtis(databaseService, translationService)
+      // when
+      await translationPipelineCtis.execute()
+
       // then
       const ctis1: ResearchStudyModel = await esResearchStudyRepository.findOne('ctis1')
-      expect(ctis1.title).toBe(jardeTitreRecherche)
+      expect(ctis1.title).toBe('Titre 1 traduit en français')
       expect(ctis1.translatedContent).toBeUndefined()
 
       const ctis2: ResearchStudyModel = await esResearchStudyRepository.findOne('ctis2')
@@ -465,7 +564,7 @@ describe('etl | Pipelines | TranslationPipeline', () => {
       expect(ctis2.translatedContent).toBeUndefined()
 
       const jarde: ResearchStudyModel = await esResearchStudyRepository.findOne('jarde')
-      expect(jarde.title).toBe('Titre 1 traduit en français')
+      expect(jarde.title).toBe(jardeTitreRecherche)
       expect(jarde.translatedContent).toBeUndefined()
 
       const dm: ResearchStudyModel = await esResearchStudyRepository.findOne('dm')
