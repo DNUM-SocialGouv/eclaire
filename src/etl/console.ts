@@ -35,6 +35,9 @@ async function console(): Promise<void> {
     case 'translate':
       await etlService.translate(startingDate)
       break
+    case 'translate-ctis':
+      await etlService.translateCtis(startingDate)
+      break  
     case 'update-meddra-labels':
       await etlService.updateMeddraLabels(startingDate)
       break

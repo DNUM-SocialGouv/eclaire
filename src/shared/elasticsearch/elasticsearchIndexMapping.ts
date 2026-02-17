@@ -1,12 +1,14 @@
 const coding = {
+  type: 'nested',
   properties: {
-    code: { type: 'text' },
+    code: { type: 'keyword' },
     display: { type: 'text' },
-    system: { type: 'text' },
+    system: { type: 'keyword' },
     version: { type: 'text' },
   },
 }
 const codeableConcept = {
+  type: 'nested',
   properties: {
     coding,
     text: { type: 'text' },

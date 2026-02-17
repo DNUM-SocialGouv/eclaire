@@ -29,6 +29,8 @@
     "etl:reset-index": "ts-node src/etl/console.ts reset-index",
     "etl:translate:everything": "ts-node src/etl/console.ts translate 1970-01-01",
     "etl:translate:yesterday": "ts-node src/etl/console.ts translate",
+    "etl:translateCtis:everything": "ts-node src/etl/console.ts translate-ctis 1970-01-01",
+    "etl:translateCtis:yesterday": "ts-node src/etl/console.ts translate-ctis",
     "etl:update-meddra-labels:everything": "ts-node src/etl/console.ts update-meddra-labels 1970-01-01",
     "etl:update-meddra-labels:yesterday": "ts-node src/etl/console.ts update-meddra-labels",
     "etl:import-data-on-xls": "ts-node src/etl/console.ts import-data-on-xls",

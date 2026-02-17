@@ -1,7 +1,6 @@
 import { errors } from '@opensearch-project/opensearch'
 import * as console from 'console'
 import fs from 'fs'
-
 import { JsonFileReaderService } from './json-file-reader/JsonFileReaderService'
 import { IngestPipeline } from './pipelines/ingest/IngestPipeline'
 import { IngestPipelineCtis } from './pipelines/ingest/IngestPipelineCtis'
@@ -10,11 +9,13 @@ import { IngestPipelineImport } from './pipelines/ingest/IngestPipelineImport'
 import { IngestPipelineJarde } from './pipelines/ingest/IngestPipelineJarde'
 import { MedDraPipeline } from './pipelines/translation/MedDraPipeline'
 import { TranslationPipeline } from './pipelines/translation/TranslationPipeline'
+import { TranslationPipelineCtis } from './pipelines/translation/TranslationPipelineCtis'
 import { S3Service } from './s3/S3Service'
 import { elasticsearchIndexMapping } from '../shared/elasticsearch/elasticsearchIndexMapping'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
 import { TranslationService } from '../shared/translation/TranslationService'
+
 
 export class EtlService {
   constructor(
@@ -22,7 +23,7 @@ export class EtlService {
     private readonly databaseService: ElasticsearchService,
     private readonly readerService: S3Service | JsonFileReaderService,
     private readonly translationService: TranslationService
-  ) {}
+  ) { }
 
   async createIndex(): Promise<void> {
     this.loggerService.info('-- Début de la création de l’index ECLAIRE dans Elasticsearch.')
@@ -175,12 +176,30 @@ export class EtlService {
   }
 
   async translate(startingDate?: string): Promise<void> {
-    this.loggerService.info('-- Début de la traduction des essais cliniques CTIS.')
+    this.loggerService.info('-- Début de la traduction des essais cliniques JARDE / DM / DMDIV')
 
     try {
       const translationPipeline: TranslationPipeline = new TranslationPipeline(this.databaseService, this.translationService, this.loggerService)
-      this.loggerService.info('-- Get translationPipeline.')
+      this.loggerService.info('-- Get translationPipeline JARDE / DM / DMDIV.')
       await translationPipeline.execute(startingDate)
+    } catch (error) {
+      if (error instanceof errors.ResponseError) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        throw new Error(error.meta.body.error.reason as string)
+      }
+      throw error
+    }
+
+    this.loggerService.info('-- Fin de la traduction des essais cliniques JARDE / DM / DMDIV')
+  }
+
+  async translateCtis(startingDate?: string): Promise<void> {
+    this.loggerService.info('-- Début de la traduction des essais cliniques CTIS.')
+
+    try {
+      const translationPipelineCtis: TranslationPipelineCtis = new TranslationPipelineCtis(this.databaseService, this.translationService, this.loggerService)
+      this.loggerService.info('-- Get translationPipeline CTIS.')
+      await translationPipelineCtis.execute(startingDate)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
