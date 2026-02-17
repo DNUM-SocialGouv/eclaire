@@ -19,36 +19,51 @@ export class MedDraPipeline {
   }
 
   async extract(startingDate?: string) {
-    let requestBodyToFindEveryCtisStudiesSinceASpecificDate: ElasticsearchBodyType
+    let requestBody: ElasticsearchBodyType
 
     if (startingDate) {
-      requestBodyToFindEveryCtisStudiesSinceASpecificDate = this.buildBodyToFindEveryCtisStudiesSinceAGivenDate(startingDate)
+      requestBody = this.buildBodyToFindEveryCtisStudiesSinceAGivenDate(startingDate)
     } else {
-      requestBodyToFindEveryCtisStudiesSinceASpecificDate = this.buildBodyToFindEveryCtisStudiesSinceYesterday()
+      requestBody = this.buildBodyToFindEveryCtisStudiesSinceYesterday()
     }
 
     this.logger?.info('---- Extract data to filter MedDra ///')
-    const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
+    const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'] ?? '100')
     let from = 0
-    let allResults:ResearchStudyModel[] = []
+    let searchAfter: any[] | undefined = undefined
+    let allResults: ResearchStudyModel[] = []
+    requestBody.size = chunkSize
+
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      this.logger?.info(`---- from value: ${from}`)
-      requestBodyToFindEveryCtisStudiesSinceASpecificDate.from = from
+      this.logger?.info(`---- Medra batch using search_after: from value: ${from}`)
+      // Inject search_after only if it is not the first query
+      if (searchAfter) {
+        requestBody.search_after = searchAfter
+      } else {
+        delete requestBody.search_after
+      }
+
       const response: SearchResponse = await this.databaseService.search(
-        requestBodyToFindEveryCtisStudiesSinceASpecificDate,
+        requestBody,
         true
       )
 
+      this.logger?.info(`---- Medra data: Received ${response.hits.length} hits`)
       if (!response.hits || response.hits.length === 0) break
 
       const res = response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
       const transformedResearchStudies: ResearchStudyModel[] = await this.transform(res)
       await this.load(transformedResearchStudies)
+      // retrieve the fate of the last document
+      const lastHit = response.hits[response.hits.length - 1]
+      searchAfter = lastHit.sort
+
       allResults = res
       from += chunkSize
     }
-    this.logger?.info('---- Get all MedDra finish')
+
+    this.logger?.info('---- update Medra infos finished')
     return allResults
   }
 
@@ -81,14 +96,15 @@ export class MedDraPipeline {
   }
 
   private buildBodyToFindEveryCtisStudiesSinceAGivenDate(date: string): ElasticsearchBodyType {
-    const ctisStudiesQueryParams: FhirParsedQueryParams[] = [
+    // Get Only CTIS documents
+    const queryParams: FhirParsedQueryParams[] = [
       { name: '_count', value: String(process.env['CHUNK_SIZE']) },
       { name: '_lastUpdated', value: `ge${date}` },
-      { name: '_text', value: 'REG536' },
+      { name: '_must', value: 'REG536' },
       { name: '_sort', value: 'meta.lastUpdated,_id' },
     ]
 
-    return convertFhirParsedQueryParamsToElasticsearchQuery(ctisStudiesQueryParams)
+    return convertFhirParsedQueryParamsToElasticsearchQuery(queryParams)
   }
 
   private buildBodyToFindEveryCtisStudiesSinceYesterday(): ElasticsearchBodyType {
