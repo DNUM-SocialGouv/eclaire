@@ -1,4 +1,5 @@
-import { CodeableConcept, Extension, ResearchStudy } from 'fhir/r4'
+import { CodeableConcept, Coding, Extension, ResearchStudy } from 'fhir/r4'
+
 import { FhirParsedQueryParams } from '../../../api/research-study/controllers/FhirQueryParams'
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../../../api/research-study/gateways/converter/convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
@@ -33,7 +34,7 @@ export class TranslationPipelineCtis {
     const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'] ?? '100')
     let from = 0
     let searchAfter: any[] | undefined = undefined
-    let allResults:ResearchStudyModel[] = []
+    let allResults: ResearchStudyModel[] = []
 
     requestBody.size = chunkSize
     // eslint-disable-next-line no-constant-condition
@@ -107,36 +108,43 @@ export class TranslationPipelineCtis {
     return this.buildBodyToFindEveryCtisStudiesSinceAGivenDate(formattedYesterdayDate)
   }
 
-
   private extractTextsToTranslate(researchStudy: ResearchStudy): TextsToTranslate {
+    /* eslint-disable sort-keys */
     const textsToTranslate: TextsToTranslate = {
       diseaseCondition: '',
       therapeuticArea: '',
       title: '',
       judgmentCriteria: [],
-      eligibilityCriteria: []
+      eligibilityCriteria: [],
     }
+    /* eslint-enable sort-keys */
 
     const referenceContents: any = researchStudy
 
-    const judgmentCriteria: string[] = [];
-    const eligibilityCriteria: string[] = [];
+    const judgmentCriteria: string[] = []
+    const eligibilityCriteria: string[] = []
     // Verify that enrollmentGroup and characteristic exist
     const characteristics = referenceContents.referenceContents?.enrollmentGroup?.characteristic ?? []
 
     for (const char of characteristics) {
-      const codeValue = char.code?.coding?.[0]?.code ?? ''
-      const description = char.description ?? ''
+      const codeValue: string = char.code?.coding?.[0]?.code ?? ''
+      const description: string = char.description ?? ''
+
+      const coding = char.valueCodeableConcept?.coding
 
       if (codeValue === 'grp-other' && description === 'judgement-criteria') {
         // Push toutes les valeurs display dans judgmentCriteria
-        const displays = char.valueCodeableConcept?.coding?.map(c => c.display) ?? []
+        const displays: string[] = Array.isArray(coding)
+          ? coding.map((c: Coding) => c.display ?? '')
+          : []
         judgmentCriteria.push(...displays)
       }
 
       if (codeValue === 'grp-other' && description === 'eligibility-criteria') {
         // Push toutes les valeurs display dans eligibilityCriteria
-        const displays = char.valueCodeableConcept?.coding?.map(c => c.display) ?? []
+        const displays: string[] = Array.isArray(coding)
+          ? coding.map((c: Coding) => c.display ?? '')
+          : []
         eligibilityCriteria.push(...displays)
       }
     }
@@ -163,10 +171,10 @@ export class TranslationPipelineCtis {
     }
 
     // Add criteria for transalte it only for CTIS
-    if(judgmentCriteria.length) {
+    if (judgmentCriteria.length) {
       textsToTranslate.judgmentCriteria = judgmentCriteria
     }
-    if(eligibilityCriteria.length){
+    if (eligibilityCriteria.length) {
       textsToTranslate.eligibilityCriteria = eligibilityCriteria
     }
     return textsToTranslate

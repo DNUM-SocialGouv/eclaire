@@ -32,7 +32,6 @@ type FilterClause =
   | { term: { [key: string]: string } }
   | NestedQuery
 
-
 export type ElasticsearchBodyType = {
   from: number
   query: {
@@ -126,11 +125,9 @@ export class ElasticsearchBodyBuilder {
   withDoubleNestedMust(
     parentPath: string,
     childPath: string,
-    terms: Record<string, string>,
+    terms: Record<string, string>
   ): this {
-    const mustClauses = Object.entries(terms).map(([field, value]) => ({
-      term: { [field]: value },
-    }))
+    const mustClauses = Object.entries(terms).map(([field, value]) => ({ term: { [field]: value } }))
 
     this.searchBody.query.bool.filter.push({
       nested: {
@@ -138,11 +135,7 @@ export class ElasticsearchBodyBuilder {
         query: {
           nested: {
             path: childPath,
-            query: {
-              bool: {
-                must: mustClauses,
-              },
-            },
+            query: { bool: { must: mustClauses } },
           },
         },
       },
@@ -160,15 +153,11 @@ export class ElasticsearchBodyBuilder {
     parentPath: string,
     childPath: string,
     mustTerms: Record<string, string>,
-    mustNotTerms: Record<string, string>,
+    mustNotTerms: Record<string, string>
   ): this {
-    const mustClauses = Object.entries(mustTerms).map(([field, value]) => ({
-      term: { [field]: value },
-    }))
+    const mustClauses = Object.entries(mustTerms).map(([field, value]) => ({ term: { [field]: value } }))
 
-    const mustNotClauses = Object.entries(mustNotTerms).map(([field, value]) => ({
-      term: { [field]: value },
-    }))
+    const mustNotClauses = Object.entries(mustNotTerms).map(([field, value]) => ({ term: { [field]: value } }))
 
     this.searchBody.query.bool.filter.push({
       nested: {

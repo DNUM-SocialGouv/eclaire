@@ -1,10 +1,9 @@
 import { Group } from 'fhir/r4'
 
 import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
-import { GroupRepository } from '../application/contracts/GroupRepository'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
 import { TranslatedContentModel } from '../../../shared/models/eclaire/TranslatedContentModel'
-
+import { GroupRepository } from '../application/contracts/GroupRepository'
 
 export class EsGroupRepository implements GroupRepository {
   constructor(
@@ -13,11 +12,11 @@ export class EsGroupRepository implements GroupRepository {
 
   async find(id: string): Promise<Group> {
     // Get the id of document
-    const docId = id.replace(/-enrollment-group$/, "");
+    const docId = id.replace(/-enrollment-group$/, '')
     const document: ResearchStudyModel = await this.databaseService.findOneDocument(docId) as ResearchStudyModel
     const group = await this.databaseService.findReferenceContent(id, 'enrollmentGroup') as Group
     const translatedGroup: Group = this.applyTranslationsToResearchStudyModel(document, group)
-    
+
     return translatedGroup
   }
 
@@ -42,11 +41,12 @@ export class EsGroupRepository implements GroupRepository {
     let judgmentIndex = 0
     let eligibilityIndex = 0
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     const updatedCharacteristics = group.characteristic?.map((char:any) => {
       const codeValue = char.code?.coding?.[0]?.code
       const description = char.description
 
-      // ✅ JUDGMENT CRITERIA
+      // JUDGMENT CRITERIA
       if (
         codeValue === 'grp-other' &&
         description === 'judgement-criteria' &&
@@ -61,7 +61,7 @@ export class EsGroupRepository implements GroupRepository {
         }
       }
 
-      // ✅ ELIGIBILITY CRITERIA
+      // ELIGIBILITY CRITERIA
       if (
         codeValue === 'grp-other' &&
         description === 'eligibility-criteria' &&
@@ -76,12 +76,13 @@ export class EsGroupRepository implements GroupRepository {
         }
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return char
     })
 
     return {
       ...group,
-      characteristic: updatedCharacteristics
+      characteristic: updatedCharacteristics,
     }
   }
 }

@@ -30,7 +30,6 @@ export class TranslationService {
     return output as TranslatedTexts
   }
 
-
   async executeCtis(texts: TextsToTranslate): Promise<TranslatedTextsCtis> {
     const {
       diseaseCondition,
@@ -50,6 +49,7 @@ export class TranslationService {
     ]
 
     if (!allTexts.length) {
+      /* eslint-disable sort-keys */
       return {
         diseaseCondition: '',
         therapeuticArea: '',
@@ -57,6 +57,7 @@ export class TranslationService {
         judgmentCriteria: [],
         eligibilityCriteria: [],
       }
+      /* eslint-enable sort-keys */
     }
 
     const MAX_BATCH_SIZE = 100 // the maximum number of texts to translate per API call on DeepL
@@ -70,11 +71,12 @@ export class TranslationService {
         await this.translator.translateText(chunk)
 
       if (results && results.length > 0) {
-        translatedResults.push(...results.map(r => r.text))
+        translatedResults.push(...results.map((r) => r.text))
       }
     }
 
     if (translatedResults.length === 0) {
+      /* eslint-disable sort-keys */
       return {
         diseaseCondition: '',
         therapeuticArea: '',
@@ -82,6 +84,7 @@ export class TranslationService {
         judgmentCriteria: [],
         eligibilityCriteria: [],
       }
+      /* eslint-enable sort-keys */
     }
 
     // 3 Reconstruct the translated data
@@ -102,6 +105,7 @@ export class TranslationService {
       judgmentEndIndex + eligibilityCriteria.length
     )
 
+    /* eslint-disable sort-keys */
     return {
       diseaseCondition: diseaseConditionTranslated,
       therapeuticArea: therapeuticAreaTranslated,
@@ -109,6 +113,7 @@ export class TranslationService {
       judgmentCriteria: translatedJudgmentCriteria,
       eligibilityCriteria: translatedEligibilityCriteria,
     }
+    /* eslint-enable sort-keys */
   }
 }
 

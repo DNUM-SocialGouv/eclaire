@@ -67,8 +67,8 @@ export class ElasticsearchService {
   async countDocuments(filters?: Record<string, string | number>): Promise<number> {
     if (!filters || Object.keys(filters).length === 0) {
       const response = await this.client.count({
-        index: this.index,
         body: { query: { match_all: {} } },
+        index: this.index,
       })
 
       return response.body.count
@@ -79,13 +79,9 @@ export class ElasticsearchService {
 
     for (const [field, value] of Object.entries(filters)) {
       if (field.startsWith('category.coding.')) {
-        nestedMust.push({
-          term: { [field]: value },
-        })
+        nestedMust.push({ term: { [field]: value } })
       } else {
-        must.push({
-          term: { [field]: value }, // use term instead of match
-        })
+        must.push({ term: { [field]: value } })
       }
     }
 
@@ -102,11 +98,7 @@ export class ElasticsearchService {
                 query: {
                   nested: {
                     path: 'category.coding',
-                    query: {
-                      bool: {
-                        must: nestedMust,
-                      },
-                    },
+                    query: { bool: { must: nestedMust } },
                   },
                 },
               },
@@ -119,13 +111,12 @@ export class ElasticsearchService {
     }
 
     const response = await this.client.count({
-      index: this.index,
       body: { query },
+      index: this.index,
     })
 
     return response.body.count
   }
-
 
   async getCountDocuments(filters?: CountRequest): Promise<number> {
     const response = await this.client.count({

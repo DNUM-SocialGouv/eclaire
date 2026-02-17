@@ -2,7 +2,7 @@ export class TranslatedContentModel {
   private constructor(
     readonly diseaseCondition: string | undefined,
     readonly therapeuticArea: string | undefined,
-    readonly title: string | undefined,    
+    readonly title: string | undefined,
     readonly judgmentCriteria?:string[] | undefined,
     readonly eligibilityCriteria?: string[] | undefined
   ) {}
@@ -12,7 +12,7 @@ export class TranslatedContentModel {
     therapeuticArea: string,
     title: string,
     judgmentCriteria?:string[],
-    eligibilityCriteria?: string[] 
+    eligibilityCriteria?: string[]
   ): TranslatedContentModel {
     return new TranslatedContentModel(
       diseaseCondition,

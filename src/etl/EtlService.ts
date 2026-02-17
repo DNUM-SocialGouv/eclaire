@@ -1,6 +1,7 @@
 import { errors } from '@opensearch-project/opensearch'
 import * as console from 'console'
 import fs from 'fs'
+
 import { JsonFileReaderService } from './json-file-reader/JsonFileReaderService'
 import { IngestPipeline } from './pipelines/ingest/IngestPipeline'
 import { IngestPipelineCtis } from './pipelines/ingest/IngestPipelineCtis'
@@ -15,7 +16,6 @@ import { elasticsearchIndexMapping } from '../shared/elasticsearch/elasticsearch
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
 import { TranslationService } from '../shared/translation/TranslationService'
-
 
 export class EtlService {
   constructor(
