@@ -59,7 +59,7 @@ export class TranslationPipeline {
       const transformedResearchStudies: ResearchStudyModel[] = await this.transform(res)
       await this.load(transformedResearchStudies)
       // retrieve the fate of the last document
-      const lastHit = response.hits[response.hits.length - 1]
+      const lastHit = response.hits.at(-1)
       searchAfter = lastHit.sort
 
       allResults = res
