@@ -1,72 +1,28 @@
 import { CodeableConcept, Extension, ResearchStudy } from 'fhir/r4'
 
+import { AbstractPipeline } from './AbstractPipeline'
 import { FhirParsedQueryParams } from '../../../api/research-study/controllers/FhirQueryParams'
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../../../api/research-study/gateways/converter/convertFhirParsedQueryParamsToElasticsearchQuery'
 import { ElasticsearchBodyType } from '../../../shared/elasticsearch/ElasticsearchBody'
-import { ElasticsearchService, SearchResponse, SearchResponseHits } from '../../../shared/elasticsearch/ElasticsearchService'
+import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../../../shared/logger/LoggerService'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
 import { ModelUtils } from '../../../shared/models/eclaire/ModelUtils'
 import { TranslatedContentModel } from '../../../shared/models/eclaire/TranslatedContentModel'
 import { TranslationService, TextsToTranslate, TranslatedTexts } from '../../../shared/translation/TranslationService'
 
-export class TranslationPipeline {
+export class TranslationPipeline extends AbstractPipeline<ResearchStudyModel> {
   constructor(
-    private readonly databaseService: ElasticsearchService,
+    databaseService: ElasticsearchService,
     private readonly translationService: TranslationService,
-    protected readonly logger?: LoggerService
-  ) { }
-
-  async execute(date?: string): Promise<void> {
-    await this.extract(date)
+    logger?: LoggerService
+  ) {
+    super(databaseService, logger)
   }
 
-  async extract(startingDate?: string) {
-    let requestBody: ElasticsearchBodyType
-
-    if (startingDate) {
-      requestBody = this.buildBodyToFindAllStudiesExcludingCtisSinceAGivenDate(startingDate)
-    } else {
-      requestBody = this.buildBodyToFindAllStudiesExcludingCtisSinceYesterday()
-    }
-
-    this.logger?.info('---- Extract data to translate All Studies Excluding Ctis ///')
-    const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'] ?? '100')
-    let from = 0
-    let searchAfter: any[] | undefined = undefined
-    let allResults:ResearchStudyModel[] = []
-
-    requestBody.size = chunkSize
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      this.logger?.info(`---- Translate batch using search_after for DM/DM-DIV/JARDE: from value: ${from}`)
-      // Inject search_after only if it is not the first query
-      if (searchAfter) {
-        requestBody.search_after = searchAfter
-      } else {
-        delete requestBody.search_after
-      }
-
-      const response: SearchResponse = await this.databaseService.search(
-        requestBody,
-        true
-      )
-
-      this.logger?.info(`---- Translate DM/DM-DIV/JARDE: Received ${response.hits.length} hits`)
-      if (!response.hits || response.hits.length === 0) break
-
-      const res = response.hits.map((value: SearchResponseHits) => (value._source as unknown as ResearchStudyModel))
-      const transformedResearchStudies: ResearchStudyModel[] = await this.transform(res)
-      await this.load(transformedResearchStudies)
-      // retrieve the fate of the last document
-      const lastHit = response.hits.at(-1)
-      searchAfter = lastHit.sort
-
-      allResults = res
-      from += chunkSize
-    }
-    this.logger?.info('---- Translation pipeline DM/DM-DIV/JARDE finished')
-    return allResults
+  protected buildRequestBody(date?: string): ElasticsearchBodyType {
+    if (date) return this.buildBodyToFindAllStudiesExcludingCtisSinceAGivenDate(date)
+    return this.buildBodyToFindAllStudiesExcludingCtisSinceYesterday()
   }
 
   valuesToArray(obj: any): string[] {
@@ -142,10 +98,6 @@ export class TranslationPipeline {
     return researchStudies
   }
 
-  async load(researchStudies: ResearchStudyModel[]): Promise<void> {
-    await this.databaseService.bulkDocuments(researchStudies)
-  }
-
   private buildBodyToFindAllStudiesExcludingCtisSinceAGivenDate(date: string): ElasticsearchBodyType {
     const ctisStudiesQueryParams: FhirParsedQueryParams[] = [
       { name: '_count', value: String(process.env['CHUNK_SIZE']) },
@@ -158,8 +110,8 @@ export class TranslationPipeline {
   }
 
   private buildBodyToFindAllStudiesExcludingCtisSinceYesterday(): ElasticsearchBodyType {
-    const formattedYesterdayDate = ModelUtils.getDateOfYesterdayInIsoFormatAndWithoutTime()
-    return this.buildBodyToFindAllStudiesExcludingCtisSinceAGivenDate(formattedYesterdayDate)
+    const yesterday = ModelUtils.getDateOfYesterdayInIsoFormatAndWithoutTime()
+    return this.buildBodyToFindAllStudiesExcludingCtisSinceAGivenDate(yesterday)
   }
 
   private extractTextsToTranslate(researchStudy: ResearchStudy): TextsToTranslate {
