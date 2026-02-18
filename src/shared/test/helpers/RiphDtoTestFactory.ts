@@ -16,7 +16,7 @@ export class RiphDtoTestFactory {
       contact_prenom: 'Head of EU',
       contact_telephone: '0041616881111',
       contact_courriel: 'global.rochegenentechtrials@roche.com',
-      sites: [
+      sites_investigateurs: [
         {
           organisme: 'Donnée non disponible',
           adresse: 'Avenue Eugene Avinee',
@@ -25,6 +25,9 @@ export class RiphDtoTestFactory {
           nom: 'Aumar',
           prenom: 'Madeleine',
           service: 'Gastroenterology Hepatology and Nutrition Unit Paediatric clinic, Child Unit',
+          code_postal: '59350',
+          courriel: 'test@sante.gouv',
+          telephone: '0168496726',
         },
       ],
       numero_ctis: '2022-500014-26-00',
@@ -92,17 +95,6 @@ export class RiphDtoTestFactory {
       participants_population_vulnerable: null,
       statut_recrutement: 'Recrutement en attente',
       date_fin_recrutement: null,
-      sites_investigateurs: [
-        {
-          organisme: null,
-          adresse: null,
-          ville: null,
-          titre_investigateur: null,
-          nom: null,
-          prenom: null,
-          service: null,
-        },
-      ],
       ...override,
     }
   }
@@ -120,7 +112,7 @@ export class RiphDtoTestFactory {
       contact_prenom: null,
       contact_telephone: null,
       contact_courriel: null,
-      sites: [
+      sites_investigateurs: [
         {
           organisme: null,
           adresse: null,
@@ -129,6 +121,9 @@ export class RiphDtoTestFactory {
           nom: null,
           prenom: null,
           service: null,
+          code_postal: null,
+          courriel: null,
+          telephone: null,
         },
       ],
       numero_ctis: '2022-500299-71-00',
@@ -196,17 +191,6 @@ export class RiphDtoTestFactory {
       participants_population_vulnerable: null,
       statut_recrutement: null,
       date_fin_recrutement: null,
-      sites_investigateurs: [
-        {
-          organisme: null,
-          adresse: null,
-          ville: null,
-          titre_investigateur: null,
-          nom: null,
-          prenom: null,
-          service: null,
-        },
-      ],
     }
   }
 
@@ -313,6 +297,9 @@ export class RiphDtoTestFactory {
           nom: null,
           prenom: null,
           service: null,
+          code_postal: null,
+          courriel: null,
+          telephone: null,
         },
       ],
       ...override,
@@ -407,6 +394,9 @@ export class RiphDtoTestFactory {
           nom: null,
           prenom: null,
           service: null,
+          code_postal: null,
+          courriel: null,
+          telephone: null,
         },
       ],
       ...override,

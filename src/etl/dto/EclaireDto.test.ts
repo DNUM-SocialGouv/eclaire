@@ -96,10 +96,13 @@ describe('etl | dto | EclaireDto', () => {
         "sites": [
           Site {
             "adresse": "Avenue Eugene Avinee",
+            "code_postal": "59350",
+            "courriel": "test@sante.gouv",
             "nom": "Aumar",
             "organisme": "Donnée non disponible",
             "prenom": "Madeleine",
             "service": "Gastroenterology Hepatology and Nutrition Unit Paediatric clinic, Child Unit",
+            "telephone": "0168496726",
             "titre": "Dr.",
             "ville": "Lille",
           },

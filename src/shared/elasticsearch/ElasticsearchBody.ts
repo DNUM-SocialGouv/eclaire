@@ -1,23 +1,44 @@
+export type Operator = 'gte' | 'gt' | 'lte' | 'lt'
+
+/**
+ * Nested Query Type
+ */
+export type NestedQuery = {
+  nested: {
+    path: string
+    query: {
+      bool?: {
+        must?: any[]
+        filter?: any[]
+        must_not?: any[]
+      }
+      term?: {
+        [key: string]: string
+      }
+    }
+  }
+}
+
+/**
+ * All possible query clauses (backward compatible)
+ */
+type MustClause =
+  | { match: { [key: string]: string } }
+  | { range: { [key: string]: any } }
+  | { query_string: { query: string } }
+  | NestedQuery
+
+type FilterClause =
+  | { term: { [key: string]: string } }
+  | NestedQuery
+
 export type ElasticsearchBodyType = {
   from: number
   query: {
-    bool?: {
-      must: Array<{
-        match?: {
-          [key: string]: string
-        }
-        range?: {
-          [key: string]: { gte?: string, gt?: string, lte?: string, lt?: string }
-        }
-        query_string?: {
-          query: string,
-        }
-      }>
-      filter: Array<{
-        term?: {
-          [key: string]: string
-        }
-      }>
+    bool: {
+      must: MustClause[]
+      filter: FilterClause[]
+      must_not?: NestedQuery[]
     }
   }
   size: number
@@ -96,9 +117,69 @@ export class ElasticsearchBodyBuilder {
     return this
   }
 
+  /**
+   * NEW — Nested Term Query
+   * Exemple:
+   * .withNestedTerm('category.coding', 'category.coding.code', 'REG536')
+   */
+  withDoubleNestedMust(
+    parentPath: string,
+    childPath: string,
+    terms: Record<string, string>
+  ): this {
+    const mustClauses = Object.entries(terms).map(([field, value]) => ({ term: { [field]: value } }))
+
+    this.searchBody.query.bool.filter.push({
+      nested: {
+        path: parentPath,
+        query: {
+          nested: {
+            path: childPath,
+            query: { bool: { must: mustClauses } },
+          },
+        },
+      },
+    } as any)
+
+    return this
+  }
+
+  /**
+   * NEW — Nested NOT Term Query
+   * Exemple:
+   * .withNestedNotTerm('category.coding', 'category.coding.code', 'REG536')
+   */
+  withDoubleNestedMustAndMustNot(
+    parentPath: string,
+    childPath: string,
+    mustTerms: Record<string, string>,
+    mustNotTerms: Record<string, string>
+  ): this {
+    const mustClauses = Object.entries(mustTerms).map(([field, value]) => ({ term: { [field]: value } }))
+
+    const mustNotClauses = Object.entries(mustNotTerms).map(([field, value]) => ({ term: { [field]: value } }))
+
+    this.searchBody.query.bool.filter.push({
+      nested: {
+        path: parentPath,
+        query: {
+          nested: {
+            path: childPath,
+            query: {
+              bool: {
+                must: mustClauses,
+                must_not: mustNotClauses,
+              },
+            },
+          },
+        },
+      },
+    } as any)
+
+    return this
+  }
+
   build(): ElasticsearchBodyType {
     return this.searchBody
   }
 }
-
-export type Operator = 'gte' | 'gt' | 'lte' | 'lt'

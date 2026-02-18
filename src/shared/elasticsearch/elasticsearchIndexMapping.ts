@@ -1,23 +1,28 @@
 const coding = {
   properties: {
-    code: { type: 'text' },
+    code: { type: 'keyword' },
     display: { type: 'text' },
-    system: { type: 'text' },
+    system: { type: 'keyword' },
     version: { type: 'text' },
   },
+  type: 'nested',
 }
+
 const codeableConcept = {
   properties: {
     coding,
     text: { type: 'text' },
   },
+  type: 'nested',
 }
+
 const reference = {
   properties: {
     display: { type: 'text' },
     reference: { type: 'text' },
   },
 }
+
 const identifier = {
   properties: {
     assigner: reference,
@@ -26,6 +31,7 @@ const identifier = {
     value: { type: 'text' },
   },
 }
+
 export const elasticsearchIndexMapping = {
   properties: {
     category: codeableConcept,

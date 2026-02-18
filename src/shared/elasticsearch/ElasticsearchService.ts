@@ -2,24 +2,40 @@ import { Client } from '@opensearch-project/opensearch'
 
 import type { ApiResponse } from '@opensearch-project/opensearch'
 
-type CountRequest = {
-  bool?: {
-    must: Array<{
-      match?: {
-        [key: string]: string
+/**
+ * Nested Query Type
+ */
+type NestedQuery = {
+  nested: {
+    path: string
+    query: {
+      bool?: {
+        must?: any[]
+        filter?: any[]
+        must_not?: any[]
       }
-      range?: {
-        [key: string]: { gte?: string, gt?: string, lte?: string, lt?: string }
-      }
-      query_string?: {
-        query: string,
-      }
-    }>
-    filter: Array<{
       term?: {
         [key: string]: string
       }
-    }>
+    }
+  }
+}
+
+type MustClause =
+  | { match: { [key: string]: string } }
+  | { range: { [key: string]: any } }
+  | { query_string: { query: string } }
+  | NestedQuery
+
+type FilterClause =
+  | { term: { [key: string]: string } }
+  | NestedQuery
+
+type CountRequest = {
+  bool?: {
+    must: MustClause[]
+    filter: FilterClause[]
+    must_not?: NestedQuery[]
   };
 }
 
@@ -49,17 +65,50 @@ export class ElasticsearchService {
   }
 
   async countDocuments(filters?: Record<string, string | number>): Promise<number> {
-    const mustQueries: any[] = []
+    if (!filters || Object.keys(filters).length === 0) {
+      const response = await this.client.count({
+        body: { query: { match_all: {} } },
+        index: this.index,
+      })
 
-    if (filters) {
-      for (const [field, value] of Object.entries(filters)) {
-        mustQueries.push({ match: { [field]: value } })
+      return response.body.count
+    }
+
+    const must: any[] = []
+    const nestedMust: any[] = []
+
+    for (const [field, value] of Object.entries(filters)) {
+      if (field.startsWith('category.coding.')) {
+        nestedMust.push({ term: { [field]: value } })
+      } else {
+        must.push({ term: { [field]: value } })
       }
     }
 
-    const query: any = filters
-      ? { bool: { must: mustQueries } }
-      : { match_all: {} }
+    let query: any
+
+    if (nestedMust.length > 0) {
+      query = {
+        bool: {
+          must: [
+            ...must,
+            {
+              nested: {
+                path: 'category',
+                query: {
+                  nested: {
+                    path: 'category.coding',
+                    query: { bool: { must: nestedMust } },
+                  },
+                },
+              },
+            },
+          ],
+        },
+      }
+    } else {
+      query = { bool: { must } }
+    }
 
     const response = await this.client.count({
       body: { query },

@@ -25,7 +25,6 @@ export class ContactDetailModel implements ContactDetail {
     country: string,
     zip: string,
     affiliation: string,
-    nameTypeContact?: 'Public' | 'Sponsor' | 'Investigator',
     organizationName?: string
   ): ContactDetail {
     const emptyFirstNameIfNull = ModelUtils.undefinedIfNull(firstname)
@@ -36,32 +35,38 @@ export class ContactDetailModel implements ContactDetail {
 
     const extensions: Extension[] = []
 
-    extensions.push(ExtensionModel.createEclaireContactName(emptyFirstNameIfNull, emptyMiddleNameIfNull, emptyLastnameIfNull))
+    if (emptyFirstNameIfNull || emptyMiddleNameIfNull || emptyLastnameIfNull) {
+      extensions.push(ExtensionModel.createEclaireContactName(emptyFirstNameIfNull, emptyMiddleNameIfNull, emptyLastnameIfNull))
+    }
 
     const contactAdress = ModelUtils.undefinedIfNull(address)
     const contactCity = ModelUtils.undefinedIfNull(city)
     const contactCountry = ModelUtils.undefinedIfNull(country)
     const contactZip = ModelUtils.undefinedIfNull(zip)
     if (contactAdress || contactCity || contactCountry || contactZip) {
-      extensions.push(ExtensionModel.createEclaireContactAddress(address, city, country, zip, organizationName))
+      extensions.push(ExtensionModel.createEclaireContactAddress(address, city, country, zip))
     }
     ExtensionModel.createEclaireContactAffiliation(affiliation)
 
     /* TODO - Décommenter quand address, city, country, zip et affiliation seront disponibles
       extensions.push(eclaireContactAddress, eclaireContactAffiliation)
      */
+    const telecomContact = []
+    if (emptyPhoneIfNull) telecomContact.push(ContactPointModel.createPhone(emptyPhoneIfNull))
+    if (emptyEmailIfNull) telecomContact.push(ContactPointModel.createEmail(emptyEmailIfNull))
 
-    if (contactType) {
+    if (contactType && (telecomContact.length || extensions.length)) {
       extensions.push(ExtensionModel.createEclaireContactType(contactType))
     }
 
+    if (!organizationName && !extensions.length && !telecomContact.length) {
+      return undefined
+    }
+
     return new ContactDetailModel(
-      nameTypeContact,
-      extensions,
-      [
-        ContactPointModel.createPhone(emptyPhoneIfNull),
-        ContactPointModel.createEmail(emptyEmailIfNull),
-      ]
+      organizationName,
+      extensions.length ? extensions : undefined,
+      telecomContact.length ? telecomContact : undefined
     )
   }
 }

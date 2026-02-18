@@ -48,11 +48,27 @@ describe('etl | Pipelines | MedDraPipeline', () => {
         from: 0,
         query: {
           bool: {
-            filter: [],
-            must: [
-              { range: { 'meta.lastUpdated': { gte: '2022-10-06' } } },
-              { query_string: { query: 'REG536' } },
+            filter: [
+              {
+                nested: {
+                  path: 'category',
+                  query: {
+                    nested: {
+                      path: 'category.coding',
+                      query: {
+                        bool: {
+                          must: [
+                            { term: { 'category.coding.system': 'https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-regulation-code-code-system' } },
+                            { term: { 'category.coding.code': 'REG536' } },
+                          ],
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             ],
+            must: [{ range: { 'meta.lastUpdated': { gte: '2022-10-06' } } }],
           },
         },
         size: parseInt(process.env['CHUNK_SIZE']),
@@ -79,11 +95,27 @@ describe('etl | Pipelines | MedDraPipeline', () => {
         from: 0,
         query: {
           bool: {
-            filter: [],
-            must: [
-              { range: { 'meta.lastUpdated': { gte: '2020-10-06' } } },
-              { query_string: { query: 'REG536' } },
+            filter: [
+              {
+                nested: {
+                  path: 'category',
+                  query: {
+                    nested: {
+                      path: 'category.coding',
+                      query: {
+                        bool: {
+                          must: [
+                            { term: { 'category.coding.system': 'https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-regulation-code-code-system' } },
+                            { term: { 'category.coding.code': 'REG536' } },
+                          ],
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             ],
+            must: [{ range: { 'meta.lastUpdated': { gte: '2020-10-06' } } }],
           },
         },
         size: parseInt(process.env['CHUNK_SIZE']),
@@ -162,7 +194,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
             "id": "disease-condition-2022-500014-26-00",
             "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
-          CodeableConceptModel {
+          {
             "coding": [
               CodingModel {
                 "code": "10070575",
@@ -172,9 +204,8 @@ describe('etl | Pipelines | MedDraPipeline', () => {
               },
             ],
             "id": "meddra-condition-2022-500014-26-00-10070575",
-            "text": undefined,
           },
-          CodeableConceptModel {
+          {
             "coding": [
               CodingModel {
                 "code": "10065430",
@@ -184,7 +215,6 @@ describe('etl | Pipelines | MedDraPipeline', () => {
               },
             ],
             "id": "meddra-condition-2022-500014-26-00-10065430",
-            "text": undefined,
           },
         ]
       `)
@@ -210,7 +240,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
             "id": "disease-condition-2022-500014-26-00",
             "text": "Locally-Advanced or Metastatic breast cancer (MBC)",
           },
-          CodeableConceptModel {
+          {
             "coding": [
               CodingModel {
                 "code": "10070575",
@@ -220,7 +250,6 @@ describe('etl | Pipelines | MedDraPipeline', () => {
               },
             ],
             "id": "meddra-condition-2022-500014-26-00-10070575",
-            "text": undefined,
           },
         ]
       `)

@@ -28,7 +28,7 @@ export class EclaireDto {
     readonly tranches_age: string[],
     readonly sexe: string[],
     readonly groupes_sujet: string,
-    readonly population_recrutement: string[],
+    readonly population_recrutement: (string | boolean)[],
     readonly date_debut_recrutement: string,
     readonly historique: string,
     readonly dates_avis_favorable_ms_mns: string,
@@ -50,14 +50,17 @@ export class EclaireDto {
   ) { }
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
-    const sites = riphCtisDto.sites.map((site): Site => new Site(
+    const sites = riphCtisDto.sites_investigateurs?.map((site): Site => new Site(
       ModelUtils.decodeHtmlString(site.organisme),
       ModelUtils.decodeHtmlString(site.adresse),
       ModelUtils.decodeHtmlString(site.ville),
       ModelUtils.decodeHtmlString(site.titre),
       ModelUtils.decodeHtmlString(site.nom),
       ModelUtils.decodeHtmlString(site.prenom),
-      ModelUtils.decodeHtmlString(site.service)
+      ModelUtils.decodeHtmlString(site.service),
+      ModelUtils.decodeHtmlString(site.code_postal),
+      ModelUtils.decodeHtmlString(site.courriel),
+      ModelUtils.decodeHtmlString(site.telephone)
     ))
 
     const listePhaseRecherche: Phase[] = riphCtisDto.phase_recherche?.match(/Phase (IV|III|II|I)/g) as Phase[]
@@ -142,7 +145,10 @@ export class EclaireDto {
         ModelUtils.decodeHtmlString(site_investigateur.titre_investigateur),
         ModelUtils.decodeHtmlString(site_investigateur.nom),
         ModelUtils.decodeHtmlString(site_investigateur.prenom),
-        ModelUtils.decodeHtmlString(site_investigateur.service)
+        ModelUtils.decodeHtmlString(site_investigateur.service),
+        ModelUtils.decodeHtmlString(site_investigateur.code_postal),
+        ModelUtils.decodeHtmlString(site_investigateur.courriel),
+        ModelUtils.decodeHtmlString(site_investigateur.telephone)
       )),
       riphDmDto.numero_national,
       riphDmDto.titre_recherche,
@@ -154,7 +160,7 @@ export class EclaireDto {
       riphDmDto.participants_tranches_age?.split(', ') || null,
       riphDmDto.participants_sexe?.split(',') || ['unknown'],
       riphDmDto.participants_groupe_sujets,
-      [riphDmDto.participants_population_vulnerable],
+      [riphDmDto.participants_population_vulnerable ? riphDmDto.participants_population_vulnerable : false],
       riphDmDto.date_debut_recrutement !== null ? new Date(riphDmDto.date_debut_recrutement).toISOString() : null,
       riphDmDto.historique,
       riphDmDto.dates_avis_favorable_ms_mns,
@@ -210,7 +216,10 @@ export class EclaireDto {
         ModelUtils.decodeHtmlString(site_investigateur.titre_investigateur),
         ModelUtils.decodeHtmlString(site_investigateur.nom),
         ModelUtils.decodeHtmlString(site_investigateur.prenom),
-        ModelUtils.decodeHtmlString(site_investigateur.service)
+        ModelUtils.decodeHtmlString(site_investigateur.service),
+        ModelUtils.decodeHtmlString(site_investigateur.code_postal),
+        ModelUtils.decodeHtmlString(site_investigateur.courriel),
+        ModelUtils.decodeHtmlString(site_investigateur.telephone)
       )),
       riphJardeDto.numero_national,
       riphJardeDto.titre_recherche,
@@ -222,7 +231,7 @@ export class EclaireDto {
       riphJardeDto.participants_tranches_age?.split(', ') || null,
       riphJardeDto.participants_sexe?.split(',') || ['unknown'],
       riphJardeDto.participants_groupe_sujets,
-      [riphJardeDto.participants_population_vulnerable],
+      [riphJardeDto.participants_population_vulnerable ? riphJardeDto.participants_population_vulnerable : false],
       riphJardeDto.date_debut_recrutement !== null ? new Date(riphJardeDto.date_debut_recrutement).toISOString() : null,
       riphJardeDto.historique,
       riphJardeDto.dates_avis_favorable_ms_mns,
@@ -278,11 +287,14 @@ class Site {
     readonly titre: string,
     readonly nom: string,
     readonly prenom: string,
-    readonly service: string
+    readonly service: string,
+    readonly code_postal: string,
+    readonly courriel: string,
+    readonly telephone: string
   ) { }
 
   toString() {
-    return `Organisme: ${this.organisme} - Adresse: ${this.adresse} - Ville: ${this.ville} - Titre: ${this.titre} - Nom: ${this.nom} - Prenom: ${this.prenom} - Service: ${this.service}`
+    return `Organisme: ${this.organisme} - Adresse: ${this.adresse} - Ville: ${this.ville} - Titre: ${this.titre} - Nom: ${this.nom} - Prenom: ${this.prenom} - Service: ${this.service} - Code_postale: ${this.code_postal} - courriel: ${this.courriel} - telephone: ${this.telephone}`
   }
 }
 

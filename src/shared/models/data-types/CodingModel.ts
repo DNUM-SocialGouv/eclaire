@@ -24,8 +24,11 @@ export class CodingModel implements Coding {
     readonly version: string | undefined
   ) { }
 
-  static createResearchStudyPhase(phase: string): Coding {
-    const { code, display, url, version } = this.findPhaseInCodeSystems(phase)
+  static createResearchStudyPhase(phaseIndex: number): Coding {
+    const code = researchStudyPhaseCodeSystem.concept[phaseIndex]?.code
+    const display = researchStudyPhaseCodeSystem.concept[phaseIndex]?.display
+    const url = researchStudyPhaseCodeSystem.url
+    const version = researchStudyPhaseCodeSystem.version
 
     return new CodingModel(
       code,
@@ -33,44 +36,6 @@ export class CodingModel implements Coding {
       url,
       version
     )
-  }
-
-  private static findPhaseInCodeSystems(phase: string): { code: string; display: string; version: string; url: string } {
-    let index: number
-
-    switch (phase) {
-      case 'Phase I':
-        index = 2
-        break
-      case 'Phase I/Phase II':
-        index = 3
-        break
-      case 'Phase II':
-        index = 4
-        break
-      case 'Phase II/Phase III':
-        index = 5
-        break
-      case 'Phase III':
-        index = 6
-        break
-      case 'Phase IV':
-        index = 7
-        break
-      case 'Phase III/Phase IV':
-        index = 6
-        break
-      default:
-        index = 0
-        break
-    }
-
-    return {
-      code: researchStudyPhaseCodeSystem.concept[index].code,
-      display: researchStudyPhaseCodeSystem.concept[index].display,
-      url: researchStudyPhaseCodeSystem.url,
-      version: researchStudyPhaseCodeSystem.version,
-    }
   }
 
   static createMedDra(code: string, label: string): Coding {
@@ -110,7 +75,10 @@ export class CodingModel implements Coding {
 
   static createStudyPopulation(studyPopulation: string): Coding {
     const matchingStudyPopulation = eclaireStudyPopulationCodeSystem.concept.find(
-      (studyPopulationCode): boolean => studyPopulationCode.display.includes(studyPopulation)
+      (studyPopulationCode) =>
+        studyPopulationCode.display
+          .toLowerCase()
+          .includes(studyPopulation.toLowerCase())
     )
 
     return new CodingModel(

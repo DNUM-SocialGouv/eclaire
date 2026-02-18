@@ -49,6 +49,14 @@ export function convertFhirParsedQueryParamsToElasticsearchQuery(
         buildTerm(searchBody, 'status.keyword', value)
         break
 
+      case '_must':
+        buildDoubleNestedReglementation(searchBody, 'category', 'category.coding', name, value)
+        break
+
+      case '_mustNot':
+        buildDoubleNestedReglementation(searchBody, 'category', 'category.coding', name, value)
+        break
+
       default:
         buildMatch(searchBody, name, value)
     }
@@ -136,4 +144,15 @@ function buildMatch(searchBody: ElasticsearchBodyBuilder, name: string, value: s
 
 function buildTerm(searchBody: ElasticsearchBodyBuilder, name: string, value: string) {
   searchBody.withTerm(name, value)
+}
+
+function buildDoubleNestedReglementation(searchBody: ElasticsearchBodyBuilder, parentPath: string, childPath: string, name: string, value: string) {
+  const reglementationCode = { 'category.coding.code': value }
+  const terms = { 'category.coding.system': 'https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-regulation-code-code-system' }
+  if (name === '_mustNot') {
+    searchBody.withDoubleNestedMustAndMustNot(parentPath, childPath, terms, reglementationCode)
+  } else {
+    terms['category.coding.code'] = value
+    searchBody.withDoubleNestedMust(parentPath, childPath, terms)
+  }
 }

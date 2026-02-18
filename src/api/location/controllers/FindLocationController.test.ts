@@ -36,6 +36,6 @@ describe('#FindLocationController - e2e', () => {
     // THEN
     expect(response.statusCode).toBe(404)
     expect(response.get('content-type')).toBe('application/fhir+json; charset=utf-8')
-    expect(response.text).toMatchInlineSnapshot('"{"issue":[{"code":"processing","diagnostics":"No location fund","severity":"error"}],"resourceType":"OperationOutcome"}"')
+    expect(response.text).toMatchInlineSnapshot('"{"issue":[{"code":"processing","diagnostics":"No location found","severity":"error"}],"resourceType":"OperationOutcome"}"')
   })
 })
