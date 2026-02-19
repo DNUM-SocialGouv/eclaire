@@ -25,8 +25,8 @@ export class StreamingExcelExporter {
 
     const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
       filename: tmpPath,
-      useSharedStrings: true,
-      useStyles: true,
+      useSharedStrings: false,
+      useStyles: false,
     })
 
     const BATCH_SIZE = 500
@@ -41,7 +41,7 @@ export class StreamingExcelExporter {
       }))
 
       const headerRow = ws.getRow(1)
-      headerRow.eachCell((cell) => {
+      /* headerRow.eachCell((cell) => {
         cell.fill = {
           fgColor: { argb: 'FFC0E6F5' },
           pattern: 'solid',
@@ -49,7 +49,7 @@ export class StreamingExcelExporter {
         }
         cell.font = { bold: true }
         cell.alignment = { vertical: 'middle', wrapText: true }
-      })
+      }) */
       headerRow.commit()
 
       ws.autoFilter = {
@@ -61,15 +61,6 @@ export class StreamingExcelExporter {
         return sheetInfo.columns.map((col) => {
           const key = col.key
           const rawValue = record[key]
-
-          if (key.startsWith('sites.')) {
-            const field = key.split('.')[1]
-            const sites = Array.isArray(record.sites) ? (record.sites as Record<string, unknown>[]) : []
-            return sites
-              .map((s) => (s?.[field] as string | undefined) ?? '')
-              .filter((v) => v !== '')
-              .join('\n')
-          }
 
           if (key.startsWith('sites_investigateurs.')) {
             const field = key.split('.')[1]
