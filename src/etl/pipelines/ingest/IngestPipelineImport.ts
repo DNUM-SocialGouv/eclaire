@@ -4,12 +4,12 @@ import { RiphCtisDto } from '../../dto/RiphCtisDto'
 import { RiphDmDto } from '../../dto/RiphDmDto'
 import { RiphJardeDto } from '../../dto/RiphJardeDto'
 import { CTIS_COLUMNS } from '../excel/columnsCtis'
-import { DM_COLUMNS } from '../excel/columnsDm'
-import { JARDE_COLUMNS } from '../excel/columnsJarde'
+/* import { DM_COLUMNS } from '../excel/columnsDm'
+import { JARDE_COLUMNS } from '../excel/columnsJarde' */
 import { StreamingExcelExporter } from '../excel/StreamingExcelExporter'
 
 export class IngestPipelineImport extends IngestPipeline {
-  readonly type = 'dm-dmdiv'
+  readonly type = 'ctis'
 
   // Implement execute() with your custom logic
   async execute(): Promise<void> {
@@ -27,19 +27,19 @@ export class IngestPipelineImport extends IngestPipeline {
 
   async import(): Promise<void> {
     // Extraire les donn�es
-    const dataDM: RiphDmDto[] = await super.extract<RiphDmDto>()
+    //const dataDM: RiphDmDto[] = await super.extract<RiphDmDto>()
     const ctisData: RiphCtisDto[] = await super.extract<RiphCtisDto>('ctis')
-    const jardeData: RiphJardeDto[] = await super.extract<RiphJardeDto>('jarde')
+    //const jardeData: RiphJardeDto[] = await super.extract<RiphJardeDto>('jarde')
     // S�parer les donn�es selon reglementation_code
-    const dm745Data = dataDM.filter((d) => d.reglementation_code === 'REG745')
-    const dm746Data = dataDM.filter((d) => d.reglementation_code === 'REG746')
+    /* const dm745Data = dataDM.filter((d) => d.reglementation_code === 'REG745')
+    const dm746Data = dataDM.filter((d) => d.reglementation_code === 'REG746') */
 
     const exporter = new StreamingExcelExporter()
 
     await exporter.exportSheets([
-      { columns: DM_COLUMNS, data: dm745Data, name: 'ETUDES DM (2017-745)' },
+      /* { columns: DM_COLUMNS, data: dm745Data, name: 'ETUDES DM (2017-745)' },
       { columns: DM_COLUMNS, data: dm746Data, name: 'ETUDES DM-DIV (2017-746)' },
-      { columns: JARDE_COLUMNS, data: jardeData, name: 'ETUDES JARDE' },
+      { columns: JARDE_COLUMNS, data: jardeData, name: 'ETUDES JARDE' }, */
       { columns: CTIS_COLUMNS, data: ctisData, name: 'ETUDES CTIS (2014-536)' },
     ])
   }
