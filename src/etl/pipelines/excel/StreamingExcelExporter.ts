@@ -25,22 +25,41 @@ export class StreamingExcelExporter {
 
     const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
       filename: tmpPath,
-      useSharedStrings: true,
-      useStyles: true,
+      useSharedStrings: false, // update to false for optimisation
+      useStyles: false, // update to false for optimisation
     })
 
-    const BATCH_SIZE = 500
+    const BATCH_SIZE = 1000
 
     for (const sheetInfo of sheets) {
       const ws = wb.addWorksheet(sheetInfo.name)
 
-      ws.columns = sheetInfo.columns.map((c) => ({
+      // Pré-calcul des colonnes pour éviter split à chaque ligne
+      const columnConfigs = sheetInfo.columns.map((c) => {
+        const isSiteField = c.key.startsWith('sites_investigateurs.')
+        const siteField = isSiteField ? c.key.split('.')[1] : null
+
+        return {
+          header: c.header,
+          key: c.key,
+          width: 40,
+          isSiteField,
+          siteField,
+        }
+      })
+
+      ws.columns = columnConfigs.map((c) => ({
         header: c.header,
         key: c.key,
-        width: 40,
+        width: c.width,
+        style: {
+          alignment: { vertical: 'top', wrapText: true }, // to delete after switch on S3
+        },
       }))
 
-      const headerRow = ws.getRow(1)
+      // Header commit direct (sans styles lourds)
+      ws.getRow(1).commit()
+      /* const headerRow = ws.getRow(1)
       headerRow.eachCell((cell) => {
         cell.fill = {
           fgColor: { argb: 'FFC0E6F5' },
@@ -50,39 +69,29 @@ export class StreamingExcelExporter {
         cell.font = { bold: true }
         cell.alignment = { vertical: 'middle', wrapText: true }
       })
-      headerRow.commit()
+      headerRow.commit() */
 
       ws.autoFilter = {
         from: { column: 1, row: 1 },
-        to: { column: sheetInfo.columns.length, row: 1 },
+        to: { column: columnConfigs.length, row: 1 },
       }
 
       const buildRow = (record: Record<string, unknown>): (string | number)[] => {
-        return sheetInfo.columns.map((col) => {
-          const key = col.key
-          const rawValue = record[key]
+        return columnConfigs.map((col) => {
+          const rawValue = record[col.key]          
 
-          if (key.startsWith('sites.')) {
-            const field = key.split('.')[1]
-            const sites = Array.isArray(record.sites) ? (record.sites as Record<string, unknown>[]) : []
-            return sites
-              .map((s) => (s?.[field] as string | undefined) ?? '')
-              .filter((v) => v !== '')
-              .join('\n')
-          }
-
-          if (key.startsWith('sites_investigateurs.')) {
-            const field = key.split('.')[1]
+          if (col.isSiteField && col.siteField) {
+            //const field = key.split('.')[1]
             const sites = Array.isArray(record.sites_investigateurs)
               ? (record.sites_investigateurs as Record<string, unknown>[])
               : []
             return sites
-              .map((s) => (s?.[field] as string | undefined) ?? '')
+              .map((s) => (s?.[col.siteField] as string | undefined) ?? '')
               .filter((v) => v !== '')
               .join('\n')
           }
 
-          if (key === 'criteres_eligibilite' || key === 'criteres_jugement') {
+          if (col.key === 'criteres_eligibilite' || col.key === 'criteres_jugement') {
             const arr = Array.isArray(rawValue) ? (rawValue as Record<string, string>[]) : []
             return arr
               .map((a) => {
@@ -99,20 +108,30 @@ export class StreamingExcelExporter {
         })
       }
 
-      for (let i = 0; i < sheetInfo.data.length; i += BATCH_SIZE) {
-        const batch = sheetInfo.data.slice(i, i + BATCH_SIZE)
+      const data = sheetInfo.data
+      for (let i = 0; i < data.length; i++) {
+        const row = ws.addRow(buildRow(data[i]))
+        row.commit()
+
+        // Yield non bloquant
+        if (i % BATCH_SIZE === 0) {
+          await new Promise<void>((resolve) => setImmediate(resolve))
+        }        
+        
+        /* const batch = data.slice(i, i + BATCH_SIZE)
         for (const record of batch) {
           const rowValues = buildRow(record)
           const row = ws.addRow(rowValues)
 
-          row.eachCell((cell) => {
+          // to decomment after swith on S3
+          /* row.eachCell((cell) => {
             cell.alignment = { vertical: 'top', wrapText: true }
-          })
+          }) 
 
           row.commit()
         }
 
-        await new Promise((resolve) => setImmediate(resolve))
+        await new Promise((resolve) => setImmediate(resolve)) */
       }
 
       ws.commit()
@@ -120,5 +139,7 @@ export class StreamingExcelExporter {
 
     await wb.commit()
     fs.renameSync(tmpPath, filePath)
+    
+    return filePath
   }
 }
