@@ -19,12 +19,12 @@ export class ExportController {
 
   // 1. Create a new job
   @Post('start')
-  startExport() {
-    const job = this.jobService.createJob()
+  async startExport() {
+    const job = await this.jobService.createJob()
 
     this.etlService
       .importDataOnXLS((progress) =>
-        this.jobService.updateProgress(job.id, progress))
+        void this.jobService.updateProgress(job.id, progress))
       .then((filePath) => this.jobService.complete(job.id, filePath))
       .catch((err) => this.jobService.fail(job.id, err.message))
 
@@ -33,8 +33,8 @@ export class ExportController {
 
   // 2. Check the progress of a job
   @Get('status/:id')
-  getStatus(@Param('id') id: string) {
-    const job = this.jobService.getJob(id)
+  async getStatus(@Param('id') id: string) {
+    const job = await this.jobService.getJob(id)
     if (!job) return { error: 'Job not found' }
     return job
   }
@@ -44,7 +44,7 @@ export class ExportController {
   async download(@Param('id') id: string, @Res() res: Response) {
     const filePath = await this.repository.getExportFilePath()
 
-    const job = this.jobService.getJob(id)
+    const job = await this.jobService.getJob(id)
     if (!job) return res.status(404).json({ error: 'Job not found' })
 
     if (job.status !== 'done' || !job.filePath || !fs.existsSync(job.filePath) || !fs.existsSync(filePath)) {
