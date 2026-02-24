@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Export XLS Progress</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #progressContainer { width: 100%; background: #eee; border-radius: 5px; margin-top: 20px; }
+    #progressBar { width: 0%; height: 30px; background: #4caf50; text-align: center; color: white; border-radius: 5px; }
+    button { padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Export XLS</h1>
+  <button id="startBtn">Lancer l’export</button>
+
+  <div id="progressContainer">
+    <div id="progressBar">0%</div>
+  </div>
+
+  <script>
+    const startBtn = document.getElementById('startBtn')
+    const progressBar = document.getElementById('progressBar')
+
+    startBtn.addEventListener('click', async () => {
+      startBtn.disabled = true
+      progressBar.style.width = '0%'
+      progressBar.textContent = '0%'
+
+      // 1. Start the export
+      const startResp = await fetch('/api/export/start', { method: 'POST' })
+      const startData = await startResp.json()
+      const jobId = startData.jobId
+      console.log('Job started:', jobId)
+
+      // 2. Polling for progress
+      const interval = setInterval(async () => {
+        const statusResp = await fetch(`/api/export/status/${jobId}`)
+        const statusData = await statusResp.json()
+        const progress = statusData.progress || 0
+        progressBar.style.width = progress + '%'
+        progressBar.textContent = progress + '%'
+
+        if (statusData.status && statusData.status.toLowerCase() === 'done') {
+          clearInterval(interval)
+          // 3. Automatic download
+          setTimeout(() => {
+            window.location.href = `/api/export/download/${jobId}`
+          }, 500)
+          startBtn.disabled = false
+        } else if (statusData.status === 'error') {
+          clearInterval(interval)
+          alert('Erreur lors de l’export : ' + statusData.error)
+          startBtn.disabled = false
+        }
+      }, 2000)
+    })
+  </script>
+</body>
+</html>
