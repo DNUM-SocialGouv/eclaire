@@ -11,6 +11,8 @@ import { StreamingExcelExporter } from '../excel/StreamingExcelExporter'
 export class IngestPipelineImport extends IngestPipeline {
   readonly type = 'dm-dmdiv'
 
+  private filePath?: string
+
   // Implement execute() with your custom logic
   async execute(): Promise<void> {
     await this.import()
@@ -26,21 +28,47 @@ export class IngestPipelineImport extends IngestPipeline {
   }
 
   async import(): Promise<void> {
-    // Extraire les donn�es
+    await this.runWithProgress()
+  }
+
+  async runWithProgress(onProgress?: (p: number) => void): Promise<void> {
     const dataDM: RiphDmDto[] = await super.extract<RiphDmDto>()
     const ctisData: RiphCtisDto[] = await super.extract<RiphCtisDto>('ctis')
     const jardeData: RiphJardeDto[] = await super.extract<RiphJardeDto>('jarde')
-    // S�parer les donn�es selon reglementation_code
+
     const dm745Data = dataDM.filter((d) => d.reglementation_code === 'REG745')
     const dm746Data = dataDM.filter((d) => d.reglementation_code === 'REG746')
 
+    const totalRows =
+      dm745Data.length +
+      dm746Data.length +
+      jardeData.length +
+      ctisData.length
+
+    let processed = 0
+
     const exporter = new StreamingExcelExporter()
 
-    await exporter.exportSheets([
-      { columns: DM_COLUMNS, data: dm745Data, name: 'ETUDES DM (2017-745)' },
-      { columns: DM_COLUMNS, data: dm746Data, name: 'ETUDES DM-DIV (2017-746)' },
-      { columns: JARDE_COLUMNS, data: jardeData, name: 'ETUDES JARDE' },
-      { columns: CTIS_COLUMNS, data: ctisData, name: 'ETUDES CTIS (2014-536)' },
-    ])
+    this.filePath = await exporter.exportSheets(
+      [
+        { columns: DM_COLUMNS, data: dm745Data, name: 'ETUDES DM (2017-745)' },
+        { columns: DM_COLUMNS, data: dm746Data, name: 'ETUDES DM-DIV (2017-746)' },
+        { columns: JARDE_COLUMNS, data: jardeData, name: 'ETUDES JARDE' },
+        { columns: CTIS_COLUMNS, data: ctisData, name: 'ETUDES CTIS (2014-536)' },
+      ],
+      (rowsProcessed) => {
+        processed += rowsProcessed
+
+        if (onProgress && totalRows > 0) {
+          const percent = Math.round((processed / totalRows) * 100)
+          onProgress(percent)
+        }
+      }
+    )
+  }
+
+  // Getter to retrieve the path after execution
+  getFilePath(): string | undefined {
+    return this.filePath
   }
 }

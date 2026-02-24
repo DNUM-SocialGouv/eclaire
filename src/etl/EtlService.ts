@@ -22,7 +22,7 @@ export class EtlService {
     private readonly databaseService: ElasticsearchService,
     private readonly readerService: S3Service | JsonFileReaderService,
     private readonly translationService: TranslationService
-  ) {}
+  ) { }
 
   async createIndex(): Promise<void> {
     this.loggerService.info('-- Début de la création de l’index ECLAIRE dans Elasticsearch.')
@@ -209,11 +209,15 @@ export class EtlService {
     this.loggerService.info('-- Fin de la mise à jour des labels Meddra pour les essais cliniques CTIS.')
   }
 
-  async importDataOnXLS(): Promise<void> {
-    this.loggerService.info('-- Début de la recuperation des données depuis le bucket S3.')
-    const ingestPipelines = new IngestPipelineImport(this.loggerService, this.databaseService, this.readerService)
-    await ingestPipelines.import()
-    this.loggerService.info('-- Fin de la recuperation des données depuis le bucket S3.')
-  }
+  async importDataOnXLS(
+    onProgress?: (p: number) => void
+  ): Promise<string> {
+    const pipeline = new IngestPipelineImport(this.loggerService, this.databaseService, this.readerService)
+    await pipeline.runWithProgress(onProgress)
 
+    const filePath = pipeline.getFilePath()
+    if (!filePath) throw new Error('File generation failed')
+
+    return filePath
+  }
 }
