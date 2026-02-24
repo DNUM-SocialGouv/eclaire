@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Export XLS Progress</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 1rem 40px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      margin-bottom: 4rem;
+    }
+
+    button {
+      padding: .8rem 1rem;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background-color: #4299e1;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #2b6cb0;
+    }
+
+    button:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+
+    #progressContainer {
+      width: 100%;
+      background: #ddd;
+      border-radius: 8px;
+      margin-top: 30px;
+      overflow: hidden;
+      height: 35px;
+    }
+
+    #progressBar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #4caf50, #66bb6a);
+      text-align: center;
+      color: #fff;
+      line-height: 35px;
+      font-weight: bold;
+      transition: width 0.3s ease;
+    }
+
+    #statusText {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Export XLS</h1>
+
+  <button id="startBtn">Lancer l’export</button>
+
+  <div id="progressContainer">
+    <div id="progressBar">0%</div>
+  </div>
+
+  <div id="statusText"></div>
+
+  <script>
+    const startBtn = document.getElementById('startBtn')
+    const progressBar = document.getElementById('progressBar')
+    const statusText = document.getElementById('statusText')
+
+    let visualProgress = 0
+    let animationInterval = null
+    let pollingInterval = null
+
+    function updateBar(value) {
+      progressBar.style.width = value + '%'
+      progressBar.textContent = value + '%'
+    }
+
+    function startVisualAnimation() {
+      animationInterval = setInterval(() => {
+        if (visualProgress < 90) {
+          visualProgress += 1
+          updateBar(visualProgress)
+        }
+      }, 200)
+    }
+
+    function stopVisualAnimation() {
+      clearInterval(animationInterval)
+    }
+
+    startBtn.addEventListener('click', async () => {
+
+      startBtn.disabled = true
+      statusText.textContent = "Initialisation..."
+      visualProgress = 0
+      updateBar(0)
+
+      try {
+        // 1. Start the export
+        const startResp = await fetch('/api/export/start', {
+          method: 'POST'
+        })
+
+        if (!startResp.ok) {
+          throw new Error('Impossible de démarrer l’export')
+        }
+
+        const startData = await startResp.json()
+        const jobId = startData.jobId
+
+        statusText.textContent = "Export en cours..."
+        startVisualAnimation()
+
+        // 2. Polling for progress
+        pollingInterval = setInterval(async () => {
+
+          const statusResp = await fetch(`/api/export/status/${jobId}`)
+          const statusData = await statusResp.json()
+
+          console.log("STATUS:", statusData)
+
+          // If backend send a true progress
+          if (statusData.progress && statusData.progress > visualProgress) {
+            visualProgress = statusData.progress
+            updateBar(visualProgress)
+          }
+
+          // END OF EXPORT
+          if (statusData.status === 'done') {
+            clearInterval(pollingInterval)
+            stopVisualAnimation()
+
+            visualProgress = 100
+            updateBar(100)
+            statusText.textContent = "Téléchargement..."
+
+            // Download propre via blob
+            const downloadResp = await fetch(`/api/export/download/${jobId}`)
+            const blob = await downloadResp.blob()
+            // 🔥 Récupérer le vrai nom depuis le header
+            const contentDisposition = downloadResp.headers.get('Content-Disposition')
+            let fileName = 'Export.xlsx' // fallback
+
+            if (contentDisposition) {
+                const match = contentDisposition.match(/filename="?(.+?)"?$/)
+                if (match && match[1]) {
+                    fileName = match[1]
+                }
+            }
+
+            const url = window.URL.createObjectURL(blob)
+
+            const a = document.createElement('a')
+            a.href = url
+            a.download = fileName
+            document.body.appendChild(a)
+            a.click()
+            a.remove()
+
+            window.URL.revokeObjectURL(url)
+
+            statusText.textContent = "Export terminé ✅"
+            startBtn.disabled = false
+          }
+
+          //  ERROR
+          if (statusData.status === 'failed') {
+            clearInterval(pollingInterval)
+            stopVisualAnimation()
+            statusText.textContent = "Erreur lors de l’export ❌"
+            alert('Erreur : ' + statusData.error)
+            startBtn.disabled = false
+          }
+
+        }, 1500)
+
+      } catch (err) {
+        stopVisualAnimation()
+        statusText.textContent = "Erreur réseau ❌"
+        alert(err.message)
+        startBtn.disabled = false
+      }
+
+    })
+  </script>
+
+</body>
+</html>
