@@ -1,5 +1,5 @@
+import { Injectable } from '@nestjs/common';
 import { Client } from '@opensearch-project/opensearch'
-
 import type { ApiResponse } from '@opensearch-project/opensearch'
 
 type CountRequest = {
@@ -23,22 +23,32 @@ type CountRequest = {
   };
 }
 
+@Injectable()
 export class ElasticsearchService {
   private readonly index = 'eclaire'
   private readonly updateMedDraLabels = 'update-meddra-labels'
   private enrichMap: Map<string, string> = new Map()
 
-  constructor(private readonly client: Client) { }
+  constructor(readonly client: Client) { }
 
-  async createAnIndex<T>(mappings: T): Promise<void> {
+  async createAnIndex<T>(mappings: T, indexName?: string): Promise<void> {
     await this.client.indices.create({
       body: { mappings },
-      index: this.index,
+      index: indexName ?? this.index,
     })
   }
 
   async deleteAnIndex(): Promise<void> {
     await this.client.indices.delete({ ignore_unavailable: true, index: this.index })
+  }
+
+  async indexDocument<T>(indexName: string, id: string, doc: T): Promise<void> {
+    await this.client.index({
+      body: doc,
+      id,
+      index: indexName,
+      refresh: 'wait_for',
+    })
   }
 
   async updateAnIndex<T>(mappings: T): Promise<void> {
