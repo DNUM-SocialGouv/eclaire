@@ -1,6 +1,7 @@
 import * as ExcelJS from 'exceljs'
-import fs from 'fs'
-import path from 'path'
+import { Response as ExpressResponse } from 'express'
+/* import fs from 'fs'
+import path from 'path' */
 
 import { RiphCtisDto } from 'src/etl/dto/RiphCtisDto'
 import { RiphDmDto } from 'src/etl/dto/RiphDmDto'
@@ -21,9 +22,10 @@ export class StreamingExcelExporter {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async exportSheets(
     sheets: SheetData[],
+    res: ExpressResponse<any, Record<string, any>>,
     onBatchProcessed?: (rows: number) => void
-  ): Promise<string> {
-    const filePath = path.join('/tmp', 'Export_suivi_remplissage_ECLAIRE.xlsx')
+  ): Promise<void> {
+    /* const filePath = path.join('/tmp', 'Export_suivi_remplissage_ECLAIRE.xlsx')
     const tmpPath = filePath + '.tmp'
 
     if (fs.existsSync(tmpPath)) {
@@ -32,6 +34,17 @@ export class StreamingExcelExporter {
 
     const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
       filename: tmpPath,
+      useSharedStrings: false,
+      useStyles: true,
+    }) */
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    res.setHeader('Content-Disposition', 'attachment; filename=export.xlsx')
+
+    const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
+      stream: res,
       useSharedStrings: false,
       useStyles: true,
     })
@@ -122,7 +135,7 @@ export class StreamingExcelExporter {
     }
 
     await wb.commit()
-    fs.renameSync(tmpPath, filePath)
-    return filePath
+    /* fs.renameSync(tmpPath, filePath)
+    return filePath */
   }
 }

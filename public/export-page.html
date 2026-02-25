@@ -3,16 +3,12 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Export XLS Progress</title>
+    <title>Export XLS Premium</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             padding: 1rem 40px;
-            background-color: #f5f5f5;
-        }
-
-        h1 {
-            margin-bottom: 4rem;
+            background: #f5f5f5;
         }
 
         button {
@@ -22,38 +18,40 @@
             cursor: pointer;
             border: none;
             border-radius: 6px;
-            background-color: #4299e1;
+            background: #4299e1;
             color: #fff;
-            transition: 0.3s;
+            transition: .3s;
         }
 
         button:hover {
-            background-color: #2b6cb0;
+            background: #2b6cb0;
         }
 
         button:disabled {
-            background-color: #999;
+            background: #999;
             cursor: not-allowed;
         }
 
         #progressContainer {
             width: 100%;
             background: #ddd;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-top: 30px;
             overflow: hidden;
-            height: 35px;
+            height: 40px;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15);
         }
 
         #progressBar {
             width: 0%;
             height: 100%;
             background: linear-gradient(90deg, #4caf50, #66bb6a);
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #fff;
-            line-height: 35px;
             font-weight: bold;
-            transition: width 0.3s ease;
+            transition: width 0.2s ease-out;
         }
 
         #statusText {
@@ -65,8 +63,7 @@
 
 <body>
 
-    <h1>Export XLS</h1>
-
+    <h1>Export XLS Premium</h1>
     <button id="startBtn">Lancer l’export</button>
 
     <div id="progressContainer">
@@ -80,99 +77,71 @@
         const progressBar = document.getElementById('progressBar')
         const statusText = document.getElementById('statusText')
 
-        let visualProgress = 0
-        let animationInterval = null
-        let pollingInterval = null
+        let currentProgress = 0
+        let targetProgress = 0
+        let pollingActive = false
+        let animId = null
 
-        function updateBar(value) {
-            progressBar.style.width = value + '%'
-            progressBar.textContent = value + '%'
-        }
+        // fonction easing
+        function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3) }
 
-        function startVisualAnimation() {
-            animationInterval = setInterval(() => {
-
-                if (visualProgress >= 95) return
-
-                if (visualProgress < 70) {
-                    visualProgress += 1.2
-                } else if (visualProgress < 85) {
-                    visualProgress += 0.6
-                } else {
-                    visualProgress += 0.2
-                }
-
-                visualProgress = Math.min(95, visualProgress)
-                updateBar(Math.floor(visualProgress))
-
-            }, 200)
-        }
-
-        function stopVisualAnimation() {
-            clearInterval(animationInterval)
-        }
-
-        function stopAll(errorMessage = null) {
-            clearInterval(pollingInterval)
-            stopVisualAnimation()
-            startBtn.disabled = false
-
-            if (errorMessage) {
-                statusText.textContent = "Erreur pendant l’export ❌"
-                alert(errorMessage)
+        function animateProgress() {
+            const diff = targetProgress - currentProgress
+            currentProgress += diff * 0.08 // interpolation douce
+            progressBar.style.width = currentProgress + '%'
+            progressBar.textContent = Math.floor(currentProgress) + '%'
+            if (currentProgress < 100) {
+                animId = requestAnimationFrame(animateProgress)
             }
+        }
+
+        function startAnimation() {
+            cancelAnimationFrame(animId)
+            animateProgress()
+        }
+
+        function stopAll(err = null) {
+            pollingActive = false
+            cancelAnimationFrame(animId)
+            startBtn.disabled = false
+            if (err) statusText.textContent = "Erreur ❌"
+            if (err) alert(err)
+        }
+
+        function formatDateForFile() {
+            const d = new Date()
+            const yyyy = d.getFullYear()
+            const mm = String(d.getMonth() + 1).padStart(2, '0')
+            const dd = String(d.getDate()).padStart(2, '0')
+            return `${dd}-${mm}-${yyyy}`
         }
 
         async function pollStatus(jobId) {
             if (!pollingActive) return
-
             try {
-                const statusResp = await fetch(`/api/export/status/${jobId}`)
+                const res = await fetch(`/api/export/status/${jobId}`, { cache: "no-store" })
+                if (!res.ok) throw new Error("Erreur serveur")
+                const data = await res.json()
 
-                if (!statusResp.ok) {
-                    throw new Error("Erreur serveur")
+                // limite à 99% avant téléchargement
+                if (data.progress !== undefined) {
+                    targetProgress = Math.min(99, data.progress)
                 }
 
-                const contentType = statusResp.headers.get("content-type")
-                if (!contentType || !contentType.includes("application/json")) {
-                    throw new Error("Réponse invalide du serveur")
-                }
-
-                const statusData = await statusResp.json()
-
-                console.log("STATUS:", statusData)
-
-                if (statusData.progress && statusData.progress > visualProgress) {
-                    visualProgress = statusData.progress
-                    updateBar(visualProgress)
-                }
-
-                if (statusData.error === "Job not found") {
-                    throw new Error("Job expiré ou instance redémarrée")
-                }
-
-                // EXPORT COMPLETED
-                if (statusData.status === 'done') {
+                if (data.status === 'done') {
                     pollingActive = false
-                    stopVisualAnimation()
-
-                    visualProgress = 100
-                    updateBar(100)
-                    statusText.textContent = "Téléchargement..."
+                    targetProgress = 100
+                    statusText.textContent = "Préparation téléchargement..."
+                    
+                    currentProgress = 100
+                    progressBar.style.width = '100%'
+                    progressBar.textContent = '100%'
 
                     const downloadResp = await fetch(`/api/export/download/${jobId}`)
+                    if (!downloadResp.ok) throw new Error("Téléchargement échoué")
+
                     const blob = await downloadResp.blob()
-
-                    const contentDisposition = downloadResp.headers.get('Content-Disposition')
-                    let fileName = 'Export.xlsx'
-
-                    if (contentDisposition) {
-                        const match = contentDisposition.match(/filename="?(.+?)"?$/)
-                        if (match && match[1]) {
-                            fileName = match[1]
-                        }
-                    }
-
+                    const fileName = `export_eclaire_${formatDateForFile()}.xlsx`
                     const url = window.URL.createObjectURL(blob)
                     const a = document.createElement('a')
                     a.href = url
@@ -187,56 +156,36 @@
                     return
                 }
 
-                // ERROR BACKEND
-                if (statusData.status === 'failed') {
+                if (data.status === 'failed') {
                     pollingActive = false
-                    stopVisualAnimation()
                     statusText.textContent = "Erreur lors de l’export ❌"
-                    alert('Erreur : ' + statusData.error)
+                    alert('Erreur : ' + data.error)
                     startBtn.disabled = false
                     return
                 }
 
-                // CLEAN RE-LAUNCH (no overlap)
-                setTimeout(() => pollStatus(jobId), 2000)
+                // rappel toutes les 1.5s pour lisser les updates
+                setTimeout(() => pollStatus(jobId), 1500)
 
-            } catch (err) {
-                console.error("Polling stopped:", err)
-                stopAll(err.message)
-            }
+            } catch (err) { stopAll(err.message) }
         }
 
         startBtn.addEventListener('click', async () => {
-
             startBtn.disabled = true
             statusText.textContent = "Initialisation..."
-            visualProgress = 0
-            updateBar(0)
+            currentProgress = 0
+            targetProgress = 0
+            startAnimation()
 
             try {
-                // 1. Start the export
-                const startResp = await fetch('/api/export/start', {
-                    method: 'POST'
-                })
-
-                if (!startResp.ok) {
-                    throw new Error('Impossible de démarrer l’export')
-                }
-
+                const startResp = await fetch('/api/export/start', { method: 'POST' })
+                if (!startResp.ok) throw new Error('Impossible de démarrer l’export')
                 const startData = await startResp.json()
                 const jobId = startData.jobId
-
                 statusText.textContent = "Export en cours..."
-                startVisualAnimation()
-
-                // 2. Polling for progress
                 pollingActive = true
                 pollStatus(jobId)
-
-            } catch (err) {
-                stopAll(err.message)
-            }
-
+            } catch (err) { stopAll(err.message) }
         })
     </script>
 

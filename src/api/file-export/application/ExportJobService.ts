@@ -58,51 +58,99 @@ export class ExportJobService {
   }
 
   async updateProgress(id: string, progress: number) {
-    await this.esService.client.update({
-      index: this.INDEX,
-      id,
-      // cast to any to bypass TS type check
-      body: {
-        doc: {
-          progress,
-          status: 'processing',
-          updatedAt: new Date().toISOString(),
-        },
-      },
-      retry_on_conflict: 3,
-      refresh: false,
-    })
+    const maxRetries = 5
+    let attempt = 0
+    while (attempt < maxRetries) {
+      try {
+        await this.esService.client.update({
+          index: this.INDEX,
+          id,
+          body: {
+            script: {
+              source: `
+                if (ctx._source.progress < params.progress) {
+                  ctx._source.progress = params.progress;
+                  ctx._source.status = 'processing';
+                  ctx._source.updatedAt = params.updatedAt;
+                }
+              `,
+              params: { progress, updatedAt: new Date().toISOString() },
+            },
+          },
+          retry_on_conflict: 3,
+          refresh: false,
+        })
+        return
+      } catch (err: any) {
+        if (err.meta?.statusCode === 409) {
+          // version conflict, retry after 50ms
+          await new Promise((res) => setTimeout(res, 50))
+          attempt++
+          continue
+        }
+        throw err
+      }
+    }
   }
 
   async complete(id: string, filePath: string) {
-    await this.esService.client.update({
-      index: this.INDEX,
-      id,
-      body: {
-        doc: {
-          status: 'done',
-          progress: 100,
-          filePath,
-          updatedAt: new Date().toISOString(),
-        },
-      },
-      retry_on_conflict: 3,
-      refresh: false,
-    })
+    const maxRetries = 5
+    let attempt = 0
+    while (attempt < maxRetries) {
+      try {
+        await this.esService.client.update({
+          index: this.INDEX,
+          id,
+          body: {
+            doc: {
+              status: 'done',
+              progress: 100,
+              filePath,
+              updatedAt: new Date().toISOString(),
+            },
+          },
+          retry_on_conflict: 5,
+          refresh: false,
+        })
+        return
+      } catch (err: any) {
+        if (err.meta?.statusCode === 409) {
+          await new Promise((res) => setTimeout(res, 50))
+          attempt++
+          continue
+        }
+        throw err
+      }
+    }
   }
 
   async fail(id: string, error: string) {
-    await this.esService.client.update({
-      index: this.INDEX,
-      id,
-      body: {
-        doc: {
-          status: 'error',
-          error,
-          updatedAt: new Date().toISOString(),
-        },
-      },
-      refresh: false,
-    })
+    const maxRetries = 5
+    let attempt = 0
+    while (attempt < maxRetries) {
+      try {
+        await this.esService.client.update({
+          index: this.INDEX,
+          id,
+          body: {
+            doc: {
+              status: 'error',
+              error,
+              updatedAt: new Date().toISOString(),
+            },
+          },
+          retry_on_conflict: 5,
+          refresh: false,
+        })
+        return
+      } catch (err: any) {
+        if (err.meta?.statusCode === 409) {
+          await new Promise((res) => setTimeout(res, 50))
+          attempt++
+          continue
+        }
+        throw err
+      }
+    }
   }
 }

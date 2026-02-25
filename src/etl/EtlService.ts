@@ -15,6 +15,7 @@ import { elasticsearchIndexMapping } from '../shared/elasticsearch/elasticsearch
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
 import { TranslationService } from '../shared/translation/TranslationService'
+import { StreamingExcelExporter } from './pipelines/excel/StreamingExcelExporter'
 
 export class EtlService {
   constructor(
@@ -219,5 +220,34 @@ export class EtlService {
     if (!filePath) throw new Error('File generation failed')
 
     return filePath
+  }
+
+  async runPipelineWithProgress(onProgress?: (p: number) => void): Promise<void> {
+    const pipeline = new IngestPipelineImport(
+      this.loggerService,
+      this.databaseService,
+      this.readerService
+    )
+    await pipeline.runWithProgress(onProgress)
+  }
+
+  async streamExportToResponse(
+    onProgress: (p: number) => void,
+    res: any
+  ): Promise<void> {
+    const pipeline = new IngestPipelineImport(this.loggerService, this.databaseService, this.readerService)
+    await pipeline.runWithProgress(onProgress)
+
+    /* eslint-disable sort-keys */
+    const sheets = [
+      { name: 'ETUDES DM (2017-745)', data: pipeline.getDataByCode('REG745'), columns: pipeline.DM_COLUMNS },
+      { name: 'ETUDES DM-DIV (2017-746)', data: pipeline.getDataByCode('REG746'), columns: pipeline.DM_COLUMNS },
+      { name: 'ETUDES JARDE', data: pipeline.getDataByCode('JARDE'), columns: pipeline.JARDE_COLUMNS },
+      { name: 'ETUDES CTIS (2014-536)', data: pipeline.getDataByCode('CTIS'), columns: pipeline.CTIS_COLUMNS },
+    ]
+    /* eslint-enable sort-keys */
+
+    const exporter = new StreamingExcelExporter()
+    await exporter.exportSheets(sheets, res, onProgress)
   }
 }
