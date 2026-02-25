@@ -6,7 +6,6 @@ import { ExportJobsIndexController } from './controllers/ExportJobsIndexControll
 import { ExportPageController } from './controllers/ExportPageController'
 import { LocalFileExportRepository } from './gateway/LocalFileExportRepository'
 import { EtlModule } from '../../etl/EtlModule'
-//import { ElasticsearchService } from '../../shared/elasticsearch/ElasticsearchService'
 import { ElasticsearchModule } from '../../shared/elasticsearch/ElasticsearchModule'
 
 @Module({

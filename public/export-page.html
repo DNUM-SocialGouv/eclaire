@@ -113,6 +113,89 @@
             }
         }
 
+        async function pollStatus(jobId) {
+            if (!pollingActive) return
+
+            try {
+                const statusResp = await fetch(`/api/export/status/${jobId}`)
+
+                if (!statusResp.ok) {
+                    throw new Error("Erreur serveur")
+                }
+
+                const contentType = statusResp.headers.get("content-type")
+                if (!contentType || !contentType.includes("application/json")) {
+                    throw new Error("Réponse invalide du serveur")
+                }
+
+                const statusData = await statusResp.json()
+
+                console.log("STATUS:", statusData)
+
+                if (statusData.progress && statusData.progress > visualProgress) {
+                    visualProgress = statusData.progress
+                    updateBar(visualProgress)
+                }
+
+                if (statusData.error === "Job not found") {
+                    throw new Error("Job expiré ou instance redémarrée")
+                }
+
+                // EXPORT COMPLETED
+                if (statusData.status === 'done') {
+                    pollingActive = false
+                    stopVisualAnimation()
+
+                    visualProgress = 100
+                    updateBar(100)
+                    statusText.textContent = "Téléchargement..."
+
+                    const downloadResp = await fetch(`/api/export/download/${jobId}`)
+                    const blob = await downloadResp.blob()
+
+                    const contentDisposition = downloadResp.headers.get('Content-Disposition')
+                    let fileName = 'Export.xlsx'
+
+                    if (contentDisposition) {
+                        const match = contentDisposition.match(/filename="?(.+?)"?$/)
+                        if (match && match[1]) {
+                            fileName = match[1]
+                        }
+                    }
+
+                    const url = window.URL.createObjectURL(blob)
+                    const a = document.createElement('a')
+                    a.href = url
+                    a.download = fileName
+                    document.body.appendChild(a)
+                    a.click()
+                    a.remove()
+                    window.URL.revokeObjectURL(url)
+
+                    statusText.textContent = "Export terminé ✅"
+                    startBtn.disabled = false
+                    return
+                }
+
+                // ERROR BACKEND
+                if (statusData.status === 'failed') {
+                    pollingActive = false
+                    stopVisualAnimation()
+                    statusText.textContent = "Erreur lors de l’export ❌"
+                    alert('Erreur : ' + statusData.error)
+                    startBtn.disabled = false
+                    return
+                }
+
+                // CLEAN RE-LAUNCH (no overlap)
+                setTimeout(() => pollStatus(jobId), 2000)
+
+            } catch (err) {
+                console.error("Polling stopped:", err)
+                stopAll(err.message)
+            }
+        }
+
         startBtn.addEventListener('click', async () => {
 
             startBtn.disabled = true
@@ -137,85 +220,8 @@
                 startVisualAnimation()
 
                 // 2. Polling for progress
-                pollingInterval = setInterval(async () => {
-                    try {
-                        const statusResp = await fetch(`/api/export/status/${jobId}`)
-                        // When serveur response with HTTP error
-                        if (!statusResp.ok) {
-                            throw new Error("Erreur serveur")
-                        }
-                        // When don't get a JSON response (ex: 502 HTML)
-                        const contentType = statusResp.headers.get("content-type")
-                        if (!contentType || !contentType.includes("application/json")) {
-                            throw new Error("Réponse invalide du serveur")
-                        }
-
-                        const statusData = await statusResp.json()
-
-                        console.log("STATUS:", statusData)
-
-                        // If backend send a true progress
-                        if (statusData.progress && statusData.progress > visualProgress) {
-                            visualProgress = statusData.progress
-                            updateBar(visualProgress)
-                        }
-
-                        // when get error job not found
-                        if (statusData.error === "Job not found") {
-                            throw new Error("Job expiré ou instance redémarrée")
-                        }
-
-                        // END OF EXPORT
-                        if (statusData.status === 'done') {
-                            clearInterval(pollingInterval)
-                            stopVisualAnimation()
-
-                            visualProgress = 100
-                            updateBar(100)
-                            statusText.textContent = "Téléchargement..."
-
-                            // Download propre via blob
-                            const downloadResp = await fetch(`/api/export/download/${jobId}`)
-                            const blob = await downloadResp.blob()
-                            // Get the filename from header
-                            const contentDisposition = downloadResp.headers.get('Content-Disposition')
-                            let fileName = 'Export.xlsx' // fallback
-                            if (contentDisposition) {
-                                const match = contentDisposition.match(/filename="?(.+?)"?$/)
-                                if (match && match[1]) {
-                                    fileName = match[1]
-                                }
-                            }
-
-                            const url = window.URL.createObjectURL(blob)
-
-                            const a = document.createElement('a')
-                            a.href = url
-                            a.download = fileName
-                            document.body.appendChild(a)
-                            a.click()
-                            a.remove()
-
-                            window.URL.revokeObjectURL(url)
-
-                            statusText.textContent = "Export terminé ✅"
-                            startBtn.disabled = false
-                        }
-
-                        //  ERROR
-                        if (statusData.status === 'failed') {
-                            clearInterval(pollingInterval)
-                            stopVisualAnimation()
-                            statusText.textContent = "Erreur lors de l’export ❌"
-                            alert('Erreur : ' + statusData.error)
-                            startBtn.disabled = false
-                        }
-                    } catch (err) {
-                        console.error("Polling stopped:", err)
-                        stopAll(err.message)
-                    }
-
-                }, 2000)
+                pollingActive = true
+                pollStatus(jobId)
 
             } catch (err) {
                 stopAll(err.message)
