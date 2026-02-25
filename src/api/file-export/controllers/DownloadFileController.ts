@@ -1,33 +1,34 @@
-import { Controller, Get, Inject, Res, Post, Param } from '@nestjs/common'
+import { Controller, Get, Res, Post, Param } from '@nestjs/common'
 import { ApiExcludeController } from '@nestjs/swagger'
 import { Response } from 'express'
-import * as fs from 'fs'
 
 import { EtlService } from '../../../etl/EtlService'
 import { ExportJobService } from '../application/ExportJobService'
-import { FileExportRepository } from '../application/FileExportRepository'
 
 @ApiExcludeController()
 @Controller('/api/export')
 export class ExportController {
   constructor(
-    @Inject('FileExportRepository')
-    private readonly repository: FileExportRepository,
     private readonly etlService: EtlService,
     private readonly jobService: ExportJobService
   ) { }
+
+  private async processJob(jobId: string) {
+    try {
+      await this.etlService.runPipelineWithProgress((progress) => {
+        void this.jobService.updateProgress(jobId, progress)
+      })
+      await this.jobService.complete(jobId, 'ready-to-download')
+    } catch (err: any) {
+      await this.jobService.fail(jobId, err.message)
+    }
+  }
 
   // 1. Create a new job
   @Post('start')
   async startExport() {
     const job = await this.jobService.createJob()
-
-    this.etlService
-      .importDataOnXLS((progress) =>
-        void this.jobService.updateProgress(job.id, progress))
-      .then((filePath) => this.jobService.complete(job.id, filePath))
-      .catch((err) => this.jobService.fail(job.id, err.message))
-
+    void this.processJob(job.id)
     return { jobId: job.id }
   }
 
@@ -41,20 +42,30 @@ export class ExportController {
 
   // 3. Download the file if finished
   @Get('download/:id')
-  async download(@Param('id') id: string, @Res() res: Response) {
-    const filePath = await this.repository.getExportFilePath()
-
+  async download(@Param('id') id: string, @Res() res: Response): Promise<void> {
     const job = await this.jobService.getJob(id)
-    if (!job) return res.status(404).json({ error: 'Job not found' })
-
-    if (job.status !== 'done' || !job.filePath || !fs.existsSync(job.filePath) || !fs.existsSync(filePath)) {
-      return res.status(400).json({ error: 'File not ready yet' })
+    if (!job) {
+      res.status(404).json({ error: 'Job not found' })
+      return
+    }
+    if (job.status !== 'done' && job.status !== 'processing') {
+      res.status(400).json({ error: 'File not ready yet' })
+      return
     }
 
-    const today = new Date()
-    const dateString = today.toISOString().split('T')[0]
-    const filename = `export_eclaire_${dateString}.xlsx`
-
-    return res.download(job.filePath, filename)
+    try {
+      // stream XLS directement vers le client
+      await this.etlService.streamExportToResponse(
+        (progress) => {
+          void this.jobService.updateProgress(id, progress)
+        },
+        res
+      )
+      // marquer le job comme complete
+      await this.jobService.complete(id, null)
+    } catch (err: any) {
+      await this.jobService.fail(id, err.message)
+      if (!res.headersSent) res.status(500).json({ error: err.message })
+    }
   }
 }
