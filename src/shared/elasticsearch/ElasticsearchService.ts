@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common'
 import { Client } from '@opensearch-project/opensearch'
+
 import type { ApiResponse } from '@opensearch-project/opensearch'
 
 /**

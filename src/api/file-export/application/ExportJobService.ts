@@ -24,19 +24,9 @@ export class ExportJobService {
   constructor(private readonly esService: ElasticsearchService) { }
 
   async createIndex(): Promise<void> {
-    try {
-      const exists = await this.esService.client.indices.exists({ index: this.INDEX })
-      if (!exists.body) {
-        await this.esService.createAnIndex(exportJobsIndexMapping, this.INDEX)
-        console.log(`Index '${this.INDEX}' created successfully`)
-      } else {
-        console.log(`Index '${this.INDEX}' already exists`)
-      }
-    } catch (error) {
-      // Handle any errors during the check or creation
-      console.error(`Failed to create index '${this.INDEX}':`, error)
-      // Optional: rethrow if you want the caller to know
-      throw error
+    const exists = await this.esService.client.indices.exists({ index: this.INDEX })
+    if (!exists.body) {
+      await this.esService.createAnIndex(exportJobsIndexMapping, this.INDEX)
     }
   }
 
@@ -80,7 +70,7 @@ export class ExportJobService {
         },
       },
       retry_on_conflict: 3,
-      refresh: 'wait_for',
+      refresh: false,
     })
   }
 
@@ -97,7 +87,7 @@ export class ExportJobService {
         },
       },
       retry_on_conflict: 3,
-      refresh: 'wait_for',
+      refresh: false,
     })
   }
 
@@ -112,7 +102,7 @@ export class ExportJobService {
           updatedAt: new Date().toISOString(),
         },
       },
-      refresh: 'wait_for',
+      refresh: false,
     })
   }
 }

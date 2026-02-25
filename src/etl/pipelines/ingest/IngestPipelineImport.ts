@@ -46,6 +46,7 @@ export class IngestPipelineImport extends IngestPipeline {
       ctisData.length
 
     let processed = 0
+    let lastPercent = -1
 
     const exporter = new StreamingExcelExporter()
 
@@ -61,7 +62,10 @@ export class IngestPipelineImport extends IngestPipeline {
 
         if (onProgress && totalRows > 0) {
           const percent = Math.round((processed / totalRows) * 100)
-          onProgress(percent)
+          if (percent !== lastPercent && percent % 5 === 0) {
+            lastPercent = percent
+            onProgress(percent)
+          }
         }
       }
     )
