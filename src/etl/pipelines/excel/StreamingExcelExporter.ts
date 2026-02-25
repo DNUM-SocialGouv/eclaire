@@ -33,7 +33,7 @@ export class StreamingExcelExporter {
     const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
       filename: tmpPath,
       useSharedStrings: false,
-      useStyles: false,
+      useStyles: true,
     })
 
     const BATCH_SIZE = 500

@@ -91,10 +91,20 @@
 
         function startVisualAnimation() {
             animationInterval = setInterval(() => {
-                if (visualProgress < 90) {
-                    visualProgress += 1
-                    updateBar(visualProgress)
+
+                if (visualProgress >= 95) return
+
+                if (visualProgress < 70) {
+                    visualProgress += 1.2
+                } else if (visualProgress < 85) {
+                    visualProgress += 0.6
+                } else {
+                    visualProgress += 0.2
                 }
+
+                visualProgress = Math.min(95, visualProgress)
+                updateBar(Math.floor(visualProgress))
+
             }, 200)
         }
 
