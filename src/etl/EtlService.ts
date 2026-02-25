@@ -230,18 +230,6 @@ export class EtlService {
     this.loggerService.info('-- Fin de la mise à jour des labels Meddra pour les essais cliniques CTIS.')
   }
 
-  async importDataOnXLS(
-    onProgress?: (p: number) => void
-  ): Promise<string> {
-    const pipeline = new IngestPipelineImport(this.loggerService, this.databaseService, this.readerService)
-    await pipeline.runWithProgress(onProgress)
-
-    const filePath = pipeline.getFilePath()
-    if (!filePath) throw new Error('File generation failed')
-
-    return filePath
-  }
-
   async runPipelineWithProgress(onProgress?: (p: number) => void): Promise<void> {
     const pipeline = new IngestPipelineImport(
       this.loggerService,

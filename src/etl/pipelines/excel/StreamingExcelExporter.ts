@@ -1,7 +1,5 @@
 import * as ExcelJS from 'exceljs'
 import { Response as ExpressResponse } from 'express'
-/* import fs from 'fs'
-import path from 'path' */
 
 import { RiphCtisDto } from 'src/etl/dto/RiphCtisDto'
 import { RiphDmDto } from 'src/etl/dto/RiphDmDto'
@@ -25,18 +23,6 @@ export class StreamingExcelExporter {
     res: ExpressResponse<any, Record<string, any>>,
     onBatchProcessed?: (rows: number) => void
   ): Promise<void> {
-    /* const filePath = path.join('/tmp', 'Export_suivi_remplissage_ECLAIRE.xlsx')
-    const tmpPath = filePath + '.tmp'
-
-    if (fs.existsSync(tmpPath)) {
-      fs.unlinkSync(tmpPath)
-    }
-
-    const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
-      filename: tmpPath,
-      useSharedStrings: false,
-      useStyles: true,
-    }) */
     res.setHeader(
       'Content-Type',
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -135,7 +121,6 @@ export class StreamingExcelExporter {
     }
 
     await wb.commit()
-    /* fs.renameSync(tmpPath, filePath)
-    return filePath */
+    res.end()
   }
 }
