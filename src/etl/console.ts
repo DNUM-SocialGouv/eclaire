@@ -51,9 +51,6 @@ async function console(): Promise<void> {
       await etlService.createIndex()
       await etlService.importData('1970-01-01')
       break
-    case 'import-data-on-xls':
-      await etlService.importDataOnXLS()
-      break
     default:
       process.exit(1)
   }
