@@ -15,10 +15,12 @@ export class ExportController {
 
   private async processJob(jobId: string) {
     try {
-      await this.etlService.runPipelineWithProgress((progress) => {
-        void this.jobService.updateProgress(jobId, progress)
-      })
-      await this.jobService.complete(jobId, 'ready-to-download')
+      const filePath = await this.etlService.generateFileWithProgress(
+        (progress) => {
+          void this.jobService.updateProgress(jobId, progress)
+        }
+      )
+      await this.jobService.complete(jobId, filePath)
     } catch (err: any) {
       await this.jobService.fail(jobId, err.message)
     }
@@ -48,21 +50,13 @@ export class ExportController {
       res.status(404).json({ error: 'Job not found' })
       return
     }
-    if (job.status !== 'done' && job.status !== 'processing') {
-      res.status(400).json({ error: 'File not ready yet' })
+    if (job.status !== 'done' || !job.filePath) {
+      res.status(400).json({ error: 'File not ready' })
       return
     }
 
     try {
-      // stream XLS directement vers le client
-      await this.etlService.streamExportToResponse(
-        (progress) => {
-          void this.jobService.updateProgress(id, progress)
-        },
-        res
-      )
-      // marquer le job comme complete
-      await this.jobService.complete(id, null)
+      res.download(job.filePath, 'export.xlsx')
     } catch (err: any) {
       await this.jobService.fail(id, err.message)
       if (!res.headersSent) res.status(500).json({ error: err.message })

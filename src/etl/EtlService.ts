@@ -258,4 +258,33 @@ export class EtlService {
     const exporter = new StreamingExcelExporter()
     await exporter.exportSheets(sheets, res, onProgress)
   }
+
+  async generateFileWithProgress(
+    onProgress: (p: number) => void,
+  ): Promise<string> {
+
+    const pipeline = new IngestPipelineImport(
+      this.loggerService,
+      this.databaseService,
+      this.readerService
+    )
+
+    await pipeline.runWithProgress(onProgress)
+
+    /* eslint-disable sort-keys */
+    const sheets = [
+      { name: 'ETUDES DM (2017-745)', data: pipeline.getDataByCode('REG745'), columns: pipeline.DM_COLUMNS },
+      { name: 'ETUDES DM-DIV (2017-746)', data: pipeline.getDataByCode('REG746'), columns: pipeline.DM_COLUMNS },
+      { name: 'ETUDES JARDE', data: pipeline.getDataByCode('JARDE'), columns: pipeline.JARDE_COLUMNS },
+      { name: 'ETUDES CTIS (2014-536)', data: pipeline.getDataByCode('CTIS'), columns: pipeline.CTIS_COLUMNS },
+    ]
+    /* eslint-enable sort-keys */
+
+    const filePath = `/tmp/export-${Date.now()}.xlsx`
+
+    const exporter = new StreamingExcelExporter()
+    await exporter.exportSheets(sheets, filePath, onProgress)
+
+    return filePath
+  }
 }
