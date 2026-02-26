@@ -6,10 +6,12 @@ import { ElasticsearchService } from '../../../shared/elasticsearch/Elasticsearc
 import { exportJobsIndexMapping } from '../../../shared/elasticsearch/exportJobsIndexMapping'
 
 export type JobStatus = 'pending' | 'processing' | 'done' | 'error'
+export type JobPhase = 'extracting' | 'building-file' | 'ready'
 
 export interface ExportJob {
   id: string
   status: JobStatus
+  phase?: JobPhase
   progress: number
   filePath?: string
   error?: string
@@ -38,6 +40,7 @@ export class ExportJobService {
     const job: ExportJob = {
       id: randomUUID(),
       status: 'pending',
+      phase: 'extracting',
       progress: 0,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -57,7 +60,47 @@ export class ExportJobService {
     }
   }
 
+  async updatePhase(id: string, phase: JobPhase) {
+    const maxRetries = 5
+    let attempt = 0
+    while (attempt < maxRetries) {
+      try {
+        await this.esService.client.update({
+          index: this.INDEX,
+          id,
+          body: {
+            doc: {
+              phase,
+              updatedAt: new Date().toISOString(),
+            },
+          },
+          retry_on_conflict: 5,
+          refresh: false,
+        })
+        return
+      } catch (err: any) {
+        if (err.meta?.statusCode === 409) {
+          await new Promise((res) => setTimeout(res, 50))
+          attempt++
+          continue
+        }
+        throw err
+      }
+    }
+  }
+
   async updateProgress(id: string, progress: number) {
+    const existing = await this.esService.client.get({
+      id,
+      index: this.INDEX      
+    })
+
+    const currentProgress = existing.body._source.progress
+
+    if (currentProgress === progress) {
+      return
+    }
+    
     const maxRetries = 5
     let attempt = 0
     while (attempt < maxRetries) {
@@ -104,7 +147,8 @@ export class ExportJobService {
           body: {
             doc: {
               status: 'done',
-              progress: 100,
+              phase: 'ready',
+              progress: 99,
               filePath,
               updatedAt: new Date().toISOString(),
             },

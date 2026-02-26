@@ -230,46 +230,28 @@ export class EtlService {
     this.loggerService.info('-- Fin de la mise à jour des labels Meddra pour les essais cliniques CTIS.')
   }
 
-  async runPipelineWithProgress(onProgress?: (p: number) => void): Promise<void> {
-    const pipeline = new IngestPipelineImport(
-      this.loggerService,
-      this.databaseService,
-      this.readerService
-    )
-    await pipeline.runWithProgress(onProgress)
-  }
-
-  async streamExportToResponse(
+  async generateFileWithPhases(
     onProgress: (p: number) => void,
-    res: any
-  ): Promise<void> {
-    const pipeline = new IngestPipelineImport(this.loggerService, this.databaseService, this.readerService)
-    await pipeline.runWithProgress(onProgress)
-
-    /* eslint-disable sort-keys */
-    const sheets = [
-      { name: 'ETUDES DM (2017-745)', data: pipeline.getDataByCode('REG745'), columns: pipeline.DM_COLUMNS },
-      { name: 'ETUDES DM-DIV (2017-746)', data: pipeline.getDataByCode('REG746'), columns: pipeline.DM_COLUMNS },
-      { name: 'ETUDES JARDE', data: pipeline.getDataByCode('JARDE'), columns: pipeline.JARDE_COLUMNS },
-      { name: 'ETUDES CTIS (2014-536)', data: pipeline.getDataByCode('CTIS'), columns: pipeline.CTIS_COLUMNS },
-    ]
-    /* eslint-enable sort-keys */
-
-    const exporter = new StreamingExcelExporter()
-    await exporter.exportSheets(sheets, res, onProgress)
-  }
-
-  async generateFileWithProgress(
-    onProgress: (p: number) => void,
+    onPhase: (phase: 'extracting' | 'building-file' | 'ready') => void
   ): Promise<string> {
 
+    // ========== PHASE 1: EXTRACTION ==========
+    onPhase('extracting')
+
     const pipeline = new IngestPipelineImport(
       this.loggerService,
       this.databaseService,
       this.readerService
     )
 
-    await pipeline.runWithProgress(onProgress)
+    await pipeline.runExtractionWithProgress((p) => {
+      // Extraction = 0 → 80%
+      const scaled = Math.round(p * 0.8)
+      onProgress(scaled)
+    })
+
+    // ========== PHASE 2: BUILD FILE ==========
+    onPhase('building-file')
 
     /* eslint-disable sort-keys */
     const sheets = [
@@ -283,7 +265,19 @@ export class EtlService {
     const filePath = `/tmp/export-${Date.now()}.xlsx`
 
     const exporter = new StreamingExcelExporter()
-    await exporter.exportSheets(sheets, filePath, onProgress)
+
+    await exporter.exportSheets(
+      sheets,
+      filePath,
+      (rowsProcessed, totalRows) => {
+        const percent = 80 + Math.round((rowsProcessed / totalRows) * 19)
+        onProgress(Math.min(percent, 99))
+      }
+    )
+
+    // ========== PHASE 3: READY FILE ==========
+    onPhase('ready') // fichier prêt
+    onProgress(99)
 
     return filePath
   }

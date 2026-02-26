@@ -82,166 +82,135 @@
         const statusText = document.getElementById('statusText')
 
         let visualProgress = 0
-        let animationInterval = null
-        let pollingInterval = null
+        let pollingActive = false
 
         function updateBar(value) {
-            progressBar.style.width = value + '%'
-            progressBar.textContent = value + '%'
+            const safe = Math.min(100, Math.max(0, value))
+            progressBar.style.width = safe + '%'
+            progressBar.textContent = safe + '%'
         }
 
-        function startVisualAnimation() {
-            animationInterval = setInterval(() => {
-
-                if (visualProgress >= 95) return
-
-                if (visualProgress < 70) {
-                    visualProgress += 1.2
-                } else if (visualProgress < 85) {
-                    visualProgress += 0.6
-                } else {
-                    visualProgress += 0.2
-                }
-
-                visualProgress = Math.min(95, visualProgress)
-                updateBar(Math.floor(visualProgress))
-
-            }, 200)
-        }
-
-        function stopVisualAnimation() {
-            clearInterval(animationInterval)
-        }
-
-        function stopAll(errorMessage = null) {
-            clearInterval(pollingInterval)
-            stopVisualAnimation()
-            startBtn.disabled = false
-
-            if (errorMessage) {
-                statusText.textContent = "Erreur pendant l’export ❌"
-                alert(errorMessage)
-            }
+        function resetUI() {
+            visualProgress = 0
+            updateBar(0)
+            statusText.textContent = ""
         }
 
         function formatDateForFile() {
             const d = new Date()
-            const yyyy = d.getFullYear()
-            const mm = String(d.getMonth() + 1).padStart(2, '0')
-            const dd = String(d.getDate()).padStart(2, '0')
-            return `${dd}-${mm}-${yyyy}`
+            return `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`
+        }
+
+        function updatePhaseUI(phase) {
+            switch (phase) {
+                case 'extracting':
+                    statusText.textContent = "Extraction des données..."
+                    break
+                case 'building-file':
+                    statusText.textContent = "Génération du fichier Excel..."
+                    break
+                case 'ready':
+                    statusText.textContent = "Téléchargement..."
+                    break
+            }
+        }
+
+        async function downloadFile(jobId) {
+            const response = await fetch(`/api/export/download/${jobId}`)
+            if (!response.ok) {
+                throw new Error("Erreur lors du téléchargement")
+            }
+
+            const blob = await response.blob()
+            const fileName = `export_eclaire_${formatDateForFile()}.xlsx`
+
+            const url = window.URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.href = url
+            a.download = fileName
+            document.body.appendChild(a)
+            a.click()
+            a.remove()
+            window.URL.revokeObjectURL(url)
         }
 
         async function pollStatus(jobId) {
             if (!pollingActive) return
 
             try {
-                const statusResp = await fetch(`/api/export/status/${jobId}`)
+                const res = await fetch(`/api/export/status/${jobId}`)
+                if (!res.ok) throw new Error("Erreur serveur")
 
-                if (!statusResp.ok) {
-                    throw new Error("Erreur serveur")
-                }
+                const data = await res.json()
 
-                const contentType = statusResp.headers.get("content-type")
-                if (!contentType || !contentType.includes("application/json")) {
-                    throw new Error("Réponse invalide du serveur")
-                }
+                updatePhaseUI(data.phase)
 
-                const statusData = await statusResp.json()
-
-                console.log("STATUS:", statusData)
-
-                if (statusData.progress && statusData.progress > visualProgress) {
-                    visualProgress = statusData.progress
-                    updateBar(visualProgress)
-                }
-
-                if (statusData.error === "Job not found") {
-                    throw new Error("Job expiré ou instance redémarrée")
-                }
-
-                // EXPORT COMPLETED
-                if (statusData.status === 'done') {
-                    pollingActive = false
-                    stopVisualAnimation()
-                    visualProgress = 100
-                    updateBar(visualProgress)
-                    statusText.textContent = "Préparation téléchargement..."
-
-                    const downloadResp = await fetch(`/api/export/download/${jobId}`)
-                    if (!downloadResp.ok) {
-                        const errorData = await downloadResp.json().catch(() => null)
-                        const message = errorData?.error || "Erreur lors du téléchargement"
-                        throw new Error(message)
+                // Progress handling
+                if (typeof data.progress === 'number') {
+                    if (data.status !== 'done') {
+                        const safeProgress = Math.min(data.progress, 99)
+                        if (safeProgress > visualProgress) {
+                            visualProgress = safeProgress
+                            updateBar(visualProgress)
+                        }
                     }
-                    const blob = await downloadResp.blob()
+                }
 
-                    const fileName = `export_eclaire_${formatDateForFile()}.xlsx`
+                // Ready for download
+                if (data.status === 'done' && data.phase === 'ready') {
+                    pollingActive = false
 
-                    const url = window.URL.createObjectURL(blob)
-                    const a = document.createElement('a')
-                    a.href = url
-                    a.download = fileName
-                    document.body.appendChild(a)
-                    a.click()
-                    a.remove()
-                    window.URL.revokeObjectURL(url)
+                    visualProgress = 99
+                    updateBar(99)
+
+                    await downloadFile(jobId)
+
+                    // 100% seulement après download OK
+                    visualProgress = 100
+                    updateBar(100)
 
                     statusText.textContent = "Export terminé ✅"
                     startBtn.disabled = false
-
                     return
                 }
 
-                // ERROR BACKEND
-                if (statusData.status === 'failed') {
+                if (data.status === 'error') {
                     pollingActive = false
-                    stopVisualAnimation()
-                    statusText.textContent = "Erreur lors de l’export ❌"
-                    alert('Erreur : ' + statusData.error)
                     startBtn.disabled = false
+                    statusText.textContent = "Erreur lors de l’export ❌"
+                    alert(data.error || "Erreur inconnue")
                     return
                 }
 
-                // CLEAN RE-LAUNCH (no overlap)
                 setTimeout(() => pollStatus(jobId), 2000)
 
             } catch (err) {
-                console.error("Polling stopped:", err)
-                stopAll(err.message)
+                pollingActive = false
+                startBtn.disabled = false
+                statusText.textContent = "Erreur ❌"
+                alert(err.message)
             }
         }
 
         startBtn.addEventListener('click', async () => {
             startBtn.disabled = true
+            resetUI()
             statusText.textContent = "Initialisation..."
-            visualProgress = 0
-            updateBar(0)
 
             try {
-                // 1. Start the export
-                const startResp = await fetch('/api/export/start', {
-                    method: 'POST'
-                })
+                const res = await fetch('/api/export/start', { method: 'POST' })
+                if (!res.ok) throw new Error("Impossible de démarrer")
 
-                if (!startResp.ok) {
-                    throw new Error('Impossible de démarrer l’export')
-                }
+                const data = await res.json()
 
-                const startData = await startResp.json()
-                const jobId = startData.jobId
-
-                statusText.textContent = "Export en cours..."
-                startVisualAnimation()
-
-                // 2. Polling for progress
                 pollingActive = true
-                pollStatus(jobId)
+                pollStatus(data.jobId)
 
             } catch (err) {
-                stopAll(err.message)
+                startBtn.disabled = false
+                statusText.textContent = "Erreur ❌"
+                alert(err.message)
             }
-
         })
     </script>
 
