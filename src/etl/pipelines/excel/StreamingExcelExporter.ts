@@ -1,5 +1,4 @@
 import * as ExcelJS from 'exceljs'
-import { Response as ExpressResponse } from 'express'
 
 import { RiphCtisDto } from 'src/etl/dto/RiphCtisDto'
 import { RiphDmDto } from 'src/etl/dto/RiphDmDto'
@@ -20,17 +19,13 @@ export class StreamingExcelExporter {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async exportSheets(
     sheets: SheetData[],
-    res: ExpressResponse<any, Record<string, any>>,
+    filePath: string,
     onBatchProcessed?: (rows: number) => void
   ): Promise<void> {
-    res.setHeader(
-      'Content-Type',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    )
-    res.setHeader('Content-Disposition', 'attachment; filename=export.xlsx')
+    
 
     const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
-      stream: res,
+      filename: filePath,
       useSharedStrings: false,
       useStyles: true,
     })
@@ -121,6 +116,5 @@ export class StreamingExcelExporter {
     }
 
     await wb.commit()
-    res.end()
   }
 }

@@ -164,7 +164,7 @@
                 if (statusData.status === 'done') {
                     pollingActive = false
                     stopVisualAnimation()
-                    visualProgress = 99
+                    visualProgress = 100
                     updateBar(visualProgress)
                     statusText.textContent = "Préparation téléchargement..."
 
@@ -187,8 +187,6 @@
                     a.remove()
                     window.URL.revokeObjectURL(url)
 
-                    visualProgress = 100
-                    updateBar(visualProgress)
                     statusText.textContent = "Export terminé ✅"
                     startBtn.disabled = false
 
