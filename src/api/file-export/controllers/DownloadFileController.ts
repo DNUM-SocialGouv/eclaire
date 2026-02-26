@@ -15,12 +15,17 @@ export class ExportController {
 
   private async processJob(jobId: string) {
     try {
-      const filePath = await this.etlService.generateFileWithProgress(
+      const filePath = await this.etlService.generateFileWithPhases(
         (progress) => {
           void this.jobService.updateProgress(jobId, progress)
+        },
+        (phase) => {
+          void this.jobService.updatePhase(jobId, phase)
         }
       )
+
       await this.jobService.complete(jobId, filePath)
+
     } catch (err: any) {
       await this.jobService.fail(jobId, err.message)
     }

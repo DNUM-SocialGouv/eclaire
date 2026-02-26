@@ -25,7 +25,7 @@ export class IngestPipelineImport extends IngestPipeline {
     await this.import()
   }
 
-  async import(): Promise<void> {}
+  async import(): Promise<void> { }
 
   transform(riphDtos: RiphCtisDto[] | RiphDmDto[] | RiphJardeDto[]): ResearchStudyModel[] {
     // Provide a minimal stub; replace with real mapping if needed
@@ -34,9 +34,9 @@ export class IngestPipelineImport extends IngestPipeline {
       title: (dto).title ?? '',
       // map other fields as necessary
     } as ResearchStudyModel))
-  }  
+  }
 
-  async runWithProgress(onProgress?: (p: number) => void): Promise<void> {
+  async runExtractionWithProgress(onProgress?: (p: number) => void): Promise<void> {
     const dataDM: RiphDmDto[] = await super.extract<RiphDmDto>()
     const ctisData: RiphCtisDto[] = await super.extract<RiphCtisDto>('ctis')
     const jardeData: RiphJardeDto[] = await super.extract<RiphJardeDto>('jarde')
@@ -48,22 +48,19 @@ export class IngestPipelineImport extends IngestPipeline {
 
     const totalRows = this.dm745Data.length + this.dm746Data.length + this.jardeData.length + this.ctisData.length
     let processed = 0
-    let lastPercent = -1
 
     // juste simuler le traitement par batch pour le callback onProgress
     const batches = [this.dm745Data, this.dm746Data, this.jardeData, this.ctisData]
     for (const batch of batches) {
       for (let i = 0; i < batch.length; i++) {
         processed++
+
         if (onProgress) {
           const percent = Math.round((processed / totalRows) * 100)
-          if (percent !== lastPercent && percent % 5 === 0) {
-            lastPercent = percent
-            onProgress(percent)
-          }
+          onProgress(percent)
         }
-        // micro-yield pour event loop
-        await new Promise((r) => setImmediate(r))
+
+        await new Promise(r => setImmediate(r))
       }
     }
   }

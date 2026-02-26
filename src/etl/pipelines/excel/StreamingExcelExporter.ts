@@ -20,9 +20,9 @@ export class StreamingExcelExporter {
   async exportSheets(
     sheets: SheetData[],
     filePath: string,
-    onBatchProcessed?: (rows: number) => void
+    onBatchProcessed?: (processed: number, total: number) => void
   ): Promise<void> {
-    
+
 
     const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
       filename: filePath,
@@ -31,6 +31,9 @@ export class StreamingExcelExporter {
     })
 
     const BATCH_SIZE = 500
+    // 1. Total global de toutes les lignes
+    const totalRows = sheets.reduce((acc, sheet) => acc + sheet.data.length, 0)
+    let processedRows = 0
 
     for (const sheetInfo of sheets) {
       const ws = wb.addWorksheet(sheetInfo.name)
@@ -102,13 +105,15 @@ export class StreamingExcelExporter {
           })
 
           row.commit()
+          processedRows++
         }
-
-        // signal progress par batch
+        
+        // 2. On envoie le progress global
         if (onBatchProcessed) {
-          onBatchProcessed(batch.length)
+          onBatchProcessed(processedRows, totalRows)
         }
 
+        // micro-yield pour éviter blocage event loop
         await new Promise((resolve) => setImmediate(resolve))
       }
 
