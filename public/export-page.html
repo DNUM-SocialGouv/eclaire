@@ -115,23 +115,38 @@
             }
         }
 
-        async function downloadFile(jobId) {
-            const response = await fetch(`/api/export/download/${jobId}`)
-            if (!response.ok) {
-                throw new Error("Erreur lors du téléchargement")
+        async function downloadFileWithRetry(jobId, retries = 3, delay = 2000) {
+            for (let attempt = 1; attempt <= retries; attempt++) {
+                try {
+                    const response = await fetch(`/api/export/download/${jobId}`)
+                    if (response.ok) {
+                        const blob = await response.blob()
+                        const fileName = `export_${formatDateForFile()}.xlsx`
+                        const url = window.URL.createObjectURL(blob)
+                        const a = document.createElement('a')
+                        a.href = url
+                        a.download = fileName
+                        document.body.appendChild(a)
+                        a.click()
+                        a.remove()
+                        window.URL.revokeObjectURL(url)
+                        return true
+                    } else if (response.status === 404) {
+                        // fichier pas encore disponible, retry
+                        if (attempt < retries) {
+                            await new Promise(r => setTimeout(r, delay))
+                            continue
+                        } else {
+                            throw new Error("Fichier non trouvé après plusieurs tentatives (404)")
+                        }
+                    } else {
+                        throw new Error(`Erreur serveur ${response.status}`)
+                    }
+                } catch (err) {
+                    if (attempt === retries) throw err
+                    await new Promise(r => setTimeout(r, delay))
+                }
             }
-
-            const blob = await response.blob()
-            const fileName = `export_eclaire_${formatDateForFile()}.xlsx`
-
-            const url = window.URL.createObjectURL(blob)
-            const a = document.createElement('a')
-            a.href = url
-            a.download = fileName
-            document.body.appendChild(a)
-            a.click()
-            a.remove()
-            window.URL.revokeObjectURL(url)
         }
 
         async function pollStatus(jobId) {
@@ -159,19 +174,22 @@
                 // Ready for download
                 if (data.status === 'done' && data.phase === 'ready') {
                     pollingActive = false
-
                     visualProgress = 99
                     updateBar(99)
 
-                    await downloadFile(jobId)
-
-                    // 100% seulement après download OK
-                    visualProgress = 100
-                    updateBar(100)
-
-                    statusText.textContent = "Export terminé ✅"
-                    startBtn.disabled = false
-                    return
+                    try {
+                        await downloadFileWithRetry(jobId, 3, 2000)
+                        visualProgress = 100
+                        updateBar(100)
+                        statusText.textContent = "Export terminé ✅"
+                        startBtn.disabled = false
+                        return
+                    } catch (err) {
+                        alert(err.message)
+                        statusText.textContent = "Erreur lors du téléchargement ❌"
+                        startBtn.disabled = false
+                        return
+                    }
                 }
 
                 if (data.status === 'error') {
