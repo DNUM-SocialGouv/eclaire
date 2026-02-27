@@ -121,7 +121,7 @@
                     const response = await fetch(`/api/export/download/${jobId}`)
                     if (response.ok) {
                         const blob = await response.blob()
-                        const fileName = `export_${formatDateForFile()}.xlsx`
+                        const fileName = `export_eclaire_${formatDateForFile()}.xlsx`
                         const url = window.URL.createObjectURL(blob)
                         const a = document.createElement('a')
                         a.href = url
