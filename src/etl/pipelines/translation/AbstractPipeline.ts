@@ -12,7 +12,7 @@ export abstract class AbstractPipeline<T> {
     await this.extract(date)
   }
 
-  protected async extract(date?: string): Promise<T[]> {
+  async extract(date?: string): Promise<T[]> {
     const requestBody = this.buildRequestBody(date)
     const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'] ?? '100')
     let searchAfter: any[] | undefined
@@ -48,7 +48,7 @@ export abstract class AbstractPipeline<T> {
   protected abstract buildRequestBody(date?: string): ElasticsearchBodyType
   protected abstract transform(data: T[]): Promise<T[]>
 
-  protected async load(data: T[]): Promise<void> {
+  async load(data: T[]): Promise<void> {
     await this.databaseService.bulkDocuments(data)
   }
 }
