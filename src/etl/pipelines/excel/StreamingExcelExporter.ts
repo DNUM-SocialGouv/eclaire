@@ -23,7 +23,6 @@ export class StreamingExcelExporter {
     onBatchProcessed?: (processed: number, total: number) => void
   ): Promise<void> {
 
-
     const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
       filename: filePath,
       useSharedStrings: false,
@@ -107,7 +106,7 @@ export class StreamingExcelExporter {
           row.commit()
           processedRows++
         }
-        
+
         // 2. On envoie le progress global
         if (onBatchProcessed) {
           onBatchProcessed(processedRows, totalRows)

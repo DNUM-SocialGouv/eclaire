@@ -60,7 +60,7 @@ export class IngestPipelineImport extends IngestPipeline {
           onProgress(percent)
         }
 
-        await new Promise(r => setImmediate(r))
+        await new Promise((r) => setImmediate(r))
       }
     }
   }

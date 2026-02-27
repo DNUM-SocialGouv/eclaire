@@ -92,7 +92,7 @@ export class ExportJobService {
   async updateProgress(id: string, progress: number) {
     const existing = await this.esService.client.get({
       id,
-      index: this.INDEX      
+      index: this.INDEX,
     })
 
     const currentProgress = existing.body._source.progress
@@ -100,7 +100,7 @@ export class ExportJobService {
     if (currentProgress === progress) {
       return
     }
-    
+
     const maxRetries = 5
     let attempt = 0
     while (attempt < maxRetries) {
