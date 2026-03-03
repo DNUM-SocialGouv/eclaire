@@ -27,8 +27,7 @@ export class IngestPipelineImport extends IngestPipeline {
 
   async import(): Promise<void> { }
 
-  transform(riphDtos: RiphCtisDto[] | RiphDmDto[] | RiphJardeDto[]): ResearchStudyModel[] {
-    // Provide a minimal stub; replace with real mapping if needed
+  transform(riphDtos: RiphCtisDto[] | RiphDmDto[] | RiphJardeDto[]): ResearchStudyModel[] {    
     return riphDtos.map((dto) => ({
       id: dto.id,
       title: (dto).title ?? '',
