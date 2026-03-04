@@ -3516,6 +3516,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/stream-chain@npm:*":
+  version: 2.1.0
+  resolution: "@types/stream-chain@npm:2.1.0::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40types%2Fstream-chain%2F-%2Fstream-chain-2.1.0.tgz"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/b9acf2740068c20defed8a0066040375d7b75ce3f51100b61b888c9425818d92ef794110468350f51109d9c1aa890a645953abe8fcb25a57ee4e86a19559bda4
+  languageName: node
+  linkType: hard
+
+"@types/stream-json@npm:^1":
+  version: 1.7.8
+  resolution: "@types/stream-json@npm:1.7.8::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2F%40types%2Fstream-json%2F-%2Fstream-json-1.7.8.tgz"
+  dependencies:
+    "@types/node": "npm:*"
+    "@types/stream-chain": "npm:*"
+  checksum: 10c0/c88f4dca65332d3847b37b16a60dc9d9a7401a6c47b0553e5a424e35f989757afeede32397b1a9ee9c1e5ba4a013832d2938fa60590e2b1dffa848185ac33b93
+  languageName: node
+  linkType: hard
+
 "@types/superagent@npm:*":
   version: 8.1.9
   resolution: "@types/superagent@npm:8.1.9"
@@ -4354,6 +4373,7 @@ __metadata:
     "@types/he": "npm:^1"
     "@types/node": "npm:18.19.103"
     "@types/node-fetch": "npm:^2.6.12"
+    "@types/stream-json": "npm:^1"
     "@types/supertest": "npm:^2.0.16"
     "@typescript-eslint/eslint-plugin": "npm:^8.29.0"
     "@typescript-eslint/parser": "npm:^8.29.0"
@@ -4373,6 +4393,8 @@ __metadata:
     reflect-metadata: "npm:^0.2.2"
     rxjs: "npm:^7.8.2"
     source-map-support: "npm:^0.5.21"
+    stream-chain: "npm:^3.4.0"
+    stream-json: "npm:^1.9.1"
     supertest: "npm:^6.3.4"
     ts-loader: "npm:^9.5.2"
     ts-node: "npm:^10.9.2"
@@ -10134,6 +10156,29 @@ __metadata:
   version: 3.9.0
   resolution: "std-env@npm:3.9.0"
   checksum: 10c0/4a6f9218aef3f41046c3c7ecf1f98df00b30a07f4f35c6d47b28329bc2531eef820828951c7d7b39a1c5eb19ad8a46e3ddfc7deb28f0a2f3ceebee11bab7ba50
+  languageName: node
+  linkType: hard
+
+"stream-chain@npm:^2.2.5":
+  version: 2.2.5
+  resolution: "stream-chain@npm:2.2.5::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fstream-chain%2F-%2Fstream-chain-2.2.5.tgz"
+  checksum: 10c0/c512f50190d7c92d688fa64e7af540c51b661f9c2b775fc72bca38ea9bca515c64c22c2197b1be463741daacbaaa2dde8a8ea24ebda46f08391224f15249121a
+  languageName: node
+  linkType: hard
+
+"stream-chain@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "stream-chain@npm:3.4.0::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fstream-chain%2F-%2Fstream-chain-3.4.0.tgz"
+  checksum: 10c0/d4ac6c33875ad39dc082aa2022bfc9c77b70f809bbe1b9d67c959b4caaabada4cff4b5611b95de416a11bfdb1032e91560b226fe7d2787443543b72f3d3b3435
+  languageName: node
+  linkType: hard
+
+"stream-json@npm:^1.9.1":
+  version: 1.9.1
+  resolution: "stream-json@npm:1.9.1::__archiveUrl=https%3A%2F%2Fregistry.npmjs.org%2Fstream-json%2F-%2Fstream-json-1.9.1.tgz"
+  dependencies:
+    stream-chain: "npm:^2.2.5"
+  checksum: 10c0/0521e5cb3fb6b0e2561d715975e891bd81fa77d0239c8d0b1756846392bc3c7cdd7f1ddb0fe7ed77e6fdef58daab9e665d3b39f7d677bd0859e65a2bff59b92c
   languageName: node
   linkType: hard
 

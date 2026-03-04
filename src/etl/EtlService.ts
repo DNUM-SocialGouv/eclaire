@@ -234,9 +234,9 @@ export class EtlService {
     onProgress: (p: number) => void,
     onPhase: (phase: 'extracting' | 'building-file' | 'ready') => void
   ): Promise<string> {
-
     // ========== PHASE 1: EXTRACTION ==========
     onPhase('extracting')
+    onProgress(1)
 
     const pipeline = new IngestPipelineImport(
       this.loggerService,
@@ -244,41 +244,50 @@ export class EtlService {
       this.readerService
     )
 
-    await pipeline.runExtractionWithProgress((p) => {
-      // Extraction = 0 → 80%
-      const scaled = Math.round(p * 0.8)
-      onProgress(scaled)
-    })
+    const filePath = `/tmp/export-${Date.now()}.xlsx`
+
+    const exporter = new StreamingExcelExporter()
+    exporter.init(filePath, [
+      {
+        columns: pipeline.DM_COLUMNS,
+        key: 'REG745',
+        name: 'ETUDES DM (2017-745)',
+      },
+      {
+        columns: pipeline.DM_COLUMNS,
+        key: 'REG746',
+        name: 'ETUDES DM-DIV (2017-746)',
+      },
+      {
+        columns: pipeline.JARDE_COLUMNS,
+        key: 'JARDE',
+        name: 'ETUDES JARDE',
+      },
+      {
+        columns: pipeline.CTIS_COLUMNS,
+        key: 'CTIS',
+        name: 'ETUDES CTIS (2014-536)',
+      },
+    ])
+
+    await pipeline.runExtractionStreaming(
+      exporter,
+      (processed) => {
+        const scaled = Math.min(80, Math.floor(processed / 1000))
+        onProgress(scaled)
+      }
+    )
 
     // ========== PHASE 2: BUILD FILE ==========
     onPhase('building-file')
 
-    /* eslint-disable sort-keys */
-    const sheets = [
-      { name: 'ETUDES DM (2017-745)', data: pipeline.getDataByCode('REG745'), columns: pipeline.DM_COLUMNS },
-      { name: 'ETUDES DM-DIV (2017-746)', data: pipeline.getDataByCode('REG746'), columns: pipeline.DM_COLUMNS },
-      { name: 'ETUDES JARDE', data: pipeline.getDataByCode('JARDE'), columns: pipeline.JARDE_COLUMNS },
-      { name: 'ETUDES CTIS (2014-536)', data: pipeline.getDataByCode('CTIS'), columns: pipeline.CTIS_COLUMNS },
-    ]
-    /* eslint-enable sort-keys */
-
-    const filePath = `/tmp/export-${Date.now()}.xlsx`
-
-    const exporter = new StreamingExcelExporter()
-
-    await exporter.exportSheets(
-      sheets,
-      filePath,
-      (rowsProcessed, totalRows) => {
-        const percent = 80 + Math.round((rowsProcessed / totalRows) * 19)
-        onProgress(Math.min(percent, 99))
-      }
-    )
+    await exporter.finalize()
 
     // ========== PHASE 3: READY FILE ==========
-    onPhase('ready') // fichier prêt
+    onPhase('ready')
     onProgress(99)
 
     return filePath
   }
+
 }

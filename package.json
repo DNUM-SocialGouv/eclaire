@@ -64,7 +64,9 @@
     "he": "^1.2.0",
     "node-fetch": "2.7.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.2"
+    "rxjs": "^7.8.2",
+    "stream-chain": "^3.4.0",
+    "stream-json": "^1.9.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.4.9",
@@ -78,6 +80,7 @@
     "@types/he": "^1",
     "@types/node": "18.19.103",
     "@types/node-fetch": "^2.6.12",
+    "@types/stream-json": "^1",
     "@types/supertest": "^2.0.16",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
     "@typescript-eslint/parser": "^8.29.0",
