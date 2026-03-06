@@ -1,6 +1,6 @@
 import { GetObjectCommand, GetObjectCommandInput, S3Client, S3ClientConfig } from '@aws-sdk/client-s3'
 import { ConfigService } from '@nestjs/config'
-import { Readable } from 'stream'
+import { Readable } from 'node:stream'
 import { chain } from 'stream-chain'
 import { parser } from 'stream-json'
 import { streamArray } from 'stream-json/streamers/StreamArray'

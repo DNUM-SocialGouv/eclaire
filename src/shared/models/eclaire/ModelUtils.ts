@@ -20,7 +20,7 @@ export class ModelUtils {
   }
 
   static undefinedIfNull(value: string | null | undefined): string | undefined {
-    return value ? value : undefined
+    return value ?? undefined
   }
 
   static filterEmptyAndCheck(arr: (string | boolean)[]): {

@@ -8,7 +8,7 @@ import { LoggerService } from '../../../shared/logger/LoggerService'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
 import { ModelUtils } from '../../../shared/models/eclaire/ModelUtils'
 import { TranslatedContentModel } from '../../../shared/models/eclaire/TranslatedContentModel'
-import { TranslationService, TextsToTranslate, TranslatedTextsCtis } from '../../../shared/translation/TranslationService'
+import { TranslationService, TextsToTranslate, TextsToTranslateCtis } from '../../../shared/translation/TranslationService'
 
 export class TranslationPipelineCtis extends AbstractPipeline<ResearchStudyModel> {
   constructor(
@@ -33,7 +33,7 @@ export class TranslationPipelineCtis extends AbstractPipeline<ResearchStudyModel
   async transform(researchStudies: ResearchStudyModel[]): Promise<ResearchStudyModel[]> {
     for (const researchStudy of researchStudies) {
       const textsToTranslate: TextsToTranslate = this.extractTextsToTranslate(researchStudy)
-      const translatedTexts: TranslatedTextsCtis = await this.translationService.executeCtis(textsToTranslate)
+      const translatedTexts: TextsToTranslateCtis = await this.translationService.executeCtis(textsToTranslate)
       researchStudy.translatedContent = TranslatedContentModel.create(
         translatedTexts.diseaseCondition,
         translatedTexts.therapeuticArea,

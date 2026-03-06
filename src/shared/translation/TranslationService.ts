@@ -30,7 +30,7 @@ export class TranslationService {
     return output as TranslatedTexts
   }
 
-  async executeCtis(texts: TextsToTranslate): Promise<TranslatedTextsCtis> {
+  async executeCtis(texts: TextsToTranslate): Promise<TextsToTranslateCtis> {
     const {
       diseaseCondition,
       therapeuticArea,
@@ -140,4 +140,3 @@ export type TextsToTranslateCtis = {
   judgmentCriteria: string[],
   eligibilityCriteria: string[],
 }
-export type TranslatedTextsCtis = TextsToTranslateCtis

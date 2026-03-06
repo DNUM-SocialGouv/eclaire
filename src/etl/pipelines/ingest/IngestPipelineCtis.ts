@@ -79,7 +79,11 @@ export class IngestPipelineCtis extends IngestPipeline {
     const researchStudyModels: ResearchStudyModel[] = []
     for (const riphCtisDto of riphCtisDtos) {
       const eclaireDto: EclaireDto = EclaireDto.fromCtis(riphCtisDto)
-      if (eclaireDto && eclaireDto.numero_primaire && !eclaireDto.to_delete && !this.excludeIds.includes(eclaireDto.numero_primaire)) {
+      if (
+        eclaireDto?.numero_primaire &&
+        !eclaireDto?.to_delete &&
+        !this.excludeIds.includes(eclaireDto.numero_primaire)
+      ) {
         researchStudyModels.push(ResearchStudyModelFactory.create(eclaireDto))
       } else {
         this.idsToDelete.push(eclaireDto.numero_primaire)

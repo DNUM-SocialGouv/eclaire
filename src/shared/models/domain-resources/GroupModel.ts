@@ -42,15 +42,17 @@ export class GroupModel implements Group {
 
   private static addAgeRanges(characteristic: GroupCharacteristic[], ageRanges: string[]) {
     if (ModelUtils.filterEmptyAndCheck(ageRanges).hasValue) {
-      const codes = [...new Set(
-        ageRanges
-          .map(this.normalizeAgeRange)
-          .filter(Boolean)
-      )]
+      const codes = [
+        ...new Set(
+          ageRanges
+            .map((value) => this.normalizeAgeRange(value))
+            .filter(Boolean)
+        ),
+      ]
 
       if (ModelUtils.isNotNull(codes)) {
         characteristic.push(
-          ...codes.map(code => GroupCharacteristicModel.createAgeRange(code))
+          ...codes.map((code) => GroupCharacteristicModel.createAgeRange(code))
         )
       }
     }
@@ -67,7 +69,14 @@ export class GroupModel implements Group {
   private static addStudyPopulation(characteristic: GroupCharacteristic[], population: (string | boolean)[], typeReglementation: 'CTIS' | 'OTHER') {
     if (ModelUtils.filterEmptyAndCheck(population).hasValue) {
       const type = typeReglementation === 'CTIS' ? 'recruitment_population' : 'vulnerable_population'
-      const exclude = typeReglementation === 'OTHER' && population[0] ? true : typeReglementation === 'OTHER' && !population[0] ? false : undefined
+      let exclude: boolean | undefined
+
+      if (typeReglementation === 'OTHER') {
+        exclude = population[0] ? true : false
+      } else {
+        exclude = undefined
+      }
+
       characteristic.push(GroupCharacteristicModel.createStudyPopulation(ModelUtils.filterEmptyAndCheck(population).values, exclude, type))
     }
   }
@@ -88,7 +97,7 @@ export class GroupModel implements Group {
 
     if (!criteria?.length) return
 
-    criteria.forEach(c => {
+    criteria.forEach((c) => {
       const exclude = c.type !== includeType
 
       characteristic.push(
