@@ -24,6 +24,83 @@ export class GroupModel implements Group {
     this.resourceType = 'Group'
   }
 
+  private static addGender(characteristic: GroupCharacteristic[], genders: string[]) {
+    if (ModelUtils.filterEmptyAndCheck(genders).hasValue) {
+      characteristic.push(GroupCharacteristicModel.createGender(ModelUtils.filterEmptyAndCheck(genders).values))
+    }
+  }
+
+  private static normalizeAgeRange(value: string): string | null {
+    const v = value.toLowerCase().trim()
+
+    if (v === 'in utero' || value.includes('0-17')) return '0-17'
+    if (value.includes('18-64')) return '18-64'
+    if (value.includes('65+')) return '65+'
+
+    return null
+  }
+
+  private static addAgeRanges(characteristic: GroupCharacteristic[], ageRanges: string[]) {
+    if (ModelUtils.filterEmptyAndCheck(ageRanges).hasValue) {
+      const codes = [...new Set(
+        ageRanges
+          .map(this.normalizeAgeRange)
+          .filter(Boolean)
+      )]
+
+      if (ModelUtils.isNotNull(codes)) {
+        characteristic.push(
+          ...codes.map(code => GroupCharacteristicModel.createAgeRange(code))
+        )
+      }
+    }
+  }
+
+  private static addGroupCategory(characteristic: GroupCharacteristic[], category: string) {
+    if (ModelUtils.isNotNull(category)) {
+      characteristic.push(
+        GroupCharacteristicModel.createResearchStudyGroupCategory(category)
+      )
+    }
+  }
+
+  private static addStudyPopulation(characteristic: GroupCharacteristic[], population: (string | boolean)[], typeReglementation: 'CTIS' | 'OTHER') {
+    if (ModelUtils.filterEmptyAndCheck(population).hasValue) {
+      const type = typeReglementation === 'CTIS' ? 'recruitment_population' : 'vulnerable_population'
+      const exclude = typeReglementation === 'OTHER' && population[0] ? true : typeReglementation === 'OTHER' && !population[0] ? false : undefined
+      characteristic.push(GroupCharacteristicModel.createStudyPopulation(ModelUtils.filterEmptyAndCheck(population).values, exclude, type))
+    }
+  }
+
+  private static addCriteria(
+    characteristic: GroupCharacteristic[],
+    criteria: Critere[],
+    includeType: string,
+    category: 'eligibility-criteria' | 'judgement-criteria'
+  ) {
+
+    if (ModelUtils.filterValidItems(criteria).hasData) {
+      ModelUtils.filterValidItems(criteria).values.forEach((item: Critere) => {
+        const exclude = item.type !== includeType
+        characteristic.push(GroupCharacteristicModel.createDocumentCriteria(item.titre, exclude, category))
+      })
+    }
+
+    if (!criteria?.length) return
+
+    criteria.forEach(c => {
+      const exclude = c.type !== includeType
+
+      characteristic.push(
+        GroupCharacteristicModel.createDocumentCriteria(
+          c.titre,
+          exclude,
+          category
+        )
+      )
+    })
+  }
+
   static createStudyCharacteristics(
     enrollmentGroupId: string,
     genders: string[],
@@ -34,60 +111,21 @@ export class GroupModel implements Group {
     eligibilityCriteria: Critere[],
     judgementCriteria: Critere[],
     text: NarrativeModel,
-    typeReglementation : 'CTIS' | 'OTHER'
+    typeReglementation: 'CTIS' | 'OTHER'
   ): Group {
+
     const characteristic: GroupCharacteristic[] = []
 
-    if (ModelUtils.filterEmptyAndCheck(genders).hasValue) {
-      characteristic.push(GroupCharacteristicModel.createGender(ModelUtils.filterEmptyAndCheck(genders).values))
-    }
-
-    if (ModelUtils.filterEmptyAndCheck(ageRanges).hasValue) {
-      const ageRangesCodes = [
-        ...new Set(
-          ageRanges.map((value) => {
-            if (value.toLowerCase().trim() === 'in utero') return '0-17'
-            if (value.includes('0-17')) return '0-17'
-            if (value.includes('18-64')) return '18-64'
-            if (value.includes('65+')) return '65+'
-            return null
-          }).filter(Boolean) // Remove nulls
-        ),
-      ]
-
-      if (ModelUtils.isNotNull(ageRangesCodes)) {
-        const parsedAgeRanges: GroupCharacteristic[] = ageRangesCodes.map((ageRange): GroupCharacteristic => GroupCharacteristicModel.createAgeRange(ageRange))
-        characteristic.push(...parsedAgeRanges)
-      }
-    }
-
-    if (ModelUtils.isNotNull(researchStudyGroupCategory)) {
-      characteristic.push(GroupCharacteristicModel.createResearchStudyGroupCategory(researchStudyGroupCategory))
-    }
-
-    if (ModelUtils.filterEmptyAndCheck(studyPopulation).hasValue) {
-      const type = typeReglementation === 'CTIS' ? 'recruitment_population' : 'vulnerable_population'
-      const exclude = typeReglementation === 'OTHER' && studyPopulation[0] ? true : typeReglementation === 'OTHER' && !studyPopulation[0] ? false : undefined
-      characteristic.push(GroupCharacteristicModel.createStudyPopulation(ModelUtils.filterEmptyAndCheck(studyPopulation).values, exclude, type ))
-    }
-
-    if (ModelUtils.filterValidItems(eligibilityCriteria).hasData) {
-      ModelUtils.filterValidItems(eligibilityCriteria).values.forEach((item: Critere) => {
-        const exclude = item.type === 'INCLUSION' ? false : true
-        characteristic.push(GroupCharacteristicModel.createDocumentCriteria(item.titre, exclude, 'eligibility-criteria'))
-      })
-    }
-
-    if (ModelUtils.filterValidItems(judgementCriteria).hasData) {
-      ModelUtils.filterValidItems(judgementCriteria).values.forEach((item: Critere) => {
-        const exclude = item.type === 'PRINCIPAL' ? false : true
-        characteristic.push(GroupCharacteristicModel.createDocumentCriteria(item.titre, exclude, 'judgement-criteria'))
-      })
-    }
+    this.addGender(characteristic, genders)
+    this.addAgeRanges(characteristic, ageRanges)
+    this.addGroupCategory(characteristic, researchStudyGroupCategory)
+    this.addStudyPopulation(characteristic, studyPopulation, typeReglementation)
+    this.addCriteria(characteristic, eligibilityCriteria, 'INCLUSION', 'eligibility-criteria')
+    this.addCriteria(characteristic, judgementCriteria, 'PRINCIPAL', 'judgement-criteria')
 
     return new GroupModel(
       true,
-      characteristic.length === 0 ? undefined : characteristic,
+      characteristic.length ? characteristic : undefined,
       enrollmentGroupId,
       ModelUtils.isNotNull(studySize) ? studySize : undefined,
       'person',
