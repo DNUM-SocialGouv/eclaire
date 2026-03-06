@@ -14,7 +14,7 @@ export abstract class AbstractPipeline<T> {
 
   async extract(date?: string): Promise<T[]> {
     const requestBody = this.buildRequestBody(date)
-    const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'] ?? '100')
+    const chunkSize = 132
     let searchAfter: any[] | undefined
     let results: T[] = []
 
