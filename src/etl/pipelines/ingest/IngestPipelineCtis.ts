@@ -7,7 +7,11 @@ import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFacto
 export class IngestPipelineCtis extends IngestPipeline {
   readonly type = 'ctis'
   idsToDelete = []
+  // Always exclude these 3 study IDs (2023-505745-16-00, 2023-509020-17-00, 2023-509035-30-00). Do not modify them, even after the fix on the RIPH2G side.
   readonly excludeIds = [
+    '2023-505745-16-00',
+    '2023-509020-17-00',
+    '2023-509035-30-00',
     '2022-500024-30-00',
     '2022-500116-18-00',
     '2022-500177-13-00',
@@ -50,7 +54,6 @@ export class IngestPipelineCtis extends IngestPipeline {
     '2023-503737-22-00',
     '2023-504178-39-00',
     '2023-504545-31-00',
-    '2023-505745-16-00',
     '2024-511535-97-00',
     '2024-519779-24-00',
     '2022-500642-25-00',
