@@ -9,117 +9,114 @@ interface Column {
   key: string;
 }
 
-interface SheetData {
-  name: string;
-  data: unknown[];
-  columns: Column[];
-}
-
 export class StreamingExcelExporter {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async exportSheets(
-    sheets: SheetData[],
+  private wb: ExcelJS.stream.xlsx.WorkbookWriter
+  private sheets: Record<string, ExcelJS.Worksheet> = {}
+  private sheetColumns: Record<string, Column[]> = {}
+
+  init(
     filePath: string,
-    onBatchProcessed?: (processed: number, total: number) => void
-  ): Promise<void> {
-
-
-    const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
+    sheetConfigs: {
+      key: string
+      name: string
+      columns: Column[]
+    }[]
+  ) {
+    this.wb = new ExcelJS.stream.xlsx.WorkbookWriter({
       filename: filePath,
-      useSharedStrings: false,
-      useStyles: true,
+      useSharedStrings: false, // important pour la mémoire
+      useStyles: true, // nécessaire pour header style
     })
 
-    const BATCH_SIZE = 500
-    // 1. Total global de toutes les lignes
-    const totalRows = sheets.reduce((acc, sheet) => acc + sheet.data.length, 0)
-    let processedRows = 0
+    for (const sheetInfo of sheetConfigs) {
+      const ws = this.wb.addWorksheet(sheetInfo.name)
 
-    for (const sheetInfo of sheets) {
-      const ws = wb.addWorksheet(sheetInfo.name)
-
+      // Colonnes
       ws.columns = sheetInfo.columns.map((c) => ({
         header: c.header,
         key: c.key,
         width: 40,
       }))
 
+      // ===== HEADER STYLE =====
       const headerRow = ws.getRow(1)
+
       headerRow.eachCell((cell) => {
         cell.fill = {
           fgColor: { argb: 'FFC0E6F5' },
           pattern: 'solid',
           type: 'pattern',
         }
+
         cell.font = { bold: true }
-        cell.alignment = { vertical: 'middle', wrapText: true }
+
+        cell.alignment = {
+          vertical: 'middle',
+          wrapText: true,
+        }
       })
+
       headerRow.commit()
 
+      // ===== AUTO FILTER =====
       ws.autoFilter = {
         from: { column: 1, row: 1 },
         to: { column: sheetInfo.columns.length, row: 1 },
       }
 
-      const buildRow = (record: RiphDmDto | RiphJardeDto | RiphCtisDto): (string | number)[] => {
-        return sheetInfo.columns.map((col) => {
-          const key = col.key
-          const rawValue = record[key]
+      this.sheets[sheetInfo.key] = ws
+      this.sheetColumns[sheetInfo.key] = sheetInfo.columns
+    }
+  }
 
-          if (key.startsWith('sites_investigateurs.')) {
-            const field = key.split('.')[1]
-            const sites = Array.isArray(record.sites_investigateurs)
-              ? (record.sites_investigateurs as Record<string, unknown>[])
-              : []
-            return sites
-              .map((s) => (s?.[field] as string | undefined) ?? '')
-              .filter((v) => v !== '')
-              .join('\n')
-          }
+  buildRow(record: RiphDmDto | RiphJardeDto | RiphCtisDto, columns:Column[]): (string | number)[] {
+    return columns.map((col) => {
+      const key = col.key
+      const rawValue = record[key]
 
-          if (key === 'criteres_eligibilite' || key === 'criteres_jugement') {
-            const arr = Array.isArray(rawValue) ? (rawValue as Record<string, string>[]) : []
-            return arr
-              .map((a) => {
-                const name = a?.titre?.trim() ?? ''
-                const type = a?.type?.trim() ?? ''
-                if (!name && !type) return ''
-                return `[Name : ${name} ; Type : ${type}]`
-              })
-              .filter((v) => v !== '')
-              .join('\n')
-          }
-
-          return (rawValue as string | number | undefined) ?? ''
-        })
+      if (key.startsWith('sites_investigateurs.')) {
+        const field = key.split('.')[1]
+        const sites = Array.isArray(record.sites_investigateurs)
+          ? (record.sites_investigateurs as Record<string, unknown>[])
+          : []
+        return sites
+          .map((s) => (s?.[field] as string | undefined) ?? '')
+          .filter((v) => v !== '')
+          .join('\n')
       }
 
-      for (let i = 0; i < sheetInfo.data.length; i += BATCH_SIZE) {
-        const batch = sheetInfo.data.slice(i, i + BATCH_SIZE)
-        for (const record of batch) {
-          const rowValues = buildRow(record as RiphDmDto | RiphJardeDto | RiphCtisDto)
-          const row = ws.addRow(rowValues)
-
-          row.eachCell((cell) => {
-            cell.alignment = { vertical: 'top', wrapText: true }
+      if (key === 'criteres_eligibilite' || key === 'criteres_jugement') {
+        const arr = Array.isArray(rawValue) ? (rawValue as Record<string, string>[]) : []
+        return arr
+          .map((a) => {
+            const name = a?.titre?.trim() ?? ''
+            const type = a?.type?.trim() ?? ''
+            if (!name && !type) return ''
+            return `[Name : ${name} ; Type : ${type}]`
           })
-
-          row.commit()
-          processedRows++
-        }
-        
-        // 2. On envoie le progress global
-        if (onBatchProcessed) {
-          onBatchProcessed(processedRows, totalRows)
-        }
-
-        // micro-yield pour éviter blocage event loop
-        await new Promise((resolve) => setImmediate(resolve))
+          .filter((v) => v !== '')
+          .join('\n')
       }
 
+      return (rawValue as string | number | undefined) ?? ''
+    })
+  }
+
+  appendRow(type: string, record: RiphDmDto | RiphJardeDto | RiphCtisDto, columns:Column[]) {
+    const ws = this.sheets[type]
+    const row = ws.addRow(this.buildRow(record, columns))
+    row.eachCell((cell) => {
+      cell.alignment = { vertical: 'top', wrapText: true }
+    })
+    row.commit()
+  }
+
+  async finalize() {
+    for (const ws of Object.values(this.sheets)) {
       ws.commit()
     }
-
-    await wb.commit()
+    await this.wb.commit()
   }
+
 }

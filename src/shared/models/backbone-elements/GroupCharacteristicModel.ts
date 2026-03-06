@@ -6,7 +6,7 @@ import { RangeModel } from '../data-types/RangeModel'
 export class GroupCharacteristicModel implements GroupCharacteristic {
   private constructor(
     readonly code: CodeableConcept,
-    readonly exclude: boolean,
+    readonly exclude: boolean | undefined,
     readonly valueBoolean: boolean | undefined,
     readonly valueCodeableConcept: CodeableConcept | undefined,
     readonly valueQuantity: Quantity | undefined,
@@ -18,7 +18,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
   static createGender(genders: string[]): GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicKindVs('grp-gender'),
-      false,
+      undefined,
       undefined,
       CodeableConceptModel.createGenders(genders),
       undefined,
@@ -30,7 +30,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
   static createAgeRange(ageRange: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicKindVs('grp-age'),
-      false,
+      undefined,
       undefined,
       undefined,
       undefined,
@@ -42,7 +42,7 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
   static createResearchStudyGroupCategory(researchStudyGroupCategory: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicKindVs('grp-category'),
-      false,
+      undefined,
       undefined,
       CodeableConceptModel.createResearchStudyGroupCategory(researchStudyGroupCategory),
       undefined,
@@ -51,21 +51,22 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  static createStudyPopulation(studyPopulation: string[]): GroupCharacteristic {
+  static createStudyPopulation(studyPopulation: string[], exclude: boolean, type: string): GroupCharacteristic {
     return new GroupCharacteristicModel(
       CodeableConceptModel.createGroupCharacteristicKindVs('grp-studypop'),
-      false,
+      exclude,
       undefined,
       CodeableConceptModel.createStudyPopulation(studyPopulation),
       undefined,
       undefined,
-      undefined
+      undefined,
+      type
     )
   }
 
-  static createDocumentCriteria(studyInclusion: string, exclude: boolean, type: 'eligibility-criteria' | 'judgement-criteria'): GroupCharacteristic {
+  static createDocumentCriteria(studyInclusion: string, exclude: boolean | undefined, type: 'eligibility-criteria' | 'judgement-criteria'): GroupCharacteristic {
     return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicKindVs('grp-other', type),
+      CodeableConceptModel.createGroupCharacteristicKindVs('grp-other'),
       exclude,
       undefined,
       exclude ? CodeableConceptModel.createExclusion(studyInclusion) : CodeableConceptModel.createInclusion(studyInclusion),
@@ -76,51 +77,4 @@ export class GroupCharacteristicModel implements GroupCharacteristic {
     )
   }
 
-  /* static createInclusion(studyInclusion: string): GroupCharacteristic {
-    return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicKindVs('grp-other'),
-      false,
-      undefined,
-      CodeableConceptModel.createInclusion(studyInclusion),
-      undefined,
-      undefined,
-      undefined
-    )
-  }
-
-  static createExclusion(studyExclusion: string): GroupCharacteristic {
-    return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicKindVs('grp-other'),
-      true,
-      undefined,
-      CodeableConceptModel.createExclusion(studyExclusion),
-      undefined,
-      undefined,
-      undefined
-    )
-  }
-
-  static createPrincipal(value: string) {
-    return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicKindVs('grp-other'),
-      false,
-      undefined,
-      CodeableConceptModel.createPrincipal(value),
-      undefined,
-      undefined,
-      undefined
-    )
-  }
-
-  static createSecondary(value: string) {
-    return new GroupCharacteristicModel(
-      CodeableConceptModel.createGroupCharacteristicKindVs('grp-other'),
-      true,
-      undefined,
-      CodeableConceptModel.createSecondary(value),
-      undefined,
-      undefined,
-      undefined
-    )
-  } */
 }

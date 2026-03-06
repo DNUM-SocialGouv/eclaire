@@ -29,6 +29,8 @@
     "etl:reset-index": "ts-node src/etl/console.ts reset-index",
     "etl:translate:everything": "ts-node src/etl/console.ts translate 1970-01-01",
     "etl:translate:yesterday": "ts-node src/etl/console.ts translate",
+    "etl:translateCtis:everything": "ts-node src/etl/console.ts translate-ctis 1970-01-01",
+    "etl:translateCtis:yesterday": "ts-node src/etl/console.ts translate-ctis",
     "etl:update-meddra-labels:everything": "ts-node src/etl/console.ts update-meddra-labels 1970-01-01",
     "etl:update-meddra-labels:yesterday": "ts-node src/etl/console.ts update-meddra-labels",
     "lint": "eslint 'src/**/*.ts' --max-warnings=0",
@@ -37,7 +39,7 @@
     "start:db": "yarn stop:db && podman compose up -d",
     "start:debug": "nest start --debug --watch",
     "stop:db": "podman compose down",
-    "test:dev": "NODE_ENV=test vitest run src/shared/elasticsearch/ElasticsearchService.test.ts --silent false",
+    "test:dev": "NODE_ENV=test vitest run src/etl/dto/EclaireDto.test.ts --silent false",
     "test": "NODE_ENV=test vitest run",
     "test:coverage": "yarn test --coverage",
     "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
@@ -62,7 +64,9 @@
     "he": "^1.2.0",
     "node-fetch": "2.7.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.2"
+    "rxjs": "^7.8.2",
+    "stream-chain": "^3.4.0",
+    "stream-json": "^1.9.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.4.9",
@@ -76,6 +80,7 @@
     "@types/he": "^1",
     "@types/node": "18.19.103",
     "@types/node-fetch": "^2.6.12",
+    "@types/stream-json": "^1",
     "@types/supertest": "^2.0.16",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
     "@typescript-eslint/parser": "^8.29.0",

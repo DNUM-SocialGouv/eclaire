@@ -93,26 +93,18 @@ describe('etl | IngestPipelineCtis', () => {
             "reglementation_code": "REG536",
             "resume": null,
             "sexe": "Male,Female",
-            "sites": [
+            "sites_investigateurs": [
               {
                 "adresse": "Avenue Eugene Avinee",
+                "code_postal": "59350",
+                "courriel": "test@sante.gouv",
                 "nom": "Aumar",
                 "organisme": "Donnée non disponible",
                 "prenom": "Madeleine",
                 "service": "Gastroenterology Hepatology and Nutrition Unit Paediatric clinic, Child Unit",
+                "telephone": "0168496726",
                 "titre": "Dr.",
                 "ville": "Lille",
-              },
-            ],
-            "sites_investigateurs": [
-              {
-                "adresse": null,
-                "nom": null,
-                "organisme": null,
-                "prenom": null,
-                "service": null,
-                "titre_investigateur": null,
-                "ville": null,
               },
             ],
             "statut_recrutement": "Recrutement en attente",
@@ -193,26 +185,18 @@ describe('etl | IngestPipelineCtis', () => {
             "reglementation_code": "REG536",
             "resume": null,
             "sexe": "Male,Female",
-            "sites": [
+            "sites_investigateurs": [
               {
                 "adresse": "Avenue Eugene Avinee",
+                "code_postal": "59350",
+                "courriel": "test@sante.gouv",
                 "nom": "Aumar",
                 "organisme": "Donnée non disponible",
                 "prenom": "Madeleine",
                 "service": "Gastroenterology Hepatology and Nutrition Unit Paediatric clinic, Child Unit",
+                "telephone": "0168496726",
                 "titre": "Dr.",
                 "ville": "Lille",
-              },
-            ],
-            "sites_investigateurs": [
-              {
-                "adresse": null,
-                "nom": null,
-                "organisme": null,
-                "prenom": null,
-                "service": null,
-                "titre_investigateur": null,
-                "ville": null,
               },
             ],
             "statut_recrutement": "Recrutement en attente",
@@ -293,26 +277,18 @@ describe('etl | IngestPipelineCtis', () => {
             "reglementation_code": "REG536",
             "resume": null,
             "sexe": "Male,Female",
-            "sites": [
+            "sites_investigateurs": [
               {
                 "adresse": "Avenue Eugene Avinee",
+                "code_postal": "59350",
+                "courriel": "test@sante.gouv",
                 "nom": "Aumar",
                 "organisme": "Donnée non disponible",
                 "prenom": "Madeleine",
                 "service": "Gastroenterology Hepatology and Nutrition Unit Paediatric clinic, Child Unit",
+                "telephone": "0168496726",
                 "titre": "Dr.",
                 "ville": "Lille",
-              },
-            ],
-            "sites_investigateurs": [
-              {
-                "adresse": null,
-                "nom": null,
-                "organisme": null,
-                "prenom": null,
-                "service": null,
-                "titre_investigateur": null,
-                "ville": null,
               },
             ],
             "statut_recrutement": "Recrutement en attente",

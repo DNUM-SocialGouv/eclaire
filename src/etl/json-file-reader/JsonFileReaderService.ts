@@ -9,4 +9,9 @@ export class JsonFileReaderService {
     const textContent = readFileSync(filePath, 'utf8')
     return JSON.parse(textContent)
   }
+
+  *readStream<T>(key: string): Generator<T> {
+    yield key as T
+  }
+
 }

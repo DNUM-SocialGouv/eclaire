@@ -37,6 +37,12 @@ export abstract class IngestPipeline {
     return [...dto]
   }
 
+  async *extractStream<T>(typeOverride?: string): AsyncGenerator<T> {
+    const fileType = typeOverride ?? this.type
+    const fileName = `export_eclaire_${fileType}.json`
+    yield* this.readerService.readStream<T>(fileName)
+  }
+
   async load(documents: ResearchStudyModel[]): Promise<void> {
     if (documents.length > 0) {
       await this.databaseService.bulkDocuments<ResearchStudyModel>(documents)

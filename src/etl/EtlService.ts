@@ -10,6 +10,7 @@ import { IngestPipelineImport } from './pipelines/ingest/IngestPipelineImport'
 import { IngestPipelineJarde } from './pipelines/ingest/IngestPipelineJarde'
 import { MedDraPipeline } from './pipelines/translation/MedDraPipeline'
 import { TranslationPipeline } from './pipelines/translation/TranslationPipeline'
+import { TranslationPipelineCtis } from './pipelines/translation/TranslationPipelineCtis'
 import { S3Service } from './s3/S3Service'
 import { elasticsearchIndexMapping } from '../shared/elasticsearch/elasticsearchIndexMapping'
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
@@ -64,6 +65,7 @@ export class EtlService {
   async dailyUpdate(startingDate?: string): Promise<void> {
     this.loggerService.info('-- Début de la mise à jour quotidienne des essais cliniques du RIPH.')
     await this.import(startingDate)
+    await this.translateCtis(startingDate)
     await this.translate(startingDate)
     await this.updateMeddraLabels(startingDate)
     this.loggerService.info('-- Fin de la mise à jour quotidienne des essais cliniques du RIPH.')
@@ -176,12 +178,30 @@ export class EtlService {
   }
 
   async translate(startingDate?: string): Promise<void> {
-    this.loggerService.info('-- Début de la traduction des essais cliniques CTIS.')
+    this.loggerService.info('-- Début de la traduction des essais cliniques JARDE / DM / DMDIV')
 
     try {
       const translationPipeline: TranslationPipeline = new TranslationPipeline(this.databaseService, this.translationService, this.loggerService)
-      this.loggerService.info('-- Get translationPipeline.')
+      this.loggerService.info('-- Get translationPipeline JARDE / DM / DMDIV.')
       await translationPipeline.execute(startingDate)
+    } catch (error) {
+      if (error instanceof errors.ResponseError) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        throw new Error(error.meta.body.error.reason as string)
+      }
+      throw error
+    }
+
+    this.loggerService.info('-- Fin de la traduction des essais cliniques JARDE / DM / DMDIV')
+  }
+
+  async translateCtis(startingDate?: string): Promise<void> {
+    this.loggerService.info('-- Début de la traduction des essais cliniques CTIS.')
+
+    try {
+      const translationPipelineCtis: TranslationPipelineCtis = new TranslationPipelineCtis(this.databaseService, this.translationService, this.loggerService)
+      this.loggerService.info('-- Get translationPipeline CTIS.')
+      await translationPipelineCtis.execute(startingDate)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -214,9 +234,9 @@ export class EtlService {
     onProgress: (p: number) => void,
     onPhase: (phase: 'extracting' | 'building-file' | 'ready') => void
   ): Promise<string> {
-
     // ========== PHASE 1: EXTRACTION ==========
     onPhase('extracting')
+    onProgress(1)
 
     const pipeline = new IngestPipelineImport(
       this.loggerService,
@@ -224,41 +244,50 @@ export class EtlService {
       this.readerService
     )
 
-    await pipeline.runExtractionWithProgress((p) => {
-      // Extraction = 0 → 80%
-      const scaled = Math.round(p * 0.8)
-      onProgress(scaled)
-    })
+    const filePath = `/tmp/export-${Date.now()}.xlsx`
+
+    const exporter = new StreamingExcelExporter()
+    exporter.init(filePath, [
+      {
+        columns: pipeline.DM_COLUMNS,
+        key: 'REG745',
+        name: 'ETUDES DM (2017-745)',
+      },
+      {
+        columns: pipeline.DM_COLUMNS,
+        key: 'REG746',
+        name: 'ETUDES DM-DIV (2017-746)',
+      },
+      {
+        columns: pipeline.JARDE_COLUMNS,
+        key: 'JARDE',
+        name: 'ETUDES JARDE',
+      },
+      {
+        columns: pipeline.CTIS_COLUMNS,
+        key: 'CTIS',
+        name: 'ETUDES CTIS (2014-536)',
+      },
+    ])
+
+    await pipeline.runExtractionStreaming(
+      exporter,
+      (processed) => {
+        const scaled = Math.min(80, Math.floor(processed / 1000))
+        onProgress(scaled)
+      }
+    )
 
     // ========== PHASE 2: BUILD FILE ==========
     onPhase('building-file')
 
-    /* eslint-disable sort-keys */
-    const sheets = [
-      { name: 'ETUDES DM (2017-745)', data: pipeline.getDataByCode('REG745'), columns: pipeline.DM_COLUMNS },
-      { name: 'ETUDES DM-DIV (2017-746)', data: pipeline.getDataByCode('REG746'), columns: pipeline.DM_COLUMNS },
-      { name: 'ETUDES JARDE', data: pipeline.getDataByCode('JARDE'), columns: pipeline.JARDE_COLUMNS },
-      { name: 'ETUDES CTIS (2014-536)', data: pipeline.getDataByCode('CTIS'), columns: pipeline.CTIS_COLUMNS },
-    ]
-    /* eslint-enable sort-keys */
-
-    const filePath = `/tmp/export-${Date.now()}.xlsx`
-
-    const exporter = new StreamingExcelExporter()
-
-    await exporter.exportSheets(
-      sheets,
-      filePath,
-      (rowsProcessed, totalRows) => {
-        const percent = 80 + Math.round((rowsProcessed / totalRows) * 19)
-        onProgress(Math.min(percent, 99))
-      }
-    )
+    await exporter.finalize()
 
     // ========== PHASE 3: READY FILE ==========
-    onPhase('ready') // fichier prêt
+    onPhase('ready')
     onProgress(99)
 
     return filePath
   }
+
 }

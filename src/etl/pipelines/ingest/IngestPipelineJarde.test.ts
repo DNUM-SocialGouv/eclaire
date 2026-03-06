@@ -95,10 +95,13 @@ describe('etl | IngestPipelineJarde', () => {
             "sites_investigateurs": [
               {
                 "adresse": null,
+                "code_postal": null,
+                "courriel": null,
                 "nom": null,
                 "organisme": null,
                 "prenom": null,
                 "service": null,
+                "telephone": null,
                 "titre_investigateur": null,
                 "ville": null,
               },
@@ -185,10 +188,13 @@ describe('etl | IngestPipelineJarde', () => {
             "sites_investigateurs": [
               {
                 "adresse": null,
+                "code_postal": null,
+                "courriel": null,
                 "nom": null,
                 "organisme": null,
                 "prenom": null,
                 "service": null,
+                "telephone": null,
                 "titre_investigateur": null,
                 "ville": null,
               },
@@ -275,10 +281,13 @@ describe('etl | IngestPipelineJarde', () => {
             "sites_investigateurs": [
               {
                 "adresse": null,
+                "code_postal": null,
+                "courriel": null,
                 "nom": null,
                 "organisme": null,
                 "prenom": null,
                 "service": null,
+                "telephone": null,
                 "titre_investigateur": null,
                 "ville": null,
               },

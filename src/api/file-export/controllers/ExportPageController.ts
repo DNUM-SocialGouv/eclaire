@@ -8,7 +8,7 @@ import * as path from 'path'
 @Controller('/export-page')
 export class ExportPageController {
   @Get()
-  servePage( @Query('token') token: string,@Res() res: Response) {
+  servePage( @Query('token') token: string, @Res() res: Response) {
     // --- Check token ---
     if (process.env.CRON_TOKEN && token !== process.env.CRON_TOKEN) {
       throw new NotFoundException()
