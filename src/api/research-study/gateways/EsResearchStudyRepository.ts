@@ -40,6 +40,60 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
       return document
     }
 
+    // Get reglementation code
+    const targetSystem = "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-regulation-code-code-system";
+    const codeReg: string | undefined = document.category
+      ?.flatMap(cat => cat.coding || [])
+      ?.find(c => c.system === targetSystem)
+      ?.code;
+
+    // Check if CTIS  
+    if (codeReg === "REG536" && document?.referenceContents?.enrollmentGroup?.characteristic) {
+      // Update criteria
+      let judgmentIndex = 0
+      let eligibilityIndex = 0
+
+      const updatedCharacteristics = document.referenceContents.enrollmentGroup.characteristic?.map((char: any) => {
+        const codeValue = char.code?.coding?.[0]?.code
+        const description = char.description
+
+        // JUDGMENT CRITERIA
+        if (
+          codeValue === 'grp-other' &&
+          description === 'judgement-criteria' &&
+          translatedContent.judgmentCriteria?.length
+        ) {
+          const translatedText =
+            translatedContent.judgmentCriteria[judgmentIndex]
+
+          if (translatedText && char.valueCodeableConcept?.coding?.length) {
+            char.valueCodeableConcept.coding[0].display = translatedText
+            judgmentIndex++
+          }
+        }
+
+        // ELIGIBILITY CRITERIA
+        if (
+          codeValue === 'grp-other' &&
+          description === 'eligibility-criteria' &&
+          translatedContent.eligibilityCriteria?.length
+        ) {
+          const translatedText =
+            translatedContent.eligibilityCriteria[eligibilityIndex]
+
+          if (translatedText && char.valueCodeableConcept?.coding?.length) {
+            char.valueCodeableConcept.coding[0].display = translatedText
+            eligibilityIndex++
+          }
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return char
+      })
+
+      document.referenceContents.enrollmentGroup.characteristic = updatedCharacteristics
+    }
+    // Add translate for therapeutic-area
     if (document.extension) {
       const extensionToTranslate: Extension = document.extension
         .find((value: Extension) => value.url.includes('eclaire-therapeutic-area'))
