@@ -87,27 +87,12 @@ export class GroupModel implements Group {
     includeType: string,
     category: 'eligibility-criteria' | 'judgement-criteria'
   ) {
-
     if (ModelUtils.filterValidItems(criteria).hasData) {
       ModelUtils.filterValidItems(criteria).values.forEach((item: Critere) => {
         const exclude = item.type !== includeType
         characteristic.push(GroupCharacteristicModel.createDocumentCriteria(item.titre, exclude, category))
       })
     }
-
-    if (!criteria?.length) return
-
-    criteria.forEach((c) => {
-      const exclude = c.type !== includeType
-
-      characteristic.push(
-        GroupCharacteristicModel.createDocumentCriteria(
-          c.titre,
-          exclude,
-          category
-        )
-      )
-    })
   }
 
   static createStudyCharacteristics(
