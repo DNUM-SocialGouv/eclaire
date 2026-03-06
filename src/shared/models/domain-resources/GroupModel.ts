@@ -72,7 +72,7 @@ export class GroupModel implements Group {
       let exclude: boolean | undefined
 
       if (typeReglementation === 'OTHER') {
-        exclude = population[0] ? true : false
+        exclude = !!population[0]
       } else {
         exclude = undefined
       }
