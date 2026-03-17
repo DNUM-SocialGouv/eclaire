@@ -70,7 +70,7 @@ export const DM_COLUMNS = [
   { header: 'compétences', key: 'etcompetencesat' },
   { header: 'caracteristiques_recherche', key: 'caracteristiques_recherche' },
   { header: 'recherche_ancillaire_ou_extension', key: 'recherche_ancillaire_ou_extension' },
-  { header: 'qualification_recherche', key: 'qualification_recherche' },
+  { header: 'qualification_recherche', key: 'qualification' },
   { header: 'date_soumission', key: 'date_soumission' },
   { header: 'date_creation_etude', key: 'date_creation_etude' },
   { header: 'date_previsionnelle_fin_etude', key: 'date_previsionnelle_fin_etude' },
