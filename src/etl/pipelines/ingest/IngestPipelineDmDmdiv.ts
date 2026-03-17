@@ -27,10 +27,7 @@ export class IngestPipelineDmDmdiv extends IngestPipeline {
   transform(riphDmDtos: RiphDmDto[]): ResearchStudyModel[] {
     const result: ResearchStudyModel[] = []
     for (const riphDmDto of riphDmDtos) {
-      const eclaireDto: EclaireDto = EclaireDto.fromDm(riphDmDto)
-      if(eclaireDto.numero_primaire=== "1234-567898-65"){
-        console.log('id 1234-567898-65 : ', eclaireDto)
-      }
+      const eclaireDto: EclaireDto = EclaireDto.fromDm(riphDmDto)      
       if (eclaireDto && eclaireDto.numero_primaire && !eclaireDto.to_delete) {
         result.push(ResearchStudyModelFactory.create(eclaireDto))
       } else {
