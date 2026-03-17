@@ -52,11 +52,12 @@ import { ModelUtils } from './shared/models/eclaire/ModelUtils'
 export class AppModule { }
 
 function getThrottlerModule() {
+  // Edit from: 1 requête toutes les 500 secondes to 100 requêtes / minute / IP = 1.6 req / seconde
   return ThrottlerModule.forRoot({
     throttlers: [
       {
         limit: parseInt(process.env['API_RATE_LIMIT_MAX_CALLS']),
-        ttl: parseInt(process.env['API_RATE_LIMIT_DURATION_IN_MS']),
+        ttl: parseInt(process.env['API_RATE_LIMIT_DURATION_IN_MS']) / 1000,
       },
     ],
   })
