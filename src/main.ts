@@ -22,7 +22,11 @@ async function bootstrap() {
   app.disable('x-powered-by')
 
   // Add for securisation
-  app.use(helmet())
+  app.use(
+    helmet({
+      contentSecurityPolicy: false,
+    }),
+  )
   app.use(compression())
   app.useGlobalPipes(
     new ValidationPipe({
@@ -30,7 +34,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
       transform: true,
     }),
-  )  
+  )
 
   app.get(SwaggerService).create(app)
 
