@@ -111,7 +111,7 @@ function buildFrom(searchBody: ElasticsearchBodyBuilder, value: string) {
 }
 
 function buildSize(searchBody: ElasticsearchBodyBuilder, value: string) {
-  const maxSize = 1000
+  const maxSize = 100
 
   if (Number(value) <= maxSize) {
     searchBody.withSize(Number(value))

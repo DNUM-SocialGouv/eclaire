@@ -1,0 +1,237 @@
+{
+  "timestamp": "2026-03-26T08:37:35.268Z",
+  "main": {
+    "path": "/home/eclaire/src/main.ts",
+    "hasValidationPipe": true,
+    "hasHelmet": true
+  },
+  "projectSecurity": {
+    "throttler": true,
+    "exceptionFilter": true,
+    "throttlerEnvControlled": true
+  },
+  "dtoCount": 3,
+  "dtoFiles": [
+    "src/etl/dto/RiphJardeDto.ts",
+    "src/etl/dto/RiphDmDto.ts",
+    "src/etl/dto/RiphCtisDto.ts"
+  ],
+  "dtoValidation": [
+    {
+      "dto": "src/etl/dto/RiphJardeDto.ts",
+      "hasValidator": true
+    },
+    {
+      "dto": "src/etl/dto/RiphDmDto.ts",
+      "hasValidator": true
+    },
+    {
+      "dto": "src/etl/dto/RiphCtisDto.ts",
+      "hasValidator": true
+    }
+  ],
+  "controllers": [
+    {
+      "controller": "src/api/statistics/controllers/GetStatisticsController.ts",
+      "importsDto": false,
+      "usesBody": false
+    },
+    {
+      "controller": "src/api/research-study/controllers/SearchResearchStudyController.ts",
+      "importsDto": false,
+      "usesBody": false
+    },
+    {
+      "controller": "src/api/research-study/controllers/GetOneResearchStudyController.ts",
+      "importsDto": false,
+      "usesBody": false
+    },
+    {
+      "controller": "src/api/organization/controllers/FindOrganizationController.ts",
+      "importsDto": false,
+      "usesBody": false
+    },
+    {
+      "controller": "src/api/location/controllers/FindLocationController.ts",
+      "importsDto": false,
+      "usesBody": false
+    },
+    {
+      "controller": "src/api/group/controllers/FindGroupController.ts",
+      "importsDto": false,
+      "usesBody": false
+    },
+    {
+      "controller": "src/api/file-export/controllers/ExportPageController.ts",
+      "importsDto": false,
+      "usesBody": false
+    },
+    {
+      "controller": "src/api/file-export/controllers/ExportJobsIndexController.ts",
+      "importsDto": false,
+      "usesBody": false
+    },
+    {
+      "controller": "src/api/file-export/controllers/DownloadFileController.ts",
+      "importsDto": false,
+      "usesBody": false
+    },
+    {
+      "controller": "src/api/documentation/controllers/DocumentationController.ts",
+      "importsDto": false,
+      "usesBody": false
+    }
+  ],
+  "unsafePatterns": [
+    {
+      "file": "src/shared/models/code-systems/researchStudyPhaseCodeSystem.ts",
+      "type": "raw_sql_template",
+      "snippet": "SELECT"
+    },
+    {
+      "file": "src/shared/models/code-systems/countryCodeValueSet.ts",
+      "type": "raw_sql_template",
+      "snippet": "SELECT"
+    },
+    {
+      "file": "src/shared/models/code-systems/administrativeGenderCodeSystem.ts",
+      "type": "raw_sql_template",
+      "snippet": "SELECT"
+    },
+    {
+      "file": "src/shared/elasticsearch/ElasticsearchService.ts",
+      "type": "opensearch_query_string",
+      "snippet": " match: { [key: string]: string } }   | { range: { [key: string]: any } }   | { query_string: { query: string } }   | NestedQuery  type FilterClause =   | { term: { [key: string]: string } }   | NestedQuery  type CountRequest = {   bool?: {     must: MustClause[]     filter: Filt"
+    },
+    {
+      "file": "src/shared/elasticsearch/ElasticsearchService.ts",
+      "type": "client_template_literal",
+      "snippet": "ids: string[]): Promise<unknown> {     const response: ApiResponse = await this.client.search({       body: { query: { terms: { _id: ids } } },       index: this.index,     })      return {       hits: response.body.hits.hits,       total: response.body.hits.total.value as number"
+    },
+    {
+      "file": "src/shared/elasticsearch/ElasticsearchService.ts",
+      "type": "client_string_concat",
+      "snippet": "ids: string[]): Promise<unknown> {     const response: ApiResponse = await this.client.search({       body: { query: { terms: { _id: ids } } },       index: this.index,     })      return {       hits: response.body.hits.hits,       total: response.body.hits.total.value as number"
+    },
+    {
+      "file": "src/shared/elasticsearch/ElasticsearchService.ts",
+      "type": "client_search_with_body",
+      "snippet": "tring[]): Promise<unknown> {     const response: ApiResponse = await this.client.search({       body: { query: { terms: { _id: ids } } },       index: this.index,     })      return {       hits: response.body.hits.hits,       total: response.body.hits.total.value as number,     "
+    },
+    {
+      "file": "src/shared/elasticsearch/ElasticsearchService.ts",
+      "type": "raw_sql_template",
+      "snippet": "SELECT"
+    },
+    {
+      "file": "src/shared/elasticsearch/ElasticsearchBody.ts",
+      "type": "opensearch_query_string",
+      "snippet": " match: { [key: string]: string } }   | { range: { [key: string]: any } }   | { query_string: { query: string } }   | NestedQuery  type FilterClause =   | { term: { [key: string]: string } }   | NestedQuery  export type ElasticsearchBodyType = {   from: number   query: {     bool"
+    },
+    {
+      "file": "src/etl/pipelines/translation/TranslationPipelineCtis.ts",
+      "type": "raw_sql_template",
+      "snippet": "SELECT"
+    },
+    {
+      "file": "src/etl/pipelines/translation/TranslationPipeline.ts",
+      "type": "raw_sql_template",
+      "snippet": "SELECT"
+    },
+    {
+      "file": "src/etl/pipelines/translation/MedDraPipeline.ts",
+      "type": "raw_sql_template",
+      "snippet": "SELECT"
+    },
+    {
+      "file": "src/etl/pipelines/ingest/IngestPipelineJarde.ts",
+      "type": "raw_sql_template",
+      "snippet": "SELECT"
+    },
+    {
+      "file": "src/etl/pipelines/ingest/IngestPipelineDmDmdiv.ts",
+      "type": "raw_sql_template",
+      "snippet": "SELECT"
+    },
+    {
+      "file": "src/etl/pipelines/ingest/IngestPipelineCtis.ts",
+      "type": "raw_sql_template",
+      "snippet": "SELECT"
+    },
+    {
+      "file": "src/api/AppController.ts",
+      "type": "endpoint_without_cache",
+      "snippet": "udeController() @Controller() export class AppController {   @Redirect('api')   @Get()   getHome(): void {     return   }    @Get('/debug-sentry')   getError() {     throw new Error('My first Sentry error!')   } } "
+    },
+    {
+      "file": "src/api/statistics/controllers/GetStatisticsController.ts",
+      "type": "endpoint_without_cache",
+      "snippet": "ApiProduces('application/json')   @Header('content-type', 'application/json')   @Get()   async getStatDocuments(): Promise<Record<string, number>> {     return await this.StatisticsService.findStat()   } } "
+    },
+    {
+      "file": "src/api/research-study/gateways/converter/convertFhirParsedQueryParamsToElasticsearchQuery.test.ts",
+      "type": "opensearch_query_string",
+      "snippet": "earchBodyType>({         from: 0,         query: { bool: { filter: [], must: [{ query_string: { query: 'elastic AND (lucene OR solr)' } }] } },         size: numberOfResourcesByPageByDefault,         sort: [           { 'meta.lastUpdated': { order: 'desc' } },           { _id: { "
+    },
+    {
+      "file": "src/api/research-study/controllers/SearchResearchStudyController.ts",
+      "type": "endpoint_without_cache",
+      "snippet": "s('application/fhir+json')   @Header('content-type', 'application/fhir+json')   @Get()   @ApiQuery({ type: FhirQueryParams, required: false })   async execute(@Query() fhirQueryParams: Record<string, any>, @Res() response: Response): Promise<void> {     try {       // Check _coun"
+    },
+    {
+      "file": "src/api/research-study/controllers/GetOneResearchStudyController.ts",
+      "type": "endpoint_without_cache",
+      "snippet": "s('application/fhir+json')   @Header('content-type', 'application/fhir+json')   @Get(':id')   async execute(@Param('id') id: string, @Res() response: Response): Promise<void> {     try {       const document: ResearchStudyModel = await this.researchStudyRepository.findOne(id)    "
+    },
+    {
+      "file": "src/api/organization/controllers/FindOrganizationController.ts",
+      "type": "endpoint_without_cache",
+      "snippet": "s('application/fhir+json')   @Header('content-type', 'application/fhir+json')   @Get(':id')   async execute(@Param('id') id: string, @Res() response: Response): Promise<void> {     const document: Organization[] = await this.organizationRepository.find(id)      if (document.lengt"
+    },
+    {
+      "file": "src/api/location/controllers/FindLocationController.ts",
+      "type": "endpoint_without_cache",
+      "snippet": "s('application/fhir+json')   @Header('content-type', 'application/fhir+json')   @Get(':id')   async execute(@Param('id') id: string, @Res() response: Response): Promise<void> {     const document: Location[] = await this.locationRepository.find(id)      if (document.length !== 0)"
+    },
+    {
+      "file": "src/api/group/controllers/FindGroupController.ts",
+      "type": "endpoint_without_cache",
+      "snippet": "s('application/fhir+json')   @Header('content-type', 'application/fhir+json')   @Get(':id')   async execute(@Param('id') id: string, @Res() response: Response): Promise<void> {     const document: Group = await this.groupRepository.find(id)      if (document) {       response.jso"
+    },
+    {
+      "file": "src/api/file-export/controllers/ExportPageController.ts",
+      "type": "endpoint_without_cache",
+      "snippet": "eController() @Controller('/export-page') export class ExportPageController {   @Get()   servePage( @Query('token') token: string, @Res() res: Response) {     // --- Check token ---     if (process.env.CRON_TOKEN && token !== process.env.CRON_TOKEN) {       throw new NotFoundExce"
+    },
+    {
+      "file": "src/api/file-export/controllers/ExportJobsIndexController.ts",
+      "type": "endpoint_without_cache",
+      "snippet": "@Get"
+    },
+    {
+      "file": "src/api/file-export/controllers/DownloadFileController.ts",
+      "type": "endpoint_without_cache",
+      "snippet": "d)\r     return { jobId: job.id }\r   }\r \r   // 2. Check the progress of a job\r   @Get('status/:id')\r   async getStatus(@Param('id') id: string) {\r     const job = await this.jobService.getJob(id)\r     if (!job) return { error: 'Job not found' }\r     return job\r   }\r \r   // 3. Down"
+    },
+    {
+      "file": "src/api/file-export/application/ExportJobService.ts",
+      "type": "body_from_req",
+      "snippet": "req.body"
+    },
+    {
+      "file": "src/api/documentation/controllers/DocumentationController.ts",
+      "type": "endpoint_without_cache",
+      "snippet": "epository')     private readonly repository: DocumentationRepository   ) { }    @Get()   @ApiExcludeEndpoint()   async getFile(     @Query('filename') filename: string,     @Res() res: Response   ) {     try {       const filePath = await this.repository.getFilePath(filename)    "
+    }
+  ],
+  "score": {
+    "score": 80,
+    "issues": [
+      "28 patterns potentiellement dangereux"
+    ]
+  },
+  "stats": {
+    "totalTsFiles": 159,
+    "controllersCount": 10
+  }
+}
