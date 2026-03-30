@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { APP_FILTER, APP_GUARD } from '@nestjs/core'
+import { ScheduleModule } from '@nestjs/schedule'
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup'
@@ -27,6 +28,7 @@ import { ModelUtils } from './shared/models/eclaire/ModelUtils'
       ignoreEnvFile: process.env['NODE_ENV'] !== undefined,
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     ModelUtils.isNotDefinedOrFalse(process.env['API_RATE_LIMIT_ENABLED']) ? null : getThrottlerModule(),
     ElasticsearchModule,
     EtlModule,

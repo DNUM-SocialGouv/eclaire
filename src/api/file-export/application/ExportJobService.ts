@@ -5,10 +5,10 @@ import { randomUUID } from 'crypto'
 import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
 import { exportJobsIndexMapping } from '../../../shared/elasticsearch/exportJobsIndexMapping'
 
-export type JobStatus = 'pending' | 'processing' | 'done' | 'error'
-export type JobPhase = 'extracting' | 'building-file' | 'ready'
+type JobStatus = 'pending' | 'processing' | 'done' | 'error'
+type JobPhase = 'extracting' | 'building-file' | 'ready'
 
-export interface ExportJob {
+interface ExportJob {
   id: string
   status: JobStatus
   phase?: JobPhase

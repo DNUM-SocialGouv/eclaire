@@ -128,7 +128,7 @@ export type TextsToTranslate = {
 // Clés “de base” pour chaque groupe
 type BaseKeys = 'diseaseCondition' | 'therapeuticArea' | 'title';
 
-export type TextsToTranslateDynamique = {
+type TextsToTranslateDynamique = {
   [K in `${BaseKeys}-${number}`]: string;
 }
 export type TranslatedTexts = TextsToTranslateDynamique

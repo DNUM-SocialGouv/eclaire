@@ -22,7 +22,7 @@ export class MedDraPipeline extends AbstractPipeline<ResearchStudyModel> {
     return this.buildBodyToFindEveryCtisStudiesSinceYesterday()
   }
 
-  protected async transform(researchStudies: ResearchStudyModel[]): Promise<ResearchStudyModel[]> {
+  public async transform(researchStudies: ResearchStudyModel[]): Promise<ResearchStudyModel[]> {
     for (const researchStudy of researchStudies) {
       if (researchStudy.originalContentsToEnhance?.meddraCodes && researchStudy.originalContentsToEnhance.meddraCodes.length > 0) {
         const meddraDocuments: MedDra[] = await this.databaseService.findMedDraDocuments(

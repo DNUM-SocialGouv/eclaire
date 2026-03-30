@@ -1,89 +1,274 @@
+import { Type } from 'class-transformer'
+import { IsString, IsBoolean, IsNumber, ValidateNested, IsOptional, IsEmail, IsArray } from 'class-validator'
+
+import { CritereDto, SiteInvestigateurDto } from './common/EtudeCommonDto'
+
 export class RiphDmDto {
-  private constructor(
-    readonly reglementation_code: string,
-    readonly etat: string,
-    readonly deposant_promoteur: string,
-    readonly deposant_nom: string,
-    readonly deposant_prenom: string,
-    readonly deposant_courriel: string,
-    readonly deposant_organisme: string,
-    readonly deposant_adresse: string,
-    readonly deposant_siret: string,
-    readonly deposant_code_postal: string,
-    readonly deposant_ville: string,
-    readonly deposant_pays: string,
-    readonly is_mandataire: boolean,
-    readonly promoteur_nom: string,
-    readonly promoteur_prenom: string,
-    readonly promoteur_email: string,
-    readonly promoteur_organisme: string,
-    readonly promoteur_adresse: string,
-    readonly promoteur_siret: string,
-    readonly promoteur_code_postal: string,
-    readonly promoteur_ville: string,
-    readonly promoteur_pays: string,
-    readonly mandataire_nom: string,
-    readonly mandataire_prenom: string,
-    readonly mandataire_email: string,
-    readonly mandataire_organisme: string,
-    readonly mandataire_adresse: string,
-    readonly mandataire_siret: string,
-    readonly mandataire_code_postal: string,
-    readonly mandataire_ville: string,
-    readonly mandataire_pays: string,
-    readonly numero: string,
-    readonly numero_national: string,
-    readonly investigateur: string,
-    readonly titre_recherche: string,
-    readonly domaine_therapeutique: string,
-    readonly taille_etude: number,
-    readonly qualification: string,
-    readonly caracteristiques_recherche: string,
-    readonly recherche_ancillaire_ou_extension: boolean,
-    readonly date_soumission: string,
-    readonly date_creation_etude: string,
-    readonly date_previsionnelle_fin_etude: string,
-    readonly historique: string,
-    readonly dates_avis_favorable_ms_mns: string,
-    readonly contact_public_nom: string,
-    readonly contact_public_prenom: string,
-    readonly contact_public_courriel: string,
-    readonly contact_public_telephone: string,
-    readonly criteres_eligibilite: {
-      readonly titre: string,
-      readonly type: string
-    }[],
-    readonly criteres_jugement: {
-      readonly titre: string,
-      readonly type: string
-    }[],
-    readonly publication_eclaire: string,
-    readonly numero_nct: string,
-    readonly numero_isrctn: string,
-    readonly numero_utn: string,
-    readonly numero_libre: string,
-    readonly objectifs: string,
-    readonly resume: string,
-    readonly duree_participation: string,
-    readonly participants_sexe: string,
-    readonly participants_tranches_age: string,
-    readonly participants_groupe_sujets: string,
-    readonly participants_population_vulnerable: string,
-    readonly statut_recrutement: string,
-    readonly date_debut_recrutement: string,
-    readonly date_fin_recrutement: string,
-    readonly sites_investigateurs: {
-      readonly organisme: string,
-      readonly adresse: string,
-      readonly ville: string,
-      readonly titre_investigateur: string,
-      readonly nom: string,
-      readonly prenom: string,
-      readonly service: string,
-      readonly code_postal: string,
-      readonly courriel: string,
-      readonly telephone: string
-    }[]
-  ) {
-  }
+  @IsString()
+    reglementation_code: string
+
+  @IsString()
+    etat: string
+
+  @IsString()
+  @IsOptional()
+    deposant_promoteur?: string
+
+  @IsString()
+  @IsOptional()
+    deposant_nom?: string
+
+  @IsString()
+  @IsOptional()
+    deposant_prenom?: string
+
+  @IsEmail()
+  @IsOptional()
+    deposant_courriel?: string
+
+  @IsString()
+  @IsOptional()
+    deposant_organisme?: string
+
+  @IsString()
+  @IsOptional()
+    deposant_adresse?: string
+
+  @IsString()
+  @IsOptional()
+    deposant_siret?: string
+
+  @IsString()
+  @IsOptional()
+    deposant_code_postal?: string
+
+  @IsString()
+  @IsOptional()
+    deposant_ville?: string
+
+  @IsString()
+  @IsOptional()
+    deposant_pays?: string
+
+  @IsBoolean()
+  @IsOptional()
+    is_mandataire?: boolean
+
+  @IsString()
+  @IsOptional()
+    promoteur_nom?: string
+
+  @IsString()
+  @IsOptional()
+    promoteur_prenom?: string
+
+  @IsEmail()
+  @IsOptional()
+    promoteur_email?: string
+
+  @IsString()
+  @IsOptional()
+    promoteur_organisme?: string
+
+  @IsString()
+  @IsOptional()
+    promoteur_adresse?: string
+
+  @IsString()
+  @IsOptional()
+    promoteur_siret?: string
+
+  @IsString()
+  @IsOptional()
+    promoteur_code_postal?: string
+
+  @IsString()
+  @IsOptional()
+    promoteur_ville?: string
+
+  @IsString()
+  @IsOptional()
+    promoteur_pays?: string
+
+  @IsString()
+  @IsOptional()
+    mandataire_nom?: string
+
+  @IsString()
+  @IsOptional()
+    mandataire_prenom?: string
+
+  @IsEmail()
+  @IsOptional()
+    mandataire_email?: string
+
+  @IsString()
+  @IsOptional()
+    mandataire_organisme?: string
+
+  @IsString()
+  @IsOptional()
+    mandataire_adresse?: string
+
+  @IsString()
+  @IsOptional()
+    mandataire_siret?: string
+
+  @IsString()
+  @IsOptional()
+    mandataire_code_postal?: string
+
+  @IsString()
+  @IsOptional()
+    mandataire_ville?: string
+
+  @IsString()
+  @IsOptional()
+    mandataire_pays?: string
+
+  @IsString()
+    numero: string
+
+  @IsString()
+    numero_national: string
+
+  @IsString()
+  @IsOptional()
+    investigateur?: string
+
+  @IsString()
+    titre_recherche: string
+
+  @IsString()
+  @IsOptional()
+    domaine_therapeutique?: string
+
+  @IsNumber()
+  @IsOptional()
+    taille_etude?: number
+
+  @IsString()
+  @IsOptional()
+    qualification?: string
+
+  @IsString()
+  @IsOptional()
+    caracteristiques_recherche?: string
+
+  @IsBoolean()
+  @IsOptional()
+    recherche_ancillaire_ou_extension?: boolean
+
+  @IsString()
+  @IsOptional()
+    date_soumission?: string
+
+  @IsString()
+  @IsOptional()
+    date_creation_etude?: string
+
+  @IsString()
+  @IsOptional()
+    date_previsionnelle_fin_etude?: string
+
+  @IsString()
+  @IsOptional()
+    historique?: string
+
+  @IsString()
+  @IsOptional()
+    dates_avis_favorable_ms_mns?: string
+
+  @IsString()
+  @IsOptional()
+    contact_public_nom?: string
+
+  @IsString()
+  @IsOptional()
+    contact_public_prenom?: string
+
+  @IsEmail()
+  @IsOptional()
+    contact_public_courriel?: string
+
+  @IsString()
+  @IsOptional()
+    contact_public_telephone?: string
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CritereDto)
+  @IsOptional()
+    criteres_eligibilite?: CritereDto[]
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CritereDto)
+  @IsOptional()
+    criteres_jugement?: CritereDto[]
+
+  @IsString()
+    publication_eclaire: string
+
+  @IsString()
+  @IsOptional()
+    numero_nct?: string
+
+  @IsString()
+  @IsOptional()
+    numero_isrctn?: string
+
+  @IsString()
+  @IsOptional()
+    numero_utn?: string
+
+  @IsString()
+  @IsOptional()
+    numero_libre?: string
+
+  @IsString()
+  @IsOptional()
+    objectifs?: string
+
+  @IsString()
+  @IsOptional()
+    resume?: string
+
+  @IsString()
+  @IsOptional()
+    duree_participation?: string
+
+  @IsString()
+  @IsOptional()
+    participants_sexe?: string
+
+  @IsString()
+  @IsOptional()
+    participants_tranches_age?: string
+
+  @IsString()
+  @IsOptional()
+    participants_groupe_sujets?: string
+
+  @IsString()
+  @IsOptional()
+    participants_population_vulnerable?: string
+
+  @IsString()
+  @IsOptional()
+    statut_recrutement?: string
+
+  @IsString()
+  @IsOptional()
+    date_debut_recrutement?: string
+
+  @IsString()
+  @IsOptional()
+    date_fin_recrutement?: string
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => SiteInvestigateurDto)
+  @IsOptional()
+    sites_investigateurs?: SiteInvestigateurDto[]
 }

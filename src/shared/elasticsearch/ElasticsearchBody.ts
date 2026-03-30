@@ -3,7 +3,7 @@ export type Operator = 'gte' | 'gt' | 'lte' | 'lt'
 /**
  * Nested Query Type
  */
-export type NestedQuery = {
+type NestedQuery = {
   nested: {
     path: string
     query: {

@@ -5,6 +5,11 @@ import chalk from "chalk";
 
 const repoRoot = process.cwd();
 
+// ignore DTOs used for mapping only
+const IGNORED_DTO = [
+  'EclaireDto.ts'
+]
+
 function readFileSafe(p) {
   try { return fs.readFileSync(p, 'utf8'); } catch (e) { return null; }
 }
@@ -60,7 +65,9 @@ function scanProjectSecurity() {
 
 // === DTOs ===
 function findDtoFiles() {
-  return findFiles('**/*Dto.ts').map(p => path.relative(repoRoot, p));
+  return findFiles('**/*Dto.ts')
+    .map(p => path.relative(repoRoot, p))
+    .filter(p => !IGNORED_DTO.includes(path.basename(p)));
 }
 
 function detectDtoValidation(dtoFiles) {
@@ -254,8 +261,11 @@ function printHuman(report) {
   });
   report.controllers.forEach(c => {
     const issues = [];
-    if (!c.usesBody) issues.push('no @Body() (maybe only params/query)');
-    if (!c.importsDto && c.usesBody) issues.push('uses @Body() but no DTO import found');
+    /* if (!c.usesBody) issues.push('no @Body() (maybe only params/query)');
+    if (!c.importsDto && c.usesBody) issues.push('uses @Body() but no DTO import found'); */
+    if (c.usesBody && !c.importsDto) {
+      issues.push('uses @Body() but no DTO import found');
+    }
     const status = issues.length ? chalk.red(issues.join('; ')) : chalk.green('ok or DTO imported');
     console.log(` - ${c.controller}: ${status}`);
   });

@@ -1,14 +1,13 @@
+import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
-import { ValidationPipe } from '@nestjs/common'
-import helmet from 'helmet'
 import compression from 'compression'
+import helmet from 'helmet'
 
 import { SwaggerService } from './api/swagger/swagger.service'
 import { AppModule } from './AppModule'
 
 import './api/sentry/instrument'
-
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
@@ -24,8 +23,14 @@ async function bootstrap() {
   // Add for securisation
   app.use(
     helmet({
-      contentSecurityPolicy: false,
-    }),
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'", "'unsafe-inline'"],
+          styleSrc: ["'self'", "'unsafe-inline'"],
+        },
+      },
+    })
   )
   app.use(compression())
   app.useGlobalPipes(
@@ -33,7 +38,7 @@ async function bootstrap() {
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
-    }),
+    })
   )
 
   app.get(SwaggerService).create(app)
