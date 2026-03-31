@@ -28,7 +28,18 @@ export class SearchResearchStudyController {
     try {
       const fhirParsedQueryParams: FhirParsedQueryParams[] = FhirQueryParams.parse(fhirQueryParams)
       const fhirResourceBundle: Bundle = await this.researchStudyRepository.search(fhirParsedQueryParams)
-      response.json(fhirResourceBundle)
+
+      if (fhirResourceBundle.total > 0) {
+        response.json(fhirResourceBundle)
+      } else {
+        /* eslint-disable sort-keys */
+        response.status(404).json({
+          resourceType: 'Bundle',
+          type: 'searchset',
+          total: 0,
+        })
+        /* eslint-enable sort-keys */
+      }
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access

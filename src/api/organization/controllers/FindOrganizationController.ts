@@ -31,7 +31,7 @@ export class FindOrganizationController {
     if (document.length !== 0) {
       response.json(document.filter((organization: Organization) => organization.id === id)[0])
     } else {
-      const operationOutcome = OperationOutcomeModel.create('No organization fund')
+      const operationOutcome = OperationOutcomeModel.create('No organization found')
       response.status(404).json(operationOutcome)
     }
   }

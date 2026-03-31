@@ -15,8 +15,7 @@ export class EsGroupRepository implements GroupRepository {
     const docId = id.replace(/-enrollment-group$/, '')
     const document: ResearchStudyModel = await this.databaseService.findOneDocument(docId) as ResearchStudyModel
     const group = await this.databaseService.findReferenceContent(id, 'enrollmentGroup') as Group
-    const translatedGroup: Group = this.applyTranslationsToResearchStudyModel(document, group)
-
+    const translatedGroup: Group = document && group ? this.applyTranslationsToResearchStudyModel(document, group) : null
     return translatedGroup
   }
 
@@ -42,7 +41,7 @@ export class EsGroupRepository implements GroupRepository {
     let eligibilityIndex = 0
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    const updatedCharacteristics = group.characteristic?.map((char:any) => {
+    const updatedCharacteristics = group.characteristic?.map((char: any) => {
       const codeValue = char.code?.coding?.[0]?.code
       const description = char.description
 

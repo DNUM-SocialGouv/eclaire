@@ -28,8 +28,8 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
 
   async findOne(id: string): Promise<ResearchStudyModel> {
     const document: ResearchStudyModel = await this.databaseService.findOneDocument(id) as ResearchStudyModel
-    const translatedResearchStudyModel: ResearchStudyModel = this.applyTranslationsToResearchStudyModel(document)
-    delete translatedResearchStudyModel.originalContentsToEnhance
+    const translatedResearchStudyModel: ResearchStudyModel = document ? this.applyTranslationsToResearchStudyModel(document) : null
+    delete translatedResearchStudyModel?.originalContentsToEnhance
     return translatedResearchStudyModel
   }
 
@@ -41,14 +41,14 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     }
 
     // Get reglementation code
-    const targetSystem = "https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-regulation-code-code-system";
+    const targetSystem = 'https://interop.esante.gouv.fr/ig/fhir/eclaire/CodeSystem/eclaire-regulation-code-code-system'
     const codeReg: string | undefined = document.category
-      ?.flatMap(cat => cat.coding || [])
-      ?.find(c => c.system === targetSystem)
-      ?.code;
+      ?.flatMap((cat) => cat.coding || [])
+      ?.find((c) => c.system === targetSystem)
+      ?.code
 
-    // Check if CTIS  
-    if (codeReg === "REG536" && document?.referenceContents?.enrollmentGroup?.characteristic) {
+    // Check if CTIS
+    if (codeReg === 'REG536' && document?.referenceContents?.enrollmentGroup?.characteristic) {
       // Update criteria
       let judgmentIndex = 0
       let eligibilityIndex = 0

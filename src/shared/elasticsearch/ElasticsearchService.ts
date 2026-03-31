@@ -144,7 +144,11 @@ export class ElasticsearchService {
       _source_excludes: ['referenceContents'],
       id,
       index: this.index,
-    })
+    }, { ignore: [404] })
+
+    if (!response.body.found) {
+      return null
+    }
 
     return response.body._source as unknown
   }
@@ -183,7 +187,7 @@ export class ElasticsearchService {
 
   async findReferenceContent(id: string, referenceType: 'enrollmentGroup' | 'locations' | 'organizations'): Promise<unknown> {
     const response: ApiResponse = await this.client.search({
-      body: { query: { match_phrase: { [`referenceContents.${referenceType}.id`]: id } } },
+      body: { query: { term: { [`referenceContents.${referenceType}.id.keyword`]: id } } },
       index: this.index,
     })
 

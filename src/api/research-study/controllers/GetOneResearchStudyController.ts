@@ -18,7 +18,7 @@ import { ResearchStudyRepository } from '../application/ResearchStudyRepository'
 @ApiTags('Research study')
 @Controller('R4/ResearchStudy')
 export class GetOneResearchStudyController {
-  constructor(@Inject('ResearchStudyRepository') private readonly researchStudyRepository: ResearchStudyRepository) {}
+  constructor(@Inject('ResearchStudyRepository') private readonly researchStudyRepository: ResearchStudyRepository) { }
 
   @ApiOperation({ summary: 'Récupère un essai clinique depuis son identifiant unique.' })
   @ApiOkResponse({ description: 'Un essai clinique a été trouvé' })
@@ -30,10 +30,16 @@ export class GetOneResearchStudyController {
   async execute(@Param('id') id: string, @Res() response: Response): Promise<void> {
     try {
       const document: ResearchStudyModel = await this.researchStudyRepository.findOne(id)
-      response.json({
-        resourceType: document.resourceType,
-        ...document,
-      })
+
+      if (document) {
+        response.json({
+          resourceType: document?.resourceType,
+          ...document,
+        })
+      } else {
+        const operationOutcome = OperationOutcomeModel.create(`Research study with id '${id}' not found`, 'No research study found')
+        response.status(404).json(operationOutcome)
+      }
     } catch (error) {
       if (error instanceof errors.ResponseError && error.meta.statusCode === 404) {
         const operationOutcome: OperationOutcome = OperationOutcomeModel.create(error?.meta?.body)

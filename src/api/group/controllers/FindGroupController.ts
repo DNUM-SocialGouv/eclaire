@@ -16,7 +16,7 @@ import { GroupRepository } from '../application/contracts/GroupRepository'
 @ApiTags('Group')
 @Controller('R4/Group')
 export class FindGroupController {
-  constructor(@Inject('GroupRepository') private readonly groupRepository: GroupRepository) {}
+  constructor(@Inject('GroupRepository') private readonly groupRepository: GroupRepository) { }
 
   @ApiOperation({ summary: 'Récupère les modalités d’un groupe d’inscription depuis son identifiant unique.' })
   @ApiOkResponse({ description: 'Un groupe d’inscription a été trouvé.' })
@@ -31,7 +31,7 @@ export class FindGroupController {
     if (document) {
       response.json(document)
     } else {
-      const operationOutcome = OperationOutcomeModel.create('No enrollment group fund')
+      const operationOutcome = OperationOutcomeModel.create('Enrollment group not found', 'No enrollment group found')
       response.status(404).json(operationOutcome)
     }
   }
