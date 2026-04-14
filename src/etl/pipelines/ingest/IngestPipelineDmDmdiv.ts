@@ -9,25 +9,55 @@ export class IngestPipelineDmDmdiv extends IngestPipeline {
   idsToDelete = []
 
   async execute(): Promise<void> {
-    const riphDmDtos: RiphDmDto[] = await super.extract<RiphDmDto>()
-    const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
-    for (let i = 0; i < riphDmDtos.length; i += chunkSize) {
-      this.logger.info(`---- Chunk DM-DM/DIV: ${i} / ${riphDmDtos.length} elasticsearch documents`)
-      const chunk = riphDmDtos.slice(i, i + chunkSize)
-      const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
-      this.logger.info(`---- Chunk DM-DM/DIV: number of documents to update : ${researchStudyDocuments.length}`)
-      await super.load(researchStudyDocuments)
-      // Delete documents with status non autorisé (fermé)
-      await super.delete(this.idsToDelete.filter((v) => v !== null))
-      this.logger.info(`////// Chunk DM-DM/DIV: number of documents to delete : ${this.idsToDelete.length}`)
-      this.idsToDelete = []
+    let i = 0
+    const batchSize = Number(process.env['CHUNK_SIZE'] ?? 100)
+    let buffer: RiphDmDto[] = []
+
+    for await (const record of super.extractStream<RiphDmDto>()) {
+      buffer.push(record);
+      i++;
+
+      if (buffer.length === batchSize) {
+        await this.processBatch(buffer)
+        buffer = []; // reset        
+      }
     }
+
+    // Final batch
+    if (buffer.length > 0) {
+      await this.processBatch(buffer)
+    }
+    this.logger.info(`---- Total records processed For DMDIV: ${i}`);
+  }
+
+  private async processBatch(buffer: RiphDmDto[]): Promise<void> {
+    if (!buffer.length) return
+
+    this.logger.info(`---- DMDIV Processing batch of ${buffer.length} records`)
+
+    const researchStudyDocuments = this.transform(buffer)
+
+    this.logger.info(`---- Chunk DMDIV: number of documents to update : ${researchStudyDocuments.length}`)
+
+    if (researchStudyDocuments.length > 0) {
+      await super.load(researchStudyDocuments)
+    }
+
+    // Delete documents with status non autorisé (fermé)
+    const idsToDeleteFiltered = this.idsToDelete.filter((v) => v !== null)
+    if (idsToDeleteFiltered.length > 0) {
+      await super.delete(idsToDeleteFiltered)
+    }
+
+    this.logger.info(`////// Chunk DMDIV: number of documents to delete : ${this.idsToDelete.length}`)
+
+    this.idsToDelete = []
   }
 
   transform(riphDmDtos: RiphDmDto[]): ResearchStudyModel[] {
     const result: ResearchStudyModel[] = []
     for (const riphDmDto of riphDmDtos) {
-      const eclaireDto: EclaireDto = EclaireDto.fromDm(riphDmDto)      
+      const eclaireDto: EclaireDto = EclaireDto.fromDm(riphDmDto)
       if (eclaireDto && eclaireDto.numero_primaire && !eclaireDto.to_delete) {
         result.push(ResearchStudyModelFactory.create(eclaireDto))
       } else {
