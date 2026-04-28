@@ -51,14 +51,14 @@ describe('exportController', () => {
   })
 
   it('should send file if job is done', async () => {
-    const job = { id: '123', status: 'done', filePath: '/tmp/file.xlsx' }
+    const job = { id: '123', status: 'done', filePath: '/documentation/files/file.xlsx' }
     mockJobService.getJob.mockResolvedValue(job)
 
     const res = { download: vi.fn() } as any
 
     await controller.download('123', res)
 
-    expect(res.download).toHaveBeenCalledWith('/tmp/file.xlsx', 'export.xlsx')
+    expect(res.download).toHaveBeenCalledWith('/documentation/files/file.xlsx', 'export.xlsx')
   })
 
   it('should return 400 if file not ready', async () => {
