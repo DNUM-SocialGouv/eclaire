@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-26T08:37:35.268Z",
+  "timestamp": "2026-04-21T14:22:06.259Z",
   "main": {
     "path": "/home/eclaire/src/main.ts",
     "hasValidationPipe": true,
@@ -10,11 +10,12 @@
     "exceptionFilter": true,
     "throttlerEnvControlled": true
   },
-  "dtoCount": 3,
+  "dtoCount": 4,
   "dtoFiles": [
     "src/etl/dto/RiphJardeDto.ts",
     "src/etl/dto/RiphDmDto.ts",
-    "src/etl/dto/RiphCtisDto.ts"
+    "src/etl/dto/RiphCtisDto.ts",
+    "src/etl/dto/common/EtudeCommonDto.ts"
   ],
   "dtoValidation": [
     {
@@ -27,6 +28,10 @@
     },
     {
       "dto": "src/etl/dto/RiphCtisDto.ts",
+      "hasValidator": true
+    },
+    {
+      "dto": "src/etl/dto/common/EtudeCommonDto.ts",
       "hasValidator": true
     }
   ],
@@ -124,6 +129,11 @@
       "snippet": "SELECT"
     },
     {
+      "file": "src/shared/elasticsearch/ElasticsearchService.ts",
+      "type": "opensearch_no_size_limit",
+      "snippet": "ids: string[]): Promise<unknown> {     const response: ApiResponse = await this.client.search({       body: { query: { terms: { _id: ids } } },       index: this.index,     })      return {       hits: response.body.hits.hits,       total: response.body.hits.total.value as number"
+    },
+    {
       "file": "src/shared/elasticsearch/ElasticsearchBody.ts",
       "type": "opensearch_query_string",
       "snippet": " match: { [key: string]: string } }   | { range: { [key: string]: any } }   | { query_string: { query: string } }   | NestedQuery  type FilterClause =   | { term: { [key: string]: string } }   | NestedQuery  export type ElasticsearchBodyType = {   from: number   query: {     bool"
@@ -211,17 +221,12 @@
     {
       "file": "src/api/file-export/controllers/DownloadFileController.ts",
       "type": "endpoint_without_cache",
-      "snippet": "d)\r     return { jobId: job.id }\r   }\r \r   // 2. Check the progress of a job\r   @Get('status/:id')\r   async getStatus(@Param('id') id: string) {\r     const job = await this.jobService.getJob(id)\r     if (!job) return { error: 'Job not found' }\r     return job\r   }\r \r   // 3. Down"
+      "snippet": "d)\r     return { jobId: job.id }\r   }\r \r   // 2. Check the progress of a job\r   @Get('status/:id')\r   async getStatus(@Param('id') id: string): Promise<ExportJobResponseDto | { error: string }> {\r     const job = await this.jobService.getJob(id)\r     if (!job) return { error: 'Jo"
     },
     {
       "file": "src/api/file-export/application/ExportJobService.ts",
       "type": "body_from_req",
       "snippet": "req.body"
-    },
-    {
-      "file": "src/api/documentation/controllers/DocumentationController.ts",
-      "type": "endpoint_without_cache",
-      "snippet": "epository')     private readonly repository: DocumentationRepository   ) { }    @Get()   @ApiExcludeEndpoint()   async getFile(     @Query('filename') filename: string,     @Res() res: Response   ) {     try {       const filePath = await this.repository.getFilePath(filename)    "
     }
   ],
   "score": {
@@ -231,7 +236,7 @@
     ]
   },
   "stats": {
-    "totalTsFiles": 159,
+    "totalTsFiles": 165,
     "controllersCount": 10
   }
 }

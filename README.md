@@ -76,6 +76,12 @@ yarn test:mutation:etl
 yarn lint
 ```
 
+### Lancer l'audit de sécurité
+
+```bash
+yarn audit:security
+```
+
 ### Vérifier le typage
 
 ```bash
