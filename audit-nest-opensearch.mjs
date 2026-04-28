@@ -146,7 +146,13 @@ function searchUnsafePatterns() {
       findings.push({ file: rel, type: 'opensearch_no_size_limit', snippet: getSnippet(src, 'client.search') });
     }
 
-    if (/(@Get|@Post|@Patch|@Delete)/.test(src) && !src.includes('CacheInterceptor') && !src.includes('@UseInterceptors')) {
+    const isInternal = src.includes('@ApiExcludeEndpoint');
+    if (
+      /(@Get|@Post|@Patch|@Delete)/.test(src)
+      && !src.includes('CacheInterceptor')
+      && !src.includes('@UseInterceptors')
+      && !isInternal
+    ) {
       findings.push({ file: rel, type: 'endpoint_without_cache', snippet: getSnippet(src, '@Get') });
     }
   });
