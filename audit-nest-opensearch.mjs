@@ -250,65 +250,100 @@ function printHuman(report) {
   console.log('Checked repo:', repoRoot);
   console.log('Timestamp:', report.timestamp, '\n');
 
+  printMain(report);
+  printDTO(report);
+  printPatterns(report);
+  printScore(report);
+  printRecommendations(report);
+}
+
+/* =========================
+   SECTION HELPERS
+========================= */
+function printMain(report) {
   console.log(chalk.yellow('1) main.ts / bootstrap checks:'));
-  if (report.main.path) {
-    console.log(' - main.ts found at', report.main.path);
-    console.log('   - ValidationPipe global:', report.main.hasValidationPipe ? chalk.green('OK') : chalk.red('MISSING'));
-    console.log('   - helmet:', report.main.hasHelmet ? chalk.green('OK') : chalk.red('MISSING'));
-    console.log('   - throttler/ThrottlerModule presence:', report.projectSecurity.throttler ? chalk.green('OK') : chalk.red('MISSING'));
-    console.log('   - exception filter present:', report.projectSecurity.exceptionFilter ? chalk.green('OK') : chalk.red('MISSING'));
-  } else {
-    console.log(chalk.red(' - main.ts not found (expected src/main.ts or main.ts)'));
+
+  if (!report.main.path) {
+    console.log(chalk.red(' - main.ts not found'));
+    return;
   }
 
+  console.log(' - main.ts found at', report.main.path);
+  logStatus('ValidationPipe global', report.main.hasValidationPipe);
+  logStatus('helmet', report.main.hasHelmet);
+  logStatus('throttler', report.projectSecurity.throttler);
+  logStatus('exception filter', report.projectSecurity.exceptionFilter);
+}
+
+function printDTO(report) {
   console.log('\n' + chalk.yellow('2) DTOs & Controllers:'));
+
   console.log(` - DTO files found: ${report.dtoCount}`);
+
   report.dtoValidation.forEach(d => {
-    console.log(` - ${d.dto}:`, d.hasValidator ? chalk.green('validated') : chalk.red('NO VALIDATION DECORATORS'));
-  });
-  report.controllers.forEach(c => {
-    const issues = [];
-    /* if (!c.usesBody) issues.push('no @Body() (maybe only params/query)');
-    if (!c.importsDto && c.usesBody) issues.push('uses @Body() but no DTO import found'); */
-    if (c.usesBody && !c.importsDto) {
-      issues.push('uses @Body() but no DTO import found');
-    }
-    const status = issues.length ? chalk.red(issues.join('; ')) : chalk.green('ok or DTO imported');
-    console.log(` - ${c.controller}: ${status}`);
+    console.log(` - ${d.dto}:`,
+      d.hasValidator ? chalk.green('validated') : chalk.red('NO VALIDATION')
+    );
   });
 
-  console.log('\n' + chalk.yellow('3) Patterns potentiellement dangereux / performance:'));
-  if (report.unsafePatterns.length === 0) {
-    console.log(' - Aucun pattern critique trouvé par heuristique (mais pas garanti).');
-  } else {
-    report.unsafePatterns.forEach(f => {
-      console.log(chalk.red(` - [${f.type}] ${f.file}`));
-      console.log('    snippet:', f.snippet);
-    });
+  report.controllers.forEach(c => {
+    const msg =
+      c.usesBody && !c.importsDto
+        ? chalk.red('uses @Body() but no DTO import')
+        : chalk.green('ok');
+
+    console.log(` - ${c.controller}: ${msg}`);
+  });
+}
+
+function printPatterns(report) {
+  console.log('\n' + chalk.yellow('3) Unsafe patterns:'));
+
+  if (!report.unsafePatterns.length) {
+    console.log(' - Aucun pattern critique');
+    return;
   }
 
-  console.log(chalk.cyan('\n=== GLOBAL PROJECT SCORE ==='))
-  const score = report.score.score
+  report.unsafePatterns.forEach(f => {
+    console.log(chalk.red(` - [${f.type}] ${f.file}`));
+    console.log('   snippet:', f.snippet);
+  });
+}
 
-  let color = chalk.green
-  if (score < 80) color = chalk.yellow
-  if (score < 60) color = chalk.red
+function printScore(report) {
+  console.log(chalk.cyan('\n=== SCORE ==='));
 
-  console.log('Security & Performance score:', color(score + '/100'))
+  const s = report.score.score;
+  const color = s < 60 ? chalk.red : s < 80 ? chalk.yellow : chalk.green;
+
+  console.log('Score:', color(s + '/100'));
 
   if (report.score.issues.length) {
-    console.log('\nMain issues:')
-    report.score.issues.forEach(i => {
-      console.log('-', chalk.red(i))
-    })
+    console.log('\nIssues:');
+    report.score.issues.forEach(i => console.log('-', chalk.red(i)));
   }
+}
 
-  console.log('\n' + chalk.yellow('4) Recommandations immédiates:'));
-  if (!report.main.hasValidationPipe) console.log(chalk.red(' - Activer ValidationPipe global (whitelist, forbidNonWhitelisted, transform).'));
-  if (!report.main.hasHelmet) console.log(chalk.red(' - Ajouter helmet() pour headers de sécurité.'));
-  if (!report.projectSecurity.throttler) console.log(chalk.red(' - Ajouter rate limiting (ThrottlerModule + ThrottlerGuard).'));
-  if (!report.projectSecurity.exceptionFilter) console.log(chalk.red(' - Ajouter un exception filter global (APP_FILTER).'));
-  console.log(chalk.green(' - DTO validation détectée sur certains DTOs'));
+function printRecommendations(report) {
+  console.log('\n' + chalk.yellow('4) Recommandations:'));
+
+  if (!report.main.hasValidationPipe)
+    console.log(chalk.red(' - ValidationPipe global'));
+
+  if (!report.main.hasHelmet)
+    console.log(chalk.red(' - Helmet security'));
+
+  if (!report.projectSecurity.throttler)
+    console.log(chalk.red(' - Rate limiting'));
+
+  if (!report.projectSecurity.exceptionFilter)
+    console.log(chalk.red(' - Exception filter'));
+
+  console.log(chalk.green(' - DTO validation OK partiellement'));
+}
+
+function logStatus(label, ok) {
+  console.log(`   - ${label}:`, ok ? chalk.green('OK') : chalk.red('MISSING'));
 }
 
 function main() {

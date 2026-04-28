@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-28T07:58:12.904Z",
+  "timestamp": "2026-04-28T09:37:14.816Z",
   "main": {
     "path": "/home/eclaire/src/main.ts",
     "hasValidationPipe": true,
@@ -154,17 +154,7 @@
       "snippet": "SELECT"
     },
     {
-      "file": "src/etl/pipelines/ingest/IngestPipelineJarde.ts",
-      "type": "raw_sql_template",
-      "snippet": "SELECT"
-    },
-    {
-      "file": "src/etl/pipelines/ingest/IngestPipelineDmDmdiv.ts",
-      "type": "raw_sql_template",
-      "snippet": "SELECT"
-    },
-    {
-      "file": "src/etl/pipelines/ingest/IngestPipelineCtis.ts",
+      "file": "src/etl/pipelines/ingest/IngestPipeline.ts",
       "type": "raw_sql_template",
       "snippet": "SELECT"
     },
@@ -232,7 +222,7 @@
   "score": {
     "score": 80,
     "issues": [
-      "28 patterns potentiellement dangereux"
+      "26 patterns potentiellement dangereux"
     ]
   },
   "stats": {
