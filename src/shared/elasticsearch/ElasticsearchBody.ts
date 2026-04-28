@@ -15,12 +15,13 @@ type NestedQuery = {
       term?: {
         [key: string]: string
       }
+      nested?: NestedQuery['nested']
     }
   }
 }
 
 /**
- * All possible query clauses (backward compatible)
+ * All possible query clauses
  */
 type MustClause =
   | { match: { [key: string]: string } }
@@ -50,6 +51,25 @@ export type ElasticsearchBodyType = {
   }[]
 }
 
+/**
+ * Small reusable builders
+ */
+const termClause = (field: string, value: string) => ({
+  term: { [field]: value },
+})
+
+const matchClause = (field: string, value: string) => ({
+  match: { [field]: value },
+})
+
+const rangeClause = (field: string, operators: Record<string, any>) => ({
+  range: { [field]: operators },
+})
+
+const nestedQuery = (path: string, query: any): NestedQuery => ({
+  nested: { path, query },
+})
+
 export class ElasticsearchBodyBuilder {
   private readonly searchBody: ElasticsearchBodyType
 
@@ -66,6 +86,39 @@ export class ElasticsearchBodyBuilder {
     }
   }
 
+  /**
+   * Internal helpers (reduce repetition)
+   */
+  private addMust(clause: MustClause): void {
+    this.searchBody.query.bool.must.push(clause)
+  }
+
+  private addFilter(clause: FilterClause): void {
+    this.searchBody.query.bool.filter.push(clause)
+  }
+
+  private buildDoubleNested(
+    parentPath: string,
+    childPath: string,
+    must: any[],
+    mustNot?: any[]
+  ): NestedQuery {
+    return nestedQuery(parentPath, {
+      nested: {
+        path: childPath,
+        query: {
+          bool: {
+            ...(must.length ? { must } : {}),
+            ...(mustNot?.length ? { must_not: mustNot } : {}),
+          },
+        },
+      },
+    })
+  }
+
+  /**
+   * Public API
+   */
   withFrom(from: number): this {
     this.searchBody.from = from
     return this
@@ -83,71 +136,65 @@ export class ElasticsearchBodyBuilder {
   }
 
   withSort(fieldname: string, order: 'asc' | 'desc'): this {
-    // Vérifie s'il existe déjà un élément avec la même clé
-    const index = this.searchBody.sort.findIndex((item) => Object.keys(item)[0] === fieldname)
+    const index = this.searchBody.sort.findIndex(
+      (item) => Object.keys(item)[0] === fieldname
+    )
+
     if (index !== -1) {
-      this.searchBody.sort.splice(index, 1) // Supprime l'ancien élément
+      this.searchBody.sort.splice(index, 1)
     }
-    // Ajoute en première position
+
     this.searchBody.sort.unshift({ [fieldname]: { order } })
     return this
   }
 
   withText(value: string): this {
-    this.searchBody.query.bool.must.push({ query_string: { query: value } })
+    this.addMust({ query_string: { query: value } })
     return this
   }
 
   withMatch(fieldname: string, value: string): this {
-    this.searchBody.query.bool.must.push({ match: { [fieldname]: value } })
+    this.addMust(matchClause(fieldname, value))
     return this
   }
 
   withTerm(fieldname: string, value: string): this {
-    this.searchBody.query.bool.filter.push({ term: { [fieldname]: value } })
+    this.addFilter(termClause(fieldname, value))
     return this
   }
 
   withRange(fieldname: string, value: string, operators: Operator[]): this {
-    const operatorsAndValues = {}
-    for (const iterator of operators) {
-      operatorsAndValues[iterator] = value
+    const operatorsAndValues: Record<string, string> = {}
+
+    for (const op of operators) {
+      operatorsAndValues[op] = value
     }
-    this.searchBody.query.bool.must.push({ range: { [fieldname]: operatorsAndValues } })
+
+    this.addMust(rangeClause(fieldname, operatorsAndValues))
     return this
   }
 
   /**
-   * NEW — Nested Term Query
-   * Exemple:
-   * .withNestedTerm('category.coding', 'category.coding.code', 'REG536')
+   * Nested MUST
    */
   withDoubleNestedMust(
     parentPath: string,
     childPath: string,
     terms: Record<string, string>
   ): this {
-    const mustClauses = Object.entries(terms).map(([field, value]) => ({ term: { [field]: value } }))
+    const mustClauses = Object.entries(terms).map(([f, v]) =>
+      termClause(f, v)
+    )
 
-    this.searchBody.query.bool.filter.push({
-      nested: {
-        path: parentPath,
-        query: {
-          nested: {
-            path: childPath,
-            query: { bool: { must: mustClauses } },
-          },
-        },
-      },
-    } as any)
+    this.addFilter(
+      this.buildDoubleNested(parentPath, childPath, mustClauses)
+    )
 
     return this
   }
 
   /**
-   * NEW — Nested NOT Term Query
-   * Exemple:
-   * .withNestedNotTerm('category.coding', 'category.coding.code', 'REG536')
+   * Nested MUST + MUST_NOT
    */
   withDoubleNestedMustAndMustNot(
     parentPath: string,
@@ -155,26 +202,22 @@ export class ElasticsearchBodyBuilder {
     mustTerms: Record<string, string>,
     mustNotTerms: Record<string, string>
   ): this {
-    const mustClauses = Object.entries(mustTerms).map(([field, value]) => ({ term: { [field]: value } }))
+    const mustClauses = Object.entries(mustTerms).map(([f, v]) =>
+      termClause(f, v)
+    )
 
-    const mustNotClauses = Object.entries(mustNotTerms).map(([field, value]) => ({ term: { [field]: value } }))
+    const mustNotClauses = Object.entries(mustNotTerms).map(([f, v]) =>
+      termClause(f, v)
+    )
 
-    this.searchBody.query.bool.filter.push({
-      nested: {
-        path: parentPath,
-        query: {
-          nested: {
-            path: childPath,
-            query: {
-              bool: {
-                must: mustClauses,
-                must_not: mustNotClauses,
-              },
-            },
-          },
-        },
-      },
-    } as any)
+    this.addFilter(
+      this.buildDoubleNested(
+        parentPath,
+        childPath,
+        mustClauses,
+        mustNotClauses
+      )
+    )
 
     return this
   }

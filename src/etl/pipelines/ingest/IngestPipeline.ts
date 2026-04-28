@@ -54,6 +54,82 @@ export abstract class IngestPipeline {
       await this.databaseService.deleteManyDocument(ids)
     }
   }
+
+
+  // -----------------------------
+  // GENERIC BATCH ENGINE
+  // -----------------------------
+  protected async processInBatches<T>(
+    stream: AsyncIterable<T>,
+    batchSize: number,
+    handler: (batch: T[]) => Promise<void>
+  ): Promise<number> {
+    let buffer: T[] = []
+    let count = 0
+
+    for await (const record of stream) {
+      buffer.push(record)
+      count++
+
+      if (buffer.length === batchSize) {
+        await handler(buffer)
+        buffer = []
+      }
+    }
+
+    if (buffer.length > 0) {
+      await handler(buffer)
+    }
+
+    return count
+  }
+
+  // -----------------------------
+  // SHARED POST-PROCESSING
+  // -----------------------------
+  protected async handleBatch(
+    label: string,
+    buffer: any[],
+    transform: (data: any[]) => ResearchStudyModel[],
+    idsToDelete: (string | null)[]
+  ): Promise<void> {
+    if (!buffer.length) return
+
+    this.logger.info(`---- ${label} Processing batch of ${buffer.length} records`)
+
+    const documents = transform(buffer)
+
+    this.logger.info(
+      `---- Chunk ${label}: number of documents to update : ${documents.length}`
+    )
+
+    if (documents.length > 0) {
+      await this.load(documents)
+    }
+
+    const filteredIds = idsToDelete.filter((v) => v !== null)
+
+    if (filteredIds.length > 0) {
+      await this.delete(filteredIds)
+    }
+
+    this.logger.info(
+      `////// Chunk ${label}: number of documents to delete : ${idsToDelete.length}`
+    )
+  }
+
+  // -----------------------------
+  // DATE FILTER (shared logic)
+  // -----------------------------
+  protected filterByDate(models: ResearchStudyModel[]): ResearchStudyModel[] {
+    const startingDate = new Date(this.startingDate)
+
+    return models.filter((model) => {
+      const lastUpdated = new Date(model.meta.lastUpdated)
+      return lastUpdated >= startingDate
+    })
+  }
+
 }
 
 type RiphDto = RiphCtisDto | RiphDmDto | RiphJardeDto

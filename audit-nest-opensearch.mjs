@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import { glob } from "glob";
 import chalk from "chalk";
 
@@ -126,7 +126,8 @@ function searchUnsafePatterns() {
       findings.push({ file: rel, type: 'client_template_literal', snippet: getSnippet(src, 'client.search') });
     }
 
-    if (/client\.(search|index)\s*\([^)]*['"][^'"]*\s*\+\s*\w+/.test(src)) {
+    if (/client\.(search|index)\s*\(/.test(src) &&
+    /['"][^'"]*\+\s*\w+/.test(src)) {  
       findings.push({ file: rel, type: 'client_string_concat', snippet: getSnippet(src, 'client.search') });
     }
 
@@ -164,7 +165,7 @@ function getSnippet(src, token) {
   if (idx === -1) return token;
   const start = Math.max(0, idx - 80);
   const end = Math.min(src.length, idx + 200);
-  return src.substring(start, end).replace(/\n/g, ' ');
+  return src.substring(start, end).replaceAll(/\n/g, ' ');
 }
 
 // === Summary ===
