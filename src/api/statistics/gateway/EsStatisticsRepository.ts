@@ -1,51 +1,77 @@
+import { Injectable, OnModuleInit } from '@nestjs/common'
+import { Cron } from '@nestjs/schedule'
+
 import { ElasticsearchService } from '../../../shared/elasticsearch/ElasticsearchService'
 import { StatisticsRepository } from '../application/StatisticsRepository'
 
-export class EsStatisticsRepository implements StatisticsRepository {
+@Injectable()
+export class EsStatisticsRepository implements StatisticsRepository, OnModuleInit {
+
+  private cachedStats: Record<string, number> = {}
+
   constructor(
-        private readonly databaseService: ElasticsearchService
+    private readonly databaseService: ElasticsearchService
   ) { }
 
-  async findStat(): Promise<Record<string, number>> {
-    // Get count of total documents
-    const total = await this.databaseService.countDocuments()
-    // Get count total for DM documents
-    const countDM = await this.databaseService.countDocuments({ 'category.coding.code': 'REG745' })
-    // Get count total for DM-DIV documents
-    const countDMDIV = await this.databaseService.countDocuments({ 'category.coding.code': 'REG746' })
-    // Get count total for CTIS documents
-    const countCtis = await this.databaseService.countDocuments({ 'category.coding.code': 'REG536' })
+  async onModuleInit() {
+    console.log('Initial statistics calculation...')
+    await this.refreshStats()
+  }
+
+  @Cron('0 6 * * *', { name: 'daily-statistics-refresh' }) // Every day at 06:00
+  async refreshStats() {
+    console.log('Refreshing statistics...')
+
+    // Get count total documents and total by etude type
+    const [
+      total,
+      countDM,
+      countDMDIV,
+      countCtis,
+    ] = await Promise.all([
+      this.databaseService.countDocuments(),
+      this.databaseService.countDocuments({ 'category.coding.code': 'REG745' }),
+      this.databaseService.countDocuments({ 'category.coding.code': 'REG746' }),
+      this.databaseService.countDocuments({ 'category.coding.code': 'REG536' }),
+    ])
+
     // Get count total documents for Jarde
     const countJarde = total - (countDM + countDMDIV + countCtis)
 
-    // Get count total documents with status "a demarrer"
-    const countToStart = await this.databaseService.countDocuments({ status: 'approved' })
+    // Get count total documents with status "a demarrer" and count total documents by type with status "en cours"
+    const [
+      countToStart,
+      countDMInPogress,
+      countDMDIVInPogress,
+      countCtisInPogress,
+      countJardeInPogress,
+    ] = await Promise.all([
+      this.databaseService.countDocuments({ status: 'approved' }),
 
-    // Get count total documents for DM "en cours"
-    const countDMInPogress = await this.databaseService.countDocuments({
-      'category.coding.code': 'REG745',
-      status: 'active',
-    })
-    // Get count total documents for DM-DIV "en cours"
-    const countDMDIVInPogress = await this.databaseService.countDocuments({
-      'category.coding.code': 'REG746',
-      status: 'active',
-    })
-    // Get count total documents for CTIS "en cours"
-    const countCtisInPogress = await this.databaseService.countDocuments({
-      'category.coding.code': 'REG536',
-      status: 'active',
-    })
-    // Get count total documents for JARDE "en cours"
-    const countJardeInPogress = await this.databaseService.countDocuments({
-      'category.coding.code': 'JARDE',
-      status: 'active',
-    })
+      this.databaseService.countDocuments({
+        'category.coding.code': 'REG745',
+        status: 'active',
+      }),
+
+      this.databaseService.countDocuments({
+        'category.coding.code': 'REG746',
+        status: 'active',
+      }),
+
+      this.databaseService.countDocuments({
+        'category.coding.code': 'REG536',
+        status: 'active',
+      }),
+
+      this.databaseService.countDocuments({
+        'category.coding.code': 'JARDE',
+        status: 'active',
+      }),
+    ])
 
     const countAllInProgress = countDMInPogress + countDMDIVInPogress + countCtisInPogress + countJardeInPogress
 
-    /* eslint-disable sort-keys */
-    return {
+    this.cachedStats = {
       Total_etudes: total,
       'Investigations_cliniques_(DM)': countDM,
       'Etudes_performance_(DMDIV)': countDMDIV,
@@ -58,6 +84,9 @@ export class EsStatisticsRepository implements StatisticsRepository {
       Etudes_en_cours_JARDE: countJardeInPogress,
       Total_Etudes_en_cours: countAllInProgress,
     }
-    /* eslint-enable sort-keys */
+  }
+
+  async findStat(): Promise<Record<string, number>> {
+    return this.cachedStats
   }
 }

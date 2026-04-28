@@ -6,23 +6,28 @@ import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFacto
 
 export class IngestPipelineDmDmdiv extends IngestPipeline {
   readonly type = 'dm-dmdiv'
-  idsToDelete = []
+  idsToDelete: (string | null)[] = []
 
   async execute(): Promise<void> {
-    const riphDmDtos: RiphDmDto[] = await super.extract<RiphDmDto>()
-    const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
-    for (let i = 0; i < riphDmDtos.length; i += chunkSize) {
-      this.logger.info(`---- Chunk DM-DM/DIV: ${i} / ${riphDmDtos.length} elasticsearch documents`)
-      const chunk = riphDmDtos.slice(i, i + chunkSize)
-      const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
-      this.logger.info(`---- Chunk DM-DM/DIV: number of documents to update : ${researchStudyDocuments.length}`)
-      await super.load(researchStudyDocuments)
-      // Delete documents with status non autorisé (fermé)
-      await super.delete(this.idsToDelete.filter((v) => v !== null))
-      this.logger.info(`////// Chunk DM-DM/DIV: number of documents to delete : ${this.idsToDelete.length}`)
-      this.idsToDelete = []
-    }
+    const batchSize = Number(process.env['CHUNK_SIZE'] ?? 100)
+
+    const total = await this.processInBatches<RiphDmDto>(
+      super.extractStream<RiphDmDto>(),
+      batchSize,
+      async (batch) => {
+        await this.handleBatch(
+          'DMDIV',
+          batch,
+          this.transform.bind(this),
+          this.idsToDelete
+        )
+        this.idsToDelete = []
+      }
+    )
+
+    this.logger.info(`---- Total records processed For DMDIV: ${total}`)
   }
+
 
   transform(riphDmDtos: RiphDmDto[]): ResearchStudyModel[] {
     const result: ResearchStudyModel[] = []
@@ -35,15 +40,10 @@ export class IngestPipelineDmDmdiv extends IngestPipeline {
       }
     }
 
-    return result.filter((researchStudyModel: ResearchStudyModel) => {
-      const startingDate: Date = new Date(this.startingDate)
-      const lastUpdated: Date = new Date(researchStudyModel.meta.lastUpdated)
-      return lastUpdated >= startingDate
-    })
+    return this.filterByDate(result)
   }
 
   async import(): Promise<void> {
     await this.execute()
   }
-
 }

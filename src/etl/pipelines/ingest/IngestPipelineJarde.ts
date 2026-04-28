@@ -9,40 +9,40 @@ export class IngestPipelineJarde extends IngestPipeline {
   idsToDelete = []
 
   async execute(): Promise<void> {
-    const riphJardeDtos: RiphJardeDto[] = await super.extract<RiphJardeDto>()
-    const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
-    for (let i = 0; i < riphJardeDtos.length; i += chunkSize) {
-      this.logger.info(`---- Chunk JARDE: ${i} / ${riphJardeDtos.length} elasticsearch documents`)
-      const chunk = riphJardeDtos.slice(i, i + chunkSize)
-      const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
-      this.logger.info(`---- Chunk JARDE: number of documents to update : ${researchStudyDocuments.length}`)
-      await super.load(researchStudyDocuments)
-      // Delete documents with status non autorisé (fermé)
-      await super.delete(this.idsToDelete.filter((v) => v !== null))
-      this.logger.info(`////// Chunk JARDE: number of documents to delete : ${this.idsToDelete.length}`)
-      this.idsToDelete = []
-    }
+    const batchSize = Number(process.env['CHUNK_SIZE'] ?? 100)
+
+    const total = await this.processInBatches<RiphJardeDto>(
+      super.extractStream<RiphJardeDto>(),
+      batchSize,
+      async (batch) => {
+        await this.handleBatch(
+          'JARDE',
+          batch,
+          this.transform.bind(this),
+          this.idsToDelete
+        )
+        this.idsToDelete = []
+      }
+    )
+
+    this.logger.info(`---- Total records processed For JARDE: ${total}`)
   }
 
   transform(riphJardeDtos: RiphJardeDto[]): ResearchStudyModel[] {
     const removeRapatrieeCtis = (jarde: RiphJardeDto): boolean => jarde.etat !== 'RAPATRIEE_CTIS'
     const riphJardeDtosWithoutRapatrieeCtis = riphJardeDtos.filter(removeRapatrieeCtis)
 
-    const researchStudyModels: ResearchStudyModel[] = []
+    const result: ResearchStudyModel[] = []
     for (const riphJardeDto of riphJardeDtosWithoutRapatrieeCtis) {
       const eclaireDto: EclaireDto = EclaireDto.fromJarde(riphJardeDto)
       if (eclaireDto && eclaireDto.numero_primaire && !eclaireDto.to_delete) {
-        researchStudyModels.push(ResearchStudyModelFactory.create(eclaireDto))
+        result.push(ResearchStudyModelFactory.create(eclaireDto))
       } else {
         this.idsToDelete.push(eclaireDto.numero_primaire)
       }
     }
 
-    return researchStudyModels.filter((researchStudyModel: ResearchStudyModel) => {
-      const startingDate: Date = new Date(this.startingDate)
-      const lastUpdated: Date = new Date(researchStudyModel.meta.lastUpdated)
-      return lastUpdated >= startingDate
-    })
+    return this.filterByDate(result)
   }
 
   async import(): Promise<void> {
