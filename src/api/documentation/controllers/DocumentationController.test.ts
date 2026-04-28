@@ -24,7 +24,7 @@ describe('DownloadDocumentationController', () => {
   })
 
   it('should throw NotFoundException if file type is not allowed', async () => {
-    (repository.getFilePath as any).mockResolvedValue('/tmp/file.exe')
+    (repository.getFilePath as any).mockResolvedValue('/documentation/files/file.exe')
 
     await expect(controller.getFile('file.exe', res))
       .rejects
@@ -32,21 +32,21 @@ describe('DownloadDocumentationController', () => {
   })
 
   it('should call sendFile for allowed file type', async () => {
-    (repository.getFilePath as any).mockResolvedValue('/tmp/file.pdf')
+    (repository.getFilePath as any).mockResolvedValue('/documentation/files/file.pdf')
 
     await controller.getFile('file.pdf', res)
 
     expect(res.setHeader).toHaveBeenCalledWith('Content-Type', 'application/pdf')
-    expect(res.sendFile).toHaveBeenCalledWith('/tmp/file.pdf')
+    expect(res.sendFile).toHaveBeenCalledWith('/documentation/files/file.pdf')
   })
 
   it('should set correct content type for JPG', async () => {
-    (repository.getFilePath as any).mockResolvedValue('/tmp/file.jpg')
+    (repository.getFilePath as any).mockResolvedValue('/documentation/files/file.jpg')
 
     await controller.getFile('file.jpg', res)
 
     expect(res.setHeader).toHaveBeenCalledWith('Content-Type', 'image/jpeg')
-    expect(res.sendFile).toHaveBeenCalledWith('/tmp/file.jpg')
+    expect(res.sendFile).toHaveBeenCalledWith('/documentation/files/file.jpg')
   })
 
   it('should throw NotFoundException if repository throws', async () => {

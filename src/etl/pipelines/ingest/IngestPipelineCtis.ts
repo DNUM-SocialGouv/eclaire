@@ -63,53 +63,27 @@ export class IngestPipelineCtis extends IngestPipeline {
   ]
 
   async execute(): Promise<void> {
-    let i = 0
     const batchSize = Number(process.env['CHUNK_SIZE'] ?? 100)
-    let buffer: RiphCtisDto[] = []
 
-    for await (const record of super.extractStream<RiphCtisDto>()) {
-      buffer.push(record);
-      i++;
-
-      if (buffer.length === batchSize) {
-        await this.processBatch(buffer)
-        buffer = []; // reset        
+    const total = await this.processInBatches<RiphCtisDto>(
+      super.extractStream<RiphCtisDto>(),
+      batchSize,
+      async (batch) => {
+        await this.handleBatch(
+          'CTIS',
+          batch,
+          this.transform.bind(this),
+          this.idsToDelete
+        )
+        this.idsToDelete = []
       }
-    }
+    )
 
-    // Final batch
-    if (buffer.length > 0) {
-      await this.processBatch(buffer)
-    }
-    this.logger.info(`---- Total records processed: ${i}`);
-  }
-
-  private async processBatch(buffer: RiphCtisDto[]): Promise<void> {
-    if (!buffer.length) return
-
-    this.logger.info(`---- CTIS Processing batch of ${buffer.length} records`)
-
-    const researchStudyDocuments = this.transform(buffer)
-
-    this.logger.info(`---- Chunk CTIS: number of documents to update : ${researchStudyDocuments.length}`)
-
-    if (researchStudyDocuments.length > 0) {
-      await super.load(researchStudyDocuments)
-    }
-
-    // Delete documents with status non autorisé (fermé)
-    const idsToDeleteFiltered = this.idsToDelete.filter((v) => v !== null)
-    if (idsToDeleteFiltered.length > 0) {
-      await super.delete(idsToDeleteFiltered)
-    }
-
-    this.logger.info(`////// Chunk CTIS: number of documents to delete : ${this.idsToDelete.length}`)
-
-    this.idsToDelete = []
+    this.logger.info(`---- Total records processed For CTIS: ${total}`)
   }
 
   transform(riphCtisDtos: RiphCtisDto[]): ResearchStudyModel[] {
-    const researchStudyModels: ResearchStudyModel[] = []
+    const result: ResearchStudyModel[] = []
     for (const riphCtisDto of riphCtisDtos) {
       const eclaireDto: EclaireDto = EclaireDto.fromCtis(riphCtisDto)
       if (
@@ -117,17 +91,13 @@ export class IngestPipelineCtis extends IngestPipeline {
         !eclaireDto?.to_delete &&
         !this.excludeIds.includes(eclaireDto.numero_primaire)
       ) {
-        researchStudyModels.push(ResearchStudyModelFactory.create(eclaireDto))
+        result.push(ResearchStudyModelFactory.create(eclaireDto))
       } else {
         this.idsToDelete.push(eclaireDto.numero_primaire)
       }
     }
 
-    return researchStudyModels.filter((researchStudyModel: ResearchStudyModel) => {
-      const startingDate: Date = new Date(this.startingDate)
-      const lastUpdated: Date = new Date(researchStudyModel.meta.lastUpdated)
-      return lastUpdated >= startingDate
-    })
+    return this.filterByDate(result)
   }
 
   async import(): Promise<void> {

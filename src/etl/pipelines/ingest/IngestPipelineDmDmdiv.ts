@@ -6,53 +6,28 @@ import { ResearchStudyModelFactory } from '../../factory/ResearchStudyModelFacto
 
 export class IngestPipelineDmDmdiv extends IngestPipeline {
   readonly type = 'dm-dmdiv'
-  idsToDelete = []
+  idsToDelete: (string | null)[] = []
 
   async execute(): Promise<void> {
-    let i = 0
     const batchSize = Number(process.env['CHUNK_SIZE'] ?? 100)
-    let buffer: RiphDmDto[] = []
 
-    for await (const record of super.extractStream<RiphDmDto>()) {
-      buffer.push(record);
-      i++;
-
-      if (buffer.length === batchSize) {
-        await this.processBatch(buffer)
-        buffer = []; // reset        
+    const total = await this.processInBatches<RiphDmDto>(
+      super.extractStream<RiphDmDto>(),
+      batchSize,
+      async (batch) => {
+        await this.handleBatch(
+          'DMDIV',
+          batch,
+          this.transform.bind(this),
+          this.idsToDelete
+        )
+        this.idsToDelete = []
       }
-    }
+    )
 
-    // Final batch
-    if (buffer.length > 0) {
-      await this.processBatch(buffer)
-    }
-    this.logger.info(`---- Total records processed For DMDIV: ${i}`);
+    this.logger.info(`---- Total records processed For DMDIV: ${total}`)
   }
 
-  private async processBatch(buffer: RiphDmDto[]): Promise<void> {
-    if (!buffer.length) return
-
-    this.logger.info(`---- DMDIV Processing batch of ${buffer.length} records`)
-
-    const researchStudyDocuments = this.transform(buffer)
-
-    this.logger.info(`---- Chunk DMDIV: number of documents to update : ${researchStudyDocuments.length}`)
-
-    if (researchStudyDocuments.length > 0) {
-      await super.load(researchStudyDocuments)
-    }
-
-    // Delete documents with status non autorisé (fermé)
-    const idsToDeleteFiltered = this.idsToDelete.filter((v) => v !== null)
-    if (idsToDeleteFiltered.length > 0) {
-      await super.delete(idsToDeleteFiltered)
-    }
-
-    this.logger.info(`////// Chunk DMDIV: number of documents to delete : ${this.idsToDelete.length}`)
-
-    this.idsToDelete = []
-  }
 
   transform(riphDmDtos: RiphDmDto[]): ResearchStudyModel[] {
     const result: ResearchStudyModel[] = []
@@ -65,15 +40,10 @@ export class IngestPipelineDmDmdiv extends IngestPipeline {
       }
     }
 
-    return result.filter((researchStudyModel: ResearchStudyModel) => {
-      const startingDate: Date = new Date(this.startingDate)
-      const lastUpdated: Date = new Date(researchStudyModel.meta.lastUpdated)
-      return lastUpdated >= startingDate
-    })
+    return this.filterByDate(result)
   }
 
   async import(): Promise<void> {
     await this.execute()
   }
-
 }
