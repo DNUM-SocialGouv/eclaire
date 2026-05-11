@@ -1,42 +1,42 @@
-// IngestPipelineImport.test.ts
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+
 import { IngestPipelineImport } from './IngestPipelineImport'
 import { ResearchStudyModel } from '../../../shared/models/domain-resources/ResearchStudyModel'
 import { RiphCtisDto } from '../../dto/RiphCtisDto'
 import { RiphDmDto } from '../../dto/RiphDmDto'
 import { RiphJardeDto } from '../../dto/RiphJardeDto'
-import { StreamingExcelExporter } from '../excel/StreamingExcelExporter'
+//import { StreamingExcelExporter } from '../excel/StreamingExcelExporter'
 
-describe('IngestPipelineImport', () => {
-    let pipeline: IngestPipelineImport
-    let exporter: StreamingExcelExporter
+describe('ingestPipelineImport', () => {
+  let pipeline: IngestPipelineImport
+  //let exporter: StreamingExcelExporter
 
-    beforeEach(() => {
-        // Use dummy services for constructor dependencies
-        const dummyLogger = { info: vi.fn(), error: vi.fn() } as any
-        const dummyDb = { bulkDocuments: vi.fn(), deleteManyDocument: vi.fn() } as any
-        const dummyReader = {
-            read: vi.fn().mockResolvedValue([]),
-            readStream: vi.fn().mockImplementation(async function* () { })
-        } as any
+  beforeEach(() => {
+    // Use dummy services for constructor dependencies
+    const dummyLogger = { error: vi.fn(), info: vi.fn() } as any
+    const dummyDb = { bulkDocuments: vi.fn(), deleteManyDocument: vi.fn() } as any
+    const dummyReader = {
+      read: vi.fn().mockResolvedValue([]),
+      readStream: vi.fn().mockImplementation(async function* () { }),
+    } as any
 
-        pipeline = new IngestPipelineImport(dummyLogger, dummyDb, dummyReader)
-        exporter = { appendRow: vi.fn() } as any
-    })
+    pipeline = new IngestPipelineImport(dummyLogger, dummyDb, dummyReader)
+    //exporter = { appendRow: vi.fn() } as any
+  })
 
-    it('should transform RiphDtos into ResearchStudyModels', () => {
-        const riphDtos: (RiphCtisDto | RiphDmDto | RiphJardeDto)[] = [
-            { id: '1', title: 'Study 1' } as unknown as RiphDmDto,
-            { id: '2', title: 'Study 2' } as unknown as RiphCtisDto
-        ]
+  it('should transform RiphDtos into ResearchStudyModels', () => {
+    const riphDtos: (RiphCtisDto | RiphDmDto | RiphJardeDto)[] = [
+      { id: '1', title: 'Study 1' } as unknown as RiphDmDto,
+      { id: '2', title: 'Study 2' } as unknown as RiphCtisDto,
+    ]
 
-        const result: ResearchStudyModel[] = pipeline.transform(riphDtos)
-        expect(result).toHaveLength(2)
-        expect(result[0].id).toBe('1')
-        expect(result[1].title).toBe('Study 2')
-    })
+    const result: ResearchStudyModel[] = pipeline.transform(riphDtos)
+    expect(result).toHaveLength(2)
+    expect(result[0].id).toBe('1')
+    expect(result[1].title).toBe('Study 2')
+  })
 
-    /* it('should call appendRow for each type in runExtractionStreaming', async () => {
+  /* it('should call appendRow for each type in runExtractionStreaming', async () => {
         // Spy on extractStream to return simple arrays instead of real streams
         vi.spyOn(pipeline as any, 'extractStream').mockImplementation(async function* (type?: string): any {
             if (type === 'ctis') {

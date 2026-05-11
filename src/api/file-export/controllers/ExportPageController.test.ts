@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call */
+import * as fs from 'fs'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import { ExportPageController } from './ExportPageController'
 
 // mock module fs before import
 vi.mock('fs', () => ({ existsSync: vi.fn() }))
-
-import * as fs from 'fs'
 
 describe('exportPageController', () => {
   let controller: ExportPageController
@@ -19,8 +19,8 @@ describe('exportPageController', () => {
     (fs.existsSync as any).mockReturnValue(false)
 
     const res = {
-      status: vi.fn().mockReturnThis(),
       send: vi.fn(),
+      status: vi.fn().mockReturnThis(),
     } as any
 
     controller.servePage('token', res)
@@ -36,7 +36,7 @@ describe('exportPageController', () => {
 
     controller.servePage('token', res)
 
-    expect(res.sendFile).toHaveBeenCalledWith()
+    expect(res.sendFile).toHaveBeenCalledWith(expect.stringContaining('export-page.html'))
   })
 
   it('should throw if token is invalid', () => {
@@ -45,6 +45,6 @@ describe('exportPageController', () => {
     const res = {} as any
 
     expect(() =>
-      controller.servePage('wrong-token', res)).toThrow()
+      controller.servePage('wrong-token', res)).toThrow('Not Found')
   })
 })

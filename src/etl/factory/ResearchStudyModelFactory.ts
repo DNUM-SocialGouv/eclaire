@@ -246,7 +246,7 @@ export class ResearchStudyModelFactory {
       meta,
       originalContentToEnhance,
       period,
-      phase,
+      phase ? phase : undefined,
       primaryPurposeType,
       referenceContents,
       relatedArtifacts,

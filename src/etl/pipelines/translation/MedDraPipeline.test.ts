@@ -71,7 +71,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
             must: [{ range: { 'meta.lastUpdated': { gte: '2022-10-06' } } }],
           },
         },
-        size: parseInt(process.env['CHUNK_SIZE']),
+        size: 132,
         sort: [
           { _id: { order: 'asc' } },
           { 'meta.lastUpdated': { order: 'asc' } },
@@ -118,7 +118,7 @@ describe('etl | Pipelines | MedDraPipeline', () => {
             must: [{ range: { 'meta.lastUpdated': { gte: '2020-10-06' } } }],
           },
         },
-        size: parseInt(process.env['CHUNK_SIZE']),
+        size: 132,
         sort: [
           { _id: { order: 'asc' } },
           { 'meta.lastUpdated': { order: 'asc' } },

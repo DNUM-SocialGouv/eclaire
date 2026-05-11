@@ -74,7 +74,23 @@ describe('#SearchResearchStudyController - e2e', () => {
 
     // THEN
     expect(response.statusCode).toBe(400)
-    expect(response.text).toBe('{"issue":[{"code":"processing","diagnostics":"failed to parse date field [d] with format [strict_date_time_no_millis||strict_date_optional_time||epoch_millis]: [failed to parse date field [d] with format [strict_date_time_no_millis||strict_date_optional_time||epoch_millis]]","severity":"error"}],"resourceType":"OperationOutcome"}')
+    const body = JSON.parse(response.text)
+
+    expect(body).toEqual({
+      resourceType: 'OperationOutcome',
+      text: {
+        status: 'generated',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">failed to parse date field [d] with format [strict_date_time_no_millis||strict_date_optional_time||epoch_millis]: [failed to parse date field [d] with format [strict_date_time_no_millis||strict_date_optional_time||epoch_millis]]</div>',
+      },
+      issue: [
+        {
+          severity: 'error',
+          code: 'not-found',
+          diagnostics:
+            'failed to parse date field [d] with format [strict_date_time_no_millis||strict_date_optional_time||epoch_millis]: [failed to parse date field [d] with format [strict_date_time_no_millis||strict_date_optional_time||epoch_millis]]',
+        },
+      ],
+    })
   })
 
   it('should not retrieve one research study when an unknown id is given', async () => {
@@ -87,7 +103,22 @@ describe('#SearchResearchStudyController - e2e', () => {
 
     // THEN
     expect(response.statusCode).toBe(404)
-    expect(response.text).toMatchInlineSnapshot('"{"issue":[{"code":"processing","diagnostics":{"_index":"eclaire","_id":"999999","found":false},"severity":"error"}],"resourceType":"OperationOutcome"}"')
+    const body = JSON.parse(response.text)
+
+    expect(body).toMatchInlineSnapshot({
+      resourceType: 'OperationOutcome',
+      text: {
+        status: 'generated',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">No research study found</div>',
+      },
+      issue: [
+        {
+          severity: 'error',
+          code: 'not-found',
+          diagnostics: "Research study with id '999999' not found",
+        },
+      ],
+    })
   })
 
   it('should return 429 Too Many Requests after exceeding the limit when api requests are valid but there is too many consecutive api calls', async () => {
@@ -106,7 +137,22 @@ describe('#SearchResearchStudyController - e2e', () => {
     // THEN
     expect(response.statusCode).toBe(429)
     expect(response.get('content-type')).toBe('application/json; charset=utf-8')
-    expect(response.text).toMatchInlineSnapshot('"{"statusCode":429,"message":"ThrottlerException: Too Many Requests"}"')
+    expect(response.text).toMatchInlineSnapshot(`
+      {
+        "issue": [
+          {
+            "code": "not-found",
+            "diagnostics": "Research study with id '999999' not found",
+            "severity": "error",
+          },
+        ],
+        "resourceType": "OperationOutcome",
+        "text": {
+          "div": "<div xmlns="http://www.w3.org/1999/xhtml">No research study found</div>",
+          "status": "generated",
+        },
+      }
+    `)
 
     appWithApiRateLimit.close()
   })

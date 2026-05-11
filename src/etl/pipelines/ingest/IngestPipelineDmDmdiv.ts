@@ -28,7 +28,6 @@ export class IngestPipelineDmDmdiv extends IngestPipeline {
     this.logger.info(`---- Total records processed For DMDIV: ${total}`)
   }
 
-
   transform(riphDmDtos: RiphDmDto[]): ResearchStudyModel[] {
     const result: ResearchStudyModel[] = []
     for (const riphDmDto of riphDmDtos) {

@@ -24,7 +24,7 @@ export class SearchResearchStudyController {
   @ApiProduces('application/fhir+json')
   @Header('content-type', 'application/fhir+json')
   @Get()
-  @ApiQuery({ type: FhirQueryParams, required: false })
+  @ApiQuery({ required: false, type: FhirQueryParams })
   async execute(@Query() fhirQueryParams: Record<string, any>, @Res() response: Response): Promise<void> {
     try {
       // Check _count if exist

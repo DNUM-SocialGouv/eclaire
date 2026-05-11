@@ -1,9 +1,10 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { NotFoundException } from '@nestjs/common'
+import { describe, it, expect, vi, beforeEach, Mock } from 'vitest'
+
 import { DownloadDocumentationController } from './DocumentationController'
 import { DocumentationRepository } from '../application/DocumentationRepository'
-import { NotFoundException } from '@nestjs/common'
 
-describe('DownloadDocumentationController', () => {
+describe('downloadDocumentationController', () => {
   let controller: DownloadDocumentationController
   let repository: DocumentationRepository
   let res: any
@@ -11,20 +12,18 @@ describe('DownloadDocumentationController', () => {
   beforeEach(() => {
     vi.clearAllMocks()
 
-    repository = {
-      getFilePath: vi.fn(),
-    } as unknown as DocumentationRepository
+    repository = { getFilePath: vi.fn() } as unknown as DocumentationRepository
 
     controller = new DownloadDocumentationController(repository)
 
     res = {
-      setHeader: vi.fn(),
       sendFile: vi.fn(),
+      setHeader: vi.fn(),
     }
   })
 
   it('should throw NotFoundException if file type is not allowed', async () => {
-    (repository.getFilePath as any).mockResolvedValue('/documentation/files/file.exe')
+    (repository.getFilePath as Mock).mockResolvedValue('/documentation/files/file.exe')
 
     await expect(controller.getFile('file.exe', res))
       .rejects
@@ -32,7 +31,7 @@ describe('DownloadDocumentationController', () => {
   })
 
   it('should call sendFile for allowed file type', async () => {
-    (repository.getFilePath as any).mockResolvedValue('/documentation/files/file.pdf')
+    (repository.getFilePath as Mock).mockResolvedValue('/documentation/files/file.pdf')
 
     await controller.getFile('file.pdf', res)
 
@@ -41,7 +40,7 @@ describe('DownloadDocumentationController', () => {
   })
 
   it('should set correct content type for JPG', async () => {
-    (repository.getFilePath as any).mockResolvedValue('/documentation/files/file.jpg')
+    (repository.getFilePath as Mock).mockResolvedValue('/documentation/files/file.jpg')
 
     await controller.getFile('file.jpg', res)
 
@@ -50,7 +49,7 @@ describe('DownloadDocumentationController', () => {
   })
 
   it('should throw NotFoundException if repository throws', async () => {
-    (repository.getFilePath as any).mockRejectedValue(new Error('File not found'))
+    (repository.getFilePath as Mock).mockRejectedValue(new Error('File not found'))
 
     await expect(controller.getFile('file.pdf', res))
       .rejects

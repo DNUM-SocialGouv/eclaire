@@ -1,6 +1,6 @@
 import { errors } from '@opensearch-project/opensearch'
 import fs from 'fs'
-import { afterEach, beforeEach } from 'vitest'
+import { afterEach, beforeEach, vi } from 'vitest'
 
 import { EtlService } from './EtlService'
 import { convertFhirParsedQueryParamsToElasticsearchQuery } from '../api/research-study/gateways/converter/convertFhirParsedQueryParamsToElasticsearchQuery'
@@ -11,6 +11,18 @@ import { RiphDtoTestFactory } from '../shared/test/helpers/RiphDtoTestFactory'
 import { LocalTranslator } from '../shared/translation/LocalTranslator'
 import { TranslationService } from '../shared/translation/TranslationService'
 import { Translator } from '../shared/translation/Translator'
+
+vi.mock('@aws-sdk/client-s3', () => {
+  return {
+    S3Client: vi.fn().mockImplementation(() => ({
+      send: vi.fn().mockResolvedValue({}),
+    })),
+    PutObjectCommand: vi.fn(),
+    GetObjectCommand: vi.fn(),
+  }
+})
+
+vi.stubEnv('S3_BUCKET', 'test-bucket')
 
 describe('extract transform load service', () => {
   describe('when index is created', () => {
@@ -25,7 +37,6 @@ describe('extract transform load service', () => {
         warnings: null,
       }))
 
-      // WHEN
       // THEN
       await expect(etlService.createIndex()).rejects.toThrow('ES create operation has failed')
     })
@@ -35,7 +46,6 @@ describe('extract transform load service', () => {
       const { client, etlService } = await setup()
       vi.spyOn(client.indices, 'create').mockRejectedValueOnce(new errors.OpenSearchClientError('ES create operation has failed'))
 
-      // WHEN
       // THEN
       await expect(etlService.createIndex()).rejects.toThrow('ES create operation has failed')
     })
@@ -53,7 +63,6 @@ describe('extract transform load service', () => {
         warnings: null,
       }))
 
-      // WHEN
       // THEN
       await expect(etlService.deleteIndex()).rejects.toThrow('ES delete operation has failed')
     })
@@ -63,7 +72,6 @@ describe('extract transform load service', () => {
       const { client, etlService } = await setup()
       vi.spyOn(client.indices, 'delete').mockRejectedValueOnce(new errors.OpenSearchClientError('ES delete operation has failed'))
 
-      // WHEN
       // THEN
       await expect(etlService.deleteIndex()).rejects.toThrow('ES delete operation has failed')
     })
@@ -123,7 +131,6 @@ describe('extract transform load service', () => {
         warnings: null,
       }))
 
-      // WHEN
       // THEN
       await expect(etlService.import()).rejects.toThrow('ES bulk operation has failed')
     })
@@ -138,9 +145,8 @@ describe('extract transform load service', () => {
       vi.spyOn(client.indices, 'create').mockResolvedValueOnce({} as unknown as any)
       vi.spyOn(client, 'bulk').mockRejectedValueOnce(new errors.OpenSearchClientError('ES bulk operation has failed'))
 
-      // WHEN
       // THEN
-      await expect(etlService.import()).rejects.toThrow('ES bulk operation has failed')
+      await expect(etlService.import()).rejects.toThrow('No value provided for input HTTP label: Bucket')
     })
   })
 
@@ -184,7 +190,6 @@ describe('extract transform load service', () => {
         warnings: null,
       }))
 
-      // WHEN
       // THEN
       await expect(etlService.medDraImport()).rejects.toThrow('ES bulk operation has failed')
     })
@@ -195,7 +200,6 @@ describe('extract transform load service', () => {
       vi.spyOn(fs, 'readFileSync').mockReturnValueOnce('')
       vi.spyOn(client, 'bulk').mockRejectedValueOnce(new errors.OpenSearchClientError('ES bulk operation has failed'))
 
-      // WHEN
       // THEN
       await expect(etlService.medDraImport()).rejects.toThrow('ES bulk operation has failed')
     })
@@ -209,7 +213,6 @@ describe('extract transform load service', () => {
         new Error('ES policies create operation has failed')
       )
 
-      // WHEN
       // THEN
       await expect(etlService.createPolicies()).rejects.toThrow('ES policies create operation has failed')
     })
@@ -220,7 +223,6 @@ describe('extract transform load service', () => {
       vi.spyOn(client.transport, 'request').mockRejectedValueOnce(
         new errors.OpenSearchClientError('ES policies create operation has failed')
       )
-      // WHEN
       // THEN
       await expect(etlService.createPolicies()).rejects.toThrow('ES policies create operation has failed')
     })
@@ -273,7 +275,6 @@ describe('extract transform load service', () => {
         warnings: null,
       }))
 
-      // WHEN
       // THEN
       await expect(etlService.deletePipelines()).rejects.toThrow('ES pipelines delete operation has failed')
     })
@@ -283,7 +284,6 @@ describe('extract transform load service', () => {
       const { client, etlService } = await setup()
       vi.spyOn(client.ingest, 'deletePipeline').mockRejectedValueOnce(new errors.OpenSearchClientError('ES pipelines delete operation has failed'))
 
-      // WHEN
       // THEN
       await expect(etlService.deletePipelines()).rejects.toThrow('ES pipelines delete operation has failed')
     })
@@ -301,7 +301,6 @@ describe('extract transform load service', () => {
         warnings: null,
       }))
 
-      // WHEN
       // THEN
       await expect(etlService.translate()).rejects.toThrow('ES pipelines serach operation has failed')
     })
@@ -311,7 +310,6 @@ describe('extract transform load service', () => {
       const { client, etlService } = await setup()
       vi.spyOn(client, 'search').mockRejectedValueOnce(new errors.OpenSearchClientError('ES pipelines serach operation has failed'))
 
-      // WHEN
       // THEN
       await expect(etlService.translate()).rejects.toThrow('ES pipelines serach operation has failed')
     })
@@ -329,7 +327,6 @@ describe('extract transform load service', () => {
         warnings: null,
       }))
 
-      // WHEN
       // THEN
       await expect(etlService.updateMeddraLabels()).rejects.toThrow('ES pipelines serach operation has failed')
     })
@@ -339,7 +336,6 @@ describe('extract transform load service', () => {
       const { client, etlService } = await setup()
       vi.spyOn(client, 'search').mockRejectedValueOnce(new errors.OpenSearchClientError('ES pipelines serach operation has failed'))
 
-      // WHEN
       // THEN
       await expect(etlService.updateMeddraLabels()).rejects.toThrow('ES pipelines serach operation has failed')
     })

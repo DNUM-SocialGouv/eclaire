@@ -8,12 +8,12 @@ describe('exportController', () => {
   const mockEtlService = { generateFileWithPhases: vi.fn() }
 
   const mockJobService = {
-    createJob: vi.fn(),
-    getJob: vi.fn(),
-    updateProgress: vi.fn(),
-    updatePhase: vi.fn(),
     complete: vi.fn(),
+    createJob: vi.fn(),
     fail: vi.fn(),
+    getJob: vi.fn(),
+    updatePhase: vi.fn(),
+    updateProgress: vi.fn(),
   }
 
   beforeEach(() => {
@@ -29,7 +29,7 @@ describe('exportController', () => {
 
     const result = await controller.startExport()
 
-    expect(result).toEqual({ jobId: '123' })
+    expect(result).toStrictEqual({ jobId: '123' })
     expect(mockJobService.createJob).toHaveBeenCalledWith()
   })
 
@@ -39,7 +39,7 @@ describe('exportController', () => {
 
     const result = await controller.getStatus('123')
 
-    expect(result).toEqual(job)
+    expect(result).toStrictEqual(job)
   })
 
   it('should return error if job not found', async () => {
@@ -47,11 +47,11 @@ describe('exportController', () => {
 
     const result = await controller.getStatus('123')
 
-    expect(result).toEqual({ error: 'Job not found' })
+    expect(result).toStrictEqual({ error: 'Job not found' })
   })
 
   it('should send file if job is done', async () => {
-    const job = { id: '123', status: 'done', filePath: '/documentation/files/file.xlsx' }
+    const job = { filePath: '/documentation/files/file.xlsx', id: '123', status: 'done' }
     mockJobService.getJob.mockResolvedValue(job)
 
     const res = { download: vi.fn() } as any
@@ -62,12 +62,12 @@ describe('exportController', () => {
   })
 
   it('should return 400 if file not ready', async () => {
-    const job = { id: '123', status: 'processing', filePath: null }
+    const job = { filePath: null, id: '123', status: 'processing' }
     mockJobService.getJob.mockResolvedValue(job)
 
     const res = {
-      status: vi.fn().mockReturnThis(),
       json: vi.fn(),
+      status: vi.fn().mockReturnThis(),
     } as any
 
     await controller.download('123', res)
