@@ -10,7 +10,7 @@ export const eclaireStudyPhaseSourceCodeSystem = {
   name : 'EclaireStudyPhaseSourceCS',
   title : "Définition des phase de l'essai utilisés dans la base de données ECLAIRE",
   status : 'draft',
-  date : '2024-02-26T13:35:44+00:00',
+  date : '2024-02-26T13:32:37+00:00',
   publisher : 'ANS',
   contact : [
     {

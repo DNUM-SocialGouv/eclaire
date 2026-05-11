@@ -27,7 +27,9 @@ export class LocalDocumentationRepository implements DocumentationRepository {
     }
 
     // 4. Verify existence
-    if (!fs.existsSync(resolvedPath)) {
+    try {
+      await fs.promises.access(resolvedPath)
+    } catch {
       throw new Error(`File not found: ${filename}`)
     }
 

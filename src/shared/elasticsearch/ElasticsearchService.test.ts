@@ -54,6 +54,23 @@ describe('elasticsearch service', () => {
     expect(result).toStrictEqual(fakeDocument)
   })
 
+  it('should return null when document is not found', async () => {
+    const client = {
+      ...fakeClient,
+      get: vi.fn().mockResolvedValue({
+        body: {
+          found: false,
+        },
+      }),
+    }
+
+    const service = new ElasticsearchService(client as any)
+
+    const result = await service.findOneDocument('unknown')
+
+    expect(result).toBeNull()
+  })
+
   it('should bulk elastic index with documents', async () => {
     // GIVEN
     const service = new ElasticsearchService(fakeClient)
@@ -113,7 +130,7 @@ describe('elasticsearch service', () => {
 
     // THEN
     expect(fakeClient.search).toHaveBeenCalledWith({
-      body: { query: { match_phrase: { 'referenceContents.organizations.id': 'ctis' } } },
+      body: { query: { term: { 'referenceContents.organizations.id.keyword': 'ctis' } } },
       index: 'eclaire',
     })
     expect(result).toStrictEqual([

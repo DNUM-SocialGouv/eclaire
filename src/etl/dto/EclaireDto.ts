@@ -2,6 +2,8 @@ import { RiphCtisDto } from './RiphCtisDto'
 import { RiphDmDto } from './RiphDmDto'
 import { RiphJardeDto } from './RiphJardeDto'
 import { ModelUtils } from '../../shared/models/eclaire/ModelUtils'
+import { mapPhase } from '../mappers/phase.mapper'
+import { CountryCode, parsePhoneNumberFromString } from 'libphonenumber-js';
 
 export class EclaireDto {
   private constructor(
@@ -49,6 +51,101 @@ export class EclaireDto {
     readonly duree_participation: string
   ) { }
 
+  private static countriesToTry: CountryCode[] = [
+    'US', 'CA',
+    'FR', 'BE', 'ES',
+    'GB', 'DE', 'IE'
+  ];
+
+  // Détection des indicatifs pays connus
+  private static detectCountryFromPrefix(cleaned: string): CountryCode | null {
+    if (cleaned.startsWith('+33') || cleaned.startsWith('33')) return 'FR';
+    if (cleaned.startsWith('+1') || cleaned.startsWith('1')) return 'US';
+    if (cleaned.startsWith('+49') || cleaned.startsWith('49')) return 'DE';
+    if (cleaned.startsWith('+32') || cleaned.startsWith('32')) return 'BE';
+    if (cleaned.startsWith('+44') || cleaned.startsWith('44')) return 'GB';
+    if (cleaned.startsWith('+353') || cleaned.startsWith('353')) return 'IE';
+    return null;
+  }
+
+  private static normalize(raw: string): string {
+    return raw
+      .replace(/\s+/g, '')
+      .replace(/-/g, '')
+      .replace(/\(/g, '')
+      .replace(/\)/g, '')
+      .replace(/^00/, '+');
+  }
+
+  private static isNanpLike(number: string): boolean {
+    const digits = number.replace(/\D/g, '');
+    return digits.length === 10;
+  }
+
+  public static formatPhone(raw: string): string {
+    if (!raw) return raw;
+
+    const cleaned = this.normalize(raw);
+
+    // filtre anti junk
+    if (cleaned.length < 8 || cleaned.length > 16) {
+      return raw;
+    }
+
+    // 🇺🇸 🇨🇦 détection forte NANP (évite ton bug +49)
+    if (this.isNanpLike(cleaned)) {
+      const nanp = parsePhoneNumberFromString(cleaned, 'US');
+
+      if (nanp?.isValid()) {
+        return nanp.formatInternational();
+      }
+    }
+
+    // Détection forte d’indicatif existant
+    const detectedCountry = this.detectCountryFromPrefix(cleaned);
+
+    if (detectedCountry) {
+      const phone = parsePhoneNumberFromString(cleaned, detectedCountry);
+
+      if (phone?.isValid()) {
+        return phone.formatInternational();
+      }
+    }
+
+    // cas avec indicatif déjà présent (+33, +1, etc.)
+    const direct = parsePhoneNumberFromString(cleaned);
+
+    if (direct?.isValid()) {
+      return direct.formatInternational();
+    }
+
+    // fallback multi-pays (avec scoring)
+    let bestMatch: { phone: any; score: number } | null = null;
+
+    for (const country of this.countriesToTry) {
+      const phone = parsePhoneNumberFromString(cleaned, country);
+
+      if (!phone?.isValid()) continue;
+
+      // score plus intelligent que juste length
+      const score =
+        phone.nationalNumber.length +
+        (country === 'US' || country === 'CA' ? 10 : 0);
+
+      if (!bestMatch || score > bestMatch.score) {
+        bestMatch = { phone, score };
+      }
+    }
+
+    if (bestMatch) {
+      return bestMatch.phone.formatInternational();
+    }
+
+    // fallback final
+    return raw;
+  }
+
+
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
     const sites = riphCtisDto.sites_investigateurs?.map((site): Site => new Site(
       ModelUtils.decodeHtmlString(site.organisme),
@@ -63,8 +160,7 @@ export class EclaireDto {
       ModelUtils.decodeHtmlString(site.telephone)
     ))
 
-    const listePhaseRecherche: Phase[] = riphCtisDto.phase_recherche?.match(/Phase (IV|III|II|I)/g) as Phase[]
-    const phaseRecherche: Phase = listePhaseRecherche?.join('/') as Phase
+    const phaseRecherche: Phase = mapPhase(riphCtisDto.phase_recherche)
 
     let precisionReglementation = riphCtisDto.intervention_faible
     if (riphCtisDto.intervention_faible === 'No') {
@@ -89,7 +185,7 @@ export class EclaireDto {
       sites,
       riphCtisDto.numero_ctis,
       riphCtisDto.titre,
-      phaseRecherche || 'N/A',
+      phaseRecherche || null,
       riphCtisDto.domaine_therapeutique,
       riphCtisDto.pathologies_maladies_rares,
       riphCtisDto.informations_meddra?.split(', ').map((code: string) => code) || null,
@@ -152,7 +248,7 @@ export class EclaireDto {
       )),
       riphDmDto.numero_national,
       riphDmDto.titre_recherche,
-      'N/A',
+      null,
       riphDmDto.domaine_therapeutique,
       null,
       null,
@@ -195,7 +291,9 @@ export class EclaireDto {
   }
 
   static fromJarde(riphJardeDto: RiphJardeDto): EclaireDto {
-    const phaseRecherche: Phase = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'Phase I' : 'N/A'
+    const phaseRecherche: Phase = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'jarde-early' : null
+
+    console.log('id /////////', riphJardeDto.numero_national, riphJardeDto.resume)
     return new EclaireDto(
       riphJardeDto.reglementation_code,
       riphJardeDto.qualification_recherche,
@@ -246,7 +344,9 @@ export class EclaireDto {
       riphJardeDto.criteres_eligibilite.map((criteria) => new Critere(criteria.titre, criteria.type)),
       riphJardeDto.criteres_jugement.map((criteria) => new Critere(criteria.titre, criteria.type)),
       riphJardeDto.objectifs,
-      riphJardeDto.resume,
+      riphJardeDto.numero_national === '1234-567890-98' ?
+        "Les troubles fonctionnels intestinaux désignent l’ensemble des manifestations fonctionnelles présumées intestinales à évolution chronique. Leur perception et leur retentissement quotidien restent très variables selon les individus. Même s’ils ne mettent pas en jeu le pronostic vital, les TFI perturbent l’existence des patients.  Nous nous sommes rendus compte qu'après plusieurs séances de réflexologie, la personne se sentait mieux et retrouvait au fur et à mesure un mieux-être intestinal. Afin de vérifier que la pratique régulière des séances de massage réflexe plantaire réduit considérablement les symptômes liés aux troubles fonctionnels intestinaux et améliore la qualité de vie des personnes concernées, une étude a été mise en place en 2018 avec des réflexologues du Centre de formation Elisabeth Breton coordonnée par Dr Alain Jacquet et Dr Joakim Valéro. Cette étude a mis en évidence l’apport très bénéfique de la réflexologie plantaire pour la prise en charge des sujets présentant des troubles fonctionnels intestinaux. Au terme de cinq séances espacées de 14 jours, une amélioration très nette (et statistiquement significative) des symptômes digestifs est ressentie par les volontaires, justifiant que la plupart d’entre eux (88 %) se disent très satisfaits ou satisfaits par l’apport de la réflexologie sur les Troubles Fonctionnels Intestinaux, 90 % portant par ailleurs ce même jugement quant à l’apport de la réflexologie sur l’amélioration de leur qualité de vie. Cette étude nous semble pleinement justifiée car l'efficacité démontrée (statistiquement significative) indique que la réflexologie plantaire est un apport original et intéressant sur le plan du bien-être de ces sujets. Cette étude répond également à la pénurie d’études multicentriques concernant les Interventions Non Médicamenteuses." +
+        '\nPublication ES Journal of Public Health : https://www.escientificlibrary.com/public-health/Article/ESJPH-V6-1022-French.php' : riphJardeDto.resume,
       riphJardeDto.statut_recrutement,
       riphJardeDto.date_fin_recrutement,
       riphJardeDto.publication_eclaire !== 'autorisé',
@@ -309,7 +409,7 @@ export class Critere {
   }
 }
 
-type Phase = 'Phase I' | 'Phase I/Phase II' | 'Phase II' | 'Phase II/Phase III' | 'Phase III' | 'Phase III/Phase IV' | 'Phase IV' | 'N/A'
+export type Phase = 'jarde-early' | 'phase-I-first-admin' | 'phase-I-bioequivalence' | 'phase-I-other' | 'phase-I-II-first-admin' | 'phase-I-II-first-bioequivalence' | 'phase-I-II-other' | 'phase-II' | 'phase-II-III' | 'phase-III' | 'phase-IV' | 'phase-III-IV' | null
 
 export type MedDra = Readonly<{
   code: string

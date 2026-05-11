@@ -35,7 +35,20 @@ describe('#FindGroupController - e2e', () => {
 
     // THEN
     expect(response.statusCode).toBe(404)
-    expect(response.get('content-type')).toBe('application/json; charset=utf-8')
-    expect(response.text).toMatchInlineSnapshot('"{"statusCode":404,"message":"Response Error"}"')
+    expect(response.get('content-type')).toBe('application/fhir+json; charset=utf-8')
+    expect(JSON.parse(response.text)).toEqual({
+      resourceType: 'OperationOutcome',
+      text: {
+        status: 'generated',
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">No enrollment group found</div>',
+      },
+      issue: [
+        {
+          severity: 'error',
+          code: 'not-found',
+          diagnostics: 'Enrollment group not found',
+        },
+      ],
+    })
   })
 })

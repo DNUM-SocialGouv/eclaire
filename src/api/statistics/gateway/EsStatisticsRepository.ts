@@ -14,14 +14,11 @@ export class EsStatisticsRepository implements StatisticsRepository, OnModuleIni
   ) { }
 
   async onModuleInit() {
-    console.log('Initial statistics calculation...')
     await this.refreshStats()
   }
 
   @Cron('0 6 * * *', { name: 'daily-statistics-refresh' }) // Every day at 06:00
   async refreshStats() {
-    console.log('Refreshing statistics...')
-
     // Get count total documents and total by etude type
     const [
       total,
@@ -71,6 +68,7 @@ export class EsStatisticsRepository implements StatisticsRepository, OnModuleIni
 
     const countAllInProgress = countDMInPogress + countDMDIVInPogress + countCtisInPogress + countJardeInPogress
 
+    /* eslint-disable sort-keys */
     this.cachedStats = {
       Total_etudes: total,
       'Investigations_cliniques_(DM)': countDM,
@@ -84,9 +82,10 @@ export class EsStatisticsRepository implements StatisticsRepository, OnModuleIni
       Etudes_en_cours_JARDE: countJardeInPogress,
       Total_Etudes_en_cours: countAllInProgress,
     }
+    /* eslint-enable sort-keys */
   }
 
   async findStat(): Promise<Record<string, number>> {
-    return this.cachedStats
+    return await Promise.resolve(this.cachedStats)
   }
 }

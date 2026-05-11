@@ -13,9 +13,9 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
 
   app.enableCors({
-    origin: ['https://www.data.gouv.fr'],
-    methods: ['GET'],
     credentials: false,
+    methods: ['GET'],
+    origin: ['https://www.data.gouv.fr'],
   })
 
   app.disable('x-powered-by')
@@ -35,9 +35,9 @@ async function bootstrap() {
   app.use(compression())
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
+      whitelist: true,
     })
   )
 

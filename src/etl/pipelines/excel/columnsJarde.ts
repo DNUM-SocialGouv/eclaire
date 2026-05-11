@@ -67,7 +67,7 @@ export const JARDE_COLUMNS = [
   { header: 'titre recherche', key: 'titre_recherche' },
   { header: 'domaine_therapeutique', key: 'domaine_therapeutique' },
   { header: 'taille_etude', key: 'taille_etude' },
-  { header: 'compétences', key: 'etcompetencesat' },
+  { header: 'compétences', key: 'competences' },
   { header: 'caracteristiques_recherche', key: 'caracteristiques_recherche' },
   { header: 'recherche_ancillaire_ou_extension', key: 'recherche_ancillaire_ou_extension' },
   { header: 'qualification_recherche', key: 'qualification_recherche' },

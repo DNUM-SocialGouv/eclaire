@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+
 import { ExportJobService } from './ExportJobService'
 
-describe('ExportJobService', () => {
+describe('exportJobService', () => {
   let service: ExportJobService
   let esServiceMock: any
 
@@ -10,12 +12,13 @@ describe('ExportJobService', () => {
     esServiceMock = {
       client: {
         get: vi.fn(),
-        update: vi.fn(),
         indices: { exists: vi.fn() },
+        update: vi.fn(),
+
       },
+      countDocuments: vi.fn(),
       createAnIndex: vi.fn(),
       indexDocument: vi.fn(),
-      countDocuments: vi.fn(),
     }
     service = new ExportJobService(esServiceMock)
   })
@@ -44,11 +47,11 @@ describe('ExportJobService', () => {
   })
 
   it('getJob should return job if found', async () => {
-    const mockJob = { id: '123', status: 'pending', progress: 0 }
+    const mockJob = { id: '123', progress: 0, status: 'pending' }
     esServiceMock.client.get.mockResolvedValue({ body: { _source: mockJob } })
 
     const result = await service.getJob('123')
-    expect(result).toEqual(mockJob)
+    expect(result).toStrictEqual(mockJob)
   })
 
   it('getJob should return null if not found', async () => {
@@ -62,7 +65,18 @@ describe('ExportJobService', () => {
     esServiceMock.client.update.mockResolvedValue({})
 
     await service.updatePhase('id1', 'ready')
-    expect(esServiceMock.client.update).toHaveBeenCalled()
+    expect(esServiceMock.client.update).toHaveBeenCalledWith({
+      index: 'export_jobs',
+      id: 'id1',
+      refresh: false,
+      retry_on_conflict: 5,
+      body: {
+        doc: {
+          phase: 'ready',
+          updatedAt: expect.any(String),
+        },
+      },
+    })
   })
 
   it('updateProgress should call client.update', async () => {
@@ -70,20 +84,62 @@ describe('ExportJobService', () => {
     esServiceMock.client.update.mockResolvedValue({})
 
     await service.updateProgress('id1', 50)
-    expect(esServiceMock.client.update).toHaveBeenCalled()
+    expect(esServiceMock.client.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        index: 'export_jobs',
+        id: 'id1',
+        retry_on_conflict: 3,
+        refresh: false,
+        body: {
+          script: expect.objectContaining({
+            params: expect.objectContaining({
+              progress: 50,
+              updatedAt: expect.any(String), // dynamic value
+            }),
+            source: expect.stringContaining('ctx._source.progress'),
+          }),
+        },
+      })
+    )
   })
 
   it('complete should call client.update', async () => {
     esServiceMock.client.update.mockResolvedValue({})
 
     await service.complete('id1', '/path/file.csv')
-    expect(esServiceMock.client.update).toHaveBeenCalled()
+    expect(esServiceMock.client.update).toHaveBeenCalledWith({
+      index: 'export_jobs',
+      id: 'id1',
+      refresh: false,
+      retry_on_conflict: 5,
+      body: {
+        doc: {
+          filePath: "/path/file.csv",
+          phase: "ready",
+          progress: 99,
+          status: 'done',
+          updatedAt: expect.any(String),
+        },
+      },
+    })
   })
 
   it('fail should call client.update', async () => {
     esServiceMock.client.update.mockResolvedValue({})
 
     await service.fail('id1', 'some error')
-    expect(esServiceMock.client.update).toHaveBeenCalled()
+    expect(esServiceMock.client.update).toHaveBeenCalledWith({
+      index: 'export_jobs',
+      id: 'id1',
+      refresh: false,
+      retry_on_conflict: 5,
+      body: {
+        doc: {
+          status: 'error',
+          error: 'some error',
+          updatedAt: expect.any(String),
+        },
+      },
+    })
   })
 })

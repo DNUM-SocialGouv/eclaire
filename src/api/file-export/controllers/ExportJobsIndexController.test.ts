@@ -16,6 +16,6 @@ describe('exportJobsIndexController', () => {
     const result = await controller.createIndex()
 
     expect(mockJobService.createIndex).toHaveBeenCalledTimes(1)
-    expect(result).toEqual({ message: 'Export jobs index created' })
+    expect(result).toStrictEqual({ message: 'Export jobs index created' })
   })
 })

@@ -8,11 +8,11 @@ import { eclaireRegulationCodeCodeSystem } from '../code-systems/eclaireRegulati
 import { eclaireStatusRecruitmentCodeSystem } from '../code-systems/eclaireStatusRecruitmentCodeSystem'
 import { eclaireStudyPartyOrganizationTypeCodeSystem } from '../code-systems/eclaireStudyPartyOrganizationTypeCodeSystem'
 import { eclaireStudyPartyRoleVsCodeSystem } from '../code-systems/eclaireStudyPartyRoleVsCodeSystem'
+import { eclaireStudyPhaseSourceCodeSystem } from '../code-systems/eclaireStudyPhaseSourceCodeSystem'
 import { eclaireStudyPopulationCodeSystem } from '../code-systems/eclaireStudyPopulationCodeSystem'
 import { eclaireStudyTitleTypeCodeSystem } from '../code-systems/eclaireStudyTitleTypeCodeSystem'
 import { eclaireTypeContactCodeSystem } from '../code-systems/eclaireTypeContactCodeSystem'
 import { medDraCodeSystem } from '../code-systems/medDraCodeSystem'
-import { researchStudyPhaseCodeSystem } from '../code-systems/researchStudyPhaseCodeSystem'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 import { LabelType } from '../special-purpose-data-types/ExtensionModel'
 
@@ -25,10 +25,10 @@ export class CodingModel implements Coding {
   ) { }
 
   static createResearchStudyPhase(phaseIndex: number): Coding {
-    const code = researchStudyPhaseCodeSystem.concept[phaseIndex]?.code
-    const display = researchStudyPhaseCodeSystem.concept[phaseIndex]?.display
-    const url = researchStudyPhaseCodeSystem.url
-    const version = researchStudyPhaseCodeSystem.version
+    const code = eclaireStudyPhaseSourceCodeSystem.concept[phaseIndex]?.code
+    const display = eclaireStudyPhaseSourceCodeSystem.concept[phaseIndex]?.display
+    const url = eclaireStudyPhaseSourceCodeSystem.url
+    const version = eclaireStudyPhaseSourceCodeSystem.version
 
     return new CodingModel(
       code,

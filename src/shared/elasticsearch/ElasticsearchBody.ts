@@ -54,21 +54,13 @@ export type ElasticsearchBodyType = {
 /**
  * Small reusable builders
  */
-const termClause = (field: string, value: string) => ({
-  term: { [field]: value },
-})
+const termClause = (field: string, value: string) => ({ term: { [field]: value } })
 
-const matchClause = (field: string, value: string) => ({
-  match: { [field]: value },
-})
+const matchClause = (field: string, value: string) => ({ match: { [field]: value } })
 
-const rangeClause = (field: string, operators: Record<string, any>) => ({
-  range: { [field]: operators },
-})
+const rangeClause = (field: string, operators: Record<string, any>) => ({ range: { [field]: operators } })
 
-const nestedQuery = (path: string, query: any): NestedQuery => ({
-  nested: { path, query },
-})
+const nestedQuery = (path: string, query: any): NestedQuery => ({ nested: { path, query } })
 
 export class ElasticsearchBodyBuilder {
   private readonly searchBody: ElasticsearchBodyType
@@ -183,8 +175,7 @@ export class ElasticsearchBodyBuilder {
     terms: Record<string, string>
   ): this {
     const mustClauses = Object.entries(terms).map(([f, v]) =>
-      termClause(f, v)
-    )
+      termClause(f, v))
 
     this.addFilter(
       this.buildDoubleNested(parentPath, childPath, mustClauses)
@@ -203,12 +194,10 @@ export class ElasticsearchBodyBuilder {
     mustNotTerms: Record<string, string>
   ): this {
     const mustClauses = Object.entries(mustTerms).map(([f, v]) =>
-      termClause(f, v)
-    )
+      termClause(f, v))
 
     const mustNotClauses = Object.entries(mustNotTerms).map(([f, v]) =>
-      termClause(f, v)
-    )
+      termClause(f, v))
 
     this.addFilter(
       this.buildDoubleNested(

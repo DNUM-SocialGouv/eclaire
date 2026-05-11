@@ -1,20 +1,25 @@
+import { Phase } from '../../../etl/dto/EclaireDto'
 import { CodeableConceptModel } from './CodeableConceptModel'
 import { CodingModel, EclaireGroupCharacteristicKindVsReferenceCode } from './CodingModel'
 
 describe('shared | models | CodingModel', () => {
   describe('#createResearchStudyPhase', () => {
-    it.each([
-      ['Phase I', 'phase-1', 'Phase 1'],
-      ['Phase I/Phase II', 'phase-1-phase-2', 'Phase 1/Phase 2'],
-      ['Phase II', 'phase-2', 'Phase 2'],
-      ['Phase II/Phase III', 'phase-2-phase-3', 'Phase 2/Phase 3'],
-      ['Phase III', 'phase-3', 'Phase 3'],
-      ['Phase III/Phase IV', 'phase-3', 'Phase 3'],
-      ['Phase IV', 'phase-4', 'Phase 4'],
-      [null, 'n-a', 'N/A'],
-    ])('should create a properly formatted model when %s is given', (rawPhase, code, display) => {
+    it.each<[Phase, string]>([
+      ['jarde-early','Jardé phase précoce'],
+      ['phase-I-first-admin', 'Human Pharmacology (Phase I) - First administration to humans'],
+      ['phase-I-bioequivalence', 'Human Pharmacology (Phase I) - Bioequivalence Study'],
+      ['phase-I-other', 'Human Pharmacology (Phase I) -  Other'],
+      ['phase-I-II-first-admin', 'Phase I and Phase II (Integrated) - First administration to humans'],
+      ['phase-I-II-first-bioequivalence', 'Phase I and Phase II (Integrated) - Bioequivalence Study'],
+      ['phase-I-II-other', 'Phase I and Phase II (Integrated) - Other'],
+      ['phase-II', 'Therapeutic exploratory (Phase II)'],
+      ['phase-II-III', 'Phase II and Phase III (Integrated)'],
+      ['phase-III', 'Therapeutic confirmatory  (Phase III)'],
+      ['phase-IV', 'Therapeutic use (Phase IV)' ],
+      ['phase-III-IV', 'Phase III and phase IV (Integrated)'],
+    ] )('should create a properly formatted model when %s is given', (code, display) => {
       // WHEN
-      const phase = CodeableConceptModel.createResearchStudyPhase(rawPhase)
+      const phase = CodeableConceptModel.createResearchStudyPhase(code)
       // THEN
       expect(phase.coding[0].code).toBe(code)
       expect(phase.coding[0].display).toBe(display)
