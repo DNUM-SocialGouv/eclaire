@@ -31,9 +31,8 @@ describe('esStatisticsRepository', () => {
     await repository.refreshStats()
   })
 
-  it.only('should return correct statistics', async () => {
+  it('should return correct statistics', async () => {
     const result = await repository.findStat()
-    console.log('test res //////////', result)
 
     /* eslint-disable sort-keys */
     expect(result).toStrictEqual({

@@ -126,8 +126,7 @@ export abstract class IngestPipeline {
     return models.filter((model) => {
       const lastUpdated = new Date(model.meta.lastUpdated)
       return (
-        lastUpdated >= startingDate ||
-        model.id === '1234-567890-98'
+        lastUpdated >= startingDate
       )
     })
   }
