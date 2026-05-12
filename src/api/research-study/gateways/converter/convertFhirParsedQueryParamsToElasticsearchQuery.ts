@@ -20,6 +20,10 @@ export function convertFhirParsedQueryParamsToElasticsearchQuery(
       case '_lastUpdated':
         buildLastUpdated(searchBody, value)
         break
+      
+      case '_shouldLastUpdated':
+        buildShouldLastUpdated(searchBody, value)
+        break  
 
       case '_sort':
         buildSort(searchBody, value)
@@ -37,6 +41,10 @@ export function convertFhirParsedQueryParamsToElasticsearchQuery(
       case 'identifier':
         buildMatch(searchBody, '_id', value)
         break
+
+      case '_shouldId':
+        buildShouldMatch(searchBody, '_id', value)
+        break  
 
       case 'search_after':
         buildSearchAfter(searchBody, value)
@@ -66,44 +74,76 @@ export function convertFhirParsedQueryParamsToElasticsearchQuery(
 }
 
 function buildLastUpdated(searchBody: ElasticsearchBodyBuilder, value: string) {
+  buildDate(searchBody, value, false)
+}
+
+function buildShouldLastUpdated(searchBody: ElasticsearchBodyBuilder, value: string) {
+  buildDate(searchBody, value, true)
+}
+
+function buildDate(searchBody: ElasticsearchBodyBuilder, value: string, should: boolean) {
   const operator = RegExp(/(eq|ne|lt|le|gt|ge)/).exec(value)
 
   if (operator === null) {
-    buildMatch(searchBody, 'meta.lastUpdated', value)
-  } else {
-    const date = value.replace(operator[0], '')
-
-    switch (operator[0]) {
-      case 'eq':
-        buildMatch(searchBody, 'meta.lastUpdated', date)
-        break
-
-      case 'ne':
-        buildRange(searchBody, 'meta.lastUpdated', date, ['gt', 'lt'])
-        break
-
-      case 'lt':
-        buildRange(searchBody, 'meta.lastUpdated', date, ['lt'])
-        break
-
-      case 'le':
-        buildRange(searchBody, 'meta.lastUpdated', date, ['lte'])
-        break
-
-      case 'gt':
-        buildRange(searchBody, 'meta.lastUpdated', date, ['gt'])
-        break
-
-      case 'ge':
-      default:
-        buildRange(searchBody, 'meta.lastUpdated', date, ['gte'])
-        break
+    if (should) {
+      buildShouldMatch(searchBody, 'meta.lastUpdated', value)
+    } else {
+      buildMatch(searchBody, 'meta.lastUpdated', value)
     }
+
+    return
+  }
+
+  const date = value.replace(operator[0], '')
+
+  switch (operator[0]) {
+    case 'eq':
+      if (should) {
+        buildShouldMatch(searchBody, 'meta.lastUpdated', date)
+      } else {
+        buildMatch(searchBody, 'meta.lastUpdated', date)
+      }
+      break
+
+    case 'ne':
+      if (!should) {
+        buildRange(searchBody, 'meta.lastUpdated', date, ['gt', 'lt'])
+      }
+      break
+
+    case 'lt':
+      should
+        ? buildShouldRange(searchBody, 'meta.lastUpdated', date, ['lt'])
+        : buildRange(searchBody, 'meta.lastUpdated', date, ['lt'])
+      break
+
+    case 'le':
+      should
+        ? buildShouldRange(searchBody, 'meta.lastUpdated', date, ['lte'])
+        : buildRange(searchBody, 'meta.lastUpdated', date, ['lte'])
+      break
+
+    case 'gt':
+      should
+        ? buildShouldRange(searchBody, 'meta.lastUpdated', date, ['gt'])
+        : buildRange(searchBody, 'meta.lastUpdated', date, ['gt'])
+      break
+
+    case 'ge':
+    default:
+      should
+        ? buildShouldRange(searchBody, 'meta.lastUpdated', date, ['gte'])
+        : buildRange(searchBody, 'meta.lastUpdated', date, ['gte'])
+      break
   }
 }
 
 function buildRange(searchBody: ElasticsearchBodyBuilder, name: string, value: string, operators: Operator[]) {
   searchBody.withRange(name, value, operators)
+}
+
+function buildShouldRange(searchBody: ElasticsearchBodyBuilder, name: string, value: string, operators: Operator[]) {
+  searchBody.withShouldRange(name, value, operators)
 }
 
 function buildFrom(searchBody: ElasticsearchBodyBuilder, value: string) {
@@ -140,6 +180,10 @@ function buildSort(searchBody: ElasticsearchBodyBuilder, value: string) {
 
 function buildMatch(searchBody: ElasticsearchBodyBuilder, name: string, value: string) {
   searchBody.withMatch(name, value)
+}
+
+function buildShouldMatch(searchBody: ElasticsearchBodyBuilder, name: string, value: string) {
+  searchBody.withShouldMatch(name, value)
 }
 
 function buildTerm(searchBody: ElasticsearchBodyBuilder, name: string, value: string) {
