@@ -248,7 +248,7 @@ export class EclaireDto {
       riphJardeDto.objectifs,
       riphJardeDto.numero_national === '2018-A01267-48' ?
         riphJardeDto.resume +
-        '\nPublication ES Journal of Public Health : https://www.escientificlibrary.com/public-health/Article/ESJPH-V6-1022-French.php' : riphJardeDto.resume,
+        '<br>Étude publiée dans ES Journal of Public Health, eScientific International Open Library. Consultez le lien suivant : https://www.escientificlibrary.com/public-health/Article/ESJPH-V6-1022-French.php' : riphJardeDto.resume,
       riphJardeDto.statut_recrutement,
       riphJardeDto.date_fin_recrutement,
       riphJardeDto.publication_eclaire !== 'autorisé',
