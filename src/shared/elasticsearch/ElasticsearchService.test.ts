@@ -57,11 +57,7 @@ describe('elasticsearch service', () => {
   it('should return null when document is not found', async () => {
     const client = {
       ...fakeClient,
-      get: vi.fn().mockResolvedValue({
-        body: {
-          found: false,
-        },
-      }),
+      get: vi.fn().mockResolvedValue({ body: { found: false } }),
     }
 
     const service = new ElasticsearchService(client as any)

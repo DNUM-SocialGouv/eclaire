@@ -18,14 +18,14 @@ describe('esStatisticsRepository', () => {
 
     mockCountDocuments
       .mockResolvedValueOnce(100) // total
-      .mockResolvedValueOnce(20)  // REG745
-      .mockResolvedValueOnce(10)  // REG746
-      .mockResolvedValueOnce(15)  // REG536
-      .mockResolvedValueOnce(5)   // status=approved
-      .mockResolvedValueOnce(8)   // REG745 + active
-      .mockResolvedValueOnce(4)   // REG746 + active
-      .mockResolvedValueOnce(6)   // REG536 + active
-      .mockResolvedValueOnce(2)   // JARDE + active
+      .mockResolvedValueOnce(20) // REG745
+      .mockResolvedValueOnce(10) // REG746
+      .mockResolvedValueOnce(15) // REG536
+      .mockResolvedValueOnce(5) // status=approved
+      .mockResolvedValueOnce(8) // REG745 + active
+      .mockResolvedValueOnce(4) // REG746 + active
+      .mockResolvedValueOnce(6) // REG536 + active
+      .mockResolvedValueOnce(2) // JARDE + active
 
     // 🔥 THIS IS THE MISSING PIECE IN YOUR ORIGINAL TEST
     await repository.refreshStats()

@@ -36,19 +36,19 @@ describe('#FindOrganizationController - e2e', () => {
     // THEN
     expect(response.statusCode).toBe(404)
     expect(response.get('content-type')).toBe('application/fhir+json; charset=utf-8')
-    expect(JSON.parse(response.text)).toEqual({
-      resourceType: 'OperationOutcome',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">No organization found</div>',
-      },
+    expect(JSON.parse(response.text)).toStrictEqual({
       issue: [
         {
-          severity: 'error',
           code: 'not-found',
           diagnostics: 'No organization found',
+          severity: 'error',
         },
       ],
+      resourceType: 'OperationOutcome',
+      text: {
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">No organization found</div>',
+        status: 'generated',
+      },
     })
   })
 })

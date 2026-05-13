@@ -45,8 +45,8 @@ export const fakeClient = {
   get: () => {
     return {
       body: {
-        found: true,
         _source: fakeDocument,
+        found: true,
       },
     }
   },
