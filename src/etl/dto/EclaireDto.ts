@@ -246,7 +246,9 @@ export class EclaireDto {
       riphJardeDto.criteres_eligibilite.map((criteria) => new Critere(criteria.titre, criteria.type)),
       riphJardeDto.criteres_jugement.map((criteria) => new Critere(criteria.titre, criteria.type)),
       riphJardeDto.objectifs,
-      riphJardeDto.resume,
+      riphJardeDto.numero_national === '2018-A01267-48' ?
+        riphJardeDto.resume +
+        '<br>Étude publiée dans ES Journal of Public Health, eScientific International Open Library. Consultez le lien suivant : https://www.escientificlibrary.com/public-health/Article/ESJPH-V6-1022-French.php' : riphJardeDto.resume,
       riphJardeDto.statut_recrutement,
       riphJardeDto.date_fin_recrutement,
       riphJardeDto.publication_eclaire !== 'autorisé',

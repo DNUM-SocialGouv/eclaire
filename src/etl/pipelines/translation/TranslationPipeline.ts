@@ -101,7 +101,8 @@ export class TranslationPipeline extends AbstractPipeline<ResearchStudyModel> {
   private buildBodyToFindAllStudiesExcludingCtisSinceAGivenDate(date: string): ElasticsearchBodyType {
     const ctisStudiesQueryParams: FhirParsedQueryParams[] = [
       { name: '_count', value: String(process.env['CHUNK_SIZE']) },
-      { name: '_lastUpdated', value: `ge${date}` },
+      { name: '_shouldLastUpdated', value: `ge${date}` },
+      { name: '_shouldId', value: '2018-A01267-48' },
       { name: '_mustNot', value: 'REG536' },
       { name: '_sort', value: 'meta.lastUpdated,_id' },
     ]

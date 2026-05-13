@@ -11,6 +11,7 @@ export type NestedQuery = {
         must?: any[]
         filter?: any[]
         must_not?: any[]
+        should?: any[]
       }
       term?: {
         [key: string]: string
@@ -38,7 +39,9 @@ export type ElasticsearchBodyType = {
     bool: {
       must: MustClause[]
       filter: FilterClause[]
+      minimum_should_match?: number
       must_not?: NestedQuery[]
+      should?: MustClause[]
     }
   }
   size: number
@@ -56,7 +59,11 @@ export class ElasticsearchBodyBuilder {
   constructor() {
     this.searchBody = {
       from: 0,
-      query: { bool: { filter: [], must: [] } },
+      query: { bool: { 
+        filter: [],
+        must: [],
+        should: [] 
+      } },
       size: 0,
       sort: [
         { 'meta.lastUpdated': { order: 'desc' } },
@@ -103,6 +110,18 @@ export class ElasticsearchBodyBuilder {
     return this
   }
 
+  withShouldMatch(fieldname: string, value: string): this {
+    this.searchBody.query.bool.should ??= []
+
+    this.searchBody.query.bool.should.push({
+      match: { [fieldname]: value },
+    })
+
+    this.searchBody.query.bool.minimum_should_match = 1
+
+    return this
+  }
+
   withTerm(fieldname: string, value: string): this {
     this.searchBody.query.bool.filter.push({ term: { [fieldname]: value } })
     return this
@@ -114,6 +133,24 @@ export class ElasticsearchBodyBuilder {
       operatorsAndValues[iterator] = value
     }
     this.searchBody.query.bool.must.push({ range: { [fieldname]: operatorsAndValues } })
+    return this
+  }
+
+  withShouldRange(fieldname: string, value: string, operators: Operator[]): this {
+    const operatorsAndValues = {}
+
+    for (const iterator of operators) {
+      operatorsAndValues[iterator] = value
+    }
+
+    this.searchBody.query.bool.should ??= []
+
+    this.searchBody.query.bool.should.push({
+      range: { [fieldname]: operatorsAndValues },
+    })
+
+    this.searchBody.query.bool.minimum_should_match = 1
+
     return this
   }
 
