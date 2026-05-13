@@ -1,11 +1,11 @@
-import { Phase } from '../../../etl/dto/EclaireDto'
 import { CodeableConceptModel } from './CodeableConceptModel'
 import { CodingModel, EclaireGroupCharacteristicKindVsReferenceCode } from './CodingModel'
+import { Phase } from '../../../etl/dto/EclaireDto'
 
 describe('shared | models | CodingModel', () => {
   describe('#createResearchStudyPhase', () => {
     it.each<[Phase, string]>([
-      ['jarde-early','Jardé phase précoce'],
+      ['jarde-early', 'Jardé phase précoce'],
       ['phase-I-first-admin', 'Human Pharmacology (Phase I) - First administration to humans'],
       ['phase-I-bioequivalence', 'Human Pharmacology (Phase I) - Bioequivalence Study'],
       ['phase-I-other', 'Human Pharmacology (Phase I) -  Other'],
@@ -15,7 +15,7 @@ describe('shared | models | CodingModel', () => {
       ['phase-II', 'Therapeutic exploratory (Phase II)'],
       ['phase-II-III', 'Phase II and Phase III (Integrated)'],
       ['phase-III', 'Therapeutic confirmatory  (Phase III)'],
-      ['phase-IV', 'Therapeutic use (Phase IV)' ],
+      ['phase-IV', 'Therapeutic use (Phase IV)'],
       ['phase-III-IV', 'Phase III and phase IV (Integrated)'],
     ] )('should create a properly formatted model when %s is given', (code, display) => {
       // WHEN

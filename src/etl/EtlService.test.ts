@@ -14,11 +14,9 @@ import { Translator } from '../shared/translation/Translator'
 
 vi.mock('@aws-sdk/client-s3', () => {
   return {
-    S3Client: vi.fn().mockImplementation(() => ({
-      send: vi.fn().mockResolvedValue({}),
-    })),
-    PutObjectCommand: vi.fn(),
     GetObjectCommand: vi.fn(),
+    PutObjectCommand: vi.fn(),
+    S3Client: vi.fn().mockImplementation(() => ({ send: vi.fn().mockResolvedValue({}) })),
   }
 })
 

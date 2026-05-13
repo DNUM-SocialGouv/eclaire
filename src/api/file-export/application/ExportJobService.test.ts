@@ -66,16 +66,16 @@ describe('exportJobService', () => {
 
     await service.updatePhase('id1', 'ready')
     expect(esServiceMock.client.update).toHaveBeenCalledWith({
-      index: 'export_jobs',
-      id: 'id1',
-      refresh: false,
-      retry_on_conflict: 5,
       body: {
         doc: {
           phase: 'ready',
           updatedAt: expect.any(String),
         },
       },
+      id: 'id1',
+      index: 'export_jobs',
+      refresh: false,
+      retry_on_conflict: 5,
     })
   })
 
@@ -86,10 +86,6 @@ describe('exportJobService', () => {
     await service.updateProgress('id1', 50)
     expect(esServiceMock.client.update).toHaveBeenCalledWith(
       expect.objectContaining({
-        index: 'export_jobs',
-        id: 'id1',
-        retry_on_conflict: 3,
-        refresh: false,
         body: {
           script: expect.objectContaining({
             params: expect.objectContaining({
@@ -99,6 +95,10 @@ describe('exportJobService', () => {
             source: expect.stringContaining('ctx._source.progress'),
           }),
         },
+        id: 'id1',
+        index: 'export_jobs',
+        refresh: false,
+        retry_on_conflict: 3,
       })
     )
   })
@@ -108,19 +108,19 @@ describe('exportJobService', () => {
 
     await service.complete('id1', '/path/file.csv')
     expect(esServiceMock.client.update).toHaveBeenCalledWith({
-      index: 'export_jobs',
-      id: 'id1',
-      refresh: false,
-      retry_on_conflict: 5,
       body: {
         doc: {
-          filePath: "/path/file.csv",
-          phase: "ready",
+          filePath: '/path/file.csv',
+          phase: 'ready',
           progress: 99,
           status: 'done',
           updatedAt: expect.any(String),
         },
       },
+      id: 'id1',
+      index: 'export_jobs',
+      refresh: false,
+      retry_on_conflict: 5,
     })
   })
 
@@ -129,17 +129,17 @@ describe('exportJobService', () => {
 
     await service.fail('id1', 'some error')
     expect(esServiceMock.client.update).toHaveBeenCalledWith({
-      index: 'export_jobs',
-      id: 'id1',
-      refresh: false,
-      retry_on_conflict: 5,
       body: {
         doc: {
-          status: 'error',
           error: 'some error',
+          status: 'error',
           updatedAt: expect.any(String),
         },
       },
+      id: 'id1',
+      index: 'export_jobs',
+      refresh: false,
+      retry_on_conflict: 5,
     })
   })
 })

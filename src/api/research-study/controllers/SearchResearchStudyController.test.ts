@@ -76,20 +76,20 @@ describe('#SearchResearchStudyController - e2e', () => {
     expect(response.statusCode).toBe(400)
     const body = JSON.parse(response.text)
 
-    expect(body).toEqual({
-      resourceType: 'OperationOutcome',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">failed to parse date field [d] with format [strict_date_time_no_millis||strict_date_optional_time||epoch_millis]: [failed to parse date field [d] with format [strict_date_time_no_millis||strict_date_optional_time||epoch_millis]]</div>',
-      },
+    expect(body).toStrictEqual({
       issue: [
         {
-          severity: 'error',
           code: 'not-found',
           diagnostics:
             'failed to parse date field [d] with format [strict_date_time_no_millis||strict_date_optional_time||epoch_millis]: [failed to parse date field [d] with format [strict_date_time_no_millis||strict_date_optional_time||epoch_millis]]',
+          severity: 'error',
         },
       ],
+      resourceType: 'OperationOutcome',
+      text: {
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">failed to parse date field [d] with format [strict_date_time_no_millis||strict_date_optional_time||epoch_millis]: [failed to parse date field [d] with format [strict_date_time_no_millis||strict_date_optional_time||epoch_millis]]</div>',
+        status: 'generated',
+      },
     })
   })
 
@@ -106,18 +106,18 @@ describe('#SearchResearchStudyController - e2e', () => {
     const body = JSON.parse(response.text)
 
     expect(body).toMatchInlineSnapshot({
-      resourceType: 'OperationOutcome',
-      text: {
-        status: 'generated',
-        div: '<div xmlns="http://www.w3.org/1999/xhtml">No research study found</div>',
-      },
       issue: [
         {
-          severity: 'error',
           code: 'not-found',
           diagnostics: "Research study with id '999999' not found",
+          severity: 'error',
         },
       ],
+      resourceType: 'OperationOutcome',
+      text: {
+        div: '<div xmlns="http://www.w3.org/1999/xhtml">No research study found</div>',
+        status: 'generated',
+      },
     })
   })
 
@@ -137,7 +137,7 @@ describe('#SearchResearchStudyController - e2e', () => {
     // THEN
     expect(response.statusCode).toBe(429)
     expect(response.get('content-type')).toBe('application/json; charset=utf-8')
-    expect(response.text).toMatchInlineSnapshot(`
+    expect(response.body).toMatchInlineSnapshot(`
       {
         "issue": [
           {

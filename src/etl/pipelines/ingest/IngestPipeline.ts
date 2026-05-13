@@ -122,7 +122,7 @@ export abstract class IngestPipeline {
   // -----------------------------
   protected filterByDate(models: ResearchStudyModel[]): ResearchStudyModel[] {
     const startingDate = new Date(this.startingDate)
-    
+
     return models.filter((model) => {
       const lastUpdated = new Date(model.meta.lastUpdated)
       return (
