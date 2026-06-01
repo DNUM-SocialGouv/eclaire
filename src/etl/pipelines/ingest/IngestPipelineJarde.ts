@@ -41,7 +41,7 @@ export class IngestPipelineJarde extends IngestPipeline {
     return researchStudyModels.filter((researchStudyModel: ResearchStudyModel) => {
       const startingDate: Date = new Date(this.startingDate)
       const lastUpdated: Date = new Date(researchStudyModel.meta.lastUpdated)
-      return lastUpdated >= startingDate || researchStudyModel.id === '2018-A01267-48' // To Keep this condition for the static resume
+      return lastUpdated >= startingDate
     })
   }
 
