@@ -1,9 +1,8 @@
-import { integer } from '@elastic/elasticsearch/api/types'
 import { CodeableConcept, Coding } from 'fhir/r4'
 
 import { CodingModel, EclaireGroupCharacteristicKindVsReferenceCode } from './CodingModel'
-import { MedDra } from '../../../etl/dto/EclaireDto'
-import { researchStudyPhaseCodeSystem } from '../code-systems/researchStudyPhaseCodeSystem'
+import { MedDra, Phase } from '../../../etl/dto/EclaireDto'
+import { getPhaseIndex } from '../../../etl/mappers/phase.mapper'
 import { ModelUtils } from '../eclaire/ModelUtils'
 import { ContactType } from '../metadata-types/ContactDetailModel'
 import { LabelType } from '../special-purpose-data-types/ExtensionModel'
@@ -15,47 +14,17 @@ export class CodeableConceptModel implements CodeableConcept {
     readonly text?: string | undefined
   ) { }
 
-  private static findIndexPhaseInCodeSystems(phase: string): { index: integer } {
-    let index: number
-
-    switch (phase) {
-      case 'Phase I':
-        index = 2
-        break
-      case 'Phase I/Phase II':
-        index = 3
-        break
-      case 'Phase II':
-        index = 4
-        break
-      case 'Phase II/Phase III':
-        index = 5
-        break
-      case 'Phase III':
-        index = 6
-        break
-      case 'Phase IV':
-        index = 7
-        break
-      case 'Phase III/Phase IV':
-        index = 6
-        break
-      default:
-        index = 0
-        break
+  static createResearchStudyPhase(researchStudyPhase: Phase): CodeableConcept {
+    const index = getPhaseIndex(researchStudyPhase)
+    if (index !== null) {
+      return new CodeableConceptModel(
+        undefined,
+        [CodingModel.createResearchStudyPhase(index)],
+        undefined
+      )
     }
 
-    return { index }
-  }
-
-  static createResearchStudyPhase(researchStudyPhase: string): CodeableConcept {
-    const { index } = this.findIndexPhaseInCodeSystems(researchStudyPhase)
-
-    return new CodeableConceptModel(
-      undefined,
-      [CodingModel.createResearchStudyPhase(index)],
-      researchStudyPhaseCodeSystem.concept[index].definition
-    )
+    return null
   }
 
   static createRegulationCode(regulationCode: string): CodeableConcept {

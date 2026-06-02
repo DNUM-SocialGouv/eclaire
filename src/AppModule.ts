@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { APP_FILTER, APP_GUARD } from '@nestjs/core'
+import { ScheduleModule } from '@nestjs/schedule'
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup'
@@ -27,6 +28,7 @@ import { ModelUtils } from './shared/models/eclaire/ModelUtils'
       ignoreEnvFile: process.env['NODE_ENV'] !== undefined,
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     ModelUtils.isNotDefinedOrFalse(process.env['API_RATE_LIMIT_ENABLED']) ? null : getThrottlerModule(),
     ElasticsearchModule,
     EtlModule,
@@ -52,11 +54,12 @@ import { ModelUtils } from './shared/models/eclaire/ModelUtils'
 export class AppModule { }
 
 function getThrottlerModule() {
+  // Edit from: 1 requête toutes les 500 secondes to 100 requêtes / minute / IP = 1.6 req / seconde
   return ThrottlerModule.forRoot({
     throttlers: [
       {
         limit: parseInt(process.env['API_RATE_LIMIT_MAX_CALLS']),
-        ttl: parseInt(process.env['API_RATE_LIMIT_DURATION_IN_MS']),
+        ttl: parseInt(process.env['API_RATE_LIMIT_DURATION_IN_MS']) / 1000,
       },
     ],
   })

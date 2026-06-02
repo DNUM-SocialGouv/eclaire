@@ -1,5 +1,5 @@
 import { Controller, Get, Header, Inject, Query, Res } from '@nestjs/common'
-import { ApiOkResponse, ApiOperation, ApiProduces, ApiTags, ApiTooManyRequestsResponse } from '@nestjs/swagger'
+import { ApiOkResponse, ApiOperation, ApiProduces, ApiQuery, ApiTags, ApiTooManyRequestsResponse } from '@nestjs/swagger'
 import { errors } from '@opensearch-project/opensearch'
 import { Response } from 'express'
 import { Bundle, OperationOutcome } from 'fhir/r4'
@@ -7,13 +7,14 @@ import { Bundle, OperationOutcome } from 'fhir/r4'
 import { FhirParsedQueryParams, FhirQueryParams } from './FhirQueryParams'
 import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
 import { ResearchStudyRepository } from '../application/ResearchStudyRepository'
+import { isValidDate } from '../../../shared/utils/date.util'
 
 @ApiTags('Research study')
 @Controller('R4/ResearchStudy')
 export class SearchResearchStudyController {
   constructor(
     @Inject('ResearchStudyRepository') private readonly researchStudyRepository: ResearchStudyRepository
-  ) {}
+  ) { }
 
   @ApiOperation({
     description: 'Seuls les paramètres ci-dessous sont disponibles pour le moment.<br>Les autres seront développés au besoin dans une démarche itérative.<br>Documentation FHIR sur <a href="https://hl7.org/fhir/R4/search.html">les filtres de recherche</a>.',
@@ -24,8 +25,43 @@ export class SearchResearchStudyController {
   @ApiProduces('application/fhir+json')
   @Header('content-type', 'application/fhir+json')
   @Get()
-  async execute(@Query() fhirQueryParams: FhirQueryParams, @Res() response: Response): Promise<void> {
+  @ApiQuery({ required: false, type: FhirQueryParams })
+  async execute(@Query() fhirQueryParams: Record<string, any>, @Res() response: Response): Promise<void> {
     try {
+      // Check _count if exist
+      if (fhirQueryParams._count) {
+        const count = parseInt(fhirQueryParams._count, 10)
+        if (isNaN(count) || count > 100) {
+          response.status(400).json({
+            error: 'Bad Request',
+            message: '_count ne peut pas dépasser 100',
+          })
+        }
+      }
+
+      // Check Date
+      const lastUpdated = fhirQueryParams._lastUpdated
+      const operator = RegExp(/(eq|ne|lt|le|gt|ge)/).exec(lastUpdated)
+      if (lastUpdated) {
+        if (operator === null) {
+          if (!isValidDate(lastUpdated)) {
+            response.status(400).json({
+              error: 'Bad Request',
+              message: `Invalid date: ${lastUpdated}`,
+            })
+          }
+        } else {
+          const date = lastUpdated?.replace(operator[0], '')?.trim()
+          if (!isValidDate(date)) {
+            response.status(400).json({
+              error: 'Bad Request',
+              message: `Invalid date: ${date}`,
+            })
+          }
+        }
+      }
+
+
       const fhirParsedQueryParams: FhirParsedQueryParams[] = FhirQueryParams.parse(fhirQueryParams)
       const fhirResourceBundle: Bundle = await this.researchStudyRepository.search(fhirParsedQueryParams)
 
@@ -43,7 +79,7 @@ export class SearchResearchStudyController {
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-        const operationOutcome: OperationOutcome = OperationOutcomeModel.create(error.meta.body.error['root_cause'][0].reason)
+        const operationOutcome: OperationOutcome = OperationOutcomeModel.create(error.meta.body.error?.root_cause?.[0]?.reason || 'Unknown error')
         response.status(400).json(operationOutcome)
       } else {
         throw error

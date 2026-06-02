@@ -2,6 +2,7 @@ import { RiphCtisDto } from './RiphCtisDto'
 import { RiphDmDto } from './RiphDmDto'
 import { RiphJardeDto } from './RiphJardeDto'
 import { ModelUtils } from '../../shared/models/eclaire/ModelUtils'
+import { mapPhase } from '../mappers/phase.mapper'
 
 export class EclaireDto {
   private constructor(
@@ -63,8 +64,7 @@ export class EclaireDto {
       ModelUtils.decodeHtmlString(site.telephone)
     ))
 
-    const listePhaseRecherche: Phase[] = riphCtisDto.phase_recherche?.match(/Phase (IV|III|II|I)/g) as Phase[]
-    const phaseRecherche: Phase = listePhaseRecherche?.join('/') as Phase
+    const phaseRecherche: Phase = mapPhase(riphCtisDto.phase_recherche)
 
     let precisionReglementation = riphCtisDto.intervention_faible
     if (riphCtisDto.intervention_faible === 'No') {
@@ -89,7 +89,7 @@ export class EclaireDto {
       sites,
       riphCtisDto.numero_ctis,
       riphCtisDto.titre,
-      phaseRecherche || 'N/A',
+      phaseRecherche || null,
       riphCtisDto.domaine_therapeutique,
       riphCtisDto.pathologies_maladies_rares,
       riphCtisDto.informations_meddra?.split(', ').map((code: string) => code) || null,
@@ -152,7 +152,7 @@ export class EclaireDto {
       )),
       riphDmDto.numero_national,
       riphDmDto.titre_recherche,
-      'N/A',
+      null,
       riphDmDto.domaine_therapeutique,
       null,
       null,
@@ -195,7 +195,8 @@ export class EclaireDto {
   }
 
   static fromJarde(riphJardeDto: RiphJardeDto): EclaireDto {
-    const phaseRecherche: Phase = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'Phase I' : 'N/A'
+    const phaseRecherche: Phase = riphJardeDto.competences?.includes('Essai de phase précoce') ? 'jarde-early' : null
+
     return new EclaireDto(
       riphJardeDto.reglementation_code,
       riphJardeDto.qualification_recherche,
@@ -311,7 +312,7 @@ export class Critere {
   }
 }
 
-type Phase = 'Phase I' | 'Phase I/Phase II' | 'Phase II' | 'Phase II/Phase III' | 'Phase III' | 'Phase III/Phase IV' | 'Phase IV' | 'N/A'
+export type Phase = 'jarde-early' | 'phase-I-first-admin' | 'phase-I-bioequivalence' | 'phase-I-other' | 'phase-I-II-first-admin' | 'phase-I-II-first-bioequivalence' | 'phase-I-II-other' | 'phase-II' | 'phase-II-III' | 'phase-III' | 'phase-IV' | 'phase-III-IV' | null
 
 export type MedDra = Readonly<{
   code: string

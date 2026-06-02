@@ -63,23 +63,27 @@ export class IngestPipelineCtis extends IngestPipeline {
   ]
 
   async execute(): Promise<void> {
-    const riphCtisDtos: RiphCtisDto[] = await super.extract<RiphCtisDto>()
-    const chunkSize = Number.parseInt(process.env['CHUNK_SIZE'])
-    for (let i = 0; i < riphCtisDtos.length; i += chunkSize) {
-      this.logger.info(`---- Chunk CTIS: ${i} / ${riphCtisDtos.length} elasticsearch documents`)
-      const chunk = riphCtisDtos.slice(i, i + chunkSize)
-      const researchStudyDocuments: ResearchStudyModel[] = this.transform(chunk)
-      this.logger.info(`---- Chunk CTIS: number of documents to update : ${researchStudyDocuments.length}`)
-      await super.load(researchStudyDocuments)
-      // Delete documents with status non autorisé (fermé)
-      await super.delete(this.idsToDelete.filter((v) => v !== null))
-      this.logger.info(`////// Chunk CTIS: number of documents to delete : ${this.idsToDelete.length}`)
-      this.idsToDelete = []
-    }
+    const batchSize = Number(process.env['CHUNK_SIZE'] ?? 100)
+
+    const total = await this.processInBatches<RiphCtisDto>(
+      super.extractStream<RiphCtisDto>(),
+      batchSize,
+      async (batch) => {
+        await this.handleBatch(
+          'CTIS',
+          batch,
+          this.transform.bind(this),
+          this.idsToDelete
+        )
+        this.idsToDelete = []
+      }
+    )
+
+    this.logger.info(`---- Total records processed For CTIS: ${total}`)
   }
 
   transform(riphCtisDtos: RiphCtisDto[]): ResearchStudyModel[] {
-    const researchStudyModels: ResearchStudyModel[] = []
+    const result: ResearchStudyModel[] = []
     for (const riphCtisDto of riphCtisDtos) {
       const eclaireDto: EclaireDto = EclaireDto.fromCtis(riphCtisDto)
       if (
@@ -87,21 +91,16 @@ export class IngestPipelineCtis extends IngestPipeline {
         !eclaireDto?.to_delete &&
         !this.excludeIds.includes(eclaireDto.numero_primaire)
       ) {
-        researchStudyModels.push(ResearchStudyModelFactory.create(eclaireDto))
+        result.push(ResearchStudyModelFactory.create(eclaireDto))
       } else {
         this.idsToDelete.push(eclaireDto.numero_primaire)
       }
     }
 
-    return researchStudyModels.filter((researchStudyModel: ResearchStudyModel) => {
-      const startingDate: Date = new Date(this.startingDate)
-      const lastUpdated: Date = new Date(researchStudyModel.meta.lastUpdated)
-      return lastUpdated >= startingDate
-    })
+    return this.filterByDate(result)
   }
 
   async import(): Promise<void> {
     await this.execute()
   }
-
 }

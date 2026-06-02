@@ -22,7 +22,7 @@ export class DownloadDocumentationController {
       const filePath = await this.repository.getFilePath(filename)
 
       // --- Limitation des extensions ---
-      const ext = path.extname(filename).toLowerCase()
+      const ext = path.extname(filePath).toLowerCase()
       const allowedExt = ['.pdf', '.jpg', '.jpeg', '.png']
       if (!allowedExt.includes(ext)) {
         throw new NotFoundException('File type not allowed')
@@ -34,21 +34,12 @@ export class DownloadDocumentationController {
       else if (ext === '.jpg' || ext === '.jpeg') contentType = 'image/jpeg'
       else if (ext === '.png') contentType = 'image/png'
 
+      res.setHeader('X-Content-Type-Options', 'nosniff')
       res.setHeader('Content-Type', contentType)
 
       return res.sendFile(filePath)
-    } catch (err: unknown) {
-      let errorMessage: string
-      if (err instanceof Error) {
-        errorMessage = err.message
-      } else if (typeof err === 'string') {
-        errorMessage = err
-      } else {
-        // On évite de convertir un objet inconnu avec String()
-        errorMessage = 'Unknown error'
-      }
-
-      throw new NotFoundException(errorMessage)
+    } catch {
+      throw new NotFoundException('File not found')
     }
   }
 }

@@ -81,7 +81,7 @@ describe('etl | dto | EclaireDto', () => {
           "PL",
           "PT",
         ],
-        "phase_recherche": "Phase III",
+        "phase_recherche": "phase-III",
         "population_recrutement": [
           "Women of child bearing potential not using contraception",
           "Women of child bearing potential using contraception",

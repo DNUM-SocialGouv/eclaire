@@ -5,6 +5,13 @@ import { Response } from 'express'
 import { EtlService } from '../../../etl/EtlService'
 import { ExportJobService } from '../application/ExportJobService'
 
+export class ExportJobResponseDto {
+  id: string
+  status: string
+  progress?: number
+  filePath?: string
+}
+
 @ApiExcludeController()
 @Controller('/api/export')
 export class ExportController {
@@ -41,7 +48,7 @@ export class ExportController {
 
   // 2. Check the progress of a job
   @Get('status/:id')
-  async getStatus(@Param('id') id: string) {
+  async getStatus(@Param('id') id: string): Promise<ExportJobResponseDto | { error: string }> {
     const job = await this.jobService.getJob(id)
     if (!job) return { error: 'Job not found' }
     return job

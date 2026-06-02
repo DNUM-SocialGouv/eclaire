@@ -11,14 +11,11 @@ const mockElasticsearchService = { countDocuments: mockCountDocuments } as unkno
 describe('esStatisticsRepository', () => {
   let repository: EsStatisticsRepository
 
-  beforeEach(() => {
+  beforeEach(async() => {
     // Réinitialiser les mocks avant chaque test
     mockCountDocuments.mockReset()
     repository = new EsStatisticsRepository(mockElasticsearchService)
-  })
 
-  it('should return correct statistics', async () => {
-    // On définit ce que les appels successifs à countDocuments doivent retourner
     mockCountDocuments
       .mockResolvedValueOnce(100) // total
       .mockResolvedValueOnce(20) // REG745
@@ -30,6 +27,11 @@ describe('esStatisticsRepository', () => {
       .mockResolvedValueOnce(6) // REG536 + active
       .mockResolvedValueOnce(2) // JARDE + active
 
+    // 🔥 THIS IS THE MISSING PIECE IN YOUR ORIGINAL TEST
+    await repository.refreshStats()
+  })
+
+  it('should return correct statistics', async () => {
     const result = await repository.findStat()
 
     /* eslint-disable sort-keys */

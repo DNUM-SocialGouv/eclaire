@@ -7,18 +7,32 @@ export class LocalDocumentationRepository implements DocumentationRepository {
   private readonly baseDir: string
 
   constructor() {
-    // Le dossier documentation à la racine du projet
+    // The documentation folder at the root of the project
     this.baseDir = path.join(process.cwd(), 'documentation/files')
   }
 
   async getFilePath(filename: string): Promise<string> {
-    const filePath = path.join(this.baseDir, filename)
+    // 1. Clean up the filename (prevents ../)
+    const safeFilename = path.basename(filename)
 
-    // Vérification que le fichier existe
-    if (!fs.existsSync(filePath)) {
+    // 2. Construct the absolute path
+    const filePath = path.join(this.baseDir, safeFilename)
+
+    // 3. Critical security: verify that the path remains in baseDir
+    const resolvedPath = path.resolve(filePath)
+    const resolvedBase = path.resolve(this.baseDir)
+
+    if (!resolvedPath.startsWith(resolvedBase)) {
+      throw new Error('Invalid file path')
+    }
+
+    // 4. Verify existence
+    try {
+      await fs.promises.access(resolvedPath)
+    } catch {
       throw new Error(`File not found: ${filename}`)
     }
 
-    return Promise.resolve(filePath)
+    return resolvedPath
   }
 }
