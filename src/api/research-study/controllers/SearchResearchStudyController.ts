@@ -1,12 +1,13 @@
 import { Controller, Get, Header, Inject, Query, Res } from '@nestjs/common'
 import { ApiOkResponse, ApiOperation, ApiProduces, ApiQuery, ApiTags, ApiTooManyRequestsResponse } from '@nestjs/swagger'
-import { errors } from '@opensearch-project/opensearch'
+//import { errors } from '@opensearch-project/opensearch'
 import { Response } from 'express'
-import { Bundle, OperationOutcome } from 'fhir/r4'
+import { Bundle } from 'fhir/r4'
 
 import { FhirParsedQueryParams, FhirQueryParams } from './FhirQueryParams'
-import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
+//import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
 import { ResearchStudyRepository } from '../application/ResearchStudyRepository'
+import { isValidDate } from '../../../shared/utils/date.util'
 
 @ApiTags('Research study')
 @Controller('R4/ResearchStudy')
@@ -38,6 +39,29 @@ export class SearchResearchStudyController {
         }
       }
 
+      // Check Date
+      const lastUpdated = fhirQueryParams._lastUpdated
+      const operator = RegExp(/(eq|ne|lt|le|gt|ge)/).exec(lastUpdated)
+      if (lastUpdated) {
+        if (operator === null) {
+          if (!isValidDate(lastUpdated)) {
+            response.status(400).json({
+              error: 'Bad Request',
+              message: `Invalid date: ${lastUpdated}`,
+            })
+          }
+        } else {
+          const date = lastUpdated?.replace(operator[0], '')?.trim()
+          if (!isValidDate(date)) {
+            response.status(400).json({
+              error: 'Bad Request',
+              message: `Invalid date: ${date}`,
+            })
+          }
+        }
+      }
+
+
       const fhirParsedQueryParams: FhirParsedQueryParams[] = FhirQueryParams.parse(fhirQueryParams)
       const fhirResourceBundle: Bundle = await this.researchStudyRepository.search(fhirParsedQueryParams)
 
@@ -53,13 +77,13 @@ export class SearchResearchStudyController {
         /* eslint-enable sort-keys */
       }
     } catch (error) {
-      if (error instanceof errors.ResponseError) {
+      /* if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
         const operationOutcome: OperationOutcome = OperationOutcomeModel.create(error.meta.body.error?.root_cause?.[0]?.reason || 'Unknown error')
         response.status(400).json(operationOutcome)
-      } else {
-        throw error
-      }
+      } else { */
+      throw error
+      //}
     }
   }
 }

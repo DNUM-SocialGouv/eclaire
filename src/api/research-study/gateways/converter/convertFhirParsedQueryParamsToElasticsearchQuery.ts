@@ -1,5 +1,7 @@
+import { BadRequestException } from '@nestjs/common'
 import { ElasticsearchBodyBuilder, ElasticsearchBodyType, Operator } from '../../../../shared/elasticsearch/ElasticsearchBody'
 import { FhirParsedQueryParams } from '../../controllers/FhirQueryParams'
+import { isValidDate } from '../../../../shared/utils/date.util'
 
 export function convertFhirParsedQueryParamsToElasticsearchQuery(
   fhirParsedQueryParams: FhirParsedQueryParams[],
@@ -20,10 +22,10 @@ export function convertFhirParsedQueryParamsToElasticsearchQuery(
       case '_lastUpdated':
         buildLastUpdated(searchBody, value)
         break
-      
+
       case '_shouldLastUpdated':
         buildShouldLastUpdated(searchBody, value)
-        break  
+        break
 
       case '_sort':
         buildSort(searchBody, value)
@@ -44,7 +46,7 @@ export function convertFhirParsedQueryParamsToElasticsearchQuery(
 
       case '_shouldId':
         buildShouldMatch(searchBody, '_id', value)
-        break  
+        break
 
       case 'search_after':
         buildSearchAfter(searchBody, value)
@@ -85,6 +87,9 @@ function buildDate(searchBody: ElasticsearchBodyBuilder, value: string, should: 
   const operator = RegExp(/(eq|ne|lt|le|gt|ge)/).exec(value)
 
   if (operator === null) {
+    if (!isValidDate(value)) {
+      throw new BadRequestException(`Invalid date: ${value}`);
+    }
     if (should) {
       buildShouldMatch(searchBody, 'meta.lastUpdated', value)
     } else {
@@ -94,8 +99,11 @@ function buildDate(searchBody: ElasticsearchBodyBuilder, value: string, should: 
     return
   }
 
-  const date = value.replace(operator[0], '')
-
+  const date = value?.replace(operator[0], '')?.trim()
+  
+  if (!isValidDate(date)) {
+    throw new BadRequestException(`Invalid date: ${date}`);
+  }
   switch (operator[0]) {
     case 'eq':
       if (should) {
