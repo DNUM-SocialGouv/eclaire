@@ -134,7 +134,7 @@ export class ElasticsearchBodyBuilder {
     return this
   }
 
-  withSort(fieldname: string, order: 'asc' | 'desc'): this {
+  /* withSort(fieldname: string, order: 'asc' | 'desc'): this {
     const index = this.searchBody.sort.findIndex(
       (item) => Object.keys(item)[0] === fieldname
     )
@@ -144,6 +144,14 @@ export class ElasticsearchBodyBuilder {
     }
 
     this.searchBody.sort.unshift({ [fieldname]: { order } })
+    return this
+  } */
+
+  withSort(fieldname: string, order: 'asc' | 'desc'): this {
+    this.searchBody.sort = [
+      { [fieldname]: { order } }
+    ]
+
     return this
   }
 
