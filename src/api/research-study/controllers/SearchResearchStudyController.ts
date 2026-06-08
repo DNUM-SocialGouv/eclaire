@@ -26,13 +26,13 @@ export class SearchResearchStudyController {
   @Header('content-type', 'application/fhir+json')
   @Get()
   @ApiQuery({ required: false, type: FhirQueryParams })
-  async execute(@Query() fhirQueryParams: Record<string, any>, @Res() response: Response): Promise<void> {
+  async execute(@Query() fhirQueryParams: Record<string, any>, @Res() response: Response): Promise<Response> {
     try {
       // Check _count if exist
       if (fhirQueryParams._count) {
         const count = parseInt(fhirQueryParams._count, 10)
         if (isNaN(count) || count > 100) {
-          response.status(400).json({
+          return response.status(400).json({
             error: 'Bad Request',
             message: '_count ne peut pas dépasser 100',
           })
@@ -45,7 +45,7 @@ export class SearchResearchStudyController {
       if (lastUpdated) {
         if (operator === null) {
           if (!isValidDate(lastUpdated)) {
-            response.status(400).json({
+            return response.status(400).json({
               error: 'Bad Request',
               message: `Invalid date: ${lastUpdated}`,
             })
@@ -53,7 +53,7 @@ export class SearchResearchStudyController {
         } else {
           const date = lastUpdated?.replace(operator[0], '')?.trim()
           if (!isValidDate(date)) {
-            response.status(400).json({
+            return response.status(400).json({
               error: 'Bad Request',
               message: `Invalid date: ${date}`,
             })
@@ -61,15 +61,14 @@ export class SearchResearchStudyController {
         }
       }
 
-
       const fhirParsedQueryParams: FhirParsedQueryParams[] = FhirQueryParams.parse(fhirQueryParams)
       const fhirResourceBundle: Bundle = await this.researchStudyRepository.search(fhirParsedQueryParams)
 
       if (fhirResourceBundle.total > 0) {
-        response.json(fhirResourceBundle)
+        return response.json(fhirResourceBundle)
       } else {
         /* eslint-disable sort-keys */
-        response.status(404).json({
+        return response.status(404).json({
           resourceType: 'Bundle',
           type: 'searchset',
           total: 0,
@@ -80,7 +79,7 @@ export class SearchResearchStudyController {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
         const operationOutcome: OperationOutcome = OperationOutcomeModel.create(error.meta.body.error?.root_cause?.[0]?.reason || 'Unknown error')
-        response.status(400).json(operationOutcome)
+        return response.status(400).json(operationOutcome)
       } else {
         throw error
       }
