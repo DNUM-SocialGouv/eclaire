@@ -49,7 +49,7 @@ export class MedDraPipeline extends AbstractPipeline<ResearchStudyModel> {
   private buildBodyToFindEveryCtisStudiesSinceAGivenDate(date: string): ElasticsearchBodyType {
     // Get Only CTIS documents
     const queryParams: FhirParsedQueryParams[] = [
-      { name: '_count', value: String(process.env['CHUNK_SIZE']) },
+      { name: '_count', value: String(50) },
       { name: '_lastUpdated', value: `ge${date}` },
       { name: '_must', value: 'REG536' },
       { name: '_sort', value: 'meta.lastUpdated,_id' },

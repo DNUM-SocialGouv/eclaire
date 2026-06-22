@@ -6,8 +6,8 @@ import { Bundle, OperationOutcome } from 'fhir/r4'
 
 import { FhirParsedQueryParams, FhirQueryParams } from './FhirQueryParams'
 import { OperationOutcomeModel } from '../../../shared/models/domain-resources/OperationOutcomeModel'
-import { ResearchStudyRepository } from '../application/ResearchStudyRepository'
 import { isValidDate } from '../../../shared/utils/date.util'
+import { ResearchStudyRepository } from '../application/ResearchStudyRepository'
 
 @ApiTags('Research study')
 @Controller('R4/ResearchStudy')
@@ -40,7 +40,7 @@ export class SearchResearchStudyController {
       }
 
       // Check Date
-      const lastUpdated = fhirQueryParams._lastUpdated
+      const lastUpdated:string = fhirQueryParams._lastUpdated
       const operator = RegExp(/(eq|ne|lt|le|gt|ge)/).exec(lastUpdated)
       if (lastUpdated) {
         if (operator === null) {

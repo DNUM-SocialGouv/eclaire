@@ -1,7 +1,8 @@
 import { BadRequestException } from '@nestjs/common'
+
 import { ElasticsearchBodyBuilder, ElasticsearchBodyType, Operator } from '../../../../shared/elasticsearch/ElasticsearchBody'
-import { FhirParsedQueryParams } from '../../controllers/FhirQueryParams'
 import { isValidDate } from '../../../../shared/utils/date.util'
+import { FhirParsedQueryParams } from '../../controllers/FhirQueryParams'
 
 export function convertFhirParsedQueryParamsToElasticsearchQuery(
   fhirParsedQueryParams: FhirParsedQueryParams[],
@@ -88,7 +89,7 @@ function buildDate(searchBody: ElasticsearchBodyBuilder, value: string, should: 
 
   if (operator === null) {
     if (!isValidDate(value)) {
-      throw new BadRequestException(`Invalid date: ${value}`);
+      throw new BadRequestException(`Invalid date: ${value}`)
     }
     if (should) {
       buildShouldMatch(searchBody, 'meta.lastUpdated', value)
@@ -100,9 +101,9 @@ function buildDate(searchBody: ElasticsearchBodyBuilder, value: string, should: 
   }
 
   const date = value?.replace(operator[0], '')?.trim()
-  
+
   if (!isValidDate(date)) {
-    throw new BadRequestException(`Invalid date: ${date}`);
+    throw new BadRequestException(`Invalid date: ${date}`)
   }
   switch (operator[0]) {
     case 'eq':
@@ -120,28 +121,36 @@ function buildDate(searchBody: ElasticsearchBodyBuilder, value: string, should: 
       break
 
     case 'lt':
-      should
-        ? buildShouldRange(searchBody, 'meta.lastUpdated', date, ['lt'])
-        : buildRange(searchBody, 'meta.lastUpdated', date, ['lt'])
+      if (should) {
+        buildShouldRange(searchBody, 'meta.lastUpdated', date, ['lt'])
+      } else {
+        buildRange(searchBody, 'meta.lastUpdated', date, ['lt'])
+      }
       break
 
     case 'le':
-      should
-        ? buildShouldRange(searchBody, 'meta.lastUpdated', date, ['lte'])
-        : buildRange(searchBody, 'meta.lastUpdated', date, ['lte'])
+      if (should) {
+        buildShouldRange(searchBody, 'meta.lastUpdated', date, ['lte'])
+      } else {
+        buildRange(searchBody, 'meta.lastUpdated', date, ['lte'])
+      }
       break
 
     case 'gt':
-      should
-        ? buildShouldRange(searchBody, 'meta.lastUpdated', date, ['gt'])
-        : buildRange(searchBody, 'meta.lastUpdated', date, ['gt'])
+      if (should) {
+        buildShouldRange(searchBody, 'meta.lastUpdated', date, ['gt'])
+      } else {
+        buildRange(searchBody, 'meta.lastUpdated', date, ['gt'])
+      }
       break
 
     case 'ge':
     default:
-      should
-        ? buildShouldRange(searchBody, 'meta.lastUpdated', date, ['gte'])
-        : buildRange(searchBody, 'meta.lastUpdated', date, ['gte'])
+      if (should) {
+        buildShouldRange(searchBody, 'meta.lastUpdated', date, ['gte'])
+      } else {
+        buildRange(searchBody, 'meta.lastUpdated', date, ['gte'])
+      }
       break
   }
 }

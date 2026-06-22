@@ -71,11 +71,13 @@ export class ElasticsearchBodyBuilder {
   constructor() {
     this.searchBody = {
       from: 0,
-      query: { bool: { 
-        filter: [],
-        must: [],
-        should: [] 
-      } },
+      query: {
+        bool: {
+          filter: [],
+          must: [],
+          should: [],
+        },
+      },
       size: 0,
       sort: [
         { 'meta.lastUpdated': { order: 'desc' } },
@@ -148,9 +150,7 @@ export class ElasticsearchBodyBuilder {
   } */
 
   withSort(fieldname: string, order: 'asc' | 'desc'): this {
-    this.searchBody.sort = [
-      { [fieldname]: { order } }
-    ]
+    this.searchBody.sort = [{ [fieldname]: { order } }]
 
     return this
   }
@@ -168,9 +168,7 @@ export class ElasticsearchBodyBuilder {
   withShouldMatch(fieldname: string, value: string): this {
     this.searchBody.query.bool.should ??= []
 
-    this.searchBody.query.bool.should.push({
-      match: { [fieldname]: value },
-    })
+    this.searchBody.query.bool.should.push({ match: { [fieldname]: value } })
 
     this.searchBody.query.bool.minimum_should_match = 1
 
@@ -202,9 +200,7 @@ export class ElasticsearchBodyBuilder {
 
     this.searchBody.query.bool.should ??= []
 
-    this.searchBody.query.bool.should.push({
-      range: { [fieldname]: operatorsAndValues },
-    })
+    this.searchBody.query.bool.should.push({ range: { [fieldname]: operatorsAndValues } })
 
     this.searchBody.query.bool.minimum_should_match = 1
 

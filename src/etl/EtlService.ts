@@ -218,7 +218,8 @@ export class EtlService {
 
     try {
       const medDraPipeline: MedDraPipeline = new MedDraPipeline(this.databaseService, this.loggerService)
-      await medDraPipeline.execute(startingDate)
+      const chunkSize = 50
+      await medDraPipeline.execute(startingDate, chunkSize)
     } catch (error) {
       if (error instanceof errors.ResponseError) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access

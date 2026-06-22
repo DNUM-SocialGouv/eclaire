@@ -8,13 +8,13 @@ export abstract class AbstractPipeline<T> {
     protected readonly logger?: LoggerService
   ) {}
 
-  async execute(date?: string): Promise<void> {
-    await this.extract(date)
+  async execute(date?: string, customChunk?: number): Promise<void> {
+    await this.extract(date, customChunk)
   }
 
-  async extract(date?: string): Promise<T[]> {
+  async extract(date?: string, customChunk?: number): Promise<T[]> {
     const requestBody = this.buildRequestBody(date)
-    const chunkSize = 132
+    const chunkSize = customChunk ? customChunk : 132
     let searchAfter: any[] | undefined
     let results: T[] = []
 
