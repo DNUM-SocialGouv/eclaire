@@ -86,8 +86,8 @@ export class ResearchStudyModelFactory {
         contact_courriel,
         'Scientific',
         ModelUtils.decodeHtmlString(eclaireDto.organisme_adresse),
-        ModelUtils.undefinedIfNull(eclaireDto.organisme_pays),
         ModelUtils.undefinedIfNull(eclaireDto.organisme_ville),
+        ModelUtils.undefinedIfNull(eclaireDto.organisme_pays),
         ModelUtils.undefinedIfNull(eclaireDto.organisme_code_postal),
         undefined,
         ModelUtils.undefinedIfNull(eclaireDto.organisme_nom)
