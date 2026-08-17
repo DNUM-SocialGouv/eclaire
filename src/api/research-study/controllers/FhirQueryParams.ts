@@ -14,7 +14,7 @@ export class FhirQueryParams {
     status?: string
 
   @ApiProperty({
-    description: '`*`',
+    description: '`*` | `group,location,organization`',
     required: false,
   })
     _include?: string

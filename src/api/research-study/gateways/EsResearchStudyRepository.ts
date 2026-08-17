@@ -155,9 +155,26 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
       this.numberOfResourcesByPage
     )
     this.numberOfResourcesByPage = Number(elasticsearchBody.size)
-    const withReferenceContents: boolean = queryParams.some(
-      (param: FhirParsedQueryParams) => param.name === '_include' && param.value === '*'
-    )
+
+    // check _include params
+    const includeParams = queryParams
+      .filter((param) => param.name === '_include')
+      .flatMap((param) =>
+        param.value
+          .split(',')
+          .map((value) => value.trim().toLowerCase()))
+
+    const supportedIncludes = new Set([
+      '*',
+      'location',
+      'organization',
+      'group',
+    ])
+
+    const normalizedIncludes = includeParams.filter((value) =>
+      supportedIncludes.has(value))
+
+    const withReferenceContents = normalizedIncludes.length > 0
 
     const responseTotal = await this.databaseService.getCountDocuments(elasticsearchBody.query)
     const response: SearchResponse = await this.databaseService.search(elasticsearchBody, withReferenceContents)
@@ -185,7 +202,12 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     )
 
     if (withReferenceContents) {
-      const additionalFhirResourceBundle: BundleEntry[] = this.getAdditionalFhirResourceBundle(fhirResourceBundle)
+      const additionalFhirResourceBundle =
+        this.getAdditionalFhirResourceBundle(
+          fhirResourceBundle,
+          normalizedIncludes
+        )
+
       fhirResourceBundle.entry.push(...additionalFhirResourceBundle)
     }
 
@@ -251,44 +273,110 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     return url.toString()
   }
 
-  private getAdditionalFhirResourceBundle(fhirResourceBundle: Bundle): BundleEntry[] {
-    const additionalFhirResourceBundleEntries = []
+  private addGroupEntries(
+    referenceContents: Record<string, unknown>,
+    entries: BundleEntry[]
+  ): void {
+
+    const group = referenceContents['enrollmentGroup'] as Group
+
+    if (!group) {
+      return
+    }
+
+    entries.push(
+      BundleEntryModel.create(
+        group,
+        this.configService.get('ECLAIRE_URL')
+      )
+    )
+  }
+
+  private addLocationEntries(
+    referenceContents: Record<string, unknown>,
+    entries: BundleEntry[]
+  ): void {
+
+    const locations = referenceContents['locations'] as Location[]
+
+    if (!locations?.length) {
+      return
+    }
+
+    entries.push(
+      ...locations.map((location) =>
+        BundleEntryModel.create(
+          location,
+          this.configService.get('ECLAIRE_URL')
+        ))
+    )
+  }
+
+  private addOrganizationEntries(
+    referenceContents: Record<string, unknown>,
+    entries: BundleEntry[]
+  ): void {
+
+    const organizations =
+      referenceContents['organizations'] as Organization[]
+
+    if (!organizations?.length) {
+      return
+    }
+
+    entries.push(
+      ...organizations.map((org) =>
+        BundleEntryModel.create(
+          org,
+          this.configService.get('ECLAIRE_URL')
+        ))
+    )
+  }
+
+  private removeDuplicateEntries(entries: BundleEntry[]): BundleEntry[] {
+
+    return [
+      ...new Map(
+        entries.map((entry) => [entry.resource.id, entry])
+      ).values(),
+    ]
+  }
+
+  private getAdditionalFhirResourceBundle(
+    fhirResourceBundle: Bundle,
+    includes: string[]
+  ): BundleEntry[] {
+
+    const entries: BundleEntry[] = []
+
+    const includeAll = includes.includes('*')
 
     for (const bundleEntry of fhirResourceBundle.entry) {
-      const referenceContents: unknown = bundleEntry.resource['referenceContents']
 
-      const enrollmentGroup: Group = referenceContents['enrollmentGroup'] as Group
-      if (enrollmentGroup) {
-        const enrollmentGroupBundleEntry: BundleEntry = BundleEntryModel.create(enrollmentGroup, this.configService.get('ECLAIRE_URL'))
-        additionalFhirResourceBundleEntries.push(enrollmentGroupBundleEntry)
+      const referenceContents = bundleEntry.resource[
+        'referenceContents'
+      ] as Record<string, unknown>
+
+      if (!referenceContents) {
+        continue
       }
 
-      const locations: Location[] = referenceContents['locations'] as Location[]
-      if (locations) {
-        const locationBundleEntries: BundleEntry[] = locations.map((location: Location) => {
-          return BundleEntryModel.create(location, this.configService.get('ECLAIRE_URL'))
-        })
-
-        additionalFhirResourceBundleEntries.push(...locationBundleEntries)
+      if (includeAll || includes.includes('group')) {
+        this.addGroupEntries(referenceContents, entries)
       }
 
-      const organizations: Organization[] = referenceContents['organizations'] as Organization[]
-      if (organizations) {
-        const organizationBundleEntries: BundleEntry[] = organizations.map((organization: Organization) => {
-          return BundleEntryModel.create(organization, this.configService.get('ECLAIRE_URL'))
-        })
+      if (includeAll || includes.includes('location')) {
+        this.addLocationEntries(referenceContents, entries)
+      }
 
-        additionalFhirResourceBundleEntries.push(...organizationBundleEntries)
+      if (includeAll || includes.includes('organization')) {
+        this.addOrganizationEntries(referenceContents, entries)
       }
 
       delete bundleEntry.resource['referenceContents']
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
-    const bundleIds = additionalFhirResourceBundleEntries.map((bundle) => bundle.resource.id)
-    const additionalFhirResourceBundleEntriesFiltered =
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      additionalFhirResourceBundleEntries.filter((bundle, index) => !bundleIds.includes(bundle.resource.id, index + 1))
 
-    return [...additionalFhirResourceBundleEntriesFiltered as BundleEntry[]]
+    return this.removeDuplicateEntries(entries)
   }
+
 }
