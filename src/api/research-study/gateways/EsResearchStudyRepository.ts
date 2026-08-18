@@ -159,10 +159,15 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
     // check _include params
     const includeParams = queryParams
       .filter((param) => param.name === '_include')
-      .flatMap((param) =>
-        param.value
+      .flatMap((param) => {
+        if (typeof param.value !== 'string') {
+          return [];
+        }
+
+        return param.value
           .split(',')
-          .map((value) => value.trim().toLowerCase()))
+          .map((value) => value.trim().toLowerCase());
+      });    
 
     const supportedIncludes = new Set([
       '*',
