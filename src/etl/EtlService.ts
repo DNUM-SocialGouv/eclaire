@@ -8,6 +8,7 @@ import { IngestPipelineCtis } from './pipelines/ingest/IngestPipelineCtis'
 import { IngestPipelineDmDmdiv } from './pipelines/ingest/IngestPipelineDmDmdiv'
 import { IngestPipelineImport } from './pipelines/ingest/IngestPipelineImport'
 import { IngestPipelineJarde } from './pipelines/ingest/IngestPipelineJarde'
+import { IngestPipelineApi } from './pipelines/ingest/IngestPipelineApi'
 import { MedDraPipeline } from './pipelines/translation/MedDraPipeline'
 import { TranslationPipeline } from './pipelines/translation/TranslationPipeline'
 import { TranslationPipelineCtis } from './pipelines/translation/TranslationPipelineCtis'
@@ -17,6 +18,7 @@ import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchServi
 import { LoggerService } from '../shared/logger/LoggerService'
 import { TranslationService } from '../shared/translation/TranslationService'
 import { StreamingExcelExporter } from './pipelines/excel/StreamingExcelExporter'
+
 
 export class EtlService {
   constructor(
@@ -290,5 +292,18 @@ export class EtlService {
 
     return filePath
   }
+
+
+  async importAllDataTest(): Promise<void> {
+    this.loggerService.info('-- Début de l’import des essais cliniques depuis api Eclaire.')
+    const pipeline = new IngestPipelineApi(this.loggerService, this.databaseService, this.readerService)
+    try {
+      await pipeline.execute()
+    } catch(error) {
+      throw error
+    }
+
+    this.loggerService.info('-- Fin de l’import des essais cliniques depuis api Eclaire.')
+  }  
 
 }

@@ -47,7 +47,8 @@ export class EclaireDto {
     readonly numero_isrctn: string,
     readonly numero_utn: string,
     readonly numero_libre: string,
-    readonly duree_participation: string
+    readonly duree_participation: string,
+    readonly derniere_modification_eclaire: string
   ) { }
 
   static fromCtis(riphCtisDto: RiphCtisDto): EclaireDto {
@@ -73,6 +74,16 @@ export class EclaireDto {
       precisionReglementation = 'un essai clinique à faible intervention (CTIS)'
     }
 
+    // To delete and use riphCtisDto.participants_tranches_age after test
+    const participants_tranches_age = riphCtisDto.participants_tranches_age ? riphCtisDto.participants_tranches_age?.split(', ') : 
+      riphCtisDto.tranches_age?.split(', ') ? riphCtisDto.tranches_age?.split(', ') : null;
+
+    const participants_sexe = riphCtisDto.participants_sexe ? riphCtisDto.participants_sexe?.split(',') : 
+      riphCtisDto.sexe ? riphCtisDto.sexe?.split(',') : ['unknown']
+    
+    const participants_groupe_sujets = riphCtisDto.participants_groupe_sujets ? riphCtisDto.participants_groupe_sujets : 
+      riphCtisDto.groupes_sujet ? riphCtisDto.groupes_sujet : null
+
     return new EclaireDto(
       riphCtisDto.reglementation_code,
       precisionReglementation,
@@ -94,9 +105,9 @@ export class EclaireDto {
       riphCtisDto.pathologies_maladies_rares,
       riphCtisDto.informations_meddra?.split(', ').map((code: string) => code) || null,
       riphCtisDto.taille_etude,
-      riphCtisDto.tranches_age?.split(', ') || null,
-      riphCtisDto.sexe?.split(',') || ['unknown'],
-      riphCtisDto.groupes_sujet,
+      participants_tranches_age,
+      participants_sexe,
+      participants_groupe_sujets,
       riphCtisDto.population_recrutement?.split(', ') || null,
       riphCtisDto.date_debut_recrutement !== null ? new Date(riphCtisDto.date_debut_recrutement).toISOString() : null,
       riphCtisDto.historique,
@@ -120,7 +131,8 @@ export class EclaireDto {
       riphCtisDto.numero_isrctn,
       riphCtisDto.numero_utn,
       riphCtisDto.numero_libre,
-      riphCtisDto.duree_participation
+      riphCtisDto.duree_participation,
+      riphCtisDto.derniere_modification_eclaire
     )
   }
 
@@ -183,7 +195,8 @@ export class EclaireDto {
       riphDmDto.numero_isrctn,
       riphDmDto.numero_utn,
       riphDmDto.numero_libre,
-      riphDmDto.duree_participation
+      riphDmDto.duree_participation,
+      riphDmDto.derniere_modification_eclaire
     )
   }
 
@@ -257,7 +270,8 @@ export class EclaireDto {
       riphJardeDto.numero_isrctn,
       riphJardeDto.numero_utn,
       riphJardeDto.numero_libre,
-      riphJardeDto.duree_participation
+      riphJardeDto.duree_participation,
+      riphJardeDto.derniere_modification_eclaire
     )
   }
 

@@ -31,10 +31,10 @@ export class SearchResearchStudyController {
       // Check _count if exist
       if (fhirQueryParams._count) {
         const count = parseInt(fhirQueryParams._count, 10)
-        if (isNaN(count) || count > 100) {
+        if (isNaN(count) || count > 50) {
           return response.status(400).json({
             error: 'Bad Request',
-            message: '_count ne peut pas dépasser 100',
+            message: '_count ne peut pas dépasser 50',
           })
         }
       }

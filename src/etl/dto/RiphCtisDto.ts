@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer'
-import { IsString, IsNumber, ValidateNested, IsOptional, IsEmail, IsArray } from 'class-validator'
+import { IsString, IsNumber, ValidateNested, IsOptional, IsEmail, IsArray, Matches } from 'class-validator'
 
 import { CritereDto, SiteInvestigateurDto } from './common/EtudeCommonDto'
 
@@ -208,5 +208,12 @@ export class RiphCtisDto {
   @Type(() => SiteInvestigateurDto)
   @IsOptional()
     sites_investigateurs?: SiteInvestigateurDto[]
+
+  @IsString()
+  @IsOptional()
+  @Matches(/^\d{4}-\d{2}-\d{2}$/, {
+    message: 'derniere_modification_eclaire doit être au format YYYY-MM-DD',
+  })
+    derniere_modification_eclaire?: string  
 
 }

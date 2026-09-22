@@ -134,7 +134,7 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
   async search(fhirParsedQueryParams: FhirParsedQueryParams[]): Promise<Bundle> {
     let queryParams = fhirParsedQueryParams
     queryParams = queryParams.map((item) => {
-      if (item.name === '_count' && Number(item.value) > 100) {
+      if (item.name === '_count' && Number(item.value) > 50) {
         return { ...item, value: String(this.defaultNumberOfResourcesByPage) } // overwrite value with "20"
       }
       return item
