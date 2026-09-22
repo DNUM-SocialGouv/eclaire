@@ -97,7 +97,7 @@ export abstract class IngestPipeline {
     this.logger.info(`---- ${label} Processing batch of ${buffer.length} records`)
 
     const documents = transform(buffer)
-
+    
     this.logger.info(
       `---- Chunk ${label}: number of documents to update : ${documents.length}`
     )
@@ -126,7 +126,7 @@ export abstract class IngestPipeline {
     return models.filter((model) => {
       const lastUpdated = new Date(model.meta.lastUpdated)
       return (
-        lastUpdated >= startingDate
+        lastUpdated >= startingDate || model.id === "2024-A01554-43" // To delete after launching the correction batch
       )
     })
   }

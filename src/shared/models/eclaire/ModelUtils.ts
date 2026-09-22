@@ -124,11 +124,11 @@ export class ModelUtils {
 
     const dates: string[] = []
     if (datesOfHistory !== undefined) {
-      datesOfHistory.split(', ').forEach((dateOfHistory) => {
-        const date = dateOfHistory.split(':')
+      const historyDates = datesOfHistory.match(/\b\d{4}-\d{2}-\d{2}(?=:)/g)
 
-        dates.push(date[0])
-      })
+      if (historyDates) {
+        dates.push(...historyDates)
+      }
     }
 
     if (datesOfApproval !== undefined) {
