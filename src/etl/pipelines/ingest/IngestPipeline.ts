@@ -126,7 +126,7 @@ export abstract class IngestPipeline {
     return models.filter((model) => {
       const lastUpdated = new Date(model.meta.lastUpdated)
       return (
-        lastUpdated >= startingDate || model.id === "2024-A01554-43" // To delete after launching the correction batch
+        lastUpdated >= startingDate
       )
     })
   }
