@@ -123,7 +123,7 @@ export class ModelUtils {
     if (datesOfHistory === undefined && datesOfApproval === undefined && !dateLastEditEclaire) return new Date(theoreticalDateOfApproval).toISOString()
 
     const dates: string[] = []
-    
+
     if (datesOfHistory !== undefined) {
       const historyDates = datesOfHistory.match(/\b\d{4}-\d{2}-\d{2}(?=:)/g)
 

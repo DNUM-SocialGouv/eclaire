@@ -3,12 +3,13 @@ import * as console from 'console'
 import fs from 'fs'
 
 import { JsonFileReaderService } from './json-file-reader/JsonFileReaderService'
+import { StreamingExcelExporter } from './pipelines/excel/StreamingExcelExporter'
 import { IngestPipeline } from './pipelines/ingest/IngestPipeline'
+import { IngestPipelineApi } from './pipelines/ingest/IngestPipelineApi'
 import { IngestPipelineCtis } from './pipelines/ingest/IngestPipelineCtis'
 import { IngestPipelineDmDmdiv } from './pipelines/ingest/IngestPipelineDmDmdiv'
 import { IngestPipelineImport } from './pipelines/ingest/IngestPipelineImport'
 import { IngestPipelineJarde } from './pipelines/ingest/IngestPipelineJarde'
-import { IngestPipelineApi } from './pipelines/ingest/IngestPipelineApi'
 import { MedDraPipeline } from './pipelines/translation/MedDraPipeline'
 import { TranslationPipeline } from './pipelines/translation/TranslationPipeline'
 import { TranslationPipelineCtis } from './pipelines/translation/TranslationPipelineCtis'
@@ -17,8 +18,6 @@ import { elasticsearchIndexMapping } from '../shared/elasticsearch/elasticsearch
 import { ElasticsearchService } from '../shared/elasticsearch/ElasticsearchService'
 import { LoggerService } from '../shared/logger/LoggerService'
 import { TranslationService } from '../shared/translation/TranslationService'
-import { StreamingExcelExporter } from './pipelines/excel/StreamingExcelExporter'
-
 
 export class EtlService {
   constructor(
@@ -293,17 +292,11 @@ export class EtlService {
     return filePath
   }
 
-
   async importAllDataTest(): Promise<void> {
     this.loggerService.info('-- Début de l’import des essais cliniques depuis api Eclaire.')
     const pipeline = new IngestPipelineApi(this.loggerService, this.databaseService, this.readerService)
-    try {
-      await pipeline.execute()
-    } catch(error) {
-      throw error
-    }
-
+    await pipeline.execute()
     this.loggerService.info('-- Fin de l’import des essais cliniques depuis api Eclaire.')
-  }  
+  }
 
 }

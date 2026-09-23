@@ -45,7 +45,7 @@ export class ResearchStudyModelFactory {
       eclaireDto.date_theorique_maximale_autorisation_cpp,
       eclaireDto.derniere_modification_eclaire
     )
-    
+
     let meta: Meta = undefined
     if (ModelUtils.isNotNull(mostRecentDate)) {
       meta = MetaModel.create(mostRecentDate)

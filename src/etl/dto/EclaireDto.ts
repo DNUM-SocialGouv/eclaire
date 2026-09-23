@@ -75,13 +75,13 @@ export class EclaireDto {
     }
 
     // To delete and use riphCtisDto.participants_tranches_age after test
-    const participants_tranches_age = riphCtisDto.participants_tranches_age ? riphCtisDto.participants_tranches_age?.split(', ') : 
-      riphCtisDto.tranches_age?.split(', ') ? riphCtisDto.tranches_age?.split(', ') : null;
+    const participants_tranches_age = riphCtisDto.participants_tranches_age ? riphCtisDto.participants_tranches_age?.split(', ') :
+      riphCtisDto.tranches_age?.split(', ') ? riphCtisDto.tranches_age?.split(', ') : null
 
-    const participants_sexe = riphCtisDto.participants_sexe ? riphCtisDto.participants_sexe?.split(',') : 
+    const participants_sexe = riphCtisDto.participants_sexe ? riphCtisDto.participants_sexe?.split(',') :
       riphCtisDto.sexe ? riphCtisDto.sexe?.split(',') : ['unknown']
-    
-    const participants_groupe_sujets = riphCtisDto.participants_groupe_sujets ? riphCtisDto.participants_groupe_sujets : 
+
+    const participants_groupe_sujets = riphCtisDto.participants_groupe_sujets ? riphCtisDto.participants_groupe_sujets :
       riphCtisDto.groupes_sujet ? riphCtisDto.groupes_sujet : null
 
     return new EclaireDto(

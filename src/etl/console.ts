@@ -56,7 +56,7 @@ async function console(): Promise<void> {
       break
     case 'daily-import-all-data':
       await etlService.importAllDataTest()
-      break  
+      break
     default:
       process.exit(1)
   }

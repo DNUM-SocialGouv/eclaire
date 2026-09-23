@@ -211,9 +211,7 @@ export class RiphCtisDto {
 
   @IsString()
   @IsOptional()
-  @Matches(/^\d{4}-\d{2}-\d{2}$/, {
-    message: 'derniere_modification_eclaire doit être au format YYYY-MM-DD',
-  })
-    derniere_modification_eclaire?: string  
+  @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'derniere_modification_eclaire doit être au format YYYY-MM-DD' })
+    derniere_modification_eclaire?: string
 
 }
