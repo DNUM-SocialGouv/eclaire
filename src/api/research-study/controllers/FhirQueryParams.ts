@@ -44,8 +44,8 @@ export class FhirQueryParams {
     _content?: string
 
   @ApiProperty({
-    description: 'De `1` à `100`, valeur par défaut `20` si vide',
-    maximum: 100,
+    description: 'De `1` à `50`, valeur par défaut `20` si vide',
+    maximum: 50,
     minimum: 1,
     required: false,
   })
