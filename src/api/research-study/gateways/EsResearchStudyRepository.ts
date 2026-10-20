@@ -161,13 +161,13 @@ export class EsResearchStudyRepository implements ResearchStudyRepository {
       .filter((param) => param.name === '_include')
       .flatMap((param) => {
         if (typeof param.value !== 'string') {
-          return [];
+          return []
         }
 
         return param.value
           .split(',')
-          .map((value) => value.trim().toLowerCase());
-      });    
+          .map((value) => value.trim().toLowerCase())
+      })
 
     const supportedIncludes = new Set([
       '*',

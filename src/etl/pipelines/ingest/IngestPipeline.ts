@@ -97,7 +97,7 @@ export abstract class IngestPipeline {
     this.logger.info(`---- ${label} Processing batch of ${buffer.length} records`)
 
     const documents = transform(buffer)
-    
+
     this.logger.info(
       `---- Chunk ${label}: number of documents to update : ${documents.length}`
     )
