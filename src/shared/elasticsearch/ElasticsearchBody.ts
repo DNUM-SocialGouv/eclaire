@@ -8,10 +8,10 @@ type NestedQuery = {
     path: string
     query: {
       bool?: {
-        must?: any[]
-        filter?: any[]
-        must_not?: any[]
-        should?: any[]
+        must?: object[]
+        filter?: object[]
+        must_not?: object[]
+        should?: object[]
       }
       term?: {
         [key: string]: string
@@ -26,7 +26,7 @@ type NestedQuery = {
  */
 type MustClause =
   | { match: { [key: string]: string } }
-  | { range: { [key: string]: any } }
+  | { range: { [key: string]: Record<string, string> } }
   | { query_string: { query: string } }
   | NestedQuery
 
@@ -61,7 +61,7 @@ const termClause = (field: string, value: string) => ({ term: { [field]: value }
 
 const matchClause = (field: string, value: string) => ({ match: { [field]: value } })
 
-const rangeClause = (field: string, operators: Record<string, any>) => ({ range: { [field]: operators } })
+const rangeClause = (field: string, operators: Record<string, string>) => ({ range: { [field]: operators } })
 
 const nestedQuery = (path: string, query: any): NestedQuery => ({ nested: { path, query } })
 
@@ -101,8 +101,8 @@ export class ElasticsearchBodyBuilder {
   private buildDoubleNested(
     parentPath: string,
     childPath: string,
-    must: any[],
-    mustNot?: any[]
+    must: object[],
+    mustNot?: object[]
   ): NestedQuery {
     return nestedQuery(parentPath, {
       nested: {
