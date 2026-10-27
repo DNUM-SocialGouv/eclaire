@@ -119,10 +119,11 @@ export class ModelUtils {
     }
   }
 
-  static getMostRecentIsoDate(datesOfHistory: string, datesOfApproval: string, theoreticalDateOfApproval: string): string {
-    if (datesOfHistory === undefined && datesOfApproval === undefined) return new Date(theoreticalDateOfApproval).toISOString()
+  static getMostRecentIsoDate(datesOfHistory: string, datesOfApproval: string, theoreticalDateOfApproval: string, dateLastEditEclaire: string | null): string {
+    if (datesOfHistory === undefined && datesOfApproval === undefined && !dateLastEditEclaire) return new Date(theoreticalDateOfApproval).toISOString()
 
     const dates: string[] = []
+
     if (datesOfHistory !== undefined) {
       const historyDates = datesOfHistory.match(/\b\d{4}-\d{2}-\d{2}(?=:)/g)
 
@@ -137,6 +138,10 @@ export class ModelUtils {
 
         dates.push(date[1])
       })
+    }
+
+    if (dateLastEditEclaire) {
+      dates.push(dateLastEditEclaire)
     }
 
     const sortedDates = [...dates].sort(this.sortBy)
