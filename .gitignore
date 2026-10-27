@@ -51,4 +51,4 @@ src/etl/json-file-reader/.data
 .vscode
 .stryker-tmp
 reports
-
+meddra-utf8.asc
