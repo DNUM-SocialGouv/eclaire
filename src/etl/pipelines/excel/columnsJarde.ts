@@ -76,4 +76,5 @@ export const JARDE_COLUMNS = [
   { header: 'date_previsionnelle_fin_etude', key: 'date_previsionnelle_fin_etude' },
   { header: 'historique', key: 'historique' },
   { header: 'dates_avis_favorable_ms_mns', key: 'dates_avis_favorable_ms_mns' },
+  { header: 'derniere_modification_eclaire', key: 'derniere_modification_eclaire' },
 ]

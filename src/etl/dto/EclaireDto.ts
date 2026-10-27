@@ -84,6 +84,9 @@ export class EclaireDto {
     const participants_groupe_sujets = riphCtisDto.participants_groupe_sujets ? riphCtisDto.participants_groupe_sujets : 
       riphCtisDto.groupes_sujet ? riphCtisDto.groupes_sujet : null
 
+    // to replace riphCtisDto.objectifs when add the traduction and fixed to null for now  
+    const objectif = null  
+
     return new EclaireDto(
       riphCtisDto.reglementation_code,
       precisionReglementation,
@@ -122,7 +125,7 @@ export class EclaireDto {
       ),
       riphCtisDto.criteres_eligibilite.map((criteria) => new Critere(criteria.titre, criteria.type)),
       riphCtisDto.criteres_jugement.map((criteria) => new Critere(criteria.titre, criteria.type)),
-      riphCtisDto.objectifs,
+      objectif,
       riphCtisDto.resume,
       riphCtisDto.statut_recrutement,
       riphCtisDto.date_fin_recrutement,
