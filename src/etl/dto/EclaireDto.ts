@@ -272,9 +272,9 @@ export class EclaireDto {
       riphJardeDto.numero_nct,
       riphJardeDto.numero_isrctn,
       riphJardeDto.numero_utn,
+      riphJardeDto.numero_libre,
       riphJardeDto.duree_participation,
-      riphJardeDto.duree_participation,
-      riphJardeDto.derniere_modification_eclaire
+      riphJardeDto.derniere_modification_eclaire      
     )
   }
 
